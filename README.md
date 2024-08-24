@@ -13,7 +13,7 @@ TbsGrid is made with pure JavaScript and CSS.
 
 I am a developer who is interested in JavaScript.
 
-I am currently developing a web grid.
+I am currently developing a web grid. 
 
 There are still many shortcomings, but I am updating it little by little.
 
