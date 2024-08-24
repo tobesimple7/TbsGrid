@@ -1,0 +1,114 @@
+/* =========================================================================== */
+/*                                                                             */
+/*    input day                                                      */
+/*                                                                             */
+/* =========================================================================== */
+.tbs-grid-layer-filter {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 180px;
+    background : white;
+    z-index: 0;
+    border: 0px solid black !important;
+    overflow-wrap: normal;
+    overflow: hidden;
+    /* background:url('/tbs.grid.2.0.0/img/calendar.png') no-repeat center; */
+}
+.tbs-grid-layer-filter-main {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom:auto;
+    left : 0;
+    height: 180px;
+    overflow: hidden;
+}
+.tbs-grid-layer-filter-content {
+    position: relative;
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 25px;
+    overflow: hidden;
+    border-bottom: solid 1px #ccc;
+    /*background: magenta;*/
+}
+.tbs-grid-layer-filter-combo {
+    width: 100%;
+    height : 25px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    background: papayawhip;
+}
+.tbs-grid-layer-filter-content-input {
+    display: inline-block;
+    height: 25px;
+    width: 100%;
+    background: #ffffff /*#f8f8f8*/;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    background: #f5eee4;
+}
+.tbs-grid-layer-filter-content-input-to {
+    display: inline-block;
+    height: 25px;
+    width: 100%;
+    background: #ffffff /*#f8f8f8*/;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    background: #b9b2a4;
+}
+.tbs-grid-layer-filter-content-button {
+     display: flex;
+     height: 25px;
+     width: 100%;
+     padding: 0px 0px 0px 0px;
+     margin: 0px 0px 0px 0px;
+     border: 0px;
+     border-spacing: 0px;
+     outline:none;
+     font-size: 0;
+     letter-spacing: 0;
+     word-spacing: 0;
+     background: #b9b2a4;
+ }
+
+.tbs-grid-layer-filter-content-button-save {
+    display: inline-block;
+    height: 25px;
+    width: 95px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    color : white;
+    background: #343750;
+}
+.tbs-grid-layer-filter-content-button-reset {
+    display: inline-block;
+    height: 25px;
+    width: 95px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    color : white;
+    background: #787880;
+}
