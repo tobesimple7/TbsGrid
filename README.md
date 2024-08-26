@@ -1,4 +1,4 @@
-# Tbs-Grid
+# TbsGrid
 <p>
 <a href="https://tobesimple.net/" target="_blank"><img alt="tbsgrid" src="https://img.shields.io/badge/Html-CSS-blue"></a> 
 <a href="https://tobesimple.net/" target="_blank"><img alt="tbsgrid" src="https://img.shields.io/badge/Pure-Javascript-blue"></a> 
