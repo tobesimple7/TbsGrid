@@ -19,7 +19,7 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 - It can also bind large amounts of data.
 - Supports cross-browser.
 - It has various functions such as column movement, sorting, filtering, etc.
-- 
+
 ## Documentation & Demo
 
 - Click the link below to view the demo and documentation.
@@ -39,5 +39,11 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 * [Filter Panel](https://tobesimple.net/page79/page79_001.php)
 * [Tree Grid](https://tobesimple.net/page81/page81_001.php)
 * [Paging Grid](https://tobesimple.net/page82/page82_001.php)
- 
 
+## Future plans
+
+- This grid license has Mit License and Commercial License.
+- However, except for special features, we plan to distribute everything 
+under the MIT License.
+- We plan to create various grids such as pivot grid, mobile grid, etc.
+- 
