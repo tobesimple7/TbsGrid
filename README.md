@@ -11,6 +11,8 @@ This grid is javascript web grid.
 
 I hope this grid helps you.
 
+The tbs prefix was created from the first letters of 'tobesimple.net'.
+
 ## Notable features
 
 - This grid is made with only pure JavaScript and CSS.
