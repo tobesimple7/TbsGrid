@@ -46,4 +46,3 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 - However, except for special features, we plan to distribute everything 
 under the MIT License.
 - We plan to create various grids such as pivot grid, mobile grid, etc.
-- 
