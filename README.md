@@ -1,4 +1,4 @@
-# TbsGrid
+# [TbsGrid](https://tobesimple.net)
 <p>
 <a href="https://tobesimple.net/" target="_blank"><img alt="tbsgrid" src="https://img.shields.io/badge/Html-CSS-blue"></a> 
 <a href="https://tobesimple.net/" target="_blank"><img alt="tbsgrid" src="https://img.shields.io/badge/Pure-Javascript-blue"></a> 
@@ -7,17 +7,23 @@
 
 Welcome to TbsGrid.
 
-TbsGrid is made with pure JavaScript and CSS.
+This grid is javascript web grid.
 
-## Greetings
+I hope TbsGrid helps you.
 
-I am a developer who is interested in JavaScript.
+## Notable features
 
-I am currently developing a web grid. 
-
-There are still many shortcomings, but I am updating it little by little.
+- This grid is made with only pure JavaScript and CSS.
+- It can also bind large amounts of data.
+- Supports cross-browser.
+- It has various functions such as column movement, sorting, filtering, etc.
 
 ## Documentation & Demo
+
+- Click the link below to view the demo and documentation.
+- If you find any errors or need any features, please contact us at any time. 
+  We will review and add the features.
+
 * [Index Page](https://tobesimple.net)
 * [Getting Started](https://tobesimple.net/page70/page70_001.php)
 * [Globalization & Configs](https://tobesimple.net/page70/page70_003.php)
