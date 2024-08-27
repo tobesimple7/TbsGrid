@@ -32,7 +32,7 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 - The min files are not distributed yet.
 - We plan to make a release version as soon as possible
 
-** tbs.config.us.js **
+### tbs.config.us.js
 
 - This file is the grid initial settings file for each country's currency unit or calendar-related characters.
 - You can set it by country in the config file.
