@@ -20,6 +20,7 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 - Supports cross-browser.
 - It has various functions such as column movement, sorting, filtering, etc.
 
+
 ## Getting Started
 
 ```javascript
@@ -36,6 +37,7 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 
 - This file is the grid initial settings file for each country's currency unit or calendar-related characters.
 - You can set it by country in the config file.
+
 
 ## Documentation & Demo
 
