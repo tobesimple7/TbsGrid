@@ -42,7 +42,7 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 ## Documentation & Demo
 
 - Click the link below to view the demo and documentation.
-- If there is any error in the grid, please feel free to file an issue 
+- If there is any error in the grid, please feel free to file an issue.
 - if there is any feature you need, we will review it and add it.
 
 * [Index Page](https://tobesimple.net)
@@ -64,4 +64,5 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 - This grid license has Mit License and Commercial License.
 - However, except for special features, we plan to distribute everything 
 under the MIT License.
+- The commercial version will also be priced at a small donation level.
 - I plan to create various grids such as pivot grid, mobile grid, etc.
