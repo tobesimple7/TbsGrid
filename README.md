@@ -9,7 +9,7 @@ Welcome to TbsGrid.
 
 This grid is javascript web grid.
 
-I hope TbsGrid helps you.
+I hope this grid helps you.
 
 ## Notable features
 
