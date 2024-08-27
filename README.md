@@ -20,6 +20,15 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 - Supports cross-browser.
 - It has various functions such as column movement, sorting, filtering, etc.
 
+## Getting Started
+```javascript
+// Grid Config 
+<script src="/tbsgrid/configs/tbs.config.us.js"></script>
+// TbsGrid css, js files
+<script src="/tbsgrid/tbs.grid.1.0.0.min.css"></script>
+<script src="/tbsgrid/tbs.grid.1.0.0.min.js"></script>
+```
+
 ## Documentation & Demo
 
 - Click the link below to view the demo and documentation.
