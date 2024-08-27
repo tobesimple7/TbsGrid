@@ -21,6 +21,7 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 - It has various functions such as column movement, sorting, filtering, etc.
 
 ## Getting Started
+
 ```javascript
 // Grid Config 
 <script src="/tbsgrid/configs/tbs.config.us.js"></script>
@@ -28,6 +29,8 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 <script src="/tbsgrid/tbs.grid.1.0.0.min.css"></script>
 <script src="/tbsgrid/tbs.grid.1.0.0.min.js"></script>
 ```
+- The min files are not distributed yet.
+- We plan to make a release version as soon as possible
 
 ## Documentation & Demo
 
