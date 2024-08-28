@@ -10,8 +10,10 @@ This grid is javascript web grid.
 I hope this grid helps you.
 
 The tbs prefix was created from the first letters of 'tobesimple.net'.
-
 The current github source and min files may be slightly different.
+
+We are currently trying to manage the version with the beta version.
+It seems like it will take 1 to 2 months to get to a more stable version.
 
 ## Notable features
 
