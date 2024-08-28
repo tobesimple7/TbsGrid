@@ -42,8 +42,6 @@ The tbs prefix was created from the first letters of 'tobesimple.net'.
 ## Documentation & Demo
 
 - Click the link below to view the demo and documentation.
-- If there is any error in the grid, please feel free to file an issue.
-- if there is any feature you need, we will review it and add it.
 
 * [Index Page](https://tobesimple.net)
 * [Getting Started](https://tobesimple.net/page70/page70_001.php)
