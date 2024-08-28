@@ -9,9 +9,8 @@ Welcome to TbsGrid.
 This grid is javascript web grid.
 I hope this grid helps you.
 
-The tbs prefix was created from the first letters of 'tobesimple.net'.
-The current github source and min files may be slightly different.
-
+- The tbs prefix was created from the first letters of 'tobesimple.net'.
+- The current github source and min files may be slightly different.
 - I am currently trying to manage the version with the beta version.
 - It seems like it will take 2 to 3 months to get to a more stable version.
 
