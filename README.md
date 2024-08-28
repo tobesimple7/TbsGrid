@@ -57,10 +57,3 @@ tbs.config.us.js
 * [Tree Grid](https://tobesimple.net/page81/page81_001.php)
 * [Paging Grid](https://tobesimple.net/page82/page82_001.php)
 
-## Future plans
-
-- This grid license has Mit License and Commercial License.
-- However, except for special features, we plan to distribute everything 
-under the MIT License.
-- The commercial version will also be priced at a small donation level.
-- I want to create various grids such as pivot grid, mobile grid, etc.
