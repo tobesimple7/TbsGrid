@@ -6,12 +6,12 @@
 </p>
 
 Welcome to TbsGrid.
-
 This grid is javascript web grid.
-
 I hope this grid helps you.
 
 The tbs prefix was created from the first letters of 'tobesimple.net'.
+
+The current github source and min files may be slightly different.
 
 ## Notable features
 
