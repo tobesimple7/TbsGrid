@@ -936,7 +936,6 @@ TbsGrid.prototype.tbs_getLayoutValue = function (rowIndex, columnName, property)
 }
 TbsGrid.prototype.tbs_setLayoutValue = function(rowIndex, columnName, property, value) {
     let grid = this;
-    let result = grid.tbs_getFormatText(grid.columns[grid.tbs_getColumnIndex(columnName)], value);
     if (grid.null(grid.data_view[rowIndex].layout[columnName])) grid.data_view[rowIndex].layout[columnName] = {};
     grid.data_view[rowIndex].layout[columnName][property] = value;
 }

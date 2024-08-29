@@ -1509,10 +1509,11 @@ TbsGrid.prototype.tbs_setDataTopTable = function () {
         for (let x = 0, len2 = topColumns.length; x < len2; x++){
             let topColumn = topColumns[x];
             if (columnName == topColumn[grid.column_name]) {
-                grid.tbs_setCellStyle(tableCell, 'textAlign', column[grid.column_align]);
+                grid.tbs_addUserClass(tableCell, topColumn[grid.column_className]);
+                grid.tbs_setCellStyle(tableCell, 'textAlign', topColumn[grid.column_align]);
 
                 let spanText = tableCell.querySelector('.tbs-grid-cell-div-text');
-                grid.tbs_setCell(spanText, 'textContent', grid.getTopText(0, columnName));
+                grid.tbs_setCell(spanText, 'textContent', grid.tbs_getTopText(0, columnName));
             }
         }
     }
@@ -1525,28 +1526,23 @@ TbsGrid.prototype.tbs_setDataFooterTable = function () {
 
     let panelName = 'panel50';
     let footerColumns = grid.footerColumns;
-    let footerRow = grid.data_top[0];
+    let footerRow = grid.data_footer[0];
 
-    let cells  = document.querySelectorAll(selector + ` .tbs-grid-panel50 .tbs-grid-cell`);
+    let tableCells  = document.querySelectorAll(selector + ` .tbs-grid-panel50 .tbs-grid-cell`);
     let colList= document.querySelectorAll(selector + ` .tbs-grid-panel50 thead th`);
     for (let i = 0, len = grid.columns.length; i < len; i++) {
         let column = grid.columns[i];
         let columnName = column[grid.column_name];
-        let cell = cells[i];
+        let tableCell = tableCells[i].childNodes[0];
         colList[i].style.width = column[grid.column_width] + 'px';
-        cell.childNodes[0].textContent = '';
-
         for (let x = 0, len2 = footerColumns.length; x < len2; x++){
             let footerColumn = footerColumns[x];
             if (columnName == footerColumn[grid.column_name]) {
-                if (grid.tbs_isColumnTypeNumber(columnName)) {
-                    cell.childNodes[0].textContent = grid.tbs_getFormat(column, footerRow.data[columnName]).text;
-                    break;
-                }
-                else {
-                    cell.childNodes[0].textContent = footerColumn[grid.column_text];
-                    break;
-                }
+                grid.tbs_addUserClass(tableCell, footerColumn[grid.column_className]);
+                grid.tbs_setCellStyle(tableCell, 'textAlign', footerColumn[grid.column_align]);
+
+                let spanText = tableCell.querySelector('.tbs-grid-cell-div-text');
+                grid.tbs_setCell(spanText, 'textContent', grid.tbs_getFooterText(0, columnName));
             }
         }
     }

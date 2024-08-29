@@ -5,6 +5,20 @@ TbsGrid.prototype.tbs_setCell = function(tableCell, property, value) {
 TbsGrid.prototype.tbs_setCellStyle = function(tableCell, property, value) {
     if (tableCell.style[property] != value) tableCell.style[property] = value;
 }
+TbsGrid.prototype.tbs_addUserClass = function(tableCell, className) {
+    this.tbs_removeUserClass(tableCell);
+    if (this.notNull(className)) tableCell.classList.add(className);
+}
+TbsGrid.prototype.tbs_removeUserClass = function(tableCell, className) {
+    // remove except tbs-* className
+    let classNames = [];
+    for (let i = 0, len = tableCell.classList.length; i < len; i++) {
+        if (tableCell.classList[i].startsWith('tbs-')) continue;
+        else result.push(tableCell.classList[i])
+    }
+    for (let i = 0, len = classNames.length; i < len; i++) tableCell.classList.remove(className);
+}
+
 /* Create Element */
 TbsGrid.prototype.tbs_createElementCellDiv = function () {
     let element = document.createElement('div');

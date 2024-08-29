@@ -276,19 +276,22 @@ TbsGrid.prototype.tbs_getColumnByIndex = function (colIndex) {
     return this.columns[colIndex];
 }
 TbsGrid.prototype.tbs_getColumnName = function (colIndex) {
-    console.log(`colIndex ${colIndex}`)
+    //console.log(`colIndex ${colIndex}`)
     return this.columns[colIndex][this.column_name];
 }
 TbsGrid.prototype.tbs_getColumnIndex = function (name) {
     let grid = this;
+    let result = null;
+    if (this.columns.length == 0) return result;
 
-    let column= this.columns;
-    for (let i = 0, len = column.length; i < len; i++) {
-        if (name == column[i][grid.column_name]) {
-            return i;
+    for (let i = 0, len = this.columns.length; i < len; i++) {
+        let column = this.columns[i];
+        if (name == column[grid.column_name]) {
+            result = i;
+            break;
         }
     }
-    return -1;
+    return result;
 }
 TbsGrid.prototype.tbs_getColumns = function () {
     return this.columns;
@@ -303,7 +306,7 @@ TbsGrid.prototype.tbs_getColumnPropertyByIndex = function (columnIndex, property
 TbsGrid.prototype.tbs_getColumnProperty = function (columnName, property) {
     let grid = this;
     let columnIndex = grid.tbs_getColumnIndex(columnName);
-    return grid.tbs_getColumnPropertyByIndex(columnIndex, property);
+    return grid.null(columnIndex) ? null : grid.tbs_getColumnPropertyByIndex(columnIndex, property);
 }
 //================================================================
 TbsGrid.prototype.tbs_setColumn = function (columnName, property, value) {
