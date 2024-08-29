@@ -234,8 +234,8 @@ TbsGrid.prototype.tbs_setGroupData = function (data, openDepth) {
 
     grid.tbs_getGroupButtonList();
 
-    grid.tbs_clearRange(0, -1);
-    grid.tbs_selectedRange(0, 0, 0, 0);
+    grid.tbs_removeRange(0, -1);
+    grid.tbs_selectRange(0, 0, 0, 0);
 }
 //================================================================
 /**

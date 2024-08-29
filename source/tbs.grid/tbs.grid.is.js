@@ -123,13 +123,13 @@ TbsGrid.prototype.tbs_isSelectedCell = function (panelName, rowIndex, cellIndex)
     else if (panelName == 'panel32') rows = this.data_select_panel30;
     else if (panelName == 'panel30') rows = this.data_select_panel30;
 
-    else if (panelName == 'panel41') rows = this.data_select_panel41;
-    else if (panelName == 'panel42') rows = this.data_select_panel42;
-    else if (panelName == 'panel40') rows = this.data_select_panel40;
+    else if (panelName == 'panel41') rows = this.classRange40.data_select_panel31;
+    else if (panelName == 'panel42') rows = this.classRange40.data_select_panel30;
+    else if (panelName == 'panel40') rows = this.classRange40.data_select_panel30;
 
-    else if (panelName == 'panel51') rows = this.data_select_panel51;
-    else if (panelName == 'panel52') rows = this.data_select_panel52;
-    else if (panelName == 'panel50') rows = this.data_select_panel50;
+    else if (panelName == 'panel51') rows = this.classRange50.data_select_panel31;
+    else if (panelName == 'panel52') rows = this.classRange50.data_select_panel30;
+    else if (panelName == 'panel50') rows = this.classRange50.data_select_panel30;
 
     else if (panelName == 'panel61') rows = this.data_select_panel31;
     else if (panelName == 'panel62') rows = this.data_select_panel30;

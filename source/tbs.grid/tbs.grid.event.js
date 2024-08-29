@@ -70,7 +70,7 @@ TbsGrid.prototype.event_columnSort = function(cell) {
     if (grid.sortColumns.length == 0){
         grid.data_view = JSON.parse(JSON.stringify(grid.data_table));
         if (grid.options.filtering[grid.option_filterVisible]) grid.tbs_filters();
-        grid.tbs_clearRange(0, -1);
+        grid.tbs_removeRange(0, -1);
         grid.tbs_displayPanel30(0);
         return;
     }
@@ -86,7 +86,7 @@ TbsGrid.prototype.event_columnSort = function(cell) {
     else {
         if (grid.tbs_isSortableColumn()) grid.setSort(grid.sortColumns, true);
         if (grid.options.filtering[grid.option_filterVisible]) grid.tbs_filters();
-        grid.tbs_clearRange(0, -1);
+        grid.tbs_removeRange(0, -1);
         grid.tbs_displayPanel30(0);
     }
 }
@@ -110,8 +110,8 @@ TbsGrid.prototype.event_mobileTouchDrag = function() { //type : header, content
         else if (e.target.tagName == 'SPAN')  { col = e.target.parentNode.parentNode; }
         else { col = e.target; }
         let rowIndex = grid.tbs_getRowIndexInTable(col.parentNode.rowIndex)
-        //grid.tbs_clearRange(0, -1);
-        //grid.tbs_selectedRange(rowIndex, rowIndex, col.cellIndex, col.cellIndex);
+        //grid.tbs_removeRange(0, -1);
+        //grid.tbs_selectRange(rowIndex, rowIndex, col.cellIndex, col.cellIndex);
 		yPos.top = Number(yBar.style.top.replace('px', ''));
 		yPos.y = e.changedTouches[0].clientY;
 
@@ -247,7 +247,7 @@ TbsGrid.prototype.event_columnResize = function(panelName) {
                 grid.tbs_setColumnWidth(colIndex, maxWidth + 20); // 20 is Correction value
                 grid.tbs_displayPanel30(grid.tbs_getFirstRowIndex());
                 //grid.tbs_displayPanel20();
-                //grid.tbs_selectedRange(grid.startRowIndex, grid.lastRowIndex, grid.startCellIndex, grid.lastCellIndex, grid.tbs_getFirstRowIndex());
+                //grid.tbs_selectRange(grid.startRowIndex, grid.lastRowIndex, grid.startCellIndex, grid.lastCellIndex, grid.tbs_getFirstRowIndex());
             }
         };
         //eventColumnResize
@@ -352,6 +352,14 @@ TbsGrid.prototype.tbs_addEventAll = function() {
 
     this.panel30_select('panel60');
     this.panel31_select('panel61');
+
+    this.panel40_select('panel40');
+    this.panel41_select('panel41');
+    this.panel40_select('panel42');
+
+    this.panel40_select('panel50');
+    this.panel41_select('panel51');
+    this.panel40_select('panel52');
 
     this.panel70_select();
     this.panel80_select();
@@ -472,8 +480,8 @@ TbsGrid.prototype.tbs_moveCellLine = function(cell, rowIndex, cellIndex) {
         grid.tbs_setContentPanelLeftMove(value);
         grid.tbs_setBarPosition(grid.code_horizontal);
     }
-    grid.tbs_clearRange(0, -1);
-    grid.tbs_selectedRange(rowIndex, rowIndex, cellIndex, cellIndex);
+    grid.tbs_removeRange(0, -1);
+    grid.tbs_selectRange(rowIndex, rowIndex, cellIndex, cellIndex);
 }
 TbsGrid.prototype.tbs_clickPageFirst = function (e, grid, pageIndex, selectedPageCount, userFunction) {
     let val = userFunction(e, grid, pageIndex, selectedPageCount);
@@ -819,8 +827,8 @@ TbsGrid.prototype.tbs_moveNextRowCell = function (type) {
 
     cellIndex = td.cellIndex;
     if (cellIndex == this.columns.length - 1 && dataRowIndex < this.data_view.length - 1) {
-        this.tbs_clearRange(0, -1);
-        this.tbs_selectedRange(dataRowIndex + 1, dataRowIndex + 1, 0, 0);
+        this.tbs_removeRange(0, -1);
+        this.tbs_selectRange(dataRowIndex + 1, dataRowIndex + 1, 0, 0);
         let topRowIndex = this.tbs_getFirstRowIndex();
         let lastRowIndex = this.tbs_getLastRowIndex();
 
@@ -870,8 +878,8 @@ TbsGrid.prototype.tbs_moveCell = function (type) { //type : left, right, up, dow
             else break;
         }
         if (cellIndex < 0 || this.columns[cellIndex][grid.column_visible] == false) {
-            grid.tbs_clearRange(0, -1);
-            grid.tbs_selectedRange(dataRowIndex, dataRowIndex, startCellIndex, startCellIndex);
+            grid.tbs_removeRange(0, -1);
+            grid.tbs_selectRange(dataRowIndex, dataRowIndex, startCellIndex, startCellIndex);
             return;
         }
 
@@ -895,8 +903,8 @@ TbsGrid.prototype.tbs_moveCell = function (type) { //type : left, right, up, dow
             grid.tbs_setContentPanelLeft(sLeft);
             grid.tbs_setBarPosition(grid.code_horizontal);
         }
-        grid.tbs_clearRange(0, -1);
-        grid.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+        grid.tbs_removeRange(0, -1);
+        grid.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
     }
     else if (type == 'right') {
         let startCellIndex = cellIndex;
@@ -926,8 +934,8 @@ TbsGrid.prototype.tbs_moveCell = function (type) { //type : left, right, up, dow
             grid.tbs_setContentPanelLeft(sLeft);
             grid.tbs_setBarPosition(grid.code_horizontal);
         }
-        this.tbs_clearRange(0, -1);
-        this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+        this.tbs_removeRange(0, -1);
+        this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
     }
     else if (type == 'up') {
         if (this.fixedRowIndex != -1) {
@@ -939,17 +947,17 @@ TbsGrid.prototype.tbs_moveCell = function (type) { //type : left, right, up, dow
             if (dataRowIndex < 0) dataRowIndex = 0;
 
             if (dataRowIndex >= topRowIndex) { //OK
-                this.tbs_clearRange(0, -1);
-                this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                this.tbs_removeRange(0, -1);
+                this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
             }
             else if (dataRowIndex < topRowIndex && dataRowIndex == topRowIndex - 1) {
-                this.tbs_clearRange(0, -1);
+                this.tbs_removeRange(0, -1);
                 let rowIndex = this.tbs_setBarPositionByDirection('up');
                 this.tbs_displayOneSelection(rowIndex, rowIndex, cellIndex, cellIndex);
             }
             else {
-                this.tbs_clearRange(0, -1);
-                this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                this.tbs_removeRange(0, -1);
+                this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
             }
         }
         else {
@@ -960,11 +968,11 @@ TbsGrid.prototype.tbs_moveCell = function (type) { //type : left, right, up, dow
             if (dataRowIndex < 0) dataRowIndex = 0;
 
             if (topRowIndex <= dataRowIndex) {
-                this.tbs_clearRange(0, -1);
-                this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                this.tbs_removeRange(0, -1);
+                this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
             }
             else {
-                this.tbs_clearRange(0, -1);
+                this.tbs_removeRange(0, -1);
                 let rowIndex = this.tbs_setBarPositionByDirection('up');
                 this.tbs_displayOneSelection(rowIndex, rowIndex, cellIndex, cellIndex);
             }
@@ -975,8 +983,8 @@ TbsGrid.prototype.tbs_moveCell = function (type) { //type : left, right, up, dow
         let lastRowIndex = this.tbs_getLastRowIndex();
         if (grid.fixedRowIndex != -1 && dataRowIndex == grid.fixedRowIndex){
             dataRowIndex += 1;
-            grid.tbs_clearRange(0, -1);
-            grid.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex, dataRowIndex);
+            grid.tbs_removeRange(0, -1);
+            grid.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex, dataRowIndex);
             grid.tbs_setBarPosition(grid.code_vertical, dataRowIndex);
             return;
         }
@@ -984,39 +992,39 @@ TbsGrid.prototype.tbs_moveCell = function (type) { //type : left, right, up, dow
             if (tableRows.length == this.pageRowCount) {
                 if (dataRowIndex == lastRowIndex) {
                     if (dataRowIndex == this.data_view.length - 1) {
-                        this.tbs_clearRange(0, -1);
+                        this.tbs_removeRange(0, -1);
                         this.tbs_setBarPositionByDirection('down', topRowIndex + 1);
                         this.tbs_displayOneSelection(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
                     }
                     else {
                         dataRowIndex += 1;
-                        this.tbs_clearRange(0, -1);
+                        this.tbs_removeRange(0, -1);
                         this.tbs_setBarPositionByDirection('down', topRowIndex + 2);
                         this.tbs_displayOneSelection(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
                     }
                 }
                 else if (dataRowIndex == lastRowIndex - 1) {
                     dataRowIndex += 1;
-                    this.tbs_clearRange(0, -1);
+                    this.tbs_removeRange(0, -1);
                     this.tbs_setBarPositionByDirection('down', topRowIndex + 1);
                     this.tbs_displayOneSelection(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
 
                 }
                 else {
                     dataRowIndex += 1;
-                    this.tbs_clearRange(0, -1);
-                    this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                    this.tbs_removeRange(0, -1);
+                    this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
                 }
             }
             else {
                 if (dataRowIndex == lastRowIndex) {
-                    this.tbs_clearRange(0, -1);
-                    this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                    this.tbs_removeRange(0, -1);
+                    this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
                 }
                 else {
                     dataRowIndex += 1;
-                    this.tbs_clearRange(0, -1);
-                    this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                    this.tbs_removeRange(0, -1);
+                    this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
                 }
             }
         }
@@ -1024,31 +1032,31 @@ TbsGrid.prototype.tbs_moveCell = function (type) { //type : left, right, up, dow
             if (tableRows.length == this.pageRowCount) {
                 if (dataRowIndex == lastRowIndex) {
                     if (dataRowIndex == this.data_view.length - 1) {
-                        this.tbs_clearRange(0, -1);
-                        this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                        this.tbs_removeRange(0, -1);
+                        this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
                     }
                     else {
                         dataRowIndex += 1;
-                        this.tbs_clearRange(0, -1);
+                        this.tbs_removeRange(0, -1);
                         this.tbs_setBarPositionByDirection('down');
                         this.tbs_displayOneSelection(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
                     }
                 }
                 else {
                     dataRowIndex += 1;
-                    this.tbs_clearRange(0, -1);
-                    this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                    this.tbs_removeRange(0, -1);
+                    this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
                 }
             }
             else {
                 if (dataRowIndex == lastRowIndex) {
-                    this.tbs_clearRange(0, -1);
-                    this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                    this.tbs_removeRange(0, -1);
+                    this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
                 }
                 else {
                     dataRowIndex += 1;
-                    this.tbs_clearRange(0, -1);
-                    this.tbs_selectedRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                    this.tbs_removeRange(0, -1);
+                    this.tbs_selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
                 }
             }
         }

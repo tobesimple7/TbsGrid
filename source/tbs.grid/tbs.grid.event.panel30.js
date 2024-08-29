@@ -9,9 +9,9 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
     let targetName;
     let startRowIndex, startCellIndex, startX, startY;
     let lastRowIndex , lastCellIndex , lastX , lastY;
-    
+
     let mouseButton = 0;
-    
+
     let flagUp      = false;
     let flagDown    = false;
     let flagLeft    = false;
@@ -194,8 +194,8 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
             //console.log(`startRowIndex ${startRowIndex} startRowIndex ${startRowIndex} startCellIndex  ${startCellIndex} lastCellIndex ${lastCellIndex}`)
         }
 
-        grid.tbs_clearRange(0, -1);
-        grid.tbs_selectedRange(startRowIndex, startRowIndex, startCellIndex, lastCellIndex);
+        grid.tbs_removeRange(0, -1);
+        grid.tbs_selectRange(startRowIndex, startRowIndex, startCellIndex, lastCellIndex);
     }
     const selectCellMove = function(e) {
         flagUp      = false;
@@ -335,8 +335,8 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
             }
 
         }
-        grid.tbs_clearRange(0, -1);
-        grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex);
+        grid.tbs_removeRange(0, -1);
+        grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex);
     }
     const selectCellShiftMove = function(e) {
         flagUp      = false;
@@ -435,32 +435,32 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
             maxRowIndex  = grid.tbs_getMaxRowIndexByMouseMove();
             maxCellIndex = grid.tbs_getMaxCellIndexByMouseMove();
             //console.log(`eventPanelName ${eventPanelName} 1) $maxRowIndex  ${maxRowIndex} maxCellIndex ${maxCellIndex}`);
-            grid.tbs_clearRange(0, -1);
-            grid.tbs_selectedRange(startRowIndex, maxRowIndex, startCellIndex, maxCellIndex);
+            grid.tbs_removeRange(0, -1);
+            grid.tbs_selectRange(startRowIndex, maxRowIndex, startCellIndex, maxCellIndex);
         }
         if (moveY > 0 && moveX < 0) { //down, left
             let maxRowIndex, minCellIndex;
             maxRowIndex  = grid.tbs_getMaxRowIndexByMouseMove();
             minCellIndex = grid.tbs_getMinCellIndexByMouseMove();
             //console.log(`eventPanelName ${eventPanelName} 2) $maxRowIndex  ${maxRowIndex} minCellIndex ${minCellIndex}`);
-            grid.tbs_clearRange(0, -1);
-            grid.tbs_selectedRange(startRowIndex, maxRowIndex, startCellIndex, minCellIndex);
+            grid.tbs_removeRange(0, -1);
+            grid.tbs_selectRange(startRowIndex, maxRowIndex, startCellIndex, minCellIndex);
         }
         if (moveY < 0 && moveX > 0) { //up, right
             let minRowIndex, maxCellIndex;
             minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
             maxCellIndex= grid.tbs_getMaxCellIndexByMouseMove();
             //console.log(`eventPanelName ${eventPanelName}  3) minRowIndex ${minRowIndex} maxCellIndex ${maxCellIndex}`);
-            grid.tbs_clearRange(0, -1);
-            grid.tbs_selectedRange(startRowIndex, minRowIndex, startCellIndex, maxCellIndex);
+            grid.tbs_removeRange(0, -1);
+            grid.tbs_selectRange(startRowIndex, minRowIndex, startCellIndex, maxCellIndex);
         }
         if (moveY < 0 && moveX < 0) { //up, left
             let minRowIndex, minCellIndex;
             minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
             minCellIndex= grid.tbs_getMinCellIndexByMouseMove();
             //console.log(`eventPanelName ${eventPanelName} 4)  minRowIndex ${minRowIndex} minCellIndex ${minCellIndex}`);
-            grid.tbs_clearRange(0, -1);
-            grid.tbs_selectedRange(startRowIndex, minRowIndex, startCellIndex, minCellIndex);
+            grid.tbs_removeRange(0, -1);
+            grid.tbs_selectRange(startRowIndex, minRowIndex, startCellIndex, minCellIndex);
         }
     }
     const setPanelMove = function(type) {
@@ -480,30 +480,30 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
             if (table.style.left == (-1 * grid.horizontalScroll.hiddenSize) + 'px') {
                 flagRight = false;
 
-                grid.tbs_clearRange(0, -1);
-                grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex, -1);
+                grid.tbs_removeRange(0, -1);
+                grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, -1);
             }
             else {
                 grid.tbs_setBarPositionByDirection('right');
                 maxCellIndex = grid.tbs_getMaxCellIndexByMouseMove();
 
-                grid.tbs_clearRange(0, -1);
-                grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex, maxCellIndex);
+                grid.tbs_removeRange(0, -1);
+                grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, maxCellIndex);
             }
-        } 
+        }
         else if (type == 'left') {
             if (table.style.left == '0px') {
                 flagLeft = false;
 
-                grid.tbs_clearRange(0, -1);
-                grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex);
+                grid.tbs_removeRange(0, -1);
+                grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex);
             }
             else {
                 grid.tbs_setBarPositionByDirection('left');
                 minCellIndex = grid.tbs_getMinCellIndexByMouseMove();
 
-                grid.tbs_clearRange(0, -1);
-                grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex, minCellIndex);
+                grid.tbs_removeRange(0, -1);
+                grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, minCellIndex);
             }
         }
         else if (type == 'down') {
@@ -511,8 +511,8 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
             if (lastRowIndex < (grid.data_view.length - 1)) {
                 lastRowIndex += 1;
 
-                grid.tbs_clearRange(0, -1);
-                grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex,lastCellIndex);
+                grid.tbs_removeRange(0, -1);
+                grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex,lastCellIndex);
             }
             else flagDown = false;
         }
@@ -523,8 +523,8 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
                     let minRowIndex= lastRowIndex;
                     minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
 
-                    grid.tbs_clearRange(0, -1);
-                    grid.tbs_selectedRange(startRowIndex, minRowIndex, startCellIndex, lastCellIndex);
+                    grid.tbs_removeRange(0, -1);
+                    grid.tbs_selectRange(startRowIndex, minRowIndex, startCellIndex, lastCellIndex);
                 }
                 else flagUp = false;
             }
@@ -533,8 +533,8 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
                     let minRowIndex= lastRowIndex;
                     minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
 
-                    grid.tbs_clearRange(0, -1);
-                    grid.tbs_selectedRange(startRowIndex, minRowIndex, startCellIndex, lastCellIndex);
+                    grid.tbs_removeRange(0, -1);
+                    grid.tbs_selectRange(startRowIndex, minRowIndex, startCellIndex, lastCellIndex);
                 }
                 else flagUp = false;
             }

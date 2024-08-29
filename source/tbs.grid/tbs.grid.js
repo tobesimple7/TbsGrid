@@ -15,7 +15,7 @@
 	this.data_table  = []; // Data Table
 	this.data_view   = []; // Data View : View Conversion Data, fixed data, filter, sort
 	this.data_page   = []; // Data Page
-	this.data_top = [];
+	this.data_top    = [];
 	this.data_footer = [];
 	/**
 	 * @description selection data
@@ -24,11 +24,33 @@
 	this.data_select_panel30 = [];
 	this.data_select_panel31 = [];
 
-	this.data_select_panel40 = [];
-	this.data_select_panel41 = [];
 
-	this.data_select_panel50 = [];
-	this.data_select_panel51 = [];
+	/**
+	 * @description Row Count / Select Range
+	 *
+	 */
+	this.pageRowCount = 0;
+	this.pageIntRowCount = 0;
+
+	this.startRowIndex  = -1;
+	this.startCellIndex = -1;
+	this.lastRowIndex   = -1;
+	this.lastCellIndex  = -1;
+
+	this._startRowIndex = -1;
+	this._startCellIndex = -1;
+	this._lastRowIndex = -1;
+	this._lastCellIndex = -1;
+
+	this.selectRangeArray = [];
+
+	this.startX = 0;
+	this.startY = 0;
+	this.lastX = 0;
+	this.lastY = 0;
+
+	this.classRange40 = new TbsGridRange(this, 'panel40');
+	this.classRange50 = new TbsGridRange(this, 'panel50');
 	//------------------------------------------------------------------------------------------------------------------
 
 	/**
@@ -354,29 +376,6 @@
 	this.data_insert = [];
 	this.data_delete = [];
 
-	/**
-	 * @description Row Count / Select Range
-	 *
-	 */
-	this.pageRowCount = 0;
-	this.pageIntRowCount = 0;
-
-	this.startRowIndex  = -1;
-	this.startCellIndex = -1;
-	this.lastRowIndex   = -1;
-	this.lastCellIndex  = -1;
-
-	this._startRowIndex = -1;
-	this._startCellIndex = -1;
-	this._lastRowIndex = -1;
-	this._lastCellIndex = -1;
-
-	this.selectRangeArray = [];
-
-	this.startX = 0;
-	this.startY = 0;
-	this.lastX = 0;
-	this.lastY = 0;
 
 	/**
 	 * @description user event

@@ -119,8 +119,8 @@ TbsGrid.prototype.tbs_setGridData = function (data) {
     if (this.tbs_isAutoWidthColumn()) this.tbs_setColumnAutoWidth();
 
     document.querySelector(selector + ' .tbs-grid-panel10-filter-input').value = '';
-    this.tbs_clearRange(0, -1);
-    this.tbs_selectedRange(0, 0, 0, 0);
+    this.tbs_removeRange(0, -1);
+    this.tbs_selectRange(0, 0, 0, 0);
 
     if (data.length == 0) {
         document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = '0';
@@ -162,7 +162,7 @@ TbsGrid.prototype.tbs_refreshRefData = function () {
         this.data_select_panel30.push(itemSelect);
         this.data_select_panel31.push(itemLeftSelect);
     }
-    this.tbs_clearRange(0, -1);
+    this.tbs_removeRange(0, -1);
     this.tbs_displayPanel30(0);
 }
 /**
@@ -727,8 +727,8 @@ TbsGrid.prototype.tbs_addRow = function (row, type = 'bottom') {
 
         this.verticalScroll.tbs_setScroll(grid.code_vertical);
         this.tbs_setBarPosition(grid.code_vertical, topRowIndex);
-        this.tbs_clearRange(0, -1);
-        this.tbs_selectedRange(topRowIndex, topRowIndex);
+        this.tbs_removeRange(0, -1);
+        this.tbs_selectRange(topRowIndex, topRowIndex);
         this.tbs_displayPanel30(topRowIndex);
         return;
     }
@@ -746,8 +746,8 @@ TbsGrid.prototype.tbs_addRow = function (row, type = 'bottom') {
         }
         this.verticalScroll.tbs_setScroll(grid.code_vertical);
         this.tbs_setBarPosition(grid.code_vertical, topRowIndex);
-        this.tbs_clearRange(0, -1);
-        this.tbs_selectedRange(dataLength - 1, dataLength - 1);
+        this.tbs_removeRange(0, -1);
+        this.tbs_selectRange(dataLength - 1, dataLength - 1);
         //this.tbs_displayPanel30(topRowIndex);
         return;
     }
@@ -762,8 +762,8 @@ TbsGrid.prototype.tbs_addRow = function (row, type = 'bottom') {
 
         this.verticalScroll.tbs_setScroll(grid.code_vertical);
         this.tbs_setBarPosition(grid.code_vertical, topRowIndex);
-        this.tbs_clearRange(0, -1);
-        this.tbs_selectedRange(minRowIndex, minRowIndex);
+        this.tbs_removeRange(0, -1);
+        this.tbs_selectRange(minRowIndex, minRowIndex);
         //this.tbs_displayPanel30(topRowIndex);
         return;
     }
@@ -780,15 +780,15 @@ TbsGrid.prototype.tbs_addRow = function (row, type = 'bottom') {
             this.data_view.splice(addRowIndex, 0, data30);
         }
 
-        this.tbs_clearRange(0, -1);
-        this.tbs_selectedRange(addRowIndex, addRowIndex);
+        this.tbs_removeRange(0, -1);
+        this.tbs_selectRange(addRowIndex, addRowIndex);
 
         if (this.pageRowCount > this.pageIntRowCount) {
             if (addRowIndex == this.tbs_getLastRowIndex()) {
                 this.tbs_moveCell('down');
 
-                this.tbs_clearRange(0, -1);
-                this.tbs_selectedRange(addRowIndex, addRowIndex);
+                this.tbs_removeRange(0, -1);
+                this.tbs_selectRange(addRowIndex, addRowIndex);
 
                 this.verticalScroll.tbs_setScroll(grid.code_vertical);
                 this.tbs_setBarPosition(grid.code_vertical, grid.tbs_getFirstRowIndex());
@@ -845,8 +845,8 @@ TbsGrid.prototype.tbs_removeRows = function (rows) {
         realStartRowIndex = this.data_view.length - 1;
     }
     grid.verticalScroll.tbs_setScroll(grid.code_vertical);
-    grid.tbs_clearRange(0, -1);
-    grid.tbs_selectedRange(realStartRowIndex, realStartRowIndex, 0, 0);
+    grid.tbs_removeRange(0, -1);
+    grid.tbs_selectRange(realStartRowIndex, realStartRowIndex, 0, 0);
     //this.tbs_displayPanel30(topRowIndex);
     grid.tbs_setBarPosition(grid.code_vertical, grid.tbs_getFirstRowIndex());
 

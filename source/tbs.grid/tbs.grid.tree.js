@@ -167,8 +167,8 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
     }
     if (grid.options[grid.option_autoWidth] == true)  grid.tbs_setColumnAutoWidth();
 
-    grid.tbs_clearRange(0, -1);
-    grid.tbs_selectedRange(0, 0, 0, 0);
+    grid.tbs_removeRange(0, -1);
+    grid.tbs_selectRange(0, 0, 0, 0);
 }
 TbsGrid.prototype.tbs_setTreeDataTable1 = function (param) {
     let selector = '#' + this.gridId;

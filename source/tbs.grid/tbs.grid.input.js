@@ -131,28 +131,75 @@ TbsGrid.prototype.event_input = function() {
         grid.tbs_apply();
     }
     const wheelEvent = function(e) {}
-    const copyEvent = function(e){
+    const copyEvent = function(e) {
         let ta = document.createElement('textarea');
         let s = '';
-        let startRowIndex  = grid.startRowIndex;
-        let startCellIndex = grid.startCellIndex;
-        let lastRowIndex  = grid.lastRowIndex;
-        let lastCellIndex = grid.lastCellIndex;
+        if (grid.classRange40.data_select_panel30.length > 0) {
+            let startRowIndex  = 0;
+            let startCellIndex = grid.classRange40._startCellIndex;
+            let lastRowIndex  = 0;
+            let lastCellIndex = grid.classRange40._lastCellIndex;
 
-        for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
-            for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
-                s += grid.tbs_getValueByIndex(rowIndex, colIndex);
-                if (colIndex < lastCellIndex) s += '\t';
+            for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
+                for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
+                    let val = grid.tbs_getTopValueByIndex(rowIndex, colIndex);
+                    if (grid.null(val)) val = '';
+                    s += val;
+                    if (colIndex < lastCellIndex) s += '\t';
+                }
+                if (rowIndex < lastRowIndex) s += '\r\n'
             }
-            if (rowIndex < lastRowIndex) s += '\r\n'
+            ta.textContent = s;
+            document.body.appendChild(ta);
+            ta.select();
+
+            document.execCommand('copy');
+            document.body.removeChild(ta);
         }
-        ta.textContent = s;
-        document.body.appendChild(ta);
-        ta.select();
+        else if (grid.classRange50.data_select_panel30.length > 0) {
+            let startRowIndex  = 0;
+            let startCellIndex = grid.classRange50._startCellIndex;
+            let lastRowIndex  = 0;
+            let lastCellIndex = grid.classRange50._lastCellIndex;
 
-        document.execCommand('copy');
-        document.body.removeChild(ta);
+            for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
+                for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
+                    let val = grid.tbs_getFooterValueByIndex(rowIndex, colIndex);
+                    if (grid.null(val)) val = '';
+                    s += val;
+                    if (colIndex < lastCellIndex) s += '\t';
+                }
+                if (rowIndex < lastRowIndex) s += '\r\n'
+            }
+            ta.textContent = s;
+            document.body.appendChild(ta);
+            ta.select();
 
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+        }
+        else {
+            let startRowIndex  = grid._startRowIndex;
+            let startCellIndex = grid._startCellIndex;
+            let lastRowIndex  = grid._lastRowIndex;
+            let lastCellIndex = grid._lastCellIndex;
+
+            for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
+                for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
+                    let val = grid.tbs_getValueByIndex(rowIndex, colIndex);
+                    if (grid.null(val)) val = '';
+                    s += val;
+                    if (colIndex < lastCellIndex) s += '\t';
+                }
+                if (rowIndex < lastRowIndex) s += '\r\n'
+            }
+            ta.textContent = s;
+            document.body.appendChild(ta);
+            ta.select();
+
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+        }
     }
     const pasteEvent = function(e){
         let data = e.clipboardData.getData('text/plain')

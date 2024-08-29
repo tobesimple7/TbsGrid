@@ -204,7 +204,7 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
                         tableRows20[i].style.width = styleWidth;
                         tableRows30[i].style.width = styleWidth;
                     }
-                    grid.tbs_clearRange(0, -1);
+                    grid.tbs_removeRange(0, -1);
                     grid.tbs_displayPanel30(grid.tbs_getFirstRowIndex());
                 }
                 if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
@@ -319,8 +319,8 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
                 let left = window.pageXOffset + cell.getBoundingClientRect().left;
                 if (lastX > left) maxCellIndex = cell.cellIndex;
             }
-            grid.tbs_clearRange(0, -1);
-            grid.tbs_selectedRange(0, -1, startCellIndex, maxCellIndex);
+            grid.tbs_removeRange(0, -1);
+            grid.tbs_selectRange(0, -1, startCellIndex, maxCellIndex);
         }
         //==================================================================
         if (moveX < 0) {
@@ -331,8 +331,8 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
                 let right = window.pageXOffset + cell.getBoundingClientRect().right;
                 if (lastX < right) minCellIndex = cell.cellIndex;
             }                        
-            grid.tbs_clearRange(0, -1);
-			grid.tbs_selectedRange(0, -1, startCellIndex, minCellIndex);
+            grid.tbs_removeRange(0, -1);
+			grid.tbs_selectRange(0, -1, startCellIndex, minCellIndex);
         } 
         //==================================================================
     }
@@ -353,8 +353,8 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
         if (type == 'right') {
             if (table.style.left == (-1 * grid.horizontalScroll.hiddenSize) + 'px') {
                 flagRight = false;
-                grid.tbs_clearRange(0, -1);
-				grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex, tdCount - 1);
+                grid.tbs_removeRange(0, -1);
+				grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, tdCount - 1);
             }
             else {
                 grid.tbs_setBarPositionByDirection('right');
@@ -365,16 +365,16 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
                         if (lastX > left) maxCellIndex = trContent[trRowIndex].childNodes[cellIndex].cellIndex;
                     }                        
                 }
-                grid.tbs_clearRange(0, -1);
-				grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex, maxCellIndex);
+                grid.tbs_removeRange(0, -1);
+				grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, maxCellIndex);
             }
         } 
         //==================================================================
         else if (type == 'left') {
             if (table.style.left == '0px') {
                 flagLeft = false;
-                grid.tbs_clearRange(0, -1);
-				grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex, 0);
+                grid.tbs_removeRange(0, -1);
+				grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, 0);
             }
             else {
                 grid.tbs_setBarPositionByDirection('left');
@@ -385,8 +385,8 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
                         if (lastX < right) minCellIndex = trContent[rowIndex].childNodes[cellIndex].cellIndex; 
                     }                        
                 }   
-                grid.tbs_clearRange(0, -1);
-				grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex, minCellIndex);
+                grid.tbs_removeRange(0, -1);
+				grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, minCellIndex);
             }
         }
         //==================================================================
@@ -395,8 +395,8 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
             grid.tbs_setBarPositionByDirection('down');
             if (lastRowIndex < (grid.data_view.length - 1)) {
                 lastRowIndex += 1;
-                grid.tbs_clearRange(0, -1);
-                grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex,lastCellIndex);
+                grid.tbs_removeRange(0, -1);
+                grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex,lastCellIndex);
             }
             else flagDown = false;
 
@@ -407,8 +407,8 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
             grid.tbs_setBarPositionByDirection('up');
             if (lastRowIndex != 0) {
                 lastRowIndex -= 1;
-                grid.tbs_clearRange(0, -1);
-				grid.tbs_selectedRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex);
+                grid.tbs_removeRange(0, -1);
+				grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex);
             }
             else flagUp = false;
         }
