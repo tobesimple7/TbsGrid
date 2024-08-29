@@ -1,0 +1,1 @@
+This TbsGrid has MIT license and commercial license.
