@@ -52,7 +52,7 @@ tbs.config.us.js
 * [Column Types](https://tobesimple.net/page72/page72_001.php)
 * [Header Columns](https://tobesimple.net/page73/page73_002.php)
 
-- The items below are being reinforced a bit more.
+- The items below are under developing.
 
 * [Cell, Row Editor](https://tobesimple.net/page74/page74_001.php)
 * [User Events](https://tobesimple.net/page75/page75_001.php)  
