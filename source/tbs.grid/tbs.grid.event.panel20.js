@@ -234,7 +234,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                     grid.tbs_removeRange(0, -1);
                     grid.tbs_displayPanel30(grid.tbs_getFirstRowIndex());
                 }
-                if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
+                document.querySelector('.tbs-grid-move').remove();
                 flagLeft = false;
                 flagRight = false;
             }
