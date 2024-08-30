@@ -1,3 +1,9 @@
+/* TbsGrid Config */
+TbsGrid.prototype.setGridConfig = function (tbsGridConfig) {
+    this.gridConfig = tbsGridConfig;
+    this.options[this.option_zeroChar]  = this.gridConfig.culture.zeroChar;
+    this.options[this.option_imageRoot] = this.gridConfig.options.imageRoot;
+}
 /* TbsGrid functions */
 TbsGrid.prototype.tbs_click = function (e, grid, row, userFunction) { let val = userFunction(e, grid, row); return val; }
 TbsGrid.prototype.tbs_dblclick = function (e, grid, row, userFunction) { let val = userFunction(e, grid, row); return val; }

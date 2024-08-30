@@ -1,5 +1,13 @@
 ﻿TbsGrid = function (gridId) {
 	this.gridId = gridId;
+	// if (tbsGridConfigs) {
+	// 	let element = document.querySelector('#' + this.gridId);
+	// 	element.style.fontSize = grid.gridConfig.font.fontSize;
+	// 	element.style.fontFamily = grid.gridConfig.font.fontFamily;
+	// }
+
+	this.gridConfig = tbsGridConfigs[Object.keys(tbsGridConfigs)[0]];
+
 	/**
 	 * @description maxRowId
 	 *
@@ -334,9 +342,9 @@
 	this.options[this.option_insertRow]    = false;
 	this.options[this.option_updateRow]    = false;
 	this.options[this.option_deleteRow]    = false;
-	this.options[this.option_zeroChar]     = tbsConfig.culture.zeroChar;
+	this.options[this.option_zeroChar]     = this.gridConfig.culture.zeroChar;
 	this.options[this.option_useToolbar]   = true;
-	this.options[this.option_imageRoot]    = tbsConfig.options.imageRoot;
+	this.options[this.option_imageRoot]    = this.gridConfig.options.imageRoot;
 
 	this.grid_mousePointRange = 10;
 	this.grid_event = '';
@@ -438,11 +446,7 @@
 	this.const_open          = 'open';
 	this.const_closed        = 'closed';
 
-	if (tbsConfig) {
-		let element = document.querySelector('#' + this.gridId);
-		element.style.fontSize = tbsConfig.font.fontSize;
-		element.style.fontFamily = tbsConfig.font.fontFamily;
-	}
+
 
 	/**
 	 * @description Scroll Class, when createed scroll, eventrole : class

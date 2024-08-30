@@ -67,7 +67,7 @@ TbsGrid.prototype.tbs_getFormatNumber = function (column, value) {
     else if (grid.tbs_trim(value) == '')  result.value = null;
     else if (grid.tbs_substr(value.toString(), 0, 1) == '.') result.value = '0'; //php 0.1 => .1
     else {
-        value = value.toString().replace(tbsConfig.culture.currencyChar, '');
+        value = value.toString().replace(grid.gridConfig.culture.currencyChar, '');
         result.value = value.toString().replace(/,/gi, '')
     }
 

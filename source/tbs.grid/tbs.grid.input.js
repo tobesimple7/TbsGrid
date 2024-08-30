@@ -329,7 +329,7 @@ TbsGrid.prototype.input_show = function(e, mode) { //type : header, content, lef
         input_icon.style.left = `${left + width - 15}px`;
         input_icon.dataset.type = colType;
 
-        input_icon.src = tbsConfig.options.imageRoot + 'calendar.png';
+        input_icon.src = grid.gridConfig.options.imageRoot + 'calendar.png';
     }
     else if (colType == grid.code_combo) {
         let width = parseInt(column[[grid.column_width]]);
@@ -340,7 +340,7 @@ TbsGrid.prototype.input_show = function(e, mode) { //type : header, content, lef
         input_icon.style.left = `${left + width - 15}px`;
         input_icon.dataset.type = colType;
 
-        input_icon.src = tbsConfig.options.imageRoot + 'down-arrow.png';
+        input_icon.src = grid.gridConfig.options.imageRoot + 'down-arrow.png';
     }
     else {
         input_icon.style.diplay = 'none';

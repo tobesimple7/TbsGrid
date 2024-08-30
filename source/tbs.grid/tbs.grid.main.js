@@ -1646,8 +1646,8 @@ TbsGrid.prototype.tbs_setColumnAutoWidth = function(){
     let arr = [];
     for (let x = 0, len = grid.columns.length; x < len; x++) arr[x] = 0;
 
-    let fontSize = tbsConfig.font.fontSize;
-    let fontFamilty = tbsConfig.font.fontFamily;
+    let fontSize = grid.gridConfig.font.fontSize;
+    let fontFamilty = grid.gridConfig.font.fontFamily;
 
     for (let i = 0, len = grid.headerColumnTable.length; i < len; i++){
         for (let x = 0, len2 = grid.columns.length; x < len2; x++){
