@@ -1,3 +1,22 @@
+class TbsGridTree {
+    constructor(grid) {
+        this.grid     = grid;
+        this.selector = '#' + grid.gridId;
+
+        this.options = {};
+        this.options['name'		  ] = null;
+        this.options['parentName' ] = null;
+        this.options['rootValue'  ] = null;
+        this.options['sortColumns'] = null;
+    }
+}
+TbsGridTree.prototype.tbs_setTreeOption = function (optionName, optionValue) {
+    let selector = this.selector;
+    let grid = this.grid;
+    let classTree = this;
+
+    classTree.options[optionName] = optionValue;
+}
 TbsGrid.prototype.tbs_createTreeData = function(dataRows) {
     /**
      * @function tbs_createTreeData
@@ -19,7 +38,7 @@ TbsGrid.prototype.tbs_createTreeData = function(dataRows) {
         row[grid.const_children] = [];
         for (let i = 0, len= copyRows.length; i < len; i++) {
             let copyRow = copyRows[i];
-            if (row[grid.options.tree[grid.option_treeItemName]] == copyRow[grid.options.tree[grid.option_treeParentName]]) {
+            if (row[grid.classTree.options['name']] == copyRow[grid.classTree.options['parentName']]) {
                 row[grid.const_children].push(copyRow[grid.const_rowId]);
             }
         }
@@ -41,30 +60,17 @@ TbsGrid.prototype.tbs_createTreeData = function(dataRows) {
     }
     for (let i = 0, len = copyRows.length; i < len; i++) {
         let copyRow = copyRows[i];
-        if (grid.options.tree[grid.option_treeRootValue] == copyRow[grid.options.tree[grid.option_treeParentName]]) {
+        if (grid.classTree.options['rootValue'] == copyRow[grid.classTree.options['parentName']]) {
             fn_addChildrenRows(copyRow);
         }
     }
     return resultRows;
 }
-/**
- * @function tbs_setTreeSortColumns
- *
- * @description set sort columnName, columnOrder
- * @param sortColumns : [{ name : userName, order : asc }, { name : userName, order : asc }]
- */
 TbsGrid.prototype.tbs_setTreeSortColumns = function (sortColumns) {
     let selector = '#' + this.gridId;
     let grid = this;
     this.sortColumns = grid.tbs_copyJson(sortColumns);
 }
-/**
- * @function tbs_setTreeData
- *
- * @description set data in tree grid
- * @param data : json data
- * @param isPartData : true, false
- */
 TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
     let selector = '#' + this.gridId;
     let grid = this;
@@ -322,7 +328,7 @@ TbsGrid.prototype.tbs_setTreeIcon = function (tableCell, rowIndex) {
         let nextRow = grid.tbs_getRow(rowIndex + 1);
         if (grid.null(nextRow)) grid.tbs_toggleTreeIcon(rowIndex, element, 'closed');
         else {
-            if (nextRow.data[grid.options.tree[grid.option_treeParentName]] == row.data[grid.options.tree[grid.option_treeItemName]])
+            if (nextRow.data[grid.classTree.options['parentName']] == row.data[grid.classTree.options['itemName']])
                 grid.tbs_toggleTreeIcon(rowIndex, element, 'open');
             else
                 grid.tbs_toggleTreeIcon(rowIndex, element, 'closed');

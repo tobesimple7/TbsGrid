@@ -1,4 +1,4 @@
-TbsGridFilter = function (grid, icon, input, column) {
+TbsGridFilterLayer = function (grid, icon, input, column) {
     this.grid = grid;
     this.gridId = grid.gridId;
     this.column = column;
@@ -10,7 +10,7 @@ TbsGridFilter = function (grid, icon, input, column) {
     this.tbs_AddEvent();
     this.tbs_setData();
 };
-TbsGridFilter.prototype.tbs_getComboData = function() {
+TbsGridFilterLayer.prototype.tbs_getComboData = function() {
     let selector = '#' + this.grid.gridId;
     let grid = this.grid;
     let column = this.column;
@@ -41,7 +41,7 @@ TbsGridFilter.prototype.tbs_getComboData = function() {
     }
     return combo;
 }
-TbsGridFilter.prototype.tbs_addComboOption = function(combo, value, text) {
+TbsGridFilterLayer.prototype.tbs_addComboOption = function(combo, value, text) {
     let selector = '#' + this.grid.gridId;
     let grid = this.grid;
     let column = this.column;
@@ -52,7 +52,7 @@ TbsGridFilter.prototype.tbs_addComboOption = function(combo, value, text) {
     option.text = text;
     combo.add(option);
 }
-TbsGridFilter.prototype.tbs_createFilter = function(){
+TbsGridFilterLayer.prototype.tbs_createFilter = function(){
     let selector = '#' + this.grid.gridId;
     let grid = this.grid;
     let column = this.column;
@@ -78,7 +78,7 @@ TbsGridFilter.prototype.tbs_createFilter = function(){
     s += '</div>';
     document.querySelector(selector + ' .tbs-grid-layer').innerHTML = s;
 }
-TbsGridFilter.prototype.tbs_showFilterLayer = function() {
+TbsGridFilterLayer.prototype.tbs_showFilterLayer = function() {
     let selector = '#' + this.grid.gridId;
     let grid = this.grid;
     let column = this.column;
@@ -114,7 +114,7 @@ TbsGridFilter.prototype.tbs_showFilterLayer = function() {
     //this.tbs_setData();
     //this.tbs_AddEvent();
 }
-TbsGridFilter.prototype.tbs_AddEvent = function() {
+TbsGridFilterLayer.prototype.tbs_AddEvent = function() {
     let selector = '#' + this.grid.gridId;
     let grid = this.grid;
     let column = this.column;
@@ -155,7 +155,7 @@ TbsGridFilter.prototype.tbs_AddEvent = function() {
     document.querySelector(selector + ' .tbs-grid-layer-filter-content-button-save').addEventListener('mousedown', saveEvent);
     document.querySelector(selector + ' .tbs-grid-layer-filter-content-button-reset').addEventListener('mousedown', resetEvent);
 }
-TbsGridFilter.prototype.tbs_setData = function() {
+TbsGridFilterLayer.prototype.tbs_setData = function() {
     let selector = '#' + this.grid.gridId;
     let grid = this.grid;
     let column = this.column;

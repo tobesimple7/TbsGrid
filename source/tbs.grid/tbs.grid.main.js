@@ -25,10 +25,10 @@ TbsGrid.prototype.tbs_createFrame = function () {
     s += '  </div>';
     s += '</div>';
     // Grouping : panel80
-    if (grid.options.grouping[grid.option_groupVisible] == true) s += '<div class="tbs-grid-panel80 tbs-show"></div>';
+    if (grid.options[grid.option_groupVisible] == true) s += '<div class="tbs-grid-panel80 tbs-show"></div>';
     else s += '<div class="tbs-grid-panel80 tbs-hide"></div>';
     // sorting  : panel90
-    if (grid.options.sorting[grid.option_sortVisible] == true) s += '<div class="tbs-grid-panel90 tbs-show"></div>';
+    if (grid.options[grid.option_sortVisible] == true) s += '<div class="tbs-grid-panel90 tbs-show"></div>';
     else s += '<div class="tbs-grid-panel90 tbs-hide"></div>';
     s += '  <div class="tbs-grid-main">';
     s += '  	<div class="tbs-grid-wrap">';
@@ -967,7 +967,7 @@ TbsGrid.prototype.tbs_createTable80 = function (){
     let selector = '#' + this.gridId;
     let grid = this;
 
-    if (grid.options.grouping[grid.option_groupVisible] != true) return;
+    if (grid.options[grid.option_groupVisible] != true) return;
 
     let div = document.createElement('div');
     div.className = 'tbs-grid-panel-bar';
@@ -1737,7 +1737,7 @@ TbsGrid.prototype.tbs_setGridModePage = function () {
     let page = document.querySelector(selector + ' .tbs-grid-panel10-page');
     page.style.display = '';
 
-    grid.paging.pageRowcount = grid.options.paging.pageRowCount;
+    grid.classPage.pageRowcount = grid.classPage.options.pageRowCount;
 }
 TbsGrid.prototype.tbs_setGridModePagenation = function () {
     let selector = '#' + this.gridId;

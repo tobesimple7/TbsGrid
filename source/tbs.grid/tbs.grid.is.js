@@ -8,7 +8,7 @@ TbsGrid.prototype.tbs_isSortableColumn = function (columnName) {
     // if (column[grid.column_sortable] == true)  result = true;
     // else if (column[grid.column_sortable] == false) result = false;
     // else {
-        result = grid.options.column[grid.option_sortable];
+        result = grid.options[grid.option_sortable];
     //}
     return result;
 }
@@ -22,7 +22,7 @@ TbsGrid.prototype.tbs_isResizableColumn = function (columnName) {
     // if (column[grid.column_resizable] == true)  result = true;
     // else if (column[grid.column_resizable] == false) result = false;
     // else {
-        result = grid.options.column[grid.option_resizable];
+        result = grid.options[grid.option_resizable];
     // }
     return result;
 }
@@ -36,7 +36,7 @@ TbsGrid.prototype.tbs_isMovableColumn = function (columnName) {
     // if (column[grid.column_movable] == true)  result = true;
     // else if (column[grid.column_movable] == false) result = false;
     // else {
-        result = grid.options.column[grid.option_movable];
+        result = grid.options[grid.option_movable];
     // }
     return result;
 }
@@ -50,7 +50,7 @@ TbsGrid.prototype.tbs_isAutoResizableColumn = function (columnName) {
     // if (column[grid.column_autoResizable] == true)  result = true;
     // else if (column[grid.column_autoResizable] == false) result = false;
     // else {
-        result = grid.options.column[grid.option_autoResizable];
+        result = grid.options[grid.option_autoResizable];
     //}
     return result;
 }
@@ -64,7 +64,7 @@ TbsGrid.prototype.tbs_isAutoWidthColumn = function (columnName) {
     // if (column[grid.column_autoResizable] == true)  result = true;
     // else if (column[grid.column_autoResizable] == false) result = false;
     // else {
-    result = grid.options.column[grid.option_autoWidth];
+    result = grid.options[grid.option_autoWidth];
     //}
     return result;
 }
@@ -114,7 +114,7 @@ TbsGrid.prototype.tbs_isInPanel = function(e, panelName, startX, startY) {  //tb
     if (lastX < groupLeft || lastX > groupRight || lastY < groupTop || lastY > groupBottom) return false;
     else return true;
 }
-/* isSelectedCell */
+/* isSelectedCell  */
 TbsGrid.prototype.tbs_isSelectedCell = function (panelName, rowIndex, cellIndex) {
     //selected 1, 0
     let result = 0;

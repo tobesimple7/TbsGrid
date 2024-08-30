@@ -80,9 +80,12 @@ TbsGrid.prototype.setFrozenRow = function(fixedRowIndex) { let fixedRowCount = f
 TbsGrid.prototype.removeFrozenColumn = function() { this.tbs_removeFrozenColumn(); }
 TbsGrid.prototype.removeFrozenRow = function() { this.tbs_removeFrozenRow(); }
 /* Options */
-TbsGrid.prototype.setOption = function (optionName, optionValue, optionGroup) { this.tbs_setOption(optionName, optionValue, optionGroup); }
-TbsGrid.prototype.setOptions = function (options, optionGroup) { this.tbs_setOptions(options, optionGroup); }
-/* Tree Grid */
+TbsGrid.prototype.setOption = function (optionName, optionValue) { this.tbs_setOption(optionName, optionValue); }
+TbsGrid.prototype.setOptions = function (options) { this.tbs_setOptions(options); }
+/* Tree */
+TbsGrid.prototype.setTreeOption = function (optionName, optionValue) { this.classTree.tbs_setTreeOption(optionName, optionValue); }
 TbsGrid.prototype.setTreeData = function (data, openDepth) { this.tbs_setTreeData(data, openDepth); }
 TbsGrid.prototype.setTreeSortColumn = function (sortColumn) { this.tbs_setTreeSortColumns(sortColumn); }
+/* Page */
+TbsGrid.prototype.setPageOption = function (optionName, optionValue) { this.classPage.tbs_setPageOption(optionName, optionValue); }
 

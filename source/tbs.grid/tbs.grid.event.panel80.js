@@ -73,7 +73,7 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
         //console.log(`isInPanel11 ${isInPanel80} isInPanel20 ${isInPanel20}`);
 //=============================================================================================
         if (isInPanel80) {
-            if (grid.options.grouping[grid.option_groupVisible] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
+            if (grid.options[grid.option_groupVisible] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
                 let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
                 let rectMoveCell = document.querySelector('.tbs-grid-move').getBoundingClientRect();
                 // moveCell 의 정보가 없다.
@@ -149,7 +149,7 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
                         }
                     }
                 }
-                if (grid.options.column[grid.option_movable] && document.querySelectorAll('.tbs-grid-move').length > 0) {
+                if (grid.options[grid.option_movable] && document.querySelectorAll('.tbs-grid-move').length > 0) {
                     let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
                     let rectMoveCell = document.querySelector('.tbs-grid-move').getBoundingClientRect();
 
@@ -256,7 +256,7 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
         let moveY = lastY - startY;
         let moveX = lastX - startX;
 
-        if (grid.options.column[grid.option_movable]){
+        if (grid.options[grid.option_movable]){
             let moveDiv = document.querySelector('.tbs-grid-move');
             if (moveDiv){
                 moveDiv.style.left = (lastX - moveCellLeft) + 'px';

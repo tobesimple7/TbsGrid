@@ -949,7 +949,7 @@ TbsGrid.prototype.tbs_setDataTable1 = function (param) {
             let selectedValue = this.tbs_isSelectedCell(panelName, i, 0);
             if (selectedValue == 1) tableCell.classList.add('tbs-grid-cell-select');
             if (grid.grid_mode == grid.module_paging) {
-                tableCell.childNodes[0].textContent = grid.paging.startRowIndex + i + 1;
+                tableCell.childNodes[0].textContent = grid.classPage.startRowIndex + i + 1;
             }
             else {
                 if (tableCell.childNodes[0].textContent != (i + 1).toString()) tableCell.childNodes[0].textContent = (i + 1).toString();
@@ -1590,7 +1590,7 @@ TbsGrid.prototype.tbs_setDataFilterTableRow1 = function (param) {
     let grid = this;
 
     let panelName = param.panelName;
-    if (grid.options.filtering[grid.option_filterVisible] != true) return;
+    if (grid.options[grid.option_filterVisible] != true) return;
 
     let tableCells = document.querySelectorAll(selector + ` .tbs-grid-${panelName} .tbs-grid-cell`);
     let tableHeaders= document.querySelectorAll(selector + ` .tbs-grid-${panelName} thead th`);
@@ -1633,7 +1633,7 @@ TbsGrid.prototype.tbs_setDataFilterTableRow2 = function (param) {
     let grid = this;
 
     let panelName = param.panelName;
-    if (grid.options.filtering[grid.option_filterVisible] != true) return;
+    if (grid.options[grid.option_filterVisible] != true) return;
 
     let tableRows    = document.querySelectorAll(selector + ` .tbs-grid-${panelName} .tbs-grid-table tbody tr`);
     let tableHeaders = document.querySelectorAll(selector + ` .tbs-grid-${panelName} thead th`);

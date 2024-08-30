@@ -1,13 +1,6 @@
 ﻿TbsGrid = function (gridId) {
 	this.gridId = gridId;
-	// if (tbsGridConfigs) {
-	// 	let element = document.querySelector('#' + this.gridId);
-	// 	element.style.fontSize = grid.gridConfig.font.fontSize;
-	// 	element.style.fontFamily = grid.gridConfig.font.fontFamily;
-	// }
-
 	this.gridConfig = tbsGridConfigs[Object.keys(tbsGridConfigs)[0]];
-
 	/**
 	 * @description maxRowId
 	 *
@@ -25,14 +18,16 @@
 	this.data_page   = []; // Data Page
 	this.data_top    = [];
 	this.data_footer = [];
+
+	this.data_update = [];
+	this.data_insert = [];
+	this.data_delete = [];
 	/**
 	 * @description selection data
 	 *
 	 */
 	this.data_select_panel30 = [];
 	this.data_select_panel31 = [];
-
-
 	/**
 	 * @description Row Count / Select Range
 	 *
@@ -56,11 +51,21 @@
 	this.startY = 0;
 	this.lastX = 0;
 	this.lastY = 0;
+	/**
+	 * @description class
+	 *
+	 */
+	this.tbsGridDate; // class
+	this.tbsGridCombo; // class
 
-	this.classRange40 = new TbsGridRange(this, 'panel40');
-	this.classRange50 = new TbsGridRange(this, 'panel50');
-	//------------------------------------------------------------------------------------------------------------------
-
+	this.classRange40     = new TbsGridRange(this, 'panel40');
+	this.classRange50     = new TbsGridRange(this, 'panel50');
+	this.classFilter      = new TbsGridFilter(this);
+	this.classGroup       = new TbsGridGroup(this);
+	this.classPage        = new TbsGridPage(this);
+	this.classTree        = new TbsGridTree(this);
+	this.verticalScroll   = new TbsGridScroll(this, 'verticalScroll');
+	this.horizontalScroll = new TbsGridScroll(this, 'horizontalScroll');
 	/**
 	 * @description columns
 	 *
@@ -68,10 +73,8 @@
 	this.userColumns = [];
 	this.headerColumns = [];
 	this.headerColumnTable = [];
-
 	this.topColumns = [];
 	this.footerColumns = [];
-
 
 	/* main */
 	this.module_default	    	= null;
@@ -85,17 +88,14 @@
 	this.module_filtering    	= 'filtering'; 	// setFilter
 	this.module_grouping     	= 'grouping'; 	// setGroup~~
 	this.module_sorting	    	= 'sorting';  	// setSort~~
-	this.module_tree 		    = 'tree';		// setTree~~
 	this.module_column        	= 'column';
 	this.module_paging          = 'paging';  	// setPage~~
 	this.module_pagination      = 'pagination';  	// setPage~~
 
-	this.toolbar 	= {}; 	// seToolbar~~
+	this.toolbar 	= {}; 	// setToolbar~~
 	this.filtering  = {}; 	// setFilter
 	this.grouping   = {}; 	// setGroup~~
 	this.sorting	= {};  	// setSort~~
-	this.tree 		= {};	// setTree~~
-
 
 	/* mode */
 	this.debug_mode  = true;
@@ -189,9 +189,6 @@
 	this.layout_color         = 'color'     ;
 	this.layout_backgroundColor    = 'backgroundColor';
 	this.layout_text          = 'text'      ;
-
-
-
 	/**
 	 * @description Columns
 	 *
@@ -232,32 +229,8 @@
 
 	/* Options */
 	this.options = {}
-	this.option_selectMode	  = 'selectMode'   ;
-	this.option_dateChar	  = 'dateChar'	   ;
-	this.option_addRow	  	  = 'addRow'	   ;
-	this.option_delRow	  	  = 'delRow'	   ;
 
-	this.option_fixedColIndex = 'fixedColumnIndex'; //deprecated
-	this.option_fixedRowIndex = 'fixedRowIndex'; //deprecated
-	this.option_insertRow	  = 'insertRow'	   ;
-	this.option_updateRow	  = 'updateRow'	   ;
-	this.option_deleteRow	  = 'deleteRow'	   ;
-	this.option_zeroChar	  = 'zeroChar'	   ;
-	this.option_numWidth	  = 'numWidth'	   ;
-	this.option_rowModeWidth  = 'rowModeWidth' ;
-	this.option_checkBoxWidth = 'checkBoxWidth';
-	this.option_useToolbar	  = 'useToolbar'   ;
-	this.option_imageRoot     = 'imageRoot'    ;
-
-	/* Option Fixed Options */
-	this.options.toolbar 	   = {};
-	this.options.header 	   = {};
-	this.options.content 	   = {};
-	this.options.summaryTop    = {};
-	this.options.summaryFooter = {};
-	this.options.fixedRows 	   = {};
-	this.options.tree 		   = {};
-	/**
+    /**
 	 * @description tool bar - do not touch
 	 *
 	 */
@@ -266,44 +239,18 @@
 
 	this.options.toolbar = {};
 	this.options.toolbar[this.toolbar_visible] = true;
-	/* optons */
 
-	/* paging module */
-	this.paging = {}; // setPage~~
-	this.paging.pageIndex = 0;
-	this.paging.pageCount = 0;
-	this.paging.pageRowCount = 0;
-	this.paging.pageTotalRowCount = 0;
-
-	this.options.paging = {};
-	this.options.paging.pageRowCount = 10;
-
-	this.options.paging.pageRowCountList = [10, 20, 30, 50, 100];
 	/* filter optons */
 	this.option_filterVisible   = 'filterVisible';
-
-	this.options.filtering = {};
-	this.options.filtering[this.option_filterVisible] = false;
+	this.options[this.option_filterVisible] = false;
 
 	/* sort optons */
 	this.option_sortVisible     = 'sortVisible'  ;
-
-	this.options.sorting = {};
-	this.options.sorting[this.option_sortVisible] = false;
+	this.options[this.option_sortVisible] = false;
 
 	/* group optons */
 	this.option_groupVisible    = 'visible' ;
-
-	this.options.grouping = {};
-	this.options.grouping[this.option_groupVisible] = false;
-
-	/* Tree Options */
-	this.option_treeItemName	= 'name'		;
-	this.option_treeParentName	= 'parentName'	;
-	this.option_treeRootValue	= 'rootValue'	;
-	this.option_treeSortColumns	= 'sortColumns'	; // deprecated
-
-	this.options.tree = {};
+	this.options[this.option_groupVisible] = false;
 
 	/* Columns Options */
 	this.option_sortable	  = 'sortable'	   ;
@@ -312,23 +259,27 @@
 	this.option_autoResizable = 'autoResizable';
 	this.option_autoWidth	  = 'autoWidth'    ;
 
-	this.options.column = {};
-	this.options.column[this.option_sortable]      = true;
-	this.options.column[this.option_resizable]     = true;
-	this.options.column[this.option_movable]       = true;
-	this.options.column[this.option_autoResizable] = true;
-	this.options.column[this.option_autoWidth]     = false;
+	this.options[this.option_sortable]      = true;
+	this.options[this.option_resizable]     = true;
+	this.options[this.option_movable]       = true;
+	this.options[this.option_autoResizable] = true;
+	this.options[this.option_autoWidth]     = false;
 
 	// Rows Options
-	this.options.rows = {};
+	this.option_selectMode	  = 'selectMode'   ;
+	this.option_addRow	  	  = 'addRow'	   ;
+	this.option_delRow	  	  = 'delRow'	   ;
+
 	this.options[this.option_selectMode]   = 'cells';	//@value : cell, cells(default) // row, rows : @deprecated
-	this.options[this.option_dateChar]     = '.'; 		//== date option
 	this.options[this.option_addRow]       = false; 	//== row option
 	this.options[this.option_delRow]       = false;
 
 	// Panel21 options
 	this.option_rowMode	 = 'rowMode' ;
 	this.option_checkbox = 'checkbox';
+	this.option_numWidth	  = 'numWidth'	   ;
+	this.option_rowModeWidth  = 'rowModeWidth' ;
+	this.option_checkBoxWidth = 'checkBoxWidth';
 
 	this.options[this.option_rowMode]      = false;		//value : true, false, null
 	this.options[this.option_checkbox]     = false;		//value : true, false
@@ -336,9 +287,13 @@
 	this.options[this.option_rowModeWidth] = 20;
 	this.options[this.option_checkBoxWidth]= 25;
 
+	this.option_insertRow	  = 'insertRow'	   ;
+	this.option_updateRow	  = 'updateRow'	   ;
+	this.option_deleteRow	  = 'deleteRow'	   ;
+	this.option_zeroChar	  = 'zeroChar'	   ;
+	this.option_useToolbar	  = 'useToolbar'   ;
+	this.option_imageRoot     = 'imageRoot'    ;
 
-	this.options[this.option_fixedColIndex]  = -1;
-	//this.options[this.option_fixRowCount]  =  0;
 	this.options[this.option_insertRow]    = false;
 	this.options[this.option_updateRow]    = false;
 	this.options[this.option_deleteRow]    = false;
@@ -367,23 +322,36 @@
 	this.merge = false;
 	this.mergeType = 0;
 
-
-
-
 	/**
 	 * @description layout
 	 *
 	 */
 	this.layout_source 	 	 = []; //
 	this.layout_panel30  	 = []; //content data
+
 	/**
-	 * @description insert, delete, update Data
+	 * @description constant value
 	 *
 	 */
-	this.data_update = [];
-	this.data_insert = [];
-	this.data_delete = [];
+	this.headerRowHeight = 25;
+	this.rowHeight       = 25;
+	this.topRowHeight    = 25;
+	this.footerRowHeight = 25;
 
+	/**
+	 * @description mobile, user agent
+	 *
+	 */
+	this.md = new MobileDetect(window.navigator.userAgent);
+	this.mobile = this.md.mobile(); // not mobile : null
+	this.userAgent = this.md.userAgent(); // safari
+
+	this.const_depth		= 'depth'   ;
+	this.const_children     = 'children';
+	this.const_num          = 'number';
+	this.const_parentNum    = 'parentNumber';
+	this.const_open         = 'open';
+	this.const_closed       = 'closed';
 
 	/**
 	 * @description user event
@@ -399,74 +367,12 @@
 	this.user_keydown	 = ''; // not used
 	this.user_keyup		 = ''; // not used
 	this.user_blur		 = ''; // not used
+
 	// page
 	this.user_clickPageFirst  = null;
 	this.user_clickPagePrev   = null;
 	this.user_clickPageIndex  = null;
 	this.user_clickPageNext   = null;
 	this.user_clickPageLast   = null;
-	/**
-	 * @description constant value
-	 *
-	 */
-	this.TBS_PATH = '#' + this.gridId;
-	this.headerRowHeight = 25;
-	this.rowHeight       = 25;
-	this.topRowHeight    = 25;
-	this.footerRowHeight = 25;
-	/**
-	 * @description Grid Object : tree, pivio, group, calendar, date
-	 *
-	 */
-	this.tbsGridDate;
-	this.tbsGridCombo;
-	this.tbsGridFilter;
 
-	this.pivot;  // this.tbsGridPivot;
-	this.tree;	 // this.tbsGridTree;
-	this.group;	 // this.tbsGridGroup;
-	this.filter; // this.tbsGridFilter;
-	/**
-	 * @description mobile, user agent
-	 *
-	 */
-	this.md = new MobileDetect(window.navigator.userAgent);
-	this.mobile = this.md.mobile(); // not mobile : null
-	this.userAgent = this.md.userAgent(); // safari
-
-	/**
-	 * @description Tree
-	 *
-	 */
-	this.const_depth		  = 'depth'   ;
-	this.const_children       = 'children';
-	this.const_num            = 'number';
-	this.const_parentNum      = 'parentNumber';
-
-	this.const_open          = 'open';
-	this.const_closed        = 'closed';
-
-
-
-	/**
-	 * @description Scroll Class, when createed scroll, eventrole : class
-	 *
-	 */
-	this.verticalScroll = new TbsGridScroll(this, 'verticalScroll');
-	this.horizontalScroll = new TbsGridScroll(this, 'horizontalScroll');
-
-	this.verticalScroll32;
-	this.horizontalScroll60;
-
-
-	// @deprecated
-	// this.scroll = {};
-	// this.scroll.yBarSize 	= 0;
-	// this.scroll.yRailSize 	= 0;
-	// this.scroll.yMoveCount 	= 0;
-	// this.scroll.margin 		= '14px';
-	//
-	// this.scroll.xBarSize 	= 0;
-	// this.scroll.xRailSize 	= 0;
-	// this.scroll.xHiddenSize = 0;
 }

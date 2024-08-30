@@ -53,7 +53,7 @@ TbsGrid.prototype.tbs_setPanelSize = function() {
 	let group71 = document.querySelector(selector + ' .tbs-grid-group71');
 	let mainHeight = rectGrid.height;
 	if (grid.toolbar_visible == true) mainHeight = mainHeight - 25;
-	if (grid.options.grouping[grid.option_groupVisible] == true) mainHeight = mainHeight - 33;
+	if (grid.options[grid.option_groupVisible] == true) mainHeight = mainHeight - 33;
 	main.style.height = `${mainHeight}px`;
 
 	// header : group21, group22 group20
@@ -99,7 +99,7 @@ TbsGrid.prototype.tbs_setPanelSize = function() {
 		panel22.style.width  = '0px';
 	}
 	// Filter panel
-	if (grid.options.filtering[grid.option_filterVisible]) {
+	if (grid.options[grid.option_filterVisible]) {
 		let rectTable71 = document.querySelector(selector + ' .tbs-grid-panel71 .tbs-grid-table').getBoundingClientRect();
 		let rectTable72 = document.querySelector(selector + ' .tbs-grid-panel72 .tbs-grid-table').getBoundingClientRect();
 		let rectTable70 = document.querySelector(selector + ' .tbs-grid-panel70 .tbs-grid-table').getBoundingClientRect();
@@ -502,7 +502,7 @@ TbsGrid.prototype.tbs_setColumnWidth = function (colIndex, value) {
 	if (grid.fixedRowIndex        != -1) colList5[colIndex].style.width = nWidth;
 	if (grid.topColumns.length    > 0  ) colList3[colIndex].style.width = nWidth;
 	if (grid.footerColumns.length > 0  ) colList4[colIndex].style.width = nWidth;
-	if (grid.options.filtering[grid.option_filterVisible]) colList7[colIndex].style.width = nWidth;
+	if (grid.options[grid.option_filterVisible]) colList7[colIndex].style.width = nWidth;
     this.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
 	this.verticalScroll.tbs_setScroll(grid.code_vertical);
 
@@ -532,7 +532,7 @@ TbsGrid.prototype.tbs_setAllColumnWidth = function (arr) {
 		if (grid.topColumns.length    > 0) thList40[x].style.width = nWidth;
 		if (grid.footerColumns.length > 0) thList50[x].style.width = nWidth;
 		if (grid.fixedRowIndex      != -1) thList60[x].style.width = nWidth;
-		if (grid.options.filtering[grid.option_filterVisible]) thList70[x].style.width = nWidth;
+		if (grid.options[grid.option_filterVisible]) thList70[x].style.width = nWidth;
 	}
 	grid.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
 }

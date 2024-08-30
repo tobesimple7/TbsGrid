@@ -19,7 +19,7 @@ TbsGrid.prototype.panel70_select1 = function() {
         let column = grid.tbs_getColumn(name);
 
         let input = icon.parentNode.querySelector('.tbs-grid-cell-filter-input');
-        grid.tbsGridFilter = new TbsGridFilter(grid, icon, input, column);
+        grid.tbsGridFilter = new TbsGridFilterLayer(grid, icon, input, column);
     };
     const mouseUpEvent = function(e) {
         e.preventDefault();

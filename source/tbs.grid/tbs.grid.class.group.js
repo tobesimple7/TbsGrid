@@ -1,3 +1,9 @@
+class TbsGridGroup {
+    constructor(grid) {
+        this.grid       = grid;
+        this.selector   = '#' + grid.gridId;
+    }
+}
 /**
  * @function tbs_createGroupData
  *

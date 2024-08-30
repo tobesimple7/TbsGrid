@@ -69,7 +69,7 @@ TbsGrid.prototype.event_columnSort = function(cell) {
     }
     if (grid.sortColumns.length == 0){
         grid.data_view = JSON.parse(JSON.stringify(grid.data_table));
-        if (grid.options.filtering[grid.option_filterVisible]) grid.tbs_filters();
+        if (grid.options[grid.option_filterVisible]) grid.tbs_filters();
         grid.tbs_removeRange(0, -1);
         grid.tbs_displayPanel30(0);
         return;
@@ -85,7 +85,7 @@ TbsGrid.prototype.event_columnSort = function(cell) {
     //================================================================
     else {
         if (grid.tbs_isSortableColumn()) grid.setSort(grid.sortColumns, true);
-        if (grid.options.filtering[grid.option_filterVisible]) grid.tbs_filters();
+        if (grid.options[grid.option_filterVisible]) grid.tbs_filters();
         grid.tbs_removeRange(0, -1);
         grid.tbs_displayPanel30(0);
     }

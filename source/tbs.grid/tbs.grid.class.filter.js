@@ -1,3 +1,14 @@
+class TbsGridFilter {
+    constructor(grid) {
+        this.grid     = grid;
+        this.selector = '#' + grid.gridId;
+
+        this.options = {};
+        //this.option_itemName	 = 'name'		;
+        //this.options[option_itemName   ] = null;
+    }
+}
+
 TbsGrid.prototype.totalFilterSearch = function (s) {
     let grid = this;
     let filterArray = [];
@@ -58,7 +69,7 @@ TbsGrid.prototype.tbs_showFilterPanel = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    grid.options.filtering[grid.option_filterVisible] = true;
+    grid.options[grid.option_filterVisible] = true;
     grid.tbs_setPanelSize();
     grid.tbs_displayPanel70('panel70');
     grid.tbs_displayPanel30(0);
@@ -67,7 +78,7 @@ TbsGrid.prototype.tbs_hideFilterPanel = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    grid.options.filtering[grid.option_filterVisible] = false;
+    grid.options[grid.option_filterVisible] = false;
     grid.tbs_setPanelSize();
     grid.tbs_displayPanel30(0);
 }
