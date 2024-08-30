@@ -42,6 +42,7 @@ tbs.grid.configs.js
 - This file is the grid initial settings file for each country's currency unit or calendar-related characters.
 - You can set it by country in the config file.
 
+<img src="https://tobesimple7.github.io/img/readme/100.png">
 
 ## Documentation & Demo
 
