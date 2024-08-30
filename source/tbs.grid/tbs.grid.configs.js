@@ -12,7 +12,7 @@ let tbsGridConfigs = {
             dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             dayShortNames: ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'],
             dayPattern: 'MM-dd-yyyy',
-            months : ['1월', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            months : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             prevLinkName : 'prev',
             nextLinkName : 'next',
             todayLinkName: 'today'
