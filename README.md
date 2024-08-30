@@ -29,7 +29,7 @@ I think it will stabilize once i test and fix bugs so that the release beta vers
 
 ```javascript
 // Grid Config 
-<script src="/tbsgrid/configs/tbs.config.us.js"></script>
+<script src="/tbsgrid/tbs.grid.config.js"></script>
 // TbsGrid css, js files
 <script src="/tbsgrid/tbs.grid.1.0.0.min.css"></script>
 <script src="/tbsgrid/tbs.grid.1.0.0.min.js"></script>
