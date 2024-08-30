@@ -8,7 +8,7 @@ TbsGrid.prototype.panel40_select = function(eventPanelName) {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    let classRange = (eventPanelName == 'panel40') ? grid.classRange40 : grid.classRange50;
+    let classRange = (eventPanelName == 'panel40' || eventPanelName == 'panel42') ? grid.classRange40 : grid.classRange50;
 
     let targetName;
     let startRowIndex, startCellIndex, startX, startY;
@@ -153,73 +153,31 @@ TbsGrid.prototype.panel40_select = function(eventPanelName) {
         classRange.class_selectRange(startRowIndex, startRowIndex, startCellIndex, lastCellIndex);
     }
     const selectCellMove = function(e) {
-        flagUp      = false;
-        flagDown    = false;
         flagLeft    = false;
         flagRight   = false;
-
-        // clientY : viewport Criteria
-        // pageXOffset : scroll amonunt in viewport
-        // getBoundingClientRect() : relative parent Criteria
-
-        // lastX = grid.lastX = window.pageXOffset + e.clientX;
-        // lastY = grid.lastY = window.pageYOffset + e.clientY;
-        //console.log(`selectCellMove : lastX ${lastX} / lastY : ${lastY}`);
 
         let moveY = grid.lastY - grid.startY;
         let moveX = grid.lastX - grid.startX;
         let lastX = grid.lastX;
         let lastY = grid.lastY;
-        if (grid.fixedRowIndex != -1) {
-            let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
-            if (eventPanelName == 'panel60') {
-                panel = document.querySelector(selector + ' .tbs-grid-group30');
-            }
-            let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
 
-            let rect= panel.getBoundingClientRect();
-            let absRect = grid.tbs_getOffset(panel);
-
-            let rect30= panel30.getBoundingClientRect();
-            let absRect30 = grid.tbs_getOffset(panel30);
-
-            let panelTop   = absRect.top;
-            let panelBottom= absRect30.top + rect30.height;
-            let panelLeft  = absRect.left;
-            let panelRight = absRect.left + rect.width;
-
-            //console.log(`selectCellMove : lastX ${lastX} < panelLeft : ${panelLeft} > panelRight ${panelRight}`);
-
-            // Outside the area
-            if (lastX < panelLeft || lastX > panelRight || lastY < panelTop || lastY > panelBottom) {
-                if (lastX < panelLeft  ) { flagLeft  = true; doInterval(grid.code_left);  }
-                if (lastX > panelRight ) { flagRight = true; doInterval(grid.code_right); }
-                if (lastY < panelTop   ) { flagUp    = true; doInterval(grid.code_up);    }
-                if (lastY > panelBottom) { flagDown  = true; doInterval(grid.code_down);  }
-            }
-            select(moveX, moveY);
-        }
-        else if (grid.fixedColumnIndex != -1) {
-            let panel  = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
+        if (grid.fixedColumnIndex != -1) {
+            let panel  = document.querySelector(selector + ' .tbs-grid-panel32');
             let panel30= document.querySelector(selector + ' .tbs-grid-panel30');
 
-            let rect= panel.getBoundingClientRect();
+            let rect = panel.getBoundingClientRect();
             let absRect = grid.tbs_getOffset(panel);
 
             let rect30= panel30.getBoundingClientRect();
             let absRect30 = grid.tbs_getOffset(panel30);
 
-            let panelTop   = absRect.top;
-            let panelBottom= absRect.top + rect.height;
             let panelLeft  = absRect.left;
             let panelRight = absRect30.left + rect30.width;
 
             // Outside the area
-            if (lastX < panelLeft || lastX > panelRight || lastY < panelTop || lastY > panelBottom) {
+            if (lastX < panelLeft || lastX > panelRight) {
                 if (lastX < panelLeft  ) { flagLeft  = true; doInterval(grid.code_left);  }
-                if (lastX > panelRight ) { flagRight = true; doInterval(grid.code_right); }
-                if (lastY < panelTop   ) { flagUp    = true; doInterval(grid.code_up);    }
-                if (lastY > panelBottom) { flagDown  = true; doInterval(grid.code_down);  }
+                else if (lastX > panelRight ) { flagRight = true; doInterval(grid.code_right); }
             }
             select(moveX, moveY);
         }

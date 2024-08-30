@@ -1345,7 +1345,44 @@ TbsGrid.prototype.tbs_setDataTopTable1 = function () {
         grid.tbs_setSelectedCell(panelName, tableCell, 0, i);
     }
 }
-TbsGrid.prototype.tbs_setDataTopTable2 = function () {}
+TbsGrid.prototype.tbs_setDataTopTable2 = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    if (grid.topColumns.length == 0) return;
+
+    let panelName = 'panel42';
+    let topColumns = grid.topColumns;
+    let topRow = grid.data_top[0];
+
+    //startColumnIndex, lastColumIndex
+    let result = grid.tbs_getDisplayedHeaderColumn();
+    let startColumnIndex= result.startColumnIndex;
+    let lastColumnIndex = result.lastColumnIndex;
+
+    let tableCells  = document.querySelectorAll(selector + ` .tbs-grid-panel42 .tbs-grid-cell`);
+    let colList= document.querySelectorAll(selector + ` .tbs-grid-panel42 thead th`);
+    if (tableCells.length == 0) return;
+
+    for (let i = 0; i <= lastColumnIndex; i++) {
+        let column = grid.columns[i];
+        let columnName = column[grid.column_name];
+        let tableCell = tableCells[i];
+
+        colList[i].style.width = column[grid.column_width] + 'px';
+        grid.tbs_setSelectedCell(panelName, tableCell, 0, i);
+
+        for (let x = 0, len2 = topColumns.length; x < len2; x++){
+            let topColumn = topColumns[x];
+            if (columnName == topColumn[grid.column_name]) {
+                grid.tbs_addUserClass(tableCell, topColumn[grid.column_className]);
+                grid.tbs_setCellStyle(tableCell, 'textAlign', topColumn[grid.column_align]);
+                let spanText = tableCell.querySelector('.tbs-grid-cell-div-text');
+                grid.tbs_setCell(spanText, 'textContent', grid.tbs_getTopText(0, columnName));
+            }
+        }
+    }
+}
 TbsGrid.prototype.tbs_setDataTopTable3 = function () {
     let selector = '#' + this.gridId;
     let grid = this;
@@ -1356,6 +1393,11 @@ TbsGrid.prototype.tbs_setDataTopTable3 = function () {
     let topColumns = grid.topColumns;
     let topRow = grid.data_top[0];
 
+    //startColumnIndex, lastColumIndex
+    let result = grid.tbs_getDisplayedHeaderColumn();
+    let startColumnIndex= result.startColumnIndex;
+    let lastColumnIndex = result.lastColumnIndex;
+
     let tableCells  = document.querySelectorAll(selector + ` .tbs-grid-panel40 .tbs-grid-cell`);
     let colList= document.querySelectorAll(selector + ` .tbs-grid-panel40 thead th`);
 
@@ -1363,6 +1405,11 @@ TbsGrid.prototype.tbs_setDataTopTable3 = function () {
         let column = grid.columns[i];
         let columnName = column[grid.column_name];
         let tableCell = tableCells[i];
+        if (grid.fixedColumnIndex != -1) {
+            if (i > grid.fixedColumnIndex && i < startColumnIndex) continue;
+        }
+        else { if (i < startColumnIndex) continue; }
+
         colList[i].style.width = column[grid.column_width] + 'px';
         grid.tbs_setSelectedCell(panelName, tableCell, 0, i);
 
@@ -1450,7 +1497,44 @@ TbsGrid.prototype.tbs_setDataFooterTable1 = function () {
         grid.tbs_setSelectedCell(panelName, tableCell, 0, i);
     }
 }
-TbsGrid.prototype.tbs_setDataFooterTable2 = function () {}
+TbsGrid.prototype.tbs_setDataFooterTable2 = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    if (grid.topColumns.length == 0) return;
+
+    let panelName = 'panel52';
+    let topColumns = grid.footerColumns;
+    let topRow = grid.data_footer[0];
+
+    //startColumnIndex, lastColumIndex
+    let result = grid.tbs_getDisplayedHeaderColumn();
+    let startColumnIndex= result.startColumnIndex;
+    let lastColumnIndex = result.lastColumnIndex;
+
+    let tableCells  = document.querySelectorAll(selector + ` .tbs-grid-panel52 .tbs-grid-cell`);
+    let colList= document.querySelectorAll(selector + ` .tbs-grid-panel52 thead th`);
+    if (tableCells.length == 0) return;
+
+    for (let i = 0; i <= lastColumnIndex; i++) {
+        let column = grid.columns[i];
+        let columnName = column[grid.column_name];
+        let tableCell = tableCells[i];
+
+        colList[i].style.width = column[grid.column_width] + 'px';
+        grid.tbs_setSelectedCell(panelName, tableCell, 0, i);
+
+        for (let x = 0, len2 = topColumns.length; x < len2; x++){
+            let topColumn = topColumns[x];
+            if (columnName == topColumn[grid.column_name]) {
+                grid.tbs_addUserClass(tableCell, topColumn[grid.column_className]);
+                grid.tbs_setCellStyle(tableCell, 'textAlign', topColumn[grid.column_align]);
+                let spanText = tableCell.querySelector('.tbs-grid-cell-div-text');
+                grid.tbs_setCell(spanText, 'textContent', grid.tbs_getTopText(0, columnName));
+            }
+        }
+    }
+}
 TbsGrid.prototype.tbs_setDataFooterTable3 = function () {
     let selector = '#' + this.gridId;
     let grid = this;
@@ -1461,6 +1545,11 @@ TbsGrid.prototype.tbs_setDataFooterTable3 = function () {
     let footerColumns = grid.footerColumns;
     let footerRow = grid.data_footer[0];
 
+    //startColumnIndex, lastColumIndex
+    let result = grid.tbs_getDisplayedHeaderColumn();
+    let startColumnIndex= result.startColumnIndex;
+    let lastColumnIndex = result.lastColumnIndex;
+
     let tableCells  = document.querySelectorAll(selector + ` .tbs-grid-panel50 .tbs-grid-cell`);
     let colList= document.querySelectorAll(selector + ` .tbs-grid-panel50 thead th`);
 
@@ -1468,6 +1557,11 @@ TbsGrid.prototype.tbs_setDataFooterTable3 = function () {
         let column = grid.columns[i];
         let columnName = column[grid.column_name];
         let tableCell = tableCells[i];
+        if (grid.fixedColumnIndex != -1) {
+            if (i > grid.fixedColumnIndex && i < startColumnIndex) continue;
+        }
+        else { if (i < startColumnIndex) continue; }
+
         colList[i].style.width = column[grid.column_width] + 'px';
         grid.tbs_setSelectedCell(panelName, tableCell, 0, i);
 
