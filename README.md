@@ -24,6 +24,7 @@ I think it will stabilize once i test and fix bugs so that the release beta vers
 - Supports cross-browser.
 - It has various functions such as column movement, sorting, filtering, etc.
 
+<img src="https://github.com/user-attachments/assets/9f13ba36-9566-42cf-907b-735c5821c3da">
 
 ## Getting Started
 
@@ -41,8 +42,6 @@ tbs.grid.configs.js
 
 - This file is the grid initial settings file for each country's currency unit or calendar-related characters.
 - You can set it by country in the config file.
-
-<a href="https://tobesimple.net/"><img src="https://github.com/user-attachments/assets/9f13ba36-9566-42cf-907b-735c5821c3da"></a>
 
 ## Documentation & Demo
 
