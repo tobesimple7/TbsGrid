@@ -245,32 +245,55 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
             select(moveX, moveY);
         }
         else if (grid.fixedColumnIndex != -1) {
-            let panel  = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
-            let panel30= document.querySelector(selector + ' .tbs-grid-panel30');
+            if (eventPanelName == 'panel32') {
+                let panel32 = document.querySelector(selector + ' .tbs-grid-panel32');
+                let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
 
-            let rect= panel.getBoundingClientRect();
-            let absRect = grid.tbs_getOffset(panel);
+                let rect32 = panel32.getBoundingClientRect();
+                let rect30 = panel30.getBoundingClientRect(); //absolute > relative position.
 
-            let rect30= panel30.getBoundingClientRect();
-            let absRect30 = grid.tbs_getOffset(panel30);
+                let panelTop   = rect32.top;
+                let panelBottom= rect32.top + rect32.height;
+                let panelLeft  = rect32.left;
+                let panelRight32= rect30.left;
+                let panelRight = rect30.left + rect30.width;
 
-            let panelTop   = absRect.top;
-            let panelBottom= absRect.top + rect.height;
-            let panelLeft  = absRect.left;
-            let panelRight = absRect30.left + rect30.width;
+                // Outside the area
+                if (lastX < panelLeft  ) { flagLeft  = true; doInterval(grid.code_left);  }
+                if (lastX < panelRight32 && document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar').style.left != '0px') {
+                    flagLeft = true;
+                    doInterval(grid.code_left);
+                }
+                if (lastX > panelRight ) { flagRight = true; doInterval(grid.code_right); }
+                if (lastY < panelTop   ) { flagUp    = true; doInterval(grid.code_up);    }
+                if (lastY > panelBottom) { flagDown  = true; doInterval(grid.code_down);  }
 
-            // Outside the area
-            if (lastX < panelLeft || lastX > panelRight || lastY < panelTop || lastY > panelBottom) {
+                select(moveX, moveY);
+            }
+            else {
+                let panel32 = document.querySelector(selector + ' .tbs-grid-panel32');
+                let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
+
+                let rect32 = panel32.getBoundingClientRect();
+                let rect30 = panel30.getBoundingClientRect();
+
+                let panelTop   = rect30.top;
+                let panelBottom= rect30.top + rect30.height;
+                let panelLeft  = rect30.left;
+                let panelRight = rect30.left + rect30.width;
+
+                // Outside the area
                 if (lastX < panelLeft  ) { flagLeft  = true; doInterval(grid.code_left);  }
                 if (lastX > panelRight ) { flagRight = true; doInterval(grid.code_right); }
                 if (lastY < panelTop   ) { flagUp    = true; doInterval(grid.code_up);    }
                 if (lastY > panelBottom) { flagDown  = true; doInterval(grid.code_down);  }
+
+                select(moveX, moveY);
             }
-            select(moveX, moveY);
         }
         else {
             let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
-            let rect= panel.getBoundingClientRect();
+            let rect = panel.getBoundingClientRect();
             let absRect = grid.tbs_getOffset(panel);
 
             let panelTop   = absRect.top;
@@ -541,37 +564,33 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
         }
     }
     const doInterval = function(type) {
-        if (flagLeft) {
-            flagUp      = false;
-            flagDown    = false;
-            //flagLeft  = false;
-            flagRight   = false;
-            setTimeout(() => doInterval('left'), 15);
-            setPanelMove('left');
+        if (type == grid.code_left || type == grid.code_right) {
+            if (flagLeft) {
+                //flagLeft  = false;
+                flagRight   = false;
+                setTimeout(() => doInterval('left'), 15);
+                setPanelMove('left');
+            }
+            if (flagRight) {
+                flagLeft    = false;
+                //flagRight = false;
+                setTimeout(() => doInterval('right'), 15);
+                setPanelMove('right');
+            }
         }
-        if (flagRight) {
-            flagUp      = false;
-            flagDown    = false;
-            flagLeft    = false;
-            //flagRight = false;
-            setTimeout(() => doInterval('right'), 15);
-            setPanelMove('right');
-        }
-        if (flagUp) {
-            //flagUp    = false;
-            flagDown    = false;
-            flagLeft    = false;
-            flagRight   = false;
-            setTimeout(() => doInterval('up'), 5);
-            setPanelMove('up');
-        }
-        if (flagDown) {
-            flagUp      = false;
-            //flagDown  = false;
-            flagLeft    = false;
-            flagRight   = false;
-            setTimeout(() => doInterval('down'), 5);
-            setPanelMove('down');
+        else {
+            if (flagUp) {
+                //flagUp    = false;
+                flagDown    = false;
+                setTimeout(() => doInterval('up'), 15);
+                setPanelMove('up');
+            }
+            if (flagDown) {
+                flagUp      = false;
+                //flagDown  = false;
+                setTimeout(() => doInterval('down'), 15);
+                setPanelMove('down');
+            }
         }
     }
 

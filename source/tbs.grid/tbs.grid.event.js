@@ -721,9 +721,10 @@ TbsGrid.prototype.tbs_getMinRowIndexByMouseMove2 = function(panelName) {
         let tableRow = tableRows[i];
         let tableRowIndex = i + 1;
         let rect = grid.tbs_getOffset(tableRow);
+        //console.log(`${panelName} i ${i} : rect.top ${rect.top} lastRowIndex ${lastRowIndex} : minRowIndex ${minRowIndex}  : lastY  ${this.lastY}`);
         let bottom = rect.top + tableRow.getBoundingClientRect().height;
         if (lastY < bottom) minRowIndex = grid.tbs_getRowIndexInTable(tableRowIndex, panelName);
-        //console.log(`${panelName} i ${i} : startRowIndex ${startRowIndex} lastRowIndex ${lastRowIndex} : minRowIndex ${minRowIndex}  bottom ${bottom} : lastY  ${this.lastY}`);
+
     }
     return minRowIndex;
 }
