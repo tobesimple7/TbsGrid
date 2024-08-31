@@ -35,6 +35,13 @@ class TbsGridPage {
         this.options = {};
         this.options.pageRowCount = 10;
         this.options.pageRowCountList = [10, 20, 30, 50, 100];
+
+        // user event
+        this.user_clickPageFirst  = null;
+        this.user_clickPagePrev   = null;
+        this.user_clickPageIndex  = null;
+        this.user_clickPageNext   = null;
+        this.user_clickPageLast   = null;
     }
 }
 TbsGridPage.prototype.tbs_setPageOption = function (optionName, optionValue) {

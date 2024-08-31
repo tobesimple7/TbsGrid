@@ -53,7 +53,7 @@ TbsGrid.prototype.tbs_setPanelSize = function() {
 	let group71 = document.querySelector(selector + ' .tbs-grid-group71');
 	let mainHeight = rectGrid.height;
 	if (grid.toolbar_visible == true) mainHeight = mainHeight - 25;
-	if (grid.options[grid.option_groupVisible] == true) mainHeight = mainHeight - 33;
+	if (grid.classGroup.options[grid.code_showGroupPanel] == true) mainHeight = mainHeight - 33;
 	main.style.height = `${mainHeight}px`;
 
 	// header : group21, group22 group20

@@ -27,8 +27,8 @@ TbsGrid.prototype.tbs_setTopData = function () {
     let topColumns = grid.topColumns;
     grid.data_top = []; // set init
     let item = {};
-    item[grid.const_rowId] = grid.topMaxRowId; grid.topMaxRowId += 1;
-    item[grid.const_mode] = '';
+    item[grid.code_rowId] = grid.topMaxRowId; grid.topMaxRowId += 1;
+    item[grid.code_mode] = '';
     item.data = {};
     item.layout = {};
 
@@ -40,7 +40,7 @@ TbsGrid.prototype.tbs_setTopData = function () {
         item.layout[columnName] = {};
         item.layout[columnName][grid.layout_text] = null;
         // for merging
-        item.layout[columnName][grid.layout_visible] = column[grid.column_visible];
+        //item.layout[columnName][grid.layout_visible] = column[grid.column_visible];
         item.layout[columnName][grid.layout_rowSpan] = 1;
         item.layout[columnName][grid.layout_colSpan] = 1;
     }
@@ -53,7 +53,6 @@ TbsGrid.prototype.tbs_setTopData = function () {
         let columnName = topColumn[grid.column_name];
         if (grid.tbs_isColumnTypeNumber(columnName) == false) topRow.data[columnName] = topColumn[grid.column_name];
     }
-
     // Calculate Sum
     for (let rowIndex = 0, len = grid.data_view.length; rowIndex < len; rowIndex++) {
         let row = grid.data_view[rowIndex].data;
@@ -86,7 +85,6 @@ TbsGrid.prototype.tbs_setTopData = function () {
         }
     }
 }
-
 /* get, set */
 TbsGrid.prototype.tbs_getTopValue = function (rowIndex, columnName) {
     let column = this.tbs_getColumn(columnName);
@@ -119,7 +117,6 @@ TbsGrid.prototype.tbs_setTopValueByIndex = function (rowIndex, cellIndex, value)
     let columnName = this.tbs_getColumnName(cellIndex);
     this.tbs_setTopValue(rowIndex, columnName, value);
 }
-
 /* Layout Data */
 TbsGrid.prototype.tbs_getTopLayout = function (rowIndex, columnName) {
     let grid = this;

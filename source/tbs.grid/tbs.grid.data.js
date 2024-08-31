@@ -8,7 +8,7 @@ TbsGrid.prototype.tbs_setData = function (data) {
     let selector = '#' + this.gridId;
     let grid = this;
     let panel80 = document.querySelector(selector + ' .tbs-grid-panel80');
-    if (grid.groupColumns.length > 0) {
+    if (grid.classGroup.groupColumns.length > 0) {
         grid.grid_mode = grid.code_group;
         grid.tbs_setGroupData(data);
     }
@@ -30,7 +30,7 @@ TbsGrid.prototype.tbs_setGridData = function (data) {
     this.data_select_panel30 = [];  //select color : value 0, 1
     this.data_select_panel31 = [];	//view - filter
     for (let rowIndex = 0; rowIndex < data.length; rowIndex++) {
-        data[rowIndex][grid.const_rowId] = rowIndex;
+        data[rowIndex][grid.code_rowId] = rowIndex;
     }
 
     this.data_user = grid.tbs_copyJson(data);
@@ -43,13 +43,13 @@ TbsGrid.prototype.tbs_setGridData = function (data) {
         let page = {};
 
         let row = data[i];
-        source[grid.const_rowId] = row[grid.const_rowId];
-        data30[grid.const_rowId] = row[grid.const_rowId];
-        page[grid.const_rowId] = row[grid.const_rowId];
+        source[grid.code_rowId] = row[grid.code_rowId];
+        data30[grid.code_rowId] = row[grid.code_rowId];
+        page[grid.code_rowId] = row[grid.code_rowId];
 
-        source[grid.const_mode] = '';
-        data30[grid.const_mode] = '';
-        page[grid.const_mode] = '';
+        source[grid.code_mode] = '';
+        data30[grid.code_mode] = '';
+        page[grid.code_mode] = '';
 
         source.data = {};
         source.layout = {};
@@ -75,7 +75,7 @@ TbsGrid.prototype.tbs_setGridData = function (data) {
             // source.layout[columnName][grid.layout_color]     = '';
             // source.layout[columnName][grid.layout_backgroundColor]= '';
             // for merging
-            source.layout[columnName][grid.layout_visible] = col[grid.column_visible];
+            //source.layout[columnName][grid.layout_visible] = col[grid.column_visible];
             source.layout[columnName][grid.layout_rowSpan] = 1;
             source.layout[columnName][grid.layout_colSpan] = 1;
             // source.layout[columnName][grid.layout_subRowSpan] = 1;
@@ -86,7 +86,7 @@ TbsGrid.prototype.tbs_setGridData = function (data) {
             // data30.layout[columnName][grid.layout_color]     = '';
             // data30.layout[columnName][grid.layout_backgroundColor]= '';
             // for merging
-            data30.layout[columnName][grid.layout_visible] = col[grid.column_visible];
+            //data30.layout[columnName][grid.layout_visible] = col[grid.column_visible];
             data30.layout[columnName][grid.layout_rowSpan] = 1;
             data30.layout[columnName][grid.layout_colSpan] = 1;
             // data30.layout[columnName][grid.layout_subRowSpan] = 1;
@@ -97,7 +97,7 @@ TbsGrid.prototype.tbs_setGridData = function (data) {
             // page.layout[columnName][grid.layout_color]     = '';
             // page.layout[columnName][grid.layout_backgroundColor]= '';
             // for merging
-            page.layout[columnName][grid.layout_visible] = col[grid.column_visible];
+            //page.layout[columnName][grid.layout_visible] = col[grid.column_visible];
             page.layout[columnName][grid.layout_rowSpan] = 1;
             page.layout[columnName][grid.layout_colSpan] = 1;
             // page.layout[columnName][grid.layout_subRowSpan] = 1;
@@ -131,8 +131,8 @@ TbsGrid.prototype.tbs_setGridData = function (data) {
         document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = data.length;
         this.tbs_displayPanel30(0);
         this.verticalScroll.tbs_setScroll(grid.code_vertical);
-        this.tbs_displayPanel40('panel40', grid.topColumns);
-        this.tbs_displayPanel50('panel50', grid.footerColumns);
+        this.tbs_displayPanel40();
+        this.tbs_displayPanel50();
     }
 
 }
@@ -150,14 +150,14 @@ TbsGrid.prototype.tbs_refreshRefData = function () {
         let itemLeftSelect = {};
         let itemLeftView = {};
 
-        itemSelect[grid.const_rowId] = data[rowIndex][grid.const_rowId];
+        itemSelect[grid.code_rowId] = data[rowIndex][grid.code_rowId];
         itemSelect.data = new Uint8ClampedArray([]); //new
 
-        itemLeftView[grid.const_mode] = ''; //insert, update, delete
-        itemLeftView[grid.const_rowId] = data[rowIndex][grid.const_rowId];
+        itemLeftView[grid.code_mode] = ''; //insert, update, delete
+        itemLeftView[grid.code_rowId] = data[rowIndex][grid.code_rowId];
 
-        itemLeftSelect[grid.const_mode] = 0; //insert, update, delete
-        itemLeftSelect[grid.const_rowId] = data[rowIndex][grid.const_rowId];
+        itemLeftSelect[grid.code_mode] = 0; //insert, update, delete
+        itemLeftSelect[grid.code_rowId] = data[rowIndex][grid.code_rowId];
 
         this.data_select_panel30.push(itemSelect);
         this.data_select_panel31.push(itemLeftSelect);
@@ -290,18 +290,18 @@ TbsGrid.prototype.tbs_setDataValue = function (rowIndex, id, value) {
 
     let cellIndex = this.tbs_getColumnIndex(id);
     let oldValue = this.data_view[rowIndex].data[id];
-    let mode = this.data_view[rowIndex][grid.const_mode];
+    let mode = this.data_view[rowIndex][grid.code_mode];
 
     let result = this.tbs_getFormat(this.columns[cellIndex], value);
     if (mode == 'I') {
         if (oldValue != result.value) {
             this.data_view[rowIndex].data[id] = result.value;
             this.tbs_setLayoutValue(rowIndex, id, this.layout_text, result.text);
-            let rowId = this.data_view[rowIndex][grid.const_rowId];
+            let rowId = this.data_view[rowIndex][grid.code_rowId];
             for (let i = 0; i < this.data_table.length; i++) {
-                if (rowId == this.data_table[i][grid.const_rowId]) {
+                if (rowId == this.data_table[i][grid.code_rowId]) {
                     this.data_table[i].data[id] = result.value;
-                    this.data_table[i][grid.const_mode]= 'I';
+                    this.data_table[i][grid.code_mode]= 'I';
                     break;
                 }
             }
@@ -310,13 +310,13 @@ TbsGrid.prototype.tbs_setDataValue = function (rowIndex, id, value) {
     else {
         if (oldValue != result.value) {
             this.data_view[rowIndex].data[id] = result.value;
-            this.data_view[rowIndex][grid.const_mode] = 'U';
+            this.data_view[rowIndex][grid.code_mode] = 'U';
             this.tbs_setLayoutValue(rowIndex, id, this.layout_text, result.text);
-            let rowId = this.data_view[rowIndex][grid.const_rowId];
+            let rowId = this.data_view[rowIndex][grid.code_rowId];
             for (let i = 0; i < this.data_table.length; i++) {
-                if (rowId == this.data_table[i][grid.const_rowId]) {
+                if (rowId == this.data_table[i][grid.code_rowId]) {
                     this.data_table[i].data[id] = result.value;
-                    this.data_table[i][grid.const_mode] = 'U';
+                    this.data_table[i][grid.code_mode] = 'U';
                     break;
                 }
             }
@@ -337,8 +337,8 @@ TbsGrid.prototype.tbs_createEmptyRow = function (rowId) {
     let columns = grid.columns;
 
     let row = {};
-    row[grid.const_rowId] = rowId;
-    row[grid.const_mode] = '';
+    row[grid.code_rowId] = rowId;
+    row[grid.code_mode] = '';
     row.data = {};
     row.layout = {};
 
@@ -351,7 +351,7 @@ TbsGrid.prototype.tbs_createEmptyRow = function (rowId) {
         // row.layout[columnName][grid.layout_color] = '';
         // row.layout[columnName][grid.layout_backgroundColor] = '';
 
-        row.layout[columnName][grid.layout_visible] = true;
+        //row.layout[columnName][grid.layout_visible] = true;
         row.layout[columnName][grid.layout_rowSpan] = 1;
         row.layout[columnName][grid.layout_colSpan] = 1;
         // row.layout[columnName][grid.layout_subRowSpan] = 1;
@@ -368,14 +368,14 @@ TbsGrid.prototype.tbs_createRow = function (row) {
     let rowId = this.maxRowId;
 
     let source = {};
-    source[grid.const_rowId] = rowId;
-    source[grid.const_mode] = 'I';
+    source[grid.code_rowId] = rowId;
+    source[grid.code_mode] = 'I';
     source.data = {};
     source.layout = {};
 
     let data30 = {};
-    data30[grid.const_rowId] = rowId;
-    data30[grid.const_mode] = 'I';
+    data30[grid.code_rowId] = rowId;
+    data30[grid.code_mode] = 'I';
     data30.data = {};
     data30.layout = {};
 
@@ -384,7 +384,7 @@ TbsGrid.prototype.tbs_createRow = function (row) {
         let id = column[grid.column_name];
         source.data[id] = this.null(row[id]) ? null : row[id];
         source.layout[id] = {};
-        source.layout[id][grid.layout_visible] = column[grid.layout_visible];
+        //source.layout[id][grid.layout_visible] = column[grid.layout_visible];
         source.layout[id][grid.layout_rowSpan] = 1;
         source.layout[id][grid.layout_colSpan] = 1;
         source.layout[id][grid.layout_subRowSpan] = 1;
@@ -395,7 +395,7 @@ TbsGrid.prototype.tbs_createRow = function (row) {
 
         data30.data[id] = this.null(row[id]) ? null : row[id];
         data30.layout[id] = {};
-        data30.layout[id][grid.layout_visible] = column[grid.layout_visible];
+        //data30.layout[id][grid.layout_visible] = column[grid.layout_visible];
         data30.layout[id][grid.layout_rowSpan] = 1;
         data30.layout[id][grid.layout_colSpan] = 1;
         data30.layout[id][grid.layout_subRowSpan] = 1;
@@ -435,7 +435,7 @@ TbsGrid.prototype.tbs_getSourceRowByRowId = function (rowId) {
     let result = {};
     let grid = this;
     for (let i = 0, len = this.data_table.length; i < len; i++) {
-        if (this.data_table[i][grid.const_rowId] == rowId) {
+        if (this.data_table[i][grid.code_rowId] == rowId) {
             result = grid.tbs_copyJson(this.data_table[i]);
             break;
         }
@@ -446,7 +446,7 @@ TbsGrid.prototype.tbs_getRowByRowId = function (rowId) {
     let result = {};
     let grid = this;
     for (let i = 0, len = this.data_view.length; i < len; i++) {
-        if (this.data_view[i][grid.const_rowId] == rowId) {
+        if (this.data_view[i][grid.code_rowId] == rowId) {
             result = grid.tbs_copyJson(this.data_view[i]);
             break;
         }
@@ -457,7 +457,7 @@ TbsGrid.prototype.tbs_getRowIndexByRowId = function (rowId) {
     let result = {};
     let grid = this;
     for (let i = 0, len = this.data_view.length; i < len; i++) {
-        if (this.data_view[i][grid.const_rowId] == rowId) {
+        if (this.data_view[i][grid.code_rowId] == rowId) {
             result = i;
             break;
         }
@@ -476,8 +476,8 @@ TbsGrid.prototype.tbs_getSelectedRows = function () {
     let len = grid.data_view.length;
     for (rowIndex = 0; rowIndex < len; rowIndex++) {
         let item = {};
-        item[grid.const_rowId] = grid.data_view[rowIndex][grid.const_rowId];
-        item[grid.const_mode]  = grid.data_view[rowIndex][grid.const_mode];
+        item[grid.code_rowId] = grid.data_view[rowIndex][grid.code_rowId];
+        item[grid.code_mode]  = grid.data_view[rowIndex][grid.code_mode];
         item.rowIndex = rowIndex;
         item.data = grid.tbs_copyJson(grid.data_view[rowIndex].data);
         if (this.tbs_isSelectedCell31(rowIndex, 0) == 1) result.push(item);
@@ -611,8 +611,8 @@ TbsGrid.prototype.tbs_getChangedRowsData_ref = function () {
     let result = [];
     for (let i = 0; i < c; i++) {
         let r = d[i];
-        if (r[grid.const_mode] != 'U' && r[grid.const_mode] != 'I') continue;
-        if (r[grid.const_mode] == 'U') {
+        if (r[grid.code_mode] != 'U' && r[grid.code_mode] != 'I') continue;
+        if (r[grid.code_mode] == 'U') {
             let column = this.columns;
             for (let key in r.data) {
                 for (let x = 0; x < column.length; x++) {
@@ -669,8 +669,8 @@ TbsGrid.prototype.tbs_getDeletedRowsData = function () {
     for (let i = 0, len = rows.length; i < len; i++) {
         let row = rows[i];
         let item = JSON.parse(JSON.stringify(row.data));
-        item[grid.const_rowId] = row[grid.const_rowId];
-        item[grid.const_mode]  = row[grid.const_mode];
+        item[grid.code_rowId] = row[grid.code_rowId];
+        item[grid.code_mode]  = row[grid.code_mode];
         result.push(item);
     }
     return result;
@@ -682,8 +682,8 @@ TbsGrid.prototype.tbs_getUpdatedRowsData = function () {
         let row = rows[i];
         if (row.mode == 'U') {
             let item = JSON.parse(JSON.stringify(row.data));
-            item[grid.const_rowId] = row[grid.const_rowId];
-            item[grid.const_mode] = row[grid.const_mode];
+            item[grid.code_rowId] = row[grid.code_rowId];
+            item[grid.code_mode] = row[grid.code_mode];
             result.push(item);
         }
     }
@@ -694,10 +694,10 @@ TbsGrid.prototype.tbs_getInsertedRowsData = function () {
     let result = [];
     for (let i = 0, len = rows.length; i < len; i++) {
         let row = rows[i];
-        if (row[grid.const_mode] == 'I') {
+        if (row[grid.code_mode] == 'I') {
             let item = JSON.parse(JSON.stringify(row.data));
-            item[this.const_rowId] = row[grid.const_rowId];
-            item[this.const_mode ] = row[grid.const_mode];
+            item[this.code_rowId] = row[grid.code_rowId];
+            item[this.code_mode ] = row[grid.code_mode];
             result.push(item);
         }
     }
@@ -811,26 +811,26 @@ TbsGrid.prototype.tbs_removeRows = function (rows) {
     let nextRowIndex = -1;
 
     for (let i = 0; i < data.length; i++) { 	// find next rowIndex
-        if (data[i][grid.const_rowId] == rows[rows.length - 1][grid.const_rowId]) { nextRowIndex = i + 1; break; }
+        if (data[i][grid.code_rowId] == rows[rows.length - 1][grid.code_rowId]) { nextRowIndex = i + 1; break; }
     }
 
     nextRowIndex = (nextRowIndex > data.length - 1) ? nextRowIndex - 1 : nextRowIndex;
-    nextRowId = data[nextRowIndex][grid.const_rowId];
+    nextRowId = data[nextRowIndex][grid.code_rowId];
 
     //Data 삭제
     data = this.data_table;
-    for (let i = data.length - 1; i >= 0; i--) { for (let x = rows.length - 1; x >= 0; x--) { if (data[i][grid.const_rowId] == rows[x][grid.const_rowId]) { data.splice(i, 1); break; } } }
+    for (let i = data.length - 1; i >= 0; i--) { for (let x = rows.length - 1; x >= 0; x--) { if (data[i][grid.code_rowId] == rows[x][grid.code_rowId]) { data.splice(i, 1); break; } } }
 
     data = this.data_view;
     for (let i = data.length - 1; i >= 0; i--) {
         for (let x = rows.length - 1; x >= 0; x--) {
-            if (data[i][grid.const_rowId] == rows[x][grid.const_rowId]) { data.splice(i, 1); break; }
+            if (data[i][grid.code_rowId] == rows[x][grid.code_rowId]) { data.splice(i, 1); break; }
         }
     }
     data = this.data_delete;
-    for (let i = data.length - 1; i >= 0; i--) { for (let x = rows.length - 1; x >= 0; x--) { if (data[i][grid.const_rowId] == rows[x][grid.const_rowId]) { data.splice(i, 1); break; } } }
+    for (let i = data.length - 1; i >= 0; i--) { for (let x = rows.length - 1; x >= 0; x--) { if (data[i][grid.code_rowId] == rows[x][grid.code_rowId]) { data.splice(i, 1); break; } } }
     for (let i = 0; i < rows.length; i++) {
-        if (rows[i][grid.const_mode] == '' || rows[i][grid.const_mode] == 'U') { rows[i][grid.const_mode] = 'D'; data.push(rows[i]); }
+        if (rows[i][grid.code_mode] == '' || rows[i][grid.code_mode] == 'U') { rows[i][grid.code_mode] = 'D'; data.push(rows[i]); }
     }
     //==============================================
     let deleteFirstRowIndex = rows[0].rowIndex;
@@ -958,7 +958,7 @@ TbsGrid.prototype.tbs_removeRowInPanel30 = function (rowToDelete) {
     let dataRows= grid.data_view;
     for (let i= 0, len= dataRows.length; i < len; i++) {
         let dataRow = dataRows[i];
-        if (rowToDelete[grid.const_rowId] == dataRow[grid.const_rowId]) {
+        if (rowToDelete[grid.code_rowId] == dataRow[grid.code_rowId]) {
             dataRows.splice(i, 1);
             break;
         }
@@ -971,7 +971,7 @@ TbsGrid.prototype.tbs_removeRowInSource = function (rowToDelete) {
     let dataRows= grid.data_table;
     for (let i= 0, len= dataRows.length; i < len; i++) {
         let dataRow = dataRows[i];
-        if (rowToDelete[grid.const_rowId] == dataRow[grid.const_rowId]) {
+        if (rowToDelete[grid.code_rowId] == dataRow[grid.code_rowId]) {
             dataRows.splice(i, 1);
             break;
         }

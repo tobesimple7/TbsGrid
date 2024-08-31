@@ -88,4 +88,8 @@ TbsGrid.prototype.setTreeData = function (data, openDepth) { this.tbs_setTreeDat
 TbsGrid.prototype.setTreeSortColumn = function (sortColumn) { this.tbs_setTreeSortColumns(sortColumn); }
 /* Page */
 TbsGrid.prototype.setPageOption = function (optionName, optionValue) { this.classPage.tbs_setPageOption(optionName, optionValue); }
+/* Group */
+TbsGrid.prototype.setGroupOption = function (optionName, optionValue) { this.classGroup.tbs_setGroupOption(optionName, optionValue); }
+TbsGrid.prototype.setgroupColumns = function (groupColumns) { this.tbs_setgroupColumns(groupColumns); }
+TbsGrid.prototype.setGroupData = function (data, openDepth) { this.tbs_setGroupData(data, openDepth); }
 

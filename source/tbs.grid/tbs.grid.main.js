@@ -25,7 +25,7 @@ TbsGrid.prototype.tbs_createFrame = function () {
     s += '  </div>';
     s += '</div>';
     // Grouping : panel80
-    if (grid.options[grid.option_groupVisible] == true) s += '<div class="tbs-grid-panel80 tbs-show"></div>';
+    if (grid.classGroup.options[grid.code_showGroupPanel] == true) s += '<div class="tbs-grid-panel80 tbs-show"></div>';
     else s += '<div class="tbs-grid-panel80 tbs-hide"></div>';
     // sorting  : panel90
     if (grid.options[grid.option_sortVisible] == true) s += '<div class="tbs-grid-panel90 tbs-show"></div>';
@@ -967,14 +967,14 @@ TbsGrid.prototype.tbs_createTable80 = function (){
     let selector = '#' + this.gridId;
     let grid = this;
 
-    if (grid.options[grid.option_groupVisible] != true) return;
+    if (grid.classGroup.options[grid.code_showGroupPanel] != true) return;
 
     let div = document.createElement('div');
     div.className = 'tbs-grid-panel-bar';
 
     let span = document.createElement('span');
     span.className = 'tbs-grid-panel-bar-span';
-    span.textContent = grid.const_groupingPlaceHolder;
+    span.textContent = grid.classGroup.infoText;
     div.appendChild(span);
     document.querySelector(selector + ' .tbs-grid-panel80').innerHTML = '';
     document.querySelector(selector + ' .tbs-grid-panel80').appendChild(div);
@@ -1438,7 +1438,7 @@ TbsGrid.prototype.setGroup = function (sortColumns, summaryColumns, mergeType) {
         }
     }
     if (grid.summaryColumns.length > 0) setGroupBy(0, grid.data_view.length - 1, grid.summaryColumns[0].column_id, 0, 0);
-    grid.groupView = groupView;
+    grid.classGroup.groupView = groupView;
     //============================================================= [End] groupView with
 
     //============================================================= layout
@@ -1446,12 +1446,12 @@ TbsGrid.prototype.setGroup = function (sortColumns, summaryColumns, mergeType) {
         for(let i = srow, k = 0; i <= erow; i++, k++){
             let layout = grid.data_view[i].layout[id];
             if (grid.mergeType == 1) {
-                layout[grid.layout_visible]    = (i == srow) ? true : false; //hide
+                //layout[grid.layout_visible]    = (i == srow) ? true : false; //hide
                 layout[grid.layout_rowSpan]    = (i == srow) ? erow - srow + 1 - k : 1;
                 layout[grid.layout_subRowSpan] = erow - srow + 1 - k;
             }
             else if (grid.mergeType == 2) {
-                layout[grid.layout_visible]    = true;
+                //layout[grid.layout_visible]    = true;
                 layout[grid.layout_text] 	  = (i == srow) ?  layout[grid.layout_text] : '';
                 layout[grid.layout_rowSpan]    = 1;
                 layout[grid.layout_subRowSpan] = 1;
@@ -1460,23 +1460,23 @@ TbsGrid.prototype.setGroup = function (sortColumns, summaryColumns, mergeType) {
                 }
             }
             else if (grid.mergeType == 3) {
-                layout[grid.layout_visible]    = true;
+                //layout[grid.layout_visible]    = true;
                 layout[grid.layout_rowSpan]    = 1;
                 layout[grid.layout_subRowSpan] = 1;
             }
             else if (grid.mergeType == 4) {
-                layout[grid.layout_visible]    = true;
+                //layout[grid.layout_visible]    = true;
                 layout[grid.layout_text] 	  = (i == srow) ?  layout[grid.layout_text] : '';
                 layout[grid.layout_rowSpan]    = 1;
                 layout[grid.layout_subRowSpan] = 1;
             }
             else if (grid.mergeType == 5) {
-                layout[grid.layout_visible]    = (i == srow) ? true : false;
+                //layout[grid.layout_visible]    = (i == srow) ? true : false;
                 layout[grid.layout_rowSpan]    = (i == srow) ? erow - srow + 1 - k : 1;
                 layout[grid.layout_subRowSpan] = erow - srow + 1 - k;
             }
             else if (grid.mergeType == 6) {
-                layout[grid.layout_visible]    = (i == srow) ? true : false;
+                //layout[grid.layout_visible]    = (i == srow) ? true : false;
                 layout[grid.layout_rowSpan]    = (i == srow) ? erow - srow + 1 - k : 1;
                 layout[grid.layout_subRowSpan] = erow - srow + 1 - k;
             }
@@ -1486,7 +1486,7 @@ TbsGrid.prototype.setGroup = function (sortColumns, summaryColumns, mergeType) {
         for(let x = 0, len2 = grid.summaryColumns.length; x < len2; x++){
             let id = summaryColumns[x].column_id;
             let layout = grid.data_view[i].layout[id];
-            let group  = grid.groupView[i][id];
+            let group  = grid.classGroup.groupView[i][id];
             if (group.srow != -1) {
                 layout.layout_srow       = group.srow      ;
                 layout.layout_erow       = group.erow      ;
@@ -1542,7 +1542,7 @@ TbsGrid.prototype.setGroup = function (sortColumns, summaryColumns, mergeType) {
         grid.getGroupRowInit(tmpRow, id);
         grid.getGroupRowSum(tmpRow, srow, erow);
         //=============================================================
-        tmpRow[grid.const_mode] = 'S';
+        tmpRow[grid.code_mode] = 'S';
         tmpRow.colorDepth = layout.depth;
         tmpView.push(JSON.parse(JSON.stringify(tmpRow)));
 
@@ -1561,7 +1561,7 @@ TbsGrid.prototype.setGroup = function (sortColumns, summaryColumns, mergeType) {
         grid.getGroupRowInit(tmpRow, '');
         grid.getGroupRowSum(tmpRow, srow, erow);
         //=============================================================
-        tmpRow[grid.const_mode] = 'S';
+        tmpRow[grid.code_mode] = 'S';
         tmpRow.colorDepth = '';
         newView.push(JSON.parse(JSON.stringify(tmpRow)));
     }

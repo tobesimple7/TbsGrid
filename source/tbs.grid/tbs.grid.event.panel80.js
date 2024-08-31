@@ -1,6 +1,5 @@
 ﻿/**
- * tbs.grid.panel20.js
- *
+ * @Rule Group Event
  *
  *
  */
@@ -67,153 +66,19 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
     const mouseUpEvent = function(e) {
         grid.lastX = lastX = window.pageXOffset + e.clientX;
         grid.lastY = lastY = window.pageYOffset + e.clientY;
+
         let isInPanel80 = grid.tbs_isInPanel(e, 'panel80', lastX, lastY);
-        let isInPanel20 = grid.tbs_isInPanel(e, 'panel20', lastX, lastY);
         //console.log(`${mouseButton} ${startX} == ${lastX} ${startY} == ${lastY}`);
         //console.log(`isInPanel11 ${isInPanel80} isInPanel20 ${isInPanel20}`);
-//=============================================================================================
         if (isInPanel80) {
-            if (grid.options[grid.option_groupVisible] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
+            if (grid.classGroup.options[grid.code_showGroupPanel] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
                 let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
                 let rectMoveCell = document.querySelector('.tbs-grid-move').getBoundingClientRect();
-                // moveCell 의 정보가 없다.
             }
             if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
-            flagLeft = false;
-            flagRight = false;
+
             document.removeEventListener('mousemove', mouseMoveEvent);
             document.removeEventListener('mouseup', mouseUpEvent);
-        }
-//=============================================================================================
-        else if (isInPanel20) {
-            //let isInArea = grid.tbs_isInPanel(e, 'panel20', lastX, lastY);
-            //if (isInArea) {
-            if (mouseButton == 0 && startX > lastX - grid.grid_mousePointRange && startX < lastX + grid.grid_mousePointRange
-                && startY > lastY - grid.grid_mousePointRange && startY < lastY + grid.grid_mousePointRange) {
-                grid.event_columnSort(e.target.closest('.tbs-grid-cell'));
-            } else {
-                const changeColumnOrder = function () {
-                    let trList = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table tbody tr');
-                    let columns = grid.columns;
-                    let rowLen = trList.length;
-                    let colLen = columns.length;
-                    let arr = [];
-                    for (let x = 0; x < colLen; x++) {
-                        for (let i = 0; i < rowLen; i++) {
-                            let cell = trList[i].childNodes[x];
-                            if (cell.dataset.name == '') continue;
-                            arr.push(cell.dataset.name);
-                        }
-                    }
-                    let colList = [];
-                    for (let i = 0, len = arr.length; i < len; i++) {
-                        for (let x = 0; x < colLen; x++) {
-                            if (arr[i] == columns[x][grid.column_name]) {
-                                colList.push(JSON.parse(JSON.stringify(columns[x])));
-                                break;
-                            }
-                        }
-                    }
-                    grid.columns = JSON.parse(JSON.stringify(colList));
-                }
-                const changeHeaderColumnOrder = function (moveCell, targetCell, direction) { //2022.05.11
-                    const splice = function (arr, copyArr, selectIndex, targetIndex, direction) {
-                        if (direction == 'after') targetIndex += 1;
-                        arr.splice(targetIndex, 0, JSON.parse(JSON.stringify(copyArr[selectIndex]))); //splice  before function
-                        for (let x = 0, colLen = arr.length; x < colLen; x++) {
-                            arr[x].colIndex = x;
-                        }
-                    }
-                    let headerColumns = grid.headerColumnTable;
-                    let movingHeaderColumn = headerColumns[moveCell.parentNode.rowIndex - 1][moveCell.cellIndex];
-
-                    let startRowIndex = movingHeaderColumn[grid.column_rowIndex];
-                    let lastRowIndex = grid.headerColumnTable.length - 1;
-
-                    let startColIndex = movingHeaderColumn[grid.column_colIndex];
-                    let lastColIndex = startColIndex + moveCell.colSpan - 1;
-
-                    let targetColIndex = (direction == 'after') ? targetCell.cellIndex + targetCell.colSpan - 1 : targetCell.cellIndex;
-                    let copyHeaderColumns = JSON.parse(JSON.stringify(grid.headerColumnTable));
-                    for (let i = startRowIndex; i <= lastRowIndex; i++) {
-                        for (let x = lastColIndex; x >= startColIndex; x--) {
-                            splice(headerColumns[i], copyHeaderColumns[i], x, targetColIndex, direction);
-                        }
-                    }
-                    for (let i = startRowIndex; i <= lastRowIndex; i++) {
-                        let delIndex = (targetColIndex < startColIndex) ? startColIndex + moveCell.colSpan : startColIndex;
-                        headerColumns[i].splice(delIndex, moveCell.colSpan);
-                        for (let x = 0, colLen = grid.columns.length; x < colLen; x++) {
-                            //console.log(`i ${i} x ${x}`);
-                            grid.headerColumnTable[i][x][grid.column_colIndex] = x;
-                        }
-                    }
-                }
-                if (grid.options[grid.option_movable] && document.querySelectorAll('.tbs-grid-move').length > 0) {
-                    let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
-                    let rectMoveCell = document.querySelector('.tbs-grid-move').getBoundingClientRect();
-
-                    let headerColumns = grid.headerColumnTable;
-                    let xPos = window.pageXOffset + e.clientX;
-                    let movingColumn = headerColumns[moveCellRowIndex - 1][moveCellIndex];
-                    let targetCol;
-                    let tdList20 = document.querySelectorAll(selector + ' .tbs-grid-panel20 tbody td:not([style*="display :none"]');
-                    let posWidth = 50;
-
-                    for (let x = 0, len = tdList20.length; x < len; x++) {
-                        let cell = tdList20[x];
-                        targetCol = headerColumns[cell.parentNode.rowIndex - 1][cell.cellIndex];
-                        if (rectMoveCell.right < rectPanel30.left || rectPanel30.right < rectMoveCell.left) {
-                        } else {
-                            //let direction;
-                            let b = false;
-                            if ((xPos - posWidth <= cell.getBoundingClientRect().left && cell.getBoundingClientRect().left <= xPos + posWidth)
-                                && movingColumn[grid.column_rowIndex] == targetCol[grid.column_rowIndex]
-                                && movingColumn[grid.column_parentNum] == targetCol[grid.column_parentNum]  //column_parentNum
-                                && moveCell.cellIndex != cell.cellIndex) {
-                                changeHeaderColumnOrder(moveCell, cell, 'before');
-                                direction = 'before';
-                                b = true;
-                                break;
-                            }
-                            if (!b) {
-                                if ((xPos - posWidth <= cell.getBoundingClientRect().right && cell.getBoundingClientRect().right <= xPos + posWidth)
-                                    && movingColumn[grid.column_rowIndex] == targetCol[grid.column_rowIndex]
-                                    && movingColumn[grid.column_parentNum] == targetCol[grid.column_parentNum]
-                                    && moveCell.cellIndex != cell.cellIndex) {
-                                    changeHeaderColumnOrder(moveCell, cell, 'after');
-                                    direction = 'after';
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    grid.tbs_displayPanel20();
-                    changeColumnOrder();
-
-                    if (grid.topColumns.length > 0) grid.tbs_displayPanel40('panel40', grid.topColumns);
-                    if (grid.footerColumns.length > 0) grid.tbs_displayPanel50('panel50', grid.footerColumns);
-
-                    let columns = grid.columns;
-                    let tableRows20 = document.querySelectorAll(selector + ' .tbs-grid-panel20  thead th');
-                    let tableRows30 = document.querySelectorAll(selector + ' .tbs-grid-panel30  thead th');
-
-                    for (let i = 0, len = columns.length; i < len; i++) {
-                        let column = columns[i];
-                        let styleWidth = column[grid.column_width] + 'px';
-                        tableRows20[i].style.width = styleWidth;
-                        tableRows30[i].style.width = styleWidth;
-                    }
-                    grid.tbs_removeRange(0, -1);
-                    grid.tbs_displayPanel30(grid.tbs_getFirstRowIndex());
-                }
-                if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
-                flagLeft = false;
-                flagRight = false;
-            }
-            document.removeEventListener('mousemove', mouseMoveEvent);
-            document.removeEventListener('mouseup', mouseUpEvent);
-            grid.input_focus();
         }
         else {
             if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
@@ -231,13 +96,13 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
         else if (e.target.classList.contains('tbs-grid-panel-button'))      { targetName = 'button' ; element = e.target; }
         else if (e.target.classList.contains('tbs-grid-panel-bar'))         { targetName = 'bar'    ; element = e.target; }
         else return;
-
         if (targetName == 'icon') {
             grid.tbs_removeGroupButton(element);
         }
-        else {
-
-        }
+        flagLeft = false;
+        flagRight = false;
+        document.removeEventListener('mousemove', mouseMoveEvent);
+        document.removeEventListener('mouseup', mouseUpEvent);
     }
     
     const selectCellMove = function(e, table) {
@@ -389,35 +254,11 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
 				grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, minCellIndex);
             }
         }
-        //==================================================================
-        else if (type == 'down') {
-        //==================================================================
-            grid.tbs_setBarPositionByDirection('down');
-            if (lastRowIndex < (grid.data_view.length - 1)) {
-                lastRowIndex += 1;
-                grid.tbs_removeRange(0, -1);
-                grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex,lastCellIndex);
-            }
-            else flagDown = false;
-
-        }
-        //==================================================================
-        else if (type == 'up') {
-        //==================================================================
-            grid.tbs_setBarPositionByDirection('up');
-            if (lastRowIndex != 0) {
-                lastRowIndex -= 1;
-                grid.tbs_removeRange(0, -1);
-				grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex);
-            }
-            else flagUp = false;
-        }
-        //==================================================================
     }
     
     const doInterval = function(type, lastX, lastY) {
         if (flagLeft) {
-                //flagLeft  = false;
+            //flagLeft  = false;
             flagRight   = false;
 			setTimeout(function() {doInterval('left', lastX, lastY);}, 5);
             selectRefresh('left', lastX, lastY);
@@ -429,6 +270,5 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
             selectRefresh('right', lastX, lastY);
         }
     }
-
     panel80.addEventListener('mousedown', mouseDownEvent);
 }

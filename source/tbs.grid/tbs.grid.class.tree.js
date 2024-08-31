@@ -35,26 +35,26 @@ TbsGrid.prototype.tbs_createTreeData = function(dataRows) {
 
     dataRows.map(row => copyRows.push(grid.tbs_copyJson(row)));
     const fn_getChildrenRowIds = function(row) {
-        row[grid.const_children] = [];
+        row[grid.code_children] = [];
         for (let i = 0, len= copyRows.length; i < len; i++) {
             let copyRow = copyRows[i];
             if (row[grid.classTree.options['name']] == copyRow[grid.classTree.options['parentName']]) {
-                row[grid.const_children].push(copyRow[grid.const_rowId]);
+                row[grid.code_children].push(copyRow[grid.code_rowId]);
             }
         }
     }
     const fn_addChildrenRows = function(row, depth = 1) {
         fn_getChildrenRowIds(row); // return rowId Array
 
-        let arr = row[grid.const_children];
-        row[grid.const_depth] = depth;
+        let arr = row[grid.code_children];
+        row[grid.code_depth] = depth;
 
         resultRows.push(grid.tbs_copyJson(row));
 
         if (arr.length > 0) {
             for (let i = 0, len = copyRows.length; i < len; i++) {
                 let copyRow = copyRows[i];
-                if (arr.indexOf(copyRow[grid.const_rowId]) != -1) fn_addChildrenRows(copyRow, depth + 1);
+                if (arr.indexOf(copyRow[grid.code_rowId]) != -1) fn_addChildrenRows(copyRow, depth + 1);
             }
         }
     }
@@ -88,7 +88,7 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
     let columns = grid.columns;
     let dataRows= data;
 
-    dataRows.map((dataRow, rowIndex) => dataRow[grid.const_rowId] = rowIndex);
+    dataRows.map((dataRow, rowIndex) => dataRow[grid.code_rowId] = rowIndex);
 
     // 1) data sorting (to do : sorting)
     // 2) data setting : all rows
@@ -100,14 +100,14 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
         let data30 = {};
         let row = dataRows[i];
 
-        source[grid.const_rowId] = data30[grid.const_rowId] = row[grid.const_rowId];
-        source[grid.const_mode]     = data30[grid.const_mode]  = ''; // S, U, I, D, blank
-        source[grid.const_depth]    = data30[grid.const_depth] = row[grid.const_depth];
+        source[grid.code_rowId] = data30[grid.code_rowId] = row[grid.code_rowId];
+        source[grid.code_mode]     = data30[grid.code_mode]  = ''; // S, U, I, D, blank
+        source[grid.code_depth]    = data30[grid.code_depth] = row[grid.code_depth];
 
         //data30[grid.const_seq]   = parseInt(i + 1);
-        source[grid.const_children] = grid.tbs_copyJson(row[grid.const_children]);
-        data30[grid.const_children] = grid.tbs_copyJson(row[grid.const_children]);
-        source[grid.const_isOpen]   = false;// keep open, closed state
+        source[grid.code_children] = grid.tbs_copyJson(row[grid.code_children]);
+        data30[grid.code_children] = grid.tbs_copyJson(row[grid.code_children]);
+        source[grid.code_isOpen]   = false;// keep open, closed state
 
         source.data = {}; source.layout = {};
         data30.data = {}; data30.layout = {};
@@ -122,7 +122,7 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
             data30.data[id] = val;
 
             source.layout[id] = {};
-            source.layout[id][grid.layout_visible] = col[grid.column_visible]; //for merge cell
+            //source.layout[id][grid.layout_visible] = col[grid.column_visible]; //for merge cell
             source.layout[id][grid.layout_text] = grid.tbs_getFormatText(col, row[id]);
             source.layout[id][grid.layout_rowSpan] = 1;
             source.layout[id][grid.layout_colSpan] = 1;
@@ -133,7 +133,7 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
 
             data30.data[id] = val;
             data30.layout[id] = {};
-            data30.layout[id][grid.layout_visible] = col[grid.column_visible];
+            //data30.layout[id][grid.layout_visible] = col[grid.column_visible];
             data30.layout[id][grid.layout_text] = grid.tbs_getFormatText(col, row[id]);
             data30.layout[id][grid.layout_rowSpan] = 1;
             data30.layout[id][grid.layout_colSpan] = 1;
@@ -168,8 +168,8 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
         document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = dataRows.length;
         grid.verticalScroll.tbs_setScroll(grid.code_vertical);
         grid.tbs_displayPanel30(0);
-        grid.tbs_displayPanel40('panel40', grid.topColumns);
-        grid.tbs_displayPanel50('panel50', grid.footerColumns);
+        grid.tbs_displayPanel40();
+        grid.tbs_displayPanel50();
     }
     if (grid.options[grid.option_autoWidth] == true)  grid.tbs_setColumnAutoWidth();
 
@@ -247,8 +247,8 @@ TbsGrid.prototype.tbs_setTreeDataTable3 = function (param) {
             // open all
             if (x == startColumnIndex) {
                 let row = grid.tbs_getRow(i);
-                let rowDepth = row[grid.const_depth];
-                let childrenRows = row[grid.const_children];
+                let rowDepth = row[grid.code_depth];
+                let childrenRows = row[grid.code_children];
 
                 let icon = grid.tbs_createElementCellIcon(); // .tbs-grid-cell-div-icon .open-icon / .closed-icon
                 grid.tbs_prependIcon(tableCell, icon);
@@ -258,7 +258,7 @@ TbsGrid.prototype.tbs_setTreeDataTable3 = function (param) {
                 grid.tbs_setCellStyle(tableCell, 'textAlign'      , column[grid.column_align]);
                 grid.tbs_setCellStyle(tableCell, 'width'          , column[grid.column_width] + 'px');
                 grid.tbs_setCellStyle(tableCell, 'backgroundImage', '');
-                grid.tbs_setCellStyle(tableCell, 'display'        , layout[grid.layout_visible] == true ? '' : 'none');
+                grid.tbs_setCellStyle(tableCell, 'display'        , column[grid.column_visible] == true ? '' : 'none');
                 grid.tbs_setCell(tableCell, 'rowSpan', '1');
                 grid.tbs_setCell(tableCell, 'rowSpan', layout[grid.layout_rowSpan]);
             }
@@ -266,7 +266,7 @@ TbsGrid.prototype.tbs_setTreeDataTable3 = function (param) {
                 grid.tbs_setCellStyle(tableCell, 'textAlign'      , column[grid.column_align]);
                 grid.tbs_setCellStyle(tableCell, 'width'          , column[grid.column_width] + 'px');
                 grid.tbs_setCellStyle(tableCell, 'backgroundImage', '');
-                grid.tbs_setCellStyle(tableCell, 'display'        , layout[grid.layout_visible] == true ? '' : 'none');
+                grid.tbs_setCellStyle(tableCell, 'display'        , column[grid.column_visible] == true ? '' : 'none');
                 grid.tbs_setCell(tableCell, 'rowSpan', '1');
                 grid.tbs_setCell(tableCell, 'rowSpan', layout[grid.layout_rowSpan]);
             }
@@ -310,7 +310,7 @@ TbsGrid.prototype.tbs_setTreeDataHeaderTable3 = function(param) {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    grid.tbs_setTreeDataHeaderTable3(param);
+    grid.tbs_setDataHeaderTable3(param);
 }
 /**
  *
@@ -321,7 +321,7 @@ TbsGrid.prototype.tbs_setTreeIcon = function (tableCell, rowIndex) {
     let selector = '#' + this.gridId;
     let grid = this;
     let row = grid.tbs_getRow(rowIndex);
-    let arrayChildren = row[grid.const_children];
+    let arrayChildren = row[grid.code_children];
     let element = tableCell.querySelector('.tbs-grid-cell-div-icon');
 
     if (arrayChildren.length > 0) {
@@ -339,8 +339,8 @@ TbsGrid.prototype.tbs_setTreeIcon = function (tableCell, rowIndex) {
 TbsGrid.prototype.tbs_toggleTreeIcon = function (rowIndex, element, type) {
     let selector = '#' + this.gridId;
     let grid = this;
-    if      (type == grid.const_open)   element.style['backgroundImage'] = 'url(' + grid.options[grid.option_imageRoot] + 'tree_open.png)';
-    else if (type == grid.const_closed) element.style['backgroundImage'] = 'url(' + grid.options[grid.option_imageRoot] + 'tree_closed.png)';
+    if      (type == grid.code_open)   element.style['backgroundImage'] = 'url(' + grid.options[grid.option_imageRoot] + 'tree_open.png)';
+    else if (type == grid.code_closed) element.style['backgroundImage'] = 'url(' + grid.options[grid.option_imageRoot] + 'tree_closed.png)';
     else element.style['backgroundImage'] = '';
 }
 TbsGrid.prototype.tbs_getTreeFlodingStatus = function (tableCell) {
@@ -350,8 +350,8 @@ TbsGrid.prototype.tbs_getTreeFlodingStatus = function (tableCell) {
     let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
     if (grid.null(spanIcon)) return null;
 
-    if (spanIcon.style['backgroundImage'].includes('tree_open.png')) return grid.const_open;
-    else if (spanIcon.style['backgroundImage'].includes('tree_closed.png')) return grid.const_closed;
+    if (spanIcon.style['backgroundImage'].includes('tree_open.png')) return grid.code_open;
+    else if (spanIcon.style['backgroundImage'].includes('tree_closed.png')) return grid.code_closed;
     else return null;
 }
 /**
@@ -370,8 +370,8 @@ TbsGrid.prototype.tbs_setTreeFolding = function (tableCell) {
     if (grid.null(spanIcon)) return;
 
     let folding = grid.tbs_getTreeFlodingStatus(tableCell);
-    if      (folding == grid.const_open)   grid.tbs_closeTreeRow(rowIndex);
-    else if (folding == grid.const_closed) grid.tbs_openTreeRow(rowIndex, false);
+    if      (folding == grid.code_open)   grid.tbs_closeTreeRow(rowIndex);
+    else if (folding == grid.code_closed) grid.tbs_openTreeRow(rowIndex, false);
 
     grid.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
     grid.verticalScroll.tbs_setScroll(grid.code_vertical);
@@ -386,23 +386,23 @@ TbsGrid.prototype.tbs_getTreeChildrenRows = function (folding, rowIndex, isAll =
     let resultRows= [];
     const fn_getChildrenRows = function(row, count) {
         if (count > 1) resultRows.push(grid.tbs_copyJson(row));
-        let arr = row[grid.const_children]; //rowId array
+        let arr = row[grid.code_children]; //rowId array
         if (arr.length > 0) {
             //default : get first lower rows
             if (count == 1) {
                 for (let i = 0, len = dataRows.length; i < len; i++) {
                     let dataRow = dataRows[i];
-                    if (arr.indexOf(dataRow[grid.const_rowId]) != -1) {
+                    if (arr.indexOf(dataRow[grid.code_rowId]) != -1) {
                         fn_getChildrenRows(dataRow, count + 1);
                     }
                 }
             }
             else {
-                if (folding == grid.const_open) {
-                    if (row[grid.const_isOpen]) {
+                if (folding == grid.code_open) {
+                    if (row[grid.code_isOpen]) {
                         for (let i = 0, len = dataRows.length; i < len; i++) {
                             let dataRow = dataRows[i];
-                            if (arr.indexOf(dataRow[grid.const_rowId]) != -1) {
+                            if (arr.indexOf(dataRow[grid.code_rowId]) != -1) {
                                 fn_getChildrenRows(dataRow, count + 1);
                             }
                         }
@@ -411,7 +411,7 @@ TbsGrid.prototype.tbs_getTreeChildrenRows = function (folding, rowIndex, isAll =
                 else {
                     for (let i = 0, len = dataRows.length; i < len; i++) {
                         let dataRow = dataRows[i];
-                        if (arr.indexOf(dataRow[grid.const_rowId]) != -1) {
+                        if (arr.indexOf(dataRow[grid.code_rowId]) != -1) {
                             fn_getChildrenRows(dataRow, count + 1);
                         }
                     }
@@ -428,13 +428,13 @@ TbsGrid.prototype.tbs_openTreeRow = function (rowIndex) {
     let grid = this;
 
     let row = grid.tbs_getRow(rowIndex);
-    let rowId = row[grid.const_rowId];
+    let rowId = row[grid.code_rowId];
     for (let i = 0, len = grid.data_table.length; i < len; i++) {
-        if (rowId == grid.data_table[i][grid.const_rowId])
-            grid.data_table[i][grid.const_isOpen] = true; // keep folding status
+        if (rowId == grid.data_table[i][grid.code_rowId])
+            grid.data_table[i][grid.code_isOpen] = true; // keep folding status
     }
 
-    let rows = grid.tbs_getTreeChildrenRows(grid.const_open, rowIndex, false);
+    let rows = grid.tbs_getTreeChildrenRows(grid.code_open, rowIndex, false);
     grid.tbs_addTreeRows(rowIndex);
 
 }
@@ -443,13 +443,13 @@ TbsGrid.prototype.tbs_closeTreeRow = function (rowIndex) {
     let grid = this;
 
     let row = grid.tbs_getRow(rowIndex);
-    let rowId = row[grid.const_rowId];
+    let rowId = row[grid.code_rowId];
     for (let i = 0, len = grid.data_table.length; i < len; i++) {
-        if (rowId == grid.data_table[i][grid.const_rowId])
-            grid.data_table[i][grid.const_isOpen] = false; // keep folding status
+        if (rowId == grid.data_table[i][grid.code_rowId])
+            grid.data_table[i][grid.code_isOpen] = false; // keep folding status
     }
 
-    let rows = grid.tbs_getTreeChildrenRows(grid.const_closed, rowIndex, true);
+    let rows = grid.tbs_getTreeChildrenRows(grid.code_closed, rowIndex, true);
     rows.map(row => grid.tbs_removeTreeRow(row));
 
 }
@@ -457,7 +457,7 @@ TbsGrid.prototype.tbs_addTreeRows = function (rowIndex) {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    let rows = grid.tbs_getTreeChildrenRows(grid.const_open, rowIndex, false);
+    let rows = grid.tbs_getTreeChildrenRows(grid.code_open, rowIndex, false);
     for (let i = 0, startRowIndex = rowIndex + 1, len = rows.length; i < len; i++, startRowIndex++) {
         grid.tbs_addTreeRow(startRowIndex, rows[i]);
     }

@@ -22,7 +22,8 @@ let tbsGridConfigs = {
             fontFamily: 'Arial, Helvetica, sans-serif',
         },
         options: {
-            imageRoot : '/tbs.grid/img/'
+            imageRoot : '/tbs.grid/img/',
+            groupInfoText : 'Drag columns.'
         }
     },
     ko: {
@@ -48,7 +49,8 @@ let tbsGridConfigs = {
             fontFamily: 'Nanum Gothic, Arial, Helvetica, sans-serif',
         },
         options: {
-            imageRoot : '/tbs.grid/img/'
+            imageRoot : '/tbs.grid/img/',
+            groupInfoText : '그룹지을 컬럼을 드래그 하세요.'
         }
     },
 }

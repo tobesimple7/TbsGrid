@@ -27,8 +27,8 @@ TbsGrid.prototype.tbs_setFooterData = function () {
     let footerColumns = grid.footerColumns;
     grid.data_footer = []; // set init
     let item = {};
-    item[grid.const_rowId] = grid.footerMaxRowId; grid.footerMaxRowId += 1;
-    item[grid.const_mode] = '';
+    item[grid.code_rowId] = grid.footerMaxRowId; grid.footerMaxRowId += 1;
+    item[grid.code_mode] = '';
     item.data = {};
     item.layout = {};
 
@@ -40,7 +40,7 @@ TbsGrid.prototype.tbs_setFooterData = function () {
         item.layout[columnName] = {};
         item.layout[columnName][grid.layout_text] = null;
         // for merging
-        item.layout[columnName][grid.layout_visible] = column[grid.column_visible];
+        //item.layout[columnName][grid.layout_visible] = column[grid.column_visible];
         item.layout[columnName][grid.layout_rowSpan] = 1;
         item.layout[columnName][grid.layout_colSpan] = 1;
     }

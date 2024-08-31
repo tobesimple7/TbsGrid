@@ -10,8 +10,11 @@ TbsGrid.prototype.panel21_select = function() { //type : header, content, left, 
     const mouseDownEvent = function (e) {
         let col = e.target.closest('.tbs-grid-cell')
         if (col.cellIndex == 0) {
+            let fromCellIndex = grid.tbs_getFirstVisibleColumnIndex();
+            let toCellIndex = grid.tbs_getLastVisibleColumnIndex();
+
             grid.tbs_removeRange(0, -1);
-            grid.tbs_selectRange(0, -1);
+            grid.tbs_selectRange(0, -1, fromCellIndex, toCellIndex);
         }
         document.addEventListener('mouseup', mouseUpEvent);
     };

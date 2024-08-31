@@ -70,7 +70,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
         // Mouse position is in panel80.
         if (isInPanel80) {
             // grouping panel
-            if (grid.options[grid.option_groupVisible] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
+            if (grid.classGroup.options[grid.code_showGroupPanel] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
                 let moveElement = document.querySelector('.tbs-grid-move');
                 let rectPanel80 = document.querySelector(selector + ' .tbs-grid-panel80').getBoundingClientRect();
                 let rectMoveCell= moveElement.getBoundingClientRect();
@@ -84,12 +84,13 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                 let order = 'asc';
 
                 // Find the one that is smaller to the button left than then move element left
-                let bar = document.querySelector(selector + ' .tbs-grid-panel-bar');
+                let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel-bar .tbs-grid-panel-button');
                 let targetButton;
                 let targetIndex;
                 let moveLeft = grid.tbs_getOffset(moveElement).left;
-                for (let i = bar.childNodes.length + 1; i >= 0; i--) {
-                    let button=  bar.childNodes[i];
+
+                for (let i = buttons.length + 1; i >= 0; i--) {
+                    let button = buttons[i];
                     let buttonLeft= grid.tbs_getOffset(button).left
                     if (moveLeft < buttonLeft) {
                         targetButton = button;
@@ -101,11 +102,21 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                     targetButton = null;
                     targetIndex = null;
                 }
-                grid.tbs_addGroupButton(name, text, order, targetIndex);
+
+                if (name != 'group_column') grid.tbs_addGroupButton(name, text, order, targetIndex);
+
+                flagLeft = false;
+                flagRight = false;
+                flagUp = false;
+                flagDown = false;
+                document.removeEventListener('mousemove', mouseMoveEvent);
+                document.removeEventListener('mouseup', mouseUpEvent);
+                if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
             }
-            if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
             flagLeft = false;
             flagRight = false;
+            flagUp = false;
+            flagDown = false;
             document.removeEventListener('mousemove', mouseMoveEvent);
             document.removeEventListener('mouseup', mouseUpEvent);
         }
@@ -218,8 +229,8 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                     grid.tbs_displayPanel20();
                     changeColumnOrder();
 
-                    if (grid.topColumns.length    > 0) grid.tbs_displayPanel40('panel40', grid.topColumns);
-                    if (grid.footerColumns.length > 0) grid.tbs_displayPanel50('panel50', grid.footerColumns);
+                    if (grid.topColumns.length    > 0) grid.tbs_displayPanel40();
+                    if (grid.footerColumns.length > 0) grid.tbs_displayPanel50();
 
                     let columns = grid.columns;
                     let tableRows20 = document.querySelectorAll(selector + ' .tbs-grid-panel20  thead th');
@@ -231,8 +242,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                         tableRows20[i].style.width = styleWidth;
                         tableRows30[i].style.width = styleWidth;
                     }
-                    grid.tbs_removeRange(0, -1);
-                    grid.tbs_displayPanel30(grid.tbs_getFirstRowIndex());
+                    grid.classControl.act_changeColumnOrder();
                 }
                 document.querySelector('.tbs-grid-move').remove();
                 flagLeft = false;

@@ -46,6 +46,7 @@ TbsGrid.prototype.tbs_prependIcon = function (element, childElement) {
     let el = element.querySelector('.tbs-grid-cell-div-icon');
     if (el == undefined) element.childNodes[0].prepend(childElement);
 }
+
 TbsGrid.prototype.tbs_prependImg = function (element, childElement) {
     let el = element.querySelector('.tbs-grid-cell-div-img');
     if (el == undefined) element.childNodes[0].prepend(childElement);

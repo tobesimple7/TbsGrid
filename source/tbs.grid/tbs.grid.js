@@ -51,21 +51,7 @@
 	this.startY = 0;
 	this.lastX = 0;
 	this.lastY = 0;
-	/**
-	 * @description class
-	 *
-	 */
-	this.tbsGridDate; // class
-	this.tbsGridCombo; // class
 
-	this.classRange40     = new TbsGridRange(this, 'panel40');
-	this.classRange50     = new TbsGridRange(this, 'panel50');
-	this.classFilter      = new TbsGridFilter(this);
-	this.classGroup       = new TbsGridGroup(this);
-	this.classPage        = new TbsGridPage(this);
-	this.classTree        = new TbsGridTree(this);
-	this.verticalScroll   = new TbsGridScroll(this, 'verticalScroll');
-	this.horizontalScroll = new TbsGridScroll(this, 'horizontalScroll');
 	/**
 	 * @description columns
 	 *
@@ -85,54 +71,20 @@
 	this.module_footer 			= 'footer';
 	this.module_fixedRow 		= 'fixedRow';
 	this.module_fixedColumn		= 'fixedColumn';
-	this.module_filtering    	= 'filtering'; 	// setFilter
-	this.module_grouping     	= 'grouping'; 	// setGroup~~
-	this.module_sorting	    	= 'sorting';  	// setSort~~
+	this.module_filtering    	= 'filtering';
+	this.module_grouping     	= 'grouping';
+	this.module_sorting	    	= 'sorting';
 	this.module_column        	= 'column';
-	this.module_paging          = 'paging';  	// setPage~~
-	this.module_pagination      = 'pagination';  	// setPage~~
+	this.module_paging          = 'paging';
+	this.module_pagination      = 'pagination';
 
-	this.toolbar 	= {}; 	// setToolbar~~
-	this.filtering  = {}; 	// setFilter
-	this.grouping   = {}; 	// setGroup~~
-	this.sorting	= {};  	// setSort~~
+	this.toolbar 	= {};
+	this.filtering  = {};
+	this.grouping   = {};
+	this.sorting	= {};
 
-	/* mode */
-	this.debug_mode  = true;
-	this.grid_mode    = ''; //'', tree, pivot, grouping, merge, paging
-	this.code_tree    = 'tree';
-	this.code_pivot   = 'pivot';
-	this.code_group   = 'group';
-	this.code_page    = 'page';  //options : paging, grouping, filtering, sorting
 
-	/* code */
-	this.code_string  = 'string';
-	this.code_number  = 'number';
-	this.code_currency= 'currency';
-	this.code_date    = 'date';
-	this.code_combo   = 'combo';
 
-	this.code_up    = 'up'   ;
-	this.code_down  = 'down' ;
-	this.code_left  = 'left' ;
-	this.code_right = 'right';
-
-	this.code_before = 'before';
-	this.code_after  = 'after';
-
-	this.code_front = 'front';
-	this.code_back  = 'back';
-
-	this.code_horizontal = 'horizontal';
-	this.code_vertical   = 'vertical';
-	/**
-	 * @description constance
-	 *
-	 */
-	this.const_mode           = '_mode'   ;
-	this.const_rowId          = '_rowId'  ;
-	this.const_groupingPlaceHolder= 'Drag a column header here to group by that column.'; //@deprected
-	this.const_isOpen         = 'isOpen';
 
 	/**
 	 * @description Column constance
@@ -181,7 +133,7 @@
 	this.column_subColSpan    = 'subColSpan' ;
 	this.column_order         = 'order'     ;
 
-	this.layout_visible       = 'visible'   ;
+	//this.layout_visible       = 'visible'   ; // not allow merged.
 	this.layout_rowSpan       = 'rowSpan'   ;
 	this.layout_colSpan       = 'colSpan'   ;
 	this.layout_subRowSpan    = 'subRowSpan';
@@ -220,12 +172,8 @@
 
 	this.sortColumns = []; 	 // [{ name : 'layout', order : 'asc'}, { name : 'layout', order : 'asc'}]
 	this.summaryColumns = [];// [{ name : 'layout'}, { name : 'layout']  => summaryColumns
-	this.groupColumns = [];  // => group column
-	this.groupView = [];
-	this.groupColumn = [];
+
 	this.headerRowCount = 0;
-	// summaryColumns -> summaryColumns
-	// groupColumns -> summaryColumns
 
 	/* Options */
 	this.options = {}
@@ -249,8 +197,8 @@
 	this.options[this.option_sortVisible] = false;
 
 	/* group optons */
-	this.option_groupVisible    = 'visible' ;
-	this.options[this.option_groupVisible] = false;
+	// this.option_allowGroupPanel = 'allowGroupPanel';
+	// this.options[this.option_allowGroupPanel] = false;
 
 	/* Columns Options */
 	this.option_sortable	  = 'sortable'	   ;
@@ -305,8 +253,6 @@
 	this.grid_event = '';
 	this.popupActive = 0;
 
-	//================================================================
-
 	// frozen row, column (fixRow : fixedRowCount, fixCol : fixedColumnIndex)
 	/**
 	 * @description layout
@@ -321,14 +267,6 @@
 	 */
 	this.merge = false;
 	this.mergeType = 0;
-
-	/**
-	 * @description layout
-	 *
-	 */
-	this.layout_source 	 	 = []; //
-	this.layout_panel30  	 = []; //content data
-
 	/**
 	 * @description constant value
 	 *
@@ -337,7 +275,6 @@
 	this.rowHeight       = 25;
 	this.topRowHeight    = 25;
 	this.footerRowHeight = 25;
-
 	/**
 	 * @description mobile, user agent
 	 *
@@ -345,13 +282,6 @@
 	this.md = new MobileDetect(window.navigator.userAgent);
 	this.mobile = this.md.mobile(); // not mobile : null
 	this.userAgent = this.md.userAgent(); // safari
-
-	this.const_depth		= 'depth'   ;
-	this.const_children     = 'children';
-	this.const_num          = 'number';
-	this.const_parentNum    = 'parentNumber';
-	this.const_open         = 'open';
-	this.const_closed       = 'closed';
 
 	/**
 	 * @description user event
@@ -367,12 +297,67 @@
 	this.user_keydown	 = ''; // not used
 	this.user_keyup		 = ''; // not used
 	this.user_blur		 = ''; // not used
+	/**
+	 * @description code
+	 *
+	 */
+	/* mode */
+	this.debug_mode  = true;
+	this.grid_mode    = ''; // '', tree, pivot, grouping, merge, paging
 
-	// page
-	this.user_clickPageFirst  = null;
-	this.user_clickPagePrev   = null;
-	this.user_clickPageIndex  = null;
-	this.user_clickPageNext   = null;
-	this.user_clickPageLast   = null;
+	this.code_tree    = 'tree';
+	this.code_pivot   = 'pivot';
+	this.code_group   = 'group';
+	this.code_page    = 'page';  //options : paging, grouping, filtering, sorting
 
+	this.code_mode           = '_mode'   ;
+	this.code_rowId          = '_rowId'  ;
+	this.code_isOpen         = 'isOpen';
+
+	this.code_string  = 'string';
+	this.code_number  = 'number';
+	this.code_currency= 'currency';
+	this.code_date    = 'date';
+	this.code_combo   = 'combo';
+
+	this.code_up    = 'up'   ;
+	this.code_down  = 'down' ;
+	this.code_left  = 'left' ;
+	this.code_right = 'right';
+
+	this.code_before = 'before';
+	this.code_after  = 'after';
+
+	this.code_front = 'front';
+	this.code_back  = 'back';
+
+	this.code_horizontal = 'horizontal';
+	this.code_vertical   = 'vertical';
+
+	/* group, tree */
+	this.code_depth		= 'depth'   ;
+	this.code_children  = 'children';
+	this.code_num       = 'number';
+	this.code_parentNum = 'parentNumber';
+	this.code_open      = 'open';
+	this.code_closed    = 'closed';
+
+	this.code_showGroupPanel = 'showGroupPanel';
+	/**
+	 * @description class
+	 *
+	 */
+
+	this.tbsGridDate; // class
+	this.tbsGridCombo; // class
+
+	this.classControl     = new TbsGridControl(this);
+	this.classRange40     = new TbsGridRange(this, 'panel40');
+	this.classRange50     = new TbsGridRange(this, 'panel50');
+	this.classFilter      = new TbsGridFilter(this);
+	this.classGroup       = new TbsGridGroup(this);
+	this.classPage        = new TbsGridPage(this);
+	this.classTree        = new TbsGridTree(this);
+	this.verticalScroll   = new TbsGridScroll(this, 'verticalScroll');
+	this.horizontalScroll = new TbsGridScroll(this, 'horizontalScroll');
 }

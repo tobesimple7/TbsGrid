@@ -94,7 +94,7 @@ TbsGrid.prototype.tbs_setColumnDefaultValue = function (column) {
     // }
     return column;
 }
-TbsGrid.prototype.tbs_createColumn = function (userColumns, headers) {
+TbsGrid.prototype.tbs_createColumn = function (userColumns) {
     let selector = '#' + this.gridId;
     let grid = this;
 
@@ -130,7 +130,7 @@ TbsGrid.prototype.tbs_createColumn = function (userColumns, headers) {
         columns.map(column => {
             if (grid.tbs_empty(column[grid.column_name])) grid.tbs_error(`column's id is not exist`);
             if (grid.tbs_empty(column.header[grid.column_text])) grid.tbs_error(`column's text is not exist`);
-            if (grid.tbs_isNotValidColumnType(column[grid.column_type])) grid.tbs_error(`column's type [${column[grid.column_type]}] is not valid`);
+            //if (grid.tbs_isNotValidColumnType(column[grid.column_type])) grid.tbs_error(`column's type [${column[grid.column_type]}] is not valid`);
         });
 
         let result = [];
@@ -144,7 +144,7 @@ TbsGrid.prototype.tbs_createColumn = function (userColumns, headers) {
             result.push(grid.tbs_copyJson(addColumn));
         }
         grid.columns = result;
-        grid.tbs_createHeader(grid.headerColumns, headers);
+        grid.tbs_createHeader(grid.headerColumns);
     }
     else {
         grid.userColumns = grid.tbs_copyJson(userColumns);
@@ -178,7 +178,7 @@ TbsGrid.prototype.tbs_createColumn = function (userColumns, headers) {
             if (grid.tbs_isNotValidColumnType(column[grid.column_type])) grid.tbs_error(`column's type [${column[grid.column_type]}] is not valid`);
         });
         grid.columns = columns;
-        grid.tbs_createHeader(grid.userColumns, headers);
+        grid.tbs_createHeader(grid.userColumns);
     }
 
 }
@@ -226,8 +226,7 @@ TbsGrid.prototype.tbs_addColumn = function (addColumn, targetRowIndex, targetCol
         if (targetIndex >= parentColumn.length) parentColumn.push(addColumn);
         else parentColumn.splice(targetIndex, 0, addColumn);
     }
-    grid.tbs_createColumn(grid.headerColumns, null);
-    grid.tbs_createGrid(grid.columns);
+    grid.classControl.act_addColumn();
 }
 TbsGrid.prototype.tbs_removeColumn = function (targetRowIndex, targetColumnIndex) {
     /**
@@ -263,9 +262,7 @@ TbsGrid.prototype.tbs_removeColumn = function (targetRowIndex, targetColumnIndex
         if (num == node[grid.column_num]) targetIndex = i;
     }
     parentColumn.splice(targetIndex, 1);
-
-    grid.tbs_createColumn(grid.headerColumns, null);
-    grid.tbs_createGrid(grid.columns);
+    grid.classControl.act_removeColumn();
 }
 //================================================================
 TbsGrid.prototype.tbs_getColumn = function (name) {
@@ -308,6 +305,22 @@ TbsGrid.prototype.tbs_getColumnProperty = function (columnName, property) {
     let columnIndex = grid.tbs_getColumnIndex(columnName);
     return grid.null(columnIndex) ? null : grid.tbs_getColumnPropertyByIndex(columnIndex, property);
 }
+TbsGrid.prototype.tbs_getFirstVisibleColumnIndex = function () {
+    let result = null;
+    for (let i = 0; i < this.columns.length; i++ ) {
+        let column = this.columns[i];
+        if (column[this.column_visible]) { result = i; break; }
+    }
+    return result;
+}
+TbsGrid.prototype.tbs_getLastVisibleColumnIndex = function () {
+    let result = null;
+    for (let i = this.columns.length - 1; i >= 0; i-- ) {
+        let column = this.columns[i];
+        if (column[this.column_visible]) { result = i; break; }
+    }
+    return result;
+}
 //================================================================
 TbsGrid.prototype.tbs_setColumn = function (columnName, property, value) {
     let column = this.tbs_getColumn(columnName);
@@ -323,10 +336,10 @@ TbsGrid.prototype.tbs_setColumnByType = function (columnType, property, value) {
 }
 //================================================================
 TbsGrid.prototype.tbs_setSortColumn = function (sortColumn) {
-    this.sortColumn = Object.keys(sortColumn).length == 0 ? [] : sortColumn;
+    this.sortColumns = Object.keys(sortColumn).length == 0 ? [] : sortColumn;
 }
 TbsGrid.prototype.tbs_setGroupColumn = function (groupColumn) {
-    this.groupColumn = Object.keys(groupColumn).length == 0 ? [] : groupColumn;
+    this.classGroup.groupColumns = Object.keys(groupColumn).length == 0 ? [] : groupColumn;
     if (Object.keys(this.sortColumn).length == 0) this.sortColumn = Object.keys[sortColumn].length == 0 ? [] : groupColumn;
 }
 //================================================================

@@ -102,8 +102,8 @@ TbsGridRange.prototype.class_setRange = function (startRowIndex, lastRowIndex, s
         topRowIndex = (topRowIndex == undefined) ? grid.tbs_getFirstRowIndex() : topRowIndex;
     }
     grid.tbs_displayPanel30(topRowIndex);
-    grid.tbs_displayPanel40('panel40', grid.topColumns);
-    grid.tbs_displayPanel50('panel50', grid.footerColumns);
+    grid.tbs_displayPanel40();
+    grid.tbs_displayPanel50();
 }
 TbsGridRange.prototype.class_setRangeValue = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex) {
     // fcuntion : set selected value

@@ -2,7 +2,7 @@
 @Rule :
     1. before, after : allow
  */
-TbsGrid.prototype.tbs_createHeader = function (userColumns, userHeaders = []) {
+TbsGrid.prototype.tbs_createHeader = function (userColumns) {
     let selector = '#' + this.gridId;
     let grid = this;
     grid.tbs_setHeader(userColumns);
@@ -170,68 +170,74 @@ TbsGrid.prototype.tbs_createHeaderColumnTable = function () {
 }
 TbsGrid.prototype.tbs_getDisplayedHeaderColumn = function(panelName = 'panel30') {
     // panel visible columns : true  / startRowIndex, lastRowIndex
+
     let selector = '#' + this.gridId;
     let grid = this;
 
-    let rectPanel = document.querySelector(selector + ' .tbs-grid-' + panelName).getBoundingClientRect();
-    let rectTable = document.querySelector(selector + ' .tbs-grid-' + panelName + ' > table').getBoundingClientRect();
-    let styleLeft = document.querySelector(selector + ' .tbs-grid-' + panelName + ' > table').style.left;
-    styleLeft = parseInt(styleLeft, 10);
+    // let rectPanel = document.querySelector(selector + ' .tbs-grid-' + panelName).getBoundingClientRect();
+    // let rectTable = document.querySelector(selector + ' .tbs-grid-' + panelName + ' > table').getBoundingClientRect();
+    // let styleLeft = document.querySelector(selector + ' .tbs-grid-' + panelName + ' > table').style.left;
+    // styleLeft = parseInt(styleLeft, 10);
 
     let columns = this.columns;
     if (panelName == 'panel32' || panelName == 'panel42' || panelName == 'panel52' || panelName == 'panel62') {
         let startColumnIndex = 0;
         let lastColumnIndex = this.fixedColumnIndex;
-
-        let sumWidth = 0;
-        // get startColumnIndex
-        for (let i = 0; i < this.fixedColumnIndex; i++) {
-            let column = columns[i];
-            if (column[grid.column_visible] == false) continue;
-            sumWidth += parseInt(column[grid.column_width]);
-            if (sumWidth + styleLeft > 0) {
-                startColumnIndex = i;
-                break;
-            }
-        }
-        sumWidth = rectTable.width;
-        // get lastColumnIndex
-        for (let i = this.fixedColumnIndex; i >= 0; i--) {
-            let column = columns[i];
-            if (column[grid.column_visible] == false) continue;
-            sumWidth -= parseInt(column[grid.column_width]);
-            if (sumWidth + styleLeft < rectPanel.width) {
-                lastColumnIndex = i;
-                break;
-            }
-        }
         return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
+
+        // let sumWidth = 0;
+        // // get startColumnIndex
+        // for (let i = 0; i < this.fixedColumnIndex; i++) {
+        //     let column = columns[i];
+        //     if (column[grid.column_visible] == false) continue;
+        //     sumWidth += parseInt(column[grid.column_width]);
+        //     if (sumWidth + styleLeft > 0) {
+        //         startColumnIndex = i;
+        //         break;
+        //     }
+        // }
+        // sumWidth = rectTable.width;
+        // // get lastColumnIndex
+        // for (let i = this.fixedColumnIndex; i >= 0; i--) {
+        //     let column = columns[i];
+        //     if (column[grid.column_visible] == false) continue;
+        //     sumWidth -= parseInt(column[grid.column_width]);
+        //     if (sumWidth + styleLeft < rectPanel.width) {
+        //         lastColumnIndex = i;
+        //         break;
+        //     }
+        // }
+        // return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
     }
     else {
         let startColumnIndex = 0;
         let lastColumnIndex = columns.length - 1;
-
-        let sumWidth = 0;
-        for (let i = 0, len = columns.length; i < len; i++) {
-            let column = columns[i];
-            if (column[grid.column_visible] == false) continue;
-            sumWidth += parseInt(column[grid.column_width]);
-            if (sumWidth + styleLeft > 0) {
-                startColumnIndex = i;
-                break;
-            }
-        }
-        sumWidth = rectTable.width;
-        for (let i = columns.length - 1; i >= 0; i--) {
-            let column = columns[i];
-            if (column[grid.column_visible] == false) continue;
-            sumWidth -= parseInt(column[grid.column_width]);
-            if (sumWidth + styleLeft < rectPanel.width) {
-                lastColumnIndex = i;
-                break;
-            }
-        }
+        if (this.fixedColumnIndex != -1)  startColumnIndex = this.fixedColumnIndex + 1;
         return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
+
+        // let sumWidth = 0;
+        // for (let i = 0, len = columns.length; i < len; i++) {
+        //     let column = columns[i];
+        //
+        //     if (column[grid.column_visible] == false) sumWidth += 0;
+        //     else sumWidth += parseInt(column[grid.column_width]);
+        //
+        //     if (sumWidth + styleLeft > 0) {
+        //         startColumnIndex = i;
+        //         break;
+        //     }
+        // }
+        // sumWidth = rectTable.width;
+        // for (let i = columns.length - 1; i >= 0; i--) {
+        //     let column = columns[i];
+        //     if (column[grid.column_visible] == false) sumWidth -= 0;
+        //     else sumWidth -= parseInt(column[grid.column_width]);
+        //     if (sumWidth + styleLeft < rectPanel.width) {
+        //         lastColumnIndex = i;
+        //         break;
+        //     }
+        // }
+        // return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
     }
 }
 /* get HeaderColumn */
