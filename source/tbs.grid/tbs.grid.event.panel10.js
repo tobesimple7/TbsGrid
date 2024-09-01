@@ -5,6 +5,37 @@
 TbsGrid.prototype.panel10_init = function(){
     let selector = '#' + this.gridId;
     let grid = this;
+    const showFilterPanelEvent = function(e) {
+        e.stopPropagation();
+        if (grid.options[grid.option_filterVisible] == false) {
+            grid.tbs_showFilterPanel();
+        }
+        else {
+            grid.tbs_hideFilterPanel();
+        }
+    }
+    if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter'))
+        document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter').addEventListener('mousedown', showFilterPanelEvent);
+    const showSortPanelEvent = function(e) {
+        e.stopPropagation();
+    }
+    if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort'))
+        document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort').addEventListener('mousedown', showSortPanelEvent);
+
+    const showGroupPanelEvent = function(e) {
+        e.stopPropagation();
+        debugger;
+        if (grid.grid_mode != grid.code_group) {
+            grid.tbs_allowGroupMode();
+        }
+        else {
+            if (grid.options[grid.option_groupVisible] == true) grid.tbs_denyGroupMode();
+            else grid.tbs_allowGroupMode();
+        }
+    }
+    if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-group'))
+        document.querySelector(selector + ' .tbs-grid-panel10-buttons-group').addEventListener('mousedown', showGroupPanelEvent);
+    //==================================================================================================================
     const setTotalFilterEvent = function(e) {
         e.stopPropagation();
         grid.totalFilterSearch(this.value);

@@ -42,7 +42,7 @@ TbsGrid.prototype.removeColumn = function (targetRowIndex, targetColumnIndex) { 
 /* Main */
 TbsGrid.prototype.setToolbar = function (toolbar) { this.tbs_setToolbar(toolbar); }
 TbsGrid.prototype.setGrid = function (columns, options) { this.tbs_setGrid(columns, options); }
-TbsGrid.prototype.setData = function (data) { this.tbs_setData(data); }
+TbsGrid.prototype.setData = function (data, openDepth) { this.tbs_setData(data, openDepth); }
 /* Data */
 TbsGrid.prototype.getValue = function (rowIndex, columnName) { return this.tbs_getValue(rowIndex, columnName); }
 TbsGrid.prototype.getValueByIndex = function (rowIndex, colIndex) { return this.tbs_getValueByIndex(rowIndex, colIndex); }
@@ -84,12 +84,10 @@ TbsGrid.prototype.setOption = function (optionName, optionValue) { this.tbs_setO
 TbsGrid.prototype.setOptions = function (options) { this.tbs_setOptions(options); }
 /* Tree */
 TbsGrid.prototype.setTreeOption = function (optionName, optionValue) { this.classTree.tbs_setTreeOption(optionName, optionValue); }
-TbsGrid.prototype.setTreeData = function (data, openDepth) { this.tbs_setTreeData(data, openDepth); }
 TbsGrid.prototype.setTreeSortColumn = function (sortColumn) { this.tbs_setTreeSortColumns(sortColumn); }
 /* Page */
 TbsGrid.prototype.setPageOption = function (optionName, optionValue) { this.classPage.tbs_setPageOption(optionName, optionValue); }
 /* Group */
 TbsGrid.prototype.setGroupOption = function (optionName, optionValue) { this.classGroup.tbs_setGroupOption(optionName, optionValue); }
 TbsGrid.prototype.setgroupColumns = function (groupColumns) { this.tbs_setgroupColumns(groupColumns); }
-TbsGrid.prototype.setGroupData = function (data, openDepth) { this.tbs_setGroupData(data, openDepth); }
 

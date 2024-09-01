@@ -53,12 +53,14 @@ TbsGrid.prototype.tbs_setPanelSize = function() {
 	let group71 = document.querySelector(selector + ' .tbs-grid-group71');
 	let mainHeight = rectGrid.height;
 	if (grid.toolbar_visible == true) mainHeight = mainHeight - 25;
-	if (grid.classGroup.options[grid.code_showGroupPanel] == true) mainHeight = mainHeight - 33;
+	if (grid.options[grid.option_groupVisible] == true) mainHeight = mainHeight - 33;
 	main.style.height = `${mainHeight}px`;
 
 	// header : group21, group22 group20
-	let rectTable21= document.querySelector(selector + ' .tbs-grid-panel21	.tbs-grid-table').getBoundingClientRect();
+	let rectTable21= document.querySelector(selector + ' .tbs-grid-panel21 .tbs-grid-table').getBoundingClientRect();
 	let rectTable22= document.querySelector(selector + ' .tbs-grid-panel22 .tbs-grid-table').getBoundingClientRect();
+
+	// Consider hidden columns
 	let rectTable20= document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table').getBoundingClientRect();
 
 	let height = parseInt(rectTable20.height);

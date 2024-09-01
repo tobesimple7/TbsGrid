@@ -226,7 +226,7 @@ TbsGrid.prototype.tbs_addColumn = function (addColumn, targetRowIndex, targetCol
         if (targetIndex >= parentColumn.length) parentColumn.push(addColumn);
         else parentColumn.splice(targetIndex, 0, addColumn);
     }
-    grid.classControl.act_addColumn();
+    grid.classControl.after_addColumn();
 }
 TbsGrid.prototype.tbs_removeColumn = function (targetRowIndex, targetColumnIndex) {
     /**
@@ -262,7 +262,7 @@ TbsGrid.prototype.tbs_removeColumn = function (targetRowIndex, targetColumnIndex
         if (num == node[grid.column_num]) targetIndex = i;
     }
     parentColumn.splice(targetIndex, 1);
-    grid.classControl.act_removeColumn();
+    grid.classControl.after_removeColumn();
 }
 //================================================================
 TbsGrid.prototype.tbs_getColumn = function (name) {
@@ -325,6 +325,9 @@ TbsGrid.prototype.tbs_getLastVisibleColumnIndex = function () {
 TbsGrid.prototype.tbs_setColumn = function (columnName, property, value) {
     let column = this.tbs_getColumn(columnName);
     column[property] = value;
+    if (property == this.column_visible) {
+
+    }
 }
 TbsGrid.prototype.tbs_setColumnByType = function (columnType, property, value) {
     let grid = this;

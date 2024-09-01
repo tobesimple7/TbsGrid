@@ -1,7 +1,12 @@
-/**
- * tbs.grid.sort.js
- *
- */
+class TbsGridSort {
+    constructor(grid) {
+        this.grid       = grid;
+        this.selector   = '#' + grid.gridId;
+
+        this.sortColumns = [];
+        this.options = {}
+    }
+}
 TbsGrid.prototype.tbs_sortData = function (data, sortColumns) {
     /**
      * @function tbs_sortData
@@ -47,11 +52,8 @@ TbsGrid.prototype.tbs_sortData = function (data, sortColumns) {
         }
     });
 }
-/**
- * @function tbs_sortUserData
- *
- * @param sortColumns : [{ name : , order : }, ...]
- */
+
+// @Deprecated
 TbsGrid.prototype.tbs_sortJsonData = function (data, sortColumns) {
     let grid = this;
     let len = sortColumns.length;
@@ -114,7 +116,6 @@ TbsGrid.prototype.tbs_getSortColumnIndex = function (columnName) {
 TbsGrid.prototype.tbs_getSortColumnName = function (colIndex) {
     return this.sortColumns[colIndex][this.column_name];
 }
-// @Deprecated
 TbsGrid.prototype.setSort = function (sortColumns, display) {
     let grid = this;
     let view = this.data_view;

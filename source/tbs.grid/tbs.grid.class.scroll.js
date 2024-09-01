@@ -29,8 +29,82 @@ TbsGridScroll.prototype.tbs_setScroll = function(type) {
     let grid = this.grid;
     let scroll = this;
 
-    if (type == grid.code_vertical) scroll.tbs_setVerticalScroll();
-    else if (type == grid.code_horizontal) scroll.tbs_setHorizontalScroll();
+    if (type == grid.code_horizontal) scroll.tbs_setHorizontalScroll();
+    else if (type == grid.code_vertical) scroll.tbs_setVerticalScroll();
+}
+TbsGridScroll.prototype.tbs_setHorizontalScroll = function() {
+    let selector = this.selector;
+    let grid = this.grid;
+    let classScroll = this;
+
+    let type = grid.code_horizontal;
+
+    let xScroll = document.querySelector(selector + ' .tbs-grid-horizontal-scroll');
+    let yScroll = document.querySelector(selector + ' .tbs-grid-vertical-scroll');
+    let scrollBox = document.querySelector(selector + ' .tbs-grid-scroll-box');
+
+    let panel20 = document.querySelector(selector + ' .tbs-grid-panel20');
+    let table20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
+
+    let rectPanel20 = panel20.getBoundingClientRect();
+    let rectTable20 = table20.getBoundingClientRect();
+
+    // 1) table area > panel area : scroll setting
+
+    // Consider hidden columns
+    const calculateTotalColumnSize = (() => {
+        let result = {};
+        result.panel22 = 0;
+        result.panel20 = 0;
+        for (let i = 0, len = grid.columns.length; i < len; i++) {
+            let column = grid.columns[0];
+            if (grid.fixedColumnIndex != -1) {
+                if (i <= grid.fixedColumnIndex) {
+                    if (column[grid.column_visible]) result.panel22 += parseInt(column[grid.column_visible]);
+                }
+                else result.panel20 += parseInt(column[grid.column_visible]);
+            }
+            else {
+                result.panel20 += parseInt(column[grid.column_visible]);
+            }
+        }
+        return result;
+    });
+    let result = calculateTotalColumnSize();
+    let tableSize22 = result.panel22;
+    let tableSize20 = result.panel20;
+
+    if (tableSize20.width > rectPanel20.width) classScroll.tbs_showScroll(type);
+    else classScroll.tbs_hideScroll(type);
+
+    xScroll = document.querySelector(selector + ' .tbs-grid-horizontal-scroll'); // non-live
+    if (xScroll.style.display == 'none' && yScroll.style.display == 'none') scrollBox.style.display = 'none';
+
+    // table tr count control
+    grid.tbs_setPageRowCount();
+    let pageRowCount = grid.pageRowCount;
+    let pageIntRowCount = grid.pageIntRowCount;
+
+    let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
+    let leftTrList    = document.querySelectorAll(selector + ' .tbs-grid-panel31 tbody tr:not([style*="display: none"])');
+    let contentTrList = document.querySelectorAll(selector + ' .tbs-grid-panel30 tbody tr:not([style*="display: none"])');
+    let len = leftTrList.length;
+    if (len == 0) return;
+
+    let leftTable = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table');
+    let contentTable = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
+    let leftCount = leftTrList.length;
+    let contentCount = contentTrList.length;
+
+    for (let i = 0; i < pageRowCount; i++) {
+        let leftTr = leftTrList[0].cloneNode(true);
+        let contentTr = contentTrList[0].cloneNode(true);
+
+        leftTable.childNodes[1].append(leftTr);
+        contentTable.childNodes[1].append(contentTr);
+    }
+    for (let i = 0; i < leftCount   ; i++) leftTable.deleteRow(-1);
+    for (let i = 0; i < contentCount; i++) contentTable.deleteRow(-1);
 }
 TbsGridScroll.prototype.tbs_setVerticalScroll = function() {
     let selector = this.selector;
@@ -103,56 +177,8 @@ TbsGridScroll.prototype.tbs_setVerticalScroll = function() {
     yScroll = document.querySelector(selector + ' .tbs-grid-vertical-scroll'); // non-live
     if (xScroll.style.display == 'none' && yScroll.style.display == 'none') scrollBox.style.display = 'none';
 }
-TbsGridScroll.prototype.tbs_setHorizontalScroll = function() {
-    let selector = this.selector;
-    let grid = this.grid;
-    let scroll = this;
 
-    let type = grid.code_horizontal;
 
-    let xScroll = document.querySelector(selector + ' .tbs-grid-horizontal-scroll');
-    let yScroll = document.querySelector(selector + ' .tbs-grid-vertical-scroll');
-    let scrollBox = document.querySelector(selector + ' .tbs-grid-scroll-box');
-
-    let header = document.querySelector(selector + ' .tbs-grid-panel20');
-    let headerTable = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
-
-    let headerRect = header.getBoundingClientRect();
-    let headerTableRect = headerTable.getBoundingClientRect();
-
-    // 1) table area > panel area : scroll setting
-    if (headerTableRect.width > headerRect.width) scroll.tbs_showScroll(type);
-    else scroll.tbs_hideScroll(type);
-
-    xScroll = document.querySelector(selector + ' .tbs-grid-horizontal-scroll'); // non-live
-    if (xScroll.style.display == 'none' && yScroll.style.display == 'none') scrollBox.style.display = 'none';
-
-    // table tr count control
-    grid.tbs_setPageRowCount();
-    let pageRowCount = grid.pageRowCount;
-    let pageIntRowCount = grid.pageIntRowCount;
-
-    let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
-    let leftTrList    = document.querySelectorAll(selector + ' .tbs-grid-panel31 tbody tr');
-    let contentTrList = document.querySelectorAll(selector + ' .tbs-grid-panel30 tbody tr');
-    let len = leftTrList.length;
-    if (len == 0) return;
-
-    let leftTable = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table');
-    let contentTable = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-    let leftCount = leftTrList.length;
-    let contentCount = contentTrList.length;
-
-    for (let i = 0; i < pageRowCount; i++) {
-        let leftTr = leftTrList[0].cloneNode(true);
-        let contentTr = contentTrList[0].cloneNode(true);
-
-        leftTable.childNodes[1].append(leftTr);
-        contentTable.childNodes[1].append(contentTr);
-    }
-    for (let i = 0; i < leftCount   ; i++) leftTable.deleteRow(-1);
-    for (let i = 0; i < contentCount; i++) contentTable.deleteRow(-1);
-}
 TbsGridScroll.prototype.tbs_showScroll = function(type) {
     let selector = this.selector;
     let grid = this.grid;
@@ -220,7 +246,7 @@ TbsGridScroll.prototype.tbs_setScrollSize = function(type) {
         scroll.railSize = railSize;
         scroll.hiddenSize = hiddenSize;
 
-        let xBar  = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
+        let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
         xBar.style.width = scroll.tbs_getBarWidth(type, barSize);
     }
     else if (type == grid.code_vertical) {
@@ -258,9 +284,6 @@ TbsGridScroll.prototype.tbs_getHorizontalBarSize = function() {
 
     if (panel20.childNodes[0].getBoundingClientRect().width < panel20.getBoundingClientRect().width) barSize = xWrap.clientWidth;
     return barSize;
-    // let barSize = parseInt((header.clientWidth / header.childNodes[0].childNodes[0].clientWidth) * xWrap.clientWidth);
-    // if (barSize > xWrap.clientWidth) barSize = xWrap.clientWidth;
-    // else if (barSize < 35) barSize = 35;
 }
 TbsGridScroll.prototype.tbs_getVerticalBarSize = function() {
     let selector = this.selector;

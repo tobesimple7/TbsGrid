@@ -4,19 +4,7 @@
  *  - row.data   :
  *  - row.layout : unnecessary
  */
-TbsGrid.prototype.tbs_setData = function (data) {
-    let selector = '#' + this.gridId;
-    let grid = this;
-    let panel80 = document.querySelector(selector + ' .tbs-grid-panel80');
-    if (grid.classGroup.groupColumns.length > 0) {
-        grid.grid_mode = grid.code_group;
-        grid.tbs_setGroupData(data);
-    }
-    else {
-        //grid.grid_mode = grid.code_grid;
-        grid.tbs_setGridData(data);
-    }
-}
+
 TbsGrid.prototype.tbs_setGridData = function (data) {
     let selector = '#' + this.gridId;
     let grid = this;
@@ -554,7 +542,7 @@ TbsGrid.prototype.tbs_validateTopRowIndex = function (panelName, topRowIndex) {
     }
     return topRowIndex;
 }
-TbsGrid.prototype.tbs_validateBottomRowIndex = function (panelName, topRowIndex) {
+TbsGrid.prototype. tbs_validateBottomRowIndex = function (panelName, topRowIndex) {
     // function : Validate Bottom rowIndex
     //
     // @panelName   : panel area name

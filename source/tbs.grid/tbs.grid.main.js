@@ -22,10 +22,17 @@ TbsGrid.prototype.tbs_createFrame = function () {
     s += '          <div class="tbs-grid-panel10-page-next">next</div>';
     s += '          <div class="tbs-grid-panel10-page-last">last</div>';
     s += '    	</div>';
+    s += '    	<div class="tbs-grid-panel10-buttons" style="display:;">';
+    s += '          <div class="tbs-grid-panel10-buttons-wrap">';
+    s += '              <div class="tbs-grid-panel10-buttons-filter">Filter</div>';
+    s += '              <div class="tbs-grid-panel10-buttons-sort">Sorting</div>';
+    s += '              <div class="tbs-grid-panel10-buttons-group">Grouping</div>';
+    s += '          </div>';
+    s += '    	</div>';
     s += '  </div>';
     s += '</div>';
     // Grouping : panel80
-    if (grid.classGroup.options[grid.code_showGroupPanel] == true) s += '<div class="tbs-grid-panel80 tbs-show"></div>';
+    if (grid.options[grid.option_groupVisible] == true) s += '<div class="tbs-grid-panel80 tbs-show"></div>';
     else s += '<div class="tbs-grid-panel80 tbs-hide"></div>';
     // sorting  : panel90
     if (grid.options[grid.option_sortVisible] == true) s += '<div class="tbs-grid-panel90 tbs-show"></div>';
@@ -967,7 +974,7 @@ TbsGrid.prototype.tbs_createTable80 = function (){
     let selector = '#' + this.gridId;
     let grid = this;
 
-    if (grid.classGroup.options[grid.code_showGroupPanel] != true) return;
+    if (grid.options[grid.option_groupVisible] != true) return;
 
     let div = document.createElement('div');
     div.className = 'tbs-grid-panel-bar';
@@ -1371,7 +1378,7 @@ TbsGrid.prototype.setGroup = function (sortColumns, summaryColumns, mergeType) {
     this.summaryColumns = summaryColumns;
     this.mergeType   = mergeType;
 
-    grid.setSort(sortColumns, false);
+    grid.tbs_sortData(sortColumns, false);
     //============================================================= [Start] groupView with
     let groupView = []; //srow, erow(scol, ecol), depth, node, parentNode, firstChild, lastChild
     let direction = 'vertical';
@@ -1720,16 +1727,7 @@ TbsGrid.prototype.setRowHeight = function (type, rowHeight) {
 TbsGrid.prototype.selector = document.querySelector;
 TbsGrid.prototype.selectorAll = document.querySelectorAll;
 
-/* Grid Mode */
-TbsGrid.prototype.tbs_setGridMode = function (gridMode) {
-    let selector = '#' + this.gridId;
-    let grid = this;
 
-    grid.grid_mode = grid.tbs_trim(gridMode);
-
-    if (grid.grid_mode == grid.module_paging) grid.tbs_setGridModePage();
-    else if (grid.grid_mode == grid.module_pagination) grid.tbs_setGridModePagenation();
-}
 TbsGrid.prototype.tbs_setGridModePage = function () {
     let selector = '#' + this.gridId;
     let grid = this;

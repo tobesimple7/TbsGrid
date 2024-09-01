@@ -70,7 +70,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
         // Mouse position is in panel80.
         if (isInPanel80) {
             // grouping panel
-            if (grid.classGroup.options[grid.code_showGroupPanel] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
+            if (grid.options[grid.option_groupVisible] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
                 let moveElement = document.querySelector('.tbs-grid-move');
                 let rectPanel80 = document.querySelector(selector + ' .tbs-grid-panel80').getBoundingClientRect();
                 let rectMoveCell= moveElement.getBoundingClientRect();
@@ -242,7 +242,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                         tableRows20[i].style.width = styleWidth;
                         tableRows30[i].style.width = styleWidth;
                     }
-                    grid.classControl.act_changeColumnOrder();
+                    grid.classControl.after_changeColumnOrder();
                 }
                 document.querySelector('.tbs-grid-move').remove();
                 flagLeft = false;

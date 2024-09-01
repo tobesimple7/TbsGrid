@@ -70,17 +70,14 @@ TbsGrid.prototype.tbs_showFilterPanel = function () {
     let grid = this;
 
     grid.options[grid.option_filterVisible] = true;
-    grid.tbs_setPanelSize();
-    grid.tbs_displayPanel70('panel70');
-    grid.tbs_displayPanel30(0);
+    grid.classControl.after_showFilterPanel()
 }
 TbsGrid.prototype.tbs_hideFilterPanel = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
     grid.options[grid.option_filterVisible] = false;
-    grid.tbs_setPanelSize();
-    grid.tbs_displayPanel30(0);
+    grid.classControl.after_hideFilterPanel()
 }
 TbsGrid.prototype.tbs_filters = function () {
     let selector = '#' + this.gridId;
@@ -189,6 +186,7 @@ TbsGrid.prototype.tbs_filterNumberByType = function(filterType, n, targetNumber,
     }
 }
 TbsGrid.prototype.tbs_filterStringByType = function(filterType, s, targetString) {
+    let grid = this;
     let regExp;
 
     // String comparisons are case-insensitive.
@@ -266,7 +264,7 @@ TbsGrid.prototype.tbs_removeFilterColumn = function(column) {
 TbsGrid.prototype.tbs_createFilterCombo = function(column) {
     let selector = '#' + this.gridId;
     let grid = this;
-
+debugger;
     let combo = document.createElement('select');
     if (column[grid.column_type] == grid.code_string) {
         let option;
@@ -278,7 +276,7 @@ TbsGrid.prototype.tbs_createFilterCombo = function(column) {
         grid.tbs_addFilterComboOption(combo, grid.const_filterNotEqual      , 'Does not equal'  );
         grid.tbs_addFilterComboOption(combo, grid.const_filterNotInclude 	, 'Not Include'     );
     }
-    else if (column[grid.column_type] == grid.code_number) {
+    else if (column[grid.column_type] == grid.code_number || column[grid.column_type] == grid.code_currency) {
         let option;
         grid.tbs_addFilterComboOption(combo, grid.const_filterEqual       , 'Equal'					  );
         grid.tbs_addFilterComboOption(combo, grid.const_filterGreaterEqual, 'Greater than or Equal to');

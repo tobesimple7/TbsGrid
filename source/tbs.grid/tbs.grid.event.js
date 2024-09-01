@@ -84,7 +84,7 @@ TbsGrid.prototype.event_columnSort = function(cell) {
     // not merge
     //================================================================
     else {
-        if (grid.tbs_isSortableColumn()) grid.setSort(grid.sortColumns, true);
+        if (grid.tbs_isSortableColumn()) grid.tbs_sortData(grid.sortColumns, true);
         if (grid.options[grid.option_filterVisible]) grid.tbs_filters();
         grid.tbs_removeRange(0, -1);
         grid.tbs_displayPanel30(0);

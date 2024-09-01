@@ -14,7 +14,6 @@ class TbsGridGroup {
         // this.groupView = []; // when cell merged
 
         this.options = {}
-        this.options[grid.code_showGroupPanel] = false;
         this.infoText = grid.gridConfig.options.groupInfoText;
     }
 }
@@ -528,31 +527,6 @@ TbsGrid.prototype.tbs_setGroupDataTable3 = function (param) {
     if (param.panelName == 'panel30') document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = grid.tbs_getRowCount();
 }
 /* Group Button */
-TbsGrid.prototype.tbs_createGroupButton = function (columnName) {
-    let selector = '#' + this.gridId;
-    let grid = this;
-
-    let column = grid.tbs_getColumn(columnName);
-
-    let text= document.createElement('span');
-    text.classList.add('tbs-grid-panel-button-text');
-    text.textContent  = column.header[grid.column_text];
-    text.dataset.name = columnName;
-
-    let icon= document.createElement('span');
-    icon.classList.add('tbs-grid-panel-button-icon');
-    icon.style['backgroundImage'] = 'url(' + grid.options[grid.option_imageRoot] + 'tree_closed.png)';
-    icon.dataset.name = columnName;
-
-    let button = document.createElement('div');
-    button.classList.add('tbs-grid-panel-button');
-    button.dataset.name = columnName;
-
-    button.append(text);
-    button.append(icon);
-
-    return button;
-}
 TbsGrid.prototype.tbs_addGroupButton = function (name, text, order, targetIndex) {
     let selector = '#' + this.gridId;
     let grid = this;
@@ -580,7 +554,6 @@ TbsGrid.prototype.tbs_addGroupButton = function (name, text, order, targetIndex)
     else bar.append(button);
 
     grid.tbs_togglePlaceHolder();
-
     let data = grid.data_user;
     grid.tbs_setGroupData(data);
 }
@@ -635,6 +608,31 @@ TbsGrid.prototype.tbs_getGroupButtonList = function () {
     }
     grid.tbs_togglePlaceHolder();
 }
+TbsGrid.prototype.tbs_createGroupButton = function (columnName) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    let column = grid.tbs_getColumn(columnName);
+
+    let text= document.createElement('span');
+    text.classList.add('tbs-grid-panel-button-text');
+    text.textContent  = column.header[grid.column_text];
+    text.dataset.name = columnName;
+
+    let icon= document.createElement('span');
+    icon.classList.add('tbs-grid-panel-button-icon');
+    icon.style['backgroundImage'] = 'url(' + grid.options[grid.option_imageRoot] + 'tree_closed.png)';
+    icon.dataset.name = columnName;
+
+    let button = document.createElement('div');
+    button.classList.add('tbs-grid-panel-button');
+    button.dataset.name = columnName;
+
+    button.append(text);
+    button.append(icon);
+
+    return button;
+}
 TbsGrid.prototype.tbs_togglePlaceHolder = function () {
     let selector = '#' + this.gridId;
     let grid = this;
@@ -646,10 +644,49 @@ TbsGrid.prototype.tbs_togglePlaceHolder = function () {
 
     if (buttons.length == 0) {
         grid.tbs_setColumn('group_column', 'visible', false);
-        grid.tbs_apply();
+        // grid.tbs_apply();
     }
     else {
         grid.tbs_setColumn('group_column', 'visible', true);
-        grid.tbs_apply();
+        // grid.tbs_apply();
     }
+    grid.classControl.after_setColumnVisible();
+}
+TbsGrid.prototype.tbs_allowGroupMode = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    grid1.tbs_setGridMode(grid1.code_group)
+    grid1.tbs_setOption(grid.option_groupVisible, true);
+    grid1.tbs_setgroupColumns([]);
+    grid1.tbs_removeRange(0, -1);
+    grid1.tbs_setPanelSize();
+    grid1.verticalScroll.tbs_setScroll(grid.code_vertical);
+    grid1.tbs_setData(grid.data_source);
+}
+TbsGrid.prototype.tbs_denyGroupMode = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+    grid1.tbs_setgroupColumns([]);
+    grid1.tbs_getGroupButtonList();
+    grid1.tbs_setOption(grid.option_groupVisible, false);
+    grid1.tbs_removeRange(0, -1);
+    grid1.tbs_setPanelSize();
+    grid1.verticalScroll.tbs_setScroll(grid.code_vertical);
+    grid1.tbs_apply()
+}
+TbsGrid.prototype.tbs_showGroupPanel = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    let panel = document.querySelector(selector + ' .tbs-grid-panel80');
+    panel.classList.remove('tbs-hide');
+    panel.classList.add('tbs-show');
+}
+TbsGrid.prototype.tbs_hideGroupPanel = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+    let panel = document.querySelector(selector + ' .tbs-grid-panel80');
+    panel.classList.remove('tbs-show');
+    panel.classList.add('tbs-hide');
 }

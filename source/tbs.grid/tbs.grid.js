@@ -189,16 +189,16 @@
 	this.options.toolbar[this.toolbar_visible] = true;
 
 	/* filter optons */
-	this.option_filterVisible   = 'filterVisible';
+	this.option_filterVisible   = 'showFilterPanel';
 	this.options[this.option_filterVisible] = false;
 
 	/* sort optons */
-	this.option_sortVisible     = 'sortVisible'  ;
+	this.option_sortVisible     = 'showSortPanel';
 	this.options[this.option_sortVisible] = false;
 
 	/* group optons */
-	// this.option_allowGroupPanel = 'allowGroupPanel';
-	// this.options[this.option_allowGroupPanel] = false;
+	this.option_groupVisible = 'showGroupPanel';
+	this.options[this.option_groupVisible] = false;
 
 	/* Columns Options */
 	this.option_sortable	  = 'sortable'	   ;
@@ -342,7 +342,6 @@
 	this.code_open      = 'open';
 	this.code_closed    = 'closed';
 
-	this.code_showGroupPanel = 'showGroupPanel';
 	/**
 	 * @description class
 	 *
@@ -357,6 +356,7 @@
 	this.classFilter      = new TbsGridFilter(this);
 	this.classGroup       = new TbsGridGroup(this);
 	this.classPage        = new TbsGridPage(this);
+	this.classSort        = new TbsGridSort(this);
 	this.classTree        = new TbsGridTree(this);
 	this.verticalScroll   = new TbsGridScroll(this, 'verticalScroll');
 	this.horizontalScroll = new TbsGridScroll(this, 'horizontalScroll');

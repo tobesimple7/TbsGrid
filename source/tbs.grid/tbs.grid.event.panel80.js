@@ -71,7 +71,7 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
         //console.log(`${mouseButton} ${startX} == ${lastX} ${startY} == ${lastY}`);
         //console.log(`isInPanel11 ${isInPanel80} isInPanel20 ${isInPanel20}`);
         if (isInPanel80) {
-            if (grid.classGroup.options[grid.code_showGroupPanel] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
+            if (grid.options[grid.option_groupVisible] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
                 let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
                 let rectMoveCell = document.querySelector('.tbs-grid-move').getBoundingClientRect();
             }

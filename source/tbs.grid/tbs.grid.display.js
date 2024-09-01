@@ -2,6 +2,13 @@
 TbsGrid.prototype.tbs_applyData = function () {
     this.tbs_displayPanel30(this.tbs_getFirstRowIndex());
 }
+TbsGrid.prototype.tbs_displayPanel10 = function() {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    // toolbar reload
+
+}
 TbsGrid.prototype.tbs_displayPanel20 = function() {
     let selector = '#' + this.gridId;
     let grid = this;
@@ -1125,15 +1132,20 @@ TbsGrid.prototype.tbs_setDataFilterTableRow2 = function (param) {
     let tableRows    = document.querySelectorAll(selector + ` .tbs-grid-${panelName} .tbs-grid-table tbody tr`);
     let tableHeaders = document.querySelectorAll(selector + ` .tbs-grid-${panelName} thead th`);
 
+    /* table thead */
+    grid.tbs_setTableHead(panelName);
+
     let tableCells   = tableRows[0].querySelectorAll('.tbs-grid-cell');
     for (let x = 0, len = grid.columns.length; x < len; x++) {
         let column = grid.columns[x];
+
         let columnName = column[grid.column_name];
         let columnWidth = column[grid.column_width];
         tableHeaders[x].style.width = columnWidth + 'px';
 
         let tableCell = tableCells[x];
         tableCell.childNodes[0].innerHTML = '';
+        grid.tbs_setCellStyle(tableCell, 'display', column[grid.column_visible] == true ? '' : 'none');
 
         let combo = grid.tbs_createFilterCombo(column);
         combo.classList.add('tbs-grid-cell-filter-combo');
@@ -1145,12 +1157,15 @@ TbsGrid.prototype.tbs_setDataFilterTableRow2 = function (param) {
     tableCells   = tableRows[1].querySelectorAll('.tbs-grid-cell');
     for (let x = 0, len = grid.columns.length; x < len; x++) {
         let column = grid.columns[x];
+
         let columnName = column[grid.column_name];
         let columnWidth = column[grid.column_width];
         tableHeaders[x].style.width = columnWidth + 'px';
 
         let tableCell = tableCells[x];
         tableCell.childNodes[0].innerHTML = '';
+        grid.tbs_setCellStyle(tableCell, 'display', column[grid.column_visible] == true ? '' : 'none');
+
         // Set input
         let input = document.createElement('input');
         input.classList.add('tbs-grid-cell-filter-input');
@@ -1190,7 +1205,7 @@ TbsGrid.prototype.tbs_setAlternativeRowColor = function (panelName, tableRow, ro
     else tableRow.classList.add('tbs-grid-tr-bg');
 }
 TbsGrid.prototype.tbs_hiddenTableRows = function (panelName, tableRows, fromRowIndex, toRowIndex) {
-    for (let i = fromRowIndex; i < toRowIndex; i++) {
+    for (let i = fromRowIndex, len = tableRows.length; i < len; i++) {
         let tableRow = tableRows[i];
         if (tableRow) {
             if (tableRow.style.display != 'none') tableRow.style.display = 'none';

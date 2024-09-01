@@ -75,7 +75,6 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    grid.grid_mode = grid.code_tree;
     if (grid.null(data)) return;
 
     grid.data_user = grid.tbs_copyJson(data);
