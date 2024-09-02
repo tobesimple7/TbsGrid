@@ -5,6 +5,10 @@
 TbsGrid.prototype.panel10_init = function(){
     let selector = '#' + this.gridId;
     let grid = this;
+
+    //==================================================================================================================
+
+    /* Filter Panel */
     const showFilterPanelEvent = function(e) {
         e.stopPropagation();
         if (grid.options[grid.option_filterVisible] == false) {
@@ -16,15 +20,39 @@ TbsGrid.prototype.panel10_init = function(){
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter'))
         document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter').addEventListener('mousedown', showFilterPanelEvent);
+
+    const resetFilterPanelEvent = function(e) {
+        e.stopPropagation();
+        grid.tbs_initFilterData();
+    }
+    if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter-reset'))
+        document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter-reset').addEventListener('mousedown', resetFilterPanelEvent);
+    //==================================================================================================================
+
+    /* Sort Panel */
     const showSortPanelEvent = function(e) {
         e.stopPropagation();
+        if (grid.options[grid.option_sortVisible] == false) {
+            grid.tbs_showSortPanel();
+        }
+        else {
+            grid.tbs_hideSortPanel();
+        }
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort'))
         document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort').addEventListener('mousedown', showSortPanelEvent);
 
+    const resetSortPanelEvent = function(e) {
+        e.stopPropagation();
+        grid.tbs_initSortData();
+    }
+    if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort-reset'))
+        document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort-reset').addEventListener('mousedown', resetSortPanelEvent);
+    //==================================================================================================================
+
+    /* Group Panel */
     const showGroupPanelEvent = function(e) {
         e.stopPropagation();
-        debugger;
         if (grid.grid_mode != grid.code_group) {
             grid.tbs_allowGroupMode();
         }
@@ -35,6 +63,15 @@ TbsGrid.prototype.panel10_init = function(){
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-group'))
         document.querySelector(selector + ' .tbs-grid-panel10-buttons-group').addEventListener('mousedown', showGroupPanelEvent);
+
+    const resetGroupPanelEvent = function(e) {
+        e.stopPropagation();
+        if (grid.grid_mode == grid.code_group) {
+            grid.tbs_initGroupData();
+        }
+    }
+    if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-reset'))
+        document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-reset').addEventListener('mousedown', resetGroupPanelEvent);
     //==================================================================================================================
     const setTotalFilterEvent = function(e) {
         e.stopPropagation();

@@ -86,7 +86,7 @@ TbsGridCombo.prototype.tbs_setData = function() {
     let cellIndex = this.input.dataset.cellIndex;
 
     let column = this.grid.columns[cellIndex];
-    let data = column.renderer.data;
+    let data = column.renderer;
     let key = column.renderer.valueName;
     let val = column.renderer.labelName;
 

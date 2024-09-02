@@ -17,11 +17,16 @@ TbsGrid.prototype.tbs_displayPanel20 = function() {
     //this.tbs_setDataTable({panelName: 'panel22'});
     this.tbs_setDataTable({panelName: 'panel20'});
 
+    // Necessary
+    grid.horizontalScroll.tbs_setScroll(grid.code_horizontal);
     //this.tbs_displayHeaderDataFixCol();
 }
 TbsGrid.prototype.tbs_displayPanel30 = function (topRowIndex) {
     let selector = '#' + this.gridId;
     let grid = this;
+
+    // Fix : Table Row Count = grid.pageRowCount
+    grid.tbs_updateTableRows30();
 
     grid.tbs_removePanelRange('panel30');
 
@@ -265,7 +270,7 @@ TbsGrid.prototype.tbs_displaySelectedLine = function () {
 
         /* Get startCell, lastCell */
         let startCell, lastCell;
-        console.log(`grid._startCellIndex : ${grid._startCellIndex} / grid._lastCellIndex : ${ grid.fixedColumnIndex}`);
+        //console.log(`grid._startCellIndex : ${grid._startCellIndex} / grid._lastCellIndex : ${ grid.fixedColumnIndex}`);
         if (grid._startCellIndex <= grid.fixedColumnIndex) startCell = grid.tbs_getFirstSelectedTableCell('panel32');
         else startCell = grid.tbs_getFirstSelectedTableCell('panel30');
 
@@ -630,9 +635,11 @@ TbsGrid.prototype.tbs_setDataTable2 = function (param) {
             if (x <= this.fixedColumnIndex) tableCell = tableRow.childNodes[x];
 
             let column = this.columns[x];
+            let columnName = column[grid.column_name];
+            // let layout = this.data_view[i].layout[column[grid.column_name]];
+            // let colValue = this.tbs_getLayoutValue(i, column[grid.column_name], this.layout_text);
 
-            let layout = this.data_view[i].layout[column[grid.column_name]];
-            let colValue = this.tbs_getLayoutValue(i, column[grid.column_name], this.layout_text);
+            let colValue = this.tbs_getText(i, columnName);
 
             if (tableCell.style.textAlign       != column[grid.column_align])          tableCell.style.textAlign = column[grid.column_align];
             if (tableCell.style.width           != column[grid.column_width] + 'px')   tableCell.style.width = column[grid.column_width] + 'px';
@@ -640,7 +647,8 @@ TbsGrid.prototype.tbs_setDataTable2 = function (param) {
             if (tableCell.style.display         != '')                                 tableCell.style.display = '';
             if (tableCell.rowSpan != '1') tableCell.rowSpan = '1';
             tableCell.style.display = column[grid.column_visible] == true ? '' : 'none';
-            tableCell.rowSpan       = layout[grid.layout_rowSpan];
+            //tableCell.rowSpan     = layout[grid.layout_rowSpan];
+            tableCell.rowSpan       = '1';
 
             let selectedValue = this.tbs_isSelectedCell(panelName, i, x);
             if (selectedValue == 1) {
@@ -705,8 +713,10 @@ TbsGrid.prototype.tbs_setDataTable3 = function (param) {
 
             let column = grid.columns[x];
             let columnName = column[grid.column_name];
-            let layout = grid.tbs_getLayout(i, column[grid.column_name]);
-            let colValue = layout[grid.layout_text];
+            // let layout = grid.tbs_getLayout(i, column[grid.column_name]);
+            //let colValue = layout[grid.layout_text];
+            let val = grid.tbs_getValue(i, columnName);
+            let colValue = grid.tbs_getText(i, columnName);
 
             let className = grid.tbs_getColumnProperty(columnName, grid.column_className);
             if (grid.notNull(className)) tableCell.classList.add(className);
@@ -716,7 +726,7 @@ TbsGrid.prototype.tbs_setDataTable3 = function (param) {
             grid.tbs_setCellStyle(tableCell, 'backgroundImage', '');
             grid.tbs_setCellStyle(tableCell, 'display'        , column[grid.column_visible] == true ? '' : 'none');
             grid.tbs_setCell(tableCell, 'rowSpan', '1');
-            grid.tbs_setCell(tableCell, 'rowSpan', layout[grid.layout_rowSpan]);
+            grid.tbs_setCell(tableCell, 'rowSpan', '1');
             grid.tbs_setSelectedCell(panelName, tableCell, i, x);
             let spanText = tableCell.querySelector('.tbs-grid-cell-div-text');
             grid.tbs_setCell(spanText, 'textContent', colValue);
@@ -937,7 +947,7 @@ TbsGrid.prototype.tbs_setDataTopTable3 = function () {
 
                 let spanText = tableCell.querySelector('.tbs-grid-cell-div-text');
                 grid.tbs_setCell(spanText, 'textContent', grid.tbs_getTopText(0, columnName));
-                console.log(`${x} ${grid.tbs_getTopText(0, columnName)}`);
+                //console.log(`${x} ${grid.tbs_getTopText(0, columnName)}`);
             }
         }
     }
@@ -1152,6 +1162,10 @@ TbsGrid.prototype.tbs_setDataFilterTableRow2 = function (param) {
         combo.dataset.name = columnName;
         combo.style.width = '100%';
 
+        if(grid.tbs_isFilterColumnName(columnName)) {
+            let filterColumn = grid.tbs_getFilterColumn(columnName);
+            combo.value = filterColumn[grid.const_filterType];
+        };
         tableCell.childNodes[0].append(combo);
     }
     tableCells   = tableRows[1].querySelectorAll('.tbs-grid-cell');
@@ -1171,7 +1185,10 @@ TbsGrid.prototype.tbs_setDataFilterTableRow2 = function (param) {
         input.classList.add('tbs-grid-cell-filter-input');
         input.dataset.name = columnName;
         input.style.width = '100%';
-
+        if(grid.tbs_isFilterColumnName(columnName)) {
+            let filterColumn = grid.tbs_getFilterColumn(columnName);
+            input.value = filterColumn[grid.const_filterValue];
+        };
         let cellDiv = tableCell.childNodes[0].append(input);
     }
     grid.panel70_select();

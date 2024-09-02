@@ -1,7 +1,7 @@
 /**
  * @Rule
  *  - row : rowId, mode
- *  - row.data   :
+ *  - row   :
  *  - row.layout : unnecessary
  */
 
@@ -39,14 +39,9 @@ TbsGrid.prototype.tbs_setGridData = function (data) {
         data30[grid.code_mode] = '';
         page[grid.code_mode] = '';
 
-        source.data = {};
-        source.layout = {};
-
-        data30.data = {};
-        data30.layout = {};
-
-        page.data = {};
-        page.layout = {};
+        // source.layout = {};
+        // data30.layout = {};
+        // page.layout = {};
 
         for (let colIndex = 0, len = column.length; colIndex < len; colIndex++) {
             let col = column[colIndex];
@@ -54,40 +49,40 @@ TbsGrid.prototype.tbs_setGridData = function (data) {
             let val = this.null(row[columnName]) ? null : this.tbs_getFormatValue(col, row[columnName]); // undefined or null is null value.
             let colType = column[colIndex][grid.column_type];
 
-            source.data[columnName] = val;
-            data30.data[columnName] = val;
-            page.data[columnName] = val;
+            source[columnName] = val;
+            data30[columnName] = val;
+            page[columnName] = val;
 
-            source.layout[columnName] = {};
-            source.layout[columnName][grid.layout_text] = this.tbs_getFormatText(col, row[columnName]);
+            // source.layout[columnName] = {};
+            // source.layout[columnName][grid.layout_text] = this.tbs_getFormatText(col, row[columnName]);
             // source.layout[columnName][grid.layout_color]     = '';
             // source.layout[columnName][grid.layout_backgroundColor]= '';
             // for merging
             //source.layout[columnName][grid.layout_visible] = col[grid.column_visible];
-            source.layout[columnName][grid.layout_rowSpan] = 1;
-            source.layout[columnName][grid.layout_colSpan] = 1;
+            // source.layout[columnName][grid.layout_rowSpan] = 1;
+            // source.layout[columnName][grid.layout_colSpan] = 1;
             // source.layout[columnName][grid.layout_subRowSpan] = 1;
             // source.layout[columnName][grid.layout_subColSpan] = 1;
 
-            data30.layout[columnName] = {};
-            data30.layout[columnName][grid.layout_text] = this.tbs_getFormatText(col, row[columnName]);
+            // data30.layout[columnName] = {};
+            // data30.layout[columnName][grid.layout_text] = this.tbs_getFormatText(col, row[columnName]);
             // data30.layout[columnName][grid.layout_color]     = '';
             // data30.layout[columnName][grid.layout_backgroundColor]= '';
             // for merging
             //data30.layout[columnName][grid.layout_visible] = col[grid.column_visible];
-            data30.layout[columnName][grid.layout_rowSpan] = 1;
-            data30.layout[columnName][grid.layout_colSpan] = 1;
+            // data30.layout[columnName][grid.layout_rowSpan] = 1;
+            // data30.layout[columnName][grid.layout_colSpan] = 1;
             // data30.layout[columnName][grid.layout_subRowSpan] = 1;
             // data30.layout[columnName][grid.layout_subColSpan] = 1;
 
-            page.layout[columnName] = {};
-            page.layout[columnName][grid.layout_text] = this.tbs_getFormatText(col, row[columnName]);
+            // page.layout[columnName] = {};
+            // page.layout[columnName][grid.layout_text] = this.tbs_getFormatText(col, row[columnName]);
             // page.layout[columnName][grid.layout_color]     = '';
             // page.layout[columnName][grid.layout_backgroundColor]= '';
             // for merging
             //page.layout[columnName][grid.layout_visible] = col[grid.column_visible];
-            page.layout[columnName][grid.layout_rowSpan] = 1;
-            page.layout[columnName][grid.layout_colSpan] = 1;
+            // page.layout[columnName][grid.layout_rowSpan] = 1;
+            // page.layout[columnName][grid.layout_colSpan] = 1;
             // page.layout[columnName][grid.layout_subRowSpan] = 1;
             // page.layout[columnName][grid.layout_subColSpan] = 1;
 
@@ -139,7 +134,7 @@ TbsGrid.prototype.tbs_refreshRefData = function () {
         let itemLeftView = {};
 
         itemSelect[grid.code_rowId] = data[rowIndex][grid.code_rowId];
-        itemSelect.data = new Uint8ClampedArray([]); //new
+        itemSelect = new Uint8ClampedArray([]); //new
 
         itemLeftView[grid.code_mode] = ''; //insert, update, delete
         itemLeftView[grid.code_rowId] = data[rowIndex][grid.code_rowId];
@@ -153,82 +148,6 @@ TbsGrid.prototype.tbs_refreshRefData = function () {
     this.tbs_removeRange(0, -1);
     this.tbs_displayPanel30(0);
 }
-/**
- * @deprecated to be deprecated
- */
-TbsGrid.prototype.tbs_displayDataView = function(matrix, type) {
-    if (type == 'groupView') {
-        let table = document.createElement('table');
-        //table.style.width = '100%'
-        table.style.border = '1px solid black';
-        table.style.borderSpacing = '1px';
-        table.style.padding = '1px';
-        for (let i = 0, len = matrix.length; i < len; i++) {
-            let row = matrix[i];
-            let tr = document.createElement('tr');
-            for (let x = 0, len2 = this.columns.length; x < len2; x++) {
-                let col = matrix[i][this.columns[x].column_id];
-                let td = document.createElement('td');
-                td.style.border = '1px solid black';
-                td.style.width = '100px';
-                td.style.background = (col.srow != -1) ? 'yellow' : '';
-                td.innerHTML  = '(' + i + ',' + x + ')<br/>'
-                td.innerHTML += 'col.column_id 		:' + col.column_id 		+ '<br/>'
-                td.innerHTML += 'col.srow 		:' + col.srow 		+ '<br/>'
-                td.innerHTML += 'col.erow 		:' + col.erow 		+ '<br/>'
-                td.innerHTML += 'col.node 		:' + col.node 		+ '<br/>'
-                td.innerHTML += 'col.parentNode :' + col.parentNode + '<br/>'
-                td.innerHTML += 'col.firstChild :' + col.firstChild + '<br/>'
-                td.innerHTML += 'col.lastChild :' + col.lastChild + '<br/>'
-                tr.appendChild(td);
-            }
-            table.appendChild(tr);
-        }
-
-        if (document.querySelectorAll('#showData').length > 0) {
-            document.querySelector('#showData').innerHTML = '';
-            document.querySelector('#showData').innerHTML = table.outerHTML;
-        }
-        else {
-            let div = document.createElement('div');
-            div.id = 'showData';
-            div.appendChild(table);
-            document.body.appendChild(div);
-        }
-    }
-    if (type == 'layout') {
-        let table = document.createElement('table');
-        //table.style.width = '100%'
-        table.style.border = '1px solid black';
-        table.style.borderSpacing = '1px';
-        table.style.padding = '1px';
-        for (let i = 0, len = matrix.length; i < len; i++) {
-            let row = matrix[i];
-            let tr = document.createElement('tr');
-            for (let x = 0, len2 = this.columns.length; x < len2; x++) {
-                let col = matrix[i].layout[this.tbs_getColumnName(x)];
-                let td = document.createElement('td');
-                td.style.border = '1px solid black';
-                td.style.width = '100px';
-                let node = (col.node == undefined) ? -1 : col.node;
-                td.style.background = (node != -1) ? 'yellow' : '';
-                td.innerHTML  = '(' + i + ',' + x + ')<br/>';
-                td.innerHTML += 'col.srow 		:' + col.srow 		+ '<br/>'
-                td.innerHTML += 'col.erow 		:' + col.erow 		+ '<br/>'
-                td.innerHTML += 'col.depth	    :' + matrix[i].depth+ '<br/>';
-                td.innerHTML += 'col.mode	    :' + matrix[i].mode + '<br/>';
-                td.innerHTML += 'col.rowSpan	:' + col.rowSpan    + '<br/>';
-                td.innerHTML += 'col.subRowSpan	:' + col.subRowSpan + '<br/>';
-                td.innerHTML += 'col.visible    :' + col.visible    + '<br/>';
-                td.innerHTML += 'col.text       :' + col.text       + '<br/>';
-                td.innerHTML += 'col.mergeClass :' + col.mergeClass + '<br/>';
-                tr.appendChild(td);
-            }
-            table.appendChild(tr);
-        }
-        document.write(table.outerHTML);
-    }
-}
 /* Data value API. */
 TbsGrid.prototype.tbs_getValue = function (rowIndex, columnName) {
     /**
@@ -239,7 +158,7 @@ TbsGrid.prototype.tbs_getValue = function (rowIndex, columnName) {
      */
     let column = this.tbs_getColumn(columnName);
     let columnType = column[this.column_type];
-    let val = this.data_view[rowIndex].data[columnName];
+    let val = this.data_view[rowIndex][columnName];
 
     if (columnType == this.code_number) return Number(val);
     else if (columnType == this.code_currency) return Number(val);
@@ -250,15 +169,21 @@ TbsGrid.prototype.tbs_getValueByIndex = function (rowIndex, colIndex) {
     return this.tbs_getValue(rowIndex, columnName);
 }
 TbsGrid.prototype.tbs_getText = function (rowIndex, columnName) {
-    return this.data_view[rowIndex].layout[columnName][this.layout_text];
+    // return this.data_view[rowIndex].layout[columnName][this.layout_text];
+    let column = this.tbs_getColumn(columnName);
+    let val = this.tbs_getValue(rowIndex, columnName);
+    return this.tbs_getFormatText(column, val);
 }
 TbsGrid.prototype.tbs_getTextByIndex = function (rowIndex, colIndex) {
     let columnName = this.tbs_getColumnName(colIndex);
     return this.tbs_getText(rowIndex, columnName);
 }
-TbsGrid.prototype.tbs_getSourceText = function (rowIndex, name) {
+TbsGrid.prototype.tbs_getSourceText = function (rowIndex, columnName) {
     // rowIndex : data_table rowIndex
-    return this.data_table[rowIndex].layout[name][this.layout_text];
+    // return this.data_table[rowIndex].layout[name][this.layout_text];
+    let val = this.data_table[rowIndex][columnName];
+    let column = this.getColumn(columnName);
+    return this.tbs_getFormatText(column, val);
 }
 TbsGrid.prototype.tbs_setValue = function (rowIndex, id, value) {
     let selector = '#' + this.gridId;
@@ -277,18 +202,18 @@ TbsGrid.prototype.tbs_setDataValue = function (rowIndex, id, value) {
     let grid = this;
 
     let cellIndex = this.tbs_getColumnIndex(id);
-    let oldValue = this.data_view[rowIndex].data[id];
+    let oldValue = this.data_view[rowIndex][id];
     let mode = this.data_view[rowIndex][grid.code_mode];
 
     let result = this.tbs_getFormat(this.columns[cellIndex], value);
     if (mode == 'I') {
         if (oldValue != result.value) {
-            this.data_view[rowIndex].data[id] = result.value;
+            this.data_view[rowIndex][id] = result.value;
             this.tbs_setLayoutValue(rowIndex, id, this.layout_text, result.text);
             let rowId = this.data_view[rowIndex][grid.code_rowId];
             for (let i = 0; i < this.data_table.length; i++) {
                 if (rowId == this.data_table[i][grid.code_rowId]) {
-                    this.data_table[i].data[id] = result.value;
+                    this.data_table[i][id] = result.value;
                     this.data_table[i][grid.code_mode]= 'I';
                     break;
                 }
@@ -297,13 +222,13 @@ TbsGrid.prototype.tbs_setDataValue = function (rowIndex, id, value) {
     }
     else {
         if (oldValue != result.value) {
-            this.data_view[rowIndex].data[id] = result.value;
+            this.data_view[rowIndex][id] = result.value;
             this.data_view[rowIndex][grid.code_mode] = 'U';
             this.tbs_setLayoutValue(rowIndex, id, this.layout_text, result.text);
             let rowId = this.data_view[rowIndex][grid.code_rowId];
             for (let i = 0; i < this.data_table.length; i++) {
                 if (rowId == this.data_table[i][grid.code_rowId]) {
-                    this.data_table[i].data[id] = result.value;
+                    this.data_table[i][id] = result.value;
                     this.data_table[i][grid.code_mode] = 'U';
                     break;
                 }
@@ -327,21 +252,20 @@ TbsGrid.prototype.tbs_createEmptyRow = function (rowId) {
     let row = {};
     row[grid.code_rowId] = rowId;
     row[grid.code_mode] = '';
-    row.data = {};
-    row.layout = {};
+    // row.layout = {};
 
     for (let i = 0, len = columns.length; i < len; i++) {
         let column = columns[i];
         let columnName = column[grid.column_name];
-        row.data[columnName] = this.null(row[columnName]) ? null : row[columnName];
-        row.layout[columnName] = {};
-        row.layout[columnName][grid.layout_text] = '';
+        row[columnName] = this.null(row[columnName]) ? null : row[columnName];
+        // row.layout[columnName] = {};
+        // row.layout[columnName][grid.layout_text] = '';
         // row.layout[columnName][grid.layout_color] = '';
         // row.layout[columnName][grid.layout_backgroundColor] = '';
 
         //row.layout[columnName][grid.layout_visible] = true;
-        row.layout[columnName][grid.layout_rowSpan] = 1;
-        row.layout[columnName][grid.layout_colSpan] = 1;
+        // row.layout[columnName][grid.layout_rowSpan] = 1;
+        // row.layout[columnName][grid.layout_colSpan] = 1;
         // row.layout[columnName][grid.layout_subRowSpan] = 1;
         // row.layout[columnName][grid.layout_subColSpan] = 1;
     }
@@ -358,39 +282,37 @@ TbsGrid.prototype.tbs_createRow = function (row) {
     let source = {};
     source[grid.code_rowId] = rowId;
     source[grid.code_mode] = 'I';
-    source.data = {};
-    source.layout = {};
+    // source.layout = {};
 
     let data30 = {};
     data30[grid.code_rowId] = rowId;
     data30[grid.code_mode] = 'I';
-    data30.data = {};
-    data30.layout = {};
+    // data30.layout = {};
 
     for (let i = 0, len = columns.length; i < len; i++) {
         let column = columns[i];
         let id = column[grid.column_name];
-        source.data[id] = this.null(row[id]) ? null : row[id];
-        source.layout[id] = {};
+        source[id] = this.null(row[id]) ? null : row[id];
+        // source.layout[id] = {};
         //source.layout[id][grid.layout_visible] = column[grid.layout_visible];
-        source.layout[id][grid.layout_rowSpan] = 1;
-        source.layout[id][grid.layout_colSpan] = 1;
-        source.layout[id][grid.layout_subRowSpan] = 1;
-        source.layout[id][grid.layout_subColSpan] = 1;
-        source.layout[id][grid.layout_color]      = '';
-        source.layout[id][grid.layout_backgroundColor] = '';
-        source.layout[id][grid.layout_text] = this.tbs_getFormatText(column, row[id]);
+        // source.layout[id][grid.layout_rowSpan] = 1;
+        // source.layout[id][grid.layout_colSpan] = 1;
+        // source.layout[id][grid.layout_subRowSpan] = 1;
+        // source.layout[id][grid.layout_subColSpan] = 1;
+        // source.layout[id][grid.layout_color]      = '';
+        // source.layout[id][grid.layout_backgroundColor] = '';
+        // source.layout[id][grid.layout_text] = this.tbs_getFormatText(column, row[id]);
 
-        data30.data[id] = this.null(row[id]) ? null : row[id];
-        data30.layout[id] = {};
+        data30[id] = this.null(row[id]) ? null : row[id];
+        // data30.layout[id] = {};
         //data30.layout[id][grid.layout_visible] = column[grid.layout_visible];
-        data30.layout[id][grid.layout_rowSpan] = 1;
-        data30.layout[id][grid.layout_colSpan] = 1;
-        data30.layout[id][grid.layout_subRowSpan] = 1;
-        data30.layout[id][grid.layout_subColSpan] = 1;
-        data30.layout[id][grid.layout_color]      = '';
-        data30.layout[id][grid.layout_backgroundColor] = '';
-        data30.layout[id][grid.layout_text] = this.tbs_getFormatText(column, row[id]);
+        // data30.layout[id][grid.layout_rowSpan] = 1;
+        // data30.layout[id][grid.layout_colSpan] = 1;
+        // data30.layout[id][grid.layout_subRowSpan] = 1;
+        // data30.layout[id][grid.layout_subColSpan] = 1;
+        // data30.layout[id][grid.layout_color]      = '';
+        // data30.layout[id][grid.layout_backgroundColor] = '';
+        // data30.layout[id][grid.layout_text] = this.tbs_getFormatText(column, row[id]);
     }
     return { source : source, data30 : data30 };
 }
@@ -415,6 +337,17 @@ TbsGrid.prototype.tbs_getRows = function (startRowIndex = 0, endRowIndex = -1) {
         for (let i = startRowIndex; i <= endRowIndex; i++) {
             let row = rows[i];
             result.push(grid.tbs_copyJson(row));
+        }
+    }
+    return result;
+}
+TbsGrid.prototype.tbs_getTempRowByRowId = function (rowId) {
+    let result = {};
+    let grid = this;
+    for (let i = 0, len = this.data_temp.length; i < len; i++) {
+        if (this.data_temp[i][grid.code_rowId] == rowId) {
+            result = grid.tbs_copyJson(this.data_temp[i]);
+            break;
         }
     }
     return result;
@@ -467,7 +400,7 @@ TbsGrid.prototype.tbs_getSelectedRows = function () {
         item[grid.code_rowId] = grid.data_view[rowIndex][grid.code_rowId];
         item[grid.code_mode]  = grid.data_view[rowIndex][grid.code_mode];
         item.rowIndex = rowIndex;
-        item.data = grid.tbs_copyJson(grid.data_view[rowIndex].data);
+        item = grid.tbs_copyJson(grid.data_view[rowIndex]);
         if (this.tbs_isSelectedCell31(rowIndex, 0) == 1) result.push(item);
     }
     return result;
@@ -602,11 +535,11 @@ TbsGrid.prototype.tbs_getChangedRowsData_ref = function () {
         if (r[grid.code_mode] != 'U' && r[grid.code_mode] != 'I') continue;
         if (r[grid.code_mode] == 'U') {
             let column = this.columns;
-            for (let key in r.data) {
+            for (let key in r) {
                 for (let x = 0; x < column.length; x++) {
                     let c = column[x];
                     if (key == c[grid.column_name] && c[grid.column_required] == true && c[grid.column_autoWidth] != true) {
-                        let value = r.data[key].replace(/ /gi, '');
+                        let value = r[key].replace(/ /gi, '');
                         if (value == '') { alert('input required values'); return; }
                     }
                 }
@@ -616,13 +549,13 @@ TbsGrid.prototype.tbs_getChangedRowsData_ref = function () {
             let column = this.columns;
             let colCheckCount = 0;
             let colCount = 0;
-            for (let key in r.data) {
+            for (let key in r) {
                 for (let x = 0; x < column.length; x++) {
                     let c = column[x];
                     if (key == c[grid.column_name]) {
                         if (c[grid.column_required] == true && c[grid.column_autoWidth] != true) {
                             colCount += 1;
-                            let value = r.data[key].replace(/ /gi, '');
+                            let value = r[key].replace(/ /gi, '');
                             if (value != '') colCheckCount += 1;
                         }
                     }
@@ -656,7 +589,7 @@ TbsGrid.prototype.tbs_getDeletedRowsData = function () {
     let result = [];
     for (let i = 0, len = rows.length; i < len; i++) {
         let row = rows[i];
-        let item = JSON.parse(JSON.stringify(row.data));
+        let item = JSON.parse(JSON.stringify(row));
         item[grid.code_rowId] = row[grid.code_rowId];
         item[grid.code_mode]  = row[grid.code_mode];
         result.push(item);
@@ -669,7 +602,7 @@ TbsGrid.prototype.tbs_getUpdatedRowsData = function () {
     for (let i = 0, len = rows.length; i < len; i++) {
         let row = rows[i];
         if (row.mode == 'U') {
-            let item = JSON.parse(JSON.stringify(row.data));
+            let item = JSON.parse(JSON.stringify(row));
             item[grid.code_rowId] = row[grid.code_rowId];
             item[grid.code_mode] = row[grid.code_mode];
             result.push(item);
@@ -683,7 +616,7 @@ TbsGrid.prototype.tbs_getInsertedRowsData = function () {
     for (let i = 0, len = rows.length; i < len; i++) {
         let row = rows[i];
         if (row[grid.code_mode] == 'I') {
-            let item = JSON.parse(JSON.stringify(row.data));
+            let item = JSON.parse(JSON.stringify(row));
             item[this.code_rowId] = row[grid.code_rowId];
             item[this.code_mode ] = row[grid.code_mode];
             result.push(item);
@@ -912,21 +845,21 @@ TbsGrid.prototype.tbs_getSelectedRowIndex = function() {
 //======================================================================================================================
 
 /* Layout Data */
-TbsGrid.prototype.tbs_getLayout = function (rowIndex, columnName) {
-    let grid = this;
-    try { return grid.data_view[rowIndex].layout[columnName]; }
-    catch (e) { return null; }
-}
-TbsGrid.prototype.tbs_getLayoutValue = function (rowIndex, columnName, property) {
-    let grid = this;
-    try { return grid.data_view[rowIndex].layout[columnName][property]; }
-    catch (e) { return null; }
-}
-TbsGrid.prototype.tbs_setLayoutValue = function(rowIndex, columnName, property, value) {
-    let grid = this;
-    if (grid.null(grid.data_view[rowIndex].layout[columnName])) grid.data_view[rowIndex].layout[columnName] = {};
-    grid.data_view[rowIndex].layout[columnName][property] = value;
-}
+// TbsGrid.prototype.tbs_getLayout = function (rowIndex, columnName) {
+//     let grid = this;
+//     try { return grid.data_view[rowIndex].layout[columnName]; }
+//     catch (e) { return null; }
+// }
+// TbsGrid.prototype.tbs_getLayoutValue = function (rowIndex, columnName, property) {
+//     let grid = this;
+//     try { return grid.data_view[rowIndex].layout[columnName][property]; }
+//     catch (e) { return null; }
+// }
+// TbsGrid.prototype.tbs_setLayoutValue = function(rowIndex, columnName, property, value) {
+//     let grid = this;
+//     if (grid.null(grid.data_view[rowIndex].layout[columnName])) grid.data_view[rowIndex].layout[columnName] = {};
+//     grid.data_view[rowIndex].layout[columnName][property] = value;
+// }
 
 //======================================================================================================================
 

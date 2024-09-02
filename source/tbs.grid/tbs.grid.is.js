@@ -211,9 +211,22 @@ TbsGrid.prototype.tbs_isSortColumnName = function (columnName) {
     let grid = this;
 
     let result = false;
-    for (let i = 0, len = this.sortColumns.length; i < len; i++) {
-        let sortColumn = this.sortColumns[i];
+    for (let i = 0, len = this.classSort.sortColumns.length; i < len; i++) {
+        let sortColumn = this.classSort.sortColumns[i];
         if (columnName == sortColumn[grid.column_name]) {
+            result = true;
+            break;
+        }
+    }
+    return result;
+}
+TbsGrid.prototype.tbs_isFilterColumnName = function (columnName) {
+    let grid = this;
+
+    let result = false;
+    for (let i = 0, len = this.filterColumns.length; i < len; i++) {
+        let filterColumn = this.filterColumns[i];
+        if (columnName == filterColumn[grid.column_name]) {
             result = true;
             break;
         }

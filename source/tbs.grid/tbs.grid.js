@@ -15,6 +15,8 @@
 	this.data_user   = []; // Data User
 	this.data_table  = []; // Data Table
 	this.data_view   = []; // Data View : View Conversion Data, fixed data, filter, sort
+	this.data_temp   = []; // group or tree - open, closed
+
 	this.data_page   = []; // Data Page
 	this.data_top    = [];
 	this.data_footer = [];
@@ -127,30 +129,29 @@
 	this.column_colIndex      = 'colIndex' 	 ;
 	this.column_fromcol       = 'fromcol' 	 ;
 	this.column_tocol         = 'tocol'	     ;
-	this.column_num           = 'number'     ;
-	this.column_parentNum     = 'parentNumber';
+	this.column_num           = '_number'     ;
+	this.column_parentNum     = '_parentNumber';
 	this.column_subRowSpan    = 'subRowSpan' ;
 	this.column_subColSpan    = 'subColSpan' ;
 	this.column_order         = 'order'     ;
 
 	//this.layout_visible       = 'visible'   ; // not allow merged.
-	this.layout_rowSpan       = 'rowSpan'   ;
-	this.layout_colSpan       = 'colSpan'   ;
-	this.layout_subRowSpan    = 'subRowSpan';
-	this.layout_subColSpan    = 'subColSpan';
-	this.layout_color         = 'color'     ;
-	this.layout_backgroundColor    = 'backgroundColor';
-	this.layout_text          = 'text'      ;
+	// this.layout_rowSpan       = 'rowSpan'   ;
+	// this.layout_colSpan       = 'colSpan'   ;
+	// this.layout_subRowSpan    = 'subRowSpan';
+	// this.layout_subColSpan    = 'subColSpan';
+	// this.layout_color         = 'color'     ;
+	// this.layout_backgroundColor    = 'backgroundColor';
+	// this.layout_text          = 'text'      ;
 	/**
 	 * @description Columns
 	 *
 	 */
 	this.columns = [];
 	// Sort after filter
-	this.filterColumns = [];	// [{ name : 'columnName', value : , toValue, type : , excludedValues : []}]
+	this.filterColumns = [];	// [{ name : 'columnName', value : , type : , excludedValues : []}]
 
 	this.const_filterValue    		= 'value';
-	this.const_filterToValue 		= 'toValue';
 	this.const_filterType      		= 'type';
 	this.const_filterexcludedValues = 'excludedValues';
 
@@ -170,7 +171,7 @@
 	this.const_filterReset = 'Reset';
 	this.const_filterSave  = 'Save';
 
-	this.sortColumns = []; 	 // [{ name : 'layout', order : 'asc'}, { name : 'layout', order : 'asc'}]
+	//this.sortColumns = []; 	 // [{ name : 'layout', order : 'asc'}, { name : 'layout', order : 'asc'}]
 	this.summaryColumns = [];// [{ name : 'layout'}, { name : 'layout']  => summaryColumns
 
 	this.headerRowCount = 0;
@@ -310,9 +311,9 @@
 	this.code_group   = 'group';
 	this.code_page    = 'page';  //options : paging, grouping, filtering, sorting
 
-	this.code_mode           = '_mode'   ;
-	this.code_rowId          = '_rowId'  ;
-	this.code_isOpen         = 'isOpen';
+	this.code_mode     = '_mode'   ;
+	this.code_rowId    = '_rowId'  ;
+	this.code_isOpen   = 'isOpen';
 
 	this.code_string  = 'string';
 	this.code_number  = 'number';
@@ -335,13 +336,16 @@
 	this.code_vertical   = 'vertical';
 
 	/* group, tree */
-	this.code_depth		= 'depth'   ;
-	this.code_children  = 'children';
-	this.code_num       = 'number';
-	this.code_parentNum = 'parentNumber';
+	this.code_depth		= '_depth'   ;
+	this.code_children  = '_children';
+	this.code_num       = '_number';
+	this.code_parentNum = '_parentNumber';
 	this.code_open      = 'open';
 	this.code_closed    = 'closed';
 
+	this.code_itemName   = 'itemName';
+	this.code_parentName = 'parentName';
+	this.code_rootValue  = 'rootValue';
 	/**
 	 * @description class
 	 *

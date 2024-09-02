@@ -4,10 +4,9 @@ class TbsGridTree {
         this.selector = '#' + grid.gridId;
 
         this.options = {};
-        this.options['name'		  ] = null;
-        this.options['parentName' ] = null;
-        this.options['rootValue'  ] = null;
-        this.options['sortColumns'] = null;
+        this.options[grid.code_itemName	  ] = null;
+        this.options[grid.code_parentName ] = null;
+        this.options[grid.code_rootValue  ] = null;
     }
 }
 TbsGridTree.prototype.tbs_setTreeOption = function (optionName, optionValue) {
@@ -38,7 +37,7 @@ TbsGrid.prototype.tbs_createTreeData = function(dataRows) {
         row[grid.code_children] = [];
         for (let i = 0, len= copyRows.length; i < len; i++) {
             let copyRow = copyRows[i];
-            if (row[grid.classTree.options['name']] == copyRow[grid.classTree.options['parentName']]) {
+            if (row[grid.classTree.options[grid.code_itemName]] == copyRow[grid.classTree.options[grid.code_parentName]]) {
                 row[grid.code_children].push(copyRow[grid.code_rowId]);
             }
         }
@@ -60,7 +59,7 @@ TbsGrid.prototype.tbs_createTreeData = function(dataRows) {
     }
     for (let i = 0, len = copyRows.length; i < len; i++) {
         let copyRow = copyRows[i];
-        if (grid.classTree.options['rootValue'] == copyRow[grid.classTree.options['parentName']]) {
+        if (grid.classTree.options[grid.code_rootValue] == copyRow[grid.classTree.options[grid.code_parentName]]) {
             fn_addChildrenRows(copyRow);
         }
     }
@@ -69,7 +68,7 @@ TbsGrid.prototype.tbs_createTreeData = function(dataRows) {
 TbsGrid.prototype.tbs_setTreeSortColumns = function (sortColumns) {
     let selector = '#' + this.gridId;
     let grid = this;
-    this.sortColumns = grid.tbs_copyJson(sortColumns);
+    this.classSort.sortColumns = grid.tbs_copyJson(sortColumns);
 }
 TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
     let selector = '#' + this.gridId;
@@ -100,16 +99,16 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
         let row = dataRows[i];
 
         source[grid.code_rowId] = data30[grid.code_rowId] = row[grid.code_rowId];
-        source[grid.code_mode]     = data30[grid.code_mode]  = ''; // S, U, I, D, blank
-        source[grid.code_depth]    = data30[grid.code_depth] = row[grid.code_depth];
+        source[grid.code_mode]  = data30[grid.code_mode]  = ''; // S, U, I, D, blank
+        source[grid.code_depth] = data30[grid.code_depth] = row[grid.code_depth];
 
         //data30[grid.const_seq]   = parseInt(i + 1);
         source[grid.code_children] = grid.tbs_copyJson(row[grid.code_children]);
         data30[grid.code_children] = grid.tbs_copyJson(row[grid.code_children]);
         source[grid.code_isOpen]   = false;// keep open, closed state
 
-        source.data = {}; source.layout = {};
-        data30.data = {}; data30.layout = {};
+        // source = {}; //source.layout = {};
+        // data30 = {}; //data30.layout = {};
 
         for (let colIndex= 0, len= columns.length; colIndex < len; colIndex++) {
             let col = columns[colIndex];
@@ -117,29 +116,29 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
             let val = grid.null(row[id]) ? null : grid.tbs_getFormatValue(col, row[id]);
             let colType = columns[colIndex][grid.column_type];
 
-            source.data[id] = val;
-            data30.data[id] = val;
+            source[id] = val;
+            data30[id] = val;
 
-            source.layout[id] = {};
+            // source.layout[id] = {};
             //source.layout[id][grid.layout_visible] = col[grid.column_visible]; //for merge cell
-            source.layout[id][grid.layout_text] = grid.tbs_getFormatText(col, row[id]);
-            source.layout[id][grid.layout_rowSpan] = 1;
-            source.layout[id][grid.layout_colSpan] = 1;
-            source.layout[id][grid.layout_subRowSpan] = 1;
-            source.layout[id][grid.layout_subColSpan] = 1;
-            source.layout[id][grid.layout_color]     = '';
-            source.layout[id][grid.layout_backgroundColor]= '';
+            // source.layout[id][grid.layout_text] = grid.tbs_getFormatText(col, row[id]);
+            // source.layout[id][grid.layout_rowSpan] = 1;
+            // source.layout[id][grid.layout_colSpan] = 1;
+            // source.layout[id][grid.layout_subRowSpan] = 1;
+            // source.layout[id][grid.layout_subColSpan] = 1;
+            // source.layout[id][grid.layout_color]     = '';
+            // source.layout[id][grid.layout_backgroundColor]= '';
 
-            data30.data[id] = val;
-            data30.layout[id] = {};
+            //data30[id] = val;
+            // data30.layout[id] = {};
             //data30.layout[id][grid.layout_visible] = col[grid.column_visible];
-            data30.layout[id][grid.layout_text] = grid.tbs_getFormatText(col, row[id]);
-            data30.layout[id][grid.layout_rowSpan] = 1;
-            data30.layout[id][grid.layout_colSpan] = 1;
-            data30.layout[id][grid.layout_subRowSpan] = 1;
-            data30.layout[id][grid.layout_subColSpan] = 1;
-            data30.layout[id][grid.layout_color]     = '';
-            data30.layout[id][grid.layout_backgroundColor]= '';
+            // data30.layout[id][grid.layout_text] = grid.tbs_getFormatText(col, row[id]);
+            // data30.layout[id][grid.layout_rowSpan] = 1;
+            // data30.layout[id][grid.layout_colSpan] = 1;
+            // data30.layout[id][grid.layout_subRowSpan] = 1;
+            // data30.layout[id][grid.layout_subColSpan] = 1;
+            // data30.layout[id][grid.layout_color]     = '';
+            // data30.layout[id][grid.layout_backgroundColor]= '';
 
         }
         grid.data_table.push(source);
@@ -152,7 +151,7 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
     if (grid.notNull(openDepth)) {
         for (let i = grid.data_view.length - 1; i >= 0; i--) {
             let row = grid.data_view[i];
-            let depth = row.depth;
+            let depth = row[grid.code_depth];
             if (depth > openDepth) grid.data_view.splice(i, 1);
         }
     }
@@ -238,8 +237,10 @@ TbsGrid.prototype.tbs_setTreeDataTable3 = function (param) {
             }
 
             let column = grid.columns[x];
-            let layout = grid.tbs_getLayout(i, column[grid.column_name]);
-            let colValue = layout[grid.layout_text];
+            let columnName = column[grid.column_name];
+            //let layout = grid.tbs_getLayout(i, column[grid.column_name]);
+            //let colValue = layout[grid.layout_text];
+            let colValue = grid.tbs_getText(i, columnName);
             let divCell = tableCell.childNodes[0];
             // When x == startColumnIndex, tree icon
 
@@ -259,7 +260,7 @@ TbsGrid.prototype.tbs_setTreeDataTable3 = function (param) {
                 grid.tbs_setCellStyle(tableCell, 'backgroundImage', '');
                 grid.tbs_setCellStyle(tableCell, 'display'        , column[grid.column_visible] == true ? '' : 'none');
                 grid.tbs_setCell(tableCell, 'rowSpan', '1');
-                grid.tbs_setCell(tableCell, 'rowSpan', layout[grid.layout_rowSpan]);
+                grid.tbs_setCell(tableCell, 'rowSpan', '1');
             }
             else {
                 grid.tbs_setCellStyle(tableCell, 'textAlign'      , column[grid.column_align]);
@@ -267,7 +268,7 @@ TbsGrid.prototype.tbs_setTreeDataTable3 = function (param) {
                 grid.tbs_setCellStyle(tableCell, 'backgroundImage', '');
                 grid.tbs_setCellStyle(tableCell, 'display'        , column[grid.column_visible] == true ? '' : 'none');
                 grid.tbs_setCell(tableCell, 'rowSpan', '1');
-                grid.tbs_setCell(tableCell, 'rowSpan', layout[grid.layout_rowSpan]);
+                grid.tbs_setCell(tableCell, 'rowSpan', '1');
             }
             grid.tbs_setSelectedCell(panelName, tableCell, i, x);
             let spanText = tableCell.querySelector('.tbs-grid-cell-div-text');
@@ -327,7 +328,7 @@ TbsGrid.prototype.tbs_setTreeIcon = function (tableCell, rowIndex) {
         let nextRow = grid.tbs_getRow(rowIndex + 1);
         if (grid.null(nextRow)) grid.tbs_toggleTreeIcon(rowIndex, element, 'closed');
         else {
-            if (nextRow.data[grid.classTree.options['parentName']] == row.data[grid.classTree.options['itemName']])
+            if (nextRow[grid.classTree.options[grid.code_parentName]] == row[grid.classTree.options['itemName']])
                 grid.tbs_toggleTreeIcon(rowIndex, element, 'open');
             else
                 grid.tbs_toggleTreeIcon(rowIndex, element, 'closed');

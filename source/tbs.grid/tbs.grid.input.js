@@ -58,6 +58,7 @@ TbsGrid.prototype.event_input = function() {
             else if (e.ctrlKey || e.keyCode == 9 || e.keyCode == 46) {}
             else if (e.keyCode >= 112 && e.keyCode <= 123) {}
             else {
+                console.log('input')
                 let cellIndex = grid.startCellIndex;
                 let column = grid.tbs_getColumnByIndex(cellIndex);
                 if (grid.notNull(column[grid.column_editable]) && column[grid.column_editable]) {
@@ -427,6 +428,7 @@ TbsGrid.prototype.tbs_editStart = function(e, mode) {
     eventRow.text        = text;
     eventRow.state       = state;
     eventRow.newValue    = input.value;
+    eventRow.data        = eventRow;
     if (column[grid.column_editable] == true && grid.notNull(grid.user_edit)) {
         let result = true;
         result = grid.tbs_edit(e, grid, state, eventRow, grid.user_edit);
@@ -470,7 +472,7 @@ TbsGrid.prototype.tbs_editing = function(e, mode) {
     eventRow.text        = text;
     eventRow.state       = state;
     eventRow.newValue    = input.value;
-
+    eventRow.data        = eventRow;
     if (column[grid.column_editable] == true && grid.notNull(grid.user_edit)) {
         let result = true;
         if (state == 1 && panelInput.style.left != '30000px') {
@@ -517,7 +519,7 @@ TbsGrid.prototype.tbs_editEnd = function(e, mode) {
         eventRow.text        = text;
         eventRow.state       = state;
         eventRow.newValue    = input.value;
-
+        eventRow.data        = eventRow;
         if (column[grid.column_editable] == true && grid.notNull(grid.user_edit)) {
             let result = true;
             if (state == 2 && panelInput.style.left != '30000px') {

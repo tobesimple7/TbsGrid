@@ -67,9 +67,9 @@ TbsGridFilterLayer.prototype.tbs_createFilter = function(){
     s += '      <div class="tbs-grid-layer-filter-content">';
     s += '          <input class="tbs-grid-layer-filter-content-input" placeholder="Words to filter">';
     s += '      </div>';
-    s += '      <div class="tbs-grid-layer-filter-content">';
-    s += '          <input class="tbs-grid-layer-filter-content-input-to" style="display:none;" placeholder="Words to filter">';
-    s += '      </div>';
+    // s += '      <div class="tbs-grid-layer-filter-content">';
+    // s += '          <input class="tbs-grid-layer-filter-content-input-to" style="display:none;" placeholder="Words to filter">';
+    // s += '      </div>';
     s += '      <div class="tbs-grid-layer-filter-content">';
     s += '              <button class="tbs-grid-layer-filter-content-button-save">save</button>';
     s += '              <button class="tbs-grid-layer-filter-content-button-reset">reset</button>';
@@ -125,21 +125,22 @@ TbsGridFilterLayer.prototype.tbs_AddEvent = function() {
     const changeEvent = function (e) {
         let combo = e.target;
         let columnType = column[grid.column_type];
-        if (columnType == grid.code_number) {
-            let toInput = document.querySelector(selector + ' .tbs-grid-layer-filter-content-input-to');
-            if (combo.selectedOptions[0].value == grid.const_filterBetween) toInput.style.display = '';
-            else toInput.style.display = 'none';
-        }
+        // if (columnType == grid.code_number) {
+        //     let toInput = document.querySelector(selector + ' .tbs-grid-layer-filter-content-input-to');
+        //     if (combo.selectedOptions[0].value == grid.const_filterBetween) toInput.style.display = '';
+        //     else toInput.style.display = 'none';
+        // }
     };
     const saveEvent = function (e) {
         let combo  = document.querySelector(selector + ' .tbs-grid-layer-filter-combo');
         let filterType = combo.selectedOptions[0].value;
 
         let word   = document.querySelector(selector + ' .tbs-grid-layer-filter-content-input').value;
-        let toWord = document.querySelector(selector + ' .tbs-grid-layer-filter-content-input-to').value;
+        //let toWord = document.querySelector(selector + ' .tbs-grid-layer-filter-content-input-to').value;
 
-        grid.tbs_setFilterColumn(column, filterType, word, toWord);
+        grid.tbs_setFilterColumn(column, filterType, word);
         grid.tbs_filters();
+        grid.apply();
 
         inputElement.value = word;
 
@@ -149,7 +150,7 @@ TbsGridFilterLayer.prototype.tbs_AddEvent = function() {
     };
     const resetEvent = function (e) {
         document.querySelector(selector + ' .tbs-grid-layer-filter-content-input').value = '';
-        document.querySelector(selector + ' .tbs-grid-layer-filter-content-input-to').value = '';
+        //document.querySelector(selector + ' .tbs-grid-layer-filter-content-input-to').value = '';
     };
     document.querySelector(selector + ' .tbs-grid-layer-filter-combo').addEventListener('change', changeEvent);
     document.querySelector(selector + ' .tbs-grid-layer-filter-content-button-save').addEventListener('mousedown', saveEvent);
@@ -174,6 +175,5 @@ TbsGridFilterLayer.prototype.tbs_setData = function() {
             }
         }
         document.querySelector(selector + ' .tbs-grid-layer-filter-content-input').value = filterColumn.value;
-        document.querySelector(selector + ' .tbs-grid-layer-filter-content-input-to').value = filterColumn.toValue;
     }
 }

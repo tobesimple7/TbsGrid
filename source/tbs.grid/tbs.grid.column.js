@@ -339,7 +339,7 @@ TbsGrid.prototype.tbs_setColumnByType = function (columnType, property, value) {
 }
 //================================================================
 TbsGrid.prototype.tbs_setSortColumn = function (sortColumn) {
-    this.sortColumns = Object.keys(sortColumn).length == 0 ? [] : sortColumn;
+    this.classSort.sortColumns = Object.keys(sortColumn).length == 0 ? [] : sortColumn;
 }
 TbsGrid.prototype.tbs_setGroupColumn = function (groupColumn) {
     this.classGroup.groupColumns = Object.keys(groupColumn).length == 0 ? [] : groupColumn;

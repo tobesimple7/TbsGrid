@@ -4,8 +4,7 @@ class TbsGridFilter {
         this.selector = '#' + grid.gridId;
 
         this.options = {};
-        //this.option_itemName	 = 'name'		;
-        //this.options[option_itemName   ] = null;
+
     }
 }
 
@@ -27,12 +26,12 @@ TbsGrid.prototype.totalFilterSearch = function (s) {
             count[i] = 0;
         }
         let columnArray = [];
-        for (let key in item.data){
+        for (let key in item){
             let column = grid.tbs_getColumn(key);
             if (column[grid.column_visible] === false) continue;
-            else columnArray.push(item.data[key]);
+            else columnArray.push(item[key]);
         }
-        //columnArray = Object.values(item.data);
+        //columnArray = Object.values(item);
 
         if (filterArray.length === 0) {
             return true;
@@ -54,7 +53,7 @@ TbsGrid.prototype.totalFilterSearch = function (s) {
     });
     if (data.length > 0) {
         this.data_view = JSON.parse(JSON.stringify(data));
-        if (this.merge) this.setGroup(this.sortColumns, this.summaryColumns, this.mergeType);
+        if (this.merge) this.setGroup(this.classSort.sortColumns, this.summaryColumns, this.mergeType);
     }
     else {
         this.data_view = [];
@@ -77,6 +76,8 @@ TbsGrid.prototype.tbs_hideFilterPanel = function () {
     let grid = this;
 
     grid.options[grid.option_filterVisible] = false;
+    grid.tbs_initFilterData();
+
     grid.classControl.after_hideFilterPanel()
 }
 TbsGrid.prototype.tbs_filters = function () {
@@ -85,18 +86,20 @@ TbsGrid.prototype.tbs_filters = function () {
 
     //let filterColumns = grid.tbs_getFilterColumns();
     let filterColumns = grid.filterColumns;
-    let data = grid.tbs_copyJson(grid.data_table);
+    let result = grid.tbs_copyJson(grid.data_table);
 
     for (let i = 0, len = filterColumns.length; i < len; i++) {
-        let result = grid.tbs_filter(data, filterColumns[i]);
-        data = grid.tbs_copyJson(result);
+        result = grid.tbs_filter(result, filterColumns[i]);
     }
-    grid.data_view = data;
+    grid.data_view = result;
 
     grid.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
     grid.verticalScroll.tbs_setScroll(grid.code_vertical);
     grid.tbs_setBarPosition(grid.code_vertical, 0);
-    grid.tbs_refreshRefData();
+
+    //if (grid.grid_mode == grid.code_group) grid.tbs_setData(grid.data_view, null, false);
+    //else
+    //grid.tbs_apply();
 }
 TbsGrid.prototype.tbs_filter = function (data, filterColumn) {
     // data, columnName, word
@@ -108,18 +111,20 @@ TbsGrid.prototype.tbs_filter = function (data, filterColumn) {
     let columnName = filterColumn.name;
     let filterType = filterColumn.type;
     let value = filterColumn.value;
-    let toValue = filterColumn.toValue;
 
     return result = data.filter(function(dataRow) {
         let bool = true;
         //let isExist = columnText.toString().toLowerCase().includes(word);
-        if (columnType == grid.code_number) {
-            let columnText = dataRow.data[columnName];
-            let isExist = grid.tbs_filterNumberByType(filterType, value, columnText, toValue);
+        if (columnType == grid.code_number || columnType == grid.code_currency) {
+            let columnText = dataRow[columnName];
+            let isExist = grid.tbs_filterNumberByType(filterType, value, columnText);
             return isExist;
         }
         else if (columnType == grid.code_string) {
-            let columnText = dataRow.layout[columnName][grid.layout_text];
+            //let columnText = dataRow.layout[columnName][grid.layout_text];
+            let val = dataRow[columnName];
+            let columnText = grid.tbs_getFormatText(column, val);
+
             let isExist = grid.tbs_filterStringByType(filterType, value, columnText);
             return isExist;
         }
@@ -143,13 +148,12 @@ TbsGrid.prototype.tbs_getFilterColumns = function() {
         item.name = columnName;
         item.value = word;
         item.type = "";
-        item.toValue = null;
         item.excludedValue = [];
         result.push(item);
     }
     return grid.filterColumns = result;
 }
-TbsGrid.prototype.tbs_filterNumberByType = function(filterType, n, targetNumber, toNumber) {
+TbsGrid.prototype.tbs_filterNumberByType = function(filterType, n, targetNumber) {
     let selector = '#' + this.gridId;
     let grid = this;
 
@@ -157,7 +161,22 @@ TbsGrid.prototype.tbs_filterNumberByType = function(filterType, n, targetNumber,
     if (grid.null(n)) n = 0;
     if (grid.null(targetNumber)) targetNumber = 0;
 
-    n = parseFloat(n);
+    let toNumber = null;
+    if (filterType == grid.const_filterBetween) {
+        let arr = n.split('-');
+        n = parseFloat(arr[0]);
+        if (arr.length > 1) {
+            toNumber = parseFloat(arr[1]);
+        }
+        else {
+            toNumber = 99999999999999;
+        }
+    }
+    else {
+        n = parseFloat(n);
+        toNumber = null;
+    }
+
     targetNumber = parseFloat(targetNumber);
 
     if      (filterType == grid.const_filterEqual) {
@@ -167,16 +186,16 @@ TbsGrid.prototype.tbs_filterNumberByType = function(filterType, n, targetNumber,
         return (n != targetNumber) ? true : false;
     }
     else if (filterType == grid.const_filterGreater) {
-        return (n > targetNumber) ? true : false;
-    }
-    else if (filterType == grid.const_filterGreaterEqual) {
-        return (n >= targetNumber) ? true : false;
-    }
-    else if (filterType == grid.const_filterLess) {
         return (n < targetNumber) ? true : false;
     }
-    else if (filterType == grid.const_filterLessEqual) {
+    else if (filterType == grid.const_filterGreaterEqual) {
         return (n <= targetNumber) ? true : false;
+    }
+    else if (filterType == grid.const_filterLess) {
+        return (n > targetNumber) ? true : false;
+    }
+    else if (filterType == grid.const_filterLessEqual) {
+        return (n >= targetNumber) ? true : false;
     }
     else if (filterType == grid.const_filterBetween) {
         return (targetNumber >= n && targetNumber <= toNumber) ? true : false;
@@ -222,11 +241,11 @@ TbsGrid.prototype.tbs_filterStringByType = function(filterType, s, targetString)
         return regExp.test(targetString);
     }
 }
-TbsGrid.prototype.tbs_setFilterColumn = function(column, filterType, word, toWord) {
+TbsGrid.prototype.tbs_setFilterColumn = function(column, filterType, word) {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    // grid.filterColumns [{ name : 'columnName', value : , toValue, type : , excludedValues : []}]
+    // grid.filterColumns [{ name : 'columnName', value : , excludedValues : []}]
     let filterColumns = grid.filterColumns;
     let json = grid.tbs_getJsonRow(filterColumns, grid.column_name, column[grid.column_name]);
     if (grid.null(json)) {
@@ -234,7 +253,6 @@ TbsGrid.prototype.tbs_setFilterColumn = function(column, filterType, word, toWor
         item.name = column[grid.column_name];
         item.type = filterType;
         item.value = word;
-        item.toValue = toWord;
         item.excludedValue = [];
         filterColumns.push(item);
     }
@@ -243,7 +261,6 @@ TbsGrid.prototype.tbs_setFilterColumn = function(column, filterType, word, toWor
         item.name = column[grid.column_name];
         item.type = filterType;
         item.value = word;
-        item.toValue = toWord;
         item.excludedValue = [];
     }
 }
@@ -264,7 +281,6 @@ TbsGrid.prototype.tbs_removeFilterColumn = function(column) {
 TbsGrid.prototype.tbs_createFilterCombo = function(column) {
     let selector = '#' + this.gridId;
     let grid = this;
-debugger;
     let combo = document.createElement('select');
     if (column[grid.column_type] == grid.code_string) {
         let option;
@@ -296,4 +312,39 @@ TbsGrid.prototype.tbs_addFilterComboOption = function(combo, value, text) {
     option.value = value;
     option.text = text;
     combo.add(option);
+}
+TbsGrid.prototype.tbs_initFilterData = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    grid.filterColumns = [];
+    let inputs = document.querySelectorAll(selector + ' .tbs-grid-panel70 .tbs-grid-cell-filter-input');
+    let combos = document.querySelectorAll(selector + ' .tbs-grid-panel70 .tbs-grid-cell-filter-combo');
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = '';
+        combos[i].selectedIndex = 0
+    }
+    grid.data_view = grid.tbs_copyJson(grid.data_table);
+    grid.tbs_removeRange(0, -1);
+    grid.tbs_apply();
+}
+TbsGrid.prototype.tbs_getFilterColumn = function (columnName) {
+    let index = this.tbs_getFilterColumnIndex(columnName);
+    return this.filterColumns[index];
+}
+TbsGrid.prototype.tbs_getFilterColumnIndex = function (columnName) {
+    let grid = this;
+    let result = -1;
+
+    for (let i = 0, len = this.filterColumns.length; i < len; i++) {
+        let filterColumn = this.filterColumns[i];
+        if (columnName == filterColumn[grid.column_name]) {
+            result = i;
+            break;
+        }
+    }
+    return result;
+}
+TbsGrid.prototype.tbs_getFilterColumnName = function (colIndex) {
+    return this.filterColumn[colIndex][this.column_name];
 }

@@ -63,7 +63,9 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
     const mouseUpEvent = function(e) {
         grid.lastX = lastX = window.pageXOffset + e.clientX;
         grid.lastY = lastY = window.pageYOffset + e.clientY;
+
         let isInPanel80 = grid.tbs_isInPanel(e, 'panel80', lastX, lastY);
+        let isInPanel90 = grid.tbs_isInPanel(e, 'panel90', lastX, lastY);
         //console.log(`${mouseButton} ${startX} == ${lastX} ${startY} == ${lastY}`);
         //console.log(`isInPanel11 ${isInPanel80} isInPanel20 ${isInPanel20}`);
 
@@ -120,6 +122,57 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
             document.removeEventListener('mousemove', mouseMoveEvent);
             document.removeEventListener('mouseup', mouseUpEvent);
         }
+        else if (isInPanel90) {
+            // sorting panel
+            if (grid.options[grid.option_sortVisible] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
+                let moveElement = document.querySelector('.tbs-grid-move');
+                let rectPanel80 = document.querySelector(selector + ' .tbs-grid-panel80').getBoundingClientRect();
+                let rectMoveCell= moveElement.getBoundingClientRect();
+
+                let columnIndex = moveElement.dataset.columnIndex;
+                let rowIndex = moveElement.dataset.rowIndex;
+
+                let column = grid.tbs_getColumnByIndex(columnIndex);
+                let name  = column[grid.column_name];
+                let text  = column[grid.column_text];
+                let order = 'asc';
+
+                // Find the one that is smaller to the button left than then move element left
+                let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel-bar .tbs-grid-panel-button');
+                let targetButton;
+                let targetIndex;
+                let moveLeft = grid.tbs_getOffset(moveElement).left;
+
+                for (let i = buttons.length + 1; i >= 0; i--) {
+                    let button = buttons[i];
+                    let buttonLeft= grid.tbs_getOffset(button).left
+                    if (moveLeft < buttonLeft) {
+                        targetButton = button;
+                        targetIndex = i;
+                    }
+                }
+                // Add 1th postion
+                if (grid.null(targetIndex)) {
+                    targetButton = null;
+                    targetIndex = null;
+                }
+                if (name != 'group_column') grid.tbs_addSortButton(name, text, order, targetIndex);
+
+                flagLeft = false;
+                flagRight = false;
+                flagUp = false;
+                flagDown = false;
+                document.removeEventListener('mousemove', mouseMoveEvent);
+                document.removeEventListener('mouseup', mouseUpEvent);
+                if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
+            }
+            flagLeft = false;
+            flagRight = false;
+            flagUp = false;
+            flagDown = false;
+            document.removeEventListener('mousemove', mouseMoveEvent);
+            document.removeEventListener('mouseup', mouseUpEvent);
+        }
         else {
             if (mouseButton == 0
                 && startX > lastX - grid.grid_mousePointRange
@@ -128,7 +181,14 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                 && startY < lastY + grid.grid_mousePointRange) {
                 let element = e.target.closest('.tbs-grid-cell');
                 let name = element.dataset.name;
-                if(grid.tbs_isColumnName(name)) grid.event_columnSort(e.target.closest('.tbs-grid-cell'));
+                if (e.detail == 1) {
+                    //if (grid.options[grid.option_sortVisible] == false && grid.tbs_isColumnName(name)) grid.event_columnSort(e.target.closest('.tbs-grid-cell'));
+                    if (grid.tbs_isColumnName(name)) grid.event_columnSort(e.target.closest('.tbs-grid-cell'));
+                    if (grid.options[grid.option_sortVisible] == true) grid.tbs_getSortButtonList();
+                }
+                // else if (e.detail == 2) {
+                //     grid.tbs_initSortData();
+                // }
             }
             else {
                 const changeColumnOrder = function () {

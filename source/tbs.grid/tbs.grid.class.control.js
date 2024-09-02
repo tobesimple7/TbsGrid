@@ -20,6 +20,7 @@ TbsGridControl.prototype.after_removeColumn = function (headerColumns, columns) 
     let selector = this.selector;
     let grid = this.grid;
     let classControl = this;
+
     grid.tbs_removeRange(0, -1);
     grid.tbs_createColumn(grid.headerColumns);
     grid.tbs_createGrid(grid.columns);
@@ -58,6 +59,26 @@ TbsGridControl.prototype.after_hideFilterPanel = function () {
     grid.tbs_setPanelSize();
     grid.verticalScroll.tbs_setScroll(grid.code_vertical);
     grid.tbs_displayPanel70('panel70');
+    grid.tbs_displayPanel30(0);
+}
+TbsGridControl.prototype.after_showSortrPanel = function () {
+    let selector = this.selector;
+    let grid = this.grid;
+    let classControl = this;
+
+    grid.tbs_removeRange(0, -1);
+    grid.tbs_setPanelSize();
+    grid.verticalScroll.tbs_setScroll(grid.code_vertical);
+    grid.tbs_displayPanel30(0);
+}
+TbsGridControl.prototype.after_hideSortPanel = function () {
+    let selector = this.selector;
+    let grid = this.grid;
+    let classControl = this;
+
+    grid.tbs_removeRange(0, -1);
+    grid.tbs_setPanelSize();
+    grid.verticalScroll.tbs_setScroll(grid.code_vertical);
     grid.tbs_displayPanel30(0);
 }
 TbsGridControl.prototype.after_setColumnVisible = function () {
@@ -133,12 +154,12 @@ TbsGrid.prototype.tbs_setDataTable = function (param) {
     else if (panelName == 'panel20') grid.tbs_setDataHeaderTable3(param);
     else if (panelName == 'panel70') grid.tbs_setDataFilterTable(param);
 }
-TbsGrid.prototype.tbs_setData = function (data, openDepth) {
+TbsGrid.prototype.tbs_setData = function (data, openDepth = 0, isFirst = true) {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    if (grid.grid_mode == grid.code_group) grid.tbs_setGroupData(data, openDepth);
-    else if (grid.grid_mode == grid.code_tree) grid.tbs_setTreeData(data, openDepth);
+    if (grid.grid_mode == grid.code_group) grid.tbs_setGroupData(data, openDepth, isFirst);
+    else if (grid.grid_mode == grid.code_tree) grid.tbs_setTreeData(data, openDepth, isFirst);
     else grid.tbs_setGridData(data);
 }
 /* Grid Mode */

@@ -48,33 +48,32 @@ TbsGridScroll.prototype.tbs_setHorizontalScroll = function() {
 
     let rectPanel20 = panel20.getBoundingClientRect();
     let rectTable20 = table20.getBoundingClientRect();
-
     // 1) table area > panel area : scroll setting
 
     // Consider hidden columns
-    const calculateTotalColumnSize = (() => {
-        let result = {};
-        result.panel22 = 0;
-        result.panel20 = 0;
-        for (let i = 0, len = grid.columns.length; i < len; i++) {
-            let column = grid.columns[0];
-            if (grid.fixedColumnIndex != -1) {
-                if (i <= grid.fixedColumnIndex) {
-                    if (column[grid.column_visible]) result.panel22 += parseInt(column[grid.column_visible]);
-                }
-                else result.panel20 += parseInt(column[grid.column_visible]);
-            }
-            else {
-                result.panel20 += parseInt(column[grid.column_visible]);
-            }
-        }
-        return result;
-    });
-    let result = calculateTotalColumnSize();
-    let tableSize22 = result.panel22;
-    let tableSize20 = result.panel20;
+    //const calculateTotalColumnSize = (() => {
+    //    let result = {};
+    //    result.panel22 = 0;
+    //    result.panel20 = 0;
+    //    for (let i = 0, len = grid.columns.length; i < len; i++) {
+    //        let column = grid.columns[0];
+    //        if (grid.fixedColumnIndex != -1) {
+    //            if (i <= grid.fixedColumnIndex) {
+    //                if (column[grid.column_visible]) result.panel22 += parseInt(column[grid.column_visible]);
+    //            }
+    //            else result.panel20 += parseInt(column[grid.column_visible]);
+    //        }
+    //        else {
+    //            result.panel20 += parseInt(column[grid.column_visible]);
+    //        }
+    //    }
+    //    return result;
+    //});
+    //let result = calculateTotalColumnSize();
+    //let tableSize22 = result.panel22;
+    //let tableSize20 = result.panel20;
 
-    if (tableSize20.width > rectPanel20.width) classScroll.tbs_showScroll(type);
+    if (rectTable20.width > rectPanel20.width) classScroll.tbs_showScroll(type);
     else classScroll.tbs_hideScroll(type);
 
     xScroll = document.querySelector(selector + ' .tbs-grid-horizontal-scroll'); // non-live

@@ -2,6 +2,136 @@
  * tbs.grid.event.js
  *
  */
+TbsGrid.prototype.tbs_addEventAll = function() {
+    let selector = '#' + this.gridId;
+    let grid = this;
+    //================================================================== mobile event
+    this.event_mobileTouchDrag();
+    //================================================================== select event
+    this.panel20_select();
+    this.panel21_select();
+
+    this.panel30_select('panel30');
+    this.panel31_select('panel31');
+    this.panel30_select('panel32');
+
+    this.panel30_select('panel60');
+    this.panel31_select('panel61');
+
+    this.panel40_select('panel40');
+    this.panel41_select('panel41');
+    this.panel40_select('panel42');
+
+    this.panel40_select('panel50');
+    this.panel41_select('panel51');
+    this.panel40_select('panel52');
+
+    this.panel70_select();
+    this.panel80_select();
+    this.panel90_select();
+
+    //================================================================== select event
+    this.event_wheel();
+
+    this.event_scrollButton();
+    this.event_railClick();
+    this.event_dragScrollBar();
+
+    this.event_columnResize('panel20');
+    this.event_columnResize('panel22');
+    //================================================================== select event
+    this.event_input();
+    this.event_input_icon();
+    this.event_checkBox();
+
+    this.panel10_init(); //2024-07-02
+
+    document.addEventListener('scroll', function(e) {
+        let panelInputList = document.querySelectorAll(selector + ' .tbs-grid-panel-input');
+        let inputList = document.querySelectorAll(selector + ' .tbs-grid-input');
+        let inputIconList = document.querySelectorAll(selector + ' .tbs-grid-panel-input-icon');
+        let inputPanelList = document.querySelectorAll(selector + ' .tbs-grid-input-panel');
+
+        for (let i = 0; i < inputList.length; i++) {
+            let panelInput = panelInputList[i];
+            let input      = inputList[i];
+            let input_icon = inputIconList[i];
+            let input_panel= inputPanelList[i];
+            input.value = '';
+
+            panelInput.style.left = '30000px';
+            panelInput.style.width= '0px';
+
+            input.dataset.rowIndex = -1;
+            input.dataset.cellIndex = -1;
+            input.dataset.mode = '';
+            input.dataset.type = '';
+
+            input_icon.style.display = 'none';
+            input_icon.dataset.rowIndex = -1;
+            input_icon.dataset.cellIndex = -1;
+            input_icon.dataset.mode = '';
+            input_icon.dataset.type = '';
+
+            input_panel.innerHTML = '';
+            input_panel.style.width = '0px';
+            input_panel.style.left = '30000px';
+            input_panel.dataset.rowIndex = -1;
+            input_panel.dataset.cellIndex = -1;
+            input_panel.dataset.mode = '';
+            input_panel.dataset.type = '';
+
+        }
+    });
+
+    // @deprecated
+    const bodyMouseDownEvent = function(e) {
+        let name = e.target.className;
+        console.log('body: ' + name)
+        if (name.indexOf('tbs-grid-panel10-filter-input') == -1
+            && name.indexOf('tbs-grid-cell-filter-input') == -1
+            && name.indexOf('tbs-grid-input') == -1
+            && name.indexOf('tbs-grid-cell-filter-input') == -1
+            && (name.indexOf('tbs-grid-date') == -1 && name.indexOf('tbs-grid-combo') == -1)) {
+            let input = document.querySelector(selector + ' .tbs-grid-input');
+            grid.popupActive = 0;
+        }
+    };
+    document.body.addEventListener('mousedown', bodyMouseDownEvent);
+    //==================================================================
+    const mouseDownGridEvent = function(e) {
+
+        let name = e.target.className;
+        console.log('gird: ' + name)
+        e.stopPropagation();
+        if (   name.indexOf('tbs-grid-panel10-filter-input') != -1
+            || name.indexOf('tbs-grid-cell-filter-input' ) != -1
+            || name.indexOf('tbs-grid-layer'             ) != -1
+            || name.indexOf('tbs-grid-cell-filter-input' ) != -1) {}
+        else {
+            document.querySelector(selector + ' .tbs-grid-layer').style.width = '0px';
+            document.querySelector(selector + ' .tbs-grid-layer').style.height = '0px';
+            document.querySelector(selector + ' .tbs-grid-layer').style.left = '30000px';
+            document.querySelector(selector + ' .tbs-grid-layer').style.display = 'none';
+            // document.querySelector(selector + ' .tbs-grid-input').focus();
+            grid.input_focus();
+        }
+    }
+    document.querySelector(selector).addEventListener('mousedown', mouseDownGridEvent);
+
+    const windowResizeEvent = function(e) {
+        e.stopPropagation();
+        grid.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
+        grid.verticalScroll.tbs_setScroll(grid.code_vertical);
+        document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table').style.left = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table').style.left;
+
+        grid.tbs_removeRange(0, -1, 0, -1);
+        let topRowIndex = grid.tbs_getFirstRowIndex();
+        grid.tbs_setRange(0, 0, 0, 0);
+        grid.tbs_displayPanel30(topRowIndex);
+    }
+    window.addEventListener('resize', windowResizeEvent);
+}
 TbsGrid.prototype.event_columnSort = function(cell) {
     let selector = '#' + this.gridId;
     let grid = this;
@@ -21,73 +151,50 @@ TbsGrid.prototype.event_columnSort = function(cell) {
     else if (sortDiv.textContent == '▲') { sortKind = 'desc'; }
     else                                 { sortKind = 'asc'; }
 
-    let divList = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table .tbs-grid-cell-span-sort');
-    for (let i = 0; i < divList.length; i++) {
-            divList[i].textContent = '';
-    }
+    // let divList = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table .tbs-grid-cell-span-sort');
+    // for (let i = 0; i < divList.length; i++) {
+    //         divList[i].textContent = '';
+    // }
 
     if      (sortKind == 'asc' ) { sortDiv.textContent = '▲'; }
     else if (sortKind == 'desc') { sortDiv.textContent = '▼'; }
     else                         { sortDiv.textContent = '' ; }
 
-
-    if (grid.merge){
-        for (let i = 0, len = grid.summaryColumns.length; i < len; i++ ){
-            if (grid.summaryColumns[i][grid.column_name] == columnName && sortKind == ''){
-                sortKind = 'asc';
-                sortDiv.textContent = '' ;
-                break;
-            }
-        }
+    //grid.classSort.sortColumns = [];
+    if (grid.tbs_isSortColumnName(columnName)) {
+        let sortColumn = grid.tbs_getSortColumn(columnName);
+        sortColumn[grid.column_order] = sortKind
     }
-    //let bExist = false;
-    //for (let i = 0, len = grid.sortColumns.length; i < len; i++){
-    //    if (grid.sortColumns[i].id == id){
-    //        bExist = true; 
-    //        grid.sortColumns[i].order = sortKind;
-    //        break; 
-    //    }
-    //}
-    //if (bExist == false && sortKind != ''){
-    //    grid.sortColumns = [];
-    //    let item = {};
-    //    item.id = id;
-    //    item.order = sortKind;
-    //    grid.sortColumns.push(item);
-    //}
-    grid.sortColumns = [];
-    if (sortKind != ''){
+    else {
         let item = {};
         item[grid.column_name] = columnName;
-        item.order = sortKind;
-        grid.sortColumns.push(item);
+        item[grid.column_order]= sortKind;
+        grid.classSort.sortColumns.push(item);
     }
-    for (let i = grid.sortColumns.length - 1; i >= 0; i--){
-        if (grid.sortColumns[i]['order'] == '') {
-            grid.sortColumns.splice(i, 1);
+
+    // if (sortKind != ''){
+    //     let item = {};
+    //     item[grid.column_name] = columnName;
+    //     item.order = sortKind;
+    //     grid.classSort.sortColumns.push(item);
+    // }
+    for (let i = grid.classSort.sortColumns.length - 1; i >= 0; i--){
+        if (grid.classSort.sortColumns[i]['order'] == '') {
+            grid.classSort.sortColumns.splice(i, 1);
         }
     }
-    if (grid.sortColumns.length == 0){
-        grid.data_view = JSON.parse(JSON.stringify(grid.data_table));
-        if (grid.options[grid.option_filterVisible]) grid.tbs_filters();
-        grid.tbs_removeRange(0, -1);
-        grid.tbs_displayPanel30(0);
-        return;
+    if (grid.classSort.sortColumns.length == 0) { grid.tbs_initSortData(); }
+
+    if (grid.options[grid.option_filterVisible]) grid.tbs_filters();
+    if (grid.grid_mode == grid.code_group) {
+        grid.tbs_setData(grid.data_view, null, false);
     }
-    //================================================================
-    // merge  sort
-    //================================================================
-    if (grid.merge) {
-        grid.setGroup(grid.sortColumns, grid.summaryColumns, grid.mergeType);
-    }
-    //================================================================
-    // not merge
-    //================================================================
     else {
-        if (grid.tbs_isSortableColumn()) grid.tbs_sortData(grid.sortColumns, true);
-        if (grid.options[grid.option_filterVisible]) grid.tbs_filters();
-        grid.tbs_removeRange(0, -1);
-        grid.tbs_displayPanel30(0);
+        if (grid.tbs_isSortableColumn()) {
+            grid.tbs_setSortData(grid.data_view, grid.classSort.sortColumns);
+            grid.tbs_removeRange(0, -1);
+            grid.tbs_displayPanel30(0);
+        }
     }
 }
 TbsGrid.prototype.event_mobileTouchDrag = function() { //type : header, content
@@ -241,7 +348,9 @@ TbsGrid.prototype.event_columnResize = function(panelName) {
                     }
                 }
                 for (let i = 0, len = grid.data_view.length; i < len; i++) {
-                    let width = parseInt(grid.getTextWidth(canvas, grid.data_view[i].layout[columnName][grid.layout_text], fontSize, fontFamilty));
+                    //let width = parseInt(grid.getTextWidth(canvas, grid.data_view[i].layout[columnName][grid.layout_text], fontSize, fontFamilty));
+                    let val = grid.tbs_getText(i, columnName);
+                    let width = parseInt(grid.getTextWidth(canvas, val, fontSize, fontFamilty));
                     if (width >= maxWidth) maxWidth = width;
                 }
                 grid.tbs_setColumnWidth(colIndex, maxWidth + 20); // 20 is Correction value
@@ -337,128 +446,7 @@ TbsGrid.prototype.event_checkBox = function() { //type : header, content
     }
 	document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').addEventListener('mousedown', checkDowntEvent, false);
 }
-TbsGrid.prototype.tbs_addEventAll = function() {
-    let selector = '#' + this.gridId;
-    let grid = this;
-    //================================================================== mobile event
-    this.event_mobileTouchDrag();
-    //================================================================== select event
-    this.panel20_select();
-    this.panel21_select();
 
-    this.panel30_select('panel30');
-    this.panel31_select('panel31');
-    this.panel30_select('panel32');
-
-    this.panel30_select('panel60');
-    this.panel31_select('panel61');
-
-    this.panel40_select('panel40');
-    this.panel41_select('panel41');
-    this.panel40_select('panel42');
-
-    this.panel40_select('panel50');
-    this.panel41_select('panel51');
-    this.panel40_select('panel52');
-
-    this.panel70_select();
-    this.panel80_select();
-
-    //================================================================== select event
-    this.event_wheel();
-
-    this.event_scrollButton();
-    this.event_railClick();
-    this.event_dragScrollBar();
-
-    this.event_columnResize('panel20');
-    this.event_columnResize('panel22');
-    //================================================================== select event
-    this.event_input();
-    this.event_input_icon();
-    this.event_checkBox();
-
-    this.panel10_init(); //2024-07-02
-
-    document.addEventListener('scroll', function(e) {
-        let panelInputList = document.querySelectorAll(selector + ' .tbs-grid-panel-input');
-        let inputList = document.querySelectorAll(selector + ' .tbs-grid-input');
-        let inputIconList = document.querySelectorAll(selector + ' .tbs-grid-panel-input-icon');
-        let inputPanelList = document.querySelectorAll(selector + ' .tbs-grid-input-panel');
-
-        for (let i = 0; i < inputList.length; i++) {
-            let panelInput = panelInputList[i];
-            let input      = inputList[i];
-            let input_icon = inputIconList[i];
-            let input_panel= inputPanelList[i];
-            input.value = '';
-
-            panelInput.style.left = '30000px';
-            panelInput.style.width= '0px';
-
-            input.dataset.rowIndex = -1;
-            input.dataset.cellIndex = -1;
-            input.dataset.mode = '';
-            input.dataset.type = '';
-
-            input_icon.style.display = 'none';
-            input_icon.dataset.rowIndex = -1;
-            input_icon.dataset.cellIndex = -1;
-            input_icon.dataset.mode = '';
-            input_icon.dataset.type = '';
-
-            input_panel.innerHTML = '';
-            input_panel.style.width = '0px';
-            input_panel.style.left = '30000px';
-            input_panel.dataset.rowIndex = -1;
-            input_panel.dataset.cellIndex = -1;
-            input_panel.dataset.mode = '';
-            input_panel.dataset.type = '';
-
-        }
-    });
-
-    // @deprecated
-    const bodyMouseDownEvent = function(e) {
-        let name = e.target.className;
-        if (name.indexOf('tbs-grid-panel10-filter-input') == -1
-            && name.indexOf('tbs-grid-cell-filter-input') == -1
-            && name.indexOf('tbs-grid-input') == -1
-            && (name.indexOf('tbs-grid-date') == -1 && name.indexOf('tbs-grid-combo') == -1)) {
-            let input = document.querySelector(selector + ' .tbs-grid-input');
-            grid.popupActive = 0;
-        }
-    };
-    document.body.addEventListener('mousedown', bodyMouseDownEvent);
-    //==================================================================
-    const mouseDownGridEvent = function(e) {
-        let name = e.target.className;
-        e.stopPropagation();
-        if (   name.indexOf('tbs-grid-panel10-filter-input') != -1
-            || name.indexOf('tbs-grid-cell-filter-input' ) != -1
-            || name.indexOf('tbs-grid-layer'             ) != -1) {}
-        else {
-            document.querySelector(selector + ' .tbs-grid-layer').style.width = '0px';
-            document.querySelector(selector + ' .tbs-grid-layer').style.height = '0px';
-            document.querySelector(selector + ' .tbs-grid-layer').style.left = '30000px';
-            document.querySelector(selector + ' .tbs-grid-layer').style.display = 'none';
-            // document.querySelector(selector + ' .tbs-grid-input').focus();
-            grid.input_focus();
-        }
-    }
-    document.querySelector(selector).addEventListener('mousedown', mouseDownGridEvent);
-
-    const windowResizeEvent = function(e) {
-        e.stopPropagation();
-        grid.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
-        grid.verticalScroll.tbs_setScroll(grid.code_vertical);
-        document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table').style.left = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table').style.left;
-
-        let topRowIndex = grid.tbs_getFirstRowIndex();
-        grid.tbs_displayPanel30(topRowIndex);
-    }
-    window.addEventListener('resize', windowResizeEvent);
-}
 TbsGrid.prototype.tbs_moveCellLine = function(cell, rowIndex, cellIndex) {
     let selector = '#' + this.gridId;
     let grid = this;
@@ -533,7 +521,7 @@ TbsGrid.prototype.tbs_executeEvent = function(isUserFunction, eventType, param) 
     eventRow.columnName  = columnName;
     eventRow.value       = value;
     eventRow.text        = text;
-
+    eventRow.data        = eventRow;
     if (isUserFunction) {
         if (eventType == 'click') {
             if (grid.notNull(grid.user_click)) { let flag = grid.tbs_click(e, grid, eventRow, grid.user_click); } //user function call

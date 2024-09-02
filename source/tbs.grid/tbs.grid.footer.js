@@ -29,20 +29,18 @@ TbsGrid.prototype.tbs_setFooterData = function () {
     let item = {};
     item[grid.code_rowId] = grid.footerMaxRowId; grid.footerMaxRowId += 1;
     item[grid.code_mode] = '';
-    item.data = {};
-    item.layout = {};
 
     let columns = grid.columns;
     for (let colIndex = 0, len = columns.length; colIndex < len; colIndex++) {
-        let column = columns[colIndex];
-        let columnName  = column[grid.column_name];
-        item.data[columnName]   = null;
-        item.layout[columnName] = {};
-        item.layout[columnName][grid.layout_text] = null;
-        // for merging
-        //item.layout[columnName][grid.layout_visible] = column[grid.column_visible];
-        item.layout[columnName][grid.layout_rowSpan] = 1;
-        item.layout[columnName][grid.layout_colSpan] = 1;
+         let column = columns[colIndex];
+         let columnName  = column[grid.column_name];
+         item[columnName]   = null;
+    //     item.layout[columnName] = {};
+    //     item.layout[columnName][grid.layout_text] = null;
+    //     // for merging
+    //     item.layout[columnName][grid.layout_visible] = column[grid.column_visible];
+    //     item.layout[columnName][grid.layout_rowSpan] = 1;
+    //     item.layout[columnName][grid.layout_colSpan] = 1;
     }
     grid.data_footer.push(item);
 
@@ -51,18 +49,18 @@ TbsGrid.prototype.tbs_setFooterData = function () {
     for (let i = 0, colCount = footerColumns.length; i < colCount; i++) {
         let footerColumn = footerColumns[i];
         let columnName = footerColumn[grid.column_name];
-        if (grid.tbs_isColumnTypeNumber(columnName) == false) footerRow.data[columnName] = footerColumn[grid.column_name];
+        if (grid.tbs_isColumnTypeNumber(columnName) == false) footerRow[columnName] = footerColumn[grid.column_name];
     }
 
     // Calculate Sum
     for (let rowIndex = 0, len = grid.data_view.length; rowIndex < len; rowIndex++) {
-        let row = grid.data_view[rowIndex].data;
+        let row = grid.data_view[rowIndex];
         for (let i = 0, colCount = footerColumns.length; i < colCount; i++) {
             let footerColumn = footerColumns[i];
             let columnName = footerColumn[grid.column_name];
             let sum = 0;
             if (grid.tbs_isColumnTypeNumber(columnName) && footerColumn[grid.column_summaryType] == 'sum') {
-                footerRow.data[columnName] += parseFloat(row[columnName]);
+                footerRow[columnName] += parseFloat(row[columnName]);
             }
         }
     }
@@ -72,7 +70,7 @@ TbsGrid.prototype.tbs_setFooterData = function () {
         let footerColumn = footerColumns[i];
         let columnName = footerColumn[grid.column_name];
         if (grid.tbs_isColumnTypeNumber(columnName) && footerColumn[grid.column_summaryType] == 'avg') {
-            footerRow.data[columnName] = footerRow.data[columnName] / rowCount;
+            footerRow[columnName] = footerRow[columnName] / rowCount;
         }
     }
     // layout data
@@ -91,7 +89,7 @@ TbsGrid.prototype.tbs_setFooterData = function () {
 TbsGrid.prototype.tbs_getFooterValue = function (rowIndex, columnName) {
     let column = this.tbs_getColumn(columnName);
     let columnType = column[this.column_type];
-    let val = this.data_footer[rowIndex].data[columnName];
+    let val = this.data_footer[rowIndex][columnName];
 
     if (columnType == this.code_number) return Number(val);
     else if (columnType == this.code_currency) return Number(val);
@@ -103,7 +101,11 @@ TbsGrid.prototype.tbs_getFooterValueByIndex = function (rowIndex, colIndex) {
 }
 TbsGrid.prototype.tbs_getFooterText = function (rowIndex, columnName) {
     let grid = this;
-    return grid.tbs_getFooterLayoutValue(rowIndex, columnName, grid.layout_text);
+    let column = grid.tbs_getColumn(columnName);
+    let value = grid.tbs_getFooterValue(rowIndex, columnName);
+
+    let result = grid.tbs_getFormat(column, value);
+    return result.text;
 }
 TbsGrid.prototype.tbs_setFooterValue = function (rowIndex, columnName, value) {
     let selector = '#' + this.gridId;
@@ -112,8 +114,8 @@ TbsGrid.prototype.tbs_setFooterValue = function (rowIndex, columnName, value) {
     let column = grid.tbs_getColumn(columnName);
     let result = grid.tbs_getFormat(column, value);
 
-    grid.data_footer[rowIndex].data[columnName] = result.value;
-    grid.tbs_setFooterLayoutValue(rowIndex, columnName, grid.layout_text, result.text);
+    grid.data_footer[rowIndex][columnName] = result.value;
+    //grid.tbs_setFooterLayoutValue(rowIndex, columnName, grid.layout_text, result.text);
 }
 TbsGrid.prototype.tbs_setFooterValueByIndex = function (rowIndex, cellIndex, value) {
     let columnName = this.tbs_getColumnName(cellIndex);
@@ -121,20 +123,20 @@ TbsGrid.prototype.tbs_setFooterValueByIndex = function (rowIndex, cellIndex, val
 }
 
 /* Layout Data */
-TbsGrid.prototype.tbs_getFooterLayout = function (rowIndex, columnName) {
-    let grid = this;
-    try { return grid.data_footer[rowIndex].layout[columnName]; }
-    catch (e) { return null; }
-}
-TbsGrid.prototype.tbs_getFooterLayoutValue = function (rowIndex, columnName, property) {
-    let grid = this;
-    try { return grid.data_footer[rowIndex].layout[columnName][property]; }
-    catch (e) { return null; }
-}
-TbsGrid.prototype.tbs_setFooterLayoutValue = function(rowIndex, columnName, property, value) {
-    let grid = this;
-    let column = grid.tbs_getColumn(columnName);
-    if (grid.null(grid.data_footer[rowIndex].layout[columnName])) grid.data_footer[rowIndex].layout[columnName] = {};
-    grid.data_footer[rowIndex].layout[columnName][property] = value;
-}
+// TbsGrid.prototype.tbs_getFooterLayout = function (rowIndex, columnName) {
+//     let grid = this;
+//     try { return grid.data_footer[rowIndex].layout[columnName]; }
+//     catch (e) { return null; }
+// }
+// TbsGrid.prototype.tbs_getFooterLayoutValue = function (rowIndex, columnName, property) {
+//     let grid = this;
+//     try { return grid.data_footer[rowIndex].layout[columnName][property]; }
+//     catch (e) { return null; }
+// }
+// TbsGrid.prototype.tbs_setFooterLayoutValue = function(rowIndex, columnName, property, value) {
+//     let grid = this;
+//     let column = grid.tbs_getColumn(columnName);
+//     if (grid.null(grid.data_footer[rowIndex].layout[columnName])) grid.data_footer[rowIndex].layout[columnName] = {};
+//     grid.data_footer[rowIndex].layout[columnName][property] = value;
+// }
 

@@ -453,14 +453,14 @@ tbs-grid (relative)
     table-layout: fixed;
     padding: 0px;
     margin: 0px;
-    background: #ffdada;
+    background: #dbffe3;
     border-spacing: 0px;
 }
 .tbs-grid .tbs-grid-panel40 .tbs-grid-table {
     table-layout: fixed;
     padding: 0px;
     margin: 0px;
-    background: #ffdada;
+    background: #dbffe3;
     border-spacing: 0px;
     width: 0px !important;
 }
@@ -1727,8 +1727,9 @@ tbs-grid (relative)
     width: 100%;
     height: 25px;
     display: inline-block;
-    margin: 0px 5px 0px 0px;
+    margin: 0px 0px 0px 0px;
     border-spacing: 0px;
+    vertical-align: middle;
 }
 .tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-filter {
     position: relative;
@@ -1736,7 +1737,7 @@ tbs-grid (relative)
     border-bottom: 0px solid #bbbbbb;
     border-left: 0px solid #bbbbbb;
     border-right: var(--tbs-grid-cell-border);
-    width: 250px;
+    width: 200px;
     height: 25px;
     display: inline-block;
     margin: 0px 5px 0px 0px;
@@ -1844,6 +1845,112 @@ tbs-grid (relative)
 .tbs-grid .tbs-grid-panel10 .font-white {
     color: #ffffff;
 }
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons {
+    position: relative;
+    display: inline-block;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #a0a0a0;
+    width: 360px;
+    height: 25px;
+    top: 0px; right: 0px; bottom: 0px;
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-wrap {
+    position: relative;
+    display: inline-block;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 100%;
+    height: 25px;
+    margin: 2px 0px 0px 0px;
+    border-spacing: 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-filter {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #fce3e3;
+    width: 70px;
+    /*height: 25px;*/
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-filter-reset {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #e8e8e8;
+    width: 40px;
+    /*height: 25px;*/
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-sort {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #fce3e3;
+    width: 70px;
+    /*height: 25px;*/
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-sort-reset {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #e8e8e8;
+    width: 40px;
+    /*height: 25px;*/
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-group {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #fce3e3;
+    width: 70px;
+    /*height: 25px;*/
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-group-reset {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #e8e8e8;
+    width: 40px;
+    /*height: 25px;*/
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+}
 /* =========================================================================== */
 /*   Panel80 Grouping                                                          */
 /* =========================================================================== */
@@ -1856,7 +1963,7 @@ tbs-grid (relative)
     background: #dfe3e8;
     padding: 3px 3px 3px 30px;
     -ms-user-select: none;
-    -moz-user-select: -moz-none;
+    -moz-user-select: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     user-select: none;
@@ -1911,6 +2018,144 @@ tbs-grid (relative)
     background-color: rgb(255, 92, 92);
 }
 .tbs-grid .tbs-grid-panel80 .font-white {
+    color: #ffffff;
+}
+/* =========================================================================== */
+/*   Panel80 Grouping                                                          */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel80 {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #9b9b9b;
+    height: 33px;
+    overflow: hidden;
+    background: #dfe3e8;
+    padding: 3px 3px 3px 30px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-bar {
+    position: relative;
+    width: 100%;
+    height: 27px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px;
+    /*background: #ccdb87;*/
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-bar-span {
+    position: relative;
+    display: inline-block;
+    padding: 6px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    cursor: pointer;
+    line-height: 1.0em;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-button {
+    position: relative;
+    display: inline-block;
+    /*width: 100px;*/
+    height: 27px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 5px 0px 0px;
+    background: #d8f595;
+    border: 1px solid #424242;
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-button-text {
+    display: inline-block;
+    height: 27px;
+    padding: 0px 5px 0px 5px;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-button-icon {
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 15px;
+    height: 15px;
+    height: 27px;
+}
+.tbs-grid .tbs-grid-panel80 .bg-red {
+    background-color: rgb(255, 92, 92);
+}
+.tbs-grid .tbs-grid-panel80 .font-white {
+    color: #ffffff;
+}
+/* =========================================================================== */
+/*   Panel90 Grouping                                                          */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel90 {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #9b9b9b;
+    height: 33px;
+    overflow: hidden;
+    background: #dfe3e8;
+    padding: 3px 3px 3px 30px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-panel90 .tbs-grid-panel-bar {
+    position: relative;
+    width: 100%;
+    height: 27px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px;
+    /*background: #ccdb87;*/
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel90 .tbs-grid-panel-bar-span {
+    position: relative;
+    display: inline-block;
+    padding: 6px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    cursor: pointer;
+    line-height: 1.0em;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel90 .tbs-grid-panel-button {
+    position: relative;
+    display: inline-block;
+    /*width: 100px;*/
+    height: 27px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 5px 0px 0px;
+    background: #dee4ff;
+    border: 1px solid #424242;
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel90 .tbs-grid-panel-button-text {
+    display: inline-block;
+    height: 27px;
+    padding: 0px 5px 0px 5px;
+}
+.tbs-grid .tbs-grid-panel90 .tbs-grid-panel-button-icon {
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 15px;
+    height: 15px;
+    height: 27px;
+}
+.tbs-grid .tbs-grid-panel90 .bg-red {
+    background-color: rgb(255, 92, 92);
+}
+.tbs-grid .tbs-grid-panel90 .font-white {
     color: #ffffff;
 }
 /* =========================================================================== */

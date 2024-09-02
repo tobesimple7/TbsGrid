@@ -3,18 +3,21 @@ class TbsGridSort {
         this.grid       = grid;
         this.selector   = '#' + grid.gridId;
 
-        this.sortColumns = [];
+        this.sortColumns = []; //[{ name : 'layout', order : 'asc'}, { name : 'layout', order : 'asc'}]
         this.options = {}
+        this.infoText = grid.gridConfig.options.sortInfoText;
     }
 }
-TbsGrid.prototype.tbs_sortData = function (data, sortColumns) {
+
+TbsGrid.prototype.tbs_setSortData = function (data, sortColumns) {
     /**
-     * @function tbs_sortData
+     * @function tbs_setSortData
      *
      * @param sortColumns : [{ name : , order : }, ...]
      */
     let grid = this;
     let len = sortColumns.length;
+
     data.sort((a, b) => {
         // a : The first element
         // b : The second element
@@ -26,27 +29,27 @@ TbsGrid.prototype.tbs_sortData = function (data, sortColumns) {
             let type = column[grid.column_type];
 
             if (sortColumn['order'] == 'asc') {
-                if (type == 'number'){
-                    let x = a.data[name] != null && isNaN(a.data[name]) == false ? Number(a.data[name].toString().replace(/\,/g, '')): 0;
-                    let y = b.data[name] != null && isNaN(b.data[name]) == false ? Number(b.data[name].toString().replace(/\,/g, '')): 0;
+                if (type == grid.code_number || type == grid.code_currency){
+                    let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')): 0;
+                    let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')): 0;
                     if (x < y) return -1;
-                    if (x > y) return 1;
+                    else if (x > y) return 1;
                 }
                 else {
-                    if ((a.data[name] == null ? '' : a.data[name]).toString().toLowerCase() < (b.data[name] == null ? '' : b.data[name]).toString().toLowerCase()) return -1;
-                    if ((a.data[name] == null ? '' : a.data[name]).toString().toLowerCase() > (b.data[name] == null ? '' : b.data[name]).toString().toLowerCase()) return 1;
+                    if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
+                    else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
                 }
             }
             else if (sortColumn['order'] == 'desc') {
-                if (type == 'number'){
-                    let x = a.data[name] != null && isNaN(a.data[name]) == false ? Number(a.data[name].toString().replace(/\,/g, '')) : 0;
-                    let y = b.data[name] != null && isNaN(b.data[name]) == false ? Number(b.data[name].toString().replace(/\,/g, '')) : 0;
+                if (type == grid.code_number || type == grid.code_currency){
+                    let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')) : 0;
+                    let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')) : 0;
                     if (x < y) return 1;
-                    if (x > y) return -1;
+                    else if (x > y) return -1;
                 }
                 else {
-                    if ((a.data[name] == null ? '' : a.data[name]).toString().toLowerCase() < (b.data[name] == null ? '' : b.data[name]).toString().toLowerCase()) return 1;
-                    if ((a.data[name] == null ? '' : a.data[name]).toString().toLowerCase() > (b.data[name] == null ? '' : b.data[name]).toString().toLowerCase()) return -1;
+                    if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
+                    else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
                 }
             }
         }
@@ -98,14 +101,14 @@ TbsGrid.prototype.tbs_sortJsonData = function (data, sortColumns) {
 /* Sort Column API */
 TbsGrid.prototype.tbs_getSortColumn = function (columnName) {
     let index = this.tbs_getSortColumnIndex(columnName);
-    return this.sortColumns[index];
+    return this.classSort.sortColumns[index];
 }
 TbsGrid.prototype.tbs_getSortColumnIndex = function (columnName) {
     let grid = this;
     let result = -1;
 
-    for (let i = 0, len = this.sortColumns.length; i < len; i++) {
-        let sortColumn = this.sortColumns[i];
+    for (let i = 0, len = this.classSort.sortColumns.length; i < len; i++) {
+        let sortColumn = this.classSort.sortColumns[i];
         if (columnName == sortColumn[grid.column_name]) {
             result = i;
             break;
@@ -114,7 +117,7 @@ TbsGrid.prototype.tbs_getSortColumnIndex = function (columnName) {
     return result;
 }
 TbsGrid.prototype.tbs_getSortColumnName = function (colIndex) {
-    return this.sortColumns[colIndex][this.column_name];
+    return this.classSort.sortColumns[colIndex][this.column_name];
 }
 TbsGrid.prototype.setSort = function (sortColumns, display) {
     let grid = this;
@@ -132,7 +135,7 @@ TbsGrid.prototype.setSort = function (sortColumns, display) {
     // 		row.layout[column[i][grid.column_name]].rowSpan = 1;
     // 	}
     // }
-    this.sortColumns = sortColumns;
+    this.classSort.sortColumns = sortColumns;
     let len = sortColumns.length;
     if (len == 0) return;
     this.data_view.sort(function (a, b) {
@@ -142,26 +145,26 @@ TbsGrid.prototype.setSort = function (sortColumns, display) {
             // null value check
             if (row['order'] == 'asc') {
                 if (type == 'number'){
-                    let x = a.data[row.name] != null && isNaN(a.data[row.name]) == false ? Number(a.data[row.name].toString().replace(/\,/g, '')): 0;
-                    let y = b.data[row.name] != null && isNaN(b.data[row.name]) == false ? Number(b.data[row.name].toString().replace(/\,/g, '')): 0;
+                    let x = a[row.name] != null && isNaN(a[row.name]) == false ? Number(a[row.name].toString().replace(/\,/g, '')): 0;
+                    let y = b[row.name] != null && isNaN(b[row.name]) == false ? Number(b[row.name].toString().replace(/\,/g, '')): 0;
                     if (x < y) return -1;
                     if (x > y) return 1;
                 }
                 else {
-                    if ((a.data[row.name] == null ? '' : a.data[row.name]).toString().toLowerCase() < (b.data[row.name] == null ? '' : b.data[row.name]).toString().toLowerCase()) return -1;
-                    if ((a.data[row.name] == null ? '' : a.data[row.name]).toString().toLowerCase() > (b.data[row.name] == null ? '' : b.data[row.name]).toString().toLowerCase()) return 1;
+                    if ((a[row.name] == null ? '' : a[row.name]).toString().toLowerCase() < (b[row.name] == null ? '' : b[row.name]).toString().toLowerCase()) return -1;
+                    if ((a[row.name] == null ? '' : a[row.name]).toString().toLowerCase() > (b[row.name] == null ? '' : b[row.name]).toString().toLowerCase()) return 1;
                 }
             }
             else if (row['order'] == 'desc') {
                 if (type == 'number'){
-                    let x = a.data[row.name] != null && isNaN(a.data[row.name]) == false ? Number(a.data[row.name].toString().replace(/\,/g, '')) : 0;
-                    let y = b.data[row.name] != null && isNaN(b.data[row.name]) == false ? Number(b.data[row.name].toString().replace(/\,/g, '')) : 0;
+                    let x = a[row.name] != null && isNaN(a[row.name]) == false ? Number(a[row.name].toString().replace(/\,/g, '')) : 0;
+                    let y = b[row.name] != null && isNaN(b[row.name]) == false ? Number(b[row.name].toString().replace(/\,/g, '')) : 0;
                     if (x < y) return 1;
                     if (x > y) return -1;
                 }
                 else {
-                    if ((a.data[row.name] == null ? '' : a.data[row.name]).toString().toLowerCase() < (b.data[row.name] == null ? '' : b.data[row.name]).toString().toLowerCase()) return 1;
-                    if ((a.data[row.name] == null ? '' : a.data[row.name]).toString().toLowerCase() > (b.data[row.name] == null ? '' : b.data[row.name]).toString().toLowerCase()) return -1;
+                    if ((a[row.name] == null ? '' : a[row.name]).toString().toLowerCase() < (b[row.name] == null ? '' : b[row.name]).toString().toLowerCase()) return 1;
+                    if ((a[row.name] == null ? '' : a[row.name]).toString().toLowerCase() > (b[row.name] == null ? '' : b[row.name]).toString().toLowerCase()) return -1;
                 }
             }
         }
@@ -170,3 +173,187 @@ TbsGrid.prototype.setSort = function (sortColumns, display) {
     if (display == undefined || display) this.tbs_displayPanel30(0);
 }
 
+/* Add Button */
+TbsGrid.prototype.tbs_addSortButton = function (name, text, order, targetIndex) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    // add sortColumn in grid.classSort.sortColumns
+    // already existing column
+    let sortColumns = grid.classSort.sortColumns;
+    for (let i = 0, len= sortColumns.length; i < len; i ++) {
+        let sortColumn = sortColumns[i];
+        if (name == sortColumn[grid.column_name]) {
+            return;
+        }
+    }
+    let column = {};
+    column[grid.column_name]  = name;
+    column[grid.column_text]  = text;
+    column[grid.column_order] = order;
+    if (grid.notNull(targetIndex)) grid.classSort.sortColumns.splice(targetIndex, 0, column);
+    else grid.classSort.sortColumns.push(column);
+
+    // add button in group panel
+    let button = grid.tbs_createSortButton(name);
+    let bar = document.querySelector(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar');
+    if (grid.notNull(targetIndex)) bar.insertBefore(button, bar.childNodes[targetIndex]);
+    else bar.append(button);
+
+    grid.tbs_toggleSortPlaceHolder();
+    grid.tbs_setSortData(grid.data_user, grid.classSort.sortColumns);
+}
+TbsGrid.prototype.tbs_removeSortButton = function (element) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    // remove sortColumn in grid.classSort.sortColumns
+    let name = element.dataset.name;
+    let columnIndex;
+    let sortColumns= grid.classSort.sortColumns;
+    for (let i = 0, len= sortColumns.length; i < len; i ++) {
+        let sortColumn = sortColumns[i];
+        if (name == sortColumn[grid.column_name]) {
+            columnIndex = i;
+            break;
+        }
+    }
+    sortColumns.splice(columnIndex, 1);
+
+    // remove button in group panel
+    let button = element.parentNode;
+    button.remove();
+
+    grid.tbs_toggleSortPlaceHolder();
+
+    if (grid.grid_mode == grid.code_group) {
+        grid.tbs_setData(grid.data_view, null, false);
+    }
+    else {
+        if (grid.tbs_isSortableColumn()) {
+            grid.tbs_setSortData(grid.data_view, grid.classSort.sortColumns);
+            grid.tbs_removeRange(0, -1);
+            grid.tbs_displayPanel30(0);
+        }
+    }
+}
+TbsGrid.prototype.tbs_removeSortButtonList = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar .tbs-grid-panel-button');
+    for (let i = buttons.length - 1; i >= 0; i--) buttons[i].remove();
+}
+TbsGrid.prototype.tbs_getSortButtonList = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    grid.tbs_removeSortButtonList();
+
+    let bar = document.querySelector(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar');
+    let sortColumns= grid.classSort.sortColumns;
+
+    for (let i = 0, len = sortColumns.length; i < len; i++) {
+        let sortColumn = sortColumns[i];
+        let button = grid.tbs_createSortButton(sortColumn[grid.column_name]);
+        let bar = document.querySelector(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar');
+        if (grid.null(bar)) return;
+        bar.append(button);
+    }
+    grid.tbs_toggleSortPlaceHolder();
+}
+TbsGrid.prototype.tbs_createSortButton = function (columnName) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    let column = grid.tbs_getColumn(columnName);
+
+    let text= document.createElement('span');
+    text.classList.add('tbs-grid-panel-button-text');
+    text.textContent  = column.header[grid.column_text];
+    text.dataset.name = columnName;
+
+    let icon= document.createElement('span');
+    icon.classList.add('tbs-grid-panel-button-icon');
+    icon.style['backgroundImage'] = 'url(' + grid.options[grid.option_imageRoot] + 'tree_closed.png)';
+    icon.dataset.name = columnName;
+
+    let button = document.createElement('div');
+    button.classList.add('tbs-grid-panel-button');
+    button.dataset.name = columnName;
+
+    button.append(text);
+    button.append(icon);
+
+    return button;
+}
+TbsGrid.prototype.tbs_toggleSortPlaceHolder = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar .tbs-grid-panel-button');
+    let span = document.querySelector(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar-span');
+    if (buttons.length > 0) span.style.display = 'none';
+    else span.style.display = '';
+
+    if (buttons.length == 0) {
+        //grid.tbs_setColumn('group_column', 'visible', false);
+        // grid.tbs_apply();
+    }
+    else {
+        //grid.tbs_setColumn('group_column', 'visible', true);
+        // grid.tbs_apply();
+    }
+    grid.classControl.after_setColumnVisible();
+}
+
+TbsGrid.prototype.tbs_showSortPanel = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    grid.tbs_setOption(grid.option_sortVisible, true);
+
+    let panel = document.querySelector(selector + ' .tbs-grid-panel90');
+    panel.classList.remove('tbs-hide');
+    panel.classList.add('tbs-show');
+
+    //grid.tbs_initSortData();
+    //grid.classControl.after_showSortrPanel();
+    grid.tbs_getSortButtonList();
+}
+TbsGrid.prototype.tbs_hideSortPanel = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    grid.classSort.sortColumns = [];
+    grid.tbs_setOption(grid.option_sortVisible, false);
+
+    let panel = document.querySelector(selector + ' .tbs-grid-panel90');
+    panel.classList.remove('tbs-show');
+    panel.classList.add('tbs-hide');
+
+    //grid.tbs_initSortData();
+    //grid.classControl.after_hideSortPanel();
+}
+
+TbsGrid.prototype.tbs_initSortData = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    grid.tbs_getSortButtonList();
+
+    grid.classSort.sortColumns = [];
+    grid.data_view = grid.tbs_copyJson(grid.data_table);
+
+    if (grid.options[grid.option_filterVisible]) {
+        grid.tbs_filters();
+        grid.apply();
+    }
+    if (grid.grid_mode == grid.code_group) {
+        grid.tbs_setData(grid.data_view, null, false);
+    }
+    else {
+        grid.tbs_removeRange(0, -1);
+        grid.tbs_apply();
+    }
+}

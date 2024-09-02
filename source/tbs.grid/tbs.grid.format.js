@@ -18,7 +18,8 @@ TbsGrid.prototype.tbs_getFormat = function (column, value) {
 
     if (colType == grid.code_number || colType == grid.code_currency) {
         result = this.tbs_getFormatNumber(column, value);
-        if (column[grid.column_visible] == false || (column[grid.column_showZero] == false && parseInt(result.text) == 0)) {
+        if (column[grid.column_visible] == false
+            || (column[grid.column_showZero] == false && Number(result.value) == 0 )) {
             result.text = this.options[grid.option_zeroChar];
         }
         return result;
@@ -30,7 +31,7 @@ TbsGrid.prototype.tbs_getFormat = function (column, value) {
             return result;
         }
         if (colType == grid.code_combo) {
-            let data = column.renderer.data;
+            let data = column.renderer;
             let key = column.renderer.valueName;
             let val = column.renderer.labelName;
 

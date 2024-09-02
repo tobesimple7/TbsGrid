@@ -112,7 +112,7 @@ TbsGrid.prototype.excelExport = function(options) {
 
                 let span = document.createElement('span');
                 span.classList.add('tbs-grid-cell-span');
-                span.textContent = row.data[column[grid.column_name]];
+                span.textContent = row[column[grid.column_name]];
                 div.appendChild(span);
 
                 td.appendChild(div);
