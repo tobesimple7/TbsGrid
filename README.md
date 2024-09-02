@@ -13,9 +13,7 @@ I hope this grid helps you.
 - The tbs prefix was created from the first letters of 'tobesimple.net'.
 - The current github source and min files may be slightly different.
 - I am currently trying to manage the version with the beta version.
-- It seems like it will take 2 to 3 months to get to a more stable version.
- 
-I think it will stabilize once i test and fix bugs so that the release beta version becomes 2.0.0. haha.
+- It seems like it will take 1 to 2 months to get to a more stable version.
 
 ## Notable features
 
