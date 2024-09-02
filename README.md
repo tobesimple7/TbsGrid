@@ -51,14 +51,12 @@ tbs.grid.configs.js
 * [Data binding](https://tobesimple.net/page71/page71_001.php)
 * [Column Types](https://tobesimple.net/page72/page72_001.php)
 * [Header Columns](https://tobesimple.net/page73/page73_002.php)
-
-- The items below are under developing.
-
 * [Cell, Row Editor](https://tobesimple.net/page74/page74_001.php)
 * [User Events](https://tobesimple.net/page75/page75_001.php)  
 * [Frozen Column,Row](https://tobesimple.net/page76/page76_001.php)
 * [Grouping](https://tobesimple.net/page78/page78_001.php)
 * [Filter Panel](https://tobesimple.net/page79/page79_001.php)
+- The items below are under developing.
 * [Tree Grid](https://tobesimple.net/page81/page81_001.php)
 * [Paging Grid](https://tobesimple.net/page82/page82_001.php)
 
