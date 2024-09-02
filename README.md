@@ -30,8 +30,8 @@ I hope this grid helps you.
 // Grid Config 
 <script src="/tbsgrid/tbs.grid.configs.js"></script>
 // TbsGrid css, js files
-<script src="/tbsgrid/tbs.grid.1.0.0.min.css"></script>
-<script src="/tbsgrid/tbs.grid.1.0.0.min.js"></script>
+<script src="/tbsgrid/tbs.grid.min.css"></script>
+<script src="/tbsgrid/tbs.grid.min.js"></script>
 ```
 - The min files are not distributed yet.
 - We plan to make a release version as soon as possible
