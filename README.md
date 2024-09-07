@@ -27,6 +27,8 @@ I hope this grid helps you.
 ## Getting Started
 
 ```javascript
+<script src="/js/mobile-deteck.min.js"></script>
+<script src="/js/FileSaver.min.js"></script>
 // Grid Config 
 <script src="/tbsgrid/tbs.grid.configs.js"></script>
 // TbsGrid css, js files
