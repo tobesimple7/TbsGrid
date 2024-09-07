@@ -29,7 +29,7 @@ TbsGrid.prototype.tbs_setSortData = function (data, sortColumns) {
             let type = column[grid.column_type];
 
             if (sortColumn['order'] == 'asc') {
-                if (type == grid.code_number || type == grid.code_currency){
+                if (type == grid.code_number || type == grid.code_currency) {
                     let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')): 0;
                     let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')): 0;
                     if (x < y) return -1;
@@ -169,10 +169,56 @@ TbsGrid.prototype.setSort = function (sortColumns, display) {
             }
         }
     });
-    //if (grid.grid_mode == grid.module_paging) { grid.data_page = grid.tbs_copyJson(grid.data_view); }
+    //if (grid.grid_mode == grid.code_page) { grid.data_page = grid.tbs_copyJson(grid.data_view); }
     if (display == undefined || display) this.tbs_displayPanel30(0);
 }
 
+TbsGrid.prototype.tbs_changeSortButtonOrder = function (name, text, order, targetIndex) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    let sortColumns = grid.classSort.sortColumns;
+
+    /* targetIndex <> name Index */
+    let sourceIndex = null;
+    for (let i = 0, len = sortColumns.length; i < len; i ++) {
+        let sortColumn = sortColumns[i];
+        if (name == sortColumn[grid.column_name] && i == targetIndex) return;
+        else if (name == sortColumn[grid.column_name]) { sourceIndex = i;  break; }
+    }
+
+    /* create column */
+    let column = {};
+    column[grid.column_name]  = name;
+    column[grid.column_text]  = text;
+    column[grid.column_order] = sortColumns[sourceIndex][grid.column_order];
+
+    /* update source column */
+    sortColumns[sourceIndex][grid.column_name] = '_temp_sort';
+
+    /* add button in sort panel */
+    if (grid.notNull(targetIndex)) grid.classSort.sortColumns.splice(targetIndex, 0, column);
+    else grid.classSort.sortColumns.push(column);
+
+    /* remove source */
+    for (let i = 0, len = sortColumns.length; i < len; i ++) {
+        let sortColumn = sortColumns[i];
+        if (sortColumn[grid.column_name] == '_temp_sort') {
+            grid.classSort.sortColumns.splice(i, 1);
+            break;
+        }
+    }
+
+    let button = grid.tbs_createSortButton(name);
+    let bar = document.querySelector(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar');
+    if (grid.notNull(targetIndex)) bar.insertBefore(button, bar.childNodes[targetIndex]);
+    else bar.append(button);
+
+    grid.tbs_getSortButtonList();
+
+    grid.tbs_toggleSortPlaceHolder();
+    grid.tbs_setSortData(grid.data_user, grid.classSort.sortColumns);
+}
 /* Add Button */
 TbsGrid.prototype.tbs_addSortButton = function (name, text, order, targetIndex) {
     let selector = '#' + this.gridId;
@@ -267,10 +313,16 @@ TbsGrid.prototype.tbs_createSortButton = function (columnName) {
     let grid = this;
 
     let column = grid.tbs_getColumn(columnName);
+    let sortColumn = grid.tbs_getSortColumn(columnName);
+    let order = sortColumn[grid.column_order];
+    let orderChar = '';
+    if (order == 'asc') orderChar = '▲';
+    else if (order == 'desc') orderChar = '▼';
+    else orderChar = '';
 
     let text= document.createElement('span');
     text.classList.add('tbs-grid-panel-button-text');
-    text.textContent  = column.header[grid.column_text];
+    text.textContent  = column.header[grid.column_text] + orderChar;
     text.dataset.name = columnName;
 
     let icon= document.createElement('span');
@@ -314,12 +366,13 @@ TbsGrid.prototype.tbs_showSortPanel = function () {
     grid.tbs_setOption(grid.option_sortVisible, true);
 
     let panel = document.querySelector(selector + ' .tbs-grid-panel90');
-    panel.classList.remove('tbs-hide');
-    panel.classList.add('tbs-show');
-
+    panel.classList.remove('tbs-grid-hide');
+    panel.classList.add('tbs-grid-show');
+    grid.tbs_setPanelSize();
     //grid.tbs_initSortData();
     //grid.classControl.after_showSortrPanel();
     grid.tbs_getSortButtonList();
+    grid.tbs_apply();
 }
 TbsGrid.prototype.tbs_hideSortPanel = function () {
     let selector = '#' + this.gridId;
@@ -329,9 +382,10 @@ TbsGrid.prototype.tbs_hideSortPanel = function () {
     grid.tbs_setOption(grid.option_sortVisible, false);
 
     let panel = document.querySelector(selector + ' .tbs-grid-panel90');
-    panel.classList.remove('tbs-show');
-    panel.classList.add('tbs-hide');
-
+    panel.classList.remove('tbs-grid-show');
+    panel.classList.add('tbs-grid-hide');
+    grid.tbs_setPanelSize();
+    grid.tbs_apply();
     //grid.tbs_initSortData();
     //grid.classControl.after_hideSortPanel();
 }
@@ -340,9 +394,9 @@ TbsGrid.prototype.tbs_initSortData = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
+    grid.classSort.sortColumns = [];
     grid.tbs_getSortButtonList();
 
-    grid.classSort.sortColumns = [];
     grid.data_view = grid.tbs_copyJson(grid.data_table);
 
     if (grid.options[grid.option_filterVisible]) {

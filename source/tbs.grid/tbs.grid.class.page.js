@@ -55,7 +55,7 @@ TbsGrid.prototype.tbs_setPageData = function() {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    if (grid.grid_mode != grid.module_paging) return;
+    if (grid.grid_mode != grid.code_page) return;
     if (grid.data_view.length == 0) return;
 
     if (grid.classPage.pageRowCount == 0) grid.classPage.pageRowCount = grid.classPage.options.pageRowCount;

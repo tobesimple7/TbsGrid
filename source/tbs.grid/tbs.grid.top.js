@@ -90,7 +90,7 @@ TbsGrid.prototype.tbs_getTopValue = function (rowIndex, columnName) {
     let column = this.tbs_getColumn(columnName);
     let columnType = column[this.column_type];
     let val = this.data_top[rowIndex][columnName];
-
+    if (isNaN(val)) val = 0;
     if (columnType == this.code_number) return Number(val);
     else if (columnType == this.code_currency) return Number(val);
     else return val;
@@ -122,21 +122,17 @@ TbsGrid.prototype.tbs_setTopValueByIndex = function (rowIndex, cellIndex, value)
     let columnName = this.tbs_getColumnName(cellIndex);
     this.tbs_setTopValue(rowIndex, columnName, value);
 }
-/* Layout Data */
-// TbsGrid.prototype.tbs_getTopLayout = function (rowIndex, columnName) {
-//     let grid = this;
-//     try { return grid.data_top[rowIndex][columnName]; }
-//     catch (e) { return null; }
-// }
-// TbsGrid.prototype.tbs_getTopLayoutValue = function (rowIndex, columnName, property) {
-//     let grid = this;
-//     try { return grid.data_top[rowIndex][columnName]; }
-//     catch (e) { return null; }
-// }
-// TbsGrid.prototype.tbs_setTopLayoutValue = function(rowIndex, columnName, property, value) {
-//     let grid = this;
-//     let column = grid.tbs_getColumn(columnName);
-//     if (grid.null(grid.data_top[rowIndex][columnName])) grid.data_top[rowIndex][columnName] = {};
-//     grid.data_top[rowIndex][columnName][property] = value;
-// }
+
+TbsGrid.prototype.tbs_getTopColumn = function (columnName) {
+    let grid = this;
+
+    let result = null;
+    for (let i = 0, len = this.topColumns.length; i < len; i++) {
+        let topColumn = this.topColumns[i];
+        if (columnName == topColumn[grid.column_name]) {
+            result = topColumn;
+        }
+    }
+    return result;
+}
 

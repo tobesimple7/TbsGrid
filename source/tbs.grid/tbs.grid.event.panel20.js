@@ -4,7 +4,7 @@
  *  header group sorting : deny
  *
  */
-TbsGrid.prototype.panel20_select = function() { //type : header, content, left, top
+TbsGrid.prototype.panel20_select = function(panelName) { //type : header, content, left, top
     let selector = '#' + this.gridId;
     let grid = this;
     
@@ -24,7 +24,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
     let moveCellIndex;
     let moveCellRowIndex;
 
-    let table = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
+    let table = document.querySelector(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table');
     //moveDiv(table), moveCell, targetCell, direction => moveDiv(copy object), tbs_moveCell(source object) is different
     const mouseDownEvent = function(e) {
         let col = e.target.closest('.tbs-grid-cell');
@@ -66,10 +66,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
 
         let isInPanel80 = grid.tbs_isInPanel(e, 'panel80', lastX, lastY);
         let isInPanel90 = grid.tbs_isInPanel(e, 'panel90', lastX, lastY);
-        //console.log(`${mouseButton} ${startX} == ${lastX} ${startY} == ${lastY}`);
-        //console.log(`isInPanel11 ${isInPanel80} isInPanel20 ${isInPanel20}`);
 
-        // Mouse position is in panel80.
         if (isInPanel80) {
             // grouping panel
             if (grid.options[grid.option_groupVisible] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
@@ -89,16 +86,17 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                 let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel-bar .tbs-grid-panel-button');
                 let targetButton;
                 let targetIndex;
-                let moveLeft = grid.tbs_getOffset(moveElement).left;
 
-                for (let i = buttons.length + 1; i >= 0; i--) {
+                for (let i = 0, len = buttons.length; i < len; i++) {
                     let button = buttons[i];
-                    let buttonLeft= grid.tbs_getOffset(button).left
-                    if (moveLeft < buttonLeft) {
+                    let buttonLeft = button.getBoundingClientRect().left;
+                    if (e.clientX < buttonLeft) {
                         targetButton = button;
                         targetIndex = i;
+                        break;
                     }
                 }
+
                 // Add 1th postion
                 if (grid.null(targetIndex)) {
                     targetButton = null;
@@ -182,143 +180,103 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                 let element = e.target.closest('.tbs-grid-cell');
                 let name = element.dataset.name;
                 if (e.detail == 1) {
-                    //if (grid.options[grid.option_sortVisible] == false && grid.tbs_isColumnName(name)) grid.event_columnSort(e.target.closest('.tbs-grid-cell'));
                     if (grid.tbs_isColumnName(name)) grid.event_columnSort(e.target.closest('.tbs-grid-cell'));
                     if (grid.options[grid.option_sortVisible] == true) grid.tbs_getSortButtonList();
                 }
-                // else if (e.detail == 2) {
-                //     grid.tbs_initSortData();
-                // }
             }
             else {
-                const changeColumnOrder = function () {
-                    let trList = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table tbody tr');
-                    let columns = grid.columns;
-                    let rowLen = trList.length;
-                    let colLen = columns.length;
-                    let arr = [];
-                    for (let x = 0; x < colLen; x++) {
-                        for (let i = 0; i < rowLen; i++) {
-                            let cell = trList[i].childNodes[x];
-                            if (cell.dataset.name == '') continue;
-                            arr.push(cell.dataset.name);
-                        }
-                    }
-                    let colList = [];
-                    for (let i = 0, len = arr.length; i < len; i++) {
-                        for (let x = 0; x < colLen; x++) {
-                            if (arr[i] == columns[x][grid.column_name]) {
-                                colList.push(JSON.parse(JSON.stringify(columns[x])));
-                                break;
-                            }
-                        }
-                    }
-                    grid.columns = JSON.parse(JSON.stringify(colList));
-                }
-                const changeHeaderColumnOrder = function (moveCell, targetCell, direction) { //2022.05.11
-                    const splice = function (arr, copyArr, selectIndex, targetIndex, direction) {
-                        if (direction == 'after') targetIndex += 1;
-                        arr.splice(targetIndex, 0, JSON.parse(JSON.stringify(copyArr[selectIndex]))); //splice  before function
-                        for (let x = 0, colLen = arr.length; x < colLen; x++) {
-                            arr[x].colIndex = x;
-                        }
-                    }
-                    let headerColumns = grid.headerColumnTable;
-                    let movingHeaderColumn = headerColumns[moveCell.parentNode.rowIndex - 1][moveCell.cellIndex];
+                if (grid.fixedColumnIndex != -1) {
+                    if (document.querySelectorAll('.tbs-grid-move').length == 0) return;
 
-                    let startRowIndex = movingHeaderColumn[grid.column_rowIndex];
-                    let lastRowIndex = grid.headerColumnTable.length - 1;
+                    /* Find panel area */
+                    let isInPanel21 = grid.tbs_isInPanel(e, 'panel21', lastX, lastY);
+                    let isInPanel22 = grid.tbs_isInPanel(e, 'panel22', lastX, lastY);
 
-                    let startColIndex = movingHeaderColumn[grid.column_colIndex];
-                    let lastColIndex = startColIndex + moveCell.colSpan - 1;
-
-                    let targetColIndex = (direction == 'after') ? targetCell.cellIndex + targetCell.colSpan - 1 : targetCell.cellIndex;
-                    let copyHeaderColumns = JSON.parse(JSON.stringify(grid.headerColumnTable));
-                    for (let i = startRowIndex; i <= lastRowIndex; i++) {
-                        for (let x = lastColIndex; x >= startColIndex; x--) {
-                            splice(headerColumns[i], copyHeaderColumns[i], x, targetColIndex, direction);
-                        }
-                    }
-                    for (let i = startRowIndex; i <= lastRowIndex; i++) {
-                        let delIndex = (targetColIndex < startColIndex) ? startColIndex + moveCell.colSpan : startColIndex;
-                        headerColumns[i].splice(delIndex, moveCell.colSpan);
-                        for (let x = 0, colLen = grid.columns.length; x < colLen; x++) {
-                            //console.log(`i ${i} x ${x}`);
-                            grid.headerColumnTable[i][x][grid.column_colIndex] = x;
-                        }
-                    }
-                }
-                //if (grid.options[grid.option_movable] && document.querySelectorAll('.tbs-grid-move').length > 0) {
-                if (document.querySelectorAll('.tbs-grid-move').length > 0) {
-                    let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
-                    let rectMoveCell = document.querySelector('.tbs-grid-move').getBoundingClientRect();
+                    /* Set panel */
+                    let tdList20 = null;
+                    if (isInPanel21 || isInPanel22) tdList20 = document.querySelectorAll(selector + ' .tbs-grid-panel22 tbody td:not([style*="display :none"]');
+                    else tdList20 = document.querySelectorAll(selector + ' .tbs-grid-panel20 tbody td:not([style*="display :none"]');
 
                     let headerColumns = grid.headerColumnTable;
                     let movingColumn = headerColumns[moveCellRowIndex - 1][moveCellIndex];
-                    let targetCol;
-                    let tdList20 = document.querySelectorAll(selector + ' .tbs-grid-panel20 tbody td:not([style*="display :none"]');
+                    let targetColumn;
+
                     let fixedWidth = 50;
 
                     for (let x = 0, len = tdList20.length; x < len; x++) {
                         let cell = tdList20[x];
-                        targetCol = headerColumns[cell.parentNode.rowIndex - 1][cell.cellIndex];
+                        targetColumn = grid.headerColumnTable[cell.parentNode.rowIndex - 1][cell.cellIndex];
 
                         if (lastX - startX > 0) { // right direction move.
-                            if ( ( lastX - fixedWidth <= cell.getBoundingClientRect().right
-                                && lastX + fixedWidth >= cell.getBoundingClientRect().right)
-                                && movingColumn[grid.column_rowIndex] == targetCol[grid.column_rowIndex]
-                                && movingColumn[grid.column_parentNum] == targetCol[grid.column_parentNum]
-                                && moveCell.cellIndex != cell.cellIndex) {
-                                changeHeaderColumnOrder(moveCell, cell, 'after');
-                                direction = 'after';
+                            if ((lastX - fixedWidth <= cell.getBoundingClientRect().right
+                                    && lastX + fixedWidth >= cell.getBoundingClientRect().right)
+                                    && movingColumn[grid.column_rowIndex] == targetColumn[grid.column_rowIndex]
+                                    && movingColumn[grid.column_parentNum] == targetColumn[grid.column_parentNum]
+                                    && moveCell.cellIndex != cell.cellIndex) {
+                                grid.tbs_changeColumnOrder(movingColumn, targetColumn, 'after');
                                 break;
                             }
                         }
                         else {
                             if ((lastX - fixedWidth <= cell.getBoundingClientRect().left
                                     && lastX + fixedWidth >= cell.getBoundingClientRect().left)
-                                && movingColumn[grid.column_rowIndex] == targetCol[grid.column_rowIndex]
-                                && movingColumn[grid.column_parentNum] == targetCol[grid.column_parentNum]  //column_parentNum
-                                && moveCell.cellIndex != cell.cellIndex) {
-                                changeHeaderColumnOrder(moveCell, cell, 'before');
-                                direction = 'before';
+                                    && movingColumn[grid.column_rowIndex] == targetColumn[grid.column_rowIndex]
+                                    && movingColumn[grid.column_parentNum] == targetColumn[grid.column_parentNum]
+                                    && moveCell.cellIndex != cell.cellIndex) {
+                                grid.tbs_changeColumnOrder(movingColumn, targetColumn, 'before');
                                 break;
                             }
                         }
                     }
-                    grid.tbs_displayPanel20();
-                    changeColumnOrder();
-
-                    if (grid.topColumns.length    > 0) grid.tbs_displayPanel40();
-                    if (grid.footerColumns.length > 0) grid.tbs_displayPanel50();
-
-                    let columns = grid.columns;
-                    let tableRows20 = document.querySelectorAll(selector + ' .tbs-grid-panel20  thead th');
-                    let tableRows30 = document.querySelectorAll(selector + ' .tbs-grid-panel30  thead th');
-
-                    for (let i = 0, len = columns.length; i < len; i++) {
-                        let column = columns[i];
-                        let styleWidth = column[grid.column_width] + 'px';
-                        tableRows20[i].style.width = styleWidth;
-                        tableRows30[i].style.width = styleWidth;
-                    }
-                    grid.classControl.after_changeColumnOrder();
+                    if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
+                    flagLeft = false;
+                    flagRight = false;
                 }
-                document.querySelector('.tbs-grid-move').remove();
-                flagLeft = false;
-                flagRight = false;
+                else {
+                    if (document.querySelectorAll('.tbs-grid-move').length > 0) {
+                        let rectMoveCell = document.querySelector('.tbs-grid-move').getBoundingClientRect();
+
+                        let movingColumn = grid.headerColumnTable[moveCellRowIndex - 1][moveCellIndex];
+                        let tdList20 = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' tbody td:not([style*="display :none"]');
+                        let fixedWidth = 50;
+
+                        let targetColumn;
+                        for (let x = 0, len = tdList20.length; x < len; x++) {
+                            let cell = tdList20[x];
+                            targetColumn = grid.headerColumnTable[cell.parentNode.rowIndex - 1][cell.cellIndex];
+
+                            if (lastX - startX > 0) { // right direction move.
+                                if ((lastX - fixedWidth <= cell.getBoundingClientRect().right
+                                        && lastX + fixedWidth >= cell.getBoundingClientRect().right)
+                                        && movingColumn[grid.column_rowIndex] == targetColumn[grid.column_rowIndex]
+                                        && movingColumn[grid.column_parentNum] == targetColumn[grid.column_parentNum]
+                                        && moveCell.cellIndex != cell.cellIndex) {
+                                    grid.tbs_changeColumnOrder(movingColumn, targetColumn, 'after');
+                                    break;
+                                }
+                            }
+                            else {
+                                if ((lastX - fixedWidth <= cell.getBoundingClientRect().left
+                                        && lastX + fixedWidth >= cell.getBoundingClientRect().left)
+                                        && movingColumn[grid.column_rowIndex] == targetColumn[grid.column_rowIndex]
+                                        && movingColumn[grid.column_parentNum] == targetColumn[grid.column_parentNum]  //column_parentNum
+                                        && moveCell.cellIndex != cell.cellIndex) {
+                                    grid.tbs_changeColumnOrder(movingColumn, targetColumn, 'before');
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
+                    flagLeft = false;
+                    flagRight = false;
+                }
             }
+            if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
             document.removeEventListener('mousemove', mouseMoveEvent);
             document.removeEventListener('mouseup', mouseUpEvent);
             grid.input_focus();
         }
-        //else {
-        //    if (document.querySelectorAll('.tbs-grid-move').length > 0) document.querySelector('.tbs-grid-move').remove();
-        //    flagLeft = false;
-        //    flagRight = false;
-        //    document.removeEventListener('mousemove', mouseMoveEvent);
-        //    document.removeEventListener('mouseup', mouseUpEvent);
-        //}
     };
     
     const selectCell = function(e, table) {
@@ -328,22 +286,22 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
         let columnName = column[grid.column_name];
 
         let isMovable = grid.tbs_isMovableColumn(columnName);
-        if (isMovable){
+        if (isMovable) {
             let moveDiv;
             if (document.querySelectorAll('.tbs-grid-move').length == 0) {
                 moveDiv = document.createElement('div');
                 moveDiv.classList.add('tbs-grid-move');
-    
+
                 let table = document.createElement('table');
                 table.classList.add('tbs-grid-table');
-    
+
                 let tr = document.createElement('tr');
                 let td = document.createElement('td');
                 td.classList.add('tbs-grid-cell');
-    
+
                 let div = document.createElement('div');
                 div.classList.add('tbs-grid-cell-div');
-    
+
                 let span = document.createElement('span');
                 span.classList.add('tbs-grid-cell-span');
 
@@ -363,24 +321,26 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
             let colRect = col.getBoundingClientRect();
 
             moveCell = col;
-            moveCellLeft = (window.pageXOffset + e.clientX) - colRect.left;
-            moveCellTop  = (window.pageYOffset + e.clientY) - colRect.top;
+            moveCellLeft = window.pageXOffset + e.clientX - colRect.left;
+            moveCellTop  = window.pageYOffset + e.clientY - colRect.top;
+
             moveCellIndex = col.cellIndex;
             moveCellRowIndex = col.parentNode.rowIndex;
-            let nWidth  = (colRect.width  + 2) + 'px';
-            let nHeight = (colRect.height + 2) + 'px';
+
+            let nWidth = (colRect.width + 2) + 'px';
+            let nHeight = colRect.height + 'px';
+
             moveDiv.style.width = nWidth;
             moveDiv.style.height = nHeight;
             moveDiv.childNodes[0].style.width = nWidth;
-            moveDiv.childNodes[0].style.height = nHeight;                    
+            moveDiv.childNodes[0].style.height = nHeight;
             moveDiv.style.left = '30000px';
-            moveDiv.style.top  = '0px';
+            moveDiv.style.top = '0px';
 
             moveDiv.dataset.columnIndex = col.cellIndex;
             moveDiv.dataset.rowIndex = col.parentNode.rowIndex;
         }
         grid.tbs_removeRange(0, -1);
-        //grid.tbs_selectRange(0, -1, col.cellIndex, col.cellIndex);
     }
     
     const selectCellMove = function(e, table) {
@@ -408,11 +368,8 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
             let moveDiv = document.querySelector('.tbs-grid-move');
             if (moveDiv){
                 moveDiv.style.left = (lastX - moveCellLeft) + 'px';
-                moveDiv.style.top  = (lastY - moveCellTop) + 'px';
-                if (   Math.abs(moveX) > 20
-                    || Math.abs(moveY) > 20) {
-                    moveDiv.style.display = '';
-                }
+                moveDiv.style.top  = (lastY - moveCellTop)  + 'px';
+                if (Math.abs(moveX) > 20 || Math.abs(moveY) > 20) moveDiv.style.display = '';
             }
             //console.log(`111 ${startX} == ${lastX} ${startY} == ${lastY}`);
         }
@@ -420,9 +377,12 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
             select(startCellIndex, moveX, moveY, lastX, lastY);
             //console.log(`222 ${startX} == ${lastX} ${startY} == ${lastY}`);
         }
-        let rect = document.querySelector(selector + ' .tbs-grid-panel20').getBoundingClientRect();
+        let rect = document.querySelector(selector + ' .tbs-grid-' + panelName).getBoundingClientRect();
         let rectLeft = window.pageXOffset + rect.left;
         let rectRight = window.pageXOffset + rect.right;
+        let rect30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
+        rectRight = window.pageXOffset + rect30.right;
+
         let type = '';
         if (lastX < rectLeft) {
             flagLeft = true
@@ -439,18 +399,18 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
     const selectCellShift = function(e, table) {}
     
     const select = function(startCellIndex, moveX, moveY, lastX, lastY) {
-        let tableRect = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table').getBoundingClientRect();
+        let tableRect = document.querySelector(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table').getBoundingClientRect();
         let top    = window.pageYOffset + tableRect.top;
         let bottom = window.pageYOffset + tableRect.bottom;
 
-        let sumRect = document.querySelector(selector + ' .tbs-grid-panel20').getBoundingClientRect();
+        let sumRect = document.querySelector(selector + ' .tbs-grid-' + panelName).getBoundingClientRect();
         let right = window.pageXOffset + sumRect.right;
         let left  = window.pageXOffset + sumRect.left;
 
         //if (lastX > right) grid.tbs_setBarPositionByDirection('right');
         //if (lastX < left) grid.tbs_setBarPositionByDirection('left');
         //==================================================================
-        let arr = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table td:not([data-name=""])');
+        let arr = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table td:not([data-name=""])');
         let tdList = Array.from(arr).sort(function(a, b) { 
             a = a.cellIndex; 
             b = b.cellIndex; 
@@ -468,7 +428,8 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                 if (lastX > left) maxCellIndex = cell.cellIndex;
             }
             grid.tbs_removeRange(0, -1);
-            grid.tbs_selectRange(0, -1, startCellIndex, maxCellIndex);
+            let _topRowIndex = grid.tbs_selectRange(0, -1, startCellIndex, maxCellIndex);
+            grid.tbs_displayPanel30(_topRowIndex);
         }
         //==================================================================
         if (moveX < 0) {
@@ -480,7 +441,8 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                 if (lastX < right) minCellIndex = cell.cellIndex;
             }                        
             grid.tbs_removeRange(0, -1);
-			grid.tbs_selectRange(0, -1, startCellIndex, minCellIndex);
+			let _topRowIndex = grid.tbs_selectRange(0, -1, startCellIndex, minCellIndex);
+            grid.tbs_displayPanel30(_topRowIndex);
         } 
         //==================================================================
     }
@@ -502,7 +464,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
             if (table.style.left == (-1 * grid.horizontalScroll.hiddenSize) + 'px') {
                 flagRight = false;
                 //grid.tbs_removeRange(0, -1);
-				//grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, tdCount - 1);
+				//let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, tdCount - 1);
             }
             else {
                 grid.tbs_setBarPositionByDirection('right');
@@ -514,7 +476,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                 //    }
                 //}
                 //grid.tbs_removeRange(0, -1);
-				//grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, maxCellIndex);
+				//let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, maxCellIndex);
             }
         } 
         /* left */
@@ -522,7 +484,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
             if (table.style.left == '0px') {
                 flagLeft = false;
                 //grid.tbs_removeRange(0, -1);
-				//grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, 0);
+				//let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, 0);
             }
             else {
                 grid.tbs_setBarPositionByDirection('left');
@@ -535,7 +497,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
                 //}
                 //console.log(`minCellIndex ${minCellIndex}`);
                 //grid.tbs_removeRange(0, -1);
-				//grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, minCellIndex);
+				//let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, minCellIndex);
             }
         }
         /* down */
@@ -544,7 +506,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
             //if (lastRowIndex < (grid.data_view.length - 1)) {
             //    lastRowIndex += 1;
             //    grid.tbs_removeRange(0, -1);
-            //    grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex,lastCellIndex);
+            //    let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex,lastCellIndex);
             //}
             //else flagDown = false;
 
@@ -555,7 +517,7 @@ TbsGrid.prototype.panel20_select = function() { //type : header, content, left, 
             //if (lastRowIndex != 0) {
             //    lastRowIndex -= 1;
             //    grid.tbs_removeRange(0, -1);
-			//	grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex);
+			//	let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex);
             //}
             //else flagUp = false;
         }

@@ -9,6 +9,15 @@ TbsGrid.prototype.null = function(p) {
 TbsGrid.prototype.notNull = function(p) {
     return !(p == null || p == undefined);
 }
+TbsGrid.prototype.empty = function(p) {
+    return p == '';
+}
+TbsGrid.prototype.notEmpty = function(p) {
+    return this.notNull(p) && p != '';
+}
+TbsGrid.prototype.isNull = function(a, b) {
+    return grid.null(a) ?  b : a;
+}
 TbsGrid.prototype.tbs_error = function(p) {
     if (this.debug_mode) { console.log('[TbsGrid error] ' + p); r = false; }
 }

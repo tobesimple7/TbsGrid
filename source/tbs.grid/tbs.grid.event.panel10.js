@@ -72,6 +72,15 @@ TbsGrid.prototype.panel10_init = function(){
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-reset'))
         document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-reset').addEventListener('mousedown', resetGroupPanelEvent);
+
+    /* Fixled Column Panel */
+    const showFixedColumnPanelEvent = function(e) {
+        e.stopPropagation();
+        if (grid.fixedColumnIndex == -1 && grid._startCellIndex >= 0) grid.tbs_setFixedColumn(grid._startCellIndex);
+        else  grid.tbs_removeFixedColumn();
+    }
+    if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-fixed-column'))
+        document.querySelector(selector + ' .tbs-grid-panel10-buttons-fixed-column').addEventListener('mousedown', showFixedColumnPanelEvent);
     //==================================================================================================================
     const setTotalFilterEvent = function(e) {
         e.stopPropagation();

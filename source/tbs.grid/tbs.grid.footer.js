@@ -122,21 +122,15 @@ TbsGrid.prototype.tbs_setFooterValueByIndex = function (rowIndex, cellIndex, val
     this.tbs_setFooterValue(rowIndex, columnName, value);
 }
 
-/* Layout Data */
-// TbsGrid.prototype.tbs_getFooterLayout = function (rowIndex, columnName) {
-//     let grid = this;
-//     try { return grid.data_footer[rowIndex].layout[columnName]; }
-//     catch (e) { return null; }
-// }
-// TbsGrid.prototype.tbs_getFooterLayoutValue = function (rowIndex, columnName, property) {
-//     let grid = this;
-//     try { return grid.data_footer[rowIndex].layout[columnName][property]; }
-//     catch (e) { return null; }
-// }
-// TbsGrid.prototype.tbs_setFooterLayoutValue = function(rowIndex, columnName, property, value) {
-//     let grid = this;
-//     let column = grid.tbs_getColumn(columnName);
-//     if (grid.null(grid.data_footer[rowIndex].layout[columnName])) grid.data_footer[rowIndex].layout[columnName] = {};
-//     grid.data_footer[rowIndex].layout[columnName][property] = value;
-// }
+TbsGrid.prototype.tbs_getFooterColumn = function (columnName) {
+    let grid = this;
 
+    let result = null;
+    for (let i = 0, len = this.footerColumns.length; i < len; i++) {
+        let footerColumn = this.footerColumns[i];
+        if (columnName == footerColumn[grid.column_name]) {
+            result = footerColumn;
+        }
+    }
+    return result;
+}

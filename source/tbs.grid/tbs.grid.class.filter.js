@@ -211,9 +211,8 @@ TbsGrid.prototype.tbs_filterStringByType = function(filterType, s, targetString)
     // String comparisons are case-insensitive.
     s = s.toLowerCase();
     targetString = targetString.toLowerCase();
-
     if      (filterType == grid.const_filterEqual) {
-        regExp = new RegExp(`^${s}$`);
+        regExp =new RegExp(`^${s}$`)
         return regExp.test(targetString);
     }
     else if (filterType == grid.const_filterNotEqual) {
@@ -294,6 +293,7 @@ TbsGrid.prototype.tbs_createFilterCombo = function(column) {
     }
     else if (column[grid.column_type] == grid.code_number || column[grid.column_type] == grid.code_currency) {
         let option;
+        grid.tbs_addFilterComboOption(combo, grid.const_filterSelect      , '[Select]'				  );
         grid.tbs_addFilterComboOption(combo, grid.const_filterEqual       , 'Equal'					  );
         grid.tbs_addFilterComboOption(combo, grid.const_filterGreaterEqual, 'Greater than or Equal to');
         grid.tbs_addFilterComboOption(combo, grid.const_filterLessEqual   , 'Less than or Equal to'	  );

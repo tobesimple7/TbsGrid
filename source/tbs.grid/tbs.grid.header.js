@@ -168,6 +168,150 @@ TbsGrid.prototype.tbs_createHeaderColumnTable = function () {
     })
     grid.headerColumnTable = headerColumnRows;
 }
+TbsGrid.prototype.tbs_updateHeaderFixedColumns = function () {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    if (grid.headerColumnTable.length == 1) return;
+    if (grid.fixedColumnIndex >= grid.columns.length - 1) return;
+
+    let fixedColumnIndex = grid.fixedColumnIndex;
+    let columnName = grid.tbs_getColumnName(fixedColumnIndex);
+
+    let columnCount = 0;
+
+    const getChildCount = function (node) {
+        if (node[grid.column_children]) {
+            for (let i = 0, len = node[grid.column_children].length; i < len; i++) {
+                getChildCount(node[grid.column_children][i]);
+            }
+        }
+        else childCount += 1;
+    }
+
+    const findColumnNode = function (node, columnName) {
+        if (rootNode) return;
+
+        if (node[grid.column_children]) {
+            for (let i = 0, len = node[grid.column_children].length; i < len; i++) {
+                if (grid.notNull(node[grid.column_children][i][grid.column_name])) {
+                    if (node[grid.column_children][i][grid.column_name] == columnName) {
+                        rootNode = node;
+                        return;
+                    }
+                }
+                findColumnNode(node[grid.column_children][i], columnName);
+            }
+        }
+    }
+
+    const removeColumnNodes = function (node) {
+        if (node[grid.column_children]) {
+            let parentArray = node[grid.column_children];
+            for (let i = parentArray.length - 1; i >= 0; i--) {
+                let childNode = parentArray[i];
+
+                if (childNode[grid.column_children]) removeColumnNodes(childNode);
+                else {
+                    let columnName = childNode[grid.column_name];
+                    let columnIndex = grid.tbs_getColumnIndex(columnName);
+                    if (columnIndex > fixedColumnIndex) parentArray.splice(i, 1);
+                }
+            }
+        }
+    }
+
+    const removeBlankNodes = function (node) {
+        if (node[grid.column_children] && node[grid.column_children].length != 0) {
+            let parentArray = node[grid.column_children];
+            for (let i = parentArray.length - 1; i >= 0; i--) {
+                let childNode = parentArray[i];
+
+                if (childNode[grid.column_children] && childNode[grid.column_children].length >  0) removeBlankNodes(childNode, null);
+                else if (childNode[grid.column_children] && childNode[grid.column_children].length == 0) parentArray.splice(i, 1);
+            }
+        }
+    }
+
+    const removePreColumnNodes = function (node) {
+        if (node[grid.column_children]) {
+            let parentArray = node[grid.column_children];
+            for (let i = parentArray.length - 1; i >= 0; i--) {
+                let childNode = parentArray[i];
+
+                if (childNode[grid.column_children]) removePreColumnNodes(childNode);
+                else {
+                    let columnName = childNode[grid.column_name];
+                    let columnIndex = grid.tbs_getColumnIndex(columnName);
+                    if (columnIndex <= fixedColumnIndex) parentArray.splice(i, 1);
+                }
+            }
+        }
+    }
+
+    /* find parent node */
+    let rootNode = null;
+    let childCount = 0;
+
+    let arrayIndex = null;
+    for (let i = 0, len = grid.headerColumns.length; i < len; i++) {
+        let node = grid.headerColumns[i];
+        findColumnNode(node, columnName);
+        if (rootNode) {
+            rootNode = node;
+            arrayIndex = i; break;
+        }
+    }
+
+    /* Exception */
+    if (grid.null(rootNode)) return;
+
+    getChildCount(rootNode);
+    if (childCount == 1) return;
+
+    //if (grid.null(rootNode[grid.column_children]) return;
+
+    /* copy parent node */
+    let newNode = grid.tbs_copyJson(rootNode);
+
+    /* delete node */
+    removeColumnNodes(rootNode);
+    removeBlankNodes(rootNode);
+
+    /* add new node */
+    if (grid.headerColumns.length - 1 == arrayIndex) grid.headerColumns.push(newNode);
+    else grid.headerColumns.splice(arrayIndex + 1, 0, newNode);
+
+    /* delete node, blank node */
+    for (let i = newNode[grid.column_children].length - 1; i >= 0; i--) {
+        let node = newNode[grid.column_children][i];
+
+        /* Delete column node */
+        if (grid.null(node[grid.column_children])) {
+            let columnName = node[grid.column_name];
+            let columnIndex = grid.tbs_getColumnIndex(columnName);
+            if (columnIndex <= grid.fixedColumnIndex) newNode[grid.column_children].splice(i, 1);
+            continue;
+        }
+        else removePreColumnNodes(node);
+    }
+    //removePreColumnNodes(newNode);
+    //removeBlankNodes(newNode);
+
+    for (let i = grid.headerColumns.length - 1; i >= 0; i--) {
+        let node = grid.headerColumns[i];
+
+        if (node[grid.column_children] && node[grid.column_children].length == 0) {
+            grid.headerColumns.splice(i, 1);
+            continue;
+        }
+        removeBlankNodes(node);
+    }
+
+    /* create header columns */
+    grid.tbs_createHeaderColumns(grid.headerColumns);
+}
+
 TbsGrid.prototype.tbs_getDisplayedHeaderColumn = function(panelName = 'panel30') {
     // panel visible columns : true  / startRowIndex, lastRowIndex
 
@@ -274,4 +418,61 @@ TbsGrid.prototype.tbs_getHeaderProperty = function (columnName, property) {
     let grid = this;
     let columnIndex = grid.tbs_getColumnIndex(columnName);
     return grid.tbs_getHeaderPropertyByIndex(columnIndex, property);
+}
+
+TbsGrid.prototype.tbs_createHeaderFxiedColumnTable = function () {
+    /**
+     * @param this.headerColumns
+     * @result Table metirics.
+     */
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    if (grid.fixedColumnIndex != -1) return;
+    if (grid.fixedColumnIndex >= this.columns.length - 1) return;
+
+    /* panel32 */
+    let headerRows = grid.headerColumnTable;
+    for (let i = 0, rowLen = headerRows.length; i < rowLen; i++) {
+        let headerRow = headerRows[i];
+
+        let sourceHeader = headerRow[grid.fixedColumnIndex];
+        let nextSourceHeader = headerRow[grid.fixedColumnIndex + 1];
+        let kind = header[grid.column_kind];
+
+        if (sourceHeader[grid.column_kind] == 'column') continue;
+        else if (sourceHeader[grid.column_kind] == 'header') {
+            sourceHeader[grid.column_colSpan] = 1;
+            continue;
+        }
+
+        /* find MasterHeader */
+        let masterHeader = null;
+        for (let x = grid.fixedColumnIndex; x >= 0; x--) {
+            let header = headerRow[x];
+            if (header[grid.column_kind] == 'header') {
+                masterHeader = header;
+                break;
+            }
+        }
+
+        /* Update colSpan : colIndex  (0), 1, 2, 3, (4), span 5 fixed 2 */
+        let colIndex = masterHeader[grid.column_colIndex];  // 0
+        let colSpan  = masterHeader[grid.column_colSpan];   // 5
+        let lastColIndex = colIndex + colSpan - 1;          // 4
+
+        masterHeader[grid.column_colSpan] = lastColIndex - grid.fixedColumnIndex + 1;  // 3
+        if (nextSourceHeader[grid.column_kind] == 'empty') {
+            nextSourceHeader[grid.column_colSpan] = lastColIndex - grid.fixedColumnIndex;  // 2
+            nextSourceHeader[grid.column_kind] = 'header';  // 2
+
+        }
+
+        /* nextSourceHeader : masterHeader 를 상속받지 */
+
+
+        /* treeNode 에서 변경이 되야 한다. 그래야 이동이 자유롭다 */
+
+
+    }
 }

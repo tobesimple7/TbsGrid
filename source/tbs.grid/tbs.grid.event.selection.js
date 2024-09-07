@@ -57,7 +57,7 @@ TbsGrid.prototype.tbs_selectRange = function (startRowIndex, lastRowIndex, start
     this.tbs_removePanelRange('panel50');
     if (grid.topColumns.length > 0) grid.classRange40.class_removeRange(0, -1, 0, -1);
     if (grid.footerColumns.length > 0) grid.classRange50.class_removeRange(0, -1, 0, -1);
-    this.tbs_setRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex, '');
+    return this.tbs_setRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex, '');
 }
 TbsGrid.prototype.tbs_setRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex, type = 'add') {
     let selector = '#' + this.gridId;
@@ -108,7 +108,8 @@ TbsGrid.prototype.tbs_setRange = function (startRowIndex, lastRowIndex, startCel
     else {
         topRowIndex = (topRowIndex == undefined) ? this.tbs_getFirstRowIndex() : topRowIndex;
     }
-    this.tbs_displayPanel30(topRowIndex);
+    return topRowIndex;
+    // this.tbs_displayPanel30(topRowIndex);
 }
 TbsGrid.prototype.tbs_setRangeValue = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex) {
     // fcuntion : set selected value
@@ -197,13 +198,13 @@ TbsGrid.prototype.tbs_setRangeValue = function (startRowIndex, lastRowIndex, sta
             tableCells[i].classList.add('tbs-grid-cell-select');
         }
         // panel22
-        if (this.fixedColumnIndex != -1){
-            tableCells = document.querySelectorAll(selector + ' .tbs-grid-panel22 .tbs-grid-table tbody tr:last-child td');
-            for (let i = startCellIndex; i <= lastCellIndex; i++) {
-
-                tableCells[i].classList.add('tbs-grid-cell-select');
-            }
-        }
+        // if (this.fixedColumnIndex != -1){
+        //     tableCells = document.querySelectorAll(selector + ' .tbs-grid-panel22 .tbs-grid-table tbody tr:last-child td');
+        //     for (let i = startCellIndex; i <= lastCellIndex; i++) {
+        //
+        //         tableCells[i].classList.add('tbs-grid-cell-select');
+        //     }
+        // }
     }
 }
 TbsGrid.prototype.tbs_removeRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex) {

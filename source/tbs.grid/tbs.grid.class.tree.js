@@ -172,7 +172,8 @@ TbsGrid.prototype.tbs_setTreeData = function (data, openDepth) {
     if (grid.options[grid.option_autoWidth] == true)  grid.tbs_setColumnAutoWidth();
 
     grid.tbs_removeRange(0, -1);
-    grid.tbs_selectRange(0, 0, 0, 0);
+    let _topRowIndex = grid.tbs_selectRange(0, 0, 0, 0);
+    grid.tbs_displayPanel30(_topRowIndex);
 }
 TbsGrid.prototype.tbs_setTreeDataTable1 = function (param) {
     let selector = '#' + this.gridId;
@@ -218,16 +219,11 @@ TbsGrid.prototype.tbs_setTreeDataTable3 = function (param) {
         if (i > grid.tbs_getRowCount() - 1) break;
 
         let tableRow = tableRows[tableRowIndex];
-        tableRow.dataset.rowIndex = i;
 
-        if (tableRow.style.height != grid.rowHeight + 'px') tableRow.style.height = rowHeight + 'px';
-
-        // row alternative background color
-        grid.tbs_setAlternativeRowColor(panelName, tableRow, i);
+        /* Render: TableRow */
+        grid.classRender.setTableRow(tableRow, i, panelName);
 
         let selectedValue = grid.tbs_isSelectedCell('panel31', i, 0);
-        if (tableRow.style.display == 'none') tableRow.style.display = '';
-
         for (let x = 0; x <= lastColumnIndex; x++) {
             let tableCell = tableRow.childNodes[x]; //content tr > tableCell
             if (grid.fixedColumnIndex != -1) {
@@ -270,19 +266,18 @@ TbsGrid.prototype.tbs_setTreeDataTable3 = function (param) {
                 grid.tbs_setCell(tableCell, 'rowSpan', '1');
                 grid.tbs_setCell(tableCell, 'rowSpan', '1');
             }
-            grid.tbs_setSelectedCell(panelName, tableCell, i, x);
+            grid.classRender.showSelectedCells(panelName, tableCell, i, x);
             let spanText = tableCell.querySelector('.tbs-grid-cell-div-text');
             grid.tbs_setCell(spanText, 'textContent', colValue);
         }
-        for (let x = 0; x <= lastColumnIndex; x++) {
-            let tableCell= tableRow.childNodes[x];
-            if (grid.fixedColumnIndex != -1 && x <= grid.fixedColumnIndex)
-                grid.tbs_setCellStyle(tableCell, 'display', 'none');
-        }
+
+        // on fixed columns
+        grid.classRender.hideTableCells(panelName, tableRow, lastColumnIndex);
+
         tableRowIndex += 1;
     }
     // hide Unnecessary tableRows
-    grid.tbs_hiddenTableRows(panelName, tableRows, tableRowIndex, grid.pageRowCount);
+    grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, grid.pageRowCount);
 
     // panel21 : display rowCount
     if (param.panelName == 'panel30') document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = grid.tbs_getRowCount();
@@ -310,7 +305,7 @@ TbsGrid.prototype.tbs_setTreeDataHeaderTable3 = function(param) {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    grid.tbs_setDataHeaderTable3(param);
+    grid.tbs_setDataHeaderTable0(param);
 }
 /**
  *

@@ -49,6 +49,7 @@ TbsGrid.prototype.tbs_setColumnDefaultValue = function (column) {
         column[grid.column_commaUnit     ] = 3; // Fixed value.
         column[grid.column_thousandChar  ] = grid.gridConfig.culture.thousandChar;
         column[grid.column_decimalChar   ] = grid.gridConfig.culture.decimalChar;
+        //column[grid.column_summaryType   ] = '';
         //column[grid.column_currencyChar] = grid.gridConfig.culture.currencyChar;
 
         // column[grid.column_scaleMax   ] = null;
@@ -64,6 +65,7 @@ TbsGrid.prototype.tbs_setColumnDefaultValue = function (column) {
         column[grid.column_thousandChar  ] = grid.gridConfig.culture.thousandChar;
         column[grid.column_decimalChar   ] = grid.gridConfig.culture.decimalChar;
         column[grid.column_currencyChar  ] = grid.gridConfig.culture.currencyChar;
+        //column[grid.column_summaryType   ] = '';
 
         // column[grid.column_scaleMax   ] = null;
         // column[grid.column_scaleMin   ] = null;
@@ -108,7 +110,8 @@ TbsGrid.prototype.tbs_createColumn = function (userColumns) {
         let columns = [];
         const getColumnList = function (userColumns) {
             const searchColumn = function (node) {
-                if (!node[grid.column_children]) {
+                if (grid.null(node)) return;
+                if (grid.null(node[grid.column_children])) {
                     let columnType = node[grid.column_type];
 
                     let column = {};
@@ -264,6 +267,100 @@ TbsGrid.prototype.tbs_removeColumn = function (targetRowIndex, targetColumnIndex
     parentColumn.splice(targetIndex, 1);
     grid.classControl.after_removeColumn();
 }
+TbsGrid.prototype.tbs_changeColumnOrder = function (movingColumn, targetColumn, orderType) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    movingColumn = grid.tbs_copyJson(movingColumn);
+    targetColumn = grid.tbs_copyJson(targetColumn);
+
+    /* find parentNode : movingColumnName */
+    const findParentNode = function (node, pNode, columnNumber) {
+        if (parentNode) return;
+        else if (node[grid.column_num] == columnNumber) {
+            parentNode = pNode;
+        }
+        else if (node[grid.column_children]) {
+            for (let i = 0, len = node[grid.column_children].length; i < len; i++) {
+                findParentNode(node[grid.column_children][i], node, columnNumber);
+            }
+        }
+    }
+    let prevColumns = grid.tbs_copyJson(grid.columns);
+
+    let parentNode = null;
+    let parentArray = null;
+    let movingColumnNumber = movingColumn[grid.column_num];
+    let targetColumnNumber = targetColumn[grid.column_num];
+
+    for (let i = 0, len = grid.headerColumns.length; i < len; i++) {
+        let node = grid.headerColumns[i];
+
+        if (node[grid.column_num] == movingColumnNumber) {
+            parentArray = grid.headerColumns;
+            break;
+        }
+
+        findParentNode(node, grid.headerColumns, movingColumnNumber);
+        if (parentNode) {
+            parentArray = parentNode[grid.column_children];
+            break;
+        }
+    }
+
+    if (grid.null(parentArray)) return;
+
+    /* Delete movingColumnName node */
+    let newNode = null;
+    for (let i = parentArray.length - 1; i >= 0; i--) {
+        let item = parentArray[i];
+        if (item[grid.column_num] == movingColumnNumber) {
+            newNode = grid.tbs_copyJson(item);
+            parentArray.splice(i, 1);
+            break;
+        }
+    }
+
+    /* Add node before, after targetColumn */
+    let targetIndex = null;
+    for (let i = 0, len = parentArray.length; i < len; i++) {
+        let item = parentArray[i];
+        if (item[grid.column_num] == targetColumnNumber) {
+            targetIndex = i;
+            break;
+        }
+    }
+    if (orderType == 'before') parentArray.splice(targetIndex, 0, newNode);
+    else if (orderType == 'after') {
+        if (targetIndex + 1 <= parentArray.length - 1) parentArray.splice(targetIndex + 1, 0, newNode);
+        else parentArray.push(newNode);
+    }
+
+    /* Change Fixed Column Index */
+    if (grid.fixedColumnIndex != -1) {
+        if (movingColumn.colIndex <= grid.fixedColumnIndex && targetColumn.colIndex > grid.fixedColumnIndex) {
+            grid.classControl.after_changeColumnOrder();
+
+            let childCount = Number(movingColumn.colSpan);
+            grid.fixedColumnIndex = grid.fixedColumnIndex - childCount;
+
+            if (grid.fixedColumnIndex < 0) grid.tbs_removeFixedColumn();
+            else grid.tbs_setFixedColumn(grid.fixedColumnIndex);
+        }
+        else if (movingColumn.colIndex > grid.fixedColumnIndex && targetColumn.colIndex <= grid.fixedColumnIndex) {
+            grid.classControl.after_changeColumnOrder();
+
+            let childCount = Number(movingColumn.colSpan);
+            grid.fixedColumnIndex = grid.fixedColumnIndex + childCount;
+            grid.tbs_setFixedColumn(grid.fixedColumnIndex);
+        }
+        else grid.classControl.after_changeColumnOrder();
+    }
+    else {
+        grid.classControl.after_changeColumnOrder();
+    }
+}
+
 //================================================================
 TbsGrid.prototype.tbs_getColumn = function (name) {
     let cellIndex = this.tbs_getColumnIndex(name);
@@ -412,5 +509,32 @@ TbsGrid.prototype.tbs_getJsonRow = function (jsonArray, name, value) {
         }
     }
     return result;
+}
+//================================================================
+TbsGrid.prototype.tbs_setFixedColumn = function(fixedColumnIndex) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    if (fixedColumnIndex >= grid.columns.length) { this.fixedColumnIndex = -1; return; }
+
+    grid.fixedColumnIndex = fixedColumnIndex
+    grid.tbs_updateHeaderFixedColumns();
+    grid.tbs_setPanelSize();
+    grid.verticalScroll.tbs_setScroll(grid.code_vertical);
+    grid.horizontalScroll.tbs_setScroll(grid.code_horizontal);
+    grid.tbs_displayPanel70();
+    grid.tbs_apply();
+}
+TbsGrid.prototype.tbs_removeFixedColumn = function() {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    grid.fixedColumnIndex = -1;
+
+    grid.tbs_setPanelSize();
+    grid.verticalScroll.tbs_setScroll(grid.code_vertical);
+    grid.horizontalScroll.tbs_setScroll(grid.code_horizontal);
+    grid.tbs_displayPanel70();
+    grid.tbs_apply();
 }
 

@@ -31,9 +31,9 @@ TbsGrid.prototype.tbs_getFormat = function (column, value) {
             return result;
         }
         if (colType == grid.code_combo) {
-            let data = column.renderer;
+            let data = column.renderer.data;
             let key = column.renderer.valueName;
-            let val = column.renderer.labelName;
+            let val = column.renderer.textName;
 
             for (let i = 0, len = data.length; i < len; i++) {
                 if (data[i][key] == value) {

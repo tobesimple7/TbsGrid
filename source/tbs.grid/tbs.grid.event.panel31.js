@@ -159,7 +159,8 @@ TbsGrid.prototype.panel31_select = function(eventPanelName) {
         let toCellIndex = grid.tbs_getLastVisibleColumnIndex();
 
         grid.tbs_removeRange(0, -1);
-        grid.tbs_selectRange(startRowIndex, startRowIndex, fromCellIndex, toCellIndex);
+        let _topRowIndex = grid.tbs_selectRange(startRowIndex, startRowIndex, fromCellIndex, toCellIndex);
+        grid.tbs_displayPanel30(_topRowIndex);
     }
     const selectCellMove = function(e) {
         flagUp      = false;
@@ -291,7 +292,8 @@ TbsGrid.prototype.panel31_select = function(eventPanelName) {
         let fromCellIndex = grid.tbs_getFirstVisibleColumnIndex();
         let toCellIndex = grid.tbs_getLastVisibleColumnIndex();
         grid.tbs_removeRange(0, -1);
-        grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+        let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+        grid.tbs_displayPanel30(_topRowIndex);
     }
     const selectCellShiftMove = function(e) {
         flagUp      = false;
@@ -392,25 +394,29 @@ TbsGrid.prototype.panel31_select = function(eventPanelName) {
             let maxRowIndex, maxCellIndex;
             maxRowIndex  = grid.tbs_getMaxRowIndexByMouseMove();
             grid.tbs_removeRange(0, -1);
-            grid.tbs_selectRange(startRowIndex, maxRowIndex, fromCellIndex, toCellIndex);
+            let _topRowIndex = grid.tbs_selectRange(startRowIndex, maxRowIndex, fromCellIndex, toCellIndex);
+            grid.tbs_displayPanel30(_topRowIndex);
         }
         if (moveY > 0 && moveX < 0) { //down, left
             let maxRowIndex, minCellIndex;
             maxRowIndex  = grid.tbs_getMaxRowIndexByMouseMove();
             grid.tbs_removeRange(0, -1);
-            grid.tbs_selectRange(startRowIndex, maxRowIndex, fromCellIndex, toCellIndex);
+            let _topRowIndex = grid.tbs_selectRange(startRowIndex, maxRowIndex, fromCellIndex, toCellIndex);
+            grid.tbs_displayPanel30(_topRowIndex);
         }
         if (moveY < 0 && moveX > 0) { //up, right
             let minRowIndex, maxCellIndex;
             minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
             grid.tbs_removeRange(0, -1);
-            grid.tbs_selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
+            let _topRowIndex = grid.tbs_selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
+            grid.tbs_displayPanel30(_topRowIndex);
         }
         if (moveY < 0 && moveX < 0) { //up, left
             let minRowIndex, minCellIndex;
             minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
             grid.tbs_removeRange(0, -1);
-            grid.tbs_selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
+            let _topRowIndex = grid.tbs_selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
+            grid.tbs_displayPanel30(_topRowIndex);
         }
     }
     const setPanelMove = function(type) {
@@ -434,13 +440,15 @@ TbsGrid.prototype.panel31_select = function(eventPanelName) {
                 flagRight = false;
 
                 grid.tbs_removeRange(0, -1);
-                grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+                let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+                grid.tbs_displayPanel30(_topRowIndex);
             }
             else {
                 grid.tbs_setBarPositionByDirection('right');
 
                 grid.tbs_removeRange(0, -1);
-                grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+                let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+                grid.tbs_displayPanel30(_topRowIndex);
             }
         }
         else if (type == 'left') {
@@ -448,13 +456,15 @@ TbsGrid.prototype.panel31_select = function(eventPanelName) {
                 flagLeft = false;
 
                 grid.tbs_removeRange(0, -1);
-                grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+                let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+                grid.tbs_displayPanel30(_topRowIndex);
             }
             else {
                 grid.tbs_setBarPositionByDirection('left');
 
                 grid.tbs_removeRange(0, -1);
-                grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+                let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+                grid.tbs_displayPanel30(_topRowIndex);
             }
         }
         else if (type == 'down') {
@@ -463,7 +473,8 @@ TbsGrid.prototype.panel31_select = function(eventPanelName) {
                 lastRowIndex += 1;
 
                 grid.tbs_removeRange(0, -1);
-                grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+                let _topRowIndex = grid.tbs_selectRange(startRowIndex, lastRowIndex, fromCellIndex, toCellIndex);
+                grid.tbs_displayPanel30(_topRowIndex);
             }
             else flagDown = false;
         }
@@ -475,7 +486,8 @@ TbsGrid.prototype.panel31_select = function(eventPanelName) {
                     minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
 
                     grid.tbs_removeRange(0, -1);
-                    grid.tbs_selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
+                    let _topRowIndex = grid.tbs_selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
+                    grid.tbs_displayPanel30(_topRowIndex);
                 }
                 else flagUp = false;
             }
@@ -485,7 +497,8 @@ TbsGrid.prototype.panel31_select = function(eventPanelName) {
                     minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
 
                     grid.tbs_removeRange(0, -1);
-                    grid.tbs_selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
+                    let _topRowIndex = grid.tbs_selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
+                    grid.tbs_displayPanel30(_topRowIndex);
                 }
                 else flagUp = false;
             }

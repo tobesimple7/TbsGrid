@@ -59,8 +59,8 @@ TbsGrid.prototype.getRow = function (rowIndex) { return this.tbs_getRow(rowIndex
 TbsGrid.prototype.getRows = function (startRowIndex, endRowIndex) { return this.tbs_getRows(startRowIndex, endRowIndex); }
 TbsGrid.prototype.getSelectedRow = function () { return this.tbs_getSelectedRow(); }
 TbsGrid.prototype.getSelectedRows = function () { return this.tbs_getSelectedRows(); }
-TbsGrid.prototype.setRange = function (rowIndex1, toRowIndex2, columnIndex1, columnIndex2) { this.tbs_selectRange(rowIndex1, toRowIndex2, columnIndex1, columnIndex2); }
-TbsGrid.prototype.selectRange = function (rowIndex1, toRowIndex2, columnIndex1, columnIndex2) { this.tbs_selectRange(rowIndex1, toRowIndex2, columnIndex1, columnIndex2); }
+TbsGrid.prototype.setRange = function (rowIndex1, toRowIndex2, columnIndex1, columnIndex2) { let _topRowIndex = this.tbs_selectRange(rowIndex1, toRowIndex2, columnIndex1, columnIndex2); this.tbs_displayPanel30(_topRowIndex);}
+TbsGrid.prototype.selectRange = function (rowIndex1, toRowIndex2, columnIndex1, columnIndex2) { let _topRowIndex = this.tbs_selectRange(rowIndex1, toRowIndex2, columnIndex1, columnIndex2); this.tbs_displayPanel30(_topRowIndex);}
 TbsGrid.prototype.getCheckedRows = function () { return this.tbs_getCheckedRows(); }
 TbsGrid.prototype.getChangedRowsData = function () { return this.tbs_getChangedRowsData(); }
 TbsGrid.prototype.getDeletedRowsData = function () { return this.tbs_getDeletedRowsData(); }
@@ -75,9 +75,9 @@ TbsGrid.prototype.setColumnByType = function (columnType, columnProperty, value)
 TbsGrid.prototype.setTopColumns = function (topColumns) { this.tbs_setTopColumns(topColumns); }
 TbsGrid.prototype.setFooterColumns = function (footerColumns) { this.tbs_setFooterColumns(footerColumns); }
 /* Frozen */
-TbsGrid.prototype.setFrozenColumn = function(fixedColumnIndex) { this.tbs_setFrozenColumn(fixedColumnIndex); }
+TbsGrid.prototype.setFrozenColumn = function(fixedColumnIndex) { this.tbs_setFixedColumn(fixedColumnIndex); }
 TbsGrid.prototype.setFrozenRow = function(fixedRowIndex) { let fixedRowCount = fixedRowIndex + 1; this.tbs_setFrozenRow(fixedRowIndex, fixedRowCount); }
-TbsGrid.prototype.removeFrozenColumn = function() { this.tbs_removeFrozenColumn(); }
+TbsGrid.prototype.removeFrozenColumn = function() { this.tbs_removeFixedColumn(); }
 TbsGrid.prototype.removeFrozenRow = function() { this.tbs_removeFrozenRow(); }
 /* Options */
 TbsGrid.prototype.setOption = function (optionName, optionValue) { this.tbs_setOption(optionName, optionValue); }

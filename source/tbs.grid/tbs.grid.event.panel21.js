@@ -14,7 +14,8 @@ TbsGrid.prototype.panel21_select = function() { //type : header, content, left, 
             let toCellIndex = grid.tbs_getLastVisibleColumnIndex();
 
             grid.tbs_removeRange(0, -1);
-            grid.tbs_selectRange(0, -1, fromCellIndex, toCellIndex);
+            let _topRowIndex = grid.tbs_selectRange(0, -1, fromCellIndex, toCellIndex);
+            grid.tbs_displayPanel30(_topRowIndex);
         }
         document.addEventListener('mouseup', mouseUpEvent);
     };

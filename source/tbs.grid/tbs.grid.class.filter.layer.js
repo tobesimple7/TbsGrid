@@ -29,8 +29,9 @@ TbsGridFilterLayer.prototype.tbs_getComboData = function() {
         gridFilter.tbs_addComboOption(combo, grid.const_filterNotEqual      , 'Does not equal'  );
         gridFilter.tbs_addComboOption(combo, grid.const_filterNotInclude 	, 'Not Include'     );
     }
-    else if (column[grid.column_type] == grid.code_number) {
+    else if (column[grid.column_type] == grid.code_number || column[grid.column_type] == grid.code_currency) {
         let option;
+        gridFilter.tbs_addComboOption(combo, grid.const_filterSelect      , '[Select]'				  );
         gridFilter.tbs_addComboOption(combo, grid.const_filterEqual       , 'Equal'					  );
         gridFilter.tbs_addComboOption(combo, grid.const_filterGreaterEqual, 'Greater than or Equal to');
         gridFilter.tbs_addComboOption(combo, grid.const_filterLessEqual   , 'Less than or Equal to'	  );

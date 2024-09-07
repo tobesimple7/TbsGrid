@@ -86,9 +86,9 @@ TbsGridCombo.prototype.tbs_setData = function() {
     let cellIndex = this.input.dataset.cellIndex;
 
     let column = this.grid.columns[cellIndex];
-    let data = column.renderer;
+    let data = column.renderer.data;
     let key = column.renderer.valueName;
-    let val = column.renderer.labelName;
+    let val = column.renderer.textName;
 
     let value = this.input.value;
     let eCount = 0;
@@ -136,8 +136,9 @@ TbsGridCombo.prototype.tbs_AddEvent = function() {
 
         input.value = combo.selectedOptions[0].text;
         input_code.value = combo.selectedOptions[0].value;
-        document.querySelector(selector + ' .tbs-grid-input').focus();
-        document.querySelector(selector + ' .tbs-grid-input').select();
+        grid.input_focus();
+        // document.querySelector(selector + ' .tbs-grid-input').focus();
+        // document.querySelector(selector + ' .tbs-grid-input').select();
         gridCombo.tbs_destroy();
     };
     document.querySelector(selector + ' .tbs-grid-input-combo-select').addEventListener('change', changeEvent);

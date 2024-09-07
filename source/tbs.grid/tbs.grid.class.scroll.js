@@ -48,62 +48,12 @@ TbsGridScroll.prototype.tbs_setHorizontalScroll = function() {
 
     let rectPanel20 = panel20.getBoundingClientRect();
     let rectTable20 = table20.getBoundingClientRect();
-    // 1) table area > panel area : scroll setting
-
-    // Consider hidden columns
-    //const calculateTotalColumnSize = (() => {
-    //    let result = {};
-    //    result.panel22 = 0;
-    //    result.panel20 = 0;
-    //    for (let i = 0, len = grid.columns.length; i < len; i++) {
-    //        let column = grid.columns[0];
-    //        if (grid.fixedColumnIndex != -1) {
-    //            if (i <= grid.fixedColumnIndex) {
-    //                if (column[grid.column_visible]) result.panel22 += parseInt(column[grid.column_visible]);
-    //            }
-    //            else result.panel20 += parseInt(column[grid.column_visible]);
-    //        }
-    //        else {
-    //            result.panel20 += parseInt(column[grid.column_visible]);
-    //        }
-    //    }
-    //    return result;
-    //});
-    //let result = calculateTotalColumnSize();
-    //let tableSize22 = result.panel22;
-    //let tableSize20 = result.panel20;
 
     if (rectTable20.width > rectPanel20.width) classScroll.tbs_showScroll(type);
     else classScroll.tbs_hideScroll(type);
 
     xScroll = document.querySelector(selector + ' .tbs-grid-horizontal-scroll'); // non-live
     if (xScroll.style.display == 'none' && yScroll.style.display == 'none') scrollBox.style.display = 'none';
-
-    // table tr count control
-    grid.tbs_setPageRowCount();
-    let pageRowCount = grid.pageRowCount;
-    let pageIntRowCount = grid.pageIntRowCount;
-
-    let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
-    let leftTrList    = document.querySelectorAll(selector + ' .tbs-grid-panel31 tbody tr:not([style*="display: none"])');
-    let contentTrList = document.querySelectorAll(selector + ' .tbs-grid-panel30 tbody tr:not([style*="display: none"])');
-    let len = leftTrList.length;
-    if (len == 0) return;
-
-    let leftTable = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table');
-    let contentTable = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-    let leftCount = leftTrList.length;
-    let contentCount = contentTrList.length;
-
-    for (let i = 0; i < pageRowCount; i++) {
-        let leftTr = leftTrList[0].cloneNode(true);
-        let contentTr = contentTrList[0].cloneNode(true);
-
-        leftTable.childNodes[1].append(leftTr);
-        contentTable.childNodes[1].append(contentTr);
-    }
-    for (let i = 0; i < leftCount   ; i++) leftTable.deleteRow(-1);
-    for (let i = 0; i < contentCount; i++) contentTable.deleteRow(-1);
 }
 TbsGridScroll.prototype.tbs_setVerticalScroll = function() {
     let selector = this.selector;
@@ -222,6 +172,7 @@ TbsGridScroll.prototype.tbs_hideScroll = function(type) {
         document.querySelector(selector + ' .tbs-grid-panel40 .tbs-grid-table').style.left = '0px';
         document.querySelector(selector + ' .tbs-grid-panel50 .tbs-grid-table').style.left = '0px';
         document.querySelector(selector + ' .tbs-grid-panel60 .tbs-grid-table').style.left = '0px';
+        document.querySelector(selector + ' .tbs-grid-panel70 .tbs-grid-table').style.left = '0px';
     }
     else if (type == grid.code_vertical) {
         let xScroll = document.querySelector(selector + ' .tbs-grid-horizontal-scroll');
@@ -375,10 +326,10 @@ TbsGridScroll.prototype.tbs_getBarWidth = function(type, barSize) {
     let selector = this.selector;
     let grid = this.grid;
     let scroll = this;
-
     let wrapRect = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-wrap').getBoundingClientRect();
     let xBarRect  = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar').getBoundingClientRect();
     let barWidth = barSize;
-    if (xBarRect.right > wrapRect.right) barWidth = barSize - (xBarRect.right - wrapRect.right);
+    if (xBarRect.right > wrapRect.right)  barWidth = barSize - (xBarRect.right - wrapRect.right);
+    if (xBarRect.width >= wrapRect.width) barWidth = barSize; // - (xBarRect.right - wrapRect.right);
     return barWidth + 'px';
 }

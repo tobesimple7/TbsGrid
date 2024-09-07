@@ -1,6 +1,9 @@
 ﻿TbsGrid = function (gridId) {
 	this.gridId = gridId;
 	this.gridConfig = tbsGridConfigs[Object.keys(tbsGridConfigs)[0]];
+
+	this.focusControl = '';
+
 	/**
 	 * @description maxRowId
 	 *
@@ -77,8 +80,6 @@
 	this.module_grouping     	= 'grouping';
 	this.module_sorting	    	= 'sorting';
 	this.module_column        	= 'column';
-	this.module_paging          = 'paging';
-	this.module_pagination      = 'pagination';
 
 	this.toolbar 	= {};
 	this.filtering  = {};
@@ -155,6 +156,7 @@
 	this.const_filterType      		= 'type';
 	this.const_filterexcludedValues = 'excludedValues';
 
+	this.const_filterSelect         = 0 ; //'Select'				 	;
 	this.const_filterEqual          = 1 ; //'Equal'					 	; // =
 	this.const_filterNotEqual       = 2 ; //'Does not equal'			; // !=
 	this.const_filterGreater        = 3 ; //'Greater than'			 	; // >
@@ -309,11 +311,11 @@
 	this.code_tree    = 'tree';
 	this.code_pivot   = 'pivot';
 	this.code_group   = 'group';
-	this.code_page    = 'page';  //options : paging, grouping, filtering, sorting
-
+	this.code_page    = 'page';
+	this.code_pagination = 'pagination';
 	this.code_mode     = '_mode'   ;
 	this.code_rowId    = '_rowId'  ;
-	this.code_isOpen   = 'isOpen';
+	this.code_isOpen   = '_isOpen';
 
 	this.code_string  = 'string';
 	this.code_number  = 'number';
@@ -342,6 +344,7 @@
 	this.code_parentNum = '_parentNumber';
 	this.code_open      = 'open';
 	this.code_closed    = 'closed';
+	this.code_rowCount  = '_rowCount';
 
 	this.code_itemName   = 'itemName';
 	this.code_parentName = 'parentName';
@@ -364,4 +367,6 @@
 	this.classTree        = new TbsGridTree(this);
 	this.verticalScroll   = new TbsGridScroll(this, 'verticalScroll');
 	this.horizontalScroll = new TbsGridScroll(this, 'horizontalScroll');
+
+	this.classRender = new TbsGridRender(this);
 }

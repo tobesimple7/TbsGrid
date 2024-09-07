@@ -58,7 +58,7 @@ TbsGrid.prototype.event_input = function() {
             else if (e.ctrlKey || e.keyCode == 9 || e.keyCode == 46) {}
             else if (e.keyCode >= 112 && e.keyCode <= 123) {}
             else {
-                console.log('input')
+                //console.log('input');
                 let cellIndex = grid.startCellIndex;
                 let column = grid.tbs_getColumnByIndex(cellIndex);
                 if (grid.notNull(column[grid.column_editable]) && column[grid.column_editable]) {
@@ -398,7 +398,9 @@ TbsGrid.prototype.input_focus = function() {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    if (this.null(this.mobile)) document.querySelector(selector + ' .tbs-grid-input').focus();
+    if (this.null(this.mobile)) {
+        document.querySelector(selector + ' .tbs-grid-input').focus();
+    }
 }
 /* Edit Start. */
 TbsGrid.prototype.tbs_editStart = function(e, mode) {
