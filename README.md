@@ -3,7 +3,7 @@
 <a href="https://tobesimple.net/" target="_blank"><img alt="tbsgrid" src="https://img.shields.io/badge/Html-CSS-blue"></a> 
 <a href="https://tobesimple.net/" target="_blank"><img alt="tbsgrid" src="https://img.shields.io/badge/Pure-Javascript-blue"></a> 
 <a href="https://tobesimple.net/" target="_blank"><img alt="tbsgrid" src="https://img.shields.io/badge/Web-Grid-blue"></a>
-<a href="https://tobesimple.net/"><img alt="GitHub Workflow Status" src="https://img.shields.io/badge/build-1.0.beta-blue"></a>
+<a href="https://tobesimple.net/"><img alt="GitHub Workflow Status" src="https://img.shields.io/badge/build-0.0.X-blue"></a>
 </p>
 
 Welcome to TbsGrid.
