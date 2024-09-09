@@ -8,11 +8,19 @@
 
 Welcome to TbsGrid.
 This grid is javascript web grid.
-I hope this grid helps you.
+
+Thank you for visiting TbsGrid.
+Also, thank you for giving me a star.
+I will try to make a good product.
 
 - The tbs prefix was created from the first letters of 'tobesimple.net'.
 - The current github source and min files may be slightly different.
 - I am currently trying to manage the version with the beta version.
+
+## Plans
+
+- We plan to develop with a focus on source weight reduction and memory management.
+- We are prioritizing the stabilization of Data Grid.
 
 ## Notable features
 
