@@ -14,10 +14,6 @@ I hope this grid helps you.
 - The current github source and min files may be slightly different.
 - I am currently trying to manage the version with the beta version.
 
-## Issue 
-- [en] If you have any issues or troubles with TbsGrid, please let us know in the Github Issues menu. We will review and fix it.
-- [ko] TbsGrid에 트러블이나 이슈가 있다면, 이슈 메뉴에 등록해주시면, 검토 후 처리 해드리겠습니다.
-
 ## Notable features
 
 - This grid is made with only pure JavaScript and CSS.
@@ -64,4 +60,8 @@ tbs.grid.configs.js
 - The items below are under developing.
 * [Tree Grid](https://tobesimple.net/page81/page81_001.php)
 * [Paging Grid](https://tobesimple.net/page82/page82_001.php)
+
+## Issue Report
+- [en] If you have any issues or troubles with TbsGrid, please let us know in the Github Issues menu. We will review and fix it.
+- [ko] TbsGrid에 트러블이나 이슈가 있다면, 이슈 메뉴에 등록해주시면, 검토 후 처리 해드리겠습니다.
 
