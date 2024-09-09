@@ -13,7 +13,10 @@ I hope this grid helps you.
 - The tbs prefix was created from the first letters of 'tobesimple.net'.
 - The current github source and min files may be slightly different.
 - I am currently trying to manage the version with the beta version.
-- It seems like it will take 1 to 2 months to get to a more stable version.
+
+## Issue 
+- [en] If you have any issues or troubles with TbsGrid, please let us know in the Github Issues menu. We will review and fix it.
+- [ko] TbsGrid에 트러블이나 이슈가 있다면, 이슈 메뉴에 등록해주시면, 검토 후 처리 해드리겠습니다.
 
 ## Notable features
 
