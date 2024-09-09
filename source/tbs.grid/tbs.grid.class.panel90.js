@@ -27,22 +27,22 @@ TbsGrid.prototype.panel90_select = function() { //type : header, content, left, 
 
     let panel90= document.querySelector(selector + ' .tbs-grid-panel90');
 
-    const mouseClickEvent = function(e) {
-        debugger;
-        let element;
-        if      (e.target.classList.contains('tbs-grid-panel-button-icon')) { targetName = 'icon'   ; element = e.target; }
-        else if (e.target.classList.contains('tbs-grid-panel-button-text')) { targetName = 'text'   ; element = e.target; }
-        else if (e.target.classList.contains('tbs-grid-panel-button'))      { targetName = 'button' ; element = e.target; }
-        else if (e.target.classList.contains('tbs-grid-panel-bar'))         { targetName = 'bar'    ; element = e.target; }
-        else return;
-
-        if (document.querySelectorAll('.tbs-grid-move').length == 0) {
-            if (targetName == 'button' || targetName == 'text') {
-                let name = element.dataset.name;
-                if (e.detail == 1) { if (grid.tbs_isColumnName(name)) grid.event_columnSort(e.target); }
-            }
-        }
-    };
+    // const mouseClickEvent = function(e) {
+    //     debugger;
+    //     let element;
+    //     if      (e.target.classList.contains('tbs-grid-panel-button-icon')) { targetName = 'icon'   ; element = e.target; }
+    //     else if (e.target.classList.contains('tbs-grid-panel-button-text')) { targetName = 'text'   ; element = e.target; }
+    //     else if (e.target.classList.contains('tbs-grid-panel-button'))      { targetName = 'button' ; element = e.target; }
+    //     else if (e.target.classList.contains('tbs-grid-panel-bar'))         { targetName = 'bar'    ; element = e.target; }
+    //     else return;
+    //
+    //     if (document.querySelectorAll('.tbs-grid-move').length == 0) {
+    //         if (targetName == 'button' || targetName == 'text') {
+    //             let name = element.dataset.name;
+    //             if (e.detail == 1) { if (grid.tbs_isColumnName(name)) grid.event_columnSort(e.target); }
+    //         }
+    //     }
+    // };
 
     const mouseDownEvent = function(e) {
         let element;
@@ -128,8 +128,7 @@ TbsGrid.prototype.panel90_select = function() { //type : header, content, left, 
                         targetButton = null;
                         targetIndex = null;
                     }
-                    debugger;
-                    grid.tbs_changeSortButtonOrder(name, text, order, targetIndex);
+                    grid.classSort.changeSortButtonOrder(name, text, order, targetIndex);
 
                     flagLeft = false;
                     flagRight = false;
@@ -163,7 +162,7 @@ TbsGrid.prototype.panel90_select = function() { //type : header, content, left, 
         else if (e.target.classList.contains('tbs-grid-panel-bar'))         { targetName = 'bar'    ; element = e.target; }
         else return;
         if (targetName == 'icon') {
-            grid.tbs_removeSortButton(element);
+            grid.classSort.removeSortButton(element);
         }
         else if (targetName == 'button' || targetName == 'text') {
 
@@ -397,5 +396,4 @@ TbsGrid.prototype.panel90_select = function() { //type : header, content, left, 
         }
     }
     panel90.addEventListener('mousedown', mouseDownEvent);
-    panel90.addEventListener('click', mouseClickEvent);
 }

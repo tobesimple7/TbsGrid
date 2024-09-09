@@ -146,4 +146,9 @@ TbsGrid.prototype.insertAfter = function(selectCol, targetCol) {
         }
     }
 }
-/* Json nodes */
+/* Configs */
+TbsGrid.prototype.getConfigCulture  = function(label) { return this.null(this.gridConfig.culture[label])  ? 'No Label' : this.gridConfig.culture[label]; }
+TbsGrid.prototype.getConfigCalendar = function(label) { return this.null(this.gridConfig.calendar[label]) ? 'No Label' : this.gridConfig.calendar[label]; }
+TbsGrid.prototype.getConfigFont     = function(label) { return this.null(this.gridConfig.font[label])     ? 'No Label' : this.gridConfig.font[label]; }
+TbsGrid.prototype.getConfigOption   = function(label) { return this.null(this.gridConfig.options[label])  ? 'No Label' : this.gridConfig.options[label]; }
+TbsGrid.prototype.getConfigLabel    = function(label) { return this.null(this.gridConfig.labels[label])   ? 'No Label' : this.gridConfig.labels[label]; }

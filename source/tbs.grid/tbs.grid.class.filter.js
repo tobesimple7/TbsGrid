@@ -8,18 +8,19 @@ class TbsGridFilter {
     }
 }
 
-TbsGrid.prototype.totalFilterSearch = function (s) {
-    let grid = this;
+TbsGridFilter.prototype.totalFilterSearch = function (s) {
+    let selector = this.selector;
+    let grid = this.grid;
     let filterArray = [];
     //=============================================================  set filterArray
-    let arr = this.tbs_trim(s).split(' ');
+    let arr = grid.tbs_trim(s).split(' ');
     for (let i = 0; i < arr.length; i++) {
-        if (this.tbs_trim(arr[i]) !== '') {
+        if (grid.tbs_trim(arr[i]) !== '') {
             filterArray.push(arr[i].toLowerCase());
         }
     }
     //=============================================================
-    const data = this.data_table.filter(function(item) {
+    const data = grid.data_table.filter(function(item) {
         let bool = true;
         let count = [];
         for (let i = 0; i < filterArray.length; i++) {
@@ -52,44 +53,43 @@ TbsGrid.prototype.totalFilterSearch = function (s) {
         }
     });
     if (data.length > 0) {
-        this.data_view = JSON.parse(JSON.stringify(data));
-        if (this.merge) this.setGroup(this.classSort.sortColumns, this.summaryColumns, this.mergeType);
+        grid.data_view = JSON.parse(JSON.stringify(data));
+        if (grid.merge) grid.setGroup(grid.classSort.sortColumns, grid.summaryColumns, grid.mergeType);
     }
     else {
-        this.data_view = [];
+        grid.data_view = [];
     }
-    this.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
-    this.verticalScroll.tbs_setScroll(grid.code_vertical);
-    this.tbs_setBarPosition(grid.code_vertical, 0);
-    this.tbs_refreshRefData();
+    grid.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
+    grid.verticalScroll.tbs_setScroll(grid.code_vertical);
+    grid.tbs_setBarPosition(grid.code_vertical, 0);
+    grid.tbs_refreshRefData();
 }
-//================================================================
-TbsGrid.prototype.tbs_showFilterPanel = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridFilter.prototype.showFilterPanel = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
     grid.options[grid.option_filterVisible] = true;
     grid.classControl.after_showFilterPanel()
 }
-TbsGrid.prototype.tbs_hideFilterPanel = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridFilter.prototype.hideFilterPanel = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
     grid.options[grid.option_filterVisible] = false;
-    grid.tbs_initFilterData();
+    grid.classFilter.initFilterData();
 
     grid.classControl.after_hideFilterPanel()
 }
-TbsGrid.prototype.tbs_filters = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridFilter.prototype.filters = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
-    //let filterColumns = grid.tbs_getFilterColumns();
+    //let filterColumns = grid.classFilter.getFilterColumns();
     let filterColumns = grid.filterColumns;
     let result = grid.tbs_copyJson(grid.data_table);
 
     for (let i = 0, len = filterColumns.length; i < len; i++) {
-        result = grid.tbs_filter(result, filterColumns[i]);
+        result = grid.classFilter.filter(result, filterColumns[i]);
     }
     grid.data_view = result;
 
@@ -101,10 +101,10 @@ TbsGrid.prototype.tbs_filters = function () {
     //else
     //grid.tbs_apply();
 }
-TbsGrid.prototype.tbs_filter = function (data, filterColumn) {
+TbsGridFilter.prototype.filter = function (data, filterColumn) {
     // data, columnName, word
-    let selector = '#' + this.gridId;
-    let grid = this;
+    let selector = this.selector;
+    let grid = this.grid;
 
     let column = grid.tbs_getColumn(filterColumn.name);
     let columnType = column[grid.column_type];
@@ -117,7 +117,7 @@ TbsGrid.prototype.tbs_filter = function (data, filterColumn) {
         //let isExist = columnText.toString().toLowerCase().includes(word);
         if (columnType == grid.code_number || columnType == grid.code_currency) {
             let columnText = dataRow[columnName];
-            let isExist = grid.tbs_filterNumberByType(filterType, value, columnText);
+            let isExist = grid.classFilter.filterNumberByType(filterType, value, columnText);
             return isExist;
         }
         else if (columnType == grid.code_string) {
@@ -125,15 +125,15 @@ TbsGrid.prototype.tbs_filter = function (data, filterColumn) {
             let val = dataRow[columnName];
             let columnText = grid.tbs_getFormatText(column, val);
 
-            let isExist = grid.tbs_filterStringByType(filterType, value, columnText);
+            let isExist = grid.classFilter.filterStringByType(filterType, value, columnText);
             return isExist;
         }
         else return true;
     });
 }
-TbsGrid.prototype.tbs_getFilterColumns = function() {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridFilter.prototype.getFilterColumns = function() {
+    let selector = this.selector;
+    let grid = this.grid;
 
     // grid.filterColumns [{ name : 'columnName', value : , toValue, type : , excludedValues : []}]
     let result = [];
@@ -153,14 +153,14 @@ TbsGrid.prototype.tbs_getFilterColumns = function() {
     }
     return grid.filterColumns = result;
 }
-TbsGrid.prototype.tbs_filterNumberByType = function(filterType, n, targetNumber) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridFilter.prototype.filterNumberByType = function(filterType, n, targetNumber) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     // @Rule : when number is null, number is zero
     if (grid.null(n)) n = 0;
     if (grid.null(targetNumber)) targetNumber = 0;
-
+debugger;
     let toNumber = null;
     if (filterType == grid.const_filterBetween) {
         let arr = n.split('-');
@@ -201,11 +201,12 @@ TbsGrid.prototype.tbs_filterNumberByType = function(filterType, n, targetNumber)
         return (targetNumber >= n && targetNumber <= toNumber) ? true : false;
     }
     else if (filterType == grid.const_filterBlank) {
-        return targetNumber == null;
+        return grid.null(targetNumber) || targetNumber == 0;
     }
 }
-TbsGrid.prototype.tbs_filterStringByType = function(filterType, s, targetString) {
-    let grid = this;
+TbsGridFilter.prototype.filterStringByType = function(filterType, s, targetString) {
+    let selector = this.selector;
+    let grid = this.grid;
     let regExp;
 
     // String comparisons are case-insensitive.
@@ -240,9 +241,9 @@ TbsGrid.prototype.tbs_filterStringByType = function(filterType, s, targetString)
         return regExp.test(targetString);
     }
 }
-TbsGrid.prototype.tbs_setFilterColumn = function(column, filterType, word) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridFilter.prototype.setFilterColumn = function(column, filterType, word) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     // grid.filterColumns [{ name : 'columnName', value : , excludedValues : []}]
     let filterColumns = grid.filterColumns;
@@ -263,9 +264,9 @@ TbsGrid.prototype.tbs_setFilterColumn = function(column, filterType, word) {
         item.excludedValue = [];
     }
 }
-TbsGrid.prototype.tbs_removeFilterColumn = function(column) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridFilter.prototype.removeFilterColumn = function(column) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let columnName = column[grid.column_name];
     let filterColumns = grid.filterColumns;
@@ -277,45 +278,45 @@ TbsGrid.prototype.tbs_removeFilterColumn = function(column) {
         }
     }
 }
-TbsGrid.prototype.tbs_createFilterCombo = function(column) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridFilter.prototype.createFilterCombo = function(column) {
+    let selector = this.selector;
+    let grid = this.grid;
     let combo = document.createElement('select');
     if (column[grid.column_type] == grid.code_string) {
         let option;
-        grid.tbs_addFilterComboOption(combo, grid.const_filterInclude 	    , 'Include'         );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterEqual         , 'Equal'           );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterStartCharacter, 'Start Characters');
-        grid.tbs_addFilterComboOption(combo, grid.const_filterEndCharacter  , 'End Characters'  );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterBlank         , 'Blank'           );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterNotEqual      , 'Does not equal'  );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterNotInclude 	, 'Not Include'     );
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterInclude 	    , grid.getConfigLabel('filter_include'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterEqual         , grid.getConfigLabel('filter_equal'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterStartCharacter, grid.getConfigLabel('filter_startCharacter'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterEndCharacter  , grid.getConfigLabel('filter_endCharacter'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterBlank         , grid.getConfigLabel('filter_blank'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterNotEqual      , grid.getConfigLabel('filter_notEqual'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterNotInclude 	, grid.getConfigLabel('filter_notInclude'));
     }
     else if (column[grid.column_type] == grid.code_number || column[grid.column_type] == grid.code_currency) {
         let option;
-        grid.tbs_addFilterComboOption(combo, grid.const_filterSelect      , '[Select]'				  );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterEqual       , 'Equal'					  );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterGreaterEqual, 'Greater than or Equal to');
-        grid.tbs_addFilterComboOption(combo, grid.const_filterLessEqual   , 'Less than or Equal to'	  );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterGreater     , 'Greater than'			  );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterLess        , 'Less than'				  );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterBetween     , 'Between'				  );
-        grid.tbs_addFilterComboOption(combo, grid.const_filterBlank       , 'Blank'					  );
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterSelect      , grid.getConfigLabel('filter_select'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterEqual       , grid.getConfigLabel('filter_equal'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterGreaterEqual, grid.getConfigLabel('filter_greaterEqual'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterLessEqual   , grid.getConfigLabel('filter_lessEqual'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterGreater     , grid.getConfigLabel('filter_greater'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterLess        , grid.getConfigLabel('filter_less'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterBetween     , grid.getConfigLabel('filter_between'));
+        grid.classFilter.addFilterComboOption(combo, grid.const_filterBlank       , grid.getConfigLabel('filter_blank'));
     }
     return combo;
 }
-TbsGrid.prototype.tbs_addFilterComboOption = function(combo, value, text) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridFilter.prototype.addFilterComboOption = function(combo, value, text) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let option = document.createElement('option');
     option.value = value;
     option.text = text;
     combo.add(option);
 }
-TbsGrid.prototype.tbs_initFilterData = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridFilter.prototype.initFilterData = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
     grid.filterColumns = [];
     let inputs = document.querySelectorAll(selector + ' .tbs-grid-panel70 .tbs-grid-cell-filter-input');
@@ -328,16 +329,21 @@ TbsGrid.prototype.tbs_initFilterData = function () {
     grid.tbs_removeRange(0, -1);
     grid.tbs_apply();
 }
-TbsGrid.prototype.tbs_getFilterColumn = function (columnName) {
-    let index = this.tbs_getFilterColumnIndex(columnName);
-    return this.filterColumns[index];
+TbsGridFilter.prototype.getFilterColumn = function (columnName) {
+    let selector = this.selector;
+    let grid = this.grid;
+
+    let index = grid.classFilter.getFilterColumnIndex(columnName);
+    return grid.filterColumns[index];
 }
-TbsGrid.prototype.tbs_getFilterColumnIndex = function (columnName) {
-    let grid = this;
+TbsGridFilter.prototype.getFilterColumnIndex = function (columnName) {
+    let selector = this.selector;
+    let grid = this.grid;
+
     let result = -1;
 
-    for (let i = 0, len = this.filterColumns.length; i < len; i++) {
-        let filterColumn = this.filterColumns[i];
+    for (let i = 0, len = grid.filterColumns.length; i < len; i++) {
+        let filterColumn = grid.filterColumns[i];
         if (columnName == filterColumn[grid.column_name]) {
             result = i;
             break;
@@ -345,6 +351,9 @@ TbsGrid.prototype.tbs_getFilterColumnIndex = function (columnName) {
     }
     return result;
 }
-TbsGrid.prototype.tbs_getFilterColumnName = function (colIndex) {
-    return this.filterColumn[colIndex][this.column_name];
+TbsGridFilter.prototype.getFilterColumnName = function (colIndex) {
+    let selector = this.selector;
+    let grid = this.grid;
+
+    return grid.filterColumn[colIndex][grid.column_name];
 }

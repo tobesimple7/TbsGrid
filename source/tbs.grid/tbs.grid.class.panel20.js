@@ -103,7 +103,7 @@ TbsGrid.prototype.panel20_select = function(panelName) { //type : header, conten
                     targetIndex = null;
                 }
 
-                if (name != 'group_column') grid.tbs_addGroupButton(name, text, order, targetIndex);
+                if (name != 'group_column') grid.classGroup.addGroupButton(name, text, order, targetIndex);
 
                 flagLeft = false;
                 flagRight = false;
@@ -154,7 +154,7 @@ TbsGrid.prototype.panel20_select = function(panelName) { //type : header, conten
                     targetButton = null;
                     targetIndex = null;
                 }
-                if (name != 'group_column') grid.tbs_addSortButton(name, text, order, targetIndex);
+                if (name != 'group_column') grid.classSort.addSortButton(name, text, order, targetIndex);
 
                 flagLeft = false;
                 flagRight = false;
@@ -181,7 +181,7 @@ TbsGrid.prototype.panel20_select = function(panelName) { //type : header, conten
                 let name = element.dataset.name;
                 if (e.detail == 1) {
                     if (grid.tbs_isColumnName(name)) grid.event_columnSort(e.target.closest('.tbs-grid-cell'));
-                    if (grid.options[grid.option_sortVisible] == true) grid.tbs_getSortButtonList();
+                    if (grid.options[grid.option_sortVisible] == true) grid.classSort.getSortButtonList();
                 }
             }
             else {

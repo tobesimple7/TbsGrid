@@ -12,10 +12,10 @@ TbsGrid.prototype.panel10_init = function(){
     const showFilterPanelEvent = function(e) {
         e.stopPropagation();
         if (grid.options[grid.option_filterVisible] == false) {
-            grid.tbs_showFilterPanel();
+            grid.classFilter.showFilterPanel();
         }
         else {
-            grid.tbs_hideFilterPanel();
+            grid.classFilter.hideFilterPanel();
         }
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter'))
@@ -23,7 +23,7 @@ TbsGrid.prototype.panel10_init = function(){
 
     const resetFilterPanelEvent = function(e) {
         e.stopPropagation();
-        grid.tbs_initFilterData();
+        grid.classFilter.initFilterData();
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter-reset'))
         document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter-reset').addEventListener('mousedown', resetFilterPanelEvent);
@@ -33,10 +33,10 @@ TbsGrid.prototype.panel10_init = function(){
     const showSortPanelEvent = function(e) {
         e.stopPropagation();
         if (grid.options[grid.option_sortVisible] == false) {
-            grid.tbs_showSortPanel();
+            grid.classSort.showSortPanel();
         }
         else {
-            grid.tbs_hideSortPanel();
+            grid.classSort.hideSortPanel();
         }
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort'))
@@ -44,7 +44,7 @@ TbsGrid.prototype.panel10_init = function(){
 
     const resetSortPanelEvent = function(e) {
         e.stopPropagation();
-        grid.tbs_initSortData();
+        grid.classSort.initSortData();
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort-reset'))
         document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort-reset').addEventListener('mousedown', resetSortPanelEvent);
@@ -54,20 +54,39 @@ TbsGrid.prototype.panel10_init = function(){
     const showGroupPanelEvent = function(e) {
         e.stopPropagation();
         if (grid.grid_mode != grid.code_group) {
-            grid.tbs_allowGroupMode();
+            grid.classGroup.allowGroupMode();
         }
         else {
-            if (grid.options[grid.option_groupVisible] == true) grid.tbs_denyGroupMode();
-            else grid.tbs_allowGroupMode();
+            if (grid.options[grid.option_groupVisible] == true) grid.classGroup.denyGroupMode();
+            if (grid.options[grid.option_groupVisible] == true) grid.classGroup.denyGroupMode();
+            else grid.classGroup.allowGroupMode();
         }
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-group'))
         document.querySelector(selector + ' .tbs-grid-panel10-buttons-group').addEventListener('mousedown', showGroupPanelEvent);
 
+    const expandGroupPanelEvent = function(e) {
+        e.stopPropagation();
+        if (grid.grid_mode == grid.code_group) {
+            grid.classGroup.expandGroup();
+        }
+    }
+    if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-expand'))
+        document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-expand').addEventListener('mousedown', expandGroupPanelEvent);
+
+    const collapseGroupPanelEvent = function(e) {
+        e.stopPropagation();
+        if (grid.grid_mode == grid.code_group) {
+            grid.classGroup.collapseGroup();
+        }
+    }
+    if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-collapse'))
+        document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-collapse').addEventListener('mousedown', collapseGroupPanelEvent);
+
     const resetGroupPanelEvent = function(e) {
         e.stopPropagation();
         if (grid.grid_mode == grid.code_group) {
-            grid.tbs_initGroupData();
+            grid.classGroup.initGroupData();
         }
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-reset'))
@@ -84,7 +103,7 @@ TbsGrid.prototype.panel10_init = function(){
     //==================================================================================================================
     const setTotalFilterEvent = function(e) {
         e.stopPropagation();
-        grid.totalFilterSearch(this.value);
+        grid.classFilter.totalFilterSearch(this.value);
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-filter-input'))
         document.querySelector(selector + ' .tbs-grid-panel10-filter-input').addEventListener('keyup', setTotalFilterEvent);

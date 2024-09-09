@@ -8,8 +8,8 @@ TbsGrid.prototype.tbs_setOption = function (optionName, optionValue) {
     grid.options[optionName] = optionValue;
 
     if (optionName == grid.option_groupVisible) {
-        if(optionValue == true) grid.tbs_showGroupPanel();
-        else grid.tbs_hideGroupPanel();
+        if(optionValue == true) grid.classGroup.showGroupPanel();
+        else grid.classGroup.hideGroupPanel();
     }
 }
 TbsGrid.prototype.tbs_setOptions = function (options) {

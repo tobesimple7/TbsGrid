@@ -14,10 +14,11 @@ class TbsGridGroup {
         // this.groupView = []; // when cell merged
 
         this.options = {}
-        this.infoText = grid.gridConfig.options.groupInfoText;
+        this.infoText = grid.getConfigOption('groupInfoText');
+        this.openDepth = null;
     }
 }
-TbsGridGroup.prototype.tbs_setGroupOption = function (optionName, optionValue) {
+TbsGridGroup.prototype.setGroupOption = function (optionName, optionValue) {
     let selector = this.selector;
     let grid = this.grid;
     let classGroup = this;
@@ -25,9 +26,9 @@ TbsGridGroup.prototype.tbs_setGroupOption = function (optionName, optionValue) {
     classGroup.options[optionName] = optionValue;
 }
 
-TbsGrid.prototype.tbs_createGroupData = function(dataRows){
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.createGroupData = function(dataRows){
+    let selector = this.selector;
+    let grid = this.grid;
 
     let resultRows = [];
     const fn_getChildrenRowIds = function(row) {
@@ -46,10 +47,10 @@ TbsGrid.prototype.tbs_createGroupData = function(dataRows){
 
         if (depth == grid.classGroup.groupColumns.length + 1) return;
 
-        let key= grid.tbs_getGroupKeyByDepth(row, depth);
+        let key= grid.classGroup.getGroupKeyByDepth(row, depth);
         for (let i = 0, len = dataRows.length; i < len; i++) {
             let dataRow = dataRows[i];
-            let childKey = grid.tbs_getGroupKeyByDepth(dataRow, depth);
+            let childKey = grid.classGroup.getGroupKeyByDepth(dataRow, depth);
             let childDepth = dataRow[grid.code_depth];
             if (key == childKey && childDepth == depth + 1) fn_setRelation(dataRow, depth + 1, row[grid.code_num]);
         }
@@ -59,7 +60,7 @@ TbsGrid.prototype.tbs_createGroupData = function(dataRows){
     dataRows.map(row => row[grid.code_depth] = maxDepth);
 
     // create group data
-    let groupData = grid.tbs_createGroupKeyData(dataRows);
+    let groupData = grid.classGroup.createGroupKeyData(dataRows);
     groupData.map(row => {
         grid.maxRowId += 1;
         row[grid.code_rowId] = grid.maxRowId;
@@ -74,9 +75,9 @@ TbsGrid.prototype.tbs_createGroupData = function(dataRows){
     resultRows.map(row => fn_getChildrenRowIds(row));
     return resultRows;
 }
-TbsGrid.prototype.tbs_createGroupKeyData = function(dataRows, depth = 1){
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.createGroupKeyData = function(dataRows, depth = 1){
+    let selector = this.selector;
+    let grid = this.grid;
 
     let resultRows= [];
     let tempRows = [];
@@ -102,8 +103,8 @@ TbsGrid.prototype.tbs_createGroupKeyData = function(dataRows, depth = 1){
     }
     for (let i = depth, len = grid.classGroup.groupColumns.length + 1; i < len; i++) {
         let rows = dataRows.reduce((acc, row) => {
-            let key = grid.tbs_getGroupKeyByDepth(row, i);
-            let tempRow = grid.tbs_getGroupKeyRowByDepth(row, i);
+            let key = grid.classGroup.getGroupKeyByDepth(row, i);
+            let tempRow = grid.classGroup.getGroupKeyRowByDepth(row, i);
             if (acc.hasOwnProperty(key) == false) acc[key] = tempRow;
             return acc;
         }, {});
@@ -112,9 +113,9 @@ TbsGrid.prototype.tbs_createGroupKeyData = function(dataRows, depth = 1){
     }
     return resultRows;
 }
-TbsGrid.prototype.tbs_getGroupKeyByDepth = function(row, depth) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.getGroupKeyByDepth = function(row, depth) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let key = '';
     for (let i = 0; i < depth; i++) {
@@ -124,9 +125,9 @@ TbsGrid.prototype.tbs_getGroupKeyByDepth = function(row, depth) {
     }
     return key;
 }
-TbsGrid.prototype.tbs_getGroupKeyRowByDepth = function(row, depth) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.getGroupKeyRowByDepth = function(row, depth) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let tempRow = {};
     for (let i = 0; i < depth; i++) {
@@ -137,16 +138,16 @@ TbsGrid.prototype.tbs_getGroupKeyRowByDepth = function(row, depth) {
     }
     return tempRow;
 }
-TbsGrid.prototype.tbs_setgroupColumns = function(groupColumns){
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.setgroupColumns = function(groupColumns){
+    let selector = this.selector;
+    let grid = this.grid;
 
     grid.classGroup.groupColumns = groupColumns;
 }
 /* Group Sum, Avg */
-TbsGrid.prototype.tbs_getGroupSummary = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.getGroupSummary = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
     const getGroupSummary = function (array, columnName, isLastDepth) {
         let result = {};
@@ -197,7 +198,7 @@ TbsGrid.prototype.tbs_getGroupSummary = function () {
         for (let x = 0, len2 = grid.columns.length; x < len2; x++) {
             let column = grid.columns[x];
             let columnName = column[grid.column_name];
-            let groupColumn = grid.tbs_getGroupColumn(columnName);
+            let groupColumn = grid.classGroup.getGroupColumn(columnName);
             let summaryType = grid.null(column[grid.column_summaryType]) ? null : column[grid.column_summaryType];
             let columnType = column[grid.column_type];
 
@@ -210,9 +211,11 @@ TbsGrid.prototype.tbs_getGroupSummary = function () {
         }
     }
 }
-TbsGrid.prototype.tbs_setGroupData = function (data, openDepth  = 0, isFirst = true) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.setGroupData = function (data, openDepth  = 0, isFirst = true) {
+    let selector = this.selector;
+    let grid = this.grid;
+
+    grid.classGroup.openDepth = openDepth;
 
     // create group column : group_column
     if (grid.tbs_isColumnName('group_column') == false) {
@@ -269,13 +272,13 @@ TbsGrid.prototype.tbs_setGroupData = function (data, openDepth  = 0, isFirst = t
     }
 
     /* Filter */
-    grid.tbs_filters();
+    grid.classFilter.filters();
 
     /* Soring */
-    grid.tbs_setSortData(grid.data_view, grid.classSort.sortColumns);
+    grid.classSort.setSortData(grid.data_view, grid.classSort.sortColumns);
 
     /* create grouping data */
-    dataRows = grid.tbs_createGroupData(grid.tbs_copyJson(grid.data_view));
+    dataRows = grid.classGroup.createGroupData(grid.tbs_copyJson(grid.data_view));
 
     grid.data_view = [];
     for (let i = 0, len = dataRows.length; i < len; i++) {
@@ -301,7 +304,7 @@ TbsGrid.prototype.tbs_setGroupData = function (data, openDepth  = 0, isFirst = t
     }
 
     /* Summary */
-    grid.tbs_getGroupSummary();
+    grid.classGroup.getGroupSummary();
 
     /* Create data_temp : save before delete */
     grid.data_temp = grid.tbs_copyJson(grid.data_view);
@@ -334,7 +337,7 @@ TbsGrid.prototype.tbs_setGroupData = function (data, openDepth  = 0, isFirst = t
     }
     if (grid.options[grid.option_autoWidth] == true)  grid.tbs_setColumnAutoWidth();
 
-    grid.tbs_getGroupButtonList();
+    grid.classGroup.getGroupButtonList();
     grid.tbs_setPanelSize();
 
     grid.tbs_removeRange(0, -1);
@@ -342,9 +345,9 @@ TbsGrid.prototype.tbs_setGroupData = function (data, openDepth  = 0, isFirst = t
     grid.tbs_displayPanel30(_topRowIndex);
 }
 /** spanIcon, spanImg, spanText */
-TbsGrid.prototype.tbs_setGroupIcon = function (tableCell, rowIndex) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.setGroupIcon = function (tableCell, rowIndex) {
+    let selector = this.selector;
+    let grid = this.grid;
     let row = grid.tbs_getRow(rowIndex);
     let arr = row[grid.code_children];
     let element = tableCell.querySelector('.tbs-grid-cell-div-icon');
@@ -353,26 +356,26 @@ TbsGrid.prototype.tbs_setGroupIcon = function (tableCell, rowIndex) {
 
     if (arr.length > 0) {
         let nextRow = grid.tbs_getRow(rowIndex + 1);
-        if (grid.null(nextRow)) grid.tbs_toggleGroupIcon(rowIndex, element, 'closed');
+        if (grid.null(nextRow)) grid.classGroup.toggleGroupIcon(rowIndex, element, 'closed');
         else {
             if (nextRow[grid.code_parentNum] == row[grid.code_num])
-                grid.tbs_toggleGroupIcon(rowIndex, element, 'open');
+                grid.classGroup.toggleGroupIcon(rowIndex, element, 'open');
             else
-                grid.tbs_toggleGroupIcon(rowIndex, element, 'closed');
+                grid.classGroup.toggleGroupIcon(rowIndex, element, 'closed');
         }
     }
-    else grid.tbs_toggleGroupIcon(rowIndex, element);
+    else grid.classGroup.toggleGroupIcon(rowIndex, element);
 }
-TbsGrid.prototype.tbs_toggleGroupIcon = function (rowIndex, element, type) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.toggleGroupIcon = function (rowIndex, element, type) {
+    let selector = this.selector;
+    let grid = this.grid;
     if      (type == grid.code_open)   element.style['backgroundImage'] = 'url(' + grid.options[grid.option_imageRoot] + 'tree_open.png)';
     else if (type == grid.code_closed) element.style['backgroundImage'] = 'url(' + grid.options[grid.option_imageRoot] + 'tree_closed.png)';
     else element.style['backgroundImage'] = '';
 }
-TbsGrid.prototype.tbs_isGroupChildrenRow = function (rowIndex) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.isGroupChildrenRow = function (rowIndex) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let result = false;
     let row = grid.tbs_getRow(rowIndex);
@@ -384,10 +387,10 @@ TbsGrid.prototype.tbs_isGroupChildrenRow = function (rowIndex) {
     }
     return result;
 }
-TbsGrid.prototype.tbs_getGroupChildrenRows = function (folding, rowIndex, isAll = true) {
+TbsGridGroup.prototype.getGroupChildrenRows = function (folding, rowIndex, isAll = true) {
     // folding : open, closed
-    let selector = '#' + this.gridId;
-    let grid = this;
+    let selector = this.selector;
+    let grid = this.grid;
 
     let dataRows= grid.data_view;
     let resultRows= [];
@@ -427,26 +430,26 @@ TbsGrid.prototype.tbs_getGroupChildrenRows = function (folding, rowIndex, isAll 
     fn_getChildrenRows(row, 1);
     return resultRows;
 }
-TbsGrid.prototype.tbs_setGroupFolding = function (tableCell) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.setGroupFolding = function (tableCell) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let rowIndex = parseInt(tableCell.parentNode.dataset.rowIndex);
     let row = grid.tbs_getRow(rowIndex);
     let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
     if (grid.null(spanIcon)) return;
 
-    let folding = grid.tbs_getGroupFlodingStatus(tableCell);
-    if      (folding == grid.code_open)   grid.tbs_closeGroupRow(rowIndex);
-    else if (folding == grid.code_closed) grid.tbs_openGroupRow(rowIndex, false);
+    let folding = grid.classGroup.getGroupFlodingStatus(tableCell);
+    if      (folding == grid.code_open)   grid.classGroup.closeGroupRow(rowIndex);
+    else if (folding == grid.code_closed) grid.classGroup.openGroupRow(rowIndex, false);
 
     grid.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
     grid.verticalScroll.tbs_setScroll(grid.code_vertical);
     grid.tbs_displayPanel30(grid.tbs_getFirstRowIndex());
 }
-TbsGrid.prototype.tbs_getGroupFlodingStatus = function (tableCell) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.getGroupFlodingStatus = function (tableCell) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
     if (grid.null(spanIcon)) return null;
@@ -455,9 +458,9 @@ TbsGrid.prototype.tbs_getGroupFlodingStatus = function (tableCell) {
     else if (spanIcon.style['backgroundImage'].includes('tree_closed.png')) return grid.code_closed;
     else return null;
 }
-TbsGrid.prototype.tbs_openGroupRow = function (rowIndex) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.openGroupRow = function (rowIndex) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let row = grid.tbs_getRow(rowIndex);
     let rowId = row[grid.code_rowId];
@@ -466,12 +469,12 @@ TbsGrid.prototype.tbs_openGroupRow = function (rowIndex) {
             grid.data_temp[i][grid.code_isOpen] = true; // keep folding status
     }
 
-    let rows = grid.tbs_getGroupChildrenRows(grid.code_open, rowIndex, false);
-    grid.tbs_addGroupRows(rowIndex);
+    let rows = grid.classGroup.getGroupChildrenRows(grid.code_open, rowIndex, false);
+    grid.classGroup.addGroupRows(rowIndex);
 }
-TbsGrid.prototype.tbs_closeGroupRow = function (rowIndex) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.closeGroupRow = function (rowIndex) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let row = grid.tbs_getRow(rowIndex);
     let rowId = row[grid.code_rowId];
@@ -480,21 +483,21 @@ TbsGrid.prototype.tbs_closeGroupRow = function (rowIndex) {
             grid.data_view[i][grid.code_isOpen] = false; // keep folding status
     }
 
-    let rows = grid.tbs_getGroupChildrenRows(grid.code_closed, rowIndex, true);
-    rows.map(row=> grid.tbs_removeGroupRow(row));
+    let rows = grid.classGroup.getGroupChildrenRows(grid.code_closed, rowIndex, true);
+    rows.map(row=> grid.classGroup.removeGroupRow(row));
 }
-TbsGrid.prototype.tbs_addGroupRows = function (rowIndex) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.addGroupRows = function (rowIndex) {
+    let selector = this.selector;
+    let grid = this.grid;
 
-    let rows = grid.tbs_getGroupChildrenRows(grid.code_open, rowIndex, false);
+    let rows = grid.classGroup.getGroupChildrenRows(grid.code_open, rowIndex, false);
     for (let i = 0, startRowIndex = rowIndex + 1, len = rows.length; i < len; i++, startRowIndex++) {
-        grid.tbs_addGroupRow(startRowIndex, rows[i]);
+        grid.classGroup.addGroupRow(startRowIndex, rows[i]);
     }
 }
-TbsGrid.prototype.tbs_addGroupRow = function (startRowIndex, row) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.addGroupRow = function (startRowIndex, row) {
+    let selector = this.selector;
+    let grid = this.grid;
     startRowIndex = parseInt(startRowIndex);
     if (startRowIndex == grid.data_view.length) {
         grid.data_view.push(row);
@@ -503,27 +506,27 @@ TbsGrid.prototype.tbs_addGroupRow = function (startRowIndex, row) {
         grid.data_view.splice(startRowIndex, 0, row);
     }
 }
-TbsGrid.prototype.tbs_removeGroupRow = function (row) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.removeGroupRow = function (row) {
+    let selector = this.selector;
+    let grid = this.grid;
     grid.tbs_removeRowInPanel30(row);
     grid.data_select_panel30 = [];
     grid.data_select_panel31 = [];
 }
 /* Group Data In Table */
-TbsGrid.prototype.tbs_setGroupDataTable2 = function (param) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.setGroupDataTable2 = function (param) {
+    let selector = this.selector;
+    let grid = this.grid;
 
-    if (this.fixedColumnIndex == -1) return;
+    if (grid.fixedColumnIndex == -1) return;
 
     let panelName = param.panelName;
 
-    let topRowIndex = this.tbs_validateTopRowIndex(panelName, param.topRowIndex);
-    let bottomRowIndex = this.tbs_validateBottomRowIndex(panelName, topRowIndex);
+    let topRowIndex = grid.tbs_validateTopRowIndex(panelName, param.topRowIndex);
+    let bottomRowIndex = grid.tbs_validateBottomRowIndex(panelName, topRowIndex);
 
     //startColumnIndex, lastColumIndex
-    let result = this.tbs_getDisplayedHeaderColumn(panelName);
+    let result = grid.tbs_getDisplayedHeaderColumn(panelName);
     let startColumnIndex= result.startColumnIndex;
     let lastColumnIndex = result.lastColumnIndex;
 
@@ -542,8 +545,8 @@ TbsGrid.prototype.tbs_setGroupDataTable2 = function (param) {
         for (let x = 0; x <= lastColumnIndex; x++) {
             let tableCell = tableRow.childNodes[x];
 
-            if (x > this.fixedColumnIndex && x < startColumnIndex) continue;
-            if (x <= this.fixedColumnIndex) tableCell = tableRow.childNodes[x];
+            if (x > grid.fixedColumnIndex && x < startColumnIndex) continue;
+            if (x <= grid.fixedColumnIndex) tableCell = tableRow.childNodes[x];
 
             /* Render: Start */
             grid.classRender.start(panelName, tableCell, grid.columns[x], i, x);
@@ -554,11 +557,11 @@ TbsGrid.prototype.tbs_setGroupDataTable2 = function (param) {
         tableRowIndex += 1;
     }
     // hidden : Unnecessary tableRows
-    grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, this.pageRowCount);
+    grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, grid.pageRowCount);
 }
-TbsGrid.prototype.tbs_setGroupDataTable0 = function (param) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.setGroupDataTable0 = function (param) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let panelName = param.panelName;
     if (panelName == 'panel60') { if (grid.fixedRowIndex == -1) return; }
@@ -613,9 +616,9 @@ TbsGrid.prototype.tbs_setGroupDataTable0 = function (param) {
     if (param.panelName == 'panel30') document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = grid.tbs_getRowCount();
 }
 /* Group Button */
-TbsGrid.prototype.tbs_changeGroupButtonOrder = function (name, text, order, targetIndex) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.changeGroupButtonOrder = function (name, text, order, targetIndex) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let groupColumns = grid.classGroup.groupColumns;
 
@@ -650,18 +653,18 @@ TbsGrid.prototype.tbs_changeGroupButtonOrder = function (name, text, order, targ
     }
 
     // add button in group panel
-    let button = grid.tbs_createGroupButton(name);
+    let button = grid.classGroup.createGroupButton(name);
     let bar = document.querySelector(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar');
     if (grid.notNull(targetIndex)) bar.insertBefore(button, bar.childNodes[targetIndex]);
     else bar.append(button);
 
-    grid.tbs_toggleGroupPlaceHolder();
+    grid.classGroup.toggleGroupPlaceHolder();
     let data = grid.data_user;
-    grid.tbs_setGroupData(data, null, false);
+    grid.classGroup.setGroupData(data, null, false);
 }
-TbsGrid.prototype.tbs_addGroupButton = function (name, text, order, targetIndex) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.addGroupButton = function (name, text, order, targetIndex) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     // add groupColumn in grid.classGroup.groupColumns
     // already existing column
@@ -680,19 +683,19 @@ TbsGrid.prototype.tbs_addGroupButton = function (name, text, order, targetIndex)
     else grid.classGroup.groupColumns.push(column);
 
     // add button in group panel
-    let button = grid.tbs_createGroupButton(name);
+    let button = grid.classGroup.createGroupButton(name);
     let bar = document.querySelector(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar');
     if (grid.notNull(targetIndex)) bar.insertBefore(button, bar.childNodes[targetIndex]);
     else bar.append(button);
 
-    grid.tbs_toggleGroupPlaceHolder();
+    grid.classGroup.toggleGroupPlaceHolder();
     let data = grid.data_user;
-    grid.tbs_setGroupData(data, null, false);
-    if (grid.options[grid.option_filterVisible]) grid.tbs_showFilterPanel();
+    grid.classGroup.setGroupData(data, null, false);
+    if (grid.options[grid.option_filterVisible]) grid.classFilter.showFilterPanel();
 }
-TbsGrid.prototype.tbs_removeGroupButton = function (element) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.removeGroupButton = function (element) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     // remove groupColumn in grid.classGroup.groupColumns
     let name = element.dataset.name;
@@ -711,41 +714,41 @@ TbsGrid.prototype.tbs_removeGroupButton = function (element) {
     let button = element.parentNode;
     button.remove();
 
-    grid.tbs_toggleGroupPlaceHolder();
+    grid.classGroup.toggleGroupPlaceHolder();
 
     let data = grid.data_user;
 
-    grid.tbs_setGroupData(data, null, false);
-    if (grid.options[grid.option_filterVisible]) grid.tbs_showFilterPanel();
+    grid.classGroup.setGroupData(data, null, false);
+    if (grid.options[grid.option_filterVisible]) grid.classFilter.showFilterPanel();
 }
-TbsGrid.prototype.tbs_removeGroupButtonList = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.removeGroupButtonList = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar .tbs-grid-panel-button');
     for (let i = buttons.length - 1; i >= 0; i--) buttons[i].remove();
 }
-TbsGrid.prototype.tbs_getGroupButtonList = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.getGroupButtonList = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
-    grid.tbs_removeGroupButtonList();
+    grid.classGroup.removeGroupButtonList();
 
     let bar = document.querySelector(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar');
     let groupColumns= grid.classGroup.groupColumns;
 
     for (let i = 0, len = groupColumns.length; i < len; i++) {
         let groupColumn = groupColumns[i];
-        let button = grid.tbs_createGroupButton(groupColumn[grid.column_name]);
+        let button = grid.classGroup.createGroupButton(groupColumn[grid.column_name]);
         let bar = document.querySelector(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar');
         if (grid.null(bar)) return;
         bar.append(button);
     }
-    grid.tbs_toggleGroupPlaceHolder();
+    grid.classGroup.toggleGroupPlaceHolder();
 }
-TbsGrid.prototype.tbs_createGroupButton = function (columnName) {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.createGroupButton = function (columnName) {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let column = grid.tbs_getColumn(columnName);
 
@@ -768,9 +771,9 @@ TbsGrid.prototype.tbs_createGroupButton = function (columnName) {
 
     return button;
 }
-TbsGrid.prototype.tbs_toggleGroupPlaceHolder = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.toggleGroupPlaceHolder = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar .tbs-grid-panel-button');
     let span = document.querySelector(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar-span');
@@ -787,9 +790,9 @@ TbsGrid.prototype.tbs_toggleGroupPlaceHolder = function () {
     }
     grid.classControl.after_setColumnVisible();
 }
-TbsGrid.prototype.tbs_allowGroupMode = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.allowGroupMode = function () {
+    let selector = this.selector;
+    let grid = this.grid;
     grid.tbs_setGridMode(grid.code_group)
     grid.tbs_setOption(grid.option_groupVisible, true);
     grid.tbs_removeRange(0, -1);
@@ -797,45 +800,45 @@ TbsGrid.prototype.tbs_allowGroupMode = function () {
 
     if (grid.data_view.length >= 0 && grid.null(grid.data_view[0]['group_column'])) grid.tbs_setData(grid.data_view);
     else grid.tbs_apply();
-    if (grid.options[grid.option_filterVisible]) grid.tbs_showFilterPanel();
+    if (grid.options[grid.option_filterVisible]) grid.classFilter.showFilterPanel();
     grid.tbs_apply();
 }
-TbsGrid.prototype.tbs_denyGroupMode = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.denyGroupMode = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
     for (let i = grid.data_view.length - 1; i >= 0; i--) {
         let row = grid.data_view[i];
         if (grid.notNull(row[grid.code_children]) && row[grid.code_children].length != 0) grid.data_view.splice(i,1);
     }
-    grid.tbs_setgroupColumns([]);
-    grid.tbs_getGroupButtonList();
+    grid.classGroup.setgroupColumns([]);
+    grid.classGroup.getGroupButtonList();
     grid.tbs_setOption(grid.option_groupVisible, false);
     grid.tbs_removeRange(0, -1);
     grid.tbs_setPanelSize();
     grid.tbs_apply()
-    if (grid.options[grid.option_filterVisible]) grid.tbs_showFilterPanel();
+    if (grid.options[grid.option_filterVisible]) grid.classFilter.showFilterPanel();
 
 }
-TbsGrid.prototype.tbs_showGroupPanel = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.showGroupPanel = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
     let panel = document.querySelector(selector + ' .tbs-grid-panel80');
     panel.classList.remove('tbs-grid-hide');
     panel.classList.add('tbs-grid-show');
 
 }
-TbsGrid.prototype.tbs_hideGroupPanel = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.hideGroupPanel = function () {
+    let selector = this.selector;
+    let grid = this.grid;
     let panel = document.querySelector(selector + ' .tbs-grid-panel80');
     panel.classList.remove('tbs-grid-show');
     panel.classList.add('tbs-grid-hide');
 }
-TbsGrid.prototype.tbs_initGroupData = function () {
-    let selector = '#' + this.gridId;
-    let grid = this;
+TbsGridGroup.prototype.initGroupData = function () {
+    let selector = this.selector;
+    let grid = this.grid;
 
     grid.tbs_setgroupColumns([]);
     grid.tbs_removeRange(0, -1);
@@ -845,16 +848,17 @@ TbsGrid.prototype.tbs_initGroupData = function () {
 
 }
 
-TbsGrid.prototype.tbs_getGroupColumn = function (columnName) {
-    let index = this.tbs_getGroupColumnIndex(columnName);
-    return this.classGroup.groupColumns[index];
+TbsGridGroup.prototype.getGroupColumn = function (columnName) {
+    let grid = this.grid;
+    let index = grid.classGroup.getGroupColumnIndex(columnName);
+    return grid.classGroup.groupColumns[index];
 }
-TbsGrid.prototype.tbs_getGroupColumnIndex = function (columnName) {
-    let grid = this;
+TbsGridGroup.prototype.getGroupColumnIndex = function (columnName) {
+    let grid = this.grid;
     let result = -1;
 
-    for (let i = 0, len = this.classGroup.groupColumns.length; i < len; i++) {
-        let groupColumn = this.classGroup.groupColumns[i];
+    for (let i = 0, len = grid.classGroup.groupColumns.length; i < len; i++) {
+        let groupColumn = grid.classGroup.groupColumns[i];
         if (columnName == groupColumn[grid.column_name]) {
             result = i;
             break;
@@ -862,6 +866,43 @@ TbsGrid.prototype.tbs_getGroupColumnIndex = function (columnName) {
     }
     return result;
 }
-TbsGrid.prototype.tbs_getGroupColumnName = function (colIndex) {
-    return this.classGroup.groupColumns[colIndex][this.column_name];
+TbsGridGroup.prototype.getGroupColumnName = function (colIndex) {
+    let grid = this.grid;
+
+    return grid.classGroup.groupColumns[colIndex][grid.column_name];
+}
+
+TbsGridGroup.prototype.expandGroup = function () {
+    let selector = this.selector;
+    let grid = this.grid;
+
+    if (grid.classGroup.groupColumns.length == 0) return;
+    let openDepth = grid.classGroup.openDepth;
+
+    if (grid.null(grid.classGroup.openDepth)) openDepth = 1;
+    else openDepth += 1;
+
+    if (openDepth > grid.classGroup.groupColumns.length + 1) openDepth =  grid.classGroup.groupColumns.length;
+
+    grid.classGroup.openDepth = openDepth;
+
+    let data = grid.data_user;
+    grid.classGroup.setGroupData(data, openDepth, false);
+}
+TbsGridGroup.prototype.collapseGroup = function () {
+    let selector = this.selector;
+    let grid = this.grid;
+
+    if (grid.classGroup.groupColumns.length == 0) return;
+    let openDepth = grid.classGroup.openDepth;
+
+    if (grid.null(grid.classGroup.openDepth)) openDepth = grid.classGroup.groupColumns.length;
+    else openDepth -= 1;
+
+    if (openDepth <= 0) openDepth =  1;
+
+    grid.classGroup.openDepth = openDepth;
+
+    let data = grid.data_user;
+    grid.classGroup.setGroupData(data, openDepth, false);
 }

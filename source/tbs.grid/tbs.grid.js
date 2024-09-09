@@ -248,9 +248,9 @@
 	this.options[this.option_insertRow]    = false;
 	this.options[this.option_updateRow]    = false;
 	this.options[this.option_deleteRow]    = false;
-	this.options[this.option_zeroChar]     = this.gridConfig.culture.zeroChar;
+	this.options[this.option_zeroChar]     = this.getConfigCulture('zeroChar');
 	this.options[this.option_useToolbar]   = true;
-	this.options[this.option_imageRoot]    = this.gridConfig.options.imageRoot;
+	this.options[this.option_imageRoot]    = this.getConfigOption('imageRoot');
 
 	this.grid_mousePointRange = 10;
 	this.grid_event = '';
@@ -300,6 +300,9 @@
 	this.user_keydown	 = ''; // not used
 	this.user_keyup		 = ''; // not used
 	this.user_blur		 = ''; // not used
+
+	this.user_cellBounding = null; // set data, css
+	this.user_rowBounding = null;  // set css
 	/**
 	 * @description code
 	 *

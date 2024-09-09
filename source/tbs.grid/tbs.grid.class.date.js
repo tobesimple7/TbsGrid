@@ -17,33 +17,37 @@ TbsGridDate.prototype.tbs_create = function() {
 
     if (this.grid.null(this.grid)) return;
 
-	//========================================================= popup active
-    this.grid.popupActive = 1;
-    //=========================================================
+    /* culture */
+    let months = grid.getConfigCalendar('months');
+    let dayShortNames = grid.getConfigCalendar('dayShortNames');
+    let prevLinkName = grid.getConfigCalendar('prevLinkName');
+    let todayLinkName = grid.getConfigCalendar('todayLinkName');
+    let nextLinkName = grid.getConfigCalendar('nextLinkName');
+
     let s = '';
     s += '<div class="tbs-grid-input-date">';
     s += '  <div class="tbs-grid-input-date-header">';
     s += '      <table class="tbs-grid-input-date-header-table" style="width:100%;">';
     s += '      <tr>';
-    s += '      <td class="tbs-grid-input-date-prev"  onclick="' + this.grid.gridId + '.tbsGridDate.tbs_prev();" style="width:40px;">' + grid.gridConfig.calendar.prevLinkName + '</td>';
+    s += '      <td class="tbs-grid-input-date-prev"  onclick="' + this.grid.gridId + '.tbsGridDate.tbs_prev();" style="width:40px;">' + prevLinkName + '</td>';
     s += '      <td class="tbs-grid-input-date-month" style="width:100px;">';
     s += '          <select class="tbs-grid-input-date-select-month" style="width:100px;" onchange="' + this.grid.gridId + '.tbsGridDate.tbs_selectMonth(this.value);">';
-    s += '          <option value="01">' + grid.gridConfig.calendar.months[0] + '</option>';
-    s += '          <option value="02">' + grid.gridConfig.calendar.months[1] + '</option>';
-    s += '          <option value="03">' + grid.gridConfig.calendar.months[2] + '</option>';
-    s += '          <option value="04">' + grid.gridConfig.calendar.months[3] + '</option>';
-    s += '          <option value="05">' + grid.gridConfig.calendar.months[4] + '</option>';
-    s += '          <option value="06">' + grid.gridConfig.calendar.months[5] + '</option>';
-    s += '          <option value="07">' + grid.gridConfig.calendar.months[6] + '</option>';
-    s += '          <option value="08">' + grid.gridConfig.calendar.months[7] + '</option>';
-    s += '          <option value="09">' + grid.gridConfig.calendar.months[8] + '</option>';
-    s += '          <option value="10">' + grid.gridConfig.calendar.months[9] + '</option>';
-    s += '          <option value="11">' + grid.gridConfig.calendar.months[10] + '</option>';
-    s += '          <option value="12">' + grid.gridConfig.calendar.months[11] + '</option>';
+    s += '          <option value="01">' + months[0] + '</option>';
+    s += '          <option value="02">' + months[1] + '</option>';
+    s += '          <option value="03">' + months[2] + '</option>';
+    s += '          <option value="04">' + months[3] + '</option>';
+    s += '          <option value="05">' + months[4] + '</option>';
+    s += '          <option value="06">' + months[5] + '</option>';
+    s += '          <option value="07">' + months[6] + '</option>';
+    s += '          <option value="08">' + months[7] + '</option>';
+    s += '          <option value="09">' + months[8] + '</option>';
+    s += '          <option value="10">' + months[9] + '</option>';
+    s += '          <option value="11">' + months[10] + '</option>';
+    s += '          <option value="12">' + months[11] + '</option>';
     s += '          </select></td>';
     s += '      <td class="tbs-grid-input-date-year"  style="width:50px;"></td>';
-    s += '      <td class="tbs-grid-input-date-today" onclick="' + this.grid.gridId + '.tbsGridDate.tbs_today();" style="width:40px;">' + grid.gridConfig.calendar.todayLinkName + '</td>';
-    s += '      <td class="tbs-grid-input-date-next"  onclick="' + this.grid.gridId + '.tbsGridDate.tbs_next();" style="width:40px;">' + grid.gridConfig.calendar.nextLinkName + '</td>';
+    s += '      <td class="tbs-grid-input-date-today" onclick="' + this.grid.gridId + '.tbsGridDate.tbs_today();" style="width:40px;">' + todayLinkName + '</td>';
+    s += '      <td class="tbs-grid-input-date-next"  onclick="' + this.grid.gridId + '.tbsGridDate.tbs_next();" style="width:40px;">' + nextLinkName + '</td>';
     s += '      </tr>';
     s += '      </table>';
     s += '  </div>';
@@ -51,13 +55,13 @@ TbsGridDate.prototype.tbs_create = function() {
     s += '      <table class="tbs-grid-input-date-content-table" style="width:100%;">';
     s += '      <thead>';
     s += '      <tr>';
-    s += '      <th class="tbs-grid-input-date-cell" style="color:red;">' + grid.gridConfig.calendar.dayShortNames[0] + '</td>';
-    s += '      <th class="tbs-grid-input-date-cell" style="">' + grid.gridConfig.calendar.dayShortNames[1] + '</td>';
-    s += '      <th class="tbs-grid-input-date-cell" style="">' + grid.gridConfig.calendar.dayShortNames[2] + '</td>';
-    s += '      <th class="tbs-grid-input-date-cell" style="">' + grid.gridConfig.calendar.dayShortNames[3] + '</td>';
-    s += '      <th class="tbs-grid-input-date-cell" style="">' + grid.gridConfig.calendar.dayShortNames[4] + '</td>';
-    s += '      <th class="tbs-grid-input-date-cell" style="">' + grid.gridConfig.calendar.dayShortNames[5] + '</td>';
-    s += '      <th class="tbs-grid-input-date-cell" style="color:blue">' + grid.gridConfig.calendar.dayShortNames[6] + '</td>';
+    s += '      <th class="tbs-grid-input-date-cell" style="color:red;">' + dayShortNames[0] + '</td>';
+    s += '      <th class="tbs-grid-input-date-cell" style="">' + dayShortNames[1] + '</td>';
+    s += '      <th class="tbs-grid-input-date-cell" style="">' + dayShortNames[2] + '</td>';
+    s += '      <th class="tbs-grid-input-date-cell" style="">' + dayShortNames[3] + '</td>';
+    s += '      <th class="tbs-grid-input-date-cell" style="">' + dayShortNames[4] + '</td>';
+    s += '      <th class="tbs-grid-input-date-cell" style="">' + dayShortNames[5] + '</td>';
+    s += '      <th class="tbs-grid-input-date-cell" style="color:blue">' + dayShortNames[6] + '</td>';
     s += '      </tr>';
     s += '      </thead>';
     s += '      <tbody>';

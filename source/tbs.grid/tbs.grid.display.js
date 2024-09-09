@@ -333,7 +333,7 @@ TbsGrid.prototype.tbs_setDataHeaderTable2 = function(param) {
 
             tableCell.querySelector('.tbs-grid-cell-span-sort').textContent = '';
             if (grid.tbs_isSortColumnName(columnName) && header[grid.column_kind] == 'column') {
-                let sortColumn = grid.tbs_getSortColumn(columnName);
+                let sortColumn = grid.classSort.getSortColumn(columnName);
                 let sortSymbol = '';
                 if (sortColumn['order'] == 'desc') sortSymbol = '▼';
                 else if (sortColumn['order'] == 'asc') sortSymbol = '▲';
@@ -402,7 +402,7 @@ TbsGrid.prototype.tbs_setDataHeaderTable0 = function(param) {
 
             tableCell.querySelector('.tbs-grid-cell-span-sort').textContent = '';
             if (grid.tbs_isSortColumnName(columnName) && header[grid.column_kind] == 'column') {
-                let sortColumn = grid.tbs_getSortColumn(columnName);
+                let sortColumn = grid.classSort.getSortColumn(columnName);
                 let sortSymbol = '';
                 if (sortColumn['order'] == 'desc') sortSymbol = '▼';
                 else if (sortColumn['order'] == 'asc') sortSymbol = '▲';
@@ -664,13 +664,13 @@ TbsGrid.prototype.tbs_setDataFilterTable1 = function (param) {
         tableCell.childNodes[0].innerHTML = '';
         grid.tbs_setCellStyle(tableCell, 'display', column[grid.column_visible] == true ? '' : 'none');
 
-        let combo = grid.tbs_createFilterCombo(column);
+        let combo = grid.classFilter.createFilterCombo(column);
         combo.classList.add('tbs-grid-cell-filter-combo');
         combo.dataset.name = columnName;
         combo.style.width = '100%';
 
         if(grid.tbs_isFilterColumnName(columnName)) {
-            let filterColumn = grid.tbs_getFilterColumn(columnName);
+            let filterColumn = grid.classFilter.getFilterColumn(columnName);
             combo.value = filterColumn[grid.const_filterType];
         };
         tableCell.childNodes[0].append(combo);
@@ -693,7 +693,7 @@ TbsGrid.prototype.tbs_setDataFilterTable1 = function (param) {
         input.dataset.name = columnName;
         input.style.width = '100%';
         if(grid.tbs_isFilterColumnName(columnName)) {
-            let filterColumn = grid.tbs_getFilterColumn(columnName);
+            let filterColumn = grid.classFilter.getFilterColumn(columnName);
             input.value = filterColumn[grid.const_filterValue];
         };
         let cellDiv = tableCell.childNodes[0].append(input);
@@ -726,13 +726,13 @@ TbsGrid.prototype.tbs_setDataFilterTable2 = function (param) {
 
         grid.classRender.start(panelName, tableCell, grid.columns[x], 0, x);
 
-        let combo = grid.tbs_createFilterCombo(column);
+        let combo = grid.classFilter.createFilterCombo(column);
         combo.classList.add('tbs-grid-cell-filter-combo');
         combo.dataset.name = columnName;
         combo.style.width = '100%';
 
         if(grid.tbs_isFilterColumnName(columnName)) {
-            let filterColumn = grid.tbs_getFilterColumn(columnName);
+            let filterColumn = grid.classFilter.getFilterColumn(columnName);
             combo.value = filterColumn[grid.const_filterType];
         };
         tableCell.childNodes[0].innerHTML = '';
@@ -756,7 +756,7 @@ TbsGrid.prototype.tbs_setDataFilterTable2 = function (param) {
         input.dataset.name = columnName;
         input.style.width = '100%';
         if(grid.tbs_isFilterColumnName(columnName)) {
-            let filterColumn = grid.tbs_getFilterColumn(columnName);
+            let filterColumn = grid.classFilter.getFilterColumn(columnName);
             input.value = filterColumn[grid.const_filterValue];
         };
         tableCell.childNodes[0].innerHTML = '';
@@ -791,13 +791,13 @@ TbsGrid.prototype.tbs_setDataFilterTable0 = function (param) {
 
         grid.classRender.start(panelName, tableCell, grid.columns[x], 0, x);
 
-        let combo = grid.tbs_createFilterCombo(column);
+        let combo = grid.classFilter.createFilterCombo(column);
         combo.classList.add('tbs-grid-cell-filter-combo');
         combo.dataset.name = columnName;
         combo.style.width = '100%';
 
         if(grid.tbs_isFilterColumnName(columnName)) {
-            let filterColumn = grid.tbs_getFilterColumn(columnName);
+            let filterColumn = grid.classFilter.getFilterColumn(columnName);
             combo.value = filterColumn[grid.const_filterType];
         };
         tableCell.childNodes[0].innerHTML = '';
@@ -822,7 +822,7 @@ TbsGrid.prototype.tbs_setDataFilterTable0 = function (param) {
         input.dataset.name = columnName;
         input.style.width = '100%';
         if(grid.tbs_isFilterColumnName(columnName)) {
-            let filterColumn = grid.tbs_getFilterColumn(columnName);
+            let filterColumn = grid.classFilter.getFilterColumn(columnName);
             input.value = filterColumn[grid.const_filterValue];
         };
         tableCell.childNodes[0].innerHTML = '';
@@ -973,10 +973,14 @@ TbsGrid.prototype.tbs_clearSelectedLine = function () {
     this.rightLineDiv.style  = 'height:0px;top:0px;left:0px;';
 }
 TbsGrid.prototype.tbs_setSelectedLine = function (lineWidth, lineHeight, rectTop, rectBottom, rectLeft, rectRight) {
-    this.topLineDiv.style    = 'width:'  + lineWidth        + 'px;top:' + rectTop     + 'px;left:' + rectLeft  + 'px;';
-    this.leftLineDiv.style   = 'height:' + lineHeight       + 'px;top:' + rectTop     + 'px;left:' + rectLeft  + 'px;';
-    this.rightLineDiv.style  = 'height:' + (lineHeight + 1) + 'px;top:' + rectTop     + 'px;left:' + rectRight + 'px;';
-    this.bottomLineDiv.style = 'width:'  + lineWidth        + 'px;top:' + rectBottom  + 'px;left:' + rectLeft  + 'px;';
+
+    if (Number(rectTop) > Number(rectBottom) || Number(rectLeft) > Number(rectRight)) this.tbs_clearSelectedLine();
+    else {
+        this.topLineDiv.style    = 'width:'  + lineWidth        + 'px;top:' + rectTop     + 'px;left:' + rectLeft  + 'px;';
+        this.leftLineDiv.style   = 'height:' + lineHeight       + 'px;top:' + rectTop     + 'px;left:' + rectLeft  + 'px;';
+        this.rightLineDiv.style  = 'height:' + (lineHeight + 1) + 'px;top:' + rectTop     + 'px;left:' + rectRight + 'px;';
+        this.bottomLineDiv.style = 'width:'  + lineWidth        + 'px;top:' + rectBottom  + 'px;left:' + rectLeft  + 'px;';
+    }
 }
 
 TbsGrid.prototype.tbs_displaySelectedLine = function () {

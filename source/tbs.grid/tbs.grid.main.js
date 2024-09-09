@@ -29,6 +29,8 @@ TbsGrid.prototype.tbs_createFrame = function () {
     s += '              <div class="tbs-grid-panel10-buttons-sort">Sorting</div>';
     s += '              <div class="tbs-grid-panel10-buttons-sort-reset">Reset</div>';
     s += '              <div class="tbs-grid-panel10-buttons-group">Grouping</div>';
+    s += '              <div class="tbs-grid-panel10-buttons-group-expand">Expand</div>';
+    s += '              <div class="tbs-grid-panel10-buttons-group-collapse">Collapse</div>';
     s += '              <div class="tbs-grid-panel10-buttons-group-reset">Reset</div>';
     s += '              <div class="tbs-grid-panel10-buttons-fixed-column">Fixed Column</div>';
     s += '          </div>';
@@ -36,8 +38,8 @@ TbsGrid.prototype.tbs_createFrame = function () {
     s += '  </div>';
     s += '</div>';
     // Grouping : panel80
-    if (grid.options[grid.option_groupVisible] == true) s += '<div class="tbs-grid-panel80 tbs-grid-show"></div>';
-    else s += '<div class="tbs-grid-panel80 tbs-grid-hide"></div>';
+    let className = grid.options[grid.option_groupVisible] ? 'tbs-grid-show' : 'tbs-grid-hide';
+    s += '<div class="tbs-grid-panel80 ' + className + '"></div>';
     // sorting  : panel90
     if (grid.options[grid.option_sortVisible] == true) s += '<div class="tbs-grid-panel90 tbs-grid-show"></div>';
     else s += '<div class="tbs-grid-panel90 tbs-grid-hide"></div>';
@@ -732,7 +734,7 @@ TbsGrid.prototype.tbs_createTable80 = function () {
     span.className = 'tbs-grid-panel-bar-span';
     span.textContent = grid.classGroup.infoText;
     div.appendChild(span);
-    document.querySelector(selector + ' .tbs-grid-panel80').innerHTML = '';
+    //document.querySelector(selector + ' .tbs-grid-panel80').innerHTML = '';
     document.querySelector(selector + ' .tbs-grid-panel80').appendChild(div);
 }
 TbsGrid.prototype.tbs_createTable90 = function () {
@@ -1145,7 +1147,7 @@ TbsGrid.prototype.setGroup = function (sortColumns, summaryColumns, mergeType) {
     this.summaryColumns = summaryColumns;
     this.mergeType   = mergeType;
 
-    //grid.tbs_setSortData(this.data_view, this.classSort.sortColumns);
+    //grid.classSort.setSortData(this.data_view, this.classSort.sortColumns);
     //============================================================= [Start] groupView with
     let groupView = []; //srow, erow(scol, ecol), depth, node, parentNode, firstChild, lastChild
     let direction = 'vertical';
@@ -1420,14 +1422,13 @@ TbsGrid.prototype.tbs_setColumnAutoWidth = function(){
     let arr = [];
     for (let x = 0, len = grid.columns.length; x < len; x++) arr[x] = 0;
 
-    let fontSize = grid.gridConfig.font.fontSize;
-    let fontFamilty = grid.gridConfig.font.fontFamily;
+    let fontSize = grid.getConfigFont('fontSize');
+    let fontFamilty = grid.getConfigFont('fontFamily');
 
     for (let i = 0, len = grid.headerColumnTable.length; i < len; i++){
         for (let x = 0, len2 = grid.columns.length; x < len2; x++){
             if (grid.headerColumnTable[i][x][grid.column_kind] == 'column') {
-                let width = parseInt(grid.getTextWidth(canvas
-                                            , grid.headerColumnTable[i][x][grid.column_text], fontSize, fontFamilty));
+                let width = parseInt(grid.getTextWidth(canvas, grid.headerColumnTable[i][x][grid.column_text], fontSize, fontFamilty));
                 if (width >= arr[x]) {
                     arr[x] = width;
                 }

@@ -158,7 +158,7 @@ TbsGridRender.prototype.setHtml = function() {
 
                     let icon = grid.tbs_createElementCellIcon(); // .tbs-grid-cell-div-icon .open-icon / .closed-icon
                     grid.tbs_prependIcon(this.tableCell, icon);
-                    grid.tbs_setGroupIcon(this.tableCell, this.rowIndex);
+                    grid.classGroup.setGroupIcon(this.tableCell, this.rowIndex);
                     grid.tbs_setCellStyle(this.tableCell.childNodes[0]  , 'paddingLeft', (rowDepth * 15) + 'px');
                 }
                 else {
@@ -175,7 +175,7 @@ TbsGridRender.prototype.setHtml = function() {
 
                     let icon = grid.tbs_createElementCellIcon(); // .tbs-grid-cell-div-icon .open-icon / .closed-icon
                     grid.tbs_prependIcon(this.tableCell, icon);
-                    grid.tbs_setGroupIcon(this.tableCell, this.rowIndex);
+                    grid.classGroup.setGroupIcon(this.tableCell, this.rowIndex);
                     grid.tbs_setCellStyle(this.tableCell.childNodes[0], 'paddingLeft', (rowDepth * 15) + 'px');
                 } else {
                     let icons = this.tableCell.querySelectorAll('.tbs-grid-cell-div-icon');
@@ -194,14 +194,20 @@ TbsGridRender.prototype.setBounding = function() {
 
     grid.tbs_setCellStyle(this.tableCell, 'display'  , this.visible == true ? '' : 'none');
 
-    grid.tbs_addUserClass(this.tableCell, this.className);
-    grid.tbs_setCellStyle(this.tableCell, 'textAlign', this.align);
+    grid.tbs_addUserClass(this.tableCell, this.className); // user event
+    grid.tbs_setCellStyle(this.tableCell, 'textAlign', this.align); // user event
     grid.tbs_setCellStyle(this.tableCell, 'width'    , this.width + 'px');
 
     if (this.panelName == 'panel72' || this.panelName == 'panel70') {}
     else {
         let spanText = this.tableCell.querySelector('.tbs-grid-cell-div-text');
-        grid.tbs_setCell(spanText, 'textContent', this.cellText);
+        grid.tbs_setCell(spanText, 'textContent', this.cellText); // user event
+    }
+    if (grid.user_cellBounding) {
+        if (this.panelName.substring(6) == '0' || this.panelName.substring(6) == '2') {
+            let param = { element:this.tableCell, rowIndex: this.rowIndex, cellIndex: this.columnIndex };
+            grid.tbs_executeEvent(grid.cellBounding, 'cellBounding', param);
+        }
     }
 }
 
@@ -260,7 +266,44 @@ TbsGridRender.prototype.setTableRow = function(tableRow, rowIndex, panelName = '
 
     if (tableRow.style.display == 'none') tableRow.style.display = '';
 
-    // row alternative background color
+    if (grid.grid_mode == grid.code_group) {
+        if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
+            let rowData = grid.getRow(rowIndex);
+            let depth = rowData[grid.code_depth];
+            let count = grid.null(rowData[grid.code_children]) ? 0 : rowData[grid.code_children].length;
+            if (count > 0) {
+                if      (depth == '1') grid.tbs_addUserClass(tableRow, 'tbs-row-color1');
+                else if (depth == '2') grid.tbs_addUserClass(tableRow, 'tbs-row-color2');
+                else if (depth == '3') grid.tbs_addUserClass(tableRow, 'tbs-row-color3');
+                else if (depth == '4') grid.tbs_addUserClass(tableRow, 'tbs-row-color4');
+                else if (depth == '5') grid.tbs_addUserClass(tableRow, 'tbs-row-color5');
+                else grid.tbs_addUserClass(tableRow, 'tbs-row-color5');
+            }
+            else {
+                if      (depth == '1') grid.tbs_removeUserClass(tableRow, 'tbs-row-color1');
+                else if (depth == '2') grid.tbs_removeUserClass(tableRow, 'tbs-row-color2');
+                else if (depth == '3') grid.tbs_removeUserClass(tableRow, 'tbs-row-color3');
+                else if (depth == '4') grid.tbs_removeUserClass(tableRow, 'tbs-row-color4');
+                else if (depth == '5') grid.tbs_removeUserClass(tableRow, 'tbs-row-color5');
+                else {
+                    grid.tbs_addUserClass(tableRow, 'tbs-row-color5');
+                }
+            }
+        }
+        if (grid.user_rowBounding) {
+            if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
+                let param = {element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex)};
+                grid.tbs_executeEvent(grid.user_rowBounding, 'rowBounding', param);
+            }
+        }
+    }
+    else {
+        if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
+            let param = {element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex)};
+            grid.tbs_executeEvent(grid.user_rowBounding, 'rowBounding', param);
+        }
+    }
+    /* row alternative background color */
     grid.classRender.showAlternativeRowColor(panelName, tableRow, rowIndex);
 }
 TbsGridRender.prototype.showAlternativeRowColor = function (panelName, tableRow, rowIndex) {

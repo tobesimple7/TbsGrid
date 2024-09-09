@@ -10,10 +10,6 @@
 TbsGridCombo.prototype.tbs_create = function() {
     let selector = '#' + this.grid.gridId;
 
-	//========================================================= popup active
-    this.grid.popupActive = 1;
-    //=========================================================
-
     let div = document.createElement('div');
     div.className = 'tbs-grid-input-combo';
     div.style.display = 'none';

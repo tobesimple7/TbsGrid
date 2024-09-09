@@ -5,9 +5,6 @@
 TbsGrid.prototype.tbs_addEventAll = function() {
     let selector = '#' + this.gridId;
     let grid = this;
-    //================================================================== mobile event
-    this.event_mobileTouchDrag();
-    //================================================================== select event
 
     this.panel21_select();
     this.panel20_select('panel20');
@@ -48,6 +45,8 @@ TbsGrid.prototype.tbs_addEventAll = function() {
     this.event_checkBox();
 
     this.panel10_init(); //2024-07-02
+
+    this.event_mobileTouchDrag();
 
     document.addEventListener('scroll', function(e) {
         let panelInputList = document.querySelectorAll(selector + ' .tbs-grid-panel-input');
@@ -98,7 +97,6 @@ TbsGrid.prototype.tbs_addEventAll = function() {
             && name.indexOf('tbs-grid-cell-filter-combo') == -1
             && (name.indexOf('tbs-grid-date') == -1 && name.indexOf('tbs-grid-combo') == -1)) {
             let input = document.querySelector(selector + ' .tbs-grid-input');
-            grid.popupActive = 0;
         }
     };
     document.body.addEventListener('mousedown', bodyMouseDownEvent);
@@ -151,7 +149,7 @@ TbsGrid.prototype.event_columnSort = function(cell) {
     let curSortKind = '';
     let sortKind = '';
     if (grid.tbs_isSortColumnName(columnName)) {
-        let sortColumn = grid.tbs_getSortColumn(columnName);
+        let sortColumn = grid.classSort.getSortColumn(columnName);
         curSortKind = sortColumn[grid.column_order];
     }
     else {
@@ -177,7 +175,7 @@ TbsGrid.prototype.event_columnSort = function(cell) {
     // }
     //grid.classSort.sortColumns = [];
     if (grid.tbs_isSortColumnName(columnName)) {
-        let sortColumn = grid.tbs_getSortColumn(columnName);
+        let sortColumn = grid.classSort.getSortColumn(columnName);
         sortColumn[grid.column_order] = sortKind
     }
     else {
@@ -199,18 +197,18 @@ TbsGrid.prototype.event_columnSort = function(cell) {
     //         grid.classSort.sortColumns.splice(i, 1);
     //     }
     // }
-    if (grid.classSort.sortColumns.length == 0) { grid.tbs_initSortData(); }
+    if (grid.classSort.sortColumns.length == 0) { grid.classSort.initSortData(); }
 
-    if (grid.options[grid.option_filterVisible]) grid.tbs_filters();
+    if (grid.options[grid.option_filterVisible]) grid.classFilter.filters();
 
-    grid.tbs_getSortButtonList();
+    grid.classSort.getSortButtonList();
 
     if (grid.grid_mode == grid.code_group) {
         grid.tbs_setData(grid.data_view, null, false);
     }
     else {
         if (grid.tbs_isSortableColumn()) {
-            grid.tbs_setSortData(grid.data_view, grid.classSort.sortColumns);
+            grid.classSort.setSortData(grid.data_view, grid.classSort.sortColumns);
             grid.tbs_removeRange(0, -1);
             grid.tbs_apply();
         }
@@ -219,7 +217,10 @@ TbsGrid.prototype.event_columnSort = function(cell) {
 TbsGrid.prototype.event_mobileTouchDrag = function() { //type : header, content
     let selector = '#' + this.gridId;
     let grid = this;
-    //---------------------------------------------------------------------
+
+    let startRowIndex, startCellIndex;
+    let lastRowIndex , lastCellIndex;
+
 	let xWrap = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-wrap');
 	let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
     let xPos = { left: 0, x : 0 }
@@ -263,27 +264,54 @@ TbsGrid.prototype.event_mobileTouchDrag = function() { //type : header, content
             let ratio =  (header.childNodes[0].clientWidth - header.clientWidth) / xRailWidth;
             let nLeft = (left * -1 * ratio).toString();
             grid.tbs_setContentPanelLeft(nLeft);
-            grid.tbs_displayPanel30(grid.tbs_getFirstRowIndex());
+            //grid.tbs_displayPanel30(grid.tbs_getFirstRowIndex());
+            grid.tbs_apply();
         }
         else if (Math.abs(xMove) < Math.abs(yMove)) {
             let yBarTop = yPos.top - yMove;
             if (yBarTop < 0) yBarTop = 0;
-            if (yBarTop > this.verticalScroll.railSize) yBarTop = this.verticalScroll.railSize;
-            let trTopIndex = Math.floor(yBarTop * this.verticalScroll.moveCount);
-            actveTopRowIndex = trTopIndex;
+            if (yBarTop > grid.verticalScroll.railSize) yBarTop = grid.verticalScroll.railSize;
 
-            setTimeout(function(){if (actveTopRowIndex == trTopIndex) grid.tbs_setBarPosition(grid.code_vertical, trTopIndex);}, 1);
-            setTimeout(function(){if (actveTopRowIndex == trTopIndex) grid.tbs_displayPanel30(trTopIndex);}, 5);
+            let displayTopRowIndex = Math.floor(yBarTop * grid.verticalScroll.moveCount);
+            actveTopRowIndex = displayTopRowIndex;
+
+            let topRowIndex = displayTopRowIndex;
+            if (grid.fixedRowIndex != -1) topRowIndex = displayTopRowIndex + grid.fixedRowIndex + 1;
+
+            //console.log(`topRowIndex ${topRowIndex} / displayTopRowIndex ${displayTopRowIndex} `);
+            setTimeout(function(){ grid.tbs_setBarPosition(grid.code_vertical, displayTopRowIndex);}, 1);
+            setTimeout(function(){ grid.tbs_displayPanel30(topRowIndex);}, 5);
         }
 	}
 	const touchEndEvent = function(e) {
 		//e.stopPropagation();
+        let xMove = e.changedTouches[0].clientX - xPos.x;
+        let yMove = e.changedTouches[0].clientY - yPos.y;
+
+        let tableCell;
+
+        if      (e.target.classList.contains('tbs-grid-cell-div-icon')) { targetName = 'icon'; tableCell = e.target.parentNode.parentNode; }
+        else if (e.target.classList.contains('tbs-grid-cell-div-img'))  { targetName = 'img' ; tableCell = e.target.parentNode.parentNode; }
+        else if (e.target.classList.contains('tbs-grid-cell-div-text')) { targetName = 'text'; tableCell = e.target.parentNode.parentNode; }
+        else if (e.target.classList.contains('tbs-grid-cell-div'))      { targetName = 'div' ; tableCell = e.target.parentNode; }
+        else if (e.target.classList.contains('tbs-grid-cell'))          { targetName = 'cell'; tableCell = e.target; }
+        let eventPanelName  = 'panel30';
+        startCellIndex = tableCell.cellIndex;
+        lastCellIndex  = startCellIndex;
+        startRowIndex  = grid.tbs_getRowIndexInTable(tableCell.parentNode.rowIndex, eventPanelName);
+        lastRowIndex   = startRowIndex;
+
+        if  (Math.abs(xMove) < 5 && Math.abs(yMove) < 5)  {
+            grid.tbs_removeRange(0, -1, 0, -1);
+            let _topRowIndex = grid.tbs_selectRange(startRowIndex, startRowIndex, startCellIndex, lastCellIndex);
+            grid.tbs_apply();
+        }
+
         document.querySelector(selector + ' .tbs-grid-panel30').removeEventListener('touchmove', touchMoveEvent);
 		document.querySelector(selector + ' .tbs-grid-panel30').removeEventListener('touchend', touchEndEvent);
         document.body.style.overflow = 'auto';
     }
-	//--------------------------------------------------------------
-	//document.querySelector(selector + ' .tbs-grid-panel30').addEventListener('touchstart', touchStartEvent, false);
+	document.querySelector(selector + ' .tbs-grid-panel30').addEventListener('touchstart', touchStartEvent, false);
 }
 /**
  * function : event_columnResize
@@ -356,8 +384,8 @@ TbsGrid.prototype.event_columnResize = function(panelName) {
 
                 let canvas = document.querySelector(selector + ' .tbs-grid-canvas').childNodes[0];
 
-                let fontSize = grid.gridConfig.font.fontSize;
-                let fontFamilty = grid.gridConfig.font.fontFamily;
+                let fontSize = grid.getConfigFont('fontSize');
+                let fontFamilty = grid.getConfigFont('fontFamily');
 
                 for (let i = 0, len = grid.headerColumnTable.length; i < len; i++){
                     let headerColumn = grid.headerColumnTable[i];
@@ -514,27 +542,60 @@ TbsGrid.prototype.tbs_executeEvent = function(isUserFunction, eventType, param) 
     let selector = '#' + this.gridId;
     let grid = this;
 
-    //isUserFunction : true, false
-    //eventType : click, dblclick, edit
-    let e = param.e;
-    let mode = param.mode; //mouse, key
-    let rowIndex = param.rowIndex;
-    let cellIndex = param.cellIndex;
+    let e = null;
+    let mode = null;
+    let rowIndex = null;
+    let cellIndex = null;
+    let element = null;
 
-    let column = grid.tbs_getColumnByIndex(cellIndex);
-    let columnName = grid.tbs_getColumnName(cellIndex);
-    let value = grid.tbs_getValue(rowIndex, columnName);
-    let text  = grid.tbs_getText(rowIndex, columnName);
+    if (eventType == 'rowBounding') {
+        element = param.element;
+        rowIndex = param.rowIndex;
 
-    let eventData = {};
-    let eventRow = grid.tbs_getRow(rowIndex);
-    eventRow.rowIndex    = rowIndex;
-    eventRow.columnIndex = cellIndex;
-    eventRow.columnName  = columnName;
-    eventRow.value       = value;
-    eventRow.text        = text;
-    eventRow.data        = eventRow;
-    if (isUserFunction) {
+        let eventRow = {};
+        eventRow.rowIndex    = rowIndex;
+        eventRow.data        = grid.tbs_getRow(rowIndex);
+
+        if (grid.notNull(grid.user_rowBounding)) { let flag = grid.tbs_rowBounding(grid, element, eventRow, grid.user_rowBounding); } //user function call
+    }
+    else if (eventType == 'cellBounding') {
+        element = param.element;
+
+        rowIndex = param.rowIndex;
+        cellIndex = param.cellIndex;
+
+        let column = grid.tbs_getColumnByIndex(cellIndex);
+        let columnName = grid.tbs_getColumnName(cellIndex);
+        let value = grid.tbs_getValue(rowIndex, columnName);
+        let text  = grid.tbs_getText(rowIndex, columnName);
+
+        let eventRow = {};
+        eventRow.rowIndex    = rowIndex;
+        eventRow.columnIndex = cellIndex;
+        eventRow.columnName  = columnName;
+        eventRow.value       = value;
+        eventRow.text        = text;
+        eventRow.data        = grid.tbs_getRow(rowIndex);
+        if (grid.notNull(grid.user_cellBounding)) { let flag = grid.tbs_cellBounding(grid, element, eventRow, grid.user_cellBounding); } //user function call
+    }
+    else if (eventType == 'click' || eventType == 'dblclick') {
+        e = param.e;
+        mode = param.mode; //mouse, key
+        rowIndex = param.rowIndex;
+        cellIndex = param.cellIndex;
+
+        let column = grid.tbs_getColumnByIndex(cellIndex);
+        let columnName = grid.tbs_getColumnName(cellIndex);
+        let value = grid.tbs_getValue(rowIndex, columnName);
+        let text  = grid.tbs_getText(rowIndex, columnName);
+
+        let eventRow = {};
+        eventRow.rowIndex    = rowIndex;
+        eventRow.columnIndex = cellIndex;
+        eventRow.columnName  = columnName;
+        eventRow.value       = value;
+        eventRow.text        = text;
+        eventRow.data        = grid.tbs_getRow(rowIndex);
         if (eventType == 'click') {
             if (grid.notNull(grid.user_click)) { let flag = grid.tbs_click(e, grid, eventRow, grid.user_click); } //user function call
         }

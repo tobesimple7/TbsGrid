@@ -99,7 +99,7 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
                     targetButton = null;
                     targetIndex = null;
                 }
-                grid.tbs_changeGroupButtonOrder(name, text, order, targetIndex);
+                grid.classGroup.changeGroupButtonOrder(name, text, order, targetIndex);
 
                 flagLeft = false;
                 flagRight = false;
@@ -133,7 +133,7 @@ TbsGrid.prototype.panel80_select = function() { //type : header, content, left, 
         else return;
 
         if (targetName == 'icon') {
-            grid.tbs_removeGroupButton(element);
+            grid.classGroup.removeGroupButton(element);
         }
         else if (targetName == 'button' || targetName == 'text') {
 

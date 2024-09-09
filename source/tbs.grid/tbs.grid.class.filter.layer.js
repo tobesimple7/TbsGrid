@@ -21,24 +21,24 @@ TbsGridFilterLayer.prototype.tbs_getComboData = function() {
     //combo.multiple = 'multiple';
     if (column[grid.column_type] == grid.code_string) {
         let option;
-        gridFilter.tbs_addComboOption(combo, grid.const_filterEqual         , 'Equal'           );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterInclude 		, 'Include'         );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterStartCharacter, 'Start Characters');
-        gridFilter.tbs_addComboOption(combo, grid.const_filterEndCharacter	, 'End Characters'  );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterBlank         , 'Blank'           );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterNotEqual      , 'Does not equal'  );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterNotInclude 	, 'Not Include'     );
+        gridFilter.tbs_addComboOption(combo, grid.const_filterEqual         , grid.getCofnigLabel('filter_equal'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterInclude 		, grid.getCofnigLabel('filter_include'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterStartCharacter, grid.getCofnigLabel('filter_startCharacter'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterEndCharacter	, grid.getCofnigLabel('filter_endCharacter'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterBlank         , grid.getCofnigLabel('filter_blank'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterNotEqual      , grid.getCofnigLabel('filter_notEqual'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterNotInclude 	, grid.getCofnigLabel('filter_notInclude'));
     }
     else if (column[grid.column_type] == grid.code_number || column[grid.column_type] == grid.code_currency) {
         let option;
-        gridFilter.tbs_addComboOption(combo, grid.const_filterSelect      , '[Select]'				  );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterEqual       , 'Equal'					  );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterGreaterEqual, 'Greater than or Equal to');
-        gridFilter.tbs_addComboOption(combo, grid.const_filterLessEqual   , 'Less than or Equal to'	  );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterGreater     , 'Greater than'			  );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterLess        , 'Less than'				  );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterBetween     , 'Between'				  );
-        gridFilter.tbs_addComboOption(combo, grid.const_filterBlank       , 'Blank'					  );
+        gridFilter.tbs_addComboOption(combo, grid.const_filterSelect      , grid.getCofnigLabel('filter_select'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterEqual       , grid.getCofnigLabel('filter_equal'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterGreaterEqual, grid.getCofnigLabel('filter_greaterEqual'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterLessEqual   , grid.getCofnigLabel('filter_lessEqual'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterGreater     , grid.getCofnigLabel('filter_greater'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterLess        , grid.getCofnigLabel('filter_less'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterBetween     , grid.getCofnigLabel('filter_between'));
+        gridFilter.tbs_addComboOption(combo, grid.const_filterBlank       , grid.getCofnigLabel('filter_blank'));
     }
     return combo;
 }
@@ -139,8 +139,8 @@ TbsGridFilterLayer.prototype.tbs_AddEvent = function() {
         let word   = document.querySelector(selector + ' .tbs-grid-layer-filter-content-input').value;
         //let toWord = document.querySelector(selector + ' .tbs-grid-layer-filter-content-input-to').value;
 
-        grid.tbs_setFilterColumn(column, filterType, word);
-        grid.tbs_filters();
+        grid.classFilter.setFilterColumn(column, filterType, word);
+        grid.classFilter.filters();
         grid.apply();
 
         inputElement.value = word;

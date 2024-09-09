@@ -21,23 +21,24 @@
         let input = inputs[columnIndex];
         let word = input.value;
 
-        if (filterType != '0' && word != '') {
+        if (filterType == '8') {
+            input.value = '';
+            grid.classFilter.setFilterColumn(column, filterType, word);
+            grid.classFilter.filters();
+            if (grid.grid_mode == grid.code_group) grid.tbs_setData(grid.data_view, null, false);
+            else grid.tbs_apply();
+        }
+        else if (filterType != '0' && word != '') {
             let filterColumn = grid.tbs_getJsonRow(grid.filterColumns, grid.column_name, column[grid.column_name]);
-            // if (columnType == grid.code_number && filterType == grid.const_filterBetween) {
-            //     let arr = word.split('-');
-            //     word = arr[0];
-            //     if (arr.length > 1) toWord = arr[1];
-            // }
-
-            grid.tbs_setFilterColumn(column, filterType, word);
-            grid.tbs_filters();
+            grid.classFilter.setFilterColumn(column, filterType, word);
+            grid.classFilter.filters();
             if (grid.grid_mode == grid.code_group) grid.tbs_setData(grid.data_view, null, false);
             else grid.tbs_apply();
         }
         else {
             // delete filterColumn.
-            grid.tbs_removeFilterColumn(column);
-            grid.tbs_filters();
+            grid.classFilter.removeFilterColumn(column);
+            grid.classFilter.filters();
             if (grid.grid_mode == grid.code_group) grid.tbs_setData(grid.data_view, null, false);
             else grid.tbs_apply();
         }
@@ -60,20 +61,20 @@
 
         if (filterType != '0') {
             let filterColumn = grid.tbs_getJsonRow(grid.filterColumns, grid.column_name, column[grid.column_name]);
-            grid.tbs_setFilterColumn(column, filterType, word);
+            grid.classFilter.setFilterColumn(column, filterType, word);
 
             if (grid.grid_mode == grid.code_group) {
                 grid.tbs_setData(grid.data_view, null, false);
             }
             else {
-                grid.tbs_filters();
+                grid.classFilter.filters();
                 grid.tbs_apply();
             }
         }
         else {
             // delete filterColumn.
-            grid.tbs_removeFilterColumn(column);
-            grid.tbs_filters();
+            grid.classFilter.removeFilterColumn(column);
+            grid.classFilter.filters();
             if (grid.grid_mode == grid.code_group) grid.tbs_setData(grid.data_view, null, false);
             else grid.tbs_apply();
         }

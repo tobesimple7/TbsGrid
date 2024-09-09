@@ -70,7 +70,7 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
                         selectCell(e);
                     }
                     else if (grid.grid_mode == grid.code_group) {
-                        grid.tbs_setGroupFolding(tableCell);
+                        grid.classGroup.setGroupFolding(tableCell);
                         selectCell(e);
                     }
 

@@ -46,7 +46,6 @@ TbsGrid.prototype.tbs_prependIcon = function (element, childElement) {
     let el = element.querySelector('.tbs-grid-cell-div-icon');
     if (el == undefined) element.childNodes[0].prepend(childElement);
 }
-
 TbsGrid.prototype.tbs_prependImg = function (element, childElement) {
     let el = element.querySelector('.tbs-grid-cell-div-img');
     if (el == undefined) element.childNodes[0].prepend(childElement);
@@ -63,3 +62,6 @@ TbsGrid.prototype.tbs_setValueInText= function (element, value) {
     let el = element.querySelector('.tbs-grid-cell-div-text');
     if (el == undefined) el.textContent = value;
 }
+
+/* User Functions */
+TbsGrid.prototype.addUserClass = function(element, className) { this.tbs_addUserClass(element, className); }

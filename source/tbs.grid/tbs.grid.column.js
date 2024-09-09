@@ -47,8 +47,8 @@ TbsGrid.prototype.tbs_setColumnDefaultValue = function (column) {
         column[grid.column_fixedScale    ] = true;
         column[grid.column_showZero      ] = false;
         column[grid.column_commaUnit     ] = 3; // Fixed value.
-        column[grid.column_thousandChar  ] = grid.gridConfig.culture.thousandChar;
-        column[grid.column_decimalChar   ] = grid.gridConfig.culture.decimalChar;
+        column[grid.column_thousandChar  ] = grid.getConfigCulture('thousandChar');
+        column[grid.column_decimalChar   ] = grid.getConfigCulture('decimalChar');
         //column[grid.column_summaryType   ] = '';
         //column[grid.column_currencyChar] = grid.gridConfig.culture.currencyChar;
 
@@ -62,9 +62,9 @@ TbsGrid.prototype.tbs_setColumnDefaultValue = function (column) {
         column[grid.column_fixedScale    ] = true;
         column[grid.column_showZero      ] = false;
         column[grid.column_commaUnit     ] = 3; // Fixed value.
-        column[grid.column_thousandChar  ] = grid.gridConfig.culture.thousandChar;
-        column[grid.column_decimalChar   ] = grid.gridConfig.culture.decimalChar;
-        column[grid.column_currencyChar  ] = grid.gridConfig.culture.currencyChar;
+        column[grid.column_thousandChar  ] = grid.getConfigCulture('thousandChar');
+        column[grid.column_decimalChar   ] = grid.getConfigCulture('decimalChar');
+        column[grid.column_currencyChar  ] = grid.getConfigCulture('currencyChar');
         //column[grid.column_summaryType   ] = '';
 
         // column[grid.column_scaleMax   ] = null;
@@ -72,7 +72,7 @@ TbsGrid.prototype.tbs_setColumnDefaultValue = function (column) {
     }
     else if (columnType == grid.code_date)   {
         column[grid.column_align        ] = 'center';
-        column[grid.column_format       ] = grid.gridConfig.calendar.dayPattern;
+        column[grid.column_format       ] = grid.getConfigCalendar('dayPattern');
     }
     else if (columnType == grid.code_combo)  {
         column[grid.column_align        ] = 'left';

@@ -26,15 +26,21 @@ tbsGridConfigs.en = {
         groupInfoText: 'Drag columns to group.',
         sortInfoText: 'Drag columns to sort .'
     },
-    // labels: {
-    //     toolbar_button_001: 'Filter',
-    //     toolbar_button_002: 'Reset',
-    //     toolbar_button_003: 'Sorting',
-    //     toolbar_button_004: 'Reset',
-    //     toolbar_button_005: 'Grouping',
-    //     toolbar_button_006: 'Reset',
-    //     toolbar_button_007: 'Fixed Column',
-    // }
+    labels: {
+        filter_select        : 'Select',
+        filter_equal         : 'Equal',
+        filter_notEqual      : 'Does not equal',
+        filter_greater       : 'Greater than',
+        filter_greaterEqual  : 'Greater than or Equal to',
+        filter_less          : 'Less than',
+        filter_lessEqual     : 'Less than or Equal to',
+        filter_between       : 'Between',
+        filter_blank         : 'Blank',
+        filter_include 		 : 'Include',
+        filter_notInclude 	 : 'Not Include',
+        filter_startCharacter: 'Start Characters',
+        filter_endCharacter	 : 'End Characters',
+    }
 };
 tbsGridConfigs.ko = {
     culture: {
@@ -63,14 +69,21 @@ tbsGridConfigs.ko = {
         groupInfoText : '그룹 컬럼을 드래그 하세요.',
         sortInfoText : '소팅 컬럼을 드래그 하세요.'
     },
-    // labels: {
-    //     toolbar_button_001: '',
-    //     toolbar_button_002: '',
-    //     toolbar_button_003: '',
-    //     toolbar_button_004: '',
-    //     toolbar_button_005: '',
-    //     toolbar_button_006: '',
-    //     toolbar_button_007: '',
-    // }
+    labels: {
+        /* Filter Lables */
+        filter_select        : '[선택]',
+        filter_equal         : '같음',
+        filter_notEqual      : '같지 않음',
+        filter_greater       : '보다 큼',
+        filter_greaterEqual  : '크거나 같음',
+        filter_less          : '보다 작음',
+        filter_lessEqual     : '작거나 같음',
+        filter_between       : '범위',
+        filter_blank         : '공백',
+        filter_include 		 : '포함',
+        filter_notInclude 	 : '포함 안함',
+        filter_startCharacter: '시작 문자',
+        filter_endCharacter	 : '끝 문자',
+    }
 };
 

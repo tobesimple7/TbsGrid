@@ -142,11 +142,11 @@ TbsGrid.prototype.tbs_setDataTable = function (param) {
     }
     else if (grid.grid_mode == grid.code_group) {
         if      (panelName == 'panel31') grid.tbs_setDataTable1(param);
-        else if (panelName == 'panel32') grid.tbs_setGroupDataTable2(param);
-        else if (panelName == 'panel30') grid.tbs_setGroupDataTable0(param);
+        else if (panelName == 'panel32') grid.classGroup.setGroupDataTable2(param);
+        else if (panelName == 'panel30') grid.classGroup.setGroupDataTable0(param);
         else if (panelName == 'panel61') { if (grid.fixedRowIndex == -1) return; grid.tbs_setDataTable1(param);}
         else if (panelName == 'panel62') { if (grid.fixedRowIndex == -1) return; grid.tbs_setDataTable2(param);}
-        else if (panelName == 'panel60') { if (grid.fixedRowIndex == -1) return; grid.tbs_setGroupDataTable0(param); }
+        else if (panelName == 'panel60') { if (grid.fixedRowIndex == -1) return; grid.classGroup.setGroupDataTable0(param); }
     }
     else {
         if (panelName == 'panel31') grid.tbs_setDataTable1(param);
@@ -172,7 +172,7 @@ TbsGrid.prototype.tbs_setData = function (data, openDepth = 0, isFirst = true) {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    if (grid.grid_mode == grid.code_group) grid.tbs_setGroupData(data, openDepth, isFirst);
+    if (grid.grid_mode == grid.code_group) grid.classGroup.setGroupData(data, openDepth, isFirst);
     else if (grid.grid_mode == grid.code_tree) grid.tbs_setTreeData(data, openDepth, isFirst);
     else grid.tbs_setGridData(data);
 }

@@ -1,13 +1,16 @@
 /* TbsGrid Config */
 TbsGrid.prototype.setGridConfig = function (tbsGridConfig) {
     this.gridConfig = tbsGridConfig;
-    this.options[this.option_zeroChar]  = this.gridConfig.culture.zeroChar;
-    this.options[this.option_imageRoot] = this.gridConfig.options.imageRoot;
+    //this.options[this.option_zeroChar]  = this.gridConfig.culture.zeroChar;
+    //this.options[this.option_imageRoot] = this.gridConfig.options.imageRoot;
 }
 /* TbsGrid functions */
 TbsGrid.prototype.tbs_click = function (e, grid, row, userFunction) { let val = userFunction(e, grid, row); return val; }
 TbsGrid.prototype.tbs_dblclick = function (e, grid, row, userFunction) { let val = userFunction(e, grid, row); return val; }
 TbsGrid.prototype.tbs_edit = function (e, grid, row, state, userFunction) { let val = userFunction(e, grid, row, state); return val; }
+TbsGrid.prototype.tbs_rowBounding = function (grid, element, row, userFunction) { let val = userFunction(grid, element, row); return val; }
+TbsGrid.prototype.tbs_cellBounding = function (grid, element, row, userFunction) { let val = userFunction(grid, element, row); return val; }
+
 /* User Event */
 TbsGrid.prototype.click = function (userFunction) { this.user_click = userFunction;}
 TbsGrid.prototype.dblclick = function (userFunction) { this.user_dblclick = userFunction;}
@@ -16,6 +19,10 @@ TbsGrid.prototype.edit = function (userFunction) { this.user_edit = userFunction
 TbsGrid.prototype.editStart = function (userFunction) { this.user_editStart = userFunction;}
 TbsGrid.prototype.editing = function (userFunction) { this.user_editing = userFunction;}
 TbsGrid.prototype.editEnd = function (userFunction) { this.user_editEnd = userFunction;}
+
+TbsGrid.prototype.rowBounding = function (userFunction) { this.user_rowBounding = userFunction;}
+TbsGrid.prototype.cellBounding = function (userFunction) { this.user_cellBounding = userFunction;}
+
 /* User Event : Paging */
 TbsGrid.prototype.clickPageFirst = function (userFunction) { this.user_clickPageFirst = userFunction;}
 TbsGrid.prototype.clickPagePrev  = function (userFunction)  { this.user_clickPagePrev  = userFunction;}
@@ -88,6 +95,6 @@ TbsGrid.prototype.setTreeSortColumn = function (sortColumn) { this.tbs_setTreeSo
 /* Page */
 TbsGrid.prototype.setPageOption = function (optionName, optionValue) { this.classPage.tbs_setPageOption(optionName, optionValue); }
 /* Group */
-TbsGrid.prototype.setGroupOption = function (optionName, optionValue) { this.classGroup.tbs_setGroupOption(optionName, optionValue); }
-TbsGrid.prototype.setgroupColumns = function (groupColumns) { this.tbs_setgroupColumns(groupColumns); }
+TbsGrid.prototype.setGroupOption = function (optionName, optionValue) { this.classGroup.setGroupOption(optionName, optionValue); }
+TbsGrid.prototype.setgroupColumns = function (groupColumns) { this.classGroup.setgroupColumns(groupColumns); }
 
