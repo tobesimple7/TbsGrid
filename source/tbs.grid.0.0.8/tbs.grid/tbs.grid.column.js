@@ -538,3 +538,9 @@ TbsGrid.prototype.tbs_removeFixedColumn = function() {
     grid.tbs_apply();
 }
 
+
+/* User Functions */
+TbsGrid.prototype.setFixedColumn = function(fixedColumnIndex) { this.tbs_setFixedColumn(fixedColumnIndex); }
+TbsGrid.prototype.removeFixedColumn = function() { this.tbs_removeFixedColumn(); }
+
+

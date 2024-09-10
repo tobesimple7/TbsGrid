@@ -82,16 +82,15 @@ TbsGrid.prototype.setColumnByType = function (columnType, columnProperty, value)
 TbsGrid.prototype.setTopColumns = function (topColumns) { this.tbs_setTopColumns(topColumns); }
 TbsGrid.prototype.setFooterColumns = function (footerColumns) { this.tbs_setFooterColumns(footerColumns); }
 /* Frozen */
-TbsGrid.prototype.setFrozenColumn = function(fixedColumnIndex) { this.tbs_setFixedColumn(fixedColumnIndex); }
 TbsGrid.prototype.setFrozenRow = function(fixedRowIndex) { let fixedRowCount = fixedRowIndex + 1; this.tbs_setFrozenRow(fixedRowIndex, fixedRowCount); }
-TbsGrid.prototype.removeFrozenColumn = function() { this.tbs_removeFixedColumn(); }
+
 TbsGrid.prototype.removeFrozenRow = function() { this.tbs_removeFrozenRow(); }
 /* Options */
 TbsGrid.prototype.setOption = function (optionName, optionValue) { this.tbs_setOption(optionName, optionValue); }
 TbsGrid.prototype.setOptions = function (options) { this.tbs_setOptions(options); }
 /* Tree */
-TbsGrid.prototype.setTreeOption = function (optionName, optionValue) { this.classTree.tbs_setTreeOption(optionName, optionValue); }
-TbsGrid.prototype.setTreeSortColumn = function (sortColumn) { this.tbs_setTreeSortColumns(sortColumn); }
+TbsGrid.prototype.setTreeOption = function (optionName, optionValue) { this.classTree.setTreeOption(optionName, optionValue); }
+TbsGrid.prototype.setTreeSortColumn = function (sortColumn) { this.classTree.setTreeSortColumns(sortColumn); }
 /* Page */
 TbsGrid.prototype.setPageOption = function (optionName, optionValue) { this.classPage.tbs_setPageOption(optionName, optionValue); }
 

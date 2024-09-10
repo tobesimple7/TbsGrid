@@ -2,6 +2,12 @@
  * tbs.grid.panel30.js
  *
  */
+class TbsGridPanel30 {
+    constructor(grid) {
+        this.grid       = grid;
+        this.selector   = '#' + grid.gridId;
+    }
+}
 TbsGrid.prototype.panel30_select = function(eventPanelName) {
     let selector = '#' + this.gridId;
     let grid = this;
@@ -66,7 +72,7 @@ TbsGrid.prototype.panel30_select = function(eventPanelName) {
             if (!window.event.ctrlKey && !window.event.shiftKey) {
                 if (targetName == 'icon') {
                     if (grid.grid_mode == grid.code_tree) {
-                        grid.tbs_setTreeFolding(tableCell);
+                        grid.classTree.setTreeFolding(tableCell);
                         selectCell(e);
                     }
                     else if (grid.grid_mode == grid.code_group) {

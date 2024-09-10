@@ -1,7 +1,9 @@
-/**
- * tbs.grid.panel10.js
- *
- */
+class TbsGridPanel10 {
+    constructor(grid) {
+        this.grid       = grid;
+        this.selector   = '#' + grid.gridId;
+    }
+}
 TbsGrid.prototype.panel10_init = function(){
     let selector = '#' + this.gridId;
     let grid = this;
@@ -143,3 +145,80 @@ TbsGrid.prototype.panel10_init = function(){
         document.querySelector(selector + ' .tbs-grid-panel10-page-last').addEventListener('mousedown', lastEvent);
 }
 
+TbsGrid.prototype.tbs_showToolbarPanel = function() {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    let panel = document.querySelector(selector + ' .tbs-grid-panel10');
+    panel.classList.remove('tbs-grid-hide');
+    panel.classList.add('tbs-grid-show');
+
+    grid.tbs_removeRange(0, -1);
+    grid.tbs_setPanelSize();
+    //grid.tbs_displayPanel70('panel70');
+    grid.tbs_apply();
+}
+TbsGrid.prototype.tbs_hideToolbarPanel = function() {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    let panel = document.querySelector(selector + ' .tbs-grid-panel10');
+    panel.classList.remove('tbs-grid-show');
+    panel.classList.add('tbs-grid-hide');
+
+    grid.tbs_removeRange(0, -1);
+    grid.tbs_setPanelSize();
+    //grid.tbs_displayPanel70('panel70');
+    grid.tbs_apply();
+}
+
+TbsGrid.prototype.tbs_showToolbarButtons = function(buttonType) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    if (buttonType == 'filter') {
+        let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter');   button.style.display = '';
+        button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter-reset'); button.style.display = '';
+    }
+    else if (buttonType == 'sort') {
+        let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort');  button.style.display = '';
+        button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort-reset');button.style.display = '';
+    }
+    else if (buttonType == 'group') {
+        let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group');  button.style.display = '';
+        button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-expand');button.style.display = '';
+        button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-collapse');button.style.display = '';
+        button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-reset');button.style.display = '';
+    }
+    else if (buttonType == 'fixedColumn') {
+        let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-fixed-column'); button.style.display = '';
+    }
+}
+TbsGrid.prototype.tbs_hideToolbarButtons = function(buttonType) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    if (buttonType == 'filter') {
+        let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter');  button.style.display = 'none';
+        button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter-reset');button.style.display = 'none';
+    }
+    else if (buttonType == 'sort') {
+        let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort');  button.style.display = 'none';
+        button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort-reset');button.style.display = 'none';
+    }
+    else if (buttonType == 'group') {
+        let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group');  button.style.display = 'none';
+        button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-expand');button.style.display = 'none';
+        button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-collapse');button.style.display = 'none';
+        button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-reset');button.style.display = 'none';
+    }
+    else if (buttonType == 'fixedColumn') {
+        let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-fixed-column');button.style.display = 'none';
+    }
+}
+/* User Functions */
+TbsGrid.prototype.showToolbarPanel = function() { this.tbs_showToolbarPanel(); }
+TbsGrid.prototype.hideToolbarPanel = function() { this.tbs_hideToolbarPanel(); }
+
+TbsGrid.prototype.showToolbarButtons = function(buttonType) { this.tbs_showToolbarButtons(buttonType); }
+TbsGrid.prototype.hideToolbarButtons = function(buttonType) { this.tbs_hideToolbarButtons(buttonType); }

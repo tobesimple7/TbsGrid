@@ -4,6 +4,12 @@
  *  header group sorting : deny
  *
  */
+class TbsGridPanel20 {
+    constructor(grid) {
+        this.grid       = grid;
+        this.selector   = '#' + grid.gridId;
+    }
+}
 TbsGrid.prototype.panel20_select = function(panelName) { //type : header, content, left, top
     let selector = '#' + this.gridId;
     let grid = this;

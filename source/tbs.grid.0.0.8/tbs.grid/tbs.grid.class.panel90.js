@@ -3,6 +3,12 @@
  *
  *
  */
+class TbsGridPanel90 {
+    constructor(grid) {
+        this.grid       = grid;
+        this.selector   = '#' + grid.gridId;
+    }
+}
 TbsGrid.prototype.panel90_select = function() { //type : header, content, left, top
     let selector = '#' + this.gridId;
     let grid = this;

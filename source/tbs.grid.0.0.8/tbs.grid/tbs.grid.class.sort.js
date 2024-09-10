@@ -99,8 +99,6 @@ TbsGridSort.prototype.sortJsonData = function (data, sortColumns) {
         }
     });
 }
-
-/* Sort Column API */
 TbsGridSort.prototype.getSortColumn = function (columnName) {
     let selector = this.selector;
     let grid = this.grid;
@@ -129,7 +127,6 @@ TbsGridSort.prototype.getSortColumnName = function (colIndex) {
 
     return grid.classSort.sortColumns[colIndex][grid.column_name];
 }
-
 TbsGridSort.prototype.changeSortButtonOrder = function (name, text, order, targetIndex) {
     let selector = this.selector;
     let grid = this.grid;
@@ -176,7 +173,6 @@ TbsGridSort.prototype.changeSortButtonOrder = function (name, text, order, targe
     grid.classSort.toggleSortPlaceHolder();
     grid.classSort.setSortData(grid.data_user, grid.classSort.sortColumns);
 }
-/* Add Button */
 TbsGridSort.prototype.addSortButton = function (name, text, order, targetIndex) {
     let selector = this.selector;
     let grid = this.grid;
@@ -424,3 +420,5 @@ TbsGrid.prototype.setSort = function (sortColumns, display) {
     //if (grid.grid_mode == grid.code_page) { grid.data_page = grid.tbs_copyJson(grid.data_view); }
     if (display == undefined || display) grid.tbs_displayPanel30(0);
 }
+
+/* User Functions */

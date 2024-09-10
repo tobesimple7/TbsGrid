@@ -1,4 +1,10 @@
-﻿TbsGrid.prototype.panel70_select = function(panelName) {
+﻿class TbsGridPanel70 {
+    constructor(grid) {
+        this.grid       = grid;
+        this.selector   = '#' + grid.gridId;
+    }
+}
+TbsGrid.prototype.panel70_select = function(panelName) {
     let selector = '#' + this.gridId;
     let grid = this;
 

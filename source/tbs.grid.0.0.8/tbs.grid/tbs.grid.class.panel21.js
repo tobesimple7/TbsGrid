@@ -2,6 +2,12 @@
  * tbs.grid.panel21.js
  *
  */
+class TbsGridPanel21 {
+    constructor(grid) {
+        this.grid       = grid;
+        this.selector   = '#' + grid.gridId;
+    }
+}
 TbsGrid.prototype.panel21_select = function() { //type : header, content, left, top
     let selector = '#' + this.gridId;
     let grid = this;
