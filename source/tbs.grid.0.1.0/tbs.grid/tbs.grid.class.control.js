@@ -12,7 +12,7 @@ TbsGridControl.prototype.after_changeColumnOrder = function () {
 
     grid.tbs_removeRange(0, -1);
     grid.tbs_createColumn(grid.headerColumns);
-    grid.tbs_updateGrid(grid.columns);
+    grid.tbs_createGrid(grid.columns);
     let _topRowIndex = grid.tbs_selectRange(0, 0, 0, 0);
     grid.tbs_displayPanel30(_topRowIndex);
     grid.tbs_displayPanel20();
@@ -28,7 +28,7 @@ TbsGridControl.prototype.after_addColumn = function () {
 
     grid.tbs_removeRange(0, -1);
     grid.tbs_createColumn(grid.headerColumns);
-    grid.tbs_updateGrid(grid.columns);
+    grid.tbs_createGrid(grid.columns);
     let _topRowIndex = grid.tbs_selectRange(0, 0, 0, 0);
     grid.tbs_displayPanel30(_topRowIndex);
     grid.tbs_displayPanel20();
@@ -40,7 +40,7 @@ TbsGridControl.prototype.after_removeColumn = function (headerColumns, columns) 
 
     grid.tbs_removeRange(0, -1);
     grid.tbs_createColumn(grid.headerColumns);
-    grid.tbs_updateGrid(grid.columns);
+    grid.tbs_createGrid(grid.columns);
     let _topRowIndex = grid.tbs_selectRange(0, 0, 0, 0);
     grid.tbs_displayPanel30(_topRowIndex);
     grid.tbs_displayPanel20();

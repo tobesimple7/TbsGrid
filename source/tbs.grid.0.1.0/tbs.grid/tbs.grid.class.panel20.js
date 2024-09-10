@@ -57,6 +57,7 @@ TbsGrid.prototype.panel20_select = function(panelName) { //type : header, conten
     };
 
     const mouseMoveEvent = function(e) {
+        debugger;
         e.preventDefault();
         e.stopPropagation(); 
         if (window.event.button === 0) {

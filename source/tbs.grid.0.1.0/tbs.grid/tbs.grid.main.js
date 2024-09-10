@@ -208,7 +208,7 @@ TbsGrid.prototype.tbs_createGrid = function (column) {
     this.tbs_setPanelSize();
     this.tbs_createTable30();
 
-    //this.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
+    this.horizontalScroll.tbs_setScroll(grid.code_horizontal);
     this.tbs_addEventAll();
     //this.tbs_setData([]);
 }
@@ -228,7 +228,7 @@ TbsGrid.prototype.tbs_updateGrid = function (column) {
     this.tbs_setPanelSize();
     this.tbs_createTable30();
 
-    //this.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
+    this.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
     //this.tbs_addEventAll();
     //this.tbs_setData([]);
 }
