@@ -12,7 +12,7 @@ TbsGridControl.prototype.after_changeColumnOrder = function () {
 
     grid.tbs_removeRange(0, -1);
     grid.tbs_createColumn(grid.headerColumns);
-    grid.tbs_createGrid(grid.columns);
+    grid.tbs_updateGrid(grid.columns);
     let _topRowIndex = grid.tbs_selectRange(0, 0, 0, 0);
     grid.tbs_displayPanel30(_topRowIndex);
     grid.tbs_displayPanel20();
@@ -28,7 +28,7 @@ TbsGridControl.prototype.after_addColumn = function () {
 
     grid.tbs_removeRange(0, -1);
     grid.tbs_createColumn(grid.headerColumns);
-    grid.tbs_createGrid(grid.columns);
+    grid.tbs_updateGrid(grid.columns);
     let _topRowIndex = grid.tbs_selectRange(0, 0, 0, 0);
     grid.tbs_displayPanel30(_topRowIndex);
     grid.tbs_displayPanel20();
@@ -40,7 +40,7 @@ TbsGridControl.prototype.after_removeColumn = function (headerColumns, columns) 
 
     grid.tbs_removeRange(0, -1);
     grid.tbs_createColumn(grid.headerColumns);
-    grid.tbs_createGrid(grid.columns);
+    grid.tbs_updateGrid(grid.columns);
     let _topRowIndex = grid.tbs_selectRange(0, 0, 0, 0);
     grid.tbs_displayPanel30(_topRowIndex);
     grid.tbs_displayPanel20();
@@ -121,40 +121,31 @@ TbsGrid.prototype.tbs_setDataTable = function (param) {
 
     let panelName = param.panelName;
     if (grid.grid_mode == grid.code_tree) {
-        if      (panelName == 'panel31') grid.classTree.setTreeDataTable1(param);
-        else if (panelName == 'panel32') grid.classTree.setTreeDataTable2(param);
-        else if (panelName == 'panel30') grid.classTree.setTreeDataTable3(param);
-        else if (panelName == 'panel61') { if (grid.fixedRowIndex == -1) return; grid.classTree.setTreeDataTable1(param); }
-        else if (panelName == 'panel62') { if (grid.fixedRowIndex == -1) return; grid.classTree.setTreeDataTable2(param); }
-        else if (panelName == 'panel60') { if (grid.fixedRowIndex == -1) return; grid.classTree.setTreeDataTable3(param); }
+        if      (panelName == 'panel31') grid.tbs_setDataPanel31(param);
+        else if (panelName == 'panel32') grid.classTree.setTreeDataTable32(param);
+        else if (panelName == 'panel30') grid.classTree.setTreeDataTable30(param);
     }
     else if (grid.grid_mode == grid.code_group) {
-        if      (panelName == 'panel31') grid.tbs_setDataTable1(param);
-        else if (panelName == 'panel32') grid.classGroup.setGroupDataTable2(param);
-        else if (panelName == 'panel30') grid.classGroup.setGroupDataTable0(param);
-        else if (panelName == 'panel61') { if (grid.fixedRowIndex == -1) return; grid.tbs_setDataTable1(param);}
-        else if (panelName == 'panel62') { if (grid.fixedRowIndex == -1) return; grid.tbs_setDataTable2(param);}
-        else if (panelName == 'panel60') { if (grid.fixedRowIndex == -1) return; grid.classGroup.setGroupDataTable0(param); }
+        if      (panelName == 'panel31') grid.tbs_setDataPanel31(param);
+        else if (panelName == 'panel32') grid.classGroup.setGroupDataTable32(param);
+        else if (panelName == 'panel30') grid.classGroup.setGroupDataTable30(param);
     }
     else {
-        if (panelName == 'panel31') grid.tbs_setDataTable1(param);
-        else if (panelName == 'panel32') grid.tbs_setDataTable2(param);
-        else if (panelName == 'panel30') grid.tbs_setDataTable0(param);
-        else if (panelName == 'panel61') { if (grid.fixedRowIndex == -1) return; grid.tbs_setDataTable1(param); }
-        else if (panelName == 'panel62') { if (grid.fixedRowIndex == -1) return; grid.tbs_setDataTable2(param); }
-        else if (panelName == 'panel60') { if (grid.fixedRowIndex == -1) return; grid.tbs_setDataTable0(param); }
+        if      (panelName == 'panel31') grid.tbs_setDataPanel31(param);
+        else if (panelName == 'panel32') grid.tbs_setDataPanel32(param);
+        else if (panelName == 'panel30') grid.tbs_setDataPanel30(param);
     }
-         if (panelName == 'panel41') grid.tbs_setDataTopTable1();
-    else if (panelName == 'panel42') grid.tbs_setDataTopTable2();
-    else if (panelName == 'panel40') grid.tbs_setDataTopTable0();
-    else if (panelName == 'panel51') grid.tbs_setDataFooterTable1();
-    else if (panelName == 'panel52') grid.tbs_setDataFooterTable2();
-    else if (panelName == 'panel50') grid.tbs_setDataFooterTable0();
-    else if (panelName == 'panel21') grid.tbs_setDataHeaderTable1(param);
-    else if (panelName == 'panel22') grid.tbs_setDataHeaderTable2(param);
-    else if (panelName == 'panel20') grid.tbs_setDataHeaderTable0(param);
-    else if (panelName == 'panel72') grid.tbs_setDataFilterTable2(param);
-    else if (panelName == 'panel70') grid.tbs_setDataFilterTable0(param);
+         if (panelName == 'panel41') grid.tbs_setDataPanel41();
+    else if (panelName == 'panel42') grid.tbs_setDataPanel42();
+    else if (panelName == 'panel40') grid.tbs_setDataPanel40();
+    else if (panelName == 'panel51') grid.tbs_setDataPanel51();
+    else if (panelName == 'panel52') grid.tbs_setDataPanel52();
+    else if (panelName == 'panel50') grid.tbs_setDataPanel50();
+    else if (panelName == 'panel21') grid.tbs_setDataPanel21(param);
+    else if (panelName == 'panel22') grid.tbs_setDataPanel22(param);
+    else if (panelName == 'panel20') grid.tbs_setDataPanel20(param);
+    else if (panelName == 'panel72') grid.tbs_setDataPanel72(param);
+    else if (panelName == 'panel70') grid.tbs_setDataPanel70(param);
 }
 TbsGrid.prototype.tbs_setData = function (data, openDepth = 0, isFirst = true) {
     let selector = '#' + this.gridId;

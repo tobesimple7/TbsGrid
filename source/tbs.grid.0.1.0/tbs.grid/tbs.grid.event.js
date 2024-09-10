@@ -14,9 +14,6 @@ TbsGrid.prototype.tbs_addEventAll = function() {
     this.panel31_select('panel31');
     this.panel30_select('panel32');
 
-    this.panel30_select('panel60');
-    this.panel31_select('panel61');
-
     this.panel40_select('panel40');
     this.panel41_select('panel41');
     this.panel40_select('panel42');
@@ -27,8 +24,8 @@ TbsGrid.prototype.tbs_addEventAll = function() {
 
     this.panel70_select('panel70');
     this.panel70_select('panel72');
-    this.panel80_select();
-    this.panel90_select();
+    // this.panel80_select();
+    // this.panel90_select();
 
     //================================================================== select event
     this.event_wheel();
@@ -44,7 +41,7 @@ TbsGrid.prototype.tbs_addEventAll = function() {
     this.event_input_icon();
     this.event_checkBox();
 
-    this.panel10_init(); //2024-07-02
+
 
     this.event_mobileTouchDrag();
 
@@ -87,20 +84,20 @@ TbsGrid.prototype.tbs_addEventAll = function() {
     });
 
     // @deprecated
-    const bodyMouseDownEvent = function(e) {
-        let name = e.target.className;
-        //console.log('body: ' + name)
-        if (name.indexOf('tbs-grid-panel10-filter-input') == -1
-            && name.indexOf('tbs-grid-cell-filter-input') == -1
-            && name.indexOf('tbs-grid-input') == -1
-            && name.indexOf('tbs-grid-cell-filter-input') == -1
-            && name.indexOf('tbs-grid-cell-filter-combo') == -1
-            && (name.indexOf('tbs-grid-date') == -1 && name.indexOf('tbs-grid-combo') == -1)) {
-            let input = document.querySelector(selector + ' .tbs-grid-input');
-        }
-    };
-    document.body.addEventListener('mousedown', bodyMouseDownEvent);
-    //==================================================================
+    // const bodyMouseDownEvent = function(e) {
+    //     let name = e.target.className;
+    //     //console.log('body: ' + name)
+    //     if (name.indexOf('tbs-grid-panel10-filter-input') == -1
+    //         && name.indexOf('tbs-grid-cell-filter-input') == -1
+    //         && name.indexOf('tbs-grid-input') == -1
+    //         && name.indexOf('tbs-grid-cell-filter-input') == -1
+    //         && name.indexOf('tbs-grid-cell-filter-combo') == -1
+    //         && (name.indexOf('tbs-grid-date') == -1 && name.indexOf('tbs-grid-combo') == -1)) {
+    //         let input = document.querySelector(selector + ' .tbs-grid-input');
+    //     }
+    // };
+    // document.body.addEventListener('mousedown', bodyMouseDownEvent);
+
     const mouseDownGridEvent = function(e) {
 
         let name = e.target.className;

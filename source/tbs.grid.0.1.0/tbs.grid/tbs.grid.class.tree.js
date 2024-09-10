@@ -178,19 +178,13 @@ TbsGridTree.prototype.setTreeData = function (data, openDepth  = 0, isFirst = tr
     let _topRowIndex = grid.tbs_selectRange(0, 0, 0, 0);
     grid.tbs_displayPanel30(_topRowIndex);
 }
-TbsGridTree.prototype.setTreeDataTable1 = function (param) {
+TbsGridTree.prototype.setTreeDataTable32 = function (param) {
     let selector = this.selector;
     let grid = this.grid;
 
-    grid.tbs_setDataTable1(param);
+    grid.tbs_setDataPanel32(param);
 }
-TbsGridTree.prototype.setTreeDataTable2 = function (param) {
-    let selector = this.selector;
-    let grid = this.grid;
-
-    grid.tbs_setDataTable2(param);
-}
-TbsGridTree.prototype.setTreeDataTable3 = function (param) {
+TbsGridTree.prototype.setTreeDataTable30 = function (param) {
     let selector = this.selector;
     let grid = this.grid;
 
@@ -230,11 +224,8 @@ TbsGridTree.prototype.setTreeDataTable3 = function (param) {
 
             let column = grid.columns[x];
             let columnName = column[grid.column_name];
-            //let layout = grid.tbs_getLayout(i, column[grid.column_name]);
-            //let colValue = layout[grid.layout_text];
             let colValue = grid.tbs_getText(i, columnName);
             let divCell = tableCell.childNodes[0];
-            // When x == startColumnIndex, tree icon
 
             // open all
             if (x == startColumnIndex) {
@@ -277,31 +268,6 @@ TbsGridTree.prototype.setTreeDataTable3 = function (param) {
 
     // panel21 : display rowCount
     if (param.panelName == 'panel30') document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = grid.tbs_getRowCount();
-}
-TbsGridTree.prototype.setTreeDataSummaryTable = function (param) {
-    let selector = this.selector;
-    let grid = this.grid;
-
-    grid.tbs_setDataSummaryTable(param);
-}
-TbsGridTree.prototype.setTreeDataHeaderTable1 = function(param) {
-    let selector = this.selector;
-    let grid = this.grid;
-
-    grid.tbs_setDataHeaderTable1(param);
-}
-TbsGridTree.prototype.setTreeDataHeaderTable2 = function(param) {
-    let selector = this.selector;
-    let grid = this.grid;
-
-    grid.tbs_setDataHeaderTable2(param);
-
-}
-TbsGridTree.prototype.setTreeDataHeaderTable3 = function(param) {
-    let selector = this.selector;
-    let grid = this.grid;
-
-    grid.tbs_setDataHeaderTable0(param);
 }
 TbsGridTree.prototype.setTreeIcon = function (tableCell, rowIndex) {
     let selector = this.selector;
@@ -463,5 +429,6 @@ TbsGridTree.prototype.removeTreeRow = function (row) {
 }
 
 /* User Functions */
-
+TbsGrid.prototype.setTreeOption = function (optionName, optionValue) { this.classTree.setTreeOption(optionName, optionValue); }
+TbsGrid.prototype.setTreeSortColumn = function (sortColumn) { this.classTree.setTreeSortColumns(sortColumn); }
 

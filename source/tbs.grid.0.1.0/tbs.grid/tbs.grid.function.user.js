@@ -88,9 +88,7 @@ TbsGrid.prototype.removeFrozenRow = function() { this.tbs_removeFrozenRow(); }
 /* Options */
 TbsGrid.prototype.setOption = function (optionName, optionValue) { this.tbs_setOption(optionName, optionValue); }
 TbsGrid.prototype.setOptions = function (options) { this.tbs_setOptions(options); }
-/* Tree */
-TbsGrid.prototype.setTreeOption = function (optionName, optionValue) { this.classTree.setTreeOption(optionName, optionValue); }
-TbsGrid.prototype.setTreeSortColumn = function (sortColumn) { this.classTree.setTreeSortColumns(sortColumn); }
+
 /* Page */
 TbsGrid.prototype.setPageOption = function (optionName, optionValue) { this.classPage.tbs_setPageOption(optionName, optionValue); }
 

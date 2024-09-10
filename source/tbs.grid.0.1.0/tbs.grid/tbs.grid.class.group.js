@@ -512,7 +512,7 @@ TbsGridGroup.prototype.removeGroupRow = function (row) {
     grid.data_select_panel31 = [];
 }
 /* Group Data In Table */
-TbsGridGroup.prototype.setGroupDataTable2 = function (param) {
+TbsGridGroup.prototype.setGroupDataTable32 = function (param) {
     let selector = this.selector;
     let grid = this.grid;
 
@@ -557,7 +557,7 @@ TbsGridGroup.prototype.setGroupDataTable2 = function (param) {
     // hidden : Unnecessary tableRows
     grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, grid.pageRowCount);
 }
-TbsGridGroup.prototype.setGroupDataTable0 = function (param) {
+TbsGridGroup.prototype.setGroupDataTable30 = function (param) {
     let selector = this.selector;
     let grid = this.grid;
 
@@ -840,7 +840,7 @@ TbsGridGroup.prototype.initGroupData = function () {
     let selector = this.selector;
     let grid = this.grid;
 
-    grid.tbs_setgroupColumns([]);
+    grid.classGroup.setGroupColumns([]);
     grid.tbs_removeRange(0, -1);
     grid.tbs_setPanelSize();
     grid.verticalScroll.tbs_setScroll(grid.code_vertical);

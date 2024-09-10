@@ -77,218 +77,8 @@ TbsGrid.prototype.tbs_displayPanel70 = function (panel) {
 
 //================================================================
 
-TbsGrid.prototype.tbs_setDataTable1 = function (param) {
-    //console.log('tbs_setDataTable1');
-    let selector = '#' + this.gridId;
-    let grid = this;
-
-    let panelName = param.panelName;
-    if (panelName == 'panel61') { if (grid.fixedRowIndex == -1) return; }
-
-    if (grid.fixedRowIndex != -1) {
-        let topRowIndex = this.tbs_validateTopRowIndex(panelName, param.topRowIndex);
-        let bottomRowIndex = this.tbs_validateBottomRowIndex(panelName, topRowIndex);
-
-        let pageRowCount = this.tbs_getPageRowCount(panelName);
-        let rowHeight = this.rowHeight;
-
-        let tableRows= document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
-
-        //startColumnIndex, lastColumIndex
-        let result = this.tbs_getDisplayedHeaderColumn();
-        let startColumnIndex= result.startColumnIndex;
-        let lastColumnIndex = result.lastColumnIndex;
-
-        let tableRowIndex = 0;
-        for (let i = topRowIndex; i < bottomRowIndex + 1; i++) {
-            if (i > this.tbs_getRowCount() - 1) break;
-
-            let tableRow = tableRows[tableRowIndex];
-
-            /* Render: TableRow */
-            grid.classRender.setTableRow(tableRow, i, panelName);
-
-            let row = this.tbs_getRow(i);
-            let tableCell = tableRow.childNodes[0];
-            tableCell.dataset.rowIndex = i;
-            tableCell.dataset.displayRowIndex = i - (grid.fixedRowIndex + 1);
-
-            let selectedValue = this.tbs_isSelectedCell(panelName, i, 0);
-            if (selectedValue == 1) tableCell.classList.add('tbs-grid-cell-select');
-
-            if (tableCell.childNodes[0].textContent != (i + 1).toString()) tableCell.childNodes[0].textContent = (i + 1).toString();
-            if (this.options[grid.option_rowMode] ) tableRow.childNodes[1].childNodes[0].textContent = (row[grid.code_mode] != '' && row[grid.code_mode] != 'S') ? row[grid.code_mode] : '';
-            if (this.options[grid.option_checkbox]) tableRow.childNodes[2].childNodes[0].childNodes[0].checked = (row['check'] == undefined) ? false : row['check'];
-
-            tableRowIndex += 1;
-        }
-        // hidden : Unnecessary tableRows
-        grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, this.pageRowCount);
-    }
-    else {
-        let topRowIndex = this.tbs_validateTopRowIndex(panelName, param.topRowIndex);
-        let bottomRowIndex = this.tbs_validateBottomRowIndex(panelName, topRowIndex);
-
-        let pageRowCount = this.tbs_getPageRowCount(panelName);
-        let rowHeight = this.rowHeight;
-
-        let tableRows= document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
-
-        //startColumnIndex, lastColumIndex
-        let result = this.tbs_getDisplayedHeaderColumn();
-        let startColumnIndex= result.startColumnIndex;
-        let lastColumnIndex = result.lastColumnIndex;
-
-        let tableRowIndex = 0;
-        for (let i = topRowIndex; i < bottomRowIndex + 1; i++) {
-            if (i > this.tbs_getRowCount() - 1) break;
-
-            let tableRow = tableRows[tableRowIndex];
-
-            /* Render: TableRow */
-            grid.classRender.setTableRow(tableRow, i, panelName);
-
-            let row = this.tbs_getRow(i);
-            let tableCell = tableRow.childNodes[0];
-            tableCell.dataset.rowIndex = i;
-            tableCell.dataset.displayRowIndex = i;
-
-            tableRow.childNodes[0].dataset.cellType = 'number';
-
-            let selectedValue = this.tbs_isSelectedCell(panelName, i, 0);
-            if (selectedValue == 1) tableCell.classList.add('tbs-grid-cell-select');
-            if (grid.grid_mode == grid.code_page) {
-                tableCell.childNodes[0].textContent = grid.classPage.startRowIndex + i + 1;
-            }
-            else {
-                if (tableCell.childNodes[0].textContent != (i + 1).toString()) tableCell.childNodes[0].textContent = (i + 1).toString();
-            }
-
-            if (this.options[grid.option_rowMode] ) {
-                tableRow.childNodes[1].childNodes[0].textContent = (row[grid.code_mode] != '' && row[grid.code_mode] != 'S') ? row[grid.code_mode] : '';
-                tableRow.childNodes[1].dataset.cellType = 'mode';
-            }
-            if (this.options[grid.option_checkbox]) {
-                tableRow.childNodes[2].childNodes[0].childNodes[0].checked = (row['check'] == undefined) ? false : row['check'];
-                tableRow.childNodes[2].dataset.cellType = 'checkbox';
-            }
-
-            tableRowIndex += 1;
-        }
-        // hidden : Unnecessary tableRows
-        grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, this.pageRowCount);
-    }
-
-}
-TbsGrid.prototype.tbs_setDataTable2 = function (param) {
-    let selector = '#' + this.gridId;
-    let grid = this;
-
-    if (this.fixedColumnIndex == -1) return;
-
-    let panelName = param.panelName;
-
-    let topRowIndex = this.tbs_validateTopRowIndex(panelName, param.topRowIndex);
-    let bottomRowIndex = this.tbs_validateBottomRowIndex(panelName, topRowIndex);
-
-    //startColumnIndex, lastColumIndex
-    let result = this.tbs_getDisplayedHeaderColumn(panelName);
-    let startColumnIndex= result.startColumnIndex;
-    let lastColumnIndex = result.lastColumnIndex;
-
-    /* table thead */
-    grid.classRender.setTableHead(panelName);
-
-    /* table tbody */
-    let tableRows= document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
-    let tableRowIndex = 0;
-    for (let i = topRowIndex; i < bottomRowIndex + 1; i++) {
-        let tableRow = tableRows[tableRowIndex];
-
-        /* Render: TableRow */
-        grid.classRender.setTableRow(tableRow, i, panelName);
-
-        for (let x = 0; x <= lastColumnIndex; x++) {
-            let tableCell = tableRow.childNodes[x];
-
-            if (x > this.fixedColumnIndex && x < startColumnIndex) continue;
-            if (x <= this.fixedColumnIndex) tableCell = tableRow.childNodes[x];
-
-            /* Render: Start */
-            grid.classRender.start(panelName, tableCell, grid.columns[x], i, x);
-
-            /* Render: Show Selected Cells */
-            grid.classRender.showSelectedCells(panelName, tableCell, i, x);
-        }
-        tableRowIndex += 1;
-    }
-    // hidden : Unnecessary tableRows
-    grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, this.pageRowCount);
-
-    // panel32 : display rowCount
-    if (param.panelName == 'panel32') {
-        let rowCount = grid.tbs_getRowCount();
-        if (grid.grid_mode == grid.code_page) rowCount = grid.data_page.length;
-        document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = rowCount;
-    }
-}
-TbsGrid.prototype.tbs_setDataTable0 = function (param) {
-    let selector = '#' + this.gridId;
-    let grid = this;
-
-    let panelName = param.panelName;
-    if (panelName == 'panel60') { if (grid.fixedRowIndex == -1) return; }
-
-    let topRowIndex = grid.tbs_validateTopRowIndex(panelName, param.topRowIndex);
-    let bottomRowIndex = grid.tbs_validateBottomRowIndex(panelName, topRowIndex);
-
-    let result = grid.tbs_getDisplayedHeaderColumn();
-    let startColumnIndex= result.startColumnIndex;
-    let lastColumnIndex = result.lastColumnIndex;
-
-    /* table thead */
-    grid.classRender.setTableHead(panelName);
-
-    /* table tbody */
-    let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
-    let tableRowIndex = 0;
-    for (let i = topRowIndex; i < bottomRowIndex + 1; i++) {
-
-        let tableRow = tableRows[tableRowIndex];
-
-        /* Render: TableRow */
-        grid.classRender.setTableRow(tableRow, i, panelName);
-
-        for (let x = 0; x <= lastColumnIndex; x++) {
-            let tableCell = tableRow.childNodes[x]; //content tr > tableCell
-            if (this.fixedColumnIndex != -1 && x <= this.fixedColumnIndex) continue;
-
-            /* Render: Start */
-            grid.classRender.start(panelName, tableCell, grid.columns[x], i, x);
-
-            /* Render: Show Selected Cells */
-            grid.classRender.showSelectedCells(panelName, tableCell, i, x);
-        }
-
-        // on fixed columns
-        grid.classRender.hideTableCells(panelName, tableRow, lastColumnIndex);
-
-        tableRowIndex += 1;
-    }
-    // hide Unnecessary tableRows
-    let pageRowCount = grid.tbs_getPageRowCount(panelName);
-    grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, pageRowCount);
-
-    // panel30 : display rowCount
-    if (param.panelName == 'panel30') {
-        let rowCount = grid.tbs_getRowCount();
-        if (grid.grid_mode == grid.code_page) rowCount = grid.data_page.length;
-        document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = rowCount;
-    }
-}
-
-TbsGrid.prototype.tbs_setDataHeaderTable1 = function(param) {}
-TbsGrid.prototype.tbs_setDataHeaderTable2 = function(param) {
+TbsGrid.prototype.tbs_setDataPanel21 = function(param) {}
+TbsGrid.prototype.tbs_setDataPanel22 = function(param) {
     //param : { panelName }
     let selector = '#' + this.gridId;
     let grid = this;
@@ -347,12 +137,13 @@ TbsGrid.prototype.tbs_setDataHeaderTable2 = function(param) {
         }
     }
 }
-TbsGrid.prototype.tbs_setDataHeaderTable0 = function(param) {
+TbsGrid.prototype.tbs_setDataPanel20 = function(param) {
     //param : { panelName }
     let selector = '#' + this.gridId;
     let grid = this;
 
     let panelName = param.panelName;
+
     /* table thead */
     grid.classRender.setTableHead(panelName);
 
@@ -412,9 +203,217 @@ TbsGrid.prototype.tbs_setDataHeaderTable0 = function(param) {
         }
     }
 }
-//================================================================
 
-TbsGrid.prototype.tbs_setDataTopTable1 = function () {
+TbsGrid.prototype.tbs_setDataPanel31 = function (param) {
+    //console.log('tbs_setDataPanel31');
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    let panelName = param.panelName;
+    if (panelName == 'panel61') { if (grid.fixedRowIndex == -1) return; }
+
+    if (grid.fixedRowIndex != -1) {
+        let topRowIndex = this.tbs_validateTopRowIndex(panelName, param.topRowIndex);
+        let bottomRowIndex = this.tbs_validateBottomRowIndex(panelName, topRowIndex);
+
+        let pageRowCount = this.tbs_getPageRowCount(panelName);
+        let rowHeight = this.rowHeight;
+
+        let tableRows= document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
+
+        //startColumnIndex, lastColumIndex
+        let result = grid.tbs_getDisplayedHeaderColumn();
+        let startColumnIndex= result.startColumnIndex;
+        let lastColumnIndex = result.lastColumnIndex;
+
+        let tableRowIndex = 0;
+        for (let i = topRowIndex; i < bottomRowIndex + 1; i++) {
+            if (i > this.tbs_getRowCount() - 1) break;
+
+            let tableRow = tableRows[tableRowIndex];
+
+            /* Render: TableRow */
+            grid.classRender.setTableRow(tableRow, i, panelName);
+
+            let row = this.tbs_getRow(i);
+            let tableCell = tableRow.childNodes[0];
+            tableCell.dataset.rowIndex = i;
+            tableCell.dataset.displayRowIndex = i - (grid.fixedRowIndex + 1);
+
+            let selectedValue = this.tbs_isSelectedCell(panelName, i, 0);
+            if (selectedValue == 1) tableCell.classList.add('tbs-grid-cell-select');
+
+            if (tableCell.childNodes[0].textContent != (i + 1).toString()) tableCell.childNodes[0].textContent = (i + 1).toString();
+            if (this.options[grid.option_rowMode] ) tableRow.childNodes[1].childNodes[0].textContent = (row[grid.code_mode] != '' && row[grid.code_mode] != 'S') ? row[grid.code_mode] : '';
+            if (this.options[grid.option_checkbox]) tableRow.childNodes[2].childNodes[0].childNodes[0].checked = (row['check'] == undefined) ? false : row['check'];
+
+            tableRowIndex += 1;
+        }
+        // hidden : Unnecessary tableRows
+        grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, this.pageRowCount);
+    }
+    else {
+        let topRowIndex = this.tbs_validateTopRowIndex(panelName, param.topRowIndex);
+        let bottomRowIndex = this.tbs_validateBottomRowIndex(panelName, topRowIndex);
+
+        let pageRowCount = this.tbs_getPageRowCount(panelName);
+        let rowHeight = this.rowHeight;
+
+        let tableRows= document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
+
+        //startColumnIndex, lastColumIndex
+        let result = grid.tbs_getDisplayedHeaderColumn();
+        let startColumnIndex= result.startColumnIndex;
+        let lastColumnIndex = result.lastColumnIndex;
+
+        let tableRowIndex = 0;
+        for (let i = topRowIndex; i < bottomRowIndex + 1; i++) {
+            if (i > this.tbs_getRowCount() - 1) break;
+
+            let tableRow = tableRows[tableRowIndex];
+
+            /* Render: TableRow */
+            grid.classRender.setTableRow(tableRow, i, panelName);
+
+            let row = this.tbs_getRow(i);
+            let tableCell = tableRow.childNodes[0];
+            tableCell.dataset.rowIndex = i;
+            tableCell.dataset.displayRowIndex = i;
+
+            tableRow.childNodes[0].dataset.cellType = 'number';
+
+            let selectedValue = this.tbs_isSelectedCell(panelName, i, 0);
+            if (selectedValue == 1) tableCell.classList.add('tbs-grid-cell-select');
+            if (grid.grid_mode == grid.code_page) {
+                tableCell.childNodes[0].textContent = grid.classPage.startRowIndex + i + 1;
+            }
+            else {
+                if (tableCell.childNodes[0].textContent != (i + 1).toString()) tableCell.childNodes[0].textContent = (i + 1).toString();
+            }
+
+            if (this.options[grid.option_rowMode] ) {
+                tableRow.childNodes[1].childNodes[0].textContent = (row[grid.code_mode] != '' && row[grid.code_mode] != 'S') ? row[grid.code_mode] : '';
+                tableRow.childNodes[1].dataset.cellType = 'mode';
+            }
+            if (this.options[grid.option_checkbox]) {
+                tableRow.childNodes[2].childNodes[0].childNodes[0].checked = (row['check'] == undefined) ? false : row['check'];
+                tableRow.childNodes[2].dataset.cellType = 'checkbox';
+            }
+
+            tableRowIndex += 1;
+        }
+        // hidden : Unnecessary tableRows
+        grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, this.pageRowCount);
+    }
+
+}
+TbsGrid.prototype.tbs_setDataPanel32 = function (param) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    if (this.fixedColumnIndex == -1) return;
+
+    let panelName = param.panelName;
+
+    let topRowIndex = this.tbs_validateTopRowIndex(panelName, param.topRowIndex);
+    let bottomRowIndex = this.tbs_validateBottomRowIndex(panelName, topRowIndex);
+
+    //startColumnIndex, lastColumIndex
+    let result = grid.tbs_getDisplayedHeaderColumn(panelName);
+    let startColumnIndex= result.startColumnIndex;
+    let lastColumnIndex = result.lastColumnIndex;
+
+    /* table thead */
+    grid.classRender.setTableHead(panelName);
+
+    /* table tbody */
+    let tableRows= document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
+    let tableRowIndex = 0;
+    for (let i = topRowIndex; i < bottomRowIndex + 1; i++) {
+        let tableRow = tableRows[tableRowIndex];
+
+        /* Render: TableRow */
+        grid.classRender.setTableRow(tableRow, i, panelName);
+
+        for (let x = 0; x <= lastColumnIndex; x++) {
+            let tableCell = tableRow.childNodes[x];
+
+            if (x > this.fixedColumnIndex && x < startColumnIndex) continue;
+            if (x <= this.fixedColumnIndex) tableCell = tableRow.childNodes[x];
+
+            /* Render: Start */
+            grid.classRender.start(panelName, tableCell, grid.columns[x], i, x);
+
+            /* Render: Show Selected Cells */
+            grid.classRender.showSelectedCells(panelName, tableCell, i, x);
+        }
+        tableRowIndex += 1;
+    }
+    // hidden : Unnecessary tableRows
+    grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, this.pageRowCount);
+
+    // panel32 : display rowCount
+    if (param.panelName == 'panel32') {
+        let rowCount = grid.tbs_getRowCount();
+        if (grid.grid_mode == grid.code_page) rowCount = grid.data_page.length;
+        document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = rowCount;
+    }
+}
+TbsGrid.prototype.tbs_setDataPanel30 = function (param) {
+    let selector = '#' + this.gridId;
+    let grid = this;
+
+    let panelName = param.panelName;
+
+    let topRowIndex = grid.tbs_validateTopRowIndex(panelName, param.topRowIndex);
+    let bottomRowIndex = grid.tbs_validateBottomRowIndex(panelName, topRowIndex);
+
+    let result = grid.tbs_getDisplayedHeaderColumn();
+    let startColumnIndex= result.startColumnIndex;
+    let lastColumnIndex = result.lastColumnIndex;
+
+    /* table thead */
+    grid.classRender.setTableHead(panelName);
+
+    /* table tbody */
+    let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
+    let tableRowIndex = 0;
+    for (let i = topRowIndex; i < bottomRowIndex + 1; i++) {
+
+        let tableRow = tableRows[tableRowIndex];
+
+        /* Render: TableRow */
+        grid.classRender.setTableRow(tableRow, i, panelName);
+
+        for (let x = 0; x <= lastColumnIndex; x++) {
+            let tableCell = tableRow.childNodes[x]; //content tr > tableCell
+            if (this.fixedColumnIndex != -1 && x <= this.fixedColumnIndex) continue;
+
+            /* Render: Start */
+            grid.classRender.start(panelName, tableCell, grid.columns[x], i, x);
+
+            /* Render: Show Selected Cells */
+            grid.classRender.showSelectedCells(panelName, tableCell, i, x);
+        }
+
+        // on fixed columns
+        grid.classRender.hideTableCells(panelName, tableRow, lastColumnIndex);
+
+        tableRowIndex += 1;
+    }
+    // hide Unnecessary tableRows
+    let pageRowCount = grid.tbs_getPageRowCount(panelName);
+    grid.classRender.hideTableRows(panelName, tableRows, tableRowIndex, pageRowCount);
+
+    // panel30 : display rowCount
+    if (param.panelName == 'panel30') {
+        let rowCount = grid.tbs_getRowCount();
+        if (grid.grid_mode == grid.code_page) rowCount = grid.data_page.length;
+        document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = rowCount;
+    }
+}
+
+TbsGrid.prototype.tbs_setDataPanel41 = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
@@ -431,7 +430,7 @@ TbsGrid.prototype.tbs_setDataTopTable1 = function () {
     if (tableRows.length == 0) return;
 
     //startColumnIndex, lastColumIndex
-    let result = this.tbs_getDisplayedHeaderColumn();
+    let result = grid.tbs_getDisplayedHeaderColumn();
     let startColumnIndex= result.startColumnIndex;
     let lastColumnIndex = result.lastColumnIndex;
 
@@ -451,7 +450,7 @@ TbsGrid.prototype.tbs_setDataTopTable1 = function () {
        grid.classRender.showSelectedCells(panelName, tableCell, 0, i);
     }
 }
-TbsGrid.prototype.tbs_setDataTopTable2 = function () {
+TbsGrid.prototype.tbs_setDataPanel42 = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
@@ -484,7 +483,7 @@ TbsGrid.prototype.tbs_setDataTopTable2 = function () {
     // on fixed columns
     grid.classRender.hideTableCells(panelName, tableRow, lastColumnIndex);
 }
-TbsGrid.prototype.tbs_setDataTopTable0 = function () {
+TbsGrid.prototype.tbs_setDataPanel40 = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
@@ -522,7 +521,7 @@ TbsGrid.prototype.tbs_setDataTopTable0 = function () {
     grid.classRender.hideTableCells(panelName, tableRow, lastColumnIndex);
 }
 
-TbsGrid.prototype.tbs_setDataFooterTable1 = function () {
+TbsGrid.prototype.tbs_setDataPanel51 = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
@@ -539,7 +538,7 @@ TbsGrid.prototype.tbs_setDataFooterTable1 = function () {
     if (tableRows.length == 0) return;
 
     //startColumnIndex, lastColumIndex
-    let result = this.tbs_getDisplayedHeaderColumn();
+    let result = grid.tbs_getDisplayedHeaderColumn();
     let startColumnIndex= result.startColumnIndex;
     let lastColumnIndex = result.lastColumnIndex;
 
@@ -559,7 +558,7 @@ TbsGrid.prototype.tbs_setDataFooterTable1 = function () {
        grid.classRender.showSelectedCells(panelName, tableCell, 0, i);
     }
 }
-TbsGrid.prototype.tbs_setDataFooterTable2 = function () {
+TbsGrid.prototype.tbs_setDataPanel52 = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
@@ -592,7 +591,7 @@ TbsGrid.prototype.tbs_setDataFooterTable2 = function () {
     // on fixed columns
     grid.classRender.hideTableCells(panelName, tableRow, lastColumnIndex);
 }
-TbsGrid.prototype.tbs_setDataFooterTable0 = function () {
+TbsGrid.prototype.tbs_setDataPanel50 = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
@@ -630,17 +629,12 @@ TbsGrid.prototype.tbs_setDataFooterTable0 = function () {
     grid.classRender.hideTableCells(panelName, tableRow, lastColumnIndex);
 }
 
-//================================================================
-
-TbsGrid.prototype.tbs_setDataFilterTable1 = function (param) {
+TbsGrid.prototype.tbs_setDataPanel71 = function (param) {
     // param : { panelName, summaryColumns }
 
     // init value
     let selector = '#' + this.gridId;
     let grid = this;
-
-    //if (grid.empty(grid.focusControl)) console.log('tbs_setDataFilterTable0 ' + grid.empty(grid.focusControl));
-    //else return;
 
     let panelName = param.panelName;
     if (grid.options[grid.option_showFilterPanel] != true) return;
@@ -700,7 +694,7 @@ TbsGrid.prototype.tbs_setDataFilterTable1 = function (param) {
     }
     //grid.panel70_select('panel70');
 }
-TbsGrid.prototype.tbs_setDataFilterTable2 = function (param) {
+TbsGrid.prototype.tbs_setDataPanel72 = function (param) {
     let selector = '#' + this.gridId;
     let grid = this;
 
@@ -766,7 +760,7 @@ TbsGrid.prototype.tbs_setDataFilterTable2 = function (param) {
     /* on fixed columns */
     grid.classRender.hideTableCells(panelName, tableRow, lastColumnIndex);
 }
-TbsGrid.prototype.tbs_setDataFilterTable0 = function (param) {
+TbsGrid.prototype.tbs_setDataPanel70 = function (param) {
     let selector = '#' + this.gridId;
     let grid = this;
 
@@ -1153,7 +1147,6 @@ TbsGrid.prototype.tbs_displayOneSelection = function (startRowIndex, startRowInd
     let trFixLeftList   = document.querySelectorAll(selector + ' .tbs-grid-panel61   .tbs-grid-table tbody tr');
     let trContentList 	= document.querySelectorAll(selector + ' .tbs-grid-panel30   .tbs-grid-table tbody tr');
     let trFixBottomtList= document.querySelectorAll(selector + ' .tbs-grid-panel32 .tbs-grid-table tbody tr');
-    let trFixRightList 	= document.querySelectorAll(selector + ' .tbs-grid-panel60  .tbs-grid-table tbody tr');
 
     count = topRowIndex + this.pageRowCount;
     //=============================================================

@@ -1,7 +1,19 @@
-﻿class TbsGridPanel70 {
-    constructor(grid) {
-        this.grid       = grid;
-        this.selector   = '#' + grid.gridId;
+﻿class TbsGridPanel70 extends TbsGridPanelBase {
+    createHtml(parentElement) {
+        let grid = this.grid;
+        let s = '';
+        s += '<div class="tbs-grid-group71">';
+            s += '<div class="tbs-grid-panel">';
+            s += '<div class="tbs-grid-panel71"><table class="tbs-grid-table"></table></div>';
+            s += '<div class="tbs-grid-panel72"><table class="tbs-grid-table"></table></div>';
+            s += '</div>';
+        s += '</div>';
+        s += '<div class="tbs-grid-group70">';
+            s += '<div class="tbs-grid-panel">';
+            s += '<div class="tbs-grid-panel70"><table class="tbs-grid-table"></table></div>';
+            s += '</div>';
+        s += '</div>';
+        parentElement.insertAdjacentHTML('beforeend', s);
     }
 }
 TbsGrid.prototype.panel70_select = function(panelName) {

@@ -3,12 +3,18 @@
  *
  *
  */
-class TbsGridPanel90 {
-    constructor(grid) {
-        this.grid       = grid;
-        this.selector   = '#' + grid.gridId;
+class TbsGridPanel90 extends TbsGridPanelBase {
+    createHtml(parentElement) {
+        let grid = this.grid;
+
+        let s = '';
+        if (grid.options[grid.option_showSortPanel] == true) s += '<div class="tbs-grid-panel90 tbs-grid-show"></div>';
+        else s += '<div class="tbs-grid-panel90 tbs-grid-hide"></div>';
+        parentElement.insertAdjacentHTML('beforeend', s);
+        grid.panel90_select();
     }
 }
+
 TbsGrid.prototype.panel90_select = function() { //type : header, content, left, top
     let selector = '#' + this.gridId;
     let grid = this;

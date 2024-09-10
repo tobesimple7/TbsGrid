@@ -4,10 +4,22 @@
  * - deny up, down movement.
  *
  */
-class TbsGridPanel40 {
-    constructor(grid) {
-        this.grid       = grid;
-        this.selector   = '#' + grid.gridId;
+class TbsGridPanel40 extends TbsGridPanelBase {
+    createHtml(parentElement) {
+        let grid = this.grid;
+        let s = '';
+        s += '<div class="tbs-grid-group41">';
+            s += '<div class="tbs-grid-panel">';
+            s += '<div class="tbs-grid-panel41"><table class="tbs-grid-table"></table></div>';
+            s += '<div class="tbs-grid-panel42"><table class="tbs-grid-table"></table></div>';
+            s += '</div>';
+        s += '</div>';
+        s += '<div class="tbs-grid-group40">';
+            s += '<div class="tbs-grid-panel">';
+            s += '<div class="tbs-grid-panel40"><table class="tbs-grid-table"></table></div>';
+            s += '</div>';
+        s += '</div>';
+        parentElement.insertAdjacentHTML('beforeend', s);
     }
 }
 TbsGrid.prototype.panel40_select = function(eventPanelName) {

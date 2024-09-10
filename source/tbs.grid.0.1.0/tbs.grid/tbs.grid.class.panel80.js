@@ -3,10 +3,15 @@
  *
  *
  */
-class TbsGridPanel80 {
-    constructor(grid) {
-        this.grid       = grid;
-        this.selector   = '#' + grid.gridId;
+class TbsGridPanel80 extends TbsGridPanelBase {
+    createHtml(parentElement) {
+        let grid = this.grid;
+
+        let className = grid.options[grid.option_showGroupPanel] ? 'tbs-grid-show' : 'tbs-grid-hide';
+        let s ='<div class="tbs-grid-panel80 ' + className + '"></div>';
+        parentElement.insertAdjacentHTML('beforeend', s);
+
+        grid.panel80_select();
     }
 }
 TbsGrid.prototype.panel80_select = function() { //type : header, content, left, top

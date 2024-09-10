@@ -4,10 +4,22 @@
  *  header group sorting : deny
  *
  */
-class TbsGridPanel20 {
-    constructor(grid) {
-        this.grid       = grid;
-        this.selector   = '#' + grid.gridId;
+class TbsGridPanel20 extends TbsGridPanelBase {
+    createHtml(parentElement) {
+        let grid = this.grid;
+        let s = '';
+        s += '<div class="tbs-grid-group21">';
+            s += '<div class="tbs-grid-panel">';
+            s += '<div class="tbs-grid-panel21"><table class="tbs-grid-table"></table></div>';
+            s += '<div class="tbs-grid-panel22"><table class="tbs-grid-table"></table></div>';
+            s += '</div>';
+        s += '</div>';
+        s += '<div class="tbs-grid-group20">';
+            s += '<div class="tbs-grid-panel">';
+            s += '<div class="tbs-grid-panel20"><table class="tbs-grid-table"></table></div>';
+            s += '</div>';
+        s += '</div>';
+        parentElement.insertAdjacentHTML('beforeend', s);
     }
 }
 TbsGrid.prototype.panel20_select = function(panelName) { //type : header, content, left, top
@@ -57,7 +69,6 @@ TbsGrid.prototype.panel20_select = function(panelName) { //type : header, conten
     };
 
     const mouseMoveEvent = function(e) {
-        debugger;
         e.preventDefault();
         e.stopPropagation(); 
         if (window.event.button === 0) {

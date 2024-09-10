@@ -2,7 +2,10 @@
 	this.gridId = gridId;
 	this.gridConfig = tbsGridConfigs[Object.keys(tbsGridConfigs)[0]];
 
-	this.focusControl = '';
+	// 공유를 해야 할 것과 공유를 하지 말아야 할 것
+	// 좀 더 세세하게 나누어야 조정이 가능하다.
+	// control class 가 역할이 큰 거 같다.
+	// 부품처럼 조각 조각 나누어져야 한다.
 
 	/**
 	 * @description maxRowId
@@ -120,14 +123,6 @@
 	this.column_subColSpan    = 'subColSpan' ;
 	this.column_order         = 'order'     ;
 
-	//this.layout_visible       = 'visible'   ; // not allow merged.
-	// this.layout_rowSpan       = 'rowSpan'   ;
-	// this.layout_colSpan       = 'colSpan'   ;
-	// this.layout_subRowSpan    = 'subRowSpan';
-	// this.layout_subColSpan    = 'subColSpan';
-	// this.layout_color         = 'color'     ;
-	// this.layout_backgroundColor    = 'backgroundColor';
-	// this.layout_text          = 'text'      ;
 	/**
 	 * @description Columns
 	 *
@@ -352,8 +347,19 @@
 	this.classPage        = new TbsGridPage(this);
 	this.classSort        = new TbsGridSort(this);
 	this.classTree        = new TbsGridTree(this);
+
 	this.verticalScroll   = new TbsGridScroll(this, 'verticalScroll');
 	this.horizontalScroll = new TbsGridScroll(this, 'horizontalScroll');
+
+	this.classPanelBase   = new TbsGridPanel10(this, '');
+	this.classPanel10     = new TbsGridPanel10(this, 'panel10');
+	this.classPanel20     = new TbsGridPanel20(this, 'panel20');
+	this.classPanel30     = new TbsGridPanel30(this, 'panel30');
+	this.classPanel40     = new TbsGridPanel40(this, 'panel40');
+	this.classPanel50     = new TbsGridPanel50(this, 'panel50');
+	this.classPanel70     = new TbsGridPanel70(this, 'panel70');
+	this.classPanel80     = new TbsGridPanel80(this, 'panel80');
+	this.classPanel90     = new TbsGridPanel90(this, 'panel90');
 
 	this.classRender = new TbsGridRender(this);
 }

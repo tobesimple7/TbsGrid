@@ -1,7 +1,39 @@
-class TbsGridPanel10 {
-    constructor(grid) {
-        this.grid       = grid;
-        this.selector   = '#' + grid.gridId;
+class TbsGridPanel10 extends TbsGridPanelBase {
+    createHtml(parentElement) {
+        let grid = this.grid;
+        //super.createHtml(parentElement);
+        let isShowToolbar = (grid.options.toolbar[grid.toolbar_visible]) ? 'tbs-grid-show' : 'tbs-grid-hide';
+        let s = '';
+        s += '<div class="tbs-grid-panel10 ' + isShowToolbar + '">';
+            s += '<div class="tbs-grid-panel10-wrap">';
+            s += '<div class="tbs-grid-panel10-filter" style="display:none;">';
+                s += '<input class="tbs-grid-panel10-filter-input" placeholder="Search">';
+            s += '</div>';
+            s += '<div class="tbs-grid-panel10-page" style="display:none;">';
+                s += '<span class="tbs-grid-panel10-page-first">◁◁</span>';
+                s += '<span class="tbs-grid-panel10-page-prev">◀</span>';
+                s += '<span class="tbs-grid-panel10-page-select">1</span>';
+                s += '<span class="tbs-grid-panel10-page-next">▶</span>';
+                s += '<span class="tbs-grid-panel10-page-last">▷▷</span>';
+            s += '</div>';
+                s += '<div class="tbs-grid-panel10-buttons" style="display:;">';
+                    s += '<div class="tbs-grid-panel10-buttons-wrap">';
+                        s += '<span class="tbs-grid-panel10-buttons-filter">'+grid.getConfigLabel('toolbar_button_filter')+'</span>';
+                        s += '<span class="tbs-grid-panel10-buttons-filter-reset">'+grid.getConfigLabel('toolbar_button_reset')+'</span>';
+                        s += '<span class="tbs-grid-panel10-buttons-sort">'+grid.getConfigLabel('toolbar_button_sorting')+'</span>';
+                        s += '<span class="tbs-grid-panel10-buttons-sort-reset">'+grid.getConfigLabel('toolbar_button_reset')+'</span>';
+                        s += '<span class="tbs-grid-panel10-buttons-group">'+grid.getConfigLabel('toolbar_button_grouping')+'</span>';
+                        s += '<span class="tbs-grid-panel10-buttons-group-expand">'+grid.getConfigLabel('toolbar_button_expand')+'</span>';
+                        s += '<span class="tbs-grid-panel10-buttons-group-collapse">'+grid.getConfigLabel('toolbar_button_collapse')+'</span>';
+                        s += '<span class="tbs-grid-panel10-buttons-group-reset">'+grid.getConfigLabel('toolbar_button_reset')+'</span>';
+                        s += '<span class="tbs-grid-panel10-buttons-fixed-column">'+grid.getConfigLabel('toolbar_button_fixedColumn')+'</span>';
+                    s += '</div>';
+                s += '</div>';
+            s += '</div>';
+        s += '</div>';
+        parentElement.insertAdjacentHTML('beforeend', s);
+
+        grid.panel10_init(); //2024-07-02
     }
 }
 TbsGrid.prototype.panel10_init = function(){
@@ -213,7 +245,6 @@ TbsGrid.prototype.tbs_hideToolbarButtons = function(buttonType) {
         let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-fixed-column');button.style.display = 'none';
     }
 }
-
 
 /* User Functions */
 TbsGrid.prototype.showToolbarPanel = function() { this.tbs_showToolbarPanel(); }

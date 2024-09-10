@@ -22,11 +22,6 @@ TbsGrid.prototype.tbs_removePanelRange = function (panelName = '') {
         document.querySelectorAll(selector + ' .tbs-grid-panel32 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
         document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
     }
-    else if (panelName == 'panel60') {
-        document.querySelectorAll(selector + ' .tbs-grid-panel61 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
-        document.querySelectorAll(selector + ' .tbs-grid-panel62 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
-        document.querySelectorAll(selector + ' .tbs-grid-panel60 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
-    }
     else if (panelName == 'panel40') {
         document.querySelectorAll(selector + ' .tbs-grid-panel41 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
         document.querySelectorAll(selector + ' .tbs-grid-panel42 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));

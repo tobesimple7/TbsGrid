@@ -2,175 +2,30 @@
  * tbs.grid.main.js
  *
  */
-TbsGrid.prototype.tbs_createFrame = function () {
+TbsGrid.prototype.tbs_createHtml = function () {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    let s = '';
-    s += '<div class="tbs-grid" tabindex="1" style="">';
-    // Toolbar : panel10
-    let isShowToolbar = (grid.options.toolbar[grid.toolbar_visible]) ? 'tbs-grid-show' : 'tbs-grid-hide';
-    s += '<div class="tbs-grid-panel10 ' + isShowToolbar + '">';
-        s += '<div class="tbs-grid-panel10-wrap">';
-        s += '<div class="tbs-grid-panel10-filter" style="display:none;">';
-            s += '<input class="tbs-grid-panel10-filter-input" placeholder="Search">';
-            s += '</div>';
-                s += '<div class="tbs-grid-panel10-page" style="display:none;">';
-                s += '<span class="tbs-grid-panel10-page-first">◁◁</span>';
-                s += '<span class="tbs-grid-panel10-page-prev">◀</span>';
-                s += '<span class="tbs-grid-panel10-page-select">1</span>';
-                s += '<span class="tbs-grid-panel10-page-next">▶</span>';
-                s += '<span class="tbs-grid-panel10-page-last">▷▷</span>';
-            s += '</div>';
-            s += '<div class="tbs-grid-panel10-buttons" style="display:;">';
-                s += '<div class="tbs-grid-panel10-buttons-wrap">';
-                    s += '<span class="tbs-grid-panel10-buttons-filter">'+grid.getConfigLabel('toolbar_button_filter')+'</span>';
-                    s += '<span class="tbs-grid-panel10-buttons-filter-reset">'+grid.getConfigLabel('toolbar_button_reset')+'</span>';
-                    s += '<span class="tbs-grid-panel10-buttons-sort">'+grid.getConfigLabel('toolbar_button_sorting')+'</span>';
-                    s += '<span class="tbs-grid-panel10-buttons-sort-reset">'+grid.getConfigLabel('toolbar_button_reset')+'</span>';
-                    s += '<span class="tbs-grid-panel10-buttons-group">'+grid.getConfigLabel('toolbar_button_grouping')+'</span>';
-                    s += '<span class="tbs-grid-panel10-buttons-group-expand">'+grid.getConfigLabel('toolbar_button_expand')+'</span>';
-                    s += '<span class="tbs-grid-panel10-buttons-group-collapse">'+grid.getConfigLabel('toolbar_button_collapse')+'</span>';
-                    s += '<span class="tbs-grid-panel10-buttons-group-reset">'+grid.getConfigLabel('toolbar_button_reset')+'</span>';
-                    s += '<span class="tbs-grid-panel10-buttons-fixed-column">'+grid.getConfigLabel('toolbar_button_fixedColumn')+'</span>';
-                s += '</div>';
-            s += '</div>';
-        s += '</div>';
-    s += '</div>';
-    // Grouping : panel80
-    let className = grid.options[grid.option_showGroupPanel] ? 'tbs-grid-show' : 'tbs-grid-hide';
-    s += '<div class="tbs-grid-panel80 ' + className + '"></div>';
-    // sorting  : panel90
-    if (grid.options[grid.option_showSortPanel] == true) s += '<div class="tbs-grid-panel90 tbs-grid-show"></div>';
-    else s += '<div class="tbs-grid-panel90 tbs-grid-hide"></div>';
-    s += '<div class="tbs-grid-main">';
-    s += '<div class="tbs-grid-wrap">';
-        /* Header Panel */
-        s += '<div class="tbs-grid-group21">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel21"><table class="tbs-grid-table"></table></div>';
-            s += '<div class="tbs-grid-panel22"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        s += '<div class="tbs-grid-group20">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel20"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        /* Filter Panel */
-        s += '<div class="tbs-grid-group71">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel71"><table class="tbs-grid-table"></table></div>';
-            s += '<div class="tbs-grid-panel72"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        s += '<div class="tbs-grid-group70">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel70"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        /* Summary Top */
-        s += '<div class="tbs-grid-group41">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel41"><table class="tbs-grid-table"></table></div>';
-            s += '<div class="tbs-grid-panel42"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        s += '<div class="tbs-grid-group40">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel40"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        /* Fixed Row */
-        s += '<div class="tbs-grid-group61">';
-        s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel61"><table class="tbs-grid-table"></table></div>';
-            s += '<div class="tbs-grid-panel62"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        s += '<div class="tbs-grid-group60">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel60"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        /* Content Panel */
-        s += '<div class="tbs-grid-group31">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel31"><table class="tbs-grid-table"></table></div>';
-            s += '<div class="tbs-grid-panel32"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        s += '<div class="tbs-grid-group30">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel30"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        /* Summary Footer */
-        s += '<div class="tbs-grid-group51">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel51"><table class="tbs-grid-table"></table></div>';
-            s += '<div class="tbs-grid-panel52"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-        s += '<div class="tbs-grid-group50">';
-            s += '<div class="tbs-grid-panel">';
-            s += '<div class="tbs-grid-panel50"><table class="tbs-grid-table"></table></div>';
-            s += '</div>';
-        s += '</div>';
-    s += '</div>'; // end wrap
-    //content vertical scroll
-    s += '<div class="tbs-grid-vertical-scroll" style="display:none;">';
-        s += '<div class="tbs-grid-vertical-scroll-wrap">';
-            s += '<div class="tbs-grid-vertical-scroll-bar"></div>';
-        s += '</div>';
-        s += '<div class="tbs-grid-vertical-scroll-up"><div>▲</div></div>';
-        s += '<div class="tbs-grid-vertical-scroll-down"><div>▼</div></div>';
-    s += '</div>';
-    //content horizontal scroll
-    s += '<div class="tbs-grid-horizontal-scroll" style="display:none;">';
-        s += '<div class="tbs-grid-horizontal-scroll-wrap">';
-            s += '<div class="tbs-grid-horizontal-scroll-bar"></div>';
-        s += '</div>';
-        s += '<div class="tbs-grid-horizontal-scroll-left"><div>◀</div></div>';
-        s += '<div class="tbs-grid-horizontal-scroll-right"><div>▶</div></div>';
-    s += '</div>';
-    //frozen vertical scroll
-    s += '<div class="tbs-grid-vertical-scroll60" style="display:none;">';
-        s += '<div class="tbs-grid-vertical-scroll60-wrap">';
-            s += '<div class="tbs-grid-vertical-scroll6-bar"></div>';
-        s += '</div>';
-        s += '<div class="tbs-grid-vertical-scroll60-up">▲</div>';
-        s += '<div class="tbs-grid-vertical-scroll60-down">▼</div>';
-    s += '</div>';
-    //frozen horizontal scroll
-    s += '<div class="tbs-grid-horizontal-scroll32" style="display:none;">';
-        s += '<div class="tbs-grid-horizontal-scroll32-wrap">';
-            s += '<div class="tbs-grid-horizontal-scroll2-bar"></div>';
-        s += '</div>';
-        s += '<div class="tbs-grid-horizontal-scroll32-left"><div>◀</div></div>';
-        s += '<div class="tbs-grid-horizontal-scroll32-right"><div>▶</div></div>';
-    s += '</div>';
-    /* ETC */
-    s += '<div class="tbs-grid-scroll-box" style="display:none;"></div>';
-    s += '<div class="tbs-grid-top-line" style="left:30000px;"></div>';
-    s += '<div class="tbs-grid-bottom-line"	style="left:30000px;"></div>';
-    s += '<div class="tbs-grid-left-line" style="left:30000px;"></div>';
-    s += '<div class="tbs-grid-right-line" style="left:30000px;"></div>';
-    s += '<div class="tbs-grid-input-panel" style="left:30000px;"></div>';
-    s += '<div class="tbs-grid-canvas"></div>';
-    s += '<div class="tbs-grid-panel-input">';
-        s += '<input type="text" class="tbs-grid-input"  data-type="" data-click=""/>';
-        s += '<img class="tbs-grid-panel-input-icon" data-type="" data-click="" />';
-    s += '</div>';
-    s += '<input type="text" class="tbs-grid-input-code" data-type="" data-click="" style="left:30000px;"/>';
-    s += '</div>'; // end main
+    let elementRoot = document.querySelector(selector);
+    elementRoot.insertAdjacentHTML('beforeend', '<div class="tbs-grid" tabindex="1" style=""></div>');
 
-    s += '<div class="tbs-grid-layer" style="left:30000px;display: none;"></div>';
-    s += '</div>'; // end grid
+    let elementGrid = elementRoot.querySelector('.tbs-grid');
+    grid.classPanel10.createHtml(elementGrid);
+    grid.classPanel80.createHtml(elementGrid);
+    grid.classPanel90.createHtml(elementGrid);
 
-    document.querySelector(selector).innerHTML = s;
-    document.querySelector(selector + ' .tbs-grid-canvas').appendChild(document.createElement('canvas'));
+    elementGrid.insertAdjacentHTML('beforeend', '<div class="tbs-grid-main"><div class="tbs-grid-wrap" /></div>');
+    let elementMain = document.querySelector(selector + ' .tbs-grid-main');
+    let elementWrap = document.querySelector(selector + ' .tbs-grid-wrap');
 
+    grid.classPanel20.createHtml(elementWrap);
+    grid.classPanel70.createHtml(elementWrap);
+    grid.classPanel40.createHtml(elementWrap);
+    grid.classPanel30.createHtml(elementWrap);
+    grid.classPanel50.createHtml(elementWrap);
+
+    grid.classPanelBase.createEtcHtml(elementMain);
+    elementRoot.insertAdjacentHTML('beforeend', '<div class="tbs-grid-layer" style="left:30000px;display: none;"></div>');
     this.topLineDiv    = document.querySelector(selector + ' .tbs-grid-top-line');
     this.bottomLineDiv = document.querySelector(selector + ' .tbs-grid-bottom-line');
     this.leftLineDiv   = document.querySelector(selector + ' .tbs-grid-left-line');
@@ -195,13 +50,13 @@ TbsGrid.prototype.tbs_createGrid = function (column) {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    this.tbs_createFrame();
-    this.tbs_createTable10(); // Toolbar panel
-    this.tbs_createTable80(); // Grouping panel
-    this.tbs_createTable90(); // Srot panel
+    this.tbs_createHtml();
+    this.tbs_createTable10();
+    this.tbs_createTable80();
+    this.tbs_createTable90();
 
     this.tbs_createTable20();
-    this.tbs_createTable70(); // Filter panel
+    this.tbs_createTable70();
     this.tbs_createTable40();
     this.tbs_createTable50();
 
@@ -210,18 +65,13 @@ TbsGrid.prototype.tbs_createGrid = function (column) {
 
     this.horizontalScroll.tbs_setScroll(grid.code_horizontal);
     this.tbs_addEventAll();
-    //this.tbs_setData([]);
 }
 TbsGrid.prototype.tbs_updateGrid = function (column) {
     let selector = '#' + this.gridId;
     let grid = this;
 
-    this.tbs_createTable10(); // Toolbar panel
-    this.tbs_createTable80(); // Grouping panel
-    this.tbs_createTable90(); // Srot panel
-
     this.tbs_createTable20();
-    this.tbs_createTable70(); // Filter panel
+    this.tbs_createTable70();
     this.tbs_createTable40();
     this.tbs_createTable50();
 
@@ -229,8 +79,7 @@ TbsGrid.prototype.tbs_updateGrid = function (column) {
     this.tbs_createTable30();
 
     this.horizontalScroll.tbs_setScroll(grid.code_horizontal);;
-    //this.tbs_addEventAll();
-    //this.tbs_setData([]);
+    this.tbs_addEventAll();
 }
 //============================================================
 
@@ -1038,10 +887,6 @@ TbsGrid.prototype.tbs_setFrozenRow = function(fixedRowIndex, fixedRowCount) {
     let table31 = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table');
     let table30 = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
 
-    let panel61 = document.querySelector(selector + ' .tbs-grid-panel61');
-    let panel60 = document.querySelector(selector + ' .tbs-grid-panel60');
-    let panel62 = document.querySelector(selector + ' .tbs-grid-panel62');
-
     //table31 clone
     let copyTable= table31.cloneNode(true);
     let trList= copyTable.querySelectorAll('tbody tr');
@@ -1541,3 +1386,4 @@ TbsGrid.prototype.tbs_setGridModePagenation = function () {
     page.style.display = '';
     grid1.setGridMode(grid1.code_page);
 }
+

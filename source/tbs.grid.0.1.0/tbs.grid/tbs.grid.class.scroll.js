@@ -171,7 +171,6 @@ TbsGridScroll.prototype.tbs_hideScroll = function(type) {
         document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table').style.left = '0px';
         document.querySelector(selector + ' .tbs-grid-panel40 .tbs-grid-table').style.left = '0px';
         document.querySelector(selector + ' .tbs-grid-panel50 .tbs-grid-table').style.left = '0px';
-        document.querySelector(selector + ' .tbs-grid-panel60 .tbs-grid-table').style.left = '0px';
         document.querySelector(selector + ' .tbs-grid-panel70 .tbs-grid-table').style.left = '0px';
     }
     else if (type == grid.code_vertical) {

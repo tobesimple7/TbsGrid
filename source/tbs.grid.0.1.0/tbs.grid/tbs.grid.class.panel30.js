@@ -2,10 +2,22 @@
  * tbs.grid.panel30.js
  *
  */
-class TbsGridPanel30 {
-    constructor(grid) {
-        this.grid       = grid;
-        this.selector   = '#' + grid.gridId;
+class TbsGridPanel30 extends TbsGridPanelBase {
+    createHtml(parentElement) {
+        let grid = this.grid;
+        let s = '';
+        s += '<div class="tbs-grid-group31">';
+            s += '<div class="tbs-grid-panel">';
+            s += '<div class="tbs-grid-panel31"><table class="tbs-grid-table"></table></div>';
+            s += '<div class="tbs-grid-panel32"><table class="tbs-grid-table"></table></div>';
+            s += '</div>';
+        s += '</div>';
+        s += '<div class="tbs-grid-group30">';
+            s += '<div class="tbs-grid-panel">';
+            s += '<div class="tbs-grid-panel30"><table class="tbs-grid-table"></table></div>';
+            s += '</div>';
+        s += '</div>';
+        parentElement.insertAdjacentHTML('beforeend', s);
     }
 }
 TbsGrid.prototype.panel30_select = function(eventPanelName) {
