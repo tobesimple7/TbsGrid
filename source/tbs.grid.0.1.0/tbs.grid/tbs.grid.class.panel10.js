@@ -8,8 +8,6 @@ TbsGrid.prototype.panel10_init = function(){
     let selector = '#' + this.gridId;
     let grid = this;
 
-    //==================================================================================================================
-
     /* Filter Panel */
     const showFilterPanelEvent = function(e) {
         e.stopPropagation();
@@ -29,7 +27,6 @@ TbsGrid.prototype.panel10_init = function(){
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter-reset'))
         document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter-reset').addEventListener('mousedown', resetFilterPanelEvent);
-    //==================================================================================================================
 
     /* Sort Panel */
     const showSortPanelEvent = function(e) {
@@ -50,7 +47,6 @@ TbsGrid.prototype.panel10_init = function(){
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort-reset'))
         document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort-reset').addEventListener('mousedown', resetSortPanelEvent);
-    //==================================================================================================================
 
     /* Group Panel */
     const showGroupPanelEvent = function(e) {
@@ -101,7 +97,8 @@ TbsGrid.prototype.panel10_init = function(){
     }
     if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-fixed-column'))
         document.querySelector(selector + ' .tbs-grid-panel10-buttons-fixed-column').addEventListener('mousedown', showFixedColumnPanelEvent);
-    //==================================================================================================================
+
+    /* Total Filter */
     const setTotalFilterEvent = function(e) {
         e.stopPropagation();
         grid.classFilter.totalFilterSearch(this.value);

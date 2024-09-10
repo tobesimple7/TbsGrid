@@ -421,3 +421,5 @@ TbsGrid.prototype.setSort = function (sortColumns, display) {
 }
 
 /* User Functions */
+TbsGrid.prototype.showSortPanel = function () { this.classSort.showSortPanel(); }
+TbsGrid.prototype.hideSortPanel = function () { this.classSort.hideSortPanel(); }

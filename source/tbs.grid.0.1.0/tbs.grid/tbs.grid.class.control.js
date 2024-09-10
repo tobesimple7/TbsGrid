@@ -28,7 +28,7 @@ TbsGridControl.prototype.after_addColumn = function () {
 
     grid.tbs_removeRange(0, -1);
     grid.tbs_createColumn(grid.headerColumns);
-    grid.tbs_createGrid(grid.columns);
+    grid.tbs_updateGrid(grid.columns);
     let _topRowIndex = grid.tbs_selectRange(0, 0, 0, 0);
     grid.tbs_displayPanel30(_topRowIndex);
     grid.tbs_displayPanel20();
@@ -40,23 +40,11 @@ TbsGridControl.prototype.after_removeColumn = function (headerColumns, columns) 
 
     grid.tbs_removeRange(0, -1);
     grid.tbs_createColumn(grid.headerColumns);
-    grid.tbs_createGrid(grid.columns);
+    grid.tbs_updateGrid(grid.columns);
     let _topRowIndex = grid.tbs_selectRange(0, 0, 0, 0);
     grid.tbs_displayPanel30(_topRowIndex);
     grid.tbs_displayPanel20();
 }
-// TbsGridControl.prototype.after_changeColumnOrder = function () {
-//     let selector = this.selector;
-//     let grid = this.grid;
-//     let classControl = this;
-//
-//     grid.tbs_removeRange(0, -1);
-//     let topRowIndex = grid.tbs_getFirstRowIndex();
-//     grid.tbs_displayPanel20(topRowIndex);
-//     grid.tbs_displayPanel30(topRowIndex);
-//     grid.tbs_displayPanel40();
-//     grid.tbs_displayPanel50();
-// }
 TbsGridControl.prototype.after_showFilterPanel = function () {
     let selector = this.selector;
     let grid = this.grid;
@@ -183,8 +171,14 @@ TbsGrid.prototype.tbs_setGridMode = function (gridMode) {
 
     grid.grid_mode = grid.tbs_trim(gridMode);
 
-    if (grid.grid_mode == grid.code_page) grid.tbs_setGridModePage();
-    else if (grid.grid_mode == grid.code_pagination) grid.tbs_setGridModePagenation();
+    if (grid.grid_mode == grid.code_page) {
+        grid.hideToolbarButtons('group');
+        grid.tbs_setGridModePage();
+    }
+    else if (grid.grid_mode == grid.code_pagination) {
+        grid.hideToolbarButtons('group');
+        grid.tbs_setGridModePagenation();
+    }
     else if (grid.grid_mode == grid.code_group) {}
 }
 
