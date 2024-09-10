@@ -23,8 +23,6 @@ tbsGridConfigs.en = {
     },
     options: {
         imageRoot: '/tbs.grid/img/',
-        groupInfoText: 'Drag columns to group.',
-        sortInfoText: 'Drag columns to sort .'
     },
     labels: {
         /* placeholder */
@@ -80,8 +78,6 @@ tbsGridConfigs.ko = {
     },
     options: {
         imageRoot : '/tbs.grid/img/',
-        groupInfoText : '그룹 컬럼을 드래그 하세요.',
-        sortInfoText : '소팅 컬럼을 드래그 하세요.'
     },
     labels: {
         /* placeholder */
