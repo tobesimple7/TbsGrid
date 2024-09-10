@@ -216,6 +216,8 @@ TbsGrid.prototype.tbs_hideToolbarButtons = function(buttonType) {
         let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-fixed-column');button.style.display = 'none';
     }
 }
+
+
 /* User Functions */
 TbsGrid.prototype.showToolbarPanel = function() { this.tbs_showToolbarPanel(); }
 TbsGrid.prototype.hideToolbarPanel = function() { this.tbs_hideToolbarPanel(); }

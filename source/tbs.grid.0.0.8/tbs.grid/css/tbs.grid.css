@@ -1949,9 +1949,10 @@ tbs-grid (relative)
     border-left: 1px solid #bbbbbb;
     border-right: 1px solid #bbbbbb;
     background-color: #fce3e3;
-    width: 70px;
+    /*width: 70px;*/
     /*height: 25px;*/
     margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
     border-spacing: 0px;
 }
 .tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-filter-reset {
@@ -1962,9 +1963,10 @@ tbs-grid (relative)
     border-left: 1px solid #bbbbbb;
     border-right: 1px solid #bbbbbb;
     background-color: #e8e8e8;
-    width: 40px;
+    /*width: 40px;*/
     /*height: 25px;*/
     margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
     border-spacing: 0px;
 }
 .tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-sort {
@@ -1975,9 +1977,10 @@ tbs-grid (relative)
     border-left: 1px solid #bbbbbb;
     border-right: 1px solid #bbbbbb;
     background-color: #fce3e3;
-    width: 70px;
+    /*width: 70px;*/
     /*height: 25px;*/
     margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
     border-spacing: 0px;
 }
 .tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-sort-reset {
@@ -1988,9 +1991,10 @@ tbs-grid (relative)
     border-left: 1px solid #bbbbbb;
     border-right: 1px solid #bbbbbb;
     background-color: #e8e8e8;
-    width: 40px;
+    /*width: 40px;*/
     /*height: 25px;*/
     margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
     border-spacing: 0px;
 }
 .tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-group {
@@ -2001,9 +2005,10 @@ tbs-grid (relative)
     border-left: 1px solid #bbbbbb;
     border-right: 1px solid #bbbbbb;
     background-color: #fce3e3;
-    width: 70px;
+    /*width: 70px;*/
     /*height: 25px;*/
     margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
     border-spacing: 0px;
 }
 .tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-group-expand {
@@ -2014,9 +2019,10 @@ tbs-grid (relative)
     border-left: 1px solid #bbbbbb;
     border-right: 1px solid #bbbbbb;
     background-color: #e8e8e8;
-    width: 50px;
+    /*width: 50px;*/
     /*height: 25px;*/
     margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
     border-spacing: 0px;
 }
 .tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-group-collapse {
@@ -2027,9 +2033,10 @@ tbs-grid (relative)
     border-left: 1px solid #bbbbbb;
     border-right: 1px solid #bbbbbb;
     background-color: #e8e8e8;
-    width: 50px;
+    /*width: 50px;*/
     /*height: 25px;*/
     margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
     border-spacing: 0px;
 }
 .tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-group-reset {
@@ -2040,9 +2047,10 @@ tbs-grid (relative)
     border-left: 1px solid #bbbbbb;
     border-right: 1px solid #bbbbbb;
     background-color: #e8e8e8;
-    width: 40px;
+    /*width: 50px;*/
     /*height: 25px;*/
     margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
     border-spacing: 0px;
 }
 .tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-fixed-column {
@@ -2053,9 +2061,10 @@ tbs-grid (relative)
     border-left: 1px solid #bbbbbb;
     border-right: 1px solid #bbbbbb;
     background-color: #fce3e3;
-    width: 80px;
+    /*width: 50px;*/
     /*height: 25px;*/
     margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
     border-spacing: 0px;
 }
 /* =========================================================================== */

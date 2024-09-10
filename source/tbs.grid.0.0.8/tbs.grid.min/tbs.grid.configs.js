@@ -27,6 +27,11 @@ tbsGridConfigs.en = {
         sortInfoText: 'Drag columns to sort .'
     },
     labels: {
+        /* placeholder */
+        sort_placeholder  : 'Drag columns to sort',
+        group_placeholder : 'Drag columns to group',
+
+        /* Filter Label */
         filter_select        : 'Select',
         filter_equal         : 'Equal',
         filter_notEqual      : 'Does not equal',
@@ -40,6 +45,15 @@ tbsGridConfigs.en = {
         filter_notInclude 	 : 'Not Include',
         filter_startCharacter: 'Start Characters',
         filter_endCharacter	 : 'End Characters',
+
+        /* Toolbar Label */
+        toolbar_button_filter	  : 'Filter',
+        toolbar_button_sorting	  : 'Sorting',
+        toolbar_button_grouping   : 'Grouping',
+        toolbar_button_expand   : 'Expand',
+        toolbar_button_collapse : 'Collapse',
+        toolbar_button_fixedColumn: 'Fixed Column',
+        toolbar_button_reset	  : 'Reset',
     }
 };
 tbsGridConfigs.ko = {
@@ -70,6 +84,10 @@ tbsGridConfigs.ko = {
         sortInfoText : '소팅 컬럼을 드래그 하세요.'
     },
     labels: {
+        /* placeholder */
+        sort_placeholder  : '소팅 컬럼을 드래그 하세요',
+        group_placeholder : '그룹 컬럼을 드래그 하세요.',
+
         /* Filter Lables */
         filter_select        : '[선택]',
         filter_equal         : '같음',
@@ -84,6 +102,15 @@ tbsGridConfigs.ko = {
         filter_notInclude 	 : '포함 안함',
         filter_startCharacter: '시작 문자',
         filter_endCharacter	 : '끝 문자',
+        filter_placeholder   : '',
+        /* Toolbar Label */
+        toolbar_button_filter	  : '필터',
+        toolbar_button_sorting	  : '소팅',
+        toolbar_button_grouping   : '그룹핑',
+        toolbar_button_expand   : '펼치기',
+        toolbar_button_collapse : '접기',
+        toolbar_button_fixedColumn: '고정컬럼',
+        toolbar_button_reset	  : '초기화',
     }
 };
 

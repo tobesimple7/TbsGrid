@@ -24,15 +24,15 @@ TbsGrid.prototype.tbs_createFrame = function () {
             s += '</div>';
             s += '<div class="tbs-grid-panel10-buttons" style="display:;">';
                 s += '<div class="tbs-grid-panel10-buttons-wrap">';
-                    s += '<div class="tbs-grid-panel10-buttons-filter">Filter</div>';
-                    s += '<div class="tbs-grid-panel10-buttons-filter-reset">Reset</div>';
-                    s += '<div class="tbs-grid-panel10-buttons-sort">Sorting</div>';
-                    s += '<div class="tbs-grid-panel10-buttons-sort-reset">Reset</div>';
-                    s += '<div class="tbs-grid-panel10-buttons-group">Grouping</div>';
-                    s += '<div class="tbs-grid-panel10-buttons-group-expand">Expand</div>';
-                    s += '<div class="tbs-grid-panel10-buttons-group-collapse">Collapse</div>';
-                    s += '<div class="tbs-grid-panel10-buttons-group-reset">Reset</div>';
-                    s += '<div class="tbs-grid-panel10-buttons-fixed-column">Fixed Column</div>';
+                    s += '<span class="tbs-grid-panel10-buttons-filter">'+grid.getConfigLabel('toolbar_button_filter')+'</span>';
+                    s += '<span class="tbs-grid-panel10-buttons-filter-reset">'+grid.getConfigLabel('toolbar_button_reset')+'</span>';
+                    s += '<span class="tbs-grid-panel10-buttons-sort">'+grid.getConfigLabel('toolbar_button_sorting')+'</span>';
+                    s += '<span class="tbs-grid-panel10-buttons-sort-reset">'+grid.getConfigLabel('toolbar_button_reset')+'</span>';
+                    s += '<span class="tbs-grid-panel10-buttons-group">'+grid.getConfigLabel('toolbar_button_grouping')+'</span>';
+                    s += '<span class="tbs-grid-panel10-buttons-group-expand">'+grid.getConfigLabel('toolbar_button_expand')+'</span>';
+                    s += '<span class="tbs-grid-panel10-buttons-group-collapse">'+grid.getConfigLabel('toolbar_button_collapse')+'</span>';
+                    s += '<span class="tbs-grid-panel10-buttons-group-reset">'+grid.getConfigLabel('toolbar_button_reset')+'</span>';
+                    s += '<span class="tbs-grid-panel10-buttons-fixed-column">'+grid.getConfigLabel('toolbar_button_fixedColumn')+'</span>';
                 s += '</div>';
             s += '</div>';
         s += '</div>';
@@ -738,7 +738,7 @@ TbsGrid.prototype.tbs_createTable80 = function () {
 
     let span = document.createElement('span');
     span.className = 'tbs-grid-panel-bar-span';
-    span.textContent = grid.classGroup.infoText;
+    span.textContent = grid.getConfigLabel('group_placeholder');
     div.appendChild(span);
     //document.querySelector(selector + ' .tbs-grid-panel80').innerHTML = '';
     document.querySelector(selector + ' .tbs-grid-panel80').appendChild(div);
@@ -754,7 +754,7 @@ TbsGrid.prototype.tbs_createTable90 = function () {
 
     let span = document.createElement('span');
     span.className = 'tbs-grid-panel-bar-span';
-    span.textContent = grid.classSort.infoText;
+    span.textContent = grid.getConfigLabel('sort_placeholder');
     div.appendChild(span);
     document.querySelector(selector + ' .tbs-grid-panel90').innerHTML = '';
     document.querySelector(selector + ' .tbs-grid-panel90').appendChild(div);
