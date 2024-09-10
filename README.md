@@ -72,4 +72,5 @@ tbs.grid.configs.js
 ## Issue Report
 - [en] If you have any issues or troubles with TbsGrid, please let us know in the Github Issues menu. We will review and fix it.
 - [ko] TbsGrid에 트러블이나 이슈가 있다면, 이슈 메뉴에 등록해주시면, 검토 후 처리 해드리겠습니다.
+  https://github.com/tobesimple7/TbsGrid-kor  
 
