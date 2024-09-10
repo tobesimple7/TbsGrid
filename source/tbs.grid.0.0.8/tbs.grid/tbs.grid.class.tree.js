@@ -61,92 +61,104 @@ TbsGridTree.prototype.setTreeSortColumns = function (sortColumns) {
     let grid = this.grid;
     grid.classSort.sortColumns = grid.tbs_copyJson(sortColumns);
 }
-TbsGridTree.prototype.setTreeData = function (data, openDepth) {
+TbsGridTree.prototype.setTreeData = function (data, openDepth  = 0, isFirst = true) {
     let selector = this.selector;
     let grid = this.grid;
 
-    if (grid.null(data)) return;
+    if (grid.null(data) || data.length == 0) return;
 
-    grid.data_user = grid.tbs_copyJson(data);
-    grid.data_table = [];
-    grid.data_view = [];
-
-    grid.data_select_panel30 = [];
-    grid.data_select_panel31 = [];
-
-    let columns = grid.columns;
-    let dataRows= data;
-
-    dataRows.map((dataRow, rowIndex) => dataRow[grid.code_rowId] = rowIndex);
-
-    // 1) data sorting (to do : sorting)
-    // 2) data setting : all rows
-    dataRows = grid.classTree.createTreeData(dataRows);
-
-    let count = dataRows.length;
-    for (let i = 0; i < count; i++) {
-        let source = {};
-        let data30 = {};
-        let row = dataRows[i];
-
-        source[grid.code_rowId] = data30[grid.code_rowId] = row[grid.code_rowId];
-        source[grid.code_mode]  = data30[grid.code_mode]  = ''; // S, U, I, D, blank
-        source[grid.code_depth] = data30[grid.code_depth] = row[grid.code_depth];
-
-        //data30[grid.const_seq]   = parseInt(i + 1);
-        source[grid.code_children] = grid.tbs_copyJson(row[grid.code_children]);
-        data30[grid.code_children] = grid.tbs_copyJson(row[grid.code_children]);
-        source[grid.code_isOpen]   = false;// keep open, closed state
-
-        // source = {}; //source.layout = {};
-        // data30 = {}; //data30.layout = {};
-
-        for (let colIndex= 0, len= columns.length; colIndex < len; colIndex++) {
-            let col = columns[colIndex];
-            let id  = col[grid.column_name];
-            let val = grid.null(row[id]) ? null : grid.tbs_getFormatValue(col, row[id]);
-            let colType = columns[colIndex][grid.column_type];
-
-            source[id] = val;
-            data30[id] = val;
-
-            // source.layout[id] = {};
-            //source.layout[id][grid.layout_visible] = col[grid.column_visible]; //for merge cell
-            // source.layout[id][grid.layout_text] = grid.tbs_getFormatText(col, row[id]);
-            // source.layout[id][grid.layout_rowSpan] = 1;
-            // source.layout[id][grid.layout_colSpan] = 1;
-            // source.layout[id][grid.layout_subRowSpan] = 1;
-            // source.layout[id][grid.layout_subColSpan] = 1;
-            // source.layout[id][grid.layout_color]     = '';
-            // source.layout[id][grid.layout_backgroundColor]= '';
-
-            //data30[id] = val;
-            // data30.layout[id] = {};
-            //data30.layout[id][grid.layout_visible] = col[grid.column_visible];
-            // data30.layout[id][grid.layout_text] = grid.tbs_getFormatText(col, row[id]);
-            // data30.layout[id][grid.layout_rowSpan] = 1;
-            // data30.layout[id][grid.layout_colSpan] = 1;
-            // data30.layout[id][grid.layout_subRowSpan] = 1;
-            // data30.layout[id][grid.layout_subColSpan] = 1;
-            // data30.layout[id][grid.layout_color]     = '';
-            // data30.layout[id][grid.layout_backgroundColor]= '';
-
-        }
-        grid.data_table.push(source);
-        grid.data_view.push(data30);
+    grid.data_user = [];
+    for (let i = 0, len = data.length; i < len; i++) {
+        let row = data[i];
+        if (grid.notNull([grid.code_mode])) delete row[grid.code_mode];
+        if (grid.notNull([grid.code_children])) row[grid.code_children] = [];
+        grid.data_user.push(row);
     }
 
-    //=======================================
+    let columns = grid.columns;
+    let dataRows = grid.tbs_copyJson(grid.data_user);
+
+    /* create rowId */
+    dataRows.map((dataRow, rowIndex) => {
+        if (grid.null(dataRow[grid.code_rowId])) {
+            grid.maxRowId += 1;
+            dataRow[grid.code_rowId] = grid.maxRowId;
+        }
+    });
+
+    /* create data_table, data_view */
+    if (isFirst == true) {
+        grid.data_table = [];
+        grid.data_view = [];
+        for (let i = 0, len = dataRows.length; i < len; i++) {
+            let dataRow = dataRows[i];
+
+            let item = {};
+            item[grid.code_rowId] = dataRow[grid.code_rowId];
+            item[grid.code_mode] = '';
+
+            for (let x = 0, len = grid.columns.length; x < len; x++) {
+                let column = grid.columns[x];
+                let columnName = column[grid.column_name];
+                let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
+                item[columnName] = val;
+            }
+            grid.data_table.push(item);
+            grid.data_view.push(grid.tbs_copyJson(item));
+        }
+    }
+    else {
+        grid.data_view = grid.tbs_copyJson(grid.data_table);
+    }
+
+    /* Filter */
+    grid.classFilter.filters();
+
+    /* Soring */
+    grid.classSort.setSortData(grid.data_view, grid.classSort.sortColumns);
+
+    /* Create tree data */
+    dataRows = grid.classTree.createTreeData(grid.tbs_copyJson(grid.data_view));
+
+    grid.data_view = [];
+    for (let i = 0, len = dataRows.length; i < len; i++) {
+        let dataRow = dataRows[i];
+
+        let item = {};
+        item[grid.code_rowId]     = dataRow[grid.code_rowId];
+        item[grid.code_mode]      = '';
+        item[grid.code_depth]     = dataRow[grid.code_depth];
+        item[grid.code_children]  = grid.tbs_copyJson(dataRow[grid.code_children]);
+        item[grid.code_isOpen]    = false;
+
+        for (let x= 0, len = columns.length; x < len; x++) {
+            let column = columns[x];
+            let columnName  = column[grid.column_name];
+            let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
+
+            item[columnName] = val;
+        }
+        grid.data_view.push(item);
+    }
+
+    /* Summary */
+    // grid.classTree.getGroupSummary();
+
+    /* Create data_temp : save before delete */
+    grid.data_temp = grid.tbs_copyJson(grid.data_view);
+    grid.data_temp.map(item => item[grid.code_isOpen] = false);
+
     // open depth
-    //=======================================
     if (grid.notNull(openDepth)) {
         for (let i = grid.data_view.length - 1; i >= 0; i--) {
             let row = grid.data_view[i];
             let depth = row[grid.code_depth];
-            if (openDepth != 0 && depth > openDepth) grid.data_view.splice(i, 1);
+            if (openDepth != 0 && depth > openDepth) {
+                grid.data_view.splice(i, 1);
+            }
         }
     }
-    grid.maxRowId = dataRows.length;
+
     document.querySelector(selector + ' .tbs-grid-panel10-filter-input').value = '';
     if (dataRows.length == 0) {
         document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = '0';
@@ -352,38 +364,35 @@ TbsGridTree.prototype.getTreeChildrenRows = function (folding, rowIndex, isAll =
     let selector = this.selector;
     let grid = this.grid;
 
-    let dataRows= grid.data_table;
+    let dataRows= grid.data_view;
     let resultRows= [];
     const fn_getChildrenRows = function(row, count) {
+        if (Object.keys(row).length == 0) return;
+
         if (count > 1) resultRows.push(grid.tbs_copyJson(row));
-        let arr = row[grid.code_children]; //rowId array
+
+        let arr = row[grid.code_children];
         if (arr.length > 0) {
             //default : get first lower rows
             if (count == 1) {
-                for (let i = 0, len = dataRows.length; i < len; i++) {
-                    let dataRow = dataRows[i];
-                    if (arr.indexOf(dataRow[grid.code_rowId]) != -1) {
-                        fn_getChildrenRows(dataRow, count + 1);
-                    }
+                for (let i = 0, len = arr.length; i < len; i++) {
+                    let dataRow = grid.tbs_getTempRowByRowId(arr[i]);
+                    fn_getChildrenRows(dataRow, count + 1);
                 }
             }
             else {
                 if (folding == grid.code_open) {
                     if (row[grid.code_isOpen]) {
-                        for (let i = 0, len = dataRows.length; i < len; i++) {
-                            let dataRow = dataRows[i];
-                            if (arr.indexOf(dataRow[grid.code_rowId]) != -1) {
-                                fn_getChildrenRows(dataRow, count + 1);
-                            }
+                        for (let i = 0, len = arr.length; i < len; i++) {
+                            let dataRow = grid.tbs_getTempRowByRowId(arr[i]);
+                            fn_getChildrenRows(dataRow, count + 1);
                         }
                     }
                 }
                 else {
-                    for (let i = 0, len = dataRows.length; i < len; i++) {
-                        let dataRow = dataRows[i];
-                        if (arr.indexOf(dataRow[grid.code_rowId]) != -1) {
-                            fn_getChildrenRows(dataRow, count + 1);
-                        }
+                    for (let i = 0, len = arr.length; i < len; i++) {
+                        let dataRow = grid.tbs_getTempRowByRowId(arr[i]);
+                        fn_getChildrenRows(dataRow, count + 1);
                     }
                 }
             }

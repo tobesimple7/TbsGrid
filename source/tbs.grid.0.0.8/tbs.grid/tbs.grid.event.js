@@ -203,7 +203,7 @@ TbsGrid.prototype.event_columnSort = function(cell) {
 
     grid.classSort.getSortButtonList();
 
-    if (grid.grid_mode == grid.code_group) {
+    if (grid.grid_mode == grid.code_group || grid.grid_mode == grid.code_tree) {
         grid.tbs_setData(grid.data_view, null, false);
     }
     else {

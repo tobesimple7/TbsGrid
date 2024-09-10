@@ -237,8 +237,8 @@ TbsGridGroup.prototype.setGroupData = function (data, openDepth  = 0, isFirst = 
 
     let columns = grid.columns;
     let dataRows = grid.tbs_copyJson(grid.data_user);
-//==============================================================================
-    // create rowId
+
+    /* create rowId */
     dataRows.map((dataRow, rowIndex) => {
         if (grid.null(dataRow[grid.code_rowId])) {
             grid.maxRowId += 1;

@@ -31,21 +31,21 @@ TbsGrid.prototype.panel70_select = function(panelName) {
             input.value = '';
             grid.classFilter.setFilterColumn(column, filterType, word);
             grid.classFilter.filters();
-            if (grid.grid_mode == grid.code_group) grid.tbs_setData(grid.data_view, null, false);
+            if (grid.grid_mode == grid.code_group || grid.grid_mode == grid.code_tree) grid.tbs_setData(grid.data_view, null, false);
             else grid.tbs_apply();
         }
         else if (filterType != '0' && word != '') {
             let filterColumn = grid.tbs_getJsonRow(grid.filterColumns, grid.column_name, column[grid.column_name]);
             grid.classFilter.setFilterColumn(column, filterType, word);
             grid.classFilter.filters();
-            if (grid.grid_mode == grid.code_group) grid.tbs_setData(grid.data_view, null, false);
+            if (grid.grid_mode == grid.code_group || grid.grid_mode == grid.code_tree) grid.tbs_setData(grid.data_view, null, false);
             else grid.tbs_apply();
         }
         else {
             // delete filterColumn.
             grid.classFilter.removeFilterColumn(column);
             grid.classFilter.filters();
-            if (grid.grid_mode == grid.code_group) grid.tbs_setData(grid.data_view, null, false);
+            if (grid.grid_mode == grid.code_group || grid.grid_mode == grid.code_tree) grid.tbs_setData(grid.data_view, null, false);
             else grid.tbs_apply();
         }
     };
@@ -69,9 +69,7 @@ TbsGrid.prototype.panel70_select = function(panelName) {
             let filterColumn = grid.tbs_getJsonRow(grid.filterColumns, grid.column_name, column[grid.column_name]);
             grid.classFilter.setFilterColumn(column, filterType, word);
 
-            if (grid.grid_mode == grid.code_group) {
-                grid.tbs_setData(grid.data_view, null, false);
-            }
+            if (grid.grid_mode == grid.code_group || grid.grid_mode == grid.code_tree) grid.tbs_setData(grid.data_view, null, false);
             else {
                 grid.classFilter.filters();
                 grid.tbs_apply();
@@ -81,7 +79,7 @@ TbsGrid.prototype.panel70_select = function(panelName) {
             // delete filterColumn.
             grid.classFilter.removeFilterColumn(column);
             grid.classFilter.filters();
-            if (grid.grid_mode == grid.code_group) grid.tbs_setData(grid.data_view, null, false);
+            if (grid.grid_mode == grid.code_group || grid.grid_mode == grid.code_tree) grid.tbs_setData(grid.data_view, null, false);
             else grid.tbs_apply();
         }
         if (e.keyCode == 13 || e.keyCode == 9) { grid.FocusControl = ''; }
