@@ -3,14 +3,19 @@
   "version": "0.0.1",
   "description": "Web Data Grid",
   "main": "index.js",
-  "scripts": { "test": "echo \"Error: no test specified\" && exit 1" },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "author": "tobesimple7",
   "license": "MIT",
   "homepage": "https://tobesimple.net",
   "repository": "https://github.com/tobesimple7/TbsGrid",
-  "files": [ "src/*" ],
+  "files": [
+    "src/*"
+  ],
   "dependencies": {
+    "file-saver": "^2.0.5",
     "mobile-detect": "^1.4.5",
-    "file-saver": "^2.0.5"
+    "tbsgrid": "^0.0.1"
   }
 }

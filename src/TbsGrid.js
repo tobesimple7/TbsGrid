@@ -32,6 +32,6 @@ import TbsGridTop         from './tbs.grid.min';
 import TbsGridTree        from './tbs.grid.min';
 import TbsGridType        from './tbs.grid.min';
 import tbsGridConfigs     from './tbs.grid.min';
-import tbsGrid            from './tbs.grid.min';
+import TbsGrid            from './tbs.grid.min';
 
 export default TbsGrid;
