@@ -1,3 +1,3 @@
-import TbsGrid from './src/tbs.grid';
+import TbsGrid from './src/TbsGrid';
 
 export default TbsGrid;
