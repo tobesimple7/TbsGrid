@@ -8,7 +8,7 @@ module.exports = {
     entry: {
         "tbs-grid-configs": path.resolve(__dirname, 'src/tbs.grid.configs.js'),
         "tbs-grid": path.resolve(__dirname, 'src/tbs.grid.js'),
-        //"tbs-grid.min": path.resolve(__dirname, 'src/tbs.grid.js'),
+        "tbs-grid.min": path.resolve(__dirname, 'src/tbs.grid.js'),
     },
     output: {
         filename: '[name].js',
