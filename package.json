@@ -1,21 +1,49 @@
 {
-  "name": "tbsgrid",
-  "version": "0.0.2",
-  "description": "Web Data Grid",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "name": "tbs-grid",
+  "version": "0.0.1",
+  "description": "",
   "author": "tobesimple7",
   "license": "MIT",
   "homepage": "https://tobesimple.net",
   "repository": "https://github.com/tobesimple7/TbsGrid",
+  "dependencies": {
+    "esbuild": "^0.24.0",
+    "file-saver": "^2.0.5",
+    "mobile-detect": "^1.4.5",
+    "typescript": "^4.9.5"
+  },
   "files": [
     "src/*"
   ],
-  "dependencies": {
-    "file-saver": "^2.0.5",
-    "mobile-detect": "^1.4.5",
-    "tbsgrid": "^0.0.1"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/preset-env": "^7.25.4",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.9.1",
+    "sass-loader": "^16.0.2",
+    "style-loader": "^4.0.0",
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
   }
 }
