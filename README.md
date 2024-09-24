@@ -68,7 +68,4 @@ tbs.grid.configs.js
 * [Tree Grid](https://tobesimple.net/page81/page81_001.php)
 * [Paging Grid](https://tobesimple.net/page82/page82_001.php)
 
-## Issue Report
-- [en] If you have any issues or troubles with TbsGrid, please let us know in the Github Issues menu. We will review and fix it.
-- [ko] TbsGrid에 궁금한 점이나 개선사항 있으시면  https://github.com/tobesimple7/TbsGrid-kor 이슈에 등록해주시면 검토 후 개선 혹은 답변 드리겠습니다.
 

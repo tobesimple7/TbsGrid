@@ -14,7 +14,7 @@ module.exports = {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
         libraryTarget: "umd",
-        clean: true,
+        clean: false,
     },
     module: {
         rules: [
