@@ -1,0 +1,2625 @@
+﻿/* =========================================================================== */
+/*                                                                             */
+/*    [TBS Grid CSS]                                                           */
+/*                                                                             */
+/* =========================================================================== */
+/*
+[Struture]
+tbs-grid (relative)
+    - tbs-grid-panel10 (relative)
+    - tbs-grid-panel80 (relative)
+    - tbs-grid-main (relative)
+        - tbs-grid-wrap (absolute)
+            - tbs-grid-group21 (absolute)
+                - tbs-grid-panel (relative)
+                    - tbs-grid-panel21 (absolute)
+                    - tbs-grid-panel22 (absolute)
+            - tbs-grid-group20 (absolute)
+                - tbs-grid-panel (relative)
+                    - tbs-grid-panel20 (absolute)
+            - tbs-grid-group31 (absolute)
+                - tbs-grid-panel (relative)
+                    - tbs-grid-panel31 (absolute)
+                    - tbs-grid-panel32 (absolute)
+            - tbs-grid-group30 (absolute)
+                - tbs-grid-panel (relative)
+                    - tbs-grid-panel30 (absolute)
+
+* cascade : font-family, font-size, font-weight, line-height, visibility, opacity, color, line-height, text-align, white-space, list-style
+* not cascade : margin, padding, border , box-sizing, display, background, vertical-align, text-ecoration, top/right/bottom/left, position, overflow, width/height
+
+ */
+/* =========================================================================== */
+/*  [variable declare]                                                         */
+/* =========================================================================== */
+:root {
+    --tbs-grid-cell-start-color: #f7f5eb; /* var(--tbs-grid-cell-start-color); */
+    --tbs-grid-cell-select-color: #fffbe5; /* var(--tbs-grid-cell-select-color); */
+    --tbs-grid-cell-select-guide-color: #fff6ee; /* var(--tbs-grid-cell-select-guide-color); */
+    --tbs-grid-cell-hover-color: #fffbe5; /* var(--tbs-grid-cell-hover-color); */
+    --tbs-grid-cell-border: 1px solid #bbbbbb; /* var(--tbs-grid-cell-border); */
+    --tbs-grid-cell-fixed-line-border: solid 2px #8d8d8d; /* var(--tbs-grid-cell-fixed-line-border); */
+}
+.tbs-row-color1 { background-color: #b7b7b7; }
+.tbs-row-color2 { background-color: #c0c0c0; }
+.tbs-row-color3 { background-color: #cccccc; }
+.tbs-row-color4 { background-color: #d7d7d7; }
+.tbs-row-color5 { background-color: #e3e2e2; }
+.tbs-row-color6 { background-color: #eeeeee; }
+.tbs-row-color7 { background-color: #eeeeee; }
+.tbs-row-color8 { background-color: #eeeeee; }
+.tbs-row-color9 { background-color: #eeeeee; }
+
+.tbs-grid-show {
+    display: block;
+}
+.tbs-grid-hide {
+    display: none;
+}
+.tbs-grid .tbs-grid-cell-start {
+    background: var(--tbs-grid-cell-start-color);
+}
+.tbs-grid .tbs-grid-cell-select {
+    background: var(--tbs-grid-cell-select-color);
+}
+.tbs-grid .tbs-grid-cell-select-guide {
+    background: var(--tbs-grid-cell-select-guide-color);
+}
+.tbs-grid .tbs-grid-cell:hover {
+    background: var(--tbs-grid-cell-hover-color);
+}
+/*  font, size, color */
+/*.tbs-grid [class^="tbs-grid"] { font-size: 12px; font-family: 'Arial, Helvetica, sans-serif, Nanum Gothic';  }*/
+.tbs-grid {
+    font-size: 12px;
+    font-family: 'Arial, Helvetica, sans-serif, Nanum Gothic';
+}
+/* =========================================================================== */
+/*  frame css                                                                  */
+/* =========================================================================== */
+.tbs-grid {
+    position: relative;
+    width: 100%;
+    border: solid 1px #9b9b9b;
+    outline: none;
+    box-shadow: none;
+    background: white;
+    direction: ltr;
+    box-sizing: border-box;
+    border-spacing: 0px;
+    padding: 0px;
+    margin: 0px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none; /* no drag */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.tbs-grid .tbs-grid-panel10 {
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #9b9b9b;
+    height: 25px;
+    overflow: hidden;
+    background: #dfe3e8;
+}
+.tbs-grid .tbs-grid-main {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+    background: #ffffff;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-wrap {
+    position: absolute;
+    overflow: hidden;
+    top: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+/* =========================================================================== */
+/*  Grid Group                                                                 */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-group21 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.tbs-grid .tbs-grid-group20 {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-group41 {
+    position: absolute;
+    left: 0px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-group40 {
+    position: absolute;
+    right: 0px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-group31 {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-group30 {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-group51 {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-group50 {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-group61 {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-group60 {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-group71 {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-group70 {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+}
+/* =========================================================================== */
+/*  Grid Panel                                                                 */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-panel21 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: auto;
+}
+.tbs-grid .tbs-grid-panel22 {
+    position: absolute;
+    top: 0px;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+    border-right:  var(--tbs-grid-cell-fixed-line-border);
+}
+.tbs-grid .tbs-grid-panel20 {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    background: white;
+}
+.tbs-grid .tbs-grid-panel31 {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+}
+.tbs-grid .tbs-grid-panel32 {
+    position: absolute;
+    top: 0px;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+    border-right: var(--tbs-grid-cell-fixed-line-border);
+}
+.tbs-grid .tbs-grid-panel30 {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+}
+.tbs-grid .tbs-grid-panel41 {
+    position: absolute;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: 0px;
+    width: auto;
+    height: auto;
+    overflow-y: hidden;
+    background: white;
+}
+.tbs-grid .tbs-grid-panel42 {
+    position: absolute;
+    top: 0px;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+    border-right: var(--tbs-grid-cell-fixed-line-border);
+}
+.tbs-grid .tbs-grid-panel40 {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+}
+.tbs-grid .tbs-grid-panel51 {
+    position: absolute;
+    top: auto;
+    right: auto;
+    bottom: 0px;
+    left: 0px;
+    width: auto;
+    height: auto;
+    overflow-y: hidden;
+    background: white;
+}
+.tbs-grid .tbs-grid-panel52 {
+    position: absolute;
+    top: 0;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+    border-right: var(--tbs-grid-cell-fixed-line-border);
+}
+.tbs-grid .tbs-grid-panel50 {
+    position: absolute;
+    top: 0;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+}
+.tbs-grid .tbs-grid-panel61 {
+    position: absolute;
+    top: 0;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+    border-bottom: solid 1px #38480d;
+}
+.tbs-grid .tbs-grid-panel62 {
+    position: absolute;
+    top: 0;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+    border-bottom: solid 1px #38480d;
+    border-right: var(--tbs-grid-cell-fixed-line-border);
+}
+.tbs-grid .tbs-grid-panel60 {
+    position: absolute;
+    top: 0;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+    border-bottom: solid 1px #38480d;
+}
+.tbs-grid .tbs-grid-panel71 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: auto;
+}
+.tbs-grid .tbs-grid-panel72 {
+    position: absolute;
+    top: 0px;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    background: white;
+    border-right: var(--tbs-grid-cell-fixed-line-border);
+}
+.tbs-grid .tbs-grid-panel70 {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    background: white;
+}
+/* =========================================================================== */
+/*  Grid Panel Table                                                           */
+/* =========================================================================== */
+/* Header Table */
+.tbs-grid .tbs-grid-panel21 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #e5e6e7;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel22 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #e5e6e7;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel20 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #e5e6e7;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+/* Content Table */
+.tbs-grid .tbs-grid-panel31 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #e5e6e7;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel32 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #ffffff;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel30 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #ffffff;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+/* Summary Top Table */
+.tbs-grid .tbs-grid-panel41 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #e5e6e7;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel42 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #dbffe3;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel40 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #dbffe3;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+/* Summary Footer Table*/
+.tbs-grid .tbs-grid-panel51 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #e5e6e7;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel52 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #dbffe3;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel50 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #dbffe3;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+/* Frozen Table */
+.tbs-grid .tbs-grid-panel61 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #e5e6e7;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel62 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #ffffff;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel60 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #ffffff;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+/* Filter Table */
+.tbs-grid .tbs-grid-panel71 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #e5e6e7;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel72 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #e5e6e7;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+.tbs-grid .tbs-grid-panel70 .tbs-grid-table {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    background: #e5e6e7;
+    border-spacing: 0px;
+    width: 0px !important;
+}
+/* div with table */
+.tbs-grid .tbs-grid-div {
+    z-index: 1;
+    width: 100%;
+    border: 0px solid #ccc;
+}
+.tbs-grid .tbs-grid-div-overflow-x {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border: 0px solid #ccc;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+.tbs-grid .tbs-grid-div-overflow-y {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border: 0px solid #ccc;
+    overflow-x: visible;
+    overflow-y: hidden;
+}
+.tbs-grid .tbs-grid-div-overflow-xy {
+    position: static;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border: 0px solid #ccc;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+/* =========================================================================== */
+/*    Alternative Background                                                   */
+/* =========================================================================== */
+.tbs-grid-tr-bg {
+    background: white;
+}
+.tbs-grid-tr-bg2 {
+    background: #f8f8f8;
+}
+/* =========================================================================== */
+/*    [TBS Grid CSS] Table                                                     */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-table {
+    position: relative;
+    z-index: 0;
+    border: 0px solid #ccc;
+    border-collapse: unset
+}
+.tbs-grid .tbs-grid-table .tbs-grid-cell {
+    position: relative;
+    z-index: 0;
+    padding: 0px;
+    margin: 0px;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: var(--tbs-grid-cell-border);
+    border-left: 0px solid #bbbbbb;
+    border-right: var(--tbs-grid-cell-border);
+    border-spacing: 0px;
+    overflow: hidden;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none; /* no drag */
+}
+.tbs-grid .tbs-grid-table .tbs-grid-cell-bottom-none {
+    border-bottom: 0px;
+}
+.tbs-grid .tbs-grid-table .tbs-grid-cell-top {
+    border-top: 1px solid #bbbbbb;
+}
+.tbs-grid .tbs-grid-group51 .tbs-grid-cell {
+    border-top: 0px;
+    border-bottom: 0px;
+}
+.tbs-grid .tbs-grid-group50 .tbs-grid-cell {
+    border-top: 0px;
+    border-bottom: 0px;
+}
+/* =========================================================================== */
+/*    thead, tr, th                                                            */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-table thead,
+.tbs-grid .tbs-grid-table thead th {
+    height: 0px !important;
+    border-spacing: 0px !important;
+    border-collapse: separate !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+/* =========================================================================== */
+/*    top cell                                                                 */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel21 .tbs-grid-cell {
+    text-align: center;
+    vertical-align: middle;
+    border-right: var(--tbs-grid-cell-border);
+    border-bottom: var(--tbs-grid-cell-border);
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel21 .tbs-grid-cell-checkbox {
+}
+.tbs-grid .tbs-grid-panel21 .tbs-grid-cell-div {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+/* =========================================================================== */
+/*    header cell                                                              */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel20 .tbs-grid-cell {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel20 .tbs-grid-cell-readonly {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left;
+    vertical-align: middle;
+    background: #ecf7fe;
+}
+.tbs-grid .tbs-grid-panel20 .tbs-grid-cell-div {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+.tbs-grid .tbs-grid-panel20 .tbs-grid-cell-span {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.5em;
+    white-space: nowrap;
+}
+.tbs-grid .tbs-grid-panel20 .tbs-grid-cell-span-sort {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel20 .tbs-grid-cell-resize {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 5px;
+    cursor: col-resize;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-panel20 .tbs-grid-cell-resize:hover,
+.tbs-grid .tbs-grid-panel20 .tbs-grid-cell-resizing {
+    cursor: col-resize;
+    border-right: 2px solid blue;
+}
+/* =========================================================================== */
+/*    left content cell                                                                */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel31 .tbs-grid-cell-div {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel31 .tbs-grid-cell-checkbox {
+}
+/* =========================================================================== */
+/*    content cell                                                             */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel30 .tbs-grid-cell {
+}
+.tbs-grid .tbs-grid-panel30 .tbs-grid-cell-div {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+/* =========================================================================== */
+/*    tbs-grid-panel41                                                       */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel41 .tbs-grid-cell {
+    position: relative;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    width: auto;
+    height: auto;
+    border-right: var(--tbs-grid-cell-border);
+    border-bottom: var(--tbs-grid-cell-border);
+}
+.tbs-grid .tbs-grid-panel41 .tbs-grid-cell-div {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+/* =========================================================================== */
+/*    tbs-grid-panel40                                                        */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel40 .tbs-grid-cell {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    width: auto;
+    height: auto;
+    border-right: var(--tbs-grid-cell-border);
+    border-bottom: var(--tbs-grid-cell-border);
+}
+.tbs-grid .tbs-grid-panel40 .tbs-grid-cell-div {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+/* =========================================================================== */
+/*    tbs-grid-panel51                                                     */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel51 .tbs-grid-cell {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    width: auto;
+    height: auto;
+    border-top: var(--tbs-grid-cell-border);
+    border-right: var(--tbs-grid-cell-border);
+    border-bottom: 0px;
+}
+.tbs-grid .tbs-grid-panel51 .tbs-grid-cell-div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+/* =========================================================================== */
+/*    tbs-grid-panel50                                                          */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel50 .tbs-grid-cell {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    width: auto;
+    height: auto;
+    border-top: var(--tbs-grid-cell-border);
+    border-bottom: 0px;
+}
+.tbs-grid .tbs-grid-panel50 .tbs-grid-cell-div {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+/* ======================================================================================================================== fix */
+.tbs-grid .tbs-grid-panel22 {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel22 .tbs-grid-cell {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel22 .tbs-grid-cell-readonly {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left;
+    vertical-align: middle;
+    background: #ecf7fe;
+}
+.tbs-grid .tbs-grid-panel22 .tbs-grid-cell-div {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+.tbs-grid .tbs-grid-panel22 .tbs-grid-cell-span {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.5em;
+    white-space: nowrap;
+}
+.tbs-grid .tbs-grid-panel22 .tbs-grid-cell-span-sort {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel22 .tbs-grid-cell-resize {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 5px;
+    cursor: col-resize;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-panel22 .tbs-grid-cell-resize:hover,
+.tbs-grid .tbs-grid-panel22 .tbs-grid-cell-resizing {
+    cursor: col-resize;
+    border-right: 2px solid blue;
+}
+.tbs-grid .tbs-grid-panel32 {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel32 .tbs-grid-cell {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel32 .tbs-grid-cell-right {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left;
+    vertical-align: middle;
+    background: #ecf7fe;
+}
+.tbs-grid .tbs-grid-panel32 .tbs-grid-cell-div {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+.tbs-grid .tbs-grid-panel42 {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel42 .tbs-grid-cell {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel42 .tbs-grid-cell-readonly {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left;
+    vertical-align: middle;
+    background: #ecf7fe;
+}
+.tbs-grid .tbs-grid-panel42 .tbs-grid-cell-div {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+.tbs-grid .tbs-grid-panel52 {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel52 .tbs-grid-cell {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    width: auto;
+    height: auto;
+    border-top: var(--tbs-grid-cell-border);
+    border-bottom: 0px;
+    border-right: var(--tbs-grid-cell-border);
+    border-left: 0px;
+}
+.tbs-grid .tbs-grid-panel52 .tbs-grid-cell-readonly {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left;
+    vertical-align: middle;
+    background: #ecf7fe;
+}
+.tbs-grid .tbs-grid-panel52 .tbs-grid-cell-div {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+/* panel60 */
+.tbs-grid .tbs-grid-panel61 {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel61 .tbs-grid-cell {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel61 .tbs-grid-cell-readonly {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left;
+    vertical-align: middle;
+    background: #ecf7fe;
+}
+.tbs-grid .tbs-grid-panel61 .tbs-grid-cell-div {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel62 {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel62 .tbs-grid-cell {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel62 .tbs-grid-cell-readonly {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left;
+    vertical-align: middle;
+    background: #ecf7fe;
+}
+.tbs-grid .tbs-grid-panel62 .tbs-grid-cell-div {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+.tbs-grid .tbs-grid-panel60 {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel60 .tbs-grid-cell {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel60 .tbs-grid-cell-readonly {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left;
+    vertical-align: middle;
+    background: #ecf7fe;
+}
+.tbs-grid .tbs-grid-panel60 .tbs-grid-cell-div {
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 3px;
+    padding-right: 3px;
+    width: auto;
+    height: auto;
+}
+/* panel70 */
+.tbs-grid .tbs-grid-panel71 {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel71 .tbs-grid-cell {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel71 .tbs-grid-cell-readonly {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left;
+    vertical-align: middle;
+    background: #ecf7fe;
+}
+.tbs-grid .tbs-grid-panel71 .tbs-grid-cell-div {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel72 {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel72 .tbs-grid-cell {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel72 .tbs-grid-cell-div {
+    position: relative;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: auto;
+    height: auto;
+    background: white;
+    /*height: 25px;*/
+}
+.tbs-grid .tbs-grid-panel72 .tbs-grid-cell-filter-text {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    bottom: 0px;
+    left: 0px;
+    display: inline-block;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-panel72 .tbs-grid-cell-filter-input {
+    display: inline-block;
+    height: 24px;
+    width: 100%;
+    background: #ffffff /*#f8f8f8*/;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline: none;
+}
+.tbs-grid .tbs-grid-panel72 .tbs-grid-cell-filter-combo {
+    display: inline-block;
+    height: 24px;
+    width: 100%;
+    background: #ffffff /*#f8f8f8*/;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline: none;
+}
+.tbs-grid .tbs-grid-panel72 .tbs-grid-cell-filter-icon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 15px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+.tbs-grid .tbs-grid-panel70 {
+    table-layout: fixed;
+    padding: 0px;
+    margin: 0px;
+    height: auto;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel70 .tbs-grid-cell {
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel70 .tbs-grid-cell-div {
+    position: relative;
+    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    border: 0px solid #ccc;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: auto;
+    height: auto;
+    background: white;
+    /*height: 25px;*/
+}
+.tbs-grid .tbs-grid-panel70 .tbs-grid-cell-filter-text {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    bottom: 0px;
+    left: 0px;
+    display: inline-block;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-panel70 .tbs-grid-cell-filter-input {
+    display: inline-block;
+    height: 24px;
+    width: 100%;
+    background: #ffffff /*#f8f8f8*/;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline: none;
+}
+.tbs-grid .tbs-grid-panel70 .tbs-grid-cell-filter-combo {
+    display: inline-block;
+    height: 24px;
+    width: 100%;
+    background: #ffffff /*#f8f8f8*/;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline: none;
+}
+.tbs-grid .tbs-grid-panel70 .tbs-grid-cell-filter-icon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 15px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+/* =========================================================================== */
+/*    select line                                                              */
+/* =========================================================================== */
+.tbs-grid-top-line {
+    position: absolute;
+    width: 0px;
+    height: 1px;
+    background: #1c4000;
+    padding: 0px;
+    margin: 0px;
+}
+.tbs-grid-bottom-line {
+    position: absolute;
+    width: 0px;
+    height: 1px;
+    background: #1c4000;
+    padding: 0px;
+    margin: 0px;
+}
+.tbs-grid-left-line {
+    position: absolute;
+    width: 1px;
+    height: 0px;
+    background: #1c4000;
+    padding: 0px;
+    margin: 0px;
+}
+.tbs-grid-right-line {
+    position: absolute;
+    width: 1px;
+    height: 0px;
+    background: #1c4000;
+    padding: 0px;
+    margin: 0px;
+}
+/* =========================================================================== */
+/* Froze line                                                              */
+/* =========================================================================== */
+/*.tbs-grid-fix-col-line {*/
+/*    position: absolute;*/
+/*    width: 0px;*/
+/*    height: 0px;*/
+/*    background: rgb(74, 79, 104);*/
+/*    padding: 0px;*/
+/*    margin: 0px;*/
+/*}*/
+/*.tbs-grid-fix-row-line {*/
+/*    position: absolute;*/
+/*    width: 0px;*/
+/*    height: 0px;*/
+/*    background: rgb(74, 79, 104);*/
+/*    padding: 0px;*/
+/*    margin: 0px;*/
+/*}*/
+/* =========================================================================== */
+/*    icon                                                                     */
+/* =========================================================================== */
+.tbs-grid-cell-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid-day-icon {
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid-table-condition {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    border: 0px solid #ccc;
+    table-layout: fixed;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: 0px none;
+    border-collapse: collapse;
+}
+/* =========================================================================== */
+/*    top summary, footer summary                                              */
+/* =========================================================================== */
+.tbs-grid-sum-background {
+    background: #c1e7c6;
+    font-weight: bold;
+}
+.tbs-grid-sum-background0 {
+    background: #fecc9c;
+    font-weight: bold;
+}
+.tbs-grid-sum-background1 {
+    background: #d0fffb;
+    font-weight: bold;
+}
+.tbs-grid-sum-background2 {
+    background: #bed8bb;
+    font-weight: bold;
+}
+.tbs-grid-sum-background3 {
+    background: #9cb09f;
+    font-weight: bold;
+}
+.tbs-grid-sum-background4 {
+    background: #8ea4a3;
+    font-weight: bold;
+}
+.tbs-grid-sum-background5 {
+    background: #c2daee;
+    font-weight: bold;
+}
+.tbs-grid-sum-background6 {
+    background: #87929f;
+    font-weight: bold;
+}
+.tbs-grid-sum-background7 {
+    background: #e9caf7;
+    font-weight: bold;
+}
+.tbs-grid-sum-background8 {
+    background: #ac93a8;
+    font-weight: bold;
+}
+.tbs-grid-sum-background9 {
+    background: #fe97b3;
+    font-weight: bold;
+}
+/* =========================================================================== */
+/*    move column                                                              */
+/* =========================================================================== */
+.tbs-grid-move {
+    position: fixed;
+    overflow-x: hidden;
+    background-color : rgb(255,255,255,0.5);
+    z-index: 1000;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ff4141;
+    overflow: hidden;
+}
+.tbs-grid-move .tbs-grid-table {
+    table-layout: fixed;
+    box-sizing: border-box;
+    border: 0;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-spacing: 0px;
+}
+.tbs-grid-move .tbs-grid-cell {
+    vertical-align: middle;
+    width: 100%
+}
+.tbs-grid-move .tbs-grid-cell-div {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    width: 100%
+}
+.tbs-grid-move .tbs-grid-cell-span {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.5em;
+    white-space: nowrap;
+    width: 100%
+}
+/* =========================================================================== */
+/*    [TBS Grid CSS] verti : scroll                                            */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-vertical-scroll {
+    position: absolute;
+    width: 14px;
+    height: auto;
+    top: 0;
+    bottom: 14px;
+    left: auto;
+    right: 0;
+    box-shadow: inset 0 0 14px rgb(0 0 0 / 20%);
+}
+.tbs-grid .tbs-grid-vertical-scroll-wrap {
+    position: absolute;
+    width: 14px;
+    height: auto;
+    top: 16px;
+    bottom: 16px;
+    left: auto;
+    right: 0;
+    background-color: rgba(0,0,0,0.05);
+    box-shadow: inset 1px 1px 14px rgb(0 0 0 / 10%);
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-vertical-scroll-bar {
+    position: relative;
+    width: 13px;
+    top: 0;
+    height: 30px;
+    margin: 0px 0px 0px 0px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    text-align: center;
+    background-color: #bebebe;
+    box-shadow: inset 1px 0 0 rgb(255 255 255 / 40%), inset -1px 0 0 rgb(0 0 0 / 20%);
+    user-select: none;
+}
+.tbs-grid .tbs-grid-vertical-scroll-up {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    top: 0;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    text-align: center;
+    vertical-align: middle;
+    /* -webkit-border-radius:7px;-moz-border-radius: 7px;border-radius:7px; */
+}
+.tbs-grid .tbs-grid-vertical-scroll-down {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    top: auto;
+    bottom: 0;
+    left: auto;
+    right: auto;
+    text-align: center;
+    vertical-align: top;
+    /* -webkit-border-radius:7px;-moz-border-radius: 7px;border-radius:7px; */
+}
+.tbs-grid .tbs-grid-vertical-scroll-up div {
+    font-family: Verdana;
+    font-size: 11px;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+}
+.tbs-grid .tbs-grid-vertical-scroll-down div {
+    font-family: Verdana;
+    font-size: 11px;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+}
+.tbs-grid .tbs-grid-vertical-scroll6 {
+    position: absolute;
+    width: 14px;
+    height: auto;
+    top: 0;
+    bottom: 14px;
+    left: auto;
+    right: 0;
+    box-shadow: inset 0 0 14px rgb(0 0 0 / 20%);
+}
+.tbs-grid .tbs-grid-vertical-scroll6-wrap {
+    position: absolute;
+    width: 14px;
+    height: auto;
+    top: 16px;
+    bottom: 16px;
+    left: auto;
+    right: 0;
+    background-color: rgba(0,0,0,0.05);
+    box-shadow: inset 1px 1px 14px rgb(0 0 0 / 10%);
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-vertical-scroll6-bar {
+    position: relative;
+    width: 13px;
+    top: 0;
+    height: 30px;
+    margin: 0px 0px 0px 0px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    text-align: center;
+    background-color: #bebebe;
+    box-shadow: inset 1px 0 0 rgb(255 255 255 / 40%), inset -1px 0 0 rgb(0 0 0 / 20%);
+    user-select: none;
+}
+.tbs-grid .tbs-grid-vertical-scroll6-up {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    top: 0;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    /* -webkit-border-radius:7px;-moz-border-radius: 7px;border-radius:7px; */
+}
+.tbs-grid .tbs-grid-vertical-scroll6-down {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    top: auto;
+    bottom: 0;
+    left: auto;
+    right: auto;
+    /* -webkit-border-radius:7px;-moz-border-radius: 7px;border-radius:7px; */
+}
+/* =========================================================================== */
+/*    [TBS Grid CSS] hori : scroll                                             */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-horizontal-scroll {
+    position: absolute;
+    width: auto;
+    height: 14px;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 14px;
+    box-shadow: inset 0 0 14px rgb(0 0 0 / 20%);
+}
+.tbs-grid .tbs-grid-horizontal-scroll-wrap {
+    position: absolute;
+    width: auto;
+    height: 14px;
+    top: auto;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    background-color: rgba(0,0,0,0.05);
+    box-shadow: inset 1px 1px 14px rgb(0 0 0 / 10%);
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-horizontal-scroll-bar {
+    position: relative;
+    width: 30px;
+    bottom: 0;
+    height: 12px;
+    margin: 1px 0px 1px 0px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    background-color: #bebebe;
+    box-shadow: inset 1px 0 0 rgb(255 255 255 / 40%), inset -1px 0 0 rgb(0 0 0 / 20%);
+    user-select: none;
+}
+.tbs-grid .tbs-grid-horizontal-scroll-left {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: auto;
+    bottom: auto;
+    left: 0;
+    right: auto;
+    text-align: center;
+    vertical-align: top;
+    padding: 0px;
+}
+.tbs-grid .tbs-grid-horizontal-scroll-right {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: 0;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-horizontal-scroll-left div {
+    font-family: Verdana;
+    font-size: 11px;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+}
+.tbs-grid .tbs-grid-horizontal-scroll-right div {
+    font-family: Verdana;
+    font-size: 11px;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+}
+.tbs-grid .tbs-grid-horizontal-scroll2 {
+    position: absolute;
+    width: auto;
+    height: 14px;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 14px;
+    box-shadow: inset 0 0 14px rgb(0 0 0 / 20%);
+}
+.tbs-grid .tbs-grid-horizontal-scroll2-wrap {
+    position: absolute;
+    width: auto;
+    height: 14px;
+    top: auto;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    background-color: rgba(0,0,0,0.05);
+    box-shadow: inset 1px 1px 14px rgb(0 0 0 / 10%);
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-horizontal-scroll2-bar {
+    position: relative;
+    width: 30px;
+    bottom: 0;
+    height: 12px;
+    margin: 1px 0px 1px 0px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    background-color: #bebebe;
+    box-shadow: inset 1px 0 0 rgb(255 255 255 / 40%), inset -1px 0 0 rgb(0 0 0 / 20%);
+    user-select: none;
+}
+.tbs-grid .tbs-grid-horizontal-scroll2-left {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: auto;
+    bottom: auto;
+    left: 0;
+    right: auto;
+}
+.tbs-grid .tbs-grid-horizontal-scroll2-right {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: 0;
+}
+/* =========================================================================== */
+/*    [TBS Grid CSS]  : scroll  box                                            */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-scroll-box {
+    width: 14px;
+    height: 14px;
+    background: green;
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    background-color: #9a9a9a;
+}
+/* =========================================================================== */
+/*    Panel10 Toolbar                                                          */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-wrap {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 100%;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-filter {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: var(--tbs-grid-cell-border);
+    width: 200px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 5px 0px 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-filter-input {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background: #ffffff /*#f8f8f8*/;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline: none;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    /*width: 300px;*/
+    height: 25px;
+    display: inline-block;
+    margin: 0px 50px 0px 0px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page-first {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 30px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 5px;
+    border-spacing: 0px;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page-prev {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 30px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 5px;
+    border-spacing: 0px;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page-select {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 30px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 5px;
+    border-spacing: 0px;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page-next {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 30px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 5px;
+    border-spacing: 0px;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page-last {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 20px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 5px;
+    border-spacing: 0px;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-button {
+    position: relative;
+    width: 100px;
+    height: 18px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 5px 0px 0px;
+    background: #ccdb87;
+    border: 1px solid #424242;
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel10 .bg-red {
+    background-color: rgb(255, 92, 92);
+}
+.tbs-grid .tbs-grid-panel10 .font-white {
+    color: #ffffff;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons {
+    position: relative;
+    display: inline-block;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #a0a0a0;
+    /*width: 600px;*/
+    height: 25px;
+    top: 0px; right: 0px; bottom: 0px;
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-wrap {
+    position: relative;
+    display: inline-block;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 100%;
+    height: 25px;
+    margin: 2px 0px 0px 0px;
+    border-spacing: 0px;
+    text-align: center;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-filter {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #fce3e3;
+    /*width: 70px;*/
+    /*height: 25px;*/
+    margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-filter-reset {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #e8e8e8;
+    /*width: 40px;*/
+    /*height: 25px;*/
+    margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-sort {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #fce3e3;
+    /*width: 70px;*/
+    /*height: 25px;*/
+    margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-sort-reset {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #e8e8e8;
+    /*width: 40px;*/
+    /*height: 25px;*/
+    margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-group {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #fce3e3;
+    /*width: 70px;*/
+    /*height: 25px;*/
+    margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-group-expand {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #e8e8e8;
+    /*width: 50px;*/
+    /*height: 25px;*/
+    margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-group-collapse {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #e8e8e8;
+    /*width: 50px;*/
+    /*height: 25px;*/
+    margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-group-reset {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #e8e8e8;
+    /*width: 50px;*/
+    /*height: 25px;*/
+    margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
+    border-spacing: 0px;
+}
+.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-buttons-fixed-column {
+    position: relative;
+    display: inline-block;
+    border-top: 1px solid #bbbbbb;
+    border-bottom: 1px solid #bbbbbb;
+    border-left: 1px solid #bbbbbb;
+    border-right: 1px solid #bbbbbb;
+    background-color: #fce3e3;
+    /*width: 50px;*/
+    /*height: 25px;*/
+    margin: 0px 0px 0px 2px;
+    padding: 0px 10px 0px 10px;
+    border-spacing: 0px;
+}
+/* =========================================================================== */
+/*   Panel80 Grouping                                                          */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel80 {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #9b9b9b;
+    height: 33px;
+    overflow: hidden;
+    background: #dfe3e8;
+    padding: 3px 3px 3px 30px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-bar {
+    position: relative;
+    display: inline-block;
+    /*display: inline-block;*/
+    /*width: 100%;*/
+    /*height: 27px;*/
+    padding: 0px 0px 0px 0px;
+    margin: 0px;
+    /*background: #ccdb87;*/
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-bar-span {
+    position: relative;
+    display: inline-block;
+    padding: 6px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    cursor: pointer;
+    line-height: 1.0em;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-button {
+    position: relative;
+    display: inline-block;
+    /*width: 100px;*/
+    height: 27px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 5px 0px 0px;
+    background: #d8f595;
+    border: 1px solid #424242;
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-button-text {
+    display: inline-block;
+    height: 27px;
+    padding: 0px 5px 0px 5px;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-button-icon {
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 15px;
+    height: 15px;
+    height: 27px;
+}
+.tbs-grid .tbs-grid-panel80 .bg-red {
+    background-color: rgb(255, 92, 92);
+}
+.tbs-grid .tbs-grid-panel80 .font-white {
+    color: #ffffff;
+}
+/* =========================================================================== */
+/*   Panel80 Grouping                                                          */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel80 {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #9b9b9b;
+    height: 33px;
+    overflow: hidden;
+    background: #dfe3e8;
+    padding: 3px 3px 3px 30px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-bar {
+    position: relative;
+    width: 100%;
+    height: 27px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px;
+    /*background: #ccdb87;*/
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-bar-span {
+    position: relative;
+    display: inline-block;
+    padding: 6px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    cursor: pointer;
+    line-height: 1.0em;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-button {
+    position: relative;
+    display: inline-block;
+    /*width: 100px;*/
+    height: 27px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 5px 0px 0px;
+    background: #d8f595;
+    border: 1px solid #424242;
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-button-text {
+    display: inline-block;
+    height: 27px;
+    padding: 0px 5px 0px 5px;
+}
+.tbs-grid .tbs-grid-panel80 .tbs-grid-panel-button-icon {
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 15px;
+    height: 15px;
+    height: 27px;
+}
+.tbs-grid .tbs-grid-panel80 .bg-red {
+    background-color: rgb(255, 92, 92);
+}
+.tbs-grid .tbs-grid-panel80 .font-white {
+    color: #ffffff;
+}
+/* =========================================================================== */
+/*   Panel90 Grouping                                                          */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel90 {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #9b9b9b;
+    height: 33px;
+    overflow: hidden;
+    background: #dfe3e8;
+    padding: 3px 3px 3px 30px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.tbs-grid .tbs-grid-panel90 .tbs-grid-panel-bar {
+    position: relative;
+    width: 100%;
+    height: 27px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px;
+    /*background: #ccdb87;*/
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel90 .tbs-grid-panel-bar-span {
+    position: relative;
+    display: inline-block;
+    padding: 6px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    cursor: pointer;
+    line-height: 1.0em;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel90 .tbs-grid-panel-button {
+    position: relative;
+    display: inline-block;
+    /*width: 100px;*/
+    height: 27px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 5px 0px 0px;
+    background: #dee4ff;
+    border: 1px solid #424242;
+    cursor: pointer;
+    line-height: 1.0em;
+}
+.tbs-grid .tbs-grid-panel90 .tbs-grid-panel-button-text {
+    display: inline-block;
+    height: 27px;
+    padding: 0px 5px 0px 5px;
+}
+.tbs-grid .tbs-grid-panel90 .tbs-grid-panel-button-icon {
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 15px;
+    height: 15px;
+    height: 27px;
+}
+.tbs-grid .tbs-grid-panel90 .bg-red {
+    background-color: rgb(255, 92, 92);
+}
+.tbs-grid .tbs-grid-panel90 .font-white {
+    color: #ffffff;
+}
+/* =========================================================================== */
+/*    [TBS Grid CSS]  : cell line                                              */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-table .tbs-grid-cell-div .tbs-grid-cell-line-top {
+    border-top: solid 1px #1c4000;
+}
+.tbs-grid .tbs-grid-table .tbs-grid-cell-div .tbs-grid-cell-line-bottom {
+    border-bottom: solid 1px #1c4000;
+}
+.tbs-grid .tbs-grid-table .tbs-grid-cell-div .tbs-grid-cell-line-left {
+    border-left: solid 1px #1c4000;
+}
+.tbs-grid .tbs-grid-table .tbs-grid-cell-div .tbs-grid-cell-line-right {
+    border-right: solid 1px #1c4000;
+}
+/* =========================================================================== */
+/*    [TBS Grid CSS]  : icon, img, text                                        */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-table .tbs-grid-cell-div .tbs-grid-cell-div-icon {
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 15px;
+    height: 15px;
+}
+.tbs-grid .tbs-grid-table .tbs-grid-cell-div .tbs-grid-cell-div-img {
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 15px;
+    height: 15px;
+}
+.tbs-grid .tbs-grid-cell-div-text {
+}
+/* =========================================================================== */
+/*    [TBS Grid Layer]                                                         */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-layer {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    left: 30000px;
+    overflow: hidden;
+    border: 0px solid #424242;
+    background: #0a73a7;
+}
+
+
+/* =========================================================================== */
+/*                                                                             */
+/*    grid combo                                                               */
+/*                                                                             */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-input-combo {
+    position: relative;
+    width: 140px;
+    height: 130px;
+    background : white;
+    z-index: 1;
+    border: 1px solid black !important;
+    overflow:hidden;
+    padding : 0px;
+    margin : 0px;
+}
+.tbs-grid .tbs-grid-input-combo-content {
+    position: absolute;
+    width:auto;
+    top: 0px;
+    left : 0px;
+    width: 140px;
+    height: 130px;
+    border: 0px solid black !important;
+    overflow:hidden;
+    padding : 0px;
+    margin : 0px;
+}
+.tbs-grid .tbs-grid-input-combo-content-table {
+    position: absolute;
+    width: 140px;
+    height: 130px;
+    padding : 0px;
+    margin : 0px;
+}
+.tbs-grid .tbs-grid-input-combo-select {
+    width: 140px;
+    height: 130px;
+    padding : 0px;
+    margin : 0px;
+    border-style : none;
+    outline:none;
+}
+/* =========================================================================== */
+/*                                                                             */
+/*    input day                                                      */
+/*                                                                             */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-input-date {
+    z-index: 1;
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 231px;
+    height: 187px;
+    background : white;
+    z-index: 1;
+    border: 1px solid black !important;
+    overflow-wrap: normal;
+    overflow: visible;
+    /* background:url('/tbs.grid/img/calendar.png') no-repeat center; */
+}
+.tbs-grid .tbs-grid-input-date-header {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 30px;
+    overflow: hidden;
+    background : #caf180;
+}
+.tbs-grid .tbs-grid-input-date-content {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 155px;
+    overflow: hidden;
+    background: white;
+}
+.tbs-grid .tbs-grid-input-date-header-table {
+    position: absolute;
+    width: 100%;
+    height: 30px;
+}
+.tbs-grid .tbs-grid-input-date-content-table {
+    position: absolute;
+    width: 100%;
+}
+.tbs-grid .tbs-grid-input-date-cell-start {
+    text-align:center;
+}
+.tbs-grid .tbs-grid-input-date-cell-end {
+    text-align:center;
+}
+.tbs-grid .tbs-grid-input-date-cell {
+    text-align:center;
+    width:30px;
+}
+/**
+ * header
+ */
+.tbs-grid .tbs-grid-input-date-prev
+.tbs-grid .tbs-grid-input-date-year
+.tbs-grid .tbs-grid-input-date-month
+.tbs-grid .tbs-grid-input-date-today
+.tbs-grid .tbs-grid-input-date-next {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: #ffffff /*#f8f8f8*/;
+    border: 0px solid black !important;
+    outline:none;
+}
+.tbs-grid .tbs-grid-input-date-div-start { cursor: pointer; color:red; font-weight: 600; border: 1px solid grey !important;}
+.tbs-grid .tbs-grid-input-date-div       { cursor: pointer; color:black; font-weight: 600; border: 1px solid grey !important;}
+.tbs-grid .tbs-grid-input-date-div-end   { cursor: pointer; color:blue; font-weight: 600; border: 1px solid grey !important;}
+
+/* =========================================================================== */
+/*                                                                             */
+/*    input day                                                      */
+/*                                                                             */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-layer-filter {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 180px;
+    background : white;
+    z-index: 0;
+    border: 0px solid black !important;
+    overflow-wrap: normal;
+    overflow: hidden;
+    /* background:url('/tbs.grid/img/calendar.png') no-repeat center; */
+}
+.tbs-grid .tbs-grid-layer-filter-main {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom:auto;
+    left : 0;
+    height: 180px;
+    overflow: hidden;
+}
+.tbs-grid .tbs-grid-layer-filter-content {
+    position: relative;
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 25px;
+    overflow: hidden;
+    border-bottom: solid 1px #ccc;
+    /*background: magenta;*/
+}
+.tbs-grid .tbs-grid-layer-filter-combo {
+    width: 100%;
+    height : 25px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    background: papayawhip;
+}
+.tbs-grid .tbs-grid-layer-filter-content-input {
+    display: inline-block;
+    height: 25px;
+    width: 100%;
+    background: #ffffff /*#f8f8f8*/;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    background: #f5eee4;
+}
+.tbs-grid .tbs-grid-layer-filter-content-input-to {
+    display: inline-block;
+    height: 25px;
+    width: 100%;
+    background: #ffffff /*#f8f8f8*/;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    background: #b9b2a4;
+}
+.tbs-grid .tbs-grid-layer-filter-content-button {
+    display: flex;
+    height: 25px;
+    width: 100%;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    font-size: 0;
+    letter-spacing: 0;
+    word-spacing: 0;
+    background: #b9b2a4;
+}
+.tbs-grid .tbs-grid-layer-filter-content-button-save {
+    display: inline-block;
+    height: 25px;
+    width: 95px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    color : white;
+    background: #343750;
+}
+.tbs-grid .tbs-grid-layer-filter-content-button-reset {
+    display: inline-block;
+    height: 25px;
+    width: 95px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    border-spacing: 0px;
+    outline:none;
+    color : white;
+    background: #787880;
+}
+/* =========================================================================== */
+/*    input box                                                                */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel-input {
+    z-index: 1;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel-input:before {
+    content:'';
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-input {
+    z-index: 1;
+    width: 100%;
+    height:20px;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+.tbs-grid .tbs-grid-input-code {
+    z-index: 0;
+    width: 100px;
+    height: 23px;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+    position: fixed;
+    border: 0px;
+}
+.tbs-grid .tbs-grid-panel-input-icon {
+    z-index: 1;
+    overflow: hidden;
+    position: fixed;
+    border: 0px;
+    width: 15px;
+    margin-top: 5px;
+    /*height: 15px;*/
+
+}
+.tbs-grid .tbs-grid-input-panel {
+    z-index: 1;
+    /*width: 300px;*/
+    /*height: 300px;*/
+    left: 30000px;
+    overflow: visible;
+    position: fixed;
+    border: 1px;
+    background: #0a73a7;
+}
+
+
+
