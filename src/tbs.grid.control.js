@@ -1,4 +1,4 @@
-import { TbsGridTypes, TbsGridNames } from './tbs.grid.types';
+import { TbsGridTypes, TbsGridNames } from './tbs.grid.types.js';
 
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();

@@ -1,11 +1,11 @@
-import { TbsGridTypes, TbsGridNames } from '../tbs.grid.types';
+import { TbsGridTypes, TbsGridNames } from '../tbs.grid.types.js';
 
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
-import { TbsBase } from "../tbs.base";
-import { TbsGridRender } from "../tbs.grid.render";
-import { TbsGridRenderInfo } from "../tbs.grid.render.info";
+import { TbsBase } from "../tbs.base.js";
+import { TbsGridRender } from '../tbs.grid.render.js';
+import { TbsGridRenderInfo } from '../tbs.grid.render.info.js';
 
 export class TbsGridPanelBase  extends TbsBase {
     constructor(grid) {

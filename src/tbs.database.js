@@ -1,5 +1,5 @@
-import { TbsBase } from "./tbs.base";
-import { TbsDataTable } from "./tbs.data.table";
+import { TbsBase } from './tbs.base.js';
+import { TbsDataTable } from './tbs.data.table.js';
 
 export class TbsDatabase extends TbsBase {
 

@@ -1,6 +1,8 @@
 export class TbsBase {
 
-    constructor() {}
+    constructor() {
+        this.debug_mode = false;
+    }
 
     null(p) {
         return p == null || p == undefined;
@@ -19,7 +21,7 @@ export class TbsBase {
     }
 
     isNull(a, b) {
-        return grid.null(a) ?  b : a;
+        return this.null(a) ?  b : a;
     }
 
     error(p) {

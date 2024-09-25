@@ -1,8 +1,3 @@
-import { TbsGridTypes, TbsGridNames } from './tbs.grid.types';
-
-const tbsGridTypes = new TbsGridTypes();
-const tbsGridNames = new TbsGridNames();
-
 export const tbsGridConfigs = {}
 tbsGridConfigs.en = {
     culture: {
@@ -27,7 +22,7 @@ tbsGridConfigs.en = {
         fontFamily: 'Arial, Helvetica, sans-serif',
     },
     options: {
-        imageRoot: '/src/img/',
+        imageRoot: '/src.assets/img/',
     },
     labels: {
         /* placeholder */
@@ -82,7 +77,7 @@ tbsGridConfigs.ko = {
         fontFamily: 'Nanum Gothic, Arial, Helvetica, sans-serif',
     },
     options: {
-        imageRoot: '/src/img/',
+        imageRoot: '/src.assets/img/',
     },
     labels: {
         /* placeholder */
@@ -114,6 +109,4 @@ tbsGridConfigs.ko = {
         toolbar_button_reset	  : '초기화',
     }
 };
-//
-// export { tbsGridConfigs }
 

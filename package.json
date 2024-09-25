@@ -1,6 +1,6 @@
 {
-  "name": "tbs-grid",
-  "version": "0.0.1",
+  "name": "tbsgrid",
+  "version": "0.0.4",
   "description": "",
   "author": "tobesimple7",
   "license": "MIT",
@@ -8,13 +8,19 @@
   "repository": "https://github.com/tobesimple7/TbsGrid",
   "dependencies": {
     "file-saver": "^2.0.5",
-    "mobile-detect": "^1.4.5",
-    "typescript": "^4.9.5"
+    "mobile-detect": "^1.4.5"
   },
   "files": [
     "dist/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/tbsgrid.mjs",
+      "default": "./dist/tbsgrid.mjs"
+    },
+    "./tbsgrid-configs.mjs": "./dist/tbsgrid-configs.mjs"
   }
 }

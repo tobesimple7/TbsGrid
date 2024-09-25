@@ -1,9 +1,9 @@
-import { TbsGridTypes, TbsGridNames } from './tbs.grid.types';
+import { TbsGridTypes, TbsGridNames } from './tbs.grid.types.js';
 
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
-import { TbsGridBase } from "./tbs.grid.base";
+import { TbsGridBase } from './tbs.grid.base.js';
 
 export class TbsGrid extends TbsGridBase {
 
