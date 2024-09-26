@@ -7,7 +7,10 @@
 </p>
 
 Welcome to TbsGrid.
-This grid is javascript web grid.
+This grid is javascript web data grid.
+
+Unfortunately, we are currently in the process of converting pure JavaScript to a module program 
+and testing distribution on npm, so it seems that the source will not be available for the time being.
 
 Thank you for visiting TbsGrid.
 Also, thank you for giving me a star.
