@@ -1,1 +1,0 @@
-import { tbsGridConfigs } from './tbsgrid-configs.mjs';
