@@ -1,10 +1,10 @@
 {
-  "name": "tbsgrid",
-  "version": "0.0.5",
+  "name": "tbsgrid_test",
+  "version": "0.0.9",
   "description": "",
   "author": "tobesimple7",
   "license": "MIT",
-   "homepage": "https://tobesimple.net",
+  "homepage": "https://tobesimple.net",
   "repository": "https://github.com/tobesimple7/TbsGrid",
   "dependencies": {
     "file-saver": "^2.0.5",
@@ -16,11 +16,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "main": "./dist/tbsgrid.min.mjs",
+  "module": "./dist/tbsgrid.min.mjs",
   "exports": {
     ".": {
       "import": "./dist/tbsgrid.min.mjs",
       "default": "./dist/tbsgrid.min.mjs"
     },
-    "./tbsgrid-configs.mjs": "./dist/tbsgrid-configs.mjs"
+    "./package.json": "./package.json",
+    "./dist/tbsgrid-configs.mjs": "./dist/tbsgrid-configs.mjs"
   }
 }
