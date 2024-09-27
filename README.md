@@ -36,6 +36,7 @@ I will try to make a good product.
 
 ## Getting Started
 
+### CDN
 ```CDN 
 
 // dependencies
@@ -48,7 +49,7 @@ I will try to make a good product.
 <script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.0.15/dist-js/tbsgrid.min.js" />
 
 ```
-
+### NPM 
 ```NPM 
 npm install tbsgrid
 
