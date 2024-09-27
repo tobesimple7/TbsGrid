@@ -57,9 +57,6 @@ import { TbsGrid as TbsGridComponent } from "tbsgrid";
 import "tbsgrid/dist/css/tbsgrid.css"
 ```
 
-- The min files are not distributed yet.
-- We plan to make a release version as soon as possible
-
 tbs.grid.configs.js
 
 - This file is the grid initial settings file for each country's currency unit or calendar-related characters.
