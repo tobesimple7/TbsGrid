@@ -1,6 +1,6 @@
 {
   "name": "tbsgrid",
-  "version": "0.0.15",
+  "version": "0.0.18",
   "description": "",
   "author": "tobesimple7",
   "license": "MIT",
@@ -32,7 +32,10 @@
     "./dist/img/*": {
       "import": "./dist/img/*",
       "require": "./dist/img/*"
+    },
+    "./dist/*": {
+      "script": "./dist-js/*",
+      "default": "./dist-js/*"
     }
-
   }
 }
