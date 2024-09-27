@@ -6223,7 +6223,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
         let yBarTop = yPos.top - yMove;
         if (yBarTop < 0) yBarTop = 0;
         if (yBarTop > grid.verticalScroll.railSize) yBarTop = grid.verticalScroll.railSize;
-        let displayTopRowIndex = Math.floor(yBarTop * grid.verticalScroll.moveCount);
+        let displayTopRowIndex = Math.ceil(yBarTop * grid.verticalScroll.moveCount);
         actveTopRowIndex = displayTopRowIndex;
         let topRowIndex = displayTopRowIndex;
         if (grid.fixedRowIndex != -1) topRowIndex = displayTopRowIndex + grid.fixedRowIndex + 1;
@@ -9472,8 +9472,6 @@ class TbsGridGroup {
   constructor(grid) {
     this.grid = grid;
     this.selector = '#' + grid.gridId;
-    this.groupColumns = [];
-    this.options = {};
     this.openDepth = null;
   }
   createGroupData() {

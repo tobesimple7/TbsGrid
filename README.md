@@ -40,9 +40,9 @@ I will try to make a good product.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 // TbsGrid 
-<style src="https://cdn.jsdelivr.net/npm/tbsgrid@0.0.18/dist-js/css/tbsgrid.css" />
-<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.0.18/dist-js/tbsgrid-configs.js" />
-<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.0.18/dist-js/tbsgrid.min.js" />
+<style  src="https://cdn.jsdelivr.net/npm/tbsgrid@0.1.0/dist-js/css/tbsgrid.css" />
+<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.1.0/dist-js/tbsgrid-configs.js" />
+<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.1.0/dist-js/tbsgrid.min.js" />
 
 ```
 ### NPM 
