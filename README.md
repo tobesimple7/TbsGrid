@@ -36,15 +36,27 @@ I will try to make a good product.
 
 ## Getting Started
 
-```javascript
-<script src="/js/mobile-deteck.min.js"></script>
-<script src="/js/FileSaver.min.js"></script>
-// Grid Config
-<script src="/tbsgrid/tbs.grid.configs.js"></script>
-// TbsGrid css, js files
-<script src="/tbsgrid/tbs.grid.min.css"></script>
-<script src="/tbsgrid/tbs.grid.min.js"></script>
+```CDN 
+
+// dependencies
+<script src="https://cdn.jsdelivr.net/npm/mobile-detect@1.4.5/mobile-detect.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+// TbsGrid 
+<style src="https://cdn.jsdelivr.net/npm/tbsgrid@0.0.15/dist-js/css/tbsgrid.css" />
+<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.0.15/dist-js/tbsgrid-configs.js" />
+<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.0.15/dist-js/tbsgrid.min.js" />
+
 ```
+
+```NPM 
+npm install tbsgrid
+
+import { tbsGridConfigs } from "tbsgrid/dist/tbsgrid-configs.js";
+import { TbsGrid as TbsGridComponent } from "tbsgrid";
+import "tbsgrid/dist/css/tbsgrid.css"
+```
+
 - The min files are not distributed yet.
 - We plan to make a release version as soon as possible
 

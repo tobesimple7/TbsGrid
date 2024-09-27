@@ -1,6 +1,6 @@
 {
-  "name": "tbsgrid",
-  "version": "0.0.15",
+  "name": "tbsgrid_test",
+  "version": "0.0.11",
   "description": "",
   "author": "tobesimple7",
   "license": "MIT",
@@ -16,23 +16,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "main": "./dist/tbsgrid.js",
-  "module": "./dist/tbsgrid.js",
+  "main": "./dist/tbsgrid.min.js",
+  "module": "./dist/tbsgrid.min.js",
   "exports": {
     ".": {
-      "import": "./dist/tbsgrid.js",
-      "default": "./dist/tbsgrid.js"
+      "import": "./dist/tbsgrid.min.js",
+      "default": "./dist/tbsgrid.min.js"
     },
     "./package.json": "./package.json",
-    "./dist/tbsgrid-configs.js": "./dist/tbsgrid-configs.js",
-    "./dist/css/*": {
-      "import": "./dist/css/*",
-      "require": "./dist/css/*"
-    },
-    "./dist/img/*": {
-      "import": "./dist/img/*",
-      "require": "./dist/img/*"
-    }
-
+    "./dist/tbsgrid-configs.js": "./dist/tbsgrid-configs.js"
   }
 }
