@@ -37,8 +37,7 @@ I will try to make a good product.
 ## Getting Started
 
 ### CDN
-```CDN 
-
+```html 
 // dependencies
 <script src="https://cdn.jsdelivr.net/npm/mobile-detect@1.4.5/mobile-detect.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -50,7 +49,7 @@ I will try to make a good product.
 
 ```
 ### NPM 
-```NPM 
+```js 
 npm install tbsgrid
 
 import { tbsGridConfigs } from "tbsgrid/dist/tbsgrid-configs.js";
