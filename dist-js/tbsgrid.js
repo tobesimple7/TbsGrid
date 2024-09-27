@@ -1316,7 +1316,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-text')) {
+      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -1418,7 +1418,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-text')) {
+      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -1624,7 +1624,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-text')) {
+      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -2693,7 +2693,7 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-text')) {
+      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -2795,7 +2795,7 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-text')) {
+      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -2870,7 +2870,7 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-text')) {
+      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -4513,6 +4513,63 @@ class TbsGridPanel90 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       }
     };
     panel90.addEventListener('mousedown', mouseDownEvent);
+  }
+}
+
+/***/ }),
+
+/***/ 933:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   v: function() { return /* binding */ TbsGridRenderBase; }
+/* harmony export */ });
+/* harmony import */ var _tbs_base_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(618);
+
+class TbsGridRenderBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsBase */ .H {
+  constructor() {
+    super();
+  }
+  createElement() {}
+  boundingData() {}
+}
+
+/***/ }),
+
+/***/ 465:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   V: function() { return /* binding */ TbsGridRenderCheckbox; }
+/* harmony export */ });
+/* harmony import */ var _tbs_grid_render_base_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(933);
+
+class TbsGridRenderCheckbox extends _tbs_grid_render_base_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridRenderBase */ .v {
+  createElement(tableCell) {
+    const element = document.createElement('input');
+    element.type = 'checkbox';
+    element.classList.add('tbs-grid-cell-checkbox');
+    if (tableCell.querySelectorAll('.tbs-grid-cell-checkbox').length == 0) {
+      tableCell.childNodes[0].append(element);
+    }
+  }
+}
+
+/***/ }),
+
+/***/ 981:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   h: function() { return /* binding */ TbsGridRenderString; }
+/* harmony export */ });
+/* harmony import */ var _tbs_grid_render_base_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(933);
+
+class TbsGridRenderString extends _tbs_grid_render_base_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridRenderBase */ .v {
+  createElement(tableCell) {
+    let element = document.createElement('span');
+    element.classList.add('tbs-grid-cell-string');
+    if (tableCell.querySelectorAll('.tbs-grid-cell-string').length == 0) tableCell.childNodes[0].append(element);
   }
 }
 
@@ -6241,14 +6298,14 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
       //e.stopPropagation();
       let xMove = e.changedTouches[0].clientX - xPos.x;
       let yMove = e.changedTouches[0].clientY - yPos.y;
-      let tableCell;
+      let tableCell, targetName;
       if (e.target.classList.contains('tbs-grid-cell-div-icon')) {
         targetName = 'icon';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-text')) {
+      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -8938,7 +8995,7 @@ class TbsGridDom extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase */
   }
   createElementCellText() {
     let element = document.createElement('span');
-    element.classList.add('tbs-grid-cell-div-text');
+    element.classList.add('tbs-grid-cell-string');
     element.textContent = '';
     return element;
   }
@@ -10729,9 +10786,13 @@ class TbsGridRangePanel {
 /* harmony export */   w: function() { return /* binding */ TbsGridRenderInfo; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+/* harmony import */ var _render_tbs_grid_render_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(981);
+/* harmony import */ var _render_tbs_grid_render_checkbox_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(465);
 
 const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
 const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+
+
 class TbsGridRenderInfo {
   /**
    * num, mode, checkbox
@@ -10848,15 +10909,13 @@ class TbsGridRenderInfo {
   createHtml() {
     const grid = this.grid;
     if (this.columnType == tbsGridTypes.CellType.checkbox) {
-      if (this.panelName == 'panel21' || this.panelName == 'panel31') {
-        if (this.visible) {
-          let element = grid.classDom.createElementCheckbox();
-          if (this.tableCell.querySelectorAll('.tbs-grid-cell-checkbox').length == 0) this.tableCell.childNodes[0].append(element);
-        }
+      if (this.visible && (this.panelName == 'panel21' || this.panelName == 'panel31')) {
+        const clsRender = new _render_tbs_grid_render_checkbox_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderCheckbox */ .V();
+        clsRender.createElement(this.tableCell);
       }
     } else {
-      let element = grid.classDom.createElementCellText();
-      if (this.tableCell.querySelectorAll('.tbs-grid-cell-div-text').length == 0) this.tableCell.childNodes[0].append(element);
+      const clsRender = new _render_tbs_grid_render_string_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridRenderString */ .h();
+      clsRender.createElement(this.tableCell);
     }
     this.setBounding();
   }
@@ -10866,14 +10925,14 @@ class TbsGridRenderInfo {
     grid.classDom.addUserClass(this.tableCell, this.className); // user event
     grid.classDom.setCellStyle(this.tableCell, 'textAlign', this.align); // user event
     grid.classDom.setCellStyle(this.tableCell, 'width', this.width + 'px');
-    if (this.columnName == 'num' || this.columnName == 'mode') {
-      let element = this.tableCell.querySelector('.tbs-grid-cell-div-text');
-      grid.classDom.setCell(element, 'textContent', this.cellText);
-    } else if (this.columnName == 'checkbox') {
+    if (this.columnType == tbsGridTypes.CellType.checkbox) {
       if (this.visible) {
         let element = this.tableCell.querySelector('.tbs-grid-cell-checkbox');
         element.checked = this.cellValue;
       }
+    } else {
+      let element = this.tableCell.querySelector('.tbs-grid-cell-string');
+      grid.classDom.setCell(element, 'textContent', this.cellText);
     }
   }
 }
@@ -11029,7 +11088,7 @@ class TbsGridRender {
     grid.classDom.setCellStyle(this.tableCell, 'textAlign', this.align); // user event
     grid.classDom.setCellStyle(this.tableCell, 'width', this.width + 'px');
     if (this.panelName == 'panel72' || this.panelName == 'panel70') {} else {
-      let spanText = this.tableCell.querySelector('.tbs-grid-cell-div-text');
+      let spanText = this.tableCell.querySelector('.tbs-grid-cell-string');
       grid.classDom.setCell(spanText, 'textContent', this.cellText); // user event
     }
     if (grid.user_cellBounding) {
