@@ -7,19 +7,10 @@ export class TbsGridTree {
     constructor(grid) {
         this.grid     = grid;
         this.selector = '#' + grid.gridId;
-
-        this.options = {};
-        this.options[tbsGridNames.tree.itemName] = null;
-        this.options[tbsGridNames.tree.parentName] = null;
-        this.options[tbsGridNames.tree.rootValue] = null;
-    }
-
-    setTreeOption(optionName, optionValue) {
-        this.options[optionName] = optionValue;
     }
 
     createTreeData() {
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.tree_table.remove();
 
@@ -28,7 +19,7 @@ export class TbsGridTree {
 
             for (let i = 0, len = grid.view_table.count(); i < len; i++) {
                 let dataRow = grid.view_table.data[i];
-                if (row[grid.classTree.options[tbsGridNames.tree.itemName]] == dataRow[grid.classTree.options[tbsGridNames.tree.parentName]]) {
+                if (row[grid.options.treeItemName] == dataRow[grid.options.treeParentName]) {
                     row[tbsGridNames.column.children].push(dataRow[tbsGridNames.column.rowId]);
                 }
             }
@@ -51,21 +42,21 @@ export class TbsGridTree {
 
         for (let i = 0, len =grid.view_table.count(); i < len; i++) {
             let dataRow = grid.view_table.data[i];
-            if (grid.classTree.options[tbsGridNames.tree.rootValue] == dataRow[grid.classTree.options[tbsGridNames.tree.parentName]]) {
+            if (grid.options.treeRootValue == dataRow[grid.options.treeParentName]) {
                 fn_setRelation(dataRow);
             }
         }
     }
 
     setTreeSortColumns(sortColumns) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         sortColumns.map(column => grid.sort_column_table.insert(grid.copyJson(column)))
     }
 
     setTreeData(data, openDepth  = 0, isFirst = true) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.null(data) || data.length == 0) return;
 
@@ -162,17 +153,17 @@ export class TbsGridTree {
 
     setTreeIcon(tableCell, rowIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let row = grid.getRow(rowIndex);
         let arrayChildren = row[tbsGridNames.column.children];
-        let element = tableCell.querySelector('.tbs-grid-cell-div-icon');
+        let element = tableCell.querySelector('.tbs-grid-html-icon');
 
         if (arrayChildren.length > 0) {
             let nextRow = grid.getRow(rowIndex + 1);
             if (grid.null(nextRow)) grid.classTree.toggleTreeIcon(rowIndex, element, 'closed');
             else {
-                if (nextRow[grid.classTree.options[tbsGridNames.tree.parentName]] == row[grid.classTree.options['itemName']])
+                if (nextRow[grid.options.treeParentName] == row[grid.options.treeItemName])
                     grid.classTree.toggleTreeIcon(rowIndex, element, 'open');
                 else
                     grid.classTree.toggleTreeIcon(rowIndex, element, 'closed');
@@ -183,7 +174,7 @@ export class TbsGridTree {
 
     toggleTreeIcon(rowIndex, element, type) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if      (type == tbsGridNames.column.open)   element.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_open.png)';
         else if (type == tbsGridNames.column.closed) element.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_closed.png)';
@@ -192,9 +183,9 @@ export class TbsGridTree {
 
     getTreeFlodingStatus(tableCell) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
-        let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
+        let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
         if (grid.null(spanIcon)) return null;
 
         if (spanIcon.style['backgroundImage'].includes('tree_open.png')) return tbsGridNames.column.open;
@@ -204,11 +195,11 @@ export class TbsGridTree {
 
     setTreeFolding(tableCell) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let rowIndex = parseInt(tableCell.parentNode.dataset.rowIndex);
         let row = grid.getRow(rowIndex);
-        let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
+        let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
         if (grid.null(spanIcon)) return;
 
         let folding = grid.classTree.getTreeFlodingStatus(tableCell);
@@ -223,7 +214,7 @@ export class TbsGridTree {
     getTreeChildrenRows(folding, rowIndex, isAll = true) {
         // folding : open, closed
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let dataRows= grid.view_table.data;
         let resultRows= [];
@@ -266,7 +257,7 @@ export class TbsGridTree {
 
     openTreeRow(rowIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let row = grid.getRow(rowIndex);
         let rowId = row[tbsGridNames.column.rowId];
@@ -282,7 +273,7 @@ export class TbsGridTree {
 
     closeTreeRow(rowIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let row = grid.getRow(rowIndex);
         let rowId = row[tbsGridNames.column.rowId];
@@ -298,7 +289,7 @@ export class TbsGridTree {
 
     addTreeRows(rowIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let rows = grid.classTree.getTreeChildrenRows(tbsGridNames.column.open, rowIndex, false);
         for (let i = 0, startRowIndex = rowIndex + 1, len = rows.length; i < len; i++, startRowIndex++) {
@@ -308,7 +299,7 @@ export class TbsGridTree {
 
     addTreeRow(startRowIndex, row) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         startRowIndex = parseInt(startRowIndex);
         if (startRowIndex == grid.view_table.count()) {
@@ -320,7 +311,7 @@ export class TbsGridTree {
     }
 
     removeTreeRow(row) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.view_table.removeByRowId(row[tbsGridNames.column.rowId]);
 

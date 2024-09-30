@@ -1,4 +1,11 @@
+import MobileDetect from 'mobile-detect';
+
 export const tbsGridConfigs = {}
+
+/**
+ * Basically, the language with the fastest order is applied.
+ */
+
 tbsGridConfigs.en = {
     culture: {
         name: 'us',
@@ -20,9 +27,6 @@ tbsGridConfigs.en = {
     font: {
         fontSize: '12px',
         fontFamily: 'Arial, Helvetica, sans-serif',
-    },
-    options: {
-        imageRoot: '/src.assets/img/',
     },
     labels: {
         /* placeholder */
@@ -54,6 +58,7 @@ tbsGridConfigs.en = {
         toolbar_button_reset	  : 'Reset',
     }
 };
+
 tbsGridConfigs.ko = {
     culture: {
         name: 'ko',
@@ -75,9 +80,6 @@ tbsGridConfigs.ko = {
     font: {
         fontSize: '12px',
         fontFamily: 'Nanum Gothic, Arial, Helvetica, sans-serif',
-    },
-    options: {
-        imageRoot: '/src.assets/img/',
     },
     labels: {
         /* placeholder */
@@ -109,4 +111,18 @@ tbsGridConfigs.ko = {
         toolbar_button_reset	  : '초기화',
     }
 };
+
+/**
+ * Write options at the end
+ */
+const md = new MobileDetect(window.navigator.userAgent)
+tbsGridConfigs.options = {
+    imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.0.15/dist-js/img/',
+    isMobile: md.mobile(), // true, false
+    userAgent: md.userAgent(), // 'safari' etc
+
+    trueValue  : 'Y', // checkbox value
+    falseValue : 'N',
+    elseValue  : 'N',
+}
 

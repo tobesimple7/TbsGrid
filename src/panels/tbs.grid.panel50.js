@@ -4,8 +4,10 @@ const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
-import { TbsGridRender } from '../tbs.grid.render.js';
-import { TbsGridRenderInfo } from '../tbs.grid.render.info.js';
+import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
+import { TbsGridTable } from "../tbs.grid.table.js";
+
 export class TbsGridPanel50 extends TbsGridPanelBase {
     constructor(grid) {
         super(grid);
@@ -16,7 +18,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
         this.panelName0 = 'panel50';
     }
     createHtml(parentElement) {
-        let grid = this.grid;
+        const grid = this.grid;
         let s = '';
         s += '<div class="tbs-grid-group51">';
             s += '<div class="tbs-grid-panel">';
@@ -31,9 +33,21 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
         s += '</div>';
         parentElement.insertAdjacentHTML('beforeend', s);
     }
+
+    createTable() {
+        const grid = this.grid;
+
+        if(grid.footer_column_table.count() == 0) return;
+
+        const classTable = new TbsGridTable(grid);
+        classTable.createTable('panel51', 0, 1);
+        classTable.createTable('panel52', 0, 1);
+        classTable.createTable('panel50', 0, 1);
+    }
+
     setDataPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.classRange.removePanelRange('panel50');
         this.setDataPanel2({panelName: 'panel51', summaryColumns: grid.footer_table.data });
@@ -42,7 +56,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
     }
     setDataPanel1() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let panelName = this.panelName1;
 
         if (grid.footer_table.count() == 0) return;
@@ -79,7 +93,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
     }
     setDataPanel2() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.fixedColumnIndex == -1) return;
 
@@ -104,7 +118,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
 
             if (x > grid.fixedColumnIndex && x < startColumnIndex) continue;
 
-            let tbsGridRender = new TbsGridRender(grid);
+            let tbsGridRender = new TbsGridRenderPanel(grid);
             tbsGridRender.start(panelName, tableCell, column, 0, x);
             tbsGridRender = null;
             //grid.classRender.start(panelName, tableCell, column, 0, x);
@@ -112,12 +126,11 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
             grid.classCell.showSelectedCells(grid, panelName, tableCell, 0, x);
         }
         // on fixed columns
-        const tbsGridCell = new
-        grid.classCell.hideTableCells(grid, panelName, tableRow, lastColumnIndex);
+        const tbsGridCell = grid.classCell.hideTableCells(grid, panelName, tableRow, lastColumnIndex);
     }
     setDataPanel0() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let panelName = this.panelName0;
 
         if (grid.footer_table.count() == 0) return;
@@ -142,7 +155,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
             }
             else { if (x < startColumnIndex) continue; }
 
-            let tbsGridRender = new TbsGridRender(grid);
+            let tbsGridRender = new TbsGridRenderPanel(grid);
             tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
             tbsGridRender = null;
             //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);

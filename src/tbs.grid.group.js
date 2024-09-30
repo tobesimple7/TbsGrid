@@ -8,15 +8,11 @@ export class TbsGridGroup {
     constructor(grid) {
         this.grid       = grid;
         this.selector   = '#' + grid.gridId;
-
-        this.groupColumns = [];
-
-        this.options = {}
         this.openDepth = null;
     }
 
     createGroupData(){
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.tree_table.remove();
 
@@ -83,7 +79,7 @@ export class TbsGridGroup {
     }
 
     createGroupKeyData(dataRows, depth = 1){
-        let grid = this.grid;
+        const grid = this.grid;
 
         let resultRows= [];
 
@@ -101,7 +97,7 @@ export class TbsGridGroup {
     }
 
     getGroupKeyByDepth(row, depth) {
-        let grid = this.grid;
+        const grid = this.grid;
         let key = '';
         for (let i = 0; i < depth; i++) {
             let groupColumn = grid.group_column_table.data[i];
@@ -112,7 +108,7 @@ export class TbsGridGroup {
     }
 
     getGroupKeyRowByDepth(row, depth) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let tempRow = {};
         for (let i = 0; i < depth; i++) {
@@ -125,7 +121,7 @@ export class TbsGridGroup {
     }
 
     setGroupColumns(groupColumns){
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.group_column_table.remove();
         groupColumns.map(column => grid.group_column_table.insert(grid.copyJson(column)))
@@ -137,7 +133,7 @@ export class TbsGridGroup {
 
     getGroupSummary() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         const getGroupSummary = function (array, columnName, isLastDepth) {
             let result = {};
@@ -203,7 +199,7 @@ export class TbsGridGroup {
 
     setGroupData(data, openDepth  = 0, isFirst = true) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.null(data) || data.length == 0) return;
 
@@ -211,7 +207,7 @@ export class TbsGridGroup {
 
         // create group column : group_column
         if (grid.isColumnName('group_column') == false) {
-            let userColumn = {name: 'group_column', header: { text: 'Group'}, width: 150, type: 'string'}
+            let userColumn = {name: 'group_column', header: { text: 'Group'}, width: 150, type: 'group'}
             if (grid.fixedColumnIndex != -1) grid.fixedColumnIndex += 1;
             grid.classColumn.addColumn(userColumn, 0, 0, tbsGridTypes.BeforeAfter.before);
         }
@@ -318,10 +314,10 @@ export class TbsGridGroup {
 
     setGroupIcon(tableCell, rowIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let row = grid.getRow(rowIndex);
         let arr = row[tbsGridNames.column.children];
-        let element = tableCell.querySelector('.tbs-grid-cell-div-icon');
+        let element = tableCell.querySelector('.tbs-grid-html-icon');
 
         if (grid.null(arr)) return;
 
@@ -340,15 +336,22 @@ export class TbsGridGroup {
 
     toggleGroupIcon(rowIndex, element, type) {
         let selector = this.selector;
-        let grid = this.grid;
-        if      (type == tbsGridNames.column.open)   element.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_open.png)';
-        else if (type == tbsGridNames.column.closed) element.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_closed.png)';
+        const grid = this.grid;
+
+        if (grid.null(element)) return;
+
+        if      (type == tbsGridNames.column.open) {
+            element.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_open.png)';
+        }
+        else if (type == tbsGridNames.column.closed) {
+            element.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_closed.png)';
+        }
         else element.style['backgroundImage'] = '';
     }
 
     isGroupChildrenRow(rowIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let result = false;
         let row = grid.getRow(rowIndex);
@@ -362,7 +365,7 @@ export class TbsGridGroup {
     }
 
     getGroupChildrenRows(folding, rowIndex, isAll = true) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let resultRows = [];
 
@@ -394,11 +397,11 @@ export class TbsGridGroup {
 
     setGroupFolding(tableCell) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let rowIndex = parseInt(tableCell.parentNode.dataset.rowIndex);
         let row = grid.getRow(rowIndex);
-        let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
+        let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
         if (grid.null(spanIcon)) return;
 
         let folding = grid.classGroup.getGroupFlodingStatus(tableCell);
@@ -411,9 +414,9 @@ export class TbsGridGroup {
     }
 
     getGroupFlodingStatus(tableCell) {
-        let grid = this.grid;
+        const grid = this.grid;
 
-        let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
+        let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
         if (grid.null(spanIcon)) return null;
 
         if (spanIcon.style['backgroundImage'].includes('tree_open.png')) return tbsGridNames.column.open;
@@ -422,7 +425,7 @@ export class TbsGridGroup {
     }
 
     openGroupRow(rowIndex) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let rowId = grid.view_table.selectValue(rowIndex, tbsGridNames.column.rowId);
 
@@ -436,7 +439,7 @@ export class TbsGridGroup {
     }
 
     closeGroupRow(rowIndex) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let rowId = grid.view_table.selectValue(rowIndex, tbsGridNames.column.rowId);
         for (let i = 0, len = grid.view_table.count(); i < len; i++) {
@@ -458,7 +461,7 @@ export class TbsGridGroup {
 
     changeGroupButtonOrder(name, text, order, targetIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let groupColumns = grid.group_column_table.data;
 
@@ -495,10 +498,10 @@ export class TbsGridGroup {
 
     addGroupButton(name, text, order, targetIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         /* Check Existing */
-        if (grid.group_column_table.select(tbsGridNames.column.name, name, 1).length > 0) return;
+        if (grid.group_column_table.selectRows(tbsGridNames.column.name, name, 1).length > 0) return;
 
         /* create dataRow */
         let dataRow = {};
@@ -518,12 +521,12 @@ export class TbsGridGroup {
         grid.classGroup.toggleGroupPlaceHolder();
         let data = grid.view_table.data;
         grid.classGroup.setGroupData(data, null, false);
-        if (grid.options[grid.option_showFilterPanel]) grid.classFilter.showFilterPanel();
+        if (grid.options.showFilterPanel) grid.classFilter.showFilterPanel();
     }
 
     removeGroupButton(element) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         /* get column name */
         let name = element.dataset.name;
@@ -541,12 +544,12 @@ export class TbsGridGroup {
         let data = grid.view_table.data;
 
         grid.classGroup.setGroupData(data, null, false);
-        if (grid.options[grid.option_showFilterPanel]) grid.classFilter.showFilterPanel();
+        if (grid.options.showFilterPanel) grid.classFilter.showFilterPanel();
     }
 
     removeGroupButtonList() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar .tbs-grid-panel-button');
         for (let i = buttons.length - 1; i >= 0; i--) buttons[i].remove();
@@ -554,7 +557,7 @@ export class TbsGridGroup {
 
     getGroupButtonList() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.classGroup.removeGroupButtonList();
 
@@ -573,7 +576,7 @@ export class TbsGridGroup {
 
     createGroupButton(columnName) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = grid.classColumn.getColumn(columnName);
 
@@ -599,7 +602,7 @@ export class TbsGridGroup {
 
     toggleGroupPlaceHolder() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar .tbs-grid-panel-button');
         let span = document.querySelector(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar-span');
@@ -619,7 +622,7 @@ export class TbsGridGroup {
 
     allowGroupMode() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         grid.setGridMode(tbsGridTypes.GridMode.group)
         grid.classGroup.showGroupPanel();
         grid.classRange.removeRange(0, -1);
@@ -627,13 +630,13 @@ export class TbsGridGroup {
 
         if (grid.view_table.count() >= 0 && grid.null(grid.view_table.data[0]['group_column'])) grid.setData(grid.view_table.data);
         else grid.apply();
-        if (grid.options[grid.option_showFilterPanel]) grid.classFilter.showFilterPanel();
+        if (grid.options.showFilterPanel) grid.classFilter.showFilterPanel();
         grid.apply();
     }
 
     denyGroupMode() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         for (let i = grid.view_table.count() - 1; i >= 0; i--) {
             let row = grid.view_table.data[i];
@@ -645,15 +648,15 @@ export class TbsGridGroup {
         grid.classRange.removeRange(0, -1);
         grid.classScroll.setPanelSize();
         grid.apply()
-        if (grid.options[grid.option_showFilterPanel]) grid.classFilter.showFilterPanel();
+        if (grid.options.showFilterPanel) grid.classFilter.showFilterPanel();
 
     }
 
     showGroupPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
-        grid.options[grid.option_showGroupPanel] = true;
+        grid.options.showGroupPanel = true;
         let panel = document.querySelector(selector + ' .tbs-grid-panel80');
         panel.classList.remove('tbs-grid-hide');
         panel.classList.add('tbs-grid-show');
@@ -661,9 +664,9 @@ export class TbsGridGroup {
 
     hideGroupPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
-        grid.options[grid.option_showGroupPanel] = false;
+        grid.options.showGroupPanel = false;
         let panel = document.querySelector(selector + ' .tbs-grid-panel80');
         panel.classList.remove('tbs-grid-show');
         panel.classList.add('tbs-grid-hide');
@@ -671,7 +674,7 @@ export class TbsGridGroup {
 
     initGroupData() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.classGroup.setGroupColumns([]);
         grid.classRange.removeRange(0, -1);
@@ -685,7 +688,7 @@ export class TbsGridGroup {
 
     expandGroup() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.group_column_table.count() == 0) return;
         let openDepth = grid.classGroup.openDepth;
@@ -702,7 +705,7 @@ export class TbsGridGroup {
 
     collapseGroup() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.group_column_table.count() == 0) return;
         let openDepth = grid.classGroup.openDepth;

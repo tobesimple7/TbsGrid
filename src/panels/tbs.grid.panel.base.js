@@ -4,8 +4,8 @@ const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
 import { TbsBase } from "../tbs.base.js";
-import { TbsGridRender } from '../tbs.grid.render.js';
-import { TbsGridRenderInfo } from '../tbs.grid.render.info.js';
+import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
 
 export class TbsGridPanelBase  extends TbsBase {
     constructor(grid) {
@@ -63,11 +63,11 @@ export class TbsGridPanelBase  extends TbsBase {
         s += '<div class="tbs-grid-bottom-line"	style="left:30000px;"></div>';
         s += '<div class="tbs-grid-left-line" style="left:30000px;"></div>';
         s += '<div class="tbs-grid-right-line" style="left:30000px;"></div>';
-        s += '<div class="tbs-grid-input-panel" style="left:30000px;"></div>';
+        s += '<div class="tbs-grid-input-layer-panel" style="left:30000px;"></div>';  // confuse
         s += '<div class="tbs-grid-canvas"></div>';
-        s += '<div class="tbs-grid-panel-input">';
+        s += '<div class="tbs-grid-input-panel">'; // confuse
         s += '<input type="text" class="tbs-grid-input"  data-type="" data-click=""/>';
-        s += '<img class="tbs-grid-panel-input-icon" data-type="" data-click="" />';
+        s += '<img class="tbs-grid-input-panel-icon" data-type="" data-click="" />';
         s += '</div>';
         s += '<input type="text" class="tbs-grid-input-code" data-type="" data-click="" style="left:30000px;"/>';
 

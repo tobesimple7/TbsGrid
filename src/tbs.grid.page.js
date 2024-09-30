@@ -28,7 +28,7 @@ export class TbsGridPage {
 
     setPageOption(optionName, optionValue) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classPage = this;
 
         classPage.options[optionName] = optionValue;
@@ -36,7 +36,7 @@ export class TbsGridPage {
 
     setPageData() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.grid_mode != tbsGridTypes.GridMode.page) return;
         if (grid.view_table.count() == 0) return;

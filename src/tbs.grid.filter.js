@@ -11,7 +11,7 @@ export class TbsGridFilter {
 
     totalFilterSearch(s) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let filterArray = [];
 
         let arr = grid.trim(s).split(' ');
@@ -67,24 +67,24 @@ export class TbsGridFilter {
 
     showFilterPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
-        grid.options[grid.option_showFilterPanel] = true;
+        grid.options.showFilterPanel = true;
         grid.classControl.after_showFilterPanel()
     }
 
     hideFilterPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
-        grid.options[grid.option_showFilterPanel] = false;
+        grid.options.showFilterPanel = false;
         grid.classFilter.initFilterData();
 
         grid.classControl.after_hideFilterPanel()
     }
 
     filters() {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let result = grid.copyJson(grid.source_table.data);
 
@@ -95,13 +95,13 @@ export class TbsGridFilter {
         grid.view_table.remove();
         result.map(dataRow => grid.view_table.insert(grid.copyJson(dataRow)));
 
-        grid.horizontalScroll.setScroll(grid.code_horizontal);;
+        grid.horizontalScroll.setScroll(grid.code_horizontal);
         grid.verticalScroll.setScroll(grid.code_vertical);
         grid.classScroll.setBarPosition(grid.code_vertical, 0);
     }
 
     filter(data, filterColumn) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = grid.classColumn.getColumn(filterColumn.name);
         let columnType = column[tbsGridNames.column.type];
@@ -129,7 +129,7 @@ export class TbsGridFilter {
 
     filterNumberByType(filterType, n, targetNumber) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         // @Rule : when number is null, number is zero
         if (grid.null(n)) n = 0;
@@ -181,7 +181,7 @@ export class TbsGridFilter {
 
     filterStringByType(filterType, s, targetString) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let regExp;
 
         // String comparisons are case-insensitive.
@@ -218,7 +218,7 @@ export class TbsGridFilter {
     }
 
     setFilterColumn(column, filterType, word) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let dataRow = grid.filter_column_table.selectRow(tbsGridNames.column.name, column[tbsGridNames.column.name]);
         if (grid.null(dataRow)) {
@@ -236,13 +236,13 @@ export class TbsGridFilter {
     }
 
     removeFilterColumn(column) {
-        let grid = this.grid;
+        const grid = this.grid;
         let rowId = column[tbsGridNames.column.rowId];
         grid.filter_column_table.removeByRowId(rowId);
     }
 
     createFilterCombo(column) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let combo = document.createElement('select');
         if (column[tbsGridNames.column.type] == tbsGridTypes.CellType.number) {
@@ -268,7 +268,7 @@ export class TbsGridFilter {
     }
 
     addFilterComboOption(combo, value, text) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let option = document.createElement('option');
         option.value = value;
@@ -278,7 +278,7 @@ export class TbsGridFilter {
 
     initFilterData() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.filter_column_table.remove();
         let inputs = document.querySelectorAll(selector + ' .tbs-grid-panel70 .tbs-grid-cell-filter-input');

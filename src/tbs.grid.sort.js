@@ -19,7 +19,7 @@ export class TbsGridSort {
          * @param sortColumns : [{ name : , order : }, ...]
          */
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let len = sortColumns.length;
 
         data.sort((a, b) => {
@@ -64,7 +64,7 @@ export class TbsGridSort {
 
     changeSortButtonOrder(name, text, order, targetIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         /* targetIndex <> name Index */
         let sourceIndex = null;
@@ -103,11 +103,11 @@ export class TbsGridSort {
 
     addSortButton(name, text, order, targetIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         // add sortColumn in grid.sort_data
         // already existing column
-        let dataRows = grid.sort_column_table.select(tbsGridNames.column.name, name, 1);
+        let dataRows = grid.sort_column_table.selectRows(tbsGridNames.column.name, name, 1);
         if (dataRows.length > 0) return;
 
         let dataRow = {};
@@ -115,7 +115,7 @@ export class TbsGridSort {
         dataRow[tbsGridNames.column.order] = order;
 
         /* create sort data */
-        console.log(name);
+        //console.log(name);
         if (grid.null(targetIndex)) grid.sort_column_table.insert(dataRow);
         else grid.sort_column_table.insertBefore(dataRow, targetIndex);
 
@@ -131,15 +131,15 @@ export class TbsGridSort {
 
     removeSortButton(element) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         // remove sortColumn in grid.sort_column_table.data
         let name = element.dataset.name;
-        console.log('name :' + name);
+        //console.log('name :' + name);
 
         let rowIndex = grid.sort_column_table.selectRowIndex(tbsGridNames.column.name, name);
 
-        console.log('rowIndex :' + rowIndex);
+        //console.log('rowIndex :' + rowIndex);
 
         grid.sort_column_table.remove(rowIndex);
 
@@ -163,7 +163,7 @@ export class TbsGridSort {
 
     removeSortButtonList() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar .tbs-grid-panel-button');
         for (let i = buttons.length - 1; i >= 0; i--) buttons[i].remove();
@@ -171,7 +171,7 @@ export class TbsGridSort {
 
     getSortButtonList() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.classSort.removeSortButtonList();
 
@@ -190,7 +190,7 @@ export class TbsGridSort {
 
     createSortButton(columnName) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = grid.classColumn.getColumn(columnName);
         let sortColumn = grid.classSort.getSortRow(columnName);
@@ -223,7 +223,7 @@ export class TbsGridSort {
 
     toggleSortPlaceHolder() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar .tbs-grid-panel-button');
         let span = document.querySelector(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar-span');
@@ -243,9 +243,9 @@ export class TbsGridSort {
 
     showSortPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
-        grid.setOption(grid.option_showSortPanel, true);
+        grid.setOption('showSortPanel', true);
 
         let panel = document.querySelector(selector + ' .tbs-grid-panel90');
         panel.classList.remove('tbs-grid-hide');
@@ -259,10 +259,10 @@ export class TbsGridSort {
 
     hideSortPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.sort_column_table.remove();
-        grid.setOption(grid.option_showSortPanel, false);
+        grid.setOption('showSortPanel', false);
 
         let panel = document.querySelector(selector + ' .tbs-grid-panel90');
         panel.classList.remove('tbs-grid-show');
@@ -275,7 +275,7 @@ export class TbsGridSort {
 
     initSortData() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.sort_column_table.remove();
         grid.classSort.getSortButtonList();
@@ -283,7 +283,7 @@ export class TbsGridSort {
         grid.view_table.remove();
         grid.source_table.data.map(dataRow => grid.view_table.insert(grid.copyJson(dataRow)));
 
-        if (grid.options[grid.option_showFilterPanel]) {
+        if (grid.options.showFilterPanel) {
             grid.classFilter.filters();
             grid.apply();
         }

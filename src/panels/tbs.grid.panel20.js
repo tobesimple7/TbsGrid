@@ -4,8 +4,10 @@ const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
-import { TbsGridRender } from '../tbs.grid.render.js';
-import { TbsGridRenderInfo } from '../tbs.grid.render.info.js';
+import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
+import { TbsGridTable } from "../tbs.grid.table.js";
+
 export class TbsGridPanel20 extends TbsGridPanelBase {
 
     constructor(grid) {
@@ -19,7 +21,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
     }
 
     createHtml(parentElement) {
-        let grid = this.grid;
+        const grid = this.grid;
         let s = '';
         s += '<div class="tbs-grid-group21">';
             s += '<div class="tbs-grid-panel">';
@@ -35,8 +37,19 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
         parentElement.insertAdjacentHTML('beforeend', s);
     }
 
+    createTable()  {
+        const grid = this.grid;
+
+        const classTable = new TbsGridTable(grid);
+        classTable.createTable('panel21', 0, grid.headerRowCount);
+        classTable.createTable('panel22', 0, grid.headerRowCount);
+        classTable.createTable('panel20', 0, grid.headerRowCount);
+
+        this.setDataPanel();
+    }
+
     setDataPanel(topRowIndex) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         this.setDataPanel1({panelName: 'panel21'});
         this.setDataPanel2({panelName: 'panel22'});
@@ -47,7 +60,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
 
     setDataPanel1(param) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let panelName = this.panelName1;
 
@@ -76,7 +89,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 /**
                  * Render: Start
                  */
-                let tbsGridRenderInfo = new TbsGridRenderInfo(grid);
+                let tbsGridRenderInfo = new TbsGridRenderPanelInfo(grid);
                 tbsGridRenderInfo.start(panelName, tableCell, grid.info_table.data[x], i, x);
                 tbsGridRenderInfo = null;
 
@@ -102,68 +115,16 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
     }
 
     setDataPanel2(param) {
-        let selector = this.selector;
-        let grid = this.grid;
-        let panelName = this.panelName2;
-
-        if (grid.fixedColumnIndex == -1) return;
-
-        /* table thead */
-        grid.classRow.setTableHead(grid, panelName);
-
-        /* table tbody */
-        let tablesRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
-
-        for (let i = 0, rowLen = tablesRows.length; i < rowLen; i++) {
-            let tableRow = tablesRows[i];
-            tableRow.style.height = grid.headerRowHeight + 'px';
-            for (let x = 0; x <= grid.fixedColumnIndex; x++) {
-                let column = grid.column_table.data[x];
-                let header = grid.headerColumnTable[i][x];
-                let tableCell = tableRow.childNodes[x];
-
-                let selectedValue = grid.isSelectedHeaderCell(panelName, x);
-                if (selectedValue == 1) tableCell.classList.add('tbs-grid-cell-select');
-
-                let columnName = header[tbsGridNames.column.name];
-
-                tableCell.style.textAlign = 'center'; // header[tbsGridNames.column.align];
-
-                tableCell.dataset.name = (header[tbsGridNames.column.kind] == 'column') ? columnName : '';
-                tableCell.dataset.kind = header[tbsGridNames.column.kind];
-
-                tableCell.colSpan = header[tbsGridNames.column.colSpan];
-                tableCell.rowSpan = header[tbsGridNames.column.rowSpan];
-                tableCell.style.display = (header[tbsGridNames.column.visible] == true) ? '' : 'none';
-
-                if (header[tbsGridNames.column.kind] == 'column') {
-                    let className = grid.classColumn.getHeaderProperty(columnName, tbsGridNames.column.className);
-                    if (grid.notNull(className)) tableCell.classList.add(className);
-                    tableCell.style.display = (column[tbsGridNames.column.visible] == true) ? '' : 'none';
-                }
-
-                tableCell.querySelector('.tbs-grid-cell-span-sort').textContent = '';
-                if (grid.sort_column_table.isRow(tbsGridNames.column.name, columnName) && header[tbsGridNames.column.kind] == 'column') {
-                    let sortColumn = grid.classSort.getSortRow(columnName);
-                    let sortSymbol = '';
-                    if (sortColumn['order'] == 'desc') sortSymbol = '▼';
-                    else if (sortColumn['order'] == 'asc') sortSymbol = '▲';
-                    tableCell.querySelector('.tbs-grid-cell-span-sort').textContent = sortSymbol;
-                }
-                tableCell.childNodes[0].childNodes[0].textContent = header[tbsGridNames.column.text];
-
-                if (header[tbsGridNames.column.kind] == 'empty') {
-
-                };
-            }
-        }
+        this.setDataPanelSub(this.panelName2, param);
     }
 
     setDataPanel0(param) {
-        let selector = this.selector;
-        let grid = this.grid;
+        this.setDataPanelSub(this.panelName0, param);
+    }
 
-        let panelName = this.panelName0;
+    setDataPanelSub(panelName, param) {
+        let selector = this.selector;
+        const grid = this.grid;
 
         /* table thead */
         grid.classRow.setTableHead(grid, panelName);
@@ -172,67 +133,80 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
         let tablesRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
 
         let startColumnIndex = 0;
-        if (grid.fixedColumnIndex != -1) {
-            startColumnIndex = grid.fixedColumnIndex + 1;
-            for (let i = 0, rowLen = tablesRows.length; i < rowLen; i++) {
-                let tableRow = tablesRows[i];
-                tableRow.style.height = grid.headerRowHeight + 'px';
-                for (let x = 0; x <= grid.fixedColumnIndex; x++) {
-                    let tableCell = tableRow.childNodes[x];
-                    tableCell.style.display = 'none';
+        let lastColumnIndex = grid.column_table.count();
+
+        if (panelName == 'panel22') {
+            lastColumnIndex = grid.fixedColumnIndex + 1;
+        }
+        else {
+            if (grid.fixedColumnIndex != -1) {
+                startColumnIndex = grid.fixedColumnIndex + 1;
+                for (let i = 0, rowLen = tablesRows.length; i < rowLen; i++) {
+                    let tableRow = tablesRows[i];
+                    tableRow.style.height = grid.headerRowHeight + 'px';
+                    for (let x = 0; x <= grid.fixedColumnIndex; x++) {
+                        let tableCell = tableRow.childNodes[x];
+                        tableCell.style.display = 'none';
+                    }
                 }
             }
         }
         for (let i = 0, rowLen = tablesRows.length; i < rowLen; i++) {
             let tableRow = tablesRows[i];
             tableRow.style.height = grid.headerRowHeight + 'px';
-            for (let x = startColumnIndex, colLen = grid.column_table.count(); x < colLen; x++) {
-                let column = grid.column_table.data[x];
-                let header = grid.headerColumnTable[i][x];
-                let tableCell = tableRow.childNodes[x];
+            for (let x = startColumnIndex, colLen = lastColumnIndex; x < colLen; x++) {
+                const column = grid.column_table.data[x];
+                const header = grid.headerColumnTable[i][x];
+                const tableCell = tableRow.childNodes[x];
 
                 let selectedValue = grid.isSelectedHeaderCell(panelName, x);
                 if (selectedValue == 1) tableCell.classList.add('tbs-grid-cell-select');
 
                 let columnName = header[tbsGridNames.column.name];
-                tableCell.style.display = '';
+
                 tableCell.style.display = (header[tbsGridNames.column.visible] == true) ? '' : 'none';
-
                 tableCell.style.textAlign = header[tbsGridNames.column.align];
-
-                tableCell.dataset.name = (header[tbsGridNames.column.kind] == 'column') ? columnName : '';
-                tableCell.dataset.kind = header[tbsGridNames.column.kind];
 
                 tableCell.colSpan = header[tbsGridNames.column.colSpan];
                 tableCell.rowSpan = header[tbsGridNames.column.rowSpan];
+
+                tableCell.dataset.name = (header[tbsGridNames.column.kind] == 'column') ? columnName : '';
+                tableCell.dataset.kind = header[tbsGridNames.column.kind];
 
                 if (header[tbsGridNames.column.kind] == 'column') {
                     let className = grid.classColumn.getHeaderProperty(columnName, tbsGridNames.column.className);
                     if (grid.notNull(className)) tableCell.classList.add(className);
                     tableCell.style.display = (column[tbsGridNames.column.visible] == true) ? '' : 'none';
+                    let columnType = column[tbsGridNames.column.type];
+                    if (columnType == tbsGridTypes.CellType.checkbox) {
+                        const checkbox = tableCell.querySelector('.tbs-grid-html-checkbox');
+                        checkbox.style.display = '';
+                    }
                 }
 
-                tableCell.querySelector('.tbs-grid-cell-span-sort').textContent = '';
+                tableCell.querySelector('.tbs-grid-html-sort').textContent = '';
                 if (grid.sort_column_table.isRow(tbsGridNames.column.name, columnName) && header[tbsGridNames.column.kind] == 'column') {
                     let sortColumn = grid.classSort.getSortRow(columnName);
                     let sortSymbol = '';
                     if (sortColumn['order'] == 'desc') sortSymbol = '▼';
                     else if (sortColumn['order'] == 'asc') sortSymbol = '▲';
-                    tableCell.querySelector('.tbs-grid-cell-span-sort').textContent = sortSymbol;
+                    tableCell.querySelector('.tbs-grid-html-sort').textContent = sortSymbol;
                 }
-                tableCell.childNodes[0].childNodes[0].textContent = header[tbsGridNames.column.text];
+
+                const textSpan = tableCell.querySelector('.tbs-grid-html-string');
+                textSpan.textContent = header[tbsGridNames.column.text];
             }
         }
     }
 
     panel21_select() { //type : header, content, left, top
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let clsPanel = this;
 
         let table = document.querySelector(selector + ' .tbs-grid-panel21 .tbs-grid-table');
         const cickEvent = function (e) {
-            if (e.target.classList.contains('tbs-grid-cell-checkbox')) { }
+            if (e.target.classList.contains('tbs-grid-html-checkbox')) { }
             else return;
 
             if (clsPanel.isChecked) clsPanel.isChecked = false;
@@ -274,7 +248,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
 
     panel20_select(panelName) { //type : header, content, left, top
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let startRowIndex, startCellIndex, startX, startY;
         let lastRowIndex , lastCellIndex , lastX , lastY;
@@ -294,9 +268,10 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
 
         let table = document.querySelector(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table');
         let eventPanel = document.querySelector(selector + ' .tbs-grid-' + panelName);
+
         const mouseDownEvent = function(e) {
             let col = e.target.closest('.tbs-grid-cell');
-            if (e.target.classList.contains('tbs-grid-cell-resize')) return;
+            if (e.target.classList.contains('tbs-grid-html-resize')) return;
 
             grid.startX = startX = window.pageXOffset + e.clientX;
             grid.startY = startY = window.pageYOffset + e.clientY;
@@ -338,7 +313,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
 
             if (isInPanel80) {
                 // grouping panel
-                if (grid.options[grid.option_showGroupPanel] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
+                if (grid.options.showGroupPanel == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
                     let moveElement = document.querySelector('.tbs-grid-move');
                     let rectPanel80 = document.querySelector(selector + ' .tbs-grid-panel80').getBoundingClientRect();
                     let rectMoveCell= moveElement.getBoundingClientRect();
@@ -391,7 +366,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
             }
             else if (isInPanel90) {
                 // sorting panel
-                if (grid.options[grid.option_showSortPanel] == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
+                if (grid.options.showSortPanel == true && document.querySelectorAll(' .tbs-grid-move').length > 0) {
                     let moveElement = document.querySelector('.tbs-grid-move');
                     let rectPanel80 = document.querySelector(selector + ' .tbs-grid-panel80').getBoundingClientRect();
                     let rectMoveCell= moveElement.getBoundingClientRect();
@@ -441,16 +416,54 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 document.removeEventListener('mouseup', mouseUpEvent);
             }
             else {
-                if (mouseButton == 0
-                    && startX > lastX - grid.grid_mousePointRange
-                    && startX < lastX + grid.grid_mousePointRange
-                    && startY > lastY - grid.grid_mousePointRange
-                    && startY < lastY + grid.grid_mousePointRange) {
+                let tableCell;
+                if (e.target.classList.contains('tbs-grid-html-checkbox')) {
+                    debugger;
+                    tableCell = e.target.parentNode.parentNode;
+                    const column = grid.column_table.selectRowByRowIndex(tableCell.cellIndex);
+                    const columnName = column[tbsGridNames.column.name];
+
+                    // let isChecked = column[tbsGridNames.column.isChecked] ? true : false;
+                    // if (isChecked) grid.column_table.update(columnName, tbsGridNames.column.isChecked, false);
+                    // else grid.column_table.update(columnName, tbsGridNames.column.isChecked, true);
+                    let isChecked = false;
+                    if (e.target.checked) isChecked = false;
+                    else isChecked = true;
+
+                    let newValue = isChecked ? grid.getTrueValue(columnName) : grid.getFalseValue(columnName);
+
+                    // exclude : disabled checkbox
+                    const callback = grid.getRenderer(columnName, 'callback');
+                    for (let i = 0, len = grid.view_table.count(); i < len; i++) {
+                        const dataRow = grid.view_table.selectRowByRowIndex(i);
+                        if (callback) {
+                            const eventRow = {}
+                            eventRow.rowIndex    = i;
+                            eventRow.columnIndex = tableCell.cellIndex;
+                            eventRow.columnName  = columnName;
+                            eventRow.value       = dataRow[tbsGridNames.column.name];
+                            eventRow.text        = dataRow[tbsGridNames.column.name];
+                            eventRow.data        = dataRow;
+                            const result = callback(grid, eventRow);
+                            if (result.editable == false) continue;
+                            else grid.setValue(i, columnName, newValue);
+                        }
+                        else {
+                            grid.setValue(i, columnName, newValue);
+                        }
+                    }
+                    grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+                }
+                else if (mouseButton == 0
+                    && startX > lastX - grid.mousePointRange
+                    && startX < lastX + grid.mousePointRange
+                    && startY > lastY - grid.mousePointRange
+                    && startY < lastY + grid.mousePointRange) {
                     let element = e.target.closest('.tbs-grid-cell');
                     let name = element.dataset.name;
                     if (e.detail == 1) {
                         if (grid.isColumnName(name)) grid.event_columnSort(e.target.closest('.tbs-grid-cell'));
-                        if (grid.options[grid.option_showSortPanel] == true) grid.classSort.getSortButtonList();
+                        if (grid.options.showSortPanel) grid.classSort.getSortButtonList();
                     }
                 }
                 else {
@@ -549,6 +562,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
         };
 
         const selectCell = function(e, table) {
+            if (e.target.classList.contains('tbs-grid-html-checkbox'))  return;
             let col = e.target.closest('.tbs-grid-cell');
 
             let column = grid.classColumn.getColumnByIndex(col.cellIndex);
@@ -572,7 +586,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                     div.classList.add('tbs-grid-cell-div');
 
                     let span = document.createElement('span');
-                    span.classList.add('tbs-grid-cell-span');
+                    span.classList.add('tbs-grid-html-string');
 
                     div.appendChild(span);
                     td.appendChild(div);
@@ -584,7 +598,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 moveDiv = document.querySelector('.tbs-grid-move');
                 moveDiv.style.display = 'none';
 
-                moveDiv.querySelector('.tbs-grid-cell-span').textContent = col.querySelector('.tbs-grid-cell-span').innerText;
+                moveDiv.querySelector('.tbs-grid-html-string').textContent = col.querySelector('.tbs-grid-html-string').innerText;
                 moveDiv = document.querySelector('.tbs-grid-move');
 
                 let colRect = col.getBoundingClientRect();
@@ -720,7 +734,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
         const selectRefresh = function(type, lastX, lastY) {
             let content = document.querySelector(selector + ' .tbs-grid-panel30');
             let table = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-            trContent = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
+            const trContent = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
 
             let startRowIndex  = grid.startRowIndex;
             let lastRowIndex   = grid.lastRowIndex;

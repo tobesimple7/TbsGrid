@@ -15,7 +15,7 @@ export class TbsGridDate{
 
     create() {
         let selector = '#' + this.grid.gridId;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (this.grid.null(this.grid)) return;
 
@@ -34,18 +34,10 @@ export class TbsGridDate{
         s += '      <td class="tbs-grid-input-date-prev"  onclick="' + this.grid.gridId + '.tbsGridDate.prev();" style="width:40px;">' + prevLinkName + '</td>';
         s += '      <td class="tbs-grid-input-date-month" style="width:100px;">';
         s += '          <select class="tbs-grid-input-date-select-month" style="width:100px;" onchange="' + this.grid.gridId + '.tbsGridDate.selectMonth(this.value);">';
-        s += '          <option value="01">' + months[0] + '</option>';
-        s += '          <option value="02">' + months[1] + '</option>';
-        s += '          <option value="03">' + months[2] + '</option>';
-        s += '          <option value="04">' + months[3] + '</option>';
-        s += '          <option value="05">' + months[4] + '</option>';
-        s += '          <option value="06">' + months[5] + '</option>';
-        s += '          <option value="07">' + months[6] + '</option>';
-        s += '          <option value="08">' + months[7] + '</option>';
-        s += '          <option value="09">' + months[8] + '</option>';
-        s += '          <option value="10">' + months[9] + '</option>';
-        s += '          <option value="11">' + months[10] + '</option>';
-        s += '          <option value="12">' + months[11] + '</option>';
+        const array = ['01', '02', '03', '04', '05', '06','07', '08', '09', '10', '11', '12'];
+        for (let i = 0; i < 12; i++) {
+            s += '          <option value="' + array[i] + '">' + months[i] + '</option>';
+        }
         s += '          </select></td>';
         s += '      <td class="tbs-grid-input-date-year"  style="width:50px;"></td>';
         s += '      <td class="tbs-grid-input-date-today" onclick="' + this.grid.gridId + '.tbsGridDate.today();" style="width:40px;">' + todayLinkName + '</td>';
@@ -67,65 +59,22 @@ export class TbsGridDate{
         s += '      </tr>';
         s += '      </thead>';
         s += '      <tbody>';
-        s += '      <tr>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-        s += '      </tr>';
-        s += '      <tr>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-        s += '      </tr>';
-        s += '      <tr>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-        s += '      </tr>';
-        s += '      <tr>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-        s += '      </tr>';
-        s += '      <tr>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-        s += '      </tr>';
-        s += '      <tr>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-        s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-        s += '      </tr>';
+        for (let i = 0; i < 6; i++) {
+            s += '      <tr>';
+            s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
+            s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
+            s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
+            s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
+            s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
+            s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
+            s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
+            s += '      </tr>';
+        }
         s += '      </tbody>';
         s += '      </table>';
         s += '  </div>';
         s += '</div>';
-        document.querySelector(selector + ' .tbs-grid-input-panel').innerHTML = s;
+        document.querySelector(selector + ' .tbs-grid-input-layer-panel').innerHTML = s;
 
         let gridRect  = document.querySelector(selector).getBoundingClientRect();
         let inputRect = this.input.getBoundingClientRect();
@@ -140,16 +89,16 @@ export class TbsGridDate{
         let documentBottom = documentRect.bottom;
 
         if (left + 231 > documentRight) {
-            document.querySelector(selector + ' .tbs-grid-input-panel').style.left   = `${right - 231}px`;
+            document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left   = `${right - 231}px`;
         }
         else {
-            document.querySelector(selector + ' .tbs-grid-input-panel').style.left  = `${left}px`;
+            document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left  = `${left}px`;
         }
         if (top + height + 187 > documentBottom) {
-            document.querySelector(selector + ' .tbs-grid-input-panel').style.top   = `${top - 187}px`;
+            document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.top   = `${top - 187}px`;
         }
         else {
-            document.querySelector(selector + ' .tbs-grid-input-panel').style.top   = `${top + height}px`;
+            document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.top   = `${top + height}px`;
         }
         this.setData();
         this.addEvent();
@@ -273,7 +222,7 @@ export class TbsGridDate{
         let curMonth = d.getMonth() + 1;
         let curDay   = d.getDate();
         let selector = '#' + this.grid;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let format = this.column[tbsGridNames.column.format];
         format = format.replace('yyyy', curYear);
@@ -317,7 +266,7 @@ export class TbsGridDate{
 
     addEvent() {
         let selector = '#' + this.grid.gridId;
-        let grid = this.grid;
+        const grid = this.grid;
         let input = this.input;
         let gridDate = this;
         let column = this.column;
@@ -360,13 +309,10 @@ export class TbsGridDate{
 
     destroy() {
         let selector = '#' + this.grid.gridId;
-        let grid = this.grid;
-        let input = this.input;
-        let gridDate = this;
 
-        document.querySelector(selector + ' .tbs-grid-input-panel').innerHTML = '';
-        document.querySelector(selector + ' .tbs-grid-input-panel').style.width = '0px';
-        document.querySelector(selector + ' .tbs-grid-input-panel').style.left = '30000px';
+        document.querySelector(selector + ' .tbs-grid-input-layer-panel').innerHTML = '';
+        document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.width = '0px';
+        document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left = '30000px';
     }
 }
 

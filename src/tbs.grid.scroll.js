@@ -30,7 +30,7 @@ export class TbsGridScroll {
     /* Set Scroll */
     setScroll(type) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
         if (type == grid.code_horizontal) scroll.setHorizontalScroll();
@@ -39,7 +39,7 @@ export class TbsGridScroll {
 
     setHorizontalScroll() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classScroll = this;
 
         let type = grid.code_horizontal;
@@ -63,7 +63,7 @@ export class TbsGridScroll {
 
     setVerticalScroll() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
         let type = grid.code_vertical;
@@ -76,66 +76,39 @@ export class TbsGridScroll {
         let pageRowCount = grid.pageRowCount;
         let dataLength = grid.view_table.count();
 
-        if (grid.fixedRowIndex != -1) {
-            dataLength = dataLength - (grid.fixedRowIndex + 1);
-            if (dataLength <= grid.pageIntRowCount) {
+        if (dataLength <= grid.pageIntRowCount) {
+            scroll.hideScroll(type);
+        }
+        else if (grid.pageRowCount > grid.pageIntRowCount) {
+            if (dataLength >= pageRowCount) {
+                yScroll.style.display = '';
+                scrollBox.style.display = '';
+                wrap.style.marginRight = grid.verticalScroll.margin;
+
+                scroll.setScrollSize(type);
+            } else {
                 scroll.hideScroll(type);
-            }
-            else if (grid.pageRowCount > grid.pageIntRowCount) {
-                if (dataLength >= pageRowCount) {
-                    yScroll.style.display = '';
-                    scrollBox.style.display = '';
-                    wrap.style.marginRight = grid.verticalScroll.margin;
-                    scroll.setScrollSize(type);
-                } else {
-                    scroll.hideScroll(type);
-                }
-            }
-            else {
-                if (dataLength > pageRowCount) {
-                    yScroll.style.display = '';
-                    scrollBox.style.display = '';
-                    wrap.style.marginRight = grid.verticalScroll.margin;
-                    scroll.setScrollSize(type);
-                } else {
-                    scroll.hideScroll(type);
-                }
             }
         }
         else {
-            if (dataLength <= grid.pageIntRowCount) {
+            if (dataLength > pageRowCount) {
+                yScroll.style.display = '';
+                scrollBox.style.display = '';
+                wrap.style.marginRight = grid.verticalScroll.margin;
+
+                scroll.setScrollSize(type);
+            } else {
                 scroll.hideScroll(type);
             }
-            else if (grid.pageRowCount > grid.pageIntRowCount) {
-                if (dataLength >= pageRowCount) {
-                    yScroll.style.display = '';
-                    scrollBox.style.display = '';
-                    wrap.style.marginRight = grid.verticalScroll.margin;
-
-                    scroll.setScrollSize(type);
-                } else {
-                    scroll.hideScroll(type);
-                }
-            }
-            else {
-                if (dataLength > pageRowCount) {
-                    yScroll.style.display = '';
-                    scrollBox.style.display = '';
-                    wrap.style.marginRight = grid.verticalScroll.margin;
-
-                    scroll.setScrollSize(type);
-                } else {
-                    scroll.hideScroll(type);
-                }
-            }
         }
+
         yScroll = document.querySelector(selector + ' .tbs-grid-vertical-scroll'); // non-live
         if (xScroll.style.display == 'none' && yScroll.style.display == 'none') scrollBox.style.display = 'none';
     }
 
     showScroll(type) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
         if (type == grid.code_horizontal) {
@@ -156,7 +129,7 @@ export class TbsGridScroll {
 
     hideScroll(type) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
         if (type == grid.code_horizontal) {
@@ -190,7 +163,7 @@ export class TbsGridScroll {
 
     setScrollSize(type) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
         if (type == grid.code_horizontal) {
             let barSize = scroll.getBarSize(type);
@@ -221,7 +194,7 @@ export class TbsGridScroll {
     /* BarSize */
     getBarSize(type) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
         if (type == grid.code_horizontal) return scroll.getHorizontalBarSize();
         else if (type == grid.code_vertical) return scroll.getVerticalBarSize();
@@ -229,7 +202,7 @@ export class TbsGridScroll {
 
     getHorizontalBarSize() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
         let panel20= document.querySelector(selector + ' .tbs-grid-panel20');
@@ -244,29 +217,20 @@ export class TbsGridScroll {
 
     getVerticalBarSize() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
-        if (grid.fixedRowIndex != -1) {
-            let yWrap = document.querySelector(selector + ' .tbs-grid-vertical-scroll-wrap');
-            let rowCount = grid.getRowCount() - (grid.fixedRowIndex + 1);
-            let barSize = yWrap.clientHeight - (rowCount * 6.3);
-            if (barSize < 50) barSize = 50;
-            return barSize
-        }
-        else {
-            let yWrap = document.querySelector(selector + ' .tbs-grid-vertical-scroll-wrap');
-            let rowCount = grid.getRowCount();
-            let barSize = yWrap.clientHeight - (rowCount * 6.3);
-            if (barSize < 50) barSize = 50;
-            return barSize
-        }
+        let yWrap = document.querySelector(selector + ' .tbs-grid-vertical-scroll-wrap');
+        let rowCount = grid.getRowCount();
+        let barSize = yWrap.clientHeight - (rowCount * 6.3);
+        if (barSize < 50) barSize = 50;
+        return barSize
     }
 
     /* railSize */
     getRailSize(type, barSize) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
         if (type == grid.code_horizontal) return scroll.getHorizontalRailSize(barSize);
@@ -275,7 +239,7 @@ export class TbsGridScroll {
 
     getHorizontalRailSize(barSize) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
         let xWrap = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-wrap');
@@ -284,7 +248,7 @@ export class TbsGridScroll {
 
     getVerticalRailSize(barSize) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
         let yWrap = document.querySelector(selector + ' .tbs-grid-vertical-scroll-wrap');
@@ -299,29 +263,24 @@ export class TbsGridScroll {
     /* moveCount */
     getMoveCount(type, railSize) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
         let moveCount = 0;
         let pageIntRowCount = grid.pageIntRowCount;
         let pageRowCount = grid.pageRowCount;
-        if (grid.fixedRowIndex != -1) {
-            let rowCount = grid.getRowCount() - (grid.fixedRowIndex + 1);
-            if (pageRowCount > pageIntRowCount) moveCount = Number((rowCount - pageRowCount + 1) / railSize);
-            else moveCount = Number((rowCount - pageRowCount) / railSize);  // 50 , 10 / 1000 px
-        }
-        else {
-            let rowCount = grid.getRowCount();
-            if (pageRowCount > pageIntRowCount) moveCount = Number((rowCount - pageRowCount + 1) / railSize);
-            else moveCount = Number((rowCount - pageRowCount) / railSize);
-        }
+
+        let rowCount = grid.getRowCount();
+        if (pageRowCount > pageIntRowCount) moveCount = Number((rowCount - pageRowCount + 1) / railSize);
+        else moveCount = Number((rowCount - pageRowCount) / railSize);
+
         return moveCount;
     }
 
     /* hiddenSize */
     getHiddenSize(type) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
 
         let panel20= document.querySelector(selector + ' .tbs-grid-panel20');
@@ -333,7 +292,7 @@ export class TbsGridScroll {
     /* barWidth */
     getBarWidth(type, barSize) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let scroll = this;
         let wrapRect = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-wrap').getBoundingClientRect();
         let xBarRect  = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar').getBoundingClientRect();

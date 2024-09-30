@@ -12,7 +12,7 @@ export class TbsGridControl {
 
     after_changeColumnOrder() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classControl = this;
 
         grid.classColumn.updateColumnTable();
@@ -31,7 +31,7 @@ export class TbsGridControl {
 
     after_addColumn() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classControl = this;
 
         grid.classColumn.updateColumnTable();
@@ -47,7 +47,7 @@ export class TbsGridControl {
 
     after_removeColumn(headerColumns, columns) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classControl = this;
 
 
@@ -64,7 +64,7 @@ export class TbsGridControl {
 
     after_showFilterPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classControl = this;
 
         grid.classRange.removeRange(0, -1);
@@ -75,7 +75,7 @@ export class TbsGridControl {
 
     after_hideFilterPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classControl = this;
 
         grid.classRange.removeRange(0, -1);
@@ -86,7 +86,7 @@ export class TbsGridControl {
 
     after_showSortrPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classControl = this;
 
         grid.classRange.removeRange(0, -1);
@@ -96,7 +96,7 @@ export class TbsGridControl {
 
     after_hideSortPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classControl = this;
 
         grid.classRange.removeRange(0, -1);
@@ -106,7 +106,7 @@ export class TbsGridControl {
 
     after_setColumnVisible() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classControl = this;
 
         grid.classRange.removeRange(0, -1);

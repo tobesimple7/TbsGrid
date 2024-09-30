@@ -35,7 +35,7 @@ export class TbsGridRangePanel {
 
     selectRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classRange = this;
         let panelName = this.panelName;
 
@@ -54,7 +54,7 @@ export class TbsGridRangePanel {
 
     setRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex, type = 'add') {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classRange = this;
         let panelName = this.panelName;
 
@@ -97,12 +97,9 @@ export class TbsGridRangePanel {
             classRange._lastCellIndex  = _lastCellIndex;
         }
         classRange.setRangeValue(_startRowIndex, _lastRowIndex, _startCellIndex, _lastCellIndex);
-        if (grid.fixedRowIndex == -1) {
-            topRowIndex = (topRowIndex == undefined) ? grid.getFirstRowIndex() : classRange.fixedRowIndex + 1;
-        }
-        else {
-            topRowIndex = (topRowIndex == undefined) ? grid.getFirstRowIndex() : topRowIndex;
-        }
+
+        topRowIndex = (topRowIndex == undefined) ? grid.getFirstRowIndex() : topRowIndex;
+
         grid.classPanel30.setDataPanel(topRowIndex);
         grid.classPanel40.setDataPanel();
         grid.classPanel50.setDataPanel();
@@ -113,7 +110,7 @@ export class TbsGridRangePanel {
         //console.log(`startRowIndex, lastRowIndex, startCellIndex, lastCellIndex`);
         //console.log(`${startRowIndex}, ${lastRowIndex}, ${startCellIndex}, ${lastCellIndex}`);
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classRange = this;
         let panelName = this.panelName;
 
@@ -210,7 +207,7 @@ export class TbsGridRangePanel {
 
     removeRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classRange = this;
         let panelName = this.panelName;
 
@@ -245,7 +242,7 @@ export class TbsGridRangePanel {
 
     addRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classRange = this;
         let panelName = this.panelName;
 
@@ -260,7 +257,7 @@ export class TbsGridRangePanel {
 
     getMaxCellIndexByMouseMove() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classRange = this;
         let panelName = this.panelName;
         let panelName2;
@@ -287,7 +284,7 @@ export class TbsGridRangePanel {
 
     getMinCellIndexByMouseMove() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classRange = this;
         let panelName = this.panelName;
         let panelName2;
@@ -303,16 +300,7 @@ export class TbsGridRangePanel {
 
         let minCellIndex;
         const rowIndexArray = [];
-        if (grid.fixedRowIndex != -1 && grid.fixedColumnIndex != -1) {
-            num = classRange.getMinCellIndexByMouseMove2(panelName2); if (num != undefined) rowIndexArray.push(num);
-            num = classRange.getMinCellIndexByMouseMove2(panelName0); if (num != undefined) rowIndexArray.push(num);
-            minCellIndex = Math.min(...rowIndexArray);
-        }
-        else if (grid.fixedRowIndex != -1) {
-            num = classRange.getMinCellIndexByMouseMove2(panelName0); if (num != undefined) rowIndexArray.push(num);
-            minCellIndex = Math.min(...rowIndexArray);
-        }
-        else if (grid.fixedColumnIndex != -1) {
+        if (grid.fixedColumnIndex != -1) {
             num = classRange.getMinCellIndexByMouseMove2(panelName2); if (num != undefined) rowIndexArray.push(num);
             num = classRange.getMinCellIndexByMouseMove2(panelName0); if (num != undefined) rowIndexArray.push(num);
             minCellIndex = Math.min(...rowIndexArray);
@@ -324,7 +312,7 @@ export class TbsGridRangePanel {
 
     getMaxCellIndexByMouseMove2(panelName) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classRange = this;
 
         let lastX = grid.lastX;
@@ -362,7 +350,7 @@ export class TbsGridRangePanel {
 
     getMinCellIndexByMouseMove2(panelName) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let classRange = this;
 
         let lastX = grid.lastX;

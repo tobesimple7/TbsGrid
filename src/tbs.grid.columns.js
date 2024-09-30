@@ -15,9 +15,16 @@ export class TbsGridColumns {
      */
 
     setColumnDefaultValue(column) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let columnType = column[tbsGridNames.column.type];
+        if (grid.null(column[tbsGridNames.column.dataType])) {
+            if (columnType == tbsGridTypes.CellType.number)      column[tbsGridNames.column.dataType] = tbsGridTypes.CellType.number;
+            else if (columnType == tbsGridTypes.CellType.date)   column[tbsGridNames.column.dataType] = tbsGridTypes.CellType.string;
+            else if (columnType == tbsGridTypes.CellType.combo)  column[tbsGridNames.column.dataType] = tbsGridTypes.CellType.string;
+            else column[tbsGridNames.column.dataType] = tbsGridTypes.CellType.string;
+        }
+
         if (grid.null(column[tbsGridNames.column.width]))    column[tbsGridNames.column.width]    = 100;
         if (grid.null(column[tbsGridNames.column.editable])) column[tbsGridNames.column.editable] = false;
         if (grid.null(column[tbsGridNames.column.visible ])) column[tbsGridNames.column.visible ] = true;
@@ -50,7 +57,7 @@ export class TbsGridColumns {
      * Add Columns Or All Columns
      */
     updateColumns(columns) {
-        let grid = this.grid;
+        const grid = this.grid;
         let dataRows = [];
         const searchColumn = function (column) {
             if (!column[tbsGridNames.column.children]) {
@@ -68,7 +75,7 @@ export class TbsGridColumns {
      * All Columns
      */
     updateColumnTable() {
-        let grid = this.grid;
+        const grid = this.grid;
 
         /* update TbsGrid.columns */
         this.copyColumnData();
@@ -87,7 +94,7 @@ export class TbsGridColumns {
     }
 
     copyColumnData() {
-        let grid = this.grid;
+        const grid = this.grid;
 
         const searchColumn = function (column) {
             if (!column[tbsGridNames.column.children]) {
@@ -101,7 +108,7 @@ export class TbsGridColumns {
     }
 
     copyHeaderColumnData() {
-        let grid = this.grid;
+        const grid = this.grid;
 
         const searchColumn = function (column) {
             if (column[tbsGridNames.column.children]) {
@@ -125,7 +132,7 @@ export class TbsGridColumns {
     }
 
     addColumn(addColumn, targetRowIndex, targetColumnIndex, orderType) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.classColumn.updateColumns([addColumn]);
 
@@ -169,7 +176,7 @@ export class TbsGridColumns {
     }
 
     removeColumn(targetRowIndex, targetColumnIndex) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         // Add column in grid.columns
         let result = [];
@@ -201,7 +208,7 @@ export class TbsGridColumns {
     }
 
     changeColumnOrder(movingColumn, targetColumn, orderType) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         movingColumn = grid.copyJson(movingColumn);
         targetColumn = grid.copyJson(targetColumn);
@@ -294,37 +301,37 @@ export class TbsGridColumns {
     }
 
     getColumn(name, table) {
-        let grid = this.grid;
+        const grid = this.grid;
         if (grid.null(table)) table = grid.column_table;
         return table.selectRow(tbsGridNames.column.name, name);
     }
 
     getColumnByIndex(colIndex, table) {
-        let grid = this.grid;
+        const grid = this.grid;
         if (grid.null(table)) table = grid.column_table;
         return table.data[colIndex];
     }
 
     getColumnName(colIndex, table) {
-        let grid = this.grid;
+        const grid = this.grid;
         if (grid.null(table)) table = grid.column_table;
         return table.selectValue(colIndex, tbsGridNames.column.name);
     }
 
     getColumnIndex(name, table) {
-        let grid = this.grid;
+        const grid = this.grid;
         if (grid.null(table)) table = grid.column_table;
         return table.selectRowIndex(tbsGridNames.column.name, name);
     }
 
     getColumns(table) {
-        let grid = this.grid;
+        const grid = this.grid;
         if (grid.null(table)) table = grid.column_table;
         return table.select();
     }
 
     getColumnPropertyByIndex(columnIndex, property, table) {
-        let grid = this.grid;
+        const grid = this.grid;
         if (grid.null(table)) table = grid.column_table;
         let column = table.data[columnIndex];
         let result = grid.null(column[property]) ? null : column[property];
@@ -332,7 +339,7 @@ export class TbsGridColumns {
     }
 
     getColumnProperty(columnName, property, table) {
-        let grid = this.grid;
+        const grid = this.grid;
         if (grid.null(table)) table = grid.column_table;
 
         let columnIndex = table.selectRowIndex(tbsGridNames.column.name, columnName);
@@ -340,7 +347,7 @@ export class TbsGridColumns {
     }
 
     getFirstVisibleColumnIndex() {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let result = null;
         for (let i = 0; i < grid.column_table.count(); i++ ) {
@@ -351,7 +358,7 @@ export class TbsGridColumns {
     }
 
     getLastVisibleColumnIndex() {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let result = null;
         for (let i = grid.column_table.count() - 1; i >= 0; i-- ) {
@@ -362,7 +369,7 @@ export class TbsGridColumns {
     }
 
     setColumn(columnName, property, value, table) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.null(table)) table = grid.column_table;
         let column = table.selectRow(tbsGridNames.column.name, columnName);
@@ -370,7 +377,7 @@ export class TbsGridColumns {
     }
     
     setColumnByType(columnType, property, value, table) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.null(table)) table = grid.column_table;
 
@@ -383,7 +390,7 @@ export class TbsGridColumns {
 
     getSelectedTableCell(rowIndex, cellIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let td = null;
         let startRowIndex;
@@ -412,11 +419,10 @@ export class TbsGridColumns {
 
     getRowIndexInTable(tableRowIndex, panelName = 'panel31') {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let leftPanelName = panelName;
-        if (panelName == 'panel61' || panelName == 'panel62'  || panelName == 'panel60') leftPanelName = 'panel61';
-        else leftPanelName = 'panel31';
+        leftPanelName = 'panel31';
 
         let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + leftPanelName + ' .tbs-grid-table tr');
         return parseInt(tableRows[tableRowIndex].childNodes[0].dataset.rowIndex);
@@ -424,7 +430,7 @@ export class TbsGridColumns {
 
     getLeftTableCell(rowIndex, panel = 'panel31') {1
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let result = null;
         let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panel + ' .tbs-grid-table tbody tr:not([style*="display:"])');
@@ -450,7 +456,7 @@ export class TbsGridColumns {
 
     setFixedColumn(fixedColumnIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (fixedColumnIndex >= grid.column_table.count()) { grid.fixedColumnIndex = -1; return; }
 
@@ -465,7 +471,7 @@ export class TbsGridColumns {
 
     removeFixedColumn() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.fixedColumnIndex = -1;
 
@@ -482,7 +488,7 @@ export class TbsGridColumns {
 
     createHeaderColumns() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         const getChildrenColumnCount = function (userColumn) {
             let columnCount = 0;
@@ -539,7 +545,7 @@ export class TbsGridColumns {
 
     createHeaderColumnTable() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         const createHeaderColumns = function (userColumns) {
             userColumns.map(userColumn => {
@@ -627,7 +633,7 @@ export class TbsGridColumns {
 
     updateHeaderFixedColumns() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.headerColumnTable.length == 1) return;
         if (grid.fixedColumnIndex >= grid.column_table.count() - 1) return;
@@ -768,7 +774,7 @@ export class TbsGridColumns {
 
     getDisplayedHeaderColumn(panelName = 'panel30') {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         // let rectPanel = document.querySelector(selector + ' .tbs-grid-' + panelName).getBoundingClientRect();
         // let rectTable = document.querySelector(selector + ' .tbs-grid-' + panelName + ' > table').getBoundingClientRect();
@@ -776,77 +782,29 @@ export class TbsGridColumns {
         // styleLeft = parseInt(styleLeft, 10);
 
         let columns = grid.column_table.data;
-        if (panelName == 'panel32' || panelName == 'panel42' || panelName == 'panel52' || panelName == 'panel62') {
+        if (panelName == 'panel32' || panelName == 'panel42' || panelName == 'panel52') {
             let startColumnIndex = 0;
             let lastColumnIndex = grid.fixedColumnIndex;
             return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
-
-            // let sumWidth = 0;
-            // // get startColumnIndex
-            // for (let i = 0; i < this.fixedColumnIndex; i++) {
-            //     let column = columns[i];
-            //     if (column[tbsGridNames.column.visible] == false) continue;
-            //     sumWidth += parseInt(column[tbsGridNames.column.width]);
-            //     if (sumWidth + styleLeft > 0) {
-            //         startColumnIndex = i;
-            //         break;
-            //     }
-            // }
-            // sumWidth = rectTable.width;
-            // // get lastColumnIndex
-            // for (let i = this.fixedColumnIndex; i >= 0; i--) {
-            //     let column = columns[i];
-            //     if (column[tbsGridNames.column.visible] == false) continue;
-            //     sumWidth -= parseInt(column[tbsGridNames.column.width]);
-            //     if (sumWidth + styleLeft < rectPanel.width) {
-            //         lastColumnIndex = i;
-            //         break;
-            //     }
-            // }
-            // return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
         }
         else {
             let startColumnIndex = 0;
             let lastColumnIndex = columns.length - 1;
             if (grid.fixedColumnIndex != -1)  startColumnIndex = grid.fixedColumnIndex + 1;
             return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
-
-            // let sumWidth = 0;
-            // for (let i = 0, len = columns.length; i < len; i++) {
-            //     let column = columns[i];
-            //
-            //     if (column[tbsGridNames.column.visible] == false) sumWidth += 0;
-            //     else sumWidth += parseInt(column[tbsGridNames.column.width]);
-            //
-            //     if (sumWidth + styleLeft > 0) {
-            //         startColumnIndex = i;
-            //         break;
-            //     }
-            // }
-            // sumWidth = rectTable.width;
-            // for (let i = columns.length - 1; i >= 0; i--) {
-            //     let column = columns[i];
-            //     if (column[tbsGridNames.column.visible] == false) sumWidth -= 0;
-            //     else sumWidth -= parseInt(column[tbsGridNames.column.width]);
-            //     if (sumWidth + styleLeft < rectPanel.width) {
-            //         lastColumnIndex = i;
-            //         break;
-            //     }
-            // }
-            // return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
         }
     }
 
     getHeaderColumn(rowIndex, columnIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         return (grid.headerColumnTable[rowIndex][columnIndex] == undefined) ? null : grid.headerColumnTable[rowIndex][columnIndex];
     }
 
     getHeaderColumnByNumber(num) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let result;
         const getParentColumn = function (headerColumn) {
@@ -863,7 +821,7 @@ export class TbsGridColumns {
 
     getHeaderPropertyByIndex(columnIndex, property) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = grid.column_table.data[columnIndex];
         let result = grid.null(column.header[property]) ? null : column.header[property];
@@ -872,14 +830,14 @@ export class TbsGridColumns {
 
     getHeaderProperty(columnName, property) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let columnIndex = grid.classColumn.getColumnIndex(columnName);
         return grid.classColumn.getHeaderPropertyByIndex(columnIndex, property);
     }
 
     setHeaderProperty(rowIndex, colIndex, property, value) {
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = grid.headerColumnTable[rowIndex][colIndex];
         let kind = column[tbsGridNames.column.kind];
@@ -902,7 +860,7 @@ export class TbsGridColumns {
 
     createHeaderFxiedColumnTable() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.fixedColumnIndex != -1) return;
         if (grid.fixedColumnIndex >= grid.column_table.count() - 1) return;

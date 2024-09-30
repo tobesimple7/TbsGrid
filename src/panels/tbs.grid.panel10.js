@@ -4,8 +4,10 @@ const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
-import { TbsGridRender } from '../tbs.grid.render.js';
-import { TbsGridRenderInfo } from '../tbs.grid.render.info.js';
+import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
+import { TbsGridTable } from "../tbs.grid.table.js";
+
 export class TbsGridPanel10 extends TbsGridPanelBase {
 
     constructor(grid) {
@@ -14,9 +16,9 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
     }
 
     createHtml(parentElement) {
-        let grid = this.grid;
+        const grid = this.grid;
         //super.createHtml(parentElement);
-        let isShowToolbar = (grid.options.toolbar[grid.toolbar_visible]) ? 'tbs-grid-show' : 'tbs-grid-hide';
+        let isShowToolbar = (grid.options.showToolbarPanel) ? 'tbs-grid-show' : 'tbs-grid-hide';
         let s = '';
         s += '<div class="tbs-grid-panel10 ' + isShowToolbar + '">';
             s += '<div class="tbs-grid-panel10-wrap">';
@@ -50,14 +52,21 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
         grid.classPanel10.panel10_select();
     }
 
+    createTable() {
+        let selector = '#' + this.grid.gridId;
+
+        const panel = document.querySelector(selector + ' .tbs-grid-panel10');
+        panel.classList.add('tbs-grid-show');
+    }
+
     panel10_select(){
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         /* Filter Panel */
         const showFilterPanelEvent = function(e) {
             e.stopPropagation();
-            if (grid.options[grid.option_showFilterPanel] == false) {
+            if (grid.options.showFilterPanel == false) {
                 grid.classFilter.showFilterPanel();
             }
             else {
@@ -77,7 +86,7 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
         /* Sort Panel */
         const showSortPanelEvent = function(e) {
             e.stopPropagation();
-            if (grid.options[grid.option_showSortPanel] == false) {
+            if (grid.options.showSortPanel == false) {
                 grid.classSort.showSortPanel();
             }
             else {
@@ -101,7 +110,7 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
                 grid.classGroup.allowGroupMode();
             }
             else {
-                if (grid.options[grid.option_showGroupPanel] == true) grid.classGroup.denyGroupMode();
+                if (grid.options.showGroupPanel) grid.classGroup.denyGroupMode();
                 else grid.classGroup.allowGroupMode();
             }
         }
@@ -190,7 +199,7 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
 
     showToolbarPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let panel = document.querySelector(selector + ' .tbs-grid-panel10');
         panel.classList.remove('tbs-grid-hide');
@@ -203,7 +212,7 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
 
     hideToolbarPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let panel = document.querySelector(selector + ' .tbs-grid-panel10');
         panel.classList.remove('tbs-grid-show');
@@ -216,7 +225,7 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
 
     showToolbarButtons(buttonType) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (buttonType == 'filter') {
             let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter');   button.style.display = '';
@@ -239,7 +248,7 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
 
     hideToolbarButtons(buttonType) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (buttonType == 'filter') {
             let button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter');  button.style.display = 'none';

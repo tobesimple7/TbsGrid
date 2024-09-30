@@ -12,7 +12,7 @@ export class TbsGridRange {
 
     removePanelRange = function (panelName = '') {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (panelName == 'panel30') {
             document.querySelectorAll(selector + ' .tbs-grid-cell-start' ).forEach(cell => cell.classList.remove('tbs-grid-cell-start'));
@@ -34,7 +34,7 @@ export class TbsGridRange {
 
     selectRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (arguments.length == 2) {
             startCellIndex = 0;
@@ -51,7 +51,7 @@ export class TbsGridRange {
 
     setRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex, type = 'add') {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         grid.startRowIndex  = startRowIndex;
         grid.startCellIndex = startCellIndex;
@@ -92,18 +92,15 @@ export class TbsGridRange {
             selectRange._lastCellIndex  = _lastCellIndex;
         }
         grid.classRange.setRangeValue(_startRowIndex, _lastRowIndex, _startCellIndex, _lastCellIndex);
-        if (grid.fixedRowIndex == -1) {
-            topRowIndex = (topRowIndex == undefined) ? grid.getFirstRowIndex() : grid.fixedRowIndex + 1;
-        }
-        else {
-            topRowIndex = (topRowIndex == undefined) ? grid.getFirstRowIndex() : topRowIndex;
-        }
+
+        topRowIndex = (topRowIndex == undefined) ? grid.getFirstRowIndex() : topRowIndex;
+
         return topRowIndex;
     }
 
     setRangeValue = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.options[tbsGridNames.row.selectMode] == 'cell') {
             startRowIndex = startRowIndex;
@@ -189,7 +186,7 @@ export class TbsGridRange {
 
     removeRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (grid.startRowIndex != -1) grid.startRowIndex = -1;
         if (grid.startCellIndex != -1) grid.startCellIndex = -1;
@@ -223,7 +220,7 @@ export class TbsGridRange {
 
     addRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (arguments.length == 2) {
             startCellIndex = 0;

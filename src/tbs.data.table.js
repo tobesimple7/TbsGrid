@@ -19,7 +19,27 @@ export class TbsDataTable extends TbsBase {
      * select functions
      */
 
+
     select(field, value, topIndex) {
+        let result = [];
+        if (arguments.length == 0) {
+            result = this.data;
+        }
+        else {
+            for (let i = 0, len = this.data.length; i < len; i++) {
+                let dataRow = this.data[i];
+                if (dataRow[field] == value) {
+                    result.push(dataRow);
+                    if (topIndex != undefined) {
+                        if (result.length == topIndex) break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    selectRows(field, value, topIndex) {
         let result = [];
         if (arguments.length == 0) {
             result = this.data;
@@ -117,8 +137,8 @@ export class TbsDataTable extends TbsBase {
      * Update
      */
 
-    update(field, value) {
-        let dataRows = this.select(field, value);
+    update(columnName, field, value) {
+        let dataRows = this.select(tbsGridNames.column.name, columnName);
         dataRows.map(dataRow => dataRow[field] = value);
     }
 
@@ -132,8 +152,13 @@ export class TbsDataTable extends TbsBase {
         dataRow[name] = value;
     }
 
-    count() {
-        return this.data.length;
+    count(field, value) {
+        if (arguments.length > 0) {
+            return this.select(field, value).length;
+        }
+        else {
+            return this.data.length;
+        }
     }
 
     /**

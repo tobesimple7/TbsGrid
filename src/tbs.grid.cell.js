@@ -3,6 +3,8 @@ import { TbsGridTypes, TbsGridNames } from './tbs.grid.types.js';
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
+import { TbsGridDom } from "./tbs.grid.dom.js";
+
 export class TbsGridCell {
 
     constructor(grid, column) {
@@ -41,12 +43,12 @@ export class TbsGridCell {
                 let tableCell = tableRow.childNodes[x];
 
                 if (panelName.substring(6) == '2' && x > grid.fixedColumnIndex) {
-                    grid.classDom.setCellStyle(tableCell, 'width', '0px');
-                    grid.classDom.setCellStyle(tableCell, 'display', 'none');
+                    TbsGridDom.setCellStyle(tableCell, 'width', '0px');
+                    TbsGridDom.setCellStyle(tableCell, 'display', 'none');
                 }
                 else if (panelName.substring(6) == '0' && x <= grid.fixedColumnIndex) {
-                    grid.classDom.setCellStyle(tableCell, 'width', '0px');
-                    grid.classDom.setCellStyle(tableCell, 'display', 'none');
+                    TbsGridDom.setCellStyle(tableCell, 'width', '0px');
+                    TbsGridDom.setCellStyle(tableCell, 'display', 'none');
                 }
             }
         }

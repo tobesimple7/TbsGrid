@@ -77,4 +77,6 @@ export class TbsBase {
         if (this.empty(jsonObject[property])) return null;
         else return jsonObject[property];
     }
+
+
 }

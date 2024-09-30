@@ -4,8 +4,10 @@ const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
-import { TbsGridRender } from '../tbs.grid.render.js';
-import { TbsGridRenderInfo } from '../tbs.grid.render.info.js';
+import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
+import { TbsGridTable } from "../tbs.grid.table.js";
+
 export class TbsGridPanel70 extends TbsGridPanelBase {
 
     constructor(grid) {
@@ -18,7 +20,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
     }
 
     createHtml(parentElement) {
-        let grid = this.grid;
+        const grid = this.grid;
         let s = '';
         s += '<div class="tbs-grid-group71">';
             s += '<div class="tbs-grid-panel">';
@@ -34,9 +36,18 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
         parentElement.insertAdjacentHTML('beforeend', s);
     }
 
+    createTable() {
+        const grid = this.grid;
+
+        const classTable = new TbsGridTable(grid);
+        classTable.createTable('panel71', 0, 2);
+        classTable.createTable('panel72', 0, 2);
+        classTable.createTable('panel70', 0, 2);
+    }
+
     setDataPanel() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         this.setDataPanel2({panelName: 'panel72'});
         this.setDataPanel0({panelName: 'panel70'});
@@ -44,10 +55,10 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
 
     setDataPanel2(param) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let panelName = this.panelName2;
 
-        if (grid.options[grid.option_showFilterPanel] != true) return;
+        if (grid.options.showFilterPanel != true) return;
 
         let result = grid.classColumn.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
@@ -66,7 +77,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             let columnName = column[tbsGridNames.column.name];
 
             /* Render: Start */
-            let tbsGridRender = new TbsGridRender(grid);
+            let tbsGridRender = new TbsGridRenderPanel(grid);
             tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
             tbsGridRender = null;
             //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
@@ -93,7 +104,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             let columnName = column[tbsGridNames.column.name];
 
             /* Render: Start */
-            let tbsGridRender = new TbsGridRender(grid);
+            let tbsGridRender = new TbsGridRenderPanel(grid);
             tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
             tbsGridRender = null;
             //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
@@ -117,10 +128,10 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
 
     setDataPanel0(param) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
         let panelName = this.panelName0;
 
-        if (grid.options[grid.option_showFilterPanel] != true) return;
+        if (grid.options.showFilterPanel != true) return;
 
         let result = grid.classColumn.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
@@ -138,7 +149,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             let columnName = column[tbsGridNames.column.name];
 
             /* Render: Start */
-            let tbsGridRender = new TbsGridRender(grid);
+            let tbsGridRender = new TbsGridRenderPanel(grid);
             tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
             tbsGridRender = null;
             //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
@@ -166,7 +177,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             let columnName = column[tbsGridNames.column.name];
 
             /* Render: Start */
-            let tbsGridRender = new TbsGridRender(grid);
+            let tbsGridRender = new TbsGridRenderPanel(grid);
             tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
             tbsGridRender = null;
             //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
@@ -193,7 +204,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
 
     panel70_select(panelName) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let element;
         let targetName;

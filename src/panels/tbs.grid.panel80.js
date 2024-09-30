@@ -4,8 +4,8 @@ const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
-import { TbsGridRender } from '../tbs.grid.render.js';
-import { TbsGridRenderInfo } from '../tbs.grid.render.info.js';
+import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
 export class TbsGridPanel80 extends TbsGridPanelBase {
 
     constructor(grid) {
@@ -14,18 +14,33 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
     }
 
     createHtml(parentElement) {
-        let grid = this.grid;
+        const grid = this.grid;
 
-        let className = grid.options[grid.option_showGroupPanel] ? 'tbs-grid-show' : 'tbs-grid-hide';
+        let className = grid.options.showGroupPanel ? 'tbs-grid-show' : 'tbs-grid-hide';
         let s ='<div class="tbs-grid-panel80 ' + className + '"></div>';
         parentElement.insertAdjacentHTML('beforeend', s);
 
         grid.classPanel80.panel80_select();
     }
 
+    createTable() {
+        let selector = '#' + this.grid.gridId;
+        const grid = this.grid;
+
+        const div = document.createElement('div');
+        div.className = 'tbs-grid-panel-bar';
+
+        const span = document.createElement('span');
+        span.className = 'tbs-grid-panel-bar-span';
+        span.textContent = grid.getConfigLabel('group_placeholder');
+        div.appendChild(span);
+
+        document.querySelector(selector + ' .tbs-grid-panel80').appendChild(div);
+    }
+
     panel80_select() { //type : header, content, left, top
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let startRowIndex, startCellIndex, startX, startY;
         let lastRowIndex , lastCellIndex , lastX , lastY;
@@ -96,10 +111,10 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
             let isInPanel80 = grid.isInPanel(e, 'panel80', lastX, lastY);
             if (isInPanel80) {
                 if (mouseButton == 0
-                    && startX > lastX - grid.grid_mousePointRange
-                    && startX < lastX + grid.grid_mousePointRange
-                    && startY > lastY - grid.grid_mousePointRange
-                    && startY < lastY + grid.grid_mousePointRange) {
+                    && startX > lastX - grid.mousePointRange
+                    && startX < lastX + grid.mousePointRange
+                    && startY > lastY - grid.mousePointRange
+                    && startY < lastY + grid.mousePointRange) {
                     let element = e.target;
                     let name = element.dataset.name;
                     if (e.detail == 1 && targetName == 'icon') {
@@ -196,7 +211,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
                     div.classList.add('tbs-grid-cell-div');
 
                     let span = document.createElement('span');
-                    span.classList.add('tbs-grid-cell-span');
+                    span.classList.add('tbs-grid-html-string');
 
                     div.appendChild(span);
                     td.appendChild(div);
@@ -208,7 +223,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
                 moveDiv = document.querySelector('.tbs-grid-move');
                 moveDiv.style.display = 'none';
 
-                moveDiv.querySelector('.tbs-grid-cell-span').textContent = col.querySelector('.tbs-grid-panel-button-text').textContent;
+                moveDiv.querySelector('.tbs-grid-html-string').textContent = col.querySelector('.tbs-grid-panel-button-text').textContent;
                 moveDiv = document.querySelector('.tbs-grid-move');
 
                 let colRect = col.getBoundingClientRect();
@@ -335,7 +350,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
         const selectRefresh = function(type, lastX, lastY) {
             let content = document.querySelector(selector + ' .tbs-grid-panel30');
             let table = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-            trContent = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
+            const trContent = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
 
             let startRowIndex  = grid.startRowIndex;
             let lastRowIndex   = grid.lastRowIndex;

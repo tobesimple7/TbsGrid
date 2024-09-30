@@ -12,10 +12,10 @@ export class TbsGridCombo {
         this.input = input;
         this.input_code = input_code;
         
-        this.tbs_create();
+        this.create();
     }
 
-    tbs_create() {
+    create() {
         let selector = '#' + this.grid.gridId;
 
         let div = document.createElement('div');
@@ -35,9 +35,9 @@ export class TbsGridCombo {
         s += '      </table>';
         s += '  </div>';
         s += '</div>';
-        document.querySelector(selector + ' .tbs-grid-input-panel').innerHTML = s;
+        document.querySelector(selector + ' .tbs-grid-input-layer-panel').innerHTML = s;
 
-        let inputPanel = document.querySelector(selector + ' .tbs-grid-input-panel');
+        let inputPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
         inputPanel.style.width = '140px';
         inputPanel.style.height = '130px';
 
@@ -54,48 +54,49 @@ export class TbsGridCombo {
         let documentBottom = documentRect.bottom;
 
         if (left + 140 > documentRight) {
-            document.querySelector(selector + ' .tbs-grid-input-panel').style.left   = `${right - 140}px`;
+            document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left   = `${right - 140}px`;
         }
         else {
-            document.querySelector(selector + ' .tbs-grid-input-panel').style.left  = `${left}px`;
+            document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left  = `${left}px`;
         }
         if (top + height + 130 > documentBottom) {
-            document.querySelector(selector + ' .tbs-grid-input-panel').style.top   = `${top - 130}px`;
+            document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.top   = `${top - 130}px`;
         }
         else {
-            document.querySelector(selector + ' .tbs-grid-input-panel').style.top   = `${top + height}px`;
+            document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.top   = `${top + height}px`;
         }
         this.setData();
-        this.tbs_AddEvent();
+        this.AddEvent();
     }
 
-    tbs_clear() {
+    clear() {
         let selector = '#' + this.grid.gridId;
-        let grid = this.grid;
+        const grid = this.grid;
 
         if (document.querySelector(selector + ' .tbs-grid-input-combo-select')) {
             document.querySelector(selector + ' .tbs-grid-input-combo-select').options.length = 0;
         }
     }
 
-    tbs_getDisplay() {
+    getDisplay() {
         return document.querySelectorAll('.tbs-grid-input-combo').length > 0 ? document.querySelector('.tbs-grid-input-combo').style.display : 'none';
     }
 
     setData() {
         let selector = '#' + this.grid.gridId;
-        let grid = this.grid;
-        this.tbs_clear();
+        const grid = this.grid;
+        this.clear();
 
         let input_combo = document.querySelector(selector + ' .tbs-grid-input-combo-select');
 
         let rowIndex  = this.input.dataset.rowIndex;
-        let cellIndex = this.input.dataset.cellIndex;
+        let cellIndex = this.input.dataset.columnIndex;
 
-        let column = grid.column_table.data[cellIndex];
-        let data = column.renderer.data;
-        let key = column.renderer.valueName;
-        let val = column.renderer.textName;
+        const column = grid.column_table.data[cellIndex];
+        let columnName = column[tbsGridNames.column.name];
+        const data = grid.renderer[columnName].data;
+        let key = data.valueName;
+        let val = data.textName;
 
         let value = this.input.value;
         let eCount = 0;
@@ -103,8 +104,8 @@ export class TbsGridCombo {
         if (value != '') {
             input_combo.options.length = 0;
 
-            for (let i = 0, len = data.length; i < len; i++) {
-                let row = data[i];
+            for (let i = 0, len = data.rows.length; i < len; i++) {
+                let row = data.rows[i];
                 let option = document.createElement('option');
                 option.value = row[key];
                 option.text = row[val];
@@ -133,35 +134,27 @@ export class TbsGridCombo {
         }
     }
 
-    tbs_AddEvent() {
+    AddEvent() {
         let selector = '#' + this.grid.gridId;
-        let grid = this.grid;
+        const grid = this.grid;
         let input = this.input;
         let input_code = this.input_code;
-        let gridCombo = this;
-        const changeEvent = function (e) {
+        const changeEvent = (e => {
             let combo = document.querySelector(selector + ' .tbs-grid-input-combo-select');
-
             input.value = combo.selectedOptions[0].text;
             input_code.value = combo.selectedOptions[0].value;
             grid.input_focus();
-            // document.querySelector(selector + ' .tbs-grid-input').focus();
-            // document.querySelector(selector + ' .tbs-grid-input').select();
-            gridCombo.tbs_destroy();
-        };
+            this.destroy();
+        });
         document.querySelector(selector + ' .tbs-grid-input-combo-select').addEventListener('change', changeEvent);
     }
 
-    tbs_destroy() {
+    destroy() {
         let selector = '#' + this.grid.gridId;
-        let grid = this.grid;
-        let input = this.input;
-        let input_code = this.input_code;
-        let gridDate = this;
 
-        document.querySelector(selector + ' .tbs-grid-input-panel').innerHTML = '';
-        document.querySelector(selector + ' .tbs-grid-input-panel').style.width = '0px';
-        document.querySelector(selector + ' .tbs-grid-input-panel').style.left = '30000px';
+        document.querySelector(selector + ' .tbs-grid-input-layer-panel').innerHTML = '';
+        document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.width = '0px';
+        document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left = '30000px';
     }
 };
 

@@ -21,7 +21,7 @@ export class TbsGridFilterLayer {
 
     getComboData() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = this.column;
         let gridFilter = this;
@@ -55,7 +55,7 @@ export class TbsGridFilterLayer {
 
     addComboOption(combo, value, text) {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = this.column;
         let gridFilter = this;
@@ -68,7 +68,7 @@ export class TbsGridFilterLayer {
 
     createFilter(){
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = this.column;
         let gridFilter = this;
@@ -96,7 +96,7 @@ export class TbsGridFilterLayer {
 
     showFilterLayer() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = this.column;
         let gridFilter = this;
@@ -134,7 +134,7 @@ export class TbsGridFilterLayer {
 
     AddEvent() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = this.column;
         let gridFilter = this;
@@ -178,7 +178,7 @@ export class TbsGridFilterLayer {
 
     setData() {
         let selector = this.selector;
-        let grid = this.grid;
+        const grid = this.grid;
 
         let column = this.column;
         let gridFilter = this;

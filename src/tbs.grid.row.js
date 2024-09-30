@@ -3,6 +3,8 @@ import { TbsGridTypes, TbsGridNames } from './tbs.grid.types.js';
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
+import { TbsGridDom } from "./tbs.grid.dom.js";
+
 export class TbsGridRow {
     constructor(grid) {
         this.grid = grid;
@@ -18,19 +20,19 @@ export class TbsGridRow {
                 let column = grid.column_table.data[x];
                 let tableCell = tableRow.childNodes[x];
 
-                grid.classDom.setCellStyle(tableCell, 'width', column[tbsGridNames.column.width] + 'px');
-                grid.classDom.setCellStyle(tableCell, 'display', '');
+                TbsGridDom.setCellStyle(tableCell, 'width', column[tbsGridNames.column.width] + 'px');
+                TbsGridDom.setCellStyle(tableCell, 'display', '');
                 if (column[tbsGridNames.column.visible] == false) {
-                    grid.classDom.setCellStyle(tableCell, 'width', '0px');
-                    grid.classDom.setCellStyle(tableCell, 'display', 'none');
+                    TbsGridDom.setCellStyle(tableCell, 'width', '0px');
+                    TbsGridDom.setCellStyle(tableCell, 'display', 'none');
                 }
                 if (panelName.substring(6) == '2' && x > grid.fixedColumnIndex) {
-                    grid.classDom.setCellStyle(tableCell, 'width', '0px');
-                    grid.classDom.setCellStyle(tableCell, 'display', 'none');
+                    TbsGridDom.setCellStyle(tableCell, 'width', '0px');
+                    TbsGridDom.setCellStyle(tableCell, 'display', 'none');
                 }
                 else if (panelName.substring(6) == '0' && x <= grid.fixedColumnIndex) {
-                    grid.classDom.setCellStyle(tableCell, 'width', '0px');
-                    grid.classDom.setCellStyle(tableCell, 'display', 'none');
+                    TbsGridDom.setCellStyle(tableCell, 'width', '0px');
+                    TbsGridDom.setCellStyle(tableCell, 'display', 'none');
                 }
             }
         }
@@ -41,8 +43,8 @@ export class TbsGridRow {
                 let column = grid.column_table.data[x];
                 let tableCell = tableRow.childNodes[x];
                 if (panelName.substring(6) == '0') {
-                    grid.classDom.setCellStyle(tableCell, 'display', column[tbsGridNames.column.visible] ? '' : 'none');
-                    grid.classDom.setCellStyle(tableCell, 'width', column[tbsGridNames.column.width] + 'px');
+                    TbsGridDom.setCellStyle(tableCell, 'display', column[tbsGridNames.column.visible] ? '' : 'none');
+                    TbsGridDom.setCellStyle(tableCell, 'width', column[tbsGridNames.column.width] + 'px');
                 }
             }
         }
@@ -63,21 +65,21 @@ export class TbsGridRow {
                 let depth = rowData[tbsGridNames.column.depth];
                 let count = grid.null(rowData[tbsGridNames.column.children]) ? 0 : rowData[tbsGridNames.column.children].length;
                 if (count > 0) {
-                    if      (depth == '1') grid.classDom.addUserClass(tableRow, 'tbs-row-color1');
-                    else if (depth == '2') grid.classDom.addUserClass(tableRow, 'tbs-row-color2');
-                    else if (depth == '3') grid.classDom.addUserClass(tableRow, 'tbs-row-color3');
-                    else if (depth == '4') grid.classDom.addUserClass(tableRow, 'tbs-row-color4');
-                    else if (depth == '5') grid.classDom.addUserClass(tableRow, 'tbs-row-color5');
-                    else grid.classDom.addUserClass(tableRow, 'tbs-row-color5');
+                    if      (depth == '1') TbsGridDom.addUserClass(tableRow, 'tbs-row-color1');
+                    else if (depth == '2') TbsGridDom.addUserClass(tableRow, 'tbs-row-color2');
+                    else if (depth == '3') TbsGridDom.addUserClass(tableRow, 'tbs-row-color3');
+                    else if (depth == '4') TbsGridDom.addUserClass(tableRow, 'tbs-row-color4');
+                    else if (depth == '5') TbsGridDom.addUserClass(tableRow, 'tbs-row-color5');
+                    else TbsGridDom.addUserClass(tableRow, 'tbs-row-color5');
                 }
                 else {
-                    if      (depth == '1') grid.classDom.removeUserClass(tableRow, 'tbs-row-color1');
-                    else if (depth == '2') grid.classDom.removeUserClass(tableRow, 'tbs-row-color2');
-                    else if (depth == '3') grid.classDom.removeUserClass(tableRow, 'tbs-row-color3');
-                    else if (depth == '4') grid.classDom.removeUserClass(tableRow, 'tbs-row-color4');
-                    else if (depth == '5') grid.classDom.removeUserClass(tableRow, 'tbs-row-color5');
+                    if      (depth == '1') TbsGridDom.removeUserClass(tableRow, 'tbs-row-color1');
+                    else if (depth == '2') TbsGridDom.removeUserClass(tableRow, 'tbs-row-color2');
+                    else if (depth == '3') TbsGridDom.removeUserClass(tableRow, 'tbs-row-color3');
+                    else if (depth == '4') TbsGridDom.removeUserClass(tableRow, 'tbs-row-color4');
+                    else if (depth == '5') TbsGridDom.removeUserClass(tableRow, 'tbs-row-color5');
                     else {
-                        grid.classDom.addUserClass(tableRow, 'tbs-row-color5');
+                        TbsGridDom.addUserClass(tableRow, 'tbs-row-color5');
                     }
                 }
             }
