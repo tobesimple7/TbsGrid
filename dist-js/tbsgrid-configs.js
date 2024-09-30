@@ -1212,7 +1212,13 @@ tbsGridConfigs.options = {
   imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.0.15/dist-js/img/',
   isMobile: md.mobile(),
   // true, false
-  userAgent: md.userAgent() // 'safari' etc
+  userAgent: md.userAgent(),
+  // 'safari' etc
+
+  trueValue: 'Y',
+  // checkbox value
+  falseValue: 'N',
+  elseValue: 'N'
 };
 }();
 /******/ 	return __webpack_exports__;

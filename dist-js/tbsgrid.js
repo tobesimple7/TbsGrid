@@ -9,22 +9,1086 @@
 	}
 })(this, function() {
 return /******/ (function() { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
+
+/***/ 179:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+// THIS FILE IS GENERATED - DO NOT EDIT!
+/*!mobile-detect v1.4.5 2021-03-13*/
+/*global module:false, define:false*/
+/*jshint latedef:false*/
+/*!@license Copyright 2013, Heinrich Goebl, License: MIT, see https://github.com/hgoebl/mobile-detect.js*/
+(function (define, undefined) {
+define(function () {
+    'use strict';
+
+    var impl = {};
+
+    impl.mobileDetectRules = {
+    "phones": {
+        "iPhone": "\\biPhone\\b|\\biPod\\b",
+        "BlackBerry": "BlackBerry|\\bBB10\\b|rim[0-9]+|\\b(BBA100|BBB100|BBD100|BBE100|BBF100|STH100)\\b-[0-9]+",
+        "Pixel": "; \\bPixel\\b",
+        "HTC": "HTC|HTC.*(Sensation|Evo|Vision|Explorer|6800|8100|8900|A7272|S510e|C110e|Legend|Desire|T8282)|APX515CKT|Qtek9090|APA9292KT|HD_mini|Sensation.*Z710e|PG86100|Z715e|Desire.*(A8181|HD)|ADR6200|ADR6400L|ADR6425|001HT|Inspire 4G|Android.*\\bEVO\\b|T-Mobile G1|Z520m|Android [0-9.]+; Pixel",
+        "Nexus": "Nexus One|Nexus S|Galaxy.*Nexus|Android.*Nexus.*Mobile|Nexus 4|Nexus 5|Nexus 5X|Nexus 6",
+        "Dell": "Dell[;]? (Streak|Aero|Venue|Venue Pro|Flash|Smoke|Mini 3iX)|XCD28|XCD35|\\b001DL\\b|\\b101DL\\b|\\bGS01\\b",
+        "Motorola": "Motorola|DROIDX|DROID BIONIC|\\bDroid\\b.*Build|Android.*Xoom|HRI39|MOT-|A1260|A1680|A555|A853|A855|A953|A955|A956|Motorola.*ELECTRIFY|Motorola.*i1|i867|i940|MB200|MB300|MB501|MB502|MB508|MB511|MB520|MB525|MB526|MB611|MB612|MB632|MB810|MB855|MB860|MB861|MB865|MB870|ME501|ME502|ME511|ME525|ME600|ME632|ME722|ME811|ME860|ME863|ME865|MT620|MT710|MT716|MT720|MT810|MT870|MT917|Motorola.*TITANIUM|WX435|WX445|XT300|XT301|XT311|XT316|XT317|XT319|XT320|XT390|XT502|XT530|XT531|XT532|XT535|XT603|XT610|XT611|XT615|XT681|XT701|XT702|XT711|XT720|XT800|XT806|XT860|XT862|XT875|XT882|XT883|XT894|XT901|XT907|XT909|XT910|XT912|XT928|XT926|XT915|XT919|XT925|XT1021|\\bMoto E\\b|XT1068|XT1092|XT1052",
+        "Samsung": "\\bSamsung\\b|SM-G950F|SM-G955F|SM-G9250|GT-19300|SGH-I337|BGT-S5230|GT-B2100|GT-B2700|GT-B2710|GT-B3210|GT-B3310|GT-B3410|GT-B3730|GT-B3740|GT-B5510|GT-B5512|GT-B5722|GT-B6520|GT-B7300|GT-B7320|GT-B7330|GT-B7350|GT-B7510|GT-B7722|GT-B7800|GT-C3010|GT-C3011|GT-C3060|GT-C3200|GT-C3212|GT-C3212I|GT-C3262|GT-C3222|GT-C3300|GT-C3300K|GT-C3303|GT-C3303K|GT-C3310|GT-C3322|GT-C3330|GT-C3350|GT-C3500|GT-C3510|GT-C3530|GT-C3630|GT-C3780|GT-C5010|GT-C5212|GT-C6620|GT-C6625|GT-C6712|GT-E1050|GT-E1070|GT-E1075|GT-E1080|GT-E1081|GT-E1085|GT-E1087|GT-E1100|GT-E1107|GT-E1110|GT-E1120|GT-E1125|GT-E1130|GT-E1160|GT-E1170|GT-E1175|GT-E1180|GT-E1182|GT-E1200|GT-E1210|GT-E1225|GT-E1230|GT-E1390|GT-E2100|GT-E2120|GT-E2121|GT-E2152|GT-E2220|GT-E2222|GT-E2230|GT-E2232|GT-E2250|GT-E2370|GT-E2550|GT-E2652|GT-E3210|GT-E3213|GT-I5500|GT-I5503|GT-I5700|GT-I5800|GT-I5801|GT-I6410|GT-I6420|GT-I7110|GT-I7410|GT-I7500|GT-I8000|GT-I8150|GT-I8160|GT-I8190|GT-I8320|GT-I8330|GT-I8350|GT-I8530|GT-I8700|GT-I8703|GT-I8910|GT-I9000|GT-I9001|GT-I9003|GT-I9010|GT-I9020|GT-I9023|GT-I9070|GT-I9082|GT-I9100|GT-I9103|GT-I9220|GT-I9250|GT-I9300|GT-I9305|GT-I9500|GT-I9505|GT-M3510|GT-M5650|GT-M7500|GT-M7600|GT-M7603|GT-M8800|GT-M8910|GT-N7000|GT-S3110|GT-S3310|GT-S3350|GT-S3353|GT-S3370|GT-S3650|GT-S3653|GT-S3770|GT-S3850|GT-S5210|GT-S5220|GT-S5229|GT-S5230|GT-S5233|GT-S5250|GT-S5253|GT-S5260|GT-S5263|GT-S5270|GT-S5300|GT-S5330|GT-S5350|GT-S5360|GT-S5363|GT-S5369|GT-S5380|GT-S5380D|GT-S5560|GT-S5570|GT-S5600|GT-S5603|GT-S5610|GT-S5620|GT-S5660|GT-S5670|GT-S5690|GT-S5750|GT-S5780|GT-S5830|GT-S5839|GT-S6102|GT-S6500|GT-S7070|GT-S7200|GT-S7220|GT-S7230|GT-S7233|GT-S7250|GT-S7500|GT-S7530|GT-S7550|GT-S7562|GT-S7710|GT-S8000|GT-S8003|GT-S8500|GT-S8530|GT-S8600|SCH-A310|SCH-A530|SCH-A570|SCH-A610|SCH-A630|SCH-A650|SCH-A790|SCH-A795|SCH-A850|SCH-A870|SCH-A890|SCH-A930|SCH-A950|SCH-A970|SCH-A990|SCH-I100|SCH-I110|SCH-I400|SCH-I405|SCH-I500|SCH-I510|SCH-I515|SCH-I600|SCH-I730|SCH-I760|SCH-I770|SCH-I830|SCH-I910|SCH-I920|SCH-I959|SCH-LC11|SCH-N150|SCH-N300|SCH-R100|SCH-R300|SCH-R351|SCH-R400|SCH-R410|SCH-T300|SCH-U310|SCH-U320|SCH-U350|SCH-U360|SCH-U365|SCH-U370|SCH-U380|SCH-U410|SCH-U430|SCH-U450|SCH-U460|SCH-U470|SCH-U490|SCH-U540|SCH-U550|SCH-U620|SCH-U640|SCH-U650|SCH-U660|SCH-U700|SCH-U740|SCH-U750|SCH-U810|SCH-U820|SCH-U900|SCH-U940|SCH-U960|SCS-26UC|SGH-A107|SGH-A117|SGH-A127|SGH-A137|SGH-A157|SGH-A167|SGH-A177|SGH-A187|SGH-A197|SGH-A227|SGH-A237|SGH-A257|SGH-A437|SGH-A517|SGH-A597|SGH-A637|SGH-A657|SGH-A667|SGH-A687|SGH-A697|SGH-A707|SGH-A717|SGH-A727|SGH-A737|SGH-A747|SGH-A767|SGH-A777|SGH-A797|SGH-A817|SGH-A827|SGH-A837|SGH-A847|SGH-A867|SGH-A877|SGH-A887|SGH-A897|SGH-A927|SGH-B100|SGH-B130|SGH-B200|SGH-B220|SGH-C100|SGH-C110|SGH-C120|SGH-C130|SGH-C140|SGH-C160|SGH-C170|SGH-C180|SGH-C200|SGH-C207|SGH-C210|SGH-C225|SGH-C230|SGH-C417|SGH-C450|SGH-D307|SGH-D347|SGH-D357|SGH-D407|SGH-D415|SGH-D780|SGH-D807|SGH-D980|SGH-E105|SGH-E200|SGH-E315|SGH-E316|SGH-E317|SGH-E335|SGH-E590|SGH-E635|SGH-E715|SGH-E890|SGH-F300|SGH-F480|SGH-I200|SGH-I300|SGH-I320|SGH-I550|SGH-I577|SGH-I600|SGH-I607|SGH-I617|SGH-I627|SGH-I637|SGH-I677|SGH-I700|SGH-I717|SGH-I727|SGH-i747M|SGH-I777|SGH-I780|SGH-I827|SGH-I847|SGH-I857|SGH-I896|SGH-I897|SGH-I900|SGH-I907|SGH-I917|SGH-I927|SGH-I937|SGH-I997|SGH-J150|SGH-J200|SGH-L170|SGH-L700|SGH-M110|SGH-M150|SGH-M200|SGH-N105|SGH-N500|SGH-N600|SGH-N620|SGH-N625|SGH-N700|SGH-N710|SGH-P107|SGH-P207|SGH-P300|SGH-P310|SGH-P520|SGH-P735|SGH-P777|SGH-Q105|SGH-R210|SGH-R220|SGH-R225|SGH-S105|SGH-S307|SGH-T109|SGH-T119|SGH-T139|SGH-T209|SGH-T219|SGH-T229|SGH-T239|SGH-T249|SGH-T259|SGH-T309|SGH-T319|SGH-T329|SGH-T339|SGH-T349|SGH-T359|SGH-T369|SGH-T379|SGH-T409|SGH-T429|SGH-T439|SGH-T459|SGH-T469|SGH-T479|SGH-T499|SGH-T509|SGH-T519|SGH-T539|SGH-T559|SGH-T589|SGH-T609|SGH-T619|SGH-T629|SGH-T639|SGH-T659|SGH-T669|SGH-T679|SGH-T709|SGH-T719|SGH-T729|SGH-T739|SGH-T746|SGH-T749|SGH-T759|SGH-T769|SGH-T809|SGH-T819|SGH-T839|SGH-T919|SGH-T929|SGH-T939|SGH-T959|SGH-T989|SGH-U100|SGH-U200|SGH-U800|SGH-V205|SGH-V206|SGH-X100|SGH-X105|SGH-X120|SGH-X140|SGH-X426|SGH-X427|SGH-X475|SGH-X495|SGH-X497|SGH-X507|SGH-X600|SGH-X610|SGH-X620|SGH-X630|SGH-X700|SGH-X820|SGH-X890|SGH-Z130|SGH-Z150|SGH-Z170|SGH-ZX10|SGH-ZX20|SHW-M110|SPH-A120|SPH-A400|SPH-A420|SPH-A460|SPH-A500|SPH-A560|SPH-A600|SPH-A620|SPH-A660|SPH-A700|SPH-A740|SPH-A760|SPH-A790|SPH-A800|SPH-A820|SPH-A840|SPH-A880|SPH-A900|SPH-A940|SPH-A960|SPH-D600|SPH-D700|SPH-D710|SPH-D720|SPH-I300|SPH-I325|SPH-I330|SPH-I350|SPH-I500|SPH-I600|SPH-I700|SPH-L700|SPH-M100|SPH-M220|SPH-M240|SPH-M300|SPH-M305|SPH-M320|SPH-M330|SPH-M350|SPH-M360|SPH-M370|SPH-M380|SPH-M510|SPH-M540|SPH-M550|SPH-M560|SPH-M570|SPH-M580|SPH-M610|SPH-M620|SPH-M630|SPH-M800|SPH-M810|SPH-M850|SPH-M900|SPH-M910|SPH-M920|SPH-M930|SPH-N100|SPH-N200|SPH-N240|SPH-N300|SPH-N400|SPH-Z400|SWC-E100|SCH-i909|GT-N7100|GT-N7105|SCH-I535|SM-N900A|SGH-I317|SGH-T999L|GT-S5360B|GT-I8262|GT-S6802|GT-S6312|GT-S6310|GT-S5312|GT-S5310|GT-I9105|GT-I8510|GT-S6790N|SM-G7105|SM-N9005|GT-S5301|GT-I9295|GT-I9195|SM-C101|GT-S7392|GT-S7560|GT-B7610|GT-I5510|GT-S7582|GT-S7530E|GT-I8750|SM-G9006V|SM-G9008V|SM-G9009D|SM-G900A|SM-G900D|SM-G900F|SM-G900H|SM-G900I|SM-G900J|SM-G900K|SM-G900L|SM-G900M|SM-G900P|SM-G900R4|SM-G900S|SM-G900T|SM-G900V|SM-G900W8|SHV-E160K|SCH-P709|SCH-P729|SM-T2558|GT-I9205|SM-G9350|SM-J120F|SM-G920F|SM-G920V|SM-G930F|SM-N910C|SM-A310F|GT-I9190|SM-J500FN|SM-G903F|SM-J330F|SM-G610F|SM-G981B|SM-G892A|SM-A530F",
+        "LG": "\\bLG\\b;|LG[- ]?(C800|C900|E400|E610|E900|E-900|F160|F180K|F180L|F180S|730|855|L160|LS740|LS840|LS970|LU6200|MS690|MS695|MS770|MS840|MS870|MS910|P500|P700|P705|VM696|AS680|AS695|AX840|C729|E970|GS505|272|C395|E739BK|E960|L55C|L75C|LS696|LS860|P769BK|P350|P500|P509|P870|UN272|US730|VS840|VS950|LN272|LN510|LS670|LS855|LW690|MN270|MN510|P509|P769|P930|UN200|UN270|UN510|UN610|US670|US740|US760|UX265|UX840|VN271|VN530|VS660|VS700|VS740|VS750|VS910|VS920|VS930|VX9200|VX11000|AX840A|LW770|P506|P925|P999|E612|D955|D802|MS323|M257)|LM-G710",
+        "Sony": "SonyST|SonyLT|SonyEricsson|SonyEricssonLT15iv|LT18i|E10i|LT28h|LT26w|SonyEricssonMT27i|C5303|C6902|C6903|C6906|C6943|D2533|SOV34|601SO|F8332",
+        "Asus": "Asus.*Galaxy|PadFone.*Mobile",
+        "Xiaomi": "^(?!.*\\bx11\\b).*xiaomi.*$|POCOPHONE F1|MI 8|Redmi Note 9S|Redmi Note 5A Prime|N2G47H|M2001J2G|M2001J2I|M1805E10A|M2004J11G|M1902F1G|M2002J9G|M2004J19G|M2003J6A1G",
+        "NokiaLumia": "Lumia [0-9]{3,4}",
+        "Micromax": "Micromax.*\\b(A210|A92|A88|A72|A111|A110Q|A115|A116|A110|A90S|A26|A51|A35|A54|A25|A27|A89|A68|A65|A57|A90)\\b",
+        "Palm": "PalmSource|Palm",
+        "Vertu": "Vertu|Vertu.*Ltd|Vertu.*Ascent|Vertu.*Ayxta|Vertu.*Constellation(F|Quest)?|Vertu.*Monika|Vertu.*Signature",
+        "Pantech": "PANTECH|IM-A850S|IM-A840S|IM-A830L|IM-A830K|IM-A830S|IM-A820L|IM-A810K|IM-A810S|IM-A800S|IM-T100K|IM-A725L|IM-A780L|IM-A775C|IM-A770K|IM-A760S|IM-A750K|IM-A740S|IM-A730S|IM-A720L|IM-A710K|IM-A690L|IM-A690S|IM-A650S|IM-A630K|IM-A600S|VEGA PTL21|PT003|P8010|ADR910L|P6030|P6020|P9070|P4100|P9060|P5000|CDM8992|TXT8045|ADR8995|IS11PT|P2030|P6010|P8000|PT002|IS06|CDM8999|P9050|PT001|TXT8040|P2020|P9020|P2000|P7040|P7000|C790",
+        "Fly": "IQ230|IQ444|IQ450|IQ440|IQ442|IQ441|IQ245|IQ256|IQ236|IQ255|IQ235|IQ245|IQ275|IQ240|IQ285|IQ280|IQ270|IQ260|IQ250",
+        "Wiko": "KITE 4G|HIGHWAY|GETAWAY|STAIRWAY|DARKSIDE|DARKFULL|DARKNIGHT|DARKMOON|SLIDE|WAX 4G|RAINBOW|BLOOM|SUNSET|GOA(?!nna)|LENNY|BARRY|IGGY|OZZY|CINK FIVE|CINK PEAX|CINK PEAX 2|CINK SLIM|CINK SLIM 2|CINK +|CINK KING|CINK PEAX|CINK SLIM|SUBLIM",
+        "iMobile": "i-mobile (IQ|i-STYLE|idea|ZAA|Hitz)",
+        "SimValley": "\\b(SP-80|XT-930|SX-340|XT-930|SX-310|SP-360|SP60|SPT-800|SP-120|SPT-800|SP-140|SPX-5|SPX-8|SP-100|SPX-8|SPX-12)\\b",
+        "Wolfgang": "AT-B24D|AT-AS50HD|AT-AS40W|AT-AS55HD|AT-AS45q2|AT-B26D|AT-AS50Q",
+        "Alcatel": "Alcatel",
+        "Nintendo": "Nintendo (3DS|Switch)",
+        "Amoi": "Amoi",
+        "INQ": "INQ",
+        "OnePlus": "ONEPLUS",
+        "GenericPhone": "Tapatalk|PDA;|SAGEM|\\bmmp\\b|pocket|\\bpsp\\b|symbian|Smartphone|smartfon|treo|up.browser|up.link|vodafone|\\bwap\\b|nokia|Series40|Series60|S60|SonyEricsson|N900|MAUI.*WAP.*Browser"
+    },
+    "tablets": {
+        "iPad": "iPad|iPad.*Mobile",
+        "NexusTablet": "Android.*Nexus[\\s]+(7|9|10)",
+        "GoogleTablet": "Android.*Pixel C",
+        "SamsungTablet": "SAMSUNG.*Tablet|Galaxy.*Tab|SC-01C|GT-P1000|GT-P1003|GT-P1010|GT-P3105|GT-P6210|GT-P6800|GT-P6810|GT-P7100|GT-P7300|GT-P7310|GT-P7500|GT-P7510|SCH-I800|SCH-I815|SCH-I905|SGH-I957|SGH-I987|SGH-T849|SGH-T859|SGH-T869|SPH-P100|GT-P3100|GT-P3108|GT-P3110|GT-P5100|GT-P5110|GT-P6200|GT-P7320|GT-P7511|GT-N8000|GT-P8510|SGH-I497|SPH-P500|SGH-T779|SCH-I705|SCH-I915|GT-N8013|GT-P3113|GT-P5113|GT-P8110|GT-N8010|GT-N8005|GT-N8020|GT-P1013|GT-P6201|GT-P7501|GT-N5100|GT-N5105|GT-N5110|SHV-E140K|SHV-E140L|SHV-E140S|SHV-E150S|SHV-E230K|SHV-E230L|SHV-E230S|SHW-M180K|SHW-M180L|SHW-M180S|SHW-M180W|SHW-M300W|SHW-M305W|SHW-M380K|SHW-M380S|SHW-M380W|SHW-M430W|SHW-M480K|SHW-M480S|SHW-M480W|SHW-M485W|SHW-M486W|SHW-M500W|GT-I9228|SCH-P739|SCH-I925|GT-I9200|GT-P5200|GT-P5210|GT-P5210X|SM-T311|SM-T310|SM-T310X|SM-T210|SM-T210R|SM-T211|SM-P600|SM-P601|SM-P605|SM-P900|SM-P901|SM-T217|SM-T217A|SM-T217S|SM-P6000|SM-T3100|SGH-I467|XE500|SM-T110|GT-P5220|GT-I9200X|GT-N5110X|GT-N5120|SM-P905|SM-T111|SM-T2105|SM-T315|SM-T320|SM-T320X|SM-T321|SM-T520|SM-T525|SM-T530NU|SM-T230NU|SM-T330NU|SM-T900|XE500T1C|SM-P605V|SM-P905V|SM-T337V|SM-T537V|SM-T707V|SM-T807V|SM-P600X|SM-P900X|SM-T210X|SM-T230|SM-T230X|SM-T325|GT-P7503|SM-T531|SM-T330|SM-T530|SM-T705|SM-T705C|SM-T535|SM-T331|SM-T800|SM-T700|SM-T537|SM-T807|SM-P907A|SM-T337A|SM-T537A|SM-T707A|SM-T807A|SM-T237|SM-T807P|SM-P607T|SM-T217T|SM-T337T|SM-T807T|SM-T116NQ|SM-T116BU|SM-P550|SM-T350|SM-T550|SM-T9000|SM-P9000|SM-T705Y|SM-T805|GT-P3113|SM-T710|SM-T810|SM-T815|SM-T360|SM-T533|SM-T113|SM-T335|SM-T715|SM-T560|SM-T670|SM-T677|SM-T377|SM-T567|SM-T357T|SM-T555|SM-T561|SM-T713|SM-T719|SM-T813|SM-T819|SM-T580|SM-T355Y?|SM-T280|SM-T817A|SM-T820|SM-W700|SM-P580|SM-T587|SM-P350|SM-P555M|SM-P355M|SM-T113NU|SM-T815Y|SM-T585|SM-T285|SM-T825|SM-W708|SM-T835|SM-T830|SM-T837V|SM-T720|SM-T510|SM-T387V|SM-P610|SM-T290|SM-T515|SM-T590|SM-T595|SM-T725|SM-T817P|SM-P585N0|SM-T395|SM-T295|SM-T865|SM-P610N|SM-P615|SM-T970|SM-T380|SM-T5950|SM-T905|SM-T231|SM-T500|SM-T860",
+        "Kindle": "Kindle|Silk.*Accelerated|Android.*\\b(KFOT|KFTT|KFJWI|KFJWA|KFOTE|KFSOWI|KFTHWI|KFTHWA|KFAPWI|KFAPWA|WFJWAE|KFSAWA|KFSAWI|KFASWI|KFARWI|KFFOWI|KFGIWI|KFMEWI)\\b|Android.*Silk\/[0-9.]+ like Chrome\/[0-9.]+ (?!Mobile)",
+        "SurfaceTablet": "Windows NT [0-9.]+; ARM;.*(Tablet|ARMBJS)",
+        "HPTablet": "HP Slate (7|8|10)|HP ElitePad 900|hp-tablet|EliteBook.*Touch|HP 8|Slate 21|HP SlateBook 10",
+        "AsusTablet": "^.*PadFone((?!Mobile).)*$|Transformer|TF101|TF101G|TF300T|TF300TG|TF300TL|TF700T|TF700KL|TF701T|TF810C|ME171|ME301T|ME302C|ME371MG|ME370T|ME372MG|ME172V|ME173X|ME400C|Slider SL101|\\bK00F\\b|\\bK00C\\b|\\bK00E\\b|\\bK00L\\b|TX201LA|ME176C|ME102A|\\bM80TA\\b|ME372CL|ME560CG|ME372CG|ME302KL| K010 | K011 | K017 | K01E |ME572C|ME103K|ME170C|ME171C|\\bME70C\\b|ME581C|ME581CL|ME8510C|ME181C|P01Y|PO1MA|P01Z|\\bP027\\b|\\bP024\\b|\\bP00C\\b",
+        "BlackBerryTablet": "PlayBook|RIM Tablet",
+        "HTCtablet": "HTC_Flyer_P512|HTC Flyer|HTC Jetstream|HTC-P715a|HTC EVO View 4G|PG41200|PG09410",
+        "MotorolaTablet": "xoom|sholest|MZ615|MZ605|MZ505|MZ601|MZ602|MZ603|MZ604|MZ606|MZ607|MZ608|MZ609|MZ615|MZ616|MZ617",
+        "NookTablet": "Android.*Nook|NookColor|nook browser|BNRV200|BNRV200A|BNTV250|BNTV250A|BNTV400|BNTV600|LogicPD Zoom2",
+        "AcerTablet": "Android.*; \\b(A100|A101|A110|A200|A210|A211|A500|A501|A510|A511|A700|A701|W500|W500P|W501|W501P|W510|W511|W700|G100|G100W|B1-A71|B1-710|B1-711|A1-810|A1-811|A1-830)\\b|W3-810|\\bA3-A10\\b|\\bA3-A11\\b|\\bA3-A20\\b|\\bA3-A30|A3-A40",
+        "ToshibaTablet": "Android.*(AT100|AT105|AT200|AT205|AT270|AT275|AT300|AT305|AT1S5|AT500|AT570|AT700|AT830)|TOSHIBA.*FOLIO",
+        "LGTablet": "\\bL-06C|LG-V909|LG-V900|LG-V700|LG-V510|LG-V500|LG-V410|LG-V400|LG-VK810\\b",
+        "FujitsuTablet": "Android.*\\b(F-01D|F-02F|F-05E|F-10D|M532|Q572)\\b",
+        "PrestigioTablet": "PMP3170B|PMP3270B|PMP3470B|PMP7170B|PMP3370B|PMP3570C|PMP5870C|PMP3670B|PMP5570C|PMP5770D|PMP3970B|PMP3870C|PMP5580C|PMP5880D|PMP5780D|PMP5588C|PMP7280C|PMP7280C3G|PMP7280|PMP7880D|PMP5597D|PMP5597|PMP7100D|PER3464|PER3274|PER3574|PER3884|PER5274|PER5474|PMP5097CPRO|PMP5097|PMP7380D|PMP5297C|PMP5297C_QUAD|PMP812E|PMP812E3G|PMP812F|PMP810E|PMP880TD|PMT3017|PMT3037|PMT3047|PMT3057|PMT7008|PMT5887|PMT5001|PMT5002",
+        "LenovoTablet": "Lenovo TAB|Idea(Tab|Pad)( A1|A10| K1|)|ThinkPad([ ]+)?Tablet|YT3-850M|YT3-X90L|YT3-X90F|YT3-X90X|Lenovo.*(S2109|S2110|S5000|S6000|K3011|A3000|A3500|A1000|A2107|A2109|A1107|A5500|A7600|B6000|B8000|B8080)(-|)(FL|F|HV|H|)|TB-X103F|TB-X304X|TB-X304F|TB-X304L|TB-X505F|TB-X505L|TB-X505X|TB-X605F|TB-X605L|TB-8703F|TB-8703X|TB-8703N|TB-8704N|TB-8704F|TB-8704X|TB-8704V|TB-7304F|TB-7304I|TB-7304X|Tab2A7-10F|Tab2A7-20F|TB2-X30L|YT3-X50L|YT3-X50F|YT3-X50M|YT-X705F|YT-X703F|YT-X703L|YT-X705L|YT-X705X|TB2-X30F|TB2-X30L|TB2-X30M|A2107A-F|A2107A-H|TB3-730F|TB3-730M|TB3-730X|TB-7504F|TB-7504X|TB-X704F|TB-X104F|TB3-X70F|TB-X705F|TB-8504F|TB3-X70L|TB3-710F|TB-X704L",
+        "DellTablet": "Venue 11|Venue 8|Venue 7|Dell Streak 10|Dell Streak 7",
+        "YarvikTablet": "Android.*\\b(TAB210|TAB211|TAB224|TAB250|TAB260|TAB264|TAB310|TAB360|TAB364|TAB410|TAB411|TAB420|TAB424|TAB450|TAB460|TAB461|TAB464|TAB465|TAB467|TAB468|TAB07-100|TAB07-101|TAB07-150|TAB07-151|TAB07-152|TAB07-200|TAB07-201-3G|TAB07-210|TAB07-211|TAB07-212|TAB07-214|TAB07-220|TAB07-400|TAB07-485|TAB08-150|TAB08-200|TAB08-201-3G|TAB08-201-30|TAB09-100|TAB09-211|TAB09-410|TAB10-150|TAB10-201|TAB10-211|TAB10-400|TAB10-410|TAB13-201|TAB274EUK|TAB275EUK|TAB374EUK|TAB462EUK|TAB474EUK|TAB9-200)\\b",
+        "MedionTablet": "Android.*\\bOYO\\b|LIFE.*(P9212|P9514|P9516|S9512)|LIFETAB",
+        "ArnovaTablet": "97G4|AN10G2|AN7bG3|AN7fG3|AN8G3|AN8cG3|AN7G3|AN9G3|AN7dG3|AN7dG3ST|AN7dG3ChildPad|AN10bG3|AN10bG3DT|AN9G2",
+        "IntensoTablet": "INM8002KP|INM1010FP|INM805ND|Intenso Tab|TAB1004",
+        "IRUTablet": "M702pro",
+        "MegafonTablet": "MegaFon V9|\\bZTE V9\\b|Android.*\\bMT7A\\b",
+        "EbodaTablet": "E-Boda (Supreme|Impresspeed|Izzycomm|Essential)",
+        "AllViewTablet": "Allview.*(Viva|Alldro|City|Speed|All TV|Frenzy|Quasar|Shine|TX1|AX1|AX2)",
+        "ArchosTablet": "\\b(101G9|80G9|A101IT)\\b|Qilive 97R|Archos5|\\bARCHOS (70|79|80|90|97|101|FAMILYPAD|)(b|c|)(G10| Cobalt| TITANIUM(HD|)| Xenon| Neon|XSK| 2| XS 2| PLATINUM| CARBON|GAMEPAD)\\b",
+        "AinolTablet": "NOVO7|NOVO8|NOVO10|Novo7Aurora|Novo7Basic|NOVO7PALADIN|novo9-Spark",
+        "NokiaLumiaTablet": "Lumia 2520",
+        "SonyTablet": "Sony.*Tablet|Xperia Tablet|Sony Tablet S|SO-03E|SGPT12|SGPT13|SGPT114|SGPT121|SGPT122|SGPT123|SGPT111|SGPT112|SGPT113|SGPT131|SGPT132|SGPT133|SGPT211|SGPT212|SGPT213|SGP311|SGP312|SGP321|EBRD1101|EBRD1102|EBRD1201|SGP351|SGP341|SGP511|SGP512|SGP521|SGP541|SGP551|SGP621|SGP641|SGP612|SOT31|SGP771|SGP611|SGP612|SGP712",
+        "PhilipsTablet": "\\b(PI2010|PI3000|PI3100|PI3105|PI3110|PI3205|PI3210|PI3900|PI4010|PI7000|PI7100)\\b",
+        "CubeTablet": "Android.*(K8GT|U9GT|U10GT|U16GT|U17GT|U18GT|U19GT|U20GT|U23GT|U30GT)|CUBE U8GT",
+        "CobyTablet": "MID1042|MID1045|MID1125|MID1126|MID7012|MID7014|MID7015|MID7034|MID7035|MID7036|MID7042|MID7048|MID7127|MID8042|MID8048|MID8127|MID9042|MID9740|MID9742|MID7022|MID7010",
+        "MIDTablet": "M9701|M9000|M9100|M806|M1052|M806|T703|MID701|MID713|MID710|MID727|MID760|MID830|MID728|MID933|MID125|MID810|MID732|MID120|MID930|MID800|MID731|MID900|MID100|MID820|MID735|MID980|MID130|MID833|MID737|MID960|MID135|MID860|MID736|MID140|MID930|MID835|MID733|MID4X10",
+        "MSITablet": "MSI \\b(Primo 73K|Primo 73L|Primo 81L|Primo 77|Primo 93|Primo 75|Primo 76|Primo 73|Primo 81|Primo 91|Primo 90|Enjoy 71|Enjoy 7|Enjoy 10)\\b",
+        "SMiTTablet": "Android.*(\\bMID\\b|MID-560|MTV-T1200|MTV-PND531|MTV-P1101|MTV-PND530)",
+        "RockChipTablet": "Android.*(RK2818|RK2808A|RK2918|RK3066)|RK2738|RK2808A",
+        "FlyTablet": "IQ310|Fly Vision",
+        "bqTablet": "Android.*(bq)?.*\\b(Elcano|Curie|Edison|Maxwell|Kepler|Pascal|Tesla|Hypatia|Platon|Newton|Livingstone|Cervantes|Avant|Aquaris ([E|M]10|M8))\\b|Maxwell.*Lite|Maxwell.*Plus",
+        "HuaweiTablet": "MediaPad|MediaPad 7 Youth|IDEOS S7|S7-201c|S7-202u|S7-101|S7-103|S7-104|S7-105|S7-106|S7-201|S7-Slim|M2-A01L|BAH-L09|BAH-W09|AGS-L09|CMR-AL19",
+        "NecTablet": "\\bN-06D|\\bN-08D",
+        "PantechTablet": "Pantech.*P4100",
+        "BronchoTablet": "Broncho.*(N701|N708|N802|a710)",
+        "VersusTablet": "TOUCHPAD.*[78910]|\\bTOUCHTAB\\b",
+        "ZyncTablet": "z1000|Z99 2G|z930|z990|z909|Z919|z900",
+        "PositivoTablet": "TB07STA|TB10STA|TB07FTA|TB10FTA",
+        "NabiTablet": "Android.*\\bNabi",
+        "KoboTablet": "Kobo Touch|\\bK080\\b|\\bVox\\b Build|\\bArc\\b Build",
+        "DanewTablet": "DSlide.*\\b(700|701R|702|703R|704|802|970|971|972|973|974|1010|1012)\\b",
+        "TexetTablet": "NaviPad|TB-772A|TM-7045|TM-7055|TM-9750|TM-7016|TM-7024|TM-7026|TM-7041|TM-7043|TM-7047|TM-8041|TM-9741|TM-9747|TM-9748|TM-9751|TM-7022|TM-7021|TM-7020|TM-7011|TM-7010|TM-7023|TM-7025|TM-7037W|TM-7038W|TM-7027W|TM-9720|TM-9725|TM-9737W|TM-1020|TM-9738W|TM-9740|TM-9743W|TB-807A|TB-771A|TB-727A|TB-725A|TB-719A|TB-823A|TB-805A|TB-723A|TB-715A|TB-707A|TB-705A|TB-709A|TB-711A|TB-890HD|TB-880HD|TB-790HD|TB-780HD|TB-770HD|TB-721HD|TB-710HD|TB-434HD|TB-860HD|TB-840HD|TB-760HD|TB-750HD|TB-740HD|TB-730HD|TB-722HD|TB-720HD|TB-700HD|TB-500HD|TB-470HD|TB-431HD|TB-430HD|TB-506|TB-504|TB-446|TB-436|TB-416|TB-146SE|TB-126SE",
+        "PlaystationTablet": "Playstation.*(Portable|Vita)",
+        "TrekstorTablet": "ST10416-1|VT10416-1|ST70408-1|ST702xx-1|ST702xx-2|ST80208|ST97216|ST70104-2|VT10416-2|ST10216-2A|SurfTab",
+        "PyleAudioTablet": "\\b(PTBL10CEU|PTBL10C|PTBL72BC|PTBL72BCEU|PTBL7CEU|PTBL7C|PTBL92BC|PTBL92BCEU|PTBL9CEU|PTBL9CUK|PTBL9C)\\b",
+        "AdvanTablet": "Android.* \\b(E3A|T3X|T5C|T5B|T3E|T3C|T3B|T1J|T1F|T2A|T1H|T1i|E1C|T1-E|T5-A|T4|E1-B|T2Ci|T1-B|T1-D|O1-A|E1-A|T1-A|T3A|T4i)\\b ",
+        "DanyTechTablet": "Genius Tab G3|Genius Tab S2|Genius Tab Q3|Genius Tab G4|Genius Tab Q4|Genius Tab G-II|Genius TAB GII|Genius TAB GIII|Genius Tab S1",
+        "GalapadTablet": "Android [0-9.]+; [a-z-]+; \\bG1\\b",
+        "MicromaxTablet": "Funbook|Micromax.*\\b(P250|P560|P360|P362|P600|P300|P350|P500|P275)\\b",
+        "KarbonnTablet": "Android.*\\b(A39|A37|A34|ST8|ST10|ST7|Smart Tab3|Smart Tab2)\\b",
+        "AllFineTablet": "Fine7 Genius|Fine7 Shine|Fine7 Air|Fine8 Style|Fine9 More|Fine10 Joy|Fine11 Wide",
+        "PROSCANTablet": "\\b(PEM63|PLT1023G|PLT1041|PLT1044|PLT1044G|PLT1091|PLT4311|PLT4311PL|PLT4315|PLT7030|PLT7033|PLT7033D|PLT7035|PLT7035D|PLT7044K|PLT7045K|PLT7045KB|PLT7071KG|PLT7072|PLT7223G|PLT7225G|PLT7777G|PLT7810K|PLT7849G|PLT7851G|PLT7852G|PLT8015|PLT8031|PLT8034|PLT8036|PLT8080K|PLT8082|PLT8088|PLT8223G|PLT8234G|PLT8235G|PLT8816K|PLT9011|PLT9045K|PLT9233G|PLT9735|PLT9760G|PLT9770G)\\b",
+        "YONESTablet": "BQ1078|BC1003|BC1077|RK9702|BC9730|BC9001|IT9001|BC7008|BC7010|BC708|BC728|BC7012|BC7030|BC7027|BC7026",
+        "ChangJiaTablet": "TPC7102|TPC7103|TPC7105|TPC7106|TPC7107|TPC7201|TPC7203|TPC7205|TPC7210|TPC7708|TPC7709|TPC7712|TPC7110|TPC8101|TPC8103|TPC8105|TPC8106|TPC8203|TPC8205|TPC8503|TPC9106|TPC9701|TPC97101|TPC97103|TPC97105|TPC97106|TPC97111|TPC97113|TPC97203|TPC97603|TPC97809|TPC97205|TPC10101|TPC10103|TPC10106|TPC10111|TPC10203|TPC10205|TPC10503",
+        "GUTablet": "TX-A1301|TX-M9002|Q702|kf026",
+        "PointOfViewTablet": "TAB-P506|TAB-navi-7-3G-M|TAB-P517|TAB-P-527|TAB-P701|TAB-P703|TAB-P721|TAB-P731N|TAB-P741|TAB-P825|TAB-P905|TAB-P925|TAB-PR945|TAB-PL1015|TAB-P1025|TAB-PI1045|TAB-P1325|TAB-PROTAB[0-9]+|TAB-PROTAB25|TAB-PROTAB26|TAB-PROTAB27|TAB-PROTAB26XL|TAB-PROTAB2-IPS9|TAB-PROTAB30-IPS9|TAB-PROTAB25XXL|TAB-PROTAB26-IPS10|TAB-PROTAB30-IPS10",
+        "OvermaxTablet": "OV-(SteelCore|NewBase|Basecore|Baseone|Exellen|Quattor|EduTab|Solution|ACTION|BasicTab|TeddyTab|MagicTab|Stream|TB-08|TB-09)|Qualcore 1027",
+        "HCLTablet": "HCL.*Tablet|Connect-3G-2.0|Connect-2G-2.0|ME Tablet U1|ME Tablet U2|ME Tablet G1|ME Tablet X1|ME Tablet Y2|ME Tablet Sync",
+        "DPSTablet": "DPS Dream 9|DPS Dual 7",
+        "VistureTablet": "V97 HD|i75 3G|Visture V4( HD)?|Visture V5( HD)?|Visture V10",
+        "CrestaTablet": "CTP(-)?810|CTP(-)?818|CTP(-)?828|CTP(-)?838|CTP(-)?888|CTP(-)?978|CTP(-)?980|CTP(-)?987|CTP(-)?988|CTP(-)?989",
+        "MediatekTablet": "\\bMT8125|MT8389|MT8135|MT8377\\b",
+        "ConcordeTablet": "Concorde([ ]+)?Tab|ConCorde ReadMan",
+        "GoCleverTablet": "GOCLEVER TAB|A7GOCLEVER|M1042|M7841|M742|R1042BK|R1041|TAB A975|TAB A7842|TAB A741|TAB A741L|TAB M723G|TAB M721|TAB A1021|TAB I921|TAB R721|TAB I720|TAB T76|TAB R70|TAB R76.2|TAB R106|TAB R83.2|TAB M813G|TAB I721|GCTA722|TAB I70|TAB I71|TAB S73|TAB R73|TAB R74|TAB R93|TAB R75|TAB R76.1|TAB A73|TAB A93|TAB A93.2|TAB T72|TAB R83|TAB R974|TAB R973|TAB A101|TAB A103|TAB A104|TAB A104.2|R105BK|M713G|A972BK|TAB A971|TAB R974.2|TAB R104|TAB R83.3|TAB A1042",
+        "ModecomTablet": "FreeTAB 9000|FreeTAB 7.4|FreeTAB 7004|FreeTAB 7800|FreeTAB 2096|FreeTAB 7.5|FreeTAB 1014|FreeTAB 1001 |FreeTAB 8001|FreeTAB 9706|FreeTAB 9702|FreeTAB 7003|FreeTAB 7002|FreeTAB 1002|FreeTAB 7801|FreeTAB 1331|FreeTAB 1004|FreeTAB 8002|FreeTAB 8014|FreeTAB 9704|FreeTAB 1003",
+        "VoninoTablet": "\\b(Argus[ _]?S|Diamond[ _]?79HD|Emerald[ _]?78E|Luna[ _]?70C|Onyx[ _]?S|Onyx[ _]?Z|Orin[ _]?HD|Orin[ _]?S|Otis[ _]?S|SpeedStar[ _]?S|Magnet[ _]?M9|Primus[ _]?94[ _]?3G|Primus[ _]?94HD|Primus[ _]?QS|Android.*\\bQ8\\b|Sirius[ _]?EVO[ _]?QS|Sirius[ _]?QS|Spirit[ _]?S)\\b",
+        "ECSTablet": "V07OT2|TM105A|S10OT1|TR10CS1",
+        "StorexTablet": "eZee[_']?(Tab|Go)[0-9]+|TabLC7|Looney Tunes Tab",
+        "VodafoneTablet": "SmartTab([ ]+)?[0-9]+|SmartTabII10|SmartTabII7|VF-1497|VFD 1400",
+        "EssentielBTablet": "Smart[ ']?TAB[ ]+?[0-9]+|Family[ ']?TAB2",
+        "RossMoorTablet": "RM-790|RM-997|RMD-878G|RMD-974R|RMT-705A|RMT-701|RME-601|RMT-501|RMT-711",
+        "iMobileTablet": "i-mobile i-note",
+        "TolinoTablet": "tolino tab [0-9.]+|tolino shine",
+        "AudioSonicTablet": "\\bC-22Q|T7-QC|T-17B|T-17P\\b",
+        "AMPETablet": "Android.* A78 ",
+        "SkkTablet": "Android.* (SKYPAD|PHOENIX|CYCLOPS)",
+        "TecnoTablet": "TECNO P9|TECNO DP8D",
+        "JXDTablet": "Android.* \\b(F3000|A3300|JXD5000|JXD3000|JXD2000|JXD300B|JXD300|S5800|S7800|S602b|S5110b|S7300|S5300|S602|S603|S5100|S5110|S601|S7100a|P3000F|P3000s|P101|P200s|P1000m|P200m|P9100|P1000s|S6600b|S908|P1000|P300|S18|S6600|S9100)\\b",
+        "iJoyTablet": "Tablet (Spirit 7|Essentia|Galatea|Fusion|Onix 7|Landa|Titan|Scooby|Deox|Stella|Themis|Argon|Unique 7|Sygnus|Hexen|Finity 7|Cream|Cream X2|Jade|Neon 7|Neron 7|Kandy|Scape|Saphyr 7|Rebel|Biox|Rebel|Rebel 8GB|Myst|Draco 7|Myst|Tab7-004|Myst|Tadeo Jones|Tablet Boing|Arrow|Draco Dual Cam|Aurix|Mint|Amity|Revolution|Finity 9|Neon 9|T9w|Amity 4GB Dual Cam|Stone 4GB|Stone 8GB|Andromeda|Silken|X2|Andromeda II|Halley|Flame|Saphyr 9,7|Touch 8|Planet|Triton|Unique 10|Hexen 10|Memphis 4GB|Memphis 8GB|Onix 10)",
+        "FX2Tablet": "FX2 PAD7|FX2 PAD10",
+        "XoroTablet": "KidsPAD 701|PAD[ ]?712|PAD[ ]?714|PAD[ ]?716|PAD[ ]?717|PAD[ ]?718|PAD[ ]?720|PAD[ ]?721|PAD[ ]?722|PAD[ ]?790|PAD[ ]?792|PAD[ ]?900|PAD[ ]?9715D|PAD[ ]?9716DR|PAD[ ]?9718DR|PAD[ ]?9719QR|PAD[ ]?9720QR|TelePAD1030|Telepad1032|TelePAD730|TelePAD731|TelePAD732|TelePAD735Q|TelePAD830|TelePAD9730|TelePAD795|MegaPAD 1331|MegaPAD 1851|MegaPAD 2151",
+        "ViewsonicTablet": "ViewPad 10pi|ViewPad 10e|ViewPad 10s|ViewPad E72|ViewPad7|ViewPad E100|ViewPad 7e|ViewSonic VB733|VB100a",
+        "VerizonTablet": "QTAQZ3|QTAIR7|QTAQTZ3|QTASUN1|QTASUN2|QTAXIA1",
+        "OdysTablet": "LOOX|XENO10|ODYS[ -](Space|EVO|Xpress|NOON)|\\bXELIO\\b|Xelio10Pro|XELIO7PHONETAB|XELIO10EXTREME|XELIOPT2|NEO_QUAD10",
+        "CaptivaTablet": "CAPTIVA PAD",
+        "IconbitTablet": "NetTAB|NT-3702|NT-3702S|NT-3702S|NT-3603P|NT-3603P|NT-0704S|NT-0704S|NT-3805C|NT-3805C|NT-0806C|NT-0806C|NT-0909T|NT-0909T|NT-0907S|NT-0907S|NT-0902S|NT-0902S",
+        "TeclastTablet": "T98 4G|\\bP80\\b|\\bX90HD\\b|X98 Air|X98 Air 3G|\\bX89\\b|P80 3G|\\bX80h\\b|P98 Air|\\bX89HD\\b|P98 3G|\\bP90HD\\b|P89 3G|X98 3G|\\bP70h\\b|P79HD 3G|G18d 3G|\\bP79HD\\b|\\bP89s\\b|\\bA88\\b|\\bP10HD\\b|\\bP19HD\\b|G18 3G|\\bP78HD\\b|\\bA78\\b|\\bP75\\b|G17s 3G|G17h 3G|\\bP85t\\b|\\bP90\\b|\\bP11\\b|\\bP98t\\b|\\bP98HD\\b|\\bG18d\\b|\\bP85s\\b|\\bP11HD\\b|\\bP88s\\b|\\bA80HD\\b|\\bA80se\\b|\\bA10h\\b|\\bP89\\b|\\bP78s\\b|\\bG18\\b|\\bP85\\b|\\bA70h\\b|\\bA70\\b|\\bG17\\b|\\bP18\\b|\\bA80s\\b|\\bA11s\\b|\\bP88HD\\b|\\bA80h\\b|\\bP76s\\b|\\bP76h\\b|\\bP98\\b|\\bA10HD\\b|\\bP78\\b|\\bP88\\b|\\bA11\\b|\\bA10t\\b|\\bP76a\\b|\\bP76t\\b|\\bP76e\\b|\\bP85HD\\b|\\bP85a\\b|\\bP86\\b|\\bP75HD\\b|\\bP76v\\b|\\bA12\\b|\\bP75a\\b|\\bA15\\b|\\bP76Ti\\b|\\bP81HD\\b|\\bA10\\b|\\bT760VE\\b|\\bT720HD\\b|\\bP76\\b|\\bP73\\b|\\bP71\\b|\\bP72\\b|\\bT720SE\\b|\\bC520Ti\\b|\\bT760\\b|\\bT720VE\\b|T720-3GE|T720-WiFi",
+        "OndaTablet": "\\b(V975i|Vi30|VX530|V701|Vi60|V701s|Vi50|V801s|V719|Vx610w|VX610W|V819i|Vi10|VX580W|Vi10|V711s|V813|V811|V820w|V820|Vi20|V711|VI30W|V712|V891w|V972|V819w|V820w|Vi60|V820w|V711|V813s|V801|V819|V975s|V801|V819|V819|V818|V811|V712|V975m|V101w|V961w|V812|V818|V971|V971s|V919|V989|V116w|V102w|V973|Vi40)\\b[\\s]+|V10 \\b4G\\b",
+        "JaytechTablet": "TPC-PA762",
+        "BlaupunktTablet": "Endeavour 800NG|Endeavour 1010",
+        "DigmaTablet": "\\b(iDx10|iDx9|iDx8|iDx7|iDxD7|iDxD8|iDsQ8|iDsQ7|iDsQ8|iDsD10|iDnD7|3TS804H|iDsQ11|iDj7|iDs10)\\b",
+        "EvolioTablet": "ARIA_Mini_wifi|Aria[ _]Mini|Evolio X10|Evolio X7|Evolio X8|\\bEvotab\\b|\\bNeura\\b",
+        "LavaTablet": "QPAD E704|\\bIvoryS\\b|E-TAB IVORY|\\bE-TAB\\b",
+        "AocTablet": "MW0811|MW0812|MW0922|MTK8382|MW1031|MW0831|MW0821|MW0931|MW0712",
+        "MpmanTablet": "MP11 OCTA|MP10 OCTA|MPQC1114|MPQC1004|MPQC994|MPQC974|MPQC973|MPQC804|MPQC784|MPQC780|\\bMPG7\\b|MPDCG75|MPDCG71|MPDC1006|MP101DC|MPDC9000|MPDC905|MPDC706HD|MPDC706|MPDC705|MPDC110|MPDC100|MPDC99|MPDC97|MPDC88|MPDC8|MPDC77|MP709|MID701|MID711|MID170|MPDC703|MPQC1010",
+        "CelkonTablet": "CT695|CT888|CT[\\s]?910|CT7 Tab|CT9 Tab|CT3 Tab|CT2 Tab|CT1 Tab|C820|C720|\\bCT-1\\b",
+        "WolderTablet": "miTab \\b(DIAMOND|SPACE|BROOKLYN|NEO|FLY|MANHATTAN|FUNK|EVOLUTION|SKY|GOCAR|IRON|GENIUS|POP|MINT|EPSILON|BROADWAY|JUMP|HOP|LEGEND|NEW AGE|LINE|ADVANCE|FEEL|FOLLOW|LIKE|LINK|LIVE|THINK|FREEDOM|CHICAGO|CLEVELAND|BALTIMORE-GH|IOWA|BOSTON|SEATTLE|PHOENIX|DALLAS|IN 101|MasterChef)\\b",
+        "MediacomTablet": "M-MPI10C3G|M-SP10EG|M-SP10EGP|M-SP10HXAH|M-SP7HXAH|M-SP10HXBH|M-SP8HXAH|M-SP8MXA",
+        "MiTablet": "\\bMI PAD\\b|\\bHM NOTE 1W\\b",
+        "NibiruTablet": "Nibiru M1|Nibiru Jupiter One",
+        "NexoTablet": "NEXO NOVA|NEXO 10|NEXO AVIO|NEXO FREE|NEXO GO|NEXO EVO|NEXO 3G|NEXO SMART|NEXO KIDDO|NEXO MOBI",
+        "LeaderTablet": "TBLT10Q|TBLT10I|TBL-10WDKB|TBL-10WDKBO2013|TBL-W230V2|TBL-W450|TBL-W500|SV572|TBLT7I|TBA-AC7-8G|TBLT79|TBL-8W16|TBL-10W32|TBL-10WKB|TBL-W100",
+        "UbislateTablet": "UbiSlate[\\s]?7C",
+        "PocketBookTablet": "Pocketbook",
+        "KocasoTablet": "\\b(TB-1207)\\b",
+        "HisenseTablet": "\\b(F5281|E2371)\\b",
+        "Hudl": "Hudl HT7S3|Hudl 2",
+        "TelstraTablet": "T-Hub2",
+        "GenericTablet": "Android.*\\b97D\\b|Tablet(?!.*PC)|BNTV250A|MID-WCDMA|LogicPD Zoom2|\\bA7EB\\b|CatNova8|A1_07|CT704|CT1002|\\bM721\\b|rk30sdk|\\bEVOTAB\\b|M758A|ET904|ALUMIUM10|Smartfren Tab|Endeavour 1010|Tablet-PC-4|Tagi Tab|\\bM6pro\\b|CT1020W|arc 10HD|\\bTP750\\b|\\bQTAQZ3\\b|WVT101|TM1088|KT107"
+    },
+    "oss": {
+        "AndroidOS": "Android",
+        "BlackBerryOS": "blackberry|\\bBB10\\b|rim tablet os",
+        "PalmOS": "PalmOS|avantgo|blazer|elaine|hiptop|palm|plucker|xiino",
+        "SymbianOS": "Symbian|SymbOS|Series60|Series40|SYB-[0-9]+|\\bS60\\b",
+        "WindowsMobileOS": "Windows CE.*(PPC|Smartphone|Mobile|[0-9]{3}x[0-9]{3})|Windows Mobile|Windows Phone [0-9.]+|WCE;",
+        "WindowsPhoneOS": "Windows Phone 10.0|Windows Phone 8.1|Windows Phone 8.0|Windows Phone OS|XBLWP7|ZuneWP7|Windows NT 6.[23]; ARM;",
+        "iOS": "\\biPhone.*Mobile|\\biPod|\\biPad|AppleCoreMedia",
+        "iPadOS": "CPU OS 13",
+        "SailfishOS": "Sailfish",
+        "MeeGoOS": "MeeGo",
+        "MaemoOS": "Maemo",
+        "JavaOS": "J2ME\/|\\bMIDP\\b|\\bCLDC\\b",
+        "webOS": "webOS|hpwOS",
+        "badaOS": "\\bBada\\b",
+        "BREWOS": "BREW"
+    },
+    "uas": {
+        "Chrome": "\\bCrMo\\b|CriOS|Android.*Chrome\/[.0-9]* (Mobile)?",
+        "Dolfin": "\\bDolfin\\b",
+        "Opera": "Opera.*Mini|Opera.*Mobi|Android.*Opera|Mobile.*OPR\/[0-9.]+$|Coast\/[0-9.]+",
+        "Skyfire": "Skyfire",
+        "Edge": "\\bEdgiOS\\b|Mobile Safari\/[.0-9]* Edge",
+        "IE": "IEMobile|MSIEMobile",
+        "Firefox": "fennec|firefox.*maemo|(Mobile|Tablet).*Firefox|Firefox.*Mobile|FxiOS",
+        "Bolt": "bolt",
+        "TeaShark": "teashark",
+        "Blazer": "Blazer",
+        "Safari": "Version((?!\\bEdgiOS\\b).)*Mobile.*Safari|Safari.*Mobile|MobileSafari",
+        "WeChat": "\\bMicroMessenger\\b",
+        "UCBrowser": "UC.*Browser|UCWEB",
+        "baiduboxapp": "baiduboxapp",
+        "baidubrowser": "baidubrowser",
+        "DiigoBrowser": "DiigoBrowser",
+        "Mercury": "\\bMercury\\b",
+        "ObigoBrowser": "Obigo",
+        "NetFront": "NF-Browser",
+        "GenericBrowser": "NokiaBrowser|OviBrowser|OneBrowser|TwonkyBeamBrowser|SEMC.*Browser|FlyFlow|Minimo|NetFront|Novarra-Vision|MQQBrowser|MicroMessenger",
+        "PaleMoon": "Android.*PaleMoon|Mobile.*PaleMoon"
+    },
+    "props": {
+        "Mobile": "Mobile\/[VER]",
+        "Build": "Build\/[VER]",
+        "Version": "Version\/[VER]",
+        "VendorID": "VendorID\/[VER]",
+        "iPad": "iPad.*CPU[a-z ]+[VER]",
+        "iPhone": "iPhone.*CPU[a-z ]+[VER]",
+        "iPod": "iPod.*CPU[a-z ]+[VER]",
+        "Kindle": "Kindle\/[VER]",
+        "Chrome": [
+            "Chrome\/[VER]",
+            "CriOS\/[VER]",
+            "CrMo\/[VER]"
+        ],
+        "Coast": [
+            "Coast\/[VER]"
+        ],
+        "Dolfin": "Dolfin\/[VER]",
+        "Firefox": [
+            "Firefox\/[VER]",
+            "FxiOS\/[VER]"
+        ],
+        "Fennec": "Fennec\/[VER]",
+        "Edge": "Edge\/[VER]",
+        "IE": [
+            "IEMobile\/[VER];",
+            "IEMobile [VER]",
+            "MSIE [VER];",
+            "Trident\/[0-9.]+;.*rv:[VER]"
+        ],
+        "NetFront": "NetFront\/[VER]",
+        "NokiaBrowser": "NokiaBrowser\/[VER]",
+        "Opera": [
+            " OPR\/[VER]",
+            "Opera Mini\/[VER]",
+            "Version\/[VER]"
+        ],
+        "Opera Mini": "Opera Mini\/[VER]",
+        "Opera Mobi": "Version\/[VER]",
+        "UCBrowser": [
+            "UCWEB[VER]",
+            "UC.*Browser\/[VER]"
+        ],
+        "MQQBrowser": "MQQBrowser\/[VER]",
+        "MicroMessenger": "MicroMessenger\/[VER]",
+        "baiduboxapp": "baiduboxapp\/[VER]",
+        "baidubrowser": "baidubrowser\/[VER]",
+        "SamsungBrowser": "SamsungBrowser\/[VER]",
+        "Iron": "Iron\/[VER]",
+        "Safari": [
+            "Version\/[VER]",
+            "Safari\/[VER]"
+        ],
+        "Skyfire": "Skyfire\/[VER]",
+        "Tizen": "Tizen\/[VER]",
+        "Webkit": "webkit[ \/][VER]",
+        "PaleMoon": "PaleMoon\/[VER]",
+        "SailfishBrowser": "SailfishBrowser\/[VER]",
+        "Gecko": "Gecko\/[VER]",
+        "Trident": "Trident\/[VER]",
+        "Presto": "Presto\/[VER]",
+        "Goanna": "Goanna\/[VER]",
+        "iOS": " \\bi?OS\\b [VER][ ;]{1}",
+        "Android": "Android [VER]",
+        "Sailfish": "Sailfish [VER]",
+        "BlackBerry": [
+            "BlackBerry[\\w]+\/[VER]",
+            "BlackBerry.*Version\/[VER]",
+            "Version\/[VER]"
+        ],
+        "BREW": "BREW [VER]",
+        "Java": "Java\/[VER]",
+        "Windows Phone OS": [
+            "Windows Phone OS [VER]",
+            "Windows Phone [VER]"
+        ],
+        "Windows Phone": "Windows Phone [VER]",
+        "Windows CE": "Windows CE\/[VER]",
+        "Windows NT": "Windows NT [VER]",
+        "Symbian": [
+            "SymbianOS\/[VER]",
+            "Symbian\/[VER]"
+        ],
+        "webOS": [
+            "webOS\/[VER]",
+            "hpwOS\/[VER];"
+        ]
+    },
+    "utils": {
+        "Bot": "Googlebot|facebookexternalhit|Google-AMPHTML|s~amp-validator|AdsBot-Google|Google Keyword Suggestion|Facebot|YandexBot|YandexMobileBot|bingbot|ia_archiver|AhrefsBot|Ezooms|GSLFbot|WBSearchBot|Twitterbot|TweetmemeBot|Twikle|PaperLiBot|Wotbox|UnwindFetchor|Exabot|MJ12bot|YandexImages|TurnitinBot|Pingdom|contentkingapp|AspiegelBot",
+        "MobileBot": "Googlebot-Mobile|AdsBot-Google-Mobile|YahooSeeker\/M1A1-R2D2",
+        "DesktopMode": "WPDesktop",
+        "TV": "SonyDTV|HbbTV",
+        "WebKit": "(webkit)[ \/]([\\w.]+)",
+        "Console": "\\b(Nintendo|Nintendo WiiU|Nintendo 3DS|Nintendo Switch|PLAYSTATION|Xbox)\\b",
+        "Watch": "SM-V700"
+    }
+};
+
+    // following patterns come from http://detectmobilebrowsers.com/
+    impl.detectMobileBrowsers = {
+        fullPattern: /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i,
+        shortPattern: /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i,
+        tabletPattern: /android|ipad|playbook|silk/i
+    };
+
+    var hasOwnProp = Object.prototype.hasOwnProperty,
+        isArray;
+
+    impl.FALLBACK_PHONE = 'UnknownPhone';
+    impl.FALLBACK_TABLET = 'UnknownTablet';
+    impl.FALLBACK_MOBILE = 'UnknownMobile';
+
+    isArray = ('isArray' in Array) ?
+        Array.isArray : function (value) { return Object.prototype.toString.call(value) === '[object Array]'; };
+
+    function equalIC(a, b) {
+        return a != null && b != null && a.toLowerCase() === b.toLowerCase();
+    }
+
+    function containsIC(array, value) {
+        var valueLC, i, len = array.length;
+        if (!len || !value) {
+            return false;
+        }
+        valueLC = value.toLowerCase();
+        for (i = 0; i < len; ++i) {
+            if (valueLC === array[i].toLowerCase()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function convertPropsToRegExp(object) {
+        for (var key in object) {
+            if (hasOwnProp.call(object, key)) {
+                object[key] = new RegExp(object[key], 'i');
+            }
+        }
+    }
+
+    function prepareUserAgent(userAgent) {
+        return (userAgent || '').substr(0, 500); // mitigate vulnerable to ReDoS
+    }
+
+    (function init() {
+        var key, values, value, i, len, verPos, mobileDetectRules = impl.mobileDetectRules;
+        for (key in mobileDetectRules.props) {
+            if (hasOwnProp.call(mobileDetectRules.props, key)) {
+                values = mobileDetectRules.props[key];
+                if (!isArray(values)) {
+                    values = [values];
+                }
+                len = values.length;
+                for (i = 0; i < len; ++i) {
+                    value = values[i];
+                    verPos = value.indexOf('[VER]');
+                    if (verPos >= 0) {
+                        value = value.substring(0, verPos) + '([\\w._\\+]+)' + value.substring(verPos + 5);
+                    }
+                    values[i] = new RegExp(value, 'i');
+                }
+                mobileDetectRules.props[key] = values;
+            }
+        }
+        convertPropsToRegExp(mobileDetectRules.oss);
+        convertPropsToRegExp(mobileDetectRules.phones);
+        convertPropsToRegExp(mobileDetectRules.tablets);
+        convertPropsToRegExp(mobileDetectRules.uas);
+        convertPropsToRegExp(mobileDetectRules.utils);
+
+        // copy some patterns to oss0 which are tested first (see issue#15)
+        mobileDetectRules.oss0 = {
+            WindowsPhoneOS: mobileDetectRules.oss.WindowsPhoneOS,
+            WindowsMobileOS: mobileDetectRules.oss.WindowsMobileOS
+        };
+    }());
+
+    /**
+     * Test userAgent string against a set of rules and find the first matched key.
+     * @param {Object} rules (key is String, value is RegExp)
+     * @param {String} userAgent the navigator.userAgent (or HTTP-Header 'User-Agent').
+     * @returns {String|null} the matched key if found, otherwise <tt>null</tt>
+     * @private
+     */
+    impl.findMatch = function(rules, userAgent) {
+        for (var key in rules) {
+            if (hasOwnProp.call(rules, key)) {
+                if (rules[key].test(userAgent)) {
+                    return key;
+                }
+            }
+        }
+        return null;
+    };
+
+    /**
+     * Test userAgent string against a set of rules and return an array of matched keys.
+     * @param {Object} rules (key is String, value is RegExp)
+     * @param {String} userAgent the navigator.userAgent (or HTTP-Header 'User-Agent').
+     * @returns {Array} an array of matched keys, may be empty when there is no match, but not <tt>null</tt>
+     * @private
+     */
+    impl.findMatches = function(rules, userAgent) {
+        var result = [];
+        for (var key in rules) {
+            if (hasOwnProp.call(rules, key)) {
+                if (rules[key].test(userAgent)) {
+                    result.push(key);
+                }
+            }
+        }
+        return result;
+    };
+
+    /**
+     * Check the version of the given property in the User-Agent.
+     *
+     * @param {String} propertyName
+     * @param {String} userAgent
+     * @return {String} version or <tt>null</tt> if version not found
+     * @private
+     */
+    impl.getVersionStr = function (propertyName, userAgent) {
+        var props = impl.mobileDetectRules.props, patterns, i, len, match;
+        if (hasOwnProp.call(props, propertyName)) {
+            patterns = props[propertyName];
+            len = patterns.length;
+            for (i = 0; i < len; ++i) {
+                match = patterns[i].exec(userAgent);
+                if (match !== null) {
+                    return match[1];
+                }
+            }
+        }
+        return null;
+    };
+
+    /**
+     * Check the version of the given property in the User-Agent.
+     * Will return a float number. (eg. 2_0 will return 2.0, 4.3.1 will return 4.31)
+     *
+     * @param {String} propertyName
+     * @param {String} userAgent
+     * @return {Number} version or <tt>NaN</tt> if version not found
+     * @private
+     */
+    impl.getVersion = function (propertyName, userAgent) {
+        var version = impl.getVersionStr(propertyName, userAgent);
+        return version ? impl.prepareVersionNo(version) : NaN;
+    };
+
+    /**
+     * Prepare the version number.
+     *
+     * @param {String} version
+     * @return {Number} the version number as a floating number
+     * @private
+     */
+    impl.prepareVersionNo = function (version) {
+        var numbers;
+
+        numbers = version.split(/[a-z._ \/\-]/i);
+        if (numbers.length === 1) {
+            version = numbers[0];
+        }
+        if (numbers.length > 1) {
+            version = numbers[0] + '.';
+            numbers.shift();
+            version += numbers.join('');
+        }
+        return Number(version);
+    };
+
+    impl.isMobileFallback = function (userAgent) {
+        return impl.detectMobileBrowsers.fullPattern.test(userAgent) ||
+            impl.detectMobileBrowsers.shortPattern.test(userAgent.substr(0,4));
+    };
+
+    impl.isTabletFallback = function (userAgent) {
+        return impl.detectMobileBrowsers.tabletPattern.test(userAgent);
+    };
+
+    impl.prepareDetectionCache = function (cache, userAgent, maxPhoneWidth) {
+        if (cache.mobile !== undefined) {
+            return;
+        }
+        var phone, tablet, phoneSized;
+
+        // first check for stronger tablet rules, then phone (see issue#5)
+        tablet = impl.findMatch(impl.mobileDetectRules.tablets, userAgent);
+        if (tablet) {
+            cache.mobile = cache.tablet = tablet;
+            cache.phone = null;
+            return; // unambiguously identified as tablet
+        }
+
+        phone = impl.findMatch(impl.mobileDetectRules.phones, userAgent);
+        if (phone) {
+            cache.mobile = cache.phone = phone;
+            cache.tablet = null;
+            return; // unambiguously identified as phone
+        }
+
+        // our rules haven't found a match -> try more general fallback rules
+        if (impl.isMobileFallback(userAgent)) {
+            phoneSized = MobileDetect.isPhoneSized(maxPhoneWidth);
+            if (phoneSized === undefined) {
+                cache.mobile = impl.FALLBACK_MOBILE;
+                cache.tablet = cache.phone = null;
+            } else if (phoneSized) {
+                cache.mobile = cache.phone = impl.FALLBACK_PHONE;
+                cache.tablet = null;
+            } else {
+                cache.mobile = cache.tablet = impl.FALLBACK_TABLET;
+                cache.phone = null;
+            }
+        } else if (impl.isTabletFallback(userAgent)) {
+            cache.mobile = cache.tablet = impl.FALLBACK_TABLET;
+            cache.phone = null;
+        } else {
+            // not mobile at all!
+            cache.mobile = cache.tablet = cache.phone = null;
+        }
+    };
+
+    // t is a reference to a MobileDetect instance
+    impl.mobileGrade = function (t) {
+        // impl note:
+        // To keep in sync w/ Mobile_Detect.php easily, the following code is tightly aligned to the PHP version.
+        // When changes are made in Mobile_Detect.php, copy this method and replace:
+        //     $this-> / t.
+        //     self::MOBILE_GRADE_(.) / '$1'
+        //     , self::VERSION_TYPE_FLOAT / (nothing)
+        //     isIOS() / os('iOS')
+        //     [reg] / (nothing)   <-- jsdelivr complaining about unescaped unicode character U+00AE
+        var $isMobile = t.mobile() !== null;
+
+        if (
+            // Apple iOS 3.2-5.1 - Tested on the original iPad (4.3 / 5.0), iPad 2 (4.3), iPad 3 (5.1), original iPhone (3.1), iPhone 3 (3.2), 3GS (4.3), 4 (4.3 / 5.0), and 4S (5.1)
+            t.os('iOS') && t.version('iPad')>=4.3 ||
+            t.os('iOS') && t.version('iPhone')>=3.1 ||
+            t.os('iOS') && t.version('iPod')>=3.1 ||
+
+            // Android 2.1-2.3 - Tested on the HTC Incredible (2.2), original Droid (2.2), HTC Aria (2.1), Google Nexus S (2.3). Functional on 1.5 & 1.6 but performance may be sluggish, tested on Google G1 (1.5)
+            // Android 3.1 (Honeycomb)  - Tested on the Samsung Galaxy Tab 10.1 and Motorola XOOM
+            // Android 4.0 (ICS)  - Tested on a Galaxy Nexus. Note: transition performance can be poor on upgraded devices
+            // Android 4.1 (Jelly Bean)  - Tested on a Galaxy Nexus and Galaxy 7
+            ( t.version('Android')>2.1 && t.is('Webkit') ) ||
+
+            // Windows Phone 7-7.5 - Tested on the HTC Surround (7.0) HTC Trophy (7.5), LG-E900 (7.5), Nokia Lumia 800
+            t.version('Windows Phone OS')>=7.0 ||
+
+            // Blackberry 7 - Tested on BlackBerry Torch 9810
+            // Blackberry 6.0 - Tested on the Torch 9800 and Style 9670
+            t.is('BlackBerry') && t.version('BlackBerry')>=6.0 ||
+            // Blackberry Playbook (1.0-2.0) - Tested on PlayBook
+            t.match('Playbook.*Tablet') ||
+
+            // Palm WebOS (1.4-2.0) - Tested on the Palm Pixi (1.4), Pre (1.4), Pre 2 (2.0)
+            ( t.version('webOS')>=1.4 && t.match('Palm|Pre|Pixi') ) ||
+            // Palm WebOS 3.0  - Tested on HP TouchPad
+            t.match('hp.*TouchPad') ||
+
+            // Firefox Mobile (12 Beta) - Tested on Android 2.3 device
+            ( t.is('Firefox') && t.version('Firefox')>=12 ) ||
+
+            // Chrome for Android - Tested on Android 4.0, 4.1 device
+            ( t.is('Chrome') && t.is('AndroidOS') && t.version('Android')>=4.0 ) ||
+
+            // Skyfire 4.1 - Tested on Android 2.3 device
+            ( t.is('Skyfire') && t.version('Skyfire')>=4.1 && t.is('AndroidOS') && t.version('Android')>=2.3 ) ||
+
+            // Opera Mobile 11.5-12: Tested on Android 2.3
+            ( t.is('Opera') && t.version('Opera Mobi')>11 && t.is('AndroidOS') ) ||
+
+            // Meego 1.2 - Tested on Nokia 950 and N9
+            t.is('MeeGoOS') ||
+
+            // Tizen (pre-release) - Tested on early hardware
+            t.is('Tizen') ||
+
+            // Samsung Bada 2.0 - Tested on a Samsung Wave 3, Dolphin browser
+            // @todo: more tests here!
+            t.is('Dolfin') && t.version('Bada')>=2.0 ||
+
+            // UC Browser - Tested on Android 2.3 device
+            ( (t.is('UC Browser') || t.is('Dolfin')) && t.version('Android')>=2.3 ) ||
+
+            // Kindle 3 and Fire  - Tested on the built-in WebKit browser for each
+            ( t.match('Kindle Fire') ||
+                t.is('Kindle') && t.version('Kindle')>=3.0 ) ||
+
+            // Nook Color 1.4.1 - Tested on original Nook Color, not Nook Tablet
+            t.is('AndroidOS') && t.is('NookTablet') ||
+
+            // Chrome Desktop 11-21 - Tested on OS X 10.7 and Windows 7
+            t.version('Chrome')>=11 && !$isMobile ||
+
+            // Safari Desktop 4-5 - Tested on OS X 10.7 and Windows 7
+            t.version('Safari')>=5.0 && !$isMobile ||
+
+            // Firefox Desktop 4-13 - Tested on OS X 10.7 and Windows 7
+            t.version('Firefox')>=4.0 && !$isMobile ||
+
+            // Internet Explorer 7-9 - Tested on Windows XP, Vista and 7
+            t.version('MSIE')>=7.0 && !$isMobile ||
+
+            // Opera Desktop 10-12 - Tested on OS X 10.7 and Windows 7
+            // @reference: http://my.opera.com/community/openweb/idopera/
+            t.version('Opera')>=10 && !$isMobile
+
+            ){
+            return 'A';
+        }
+
+        if (
+            t.os('iOS') && t.version('iPad')<4.3 ||
+            t.os('iOS') && t.version('iPhone')<3.1 ||
+            t.os('iOS') && t.version('iPod')<3.1 ||
+
+            // Blackberry 5.0: Tested on the Storm 2 9550, Bold 9770
+            t.is('Blackberry') && t.version('BlackBerry')>=5 && t.version('BlackBerry')<6 ||
+
+            //Opera Mini (5.0-6.5) - Tested on iOS 3.2/4.3 and Android 2.3
+            ( t.version('Opera Mini')>=5.0 && t.version('Opera Mini')<=6.5 &&
+                (t.version('Android')>=2.3 || t.is('iOS')) ) ||
+
+            // Nokia Symbian^3 - Tested on Nokia N8 (Symbian^3), C7 (Symbian^3), also works on N97 (Symbian^1)
+            t.match('NokiaN8|NokiaC7|N97.*Series60|Symbian/3') ||
+
+            // @todo: report this (tested on Nokia N71)
+            t.version('Opera Mobi')>=11 && t.is('SymbianOS')
+            ){
+            return 'B';
+        }
+
+        if (
+        // Blackberry 4.x - Tested on the Curve 8330
+            t.version('BlackBerry')<5.0 ||
+            // Windows Mobile - Tested on the HTC Leo (WinMo 5.2)
+            t.match('MSIEMobile|Windows CE.*Mobile') || t.version('Windows Mobile')<=5.2
+
+            ){
+            return 'C';
+        }
+
+        //All older smartphone platforms and featurephones - Any device that doesn't support media queries
+        //will receive the basic, C grade experience.
+        return 'C';
+    };
+
+    impl.detectOS = function (ua) {
+        return impl.findMatch(impl.mobileDetectRules.oss0, ua) ||
+            impl.findMatch(impl.mobileDetectRules.oss, ua);
+    };
+
+    impl.getDeviceSmallerSide = function () {
+        return window.screen.width < window.screen.height ?
+            window.screen.width :
+            window.screen.height;
+    };
+
+    /**
+     * Constructor for MobileDetect object.
+     * <br>
+     * Such an object will keep a reference to the given user-agent string and cache most of the detect queries.<br>
+     * <div style="background-color: #d9edf7; border: 1px solid #bce8f1; color: #3a87ad; padding: 14px; border-radius: 2px; margin-top: 20px">
+     *     <strong>Find information how to download and install:</strong>
+     *     <a href="https://github.com/hgoebl/mobile-detect.js/">github.com/hgoebl/mobile-detect.js/</a>
+     * </div>
+     *
+     * @example <pre>
+     *     var md = new MobileDetect(window.navigator.userAgent);
+     *     if (md.mobile()) {
+     *         location.href = (md.mobileGrade() === 'A') ? '/mobile/' : '/lynx/';
+     *     }
+     * </pre>
+     *
+     * @param {string} userAgent typically taken from window.navigator.userAgent or http_header['User-Agent']
+     * @param {number} [maxPhoneWidth=600] <strong>only for browsers</strong> specify a value for the maximum
+     *        width of smallest device side (in logical "CSS" pixels) until a device detected as mobile will be handled
+     *        as phone.
+     *        This is only used in cases where the device cannot be classified as phone or tablet.<br>
+     *        See <a href="http://developer.android.com/guide/practices/screens_support.html">Declaring Tablet Layouts
+     *        for Android</a>.<br>
+     *        If you provide a value < 0, then this "fuzzy" check is disabled.
+     * @constructor
+     * @global
+     */
+    function MobileDetect(userAgent, maxPhoneWidth) {
+        this.ua = prepareUserAgent(userAgent);
+        this._cache = {};
+        //600dp is typical 7" tablet minimum width
+        this.maxPhoneWidth = maxPhoneWidth || 600;
+    }
+
+    MobileDetect.prototype = {
+        constructor: MobileDetect,
+
+        /**
+         * Returns the detected phone or tablet type or <tt>null</tt> if it is not a mobile device.
+         * <br>
+         * For a list of possible return values see {@link MobileDetect#phone} and {@link MobileDetect#tablet}.<br>
+         * <br>
+         * If the device is not detected by the regular expressions from Mobile-Detect, a test is made against
+         * the patterns of <a href="http://detectmobilebrowsers.com/">detectmobilebrowsers.com</a>. If this test
+         * is positive, a value of <code>UnknownPhone</code>, <code>UnknownTablet</code> or
+         * <code>UnknownMobile</code> is returned.<br>
+         * When used in browser, the decision whether phone or tablet is made based on <code>screen.width/height</code>.<br>
+         * <br>
+         * When used server-side (node.js), there is no way to tell the difference between <code>UnknownTablet</code>
+         * and <code>UnknownMobile</code>, so you will get <code>UnknownMobile</code> here.<br>
+         * Be aware that since v1.0.0 in this special case you will get <code>UnknownMobile</code> only for:
+         * {@link MobileDetect#mobile}, not for {@link MobileDetect#phone} and {@link MobileDetect#tablet}.
+         * In versions before v1.0.0 all 3 methods returned <code>UnknownMobile</code> which was tedious to use.
+         * <br>
+         * In most cases you will use the return value just as a boolean.
+         *
+         * @returns {String} the key for the phone family or tablet family, e.g. "Nexus".
+         * @function MobileDetect#mobile
+         */
+        mobile: function () {
+            impl.prepareDetectionCache(this._cache, this.ua, this.maxPhoneWidth);
+            return this._cache.mobile;
+        },
+
+        /**
+         * Returns the detected phone type/family string or <tt>null</tt>.
+         * <br>
+         * The returned tablet (family or producer) is one of following keys:<br>
+         * <br><tt>iPhone, BlackBerry, Pixel, HTC, Nexus, Dell, Motorola, Samsung, LG, Sony, Asus,
+         * Xiaomi, NokiaLumia, Micromax, Palm, Vertu, Pantech, Fly, Wiko, iMobile,
+         * SimValley, Wolfgang, Alcatel, Nintendo, Amoi, INQ, OnePlus, GenericPhone</tt><br>
+         * <br>
+         * If the device is not detected by the regular expressions from Mobile-Detect, a test is made against
+         * the patterns of <a href="http://detectmobilebrowsers.com/">detectmobilebrowsers.com</a>. If this test
+         * is positive, a value of <code>UnknownPhone</code> or <code>UnknownMobile</code> is returned.<br>
+         * When used in browser, the decision whether phone or tablet is made based on <code>screen.width/height</code>.<br>
+         * <br>
+         * When used server-side (node.js), there is no way to tell the difference between <code>UnknownTablet</code>
+         * and <code>UnknownMobile</code>, so you will get <code>null</code> here, while {@link MobileDetect#mobile}
+         * will return <code>UnknownMobile</code>.<br>
+         * Be aware that since v1.0.0 in this special case you will get <code>UnknownMobile</code> only for:
+         * {@link MobileDetect#mobile}, not for {@link MobileDetect#phone} and {@link MobileDetect#tablet}.
+         * In versions before v1.0.0 all 3 methods returned <code>UnknownMobile</code> which was tedious to use.
+         * <br>
+         * In most cases you will use the return value just as a boolean.
+         *
+         * @returns {String} the key of the phone family or producer, e.g. "iPhone"
+         * @function MobileDetect#phone
+         */
+        phone: function () {
+            impl.prepareDetectionCache(this._cache, this.ua, this.maxPhoneWidth);
+            return this._cache.phone;
+        },
+
+        /**
+         * Returns the detected tablet type/family string or <tt>null</tt>.
+         * <br>
+         * The returned tablet (family or producer) is one of following keys:<br>
+         * <br><tt>iPad, NexusTablet, GoogleTablet, SamsungTablet, Kindle, SurfaceTablet,
+         * HPTablet, AsusTablet, BlackBerryTablet, HTCtablet, MotorolaTablet, NookTablet,
+         * AcerTablet, ToshibaTablet, LGTablet, FujitsuTablet, PrestigioTablet,
+         * LenovoTablet, DellTablet, YarvikTablet, MedionTablet, ArnovaTablet,
+         * IntensoTablet, IRUTablet, MegafonTablet, EbodaTablet, AllViewTablet,
+         * ArchosTablet, AinolTablet, NokiaLumiaTablet, SonyTablet, PhilipsTablet,
+         * CubeTablet, CobyTablet, MIDTablet, MSITablet, SMiTTablet, RockChipTablet,
+         * FlyTablet, bqTablet, HuaweiTablet, NecTablet, PantechTablet, BronchoTablet,
+         * VersusTablet, ZyncTablet, PositivoTablet, NabiTablet, KoboTablet, DanewTablet,
+         * TexetTablet, PlaystationTablet, TrekstorTablet, PyleAudioTablet, AdvanTablet,
+         * DanyTechTablet, GalapadTablet, MicromaxTablet, KarbonnTablet, AllFineTablet,
+         * PROSCANTablet, YONESTablet, ChangJiaTablet, GUTablet, PointOfViewTablet,
+         * OvermaxTablet, HCLTablet, DPSTablet, VistureTablet, CrestaTablet,
+         * MediatekTablet, ConcordeTablet, GoCleverTablet, ModecomTablet, VoninoTablet,
+         * ECSTablet, StorexTablet, VodafoneTablet, EssentielBTablet, RossMoorTablet,
+         * iMobileTablet, TolinoTablet, AudioSonicTablet, AMPETablet, SkkTablet,
+         * TecnoTablet, JXDTablet, iJoyTablet, FX2Tablet, XoroTablet, ViewsonicTablet,
+         * VerizonTablet, OdysTablet, CaptivaTablet, IconbitTablet, TeclastTablet,
+         * OndaTablet, JaytechTablet, BlaupunktTablet, DigmaTablet, EvolioTablet,
+         * LavaTablet, AocTablet, MpmanTablet, CelkonTablet, WolderTablet, MediacomTablet,
+         * MiTablet, NibiruTablet, NexoTablet, LeaderTablet, UbislateTablet,
+         * PocketBookTablet, KocasoTablet, HisenseTablet, Hudl, TelstraTablet,
+         * GenericTablet</tt><br>
+         * <br>
+         * If the device is not detected by the regular expressions from Mobile-Detect, a test is made against
+         * the patterns of <a href="http://detectmobilebrowsers.com/">detectmobilebrowsers.com</a>. If this test
+         * is positive, a value of <code>UnknownTablet</code> or <code>UnknownMobile</code> is returned.<br>
+         * When used in browser, the decision whether phone or tablet is made based on <code>screen.width/height</code>.<br>
+         * <br>
+         * When used server-side (node.js), there is no way to tell the difference between <code>UnknownTablet</code>
+         * and <code>UnknownMobile</code>, so you will get <code>null</code> here, while {@link MobileDetect#mobile}
+         * will return <code>UnknownMobile</code>.<br>
+         * Be aware that since v1.0.0 in this special case you will get <code>UnknownMobile</code> only for:
+         * {@link MobileDetect#mobile}, not for {@link MobileDetect#phone} and {@link MobileDetect#tablet}.
+         * In versions before v1.0.0 all 3 methods returned <code>UnknownMobile</code> which was tedious to use.
+         * <br>
+         * In most cases you will use the return value just as a boolean.
+         *
+         * @returns {String} the key of the tablet family or producer, e.g. "SamsungTablet"
+         * @function MobileDetect#tablet
+         */
+        tablet: function () {
+            impl.prepareDetectionCache(this._cache, this.ua, this.maxPhoneWidth);
+            return this._cache.tablet;
+        },
+
+        /**
+         * Returns the (first) detected user-agent string or <tt>null</tt>.
+         * <br>
+         * The returned user-agent is one of following keys:<br>
+         * <br><tt>Chrome, Dolfin, Opera, Skyfire, Edge, IE, Firefox, Bolt, TeaShark, Blazer,
+         * Safari, WeChat, UCBrowser, baiduboxapp, baidubrowser, DiigoBrowser, Mercury,
+         * ObigoBrowser, NetFront, GenericBrowser, PaleMoon</tt><br>
+         * <br>
+         * In most cases calling {@link MobileDetect#userAgent} will be sufficient. But there are rare
+         * cases where a mobile device pretends to be more than one particular browser. You can get the
+         * list of all matches with {@link MobileDetect#userAgents} or check for a particular value by
+         * providing one of the defined keys as first argument to {@link MobileDetect#is}.
+         *
+         * @returns {String} the key for the detected user-agent or <tt>null</tt>
+         * @function MobileDetect#userAgent
+         */
+        userAgent: function () {
+            if (this._cache.userAgent === undefined) {
+                this._cache.userAgent = impl.findMatch(impl.mobileDetectRules.uas, this.ua);
+            }
+            return this._cache.userAgent;
+        },
+
+        /**
+         * Returns all detected user-agent strings.
+         * <br>
+         * The array is empty or contains one or more of following keys:<br>
+         * <br><tt>Chrome, Dolfin, Opera, Skyfire, Edge, IE, Firefox, Bolt, TeaShark, Blazer,
+         * Safari, WeChat, UCBrowser, baiduboxapp, baidubrowser, DiigoBrowser, Mercury,
+         * ObigoBrowser, NetFront, GenericBrowser, PaleMoon</tt><br>
+         * <br>
+         * In most cases calling {@link MobileDetect#userAgent} will be sufficient. But there are rare
+         * cases where a mobile device pretends to be more than one particular browser. You can get the
+         * list of all matches with {@link MobileDetect#userAgents} or check for a particular value by
+         * providing one of the defined keys as first argument to {@link MobileDetect#is}.
+         *
+         * @returns {Array} the array of detected user-agent keys or <tt>[]</tt>
+         * @function MobileDetect#userAgents
+         */
+        userAgents: function () {
+            if (this._cache.userAgents === undefined) {
+                this._cache.userAgents = impl.findMatches(impl.mobileDetectRules.uas, this.ua);
+            }
+            return this._cache.userAgents;
+        },
+
+        /**
+         * Returns the detected operating system string or <tt>null</tt>.
+         * <br>
+         * The operating system is one of following keys:<br>
+         * <br><tt>AndroidOS, BlackBerryOS, PalmOS, SymbianOS, WindowsMobileOS, WindowsPhoneOS,
+         * iOS, iPadOS, SailfishOS, MeeGoOS, MaemoOS, JavaOS, webOS, badaOS, BREWOS</tt><br>
+         *
+         * @returns {String} the key for the detected operating system.
+         * @function MobileDetect#os
+         */
+        os: function () {
+            if (this._cache.os === undefined) {
+                this._cache.os = impl.detectOS(this.ua);
+            }
+            return this._cache.os;
+        },
+
+        /**
+         * Get the version (as Number) of the given property in the User-Agent.
+         * <br>
+         * Will return a float number. (eg. 2_0 will return 2.0, 4.3.1 will return 4.31)
+         *
+         * @param {String} key a key defining a thing which has a version.<br>
+         *        You can use one of following keys:<br>
+         * <br><tt>Mobile, Build, Version, VendorID, iPad, iPhone, iPod, Kindle, Chrome, Coast,
+         * Dolfin, Firefox, Fennec, Edge, IE, NetFront, NokiaBrowser, Opera, Opera Mini,
+         * Opera Mobi, UCBrowser, MQQBrowser, MicroMessenger, baiduboxapp, baidubrowser,
+         * SamsungBrowser, Iron, Safari, Skyfire, Tizen, Webkit, PaleMoon,
+         * SailfishBrowser, Gecko, Trident, Presto, Goanna, iOS, Android, Sailfish,
+         * BlackBerry, BREW, Java, Windows Phone OS, Windows Phone, Windows CE, Windows
+         * NT, Symbian, webOS</tt><br>
+         *
+         * @returns {Number} the version as float or <tt>NaN</tt> if User-Agent doesn't contain this version.
+         *          Be careful when comparing this value with '==' operator!
+         * @function MobileDetect#version
+         */
+        version: function (key) {
+            return impl.getVersion(key, this.ua);
+        },
+
+        /**
+         * Get the version (as String) of the given property in the User-Agent.
+         * <br>
+         *
+         * @param {String} key a key defining a thing which has a version.<br>
+         *        You can use one of following keys:<br>
+         * <br><tt>Mobile, Build, Version, VendorID, iPad, iPhone, iPod, Kindle, Chrome, Coast,
+         * Dolfin, Firefox, Fennec, Edge, IE, NetFront, NokiaBrowser, Opera, Opera Mini,
+         * Opera Mobi, UCBrowser, MQQBrowser, MicroMessenger, baiduboxapp, baidubrowser,
+         * SamsungBrowser, Iron, Safari, Skyfire, Tizen, Webkit, PaleMoon,
+         * SailfishBrowser, Gecko, Trident, Presto, Goanna, iOS, Android, Sailfish,
+         * BlackBerry, BREW, Java, Windows Phone OS, Windows Phone, Windows CE, Windows
+         * NT, Symbian, webOS</tt><br>
+         *
+         * @returns {String} the "raw" version as String or <tt>null</tt> if User-Agent doesn't contain this version.
+         *
+         * @function MobileDetect#versionStr
+         */
+        versionStr: function (key) {
+            return impl.getVersionStr(key, this.ua);
+        },
+
+        /**
+         * Global test key against userAgent, os, phone, tablet and some other properties of userAgent string.
+         *
+         * @param {String} key the key (case-insensitive) of a userAgent, an operating system, phone or
+         *        tablet family.<br>
+         *        For a complete list of possible values, see {@link MobileDetect#userAgent},
+         *        {@link MobileDetect#os}, {@link MobileDetect#phone}, {@link MobileDetect#tablet}.<br>
+         *        Additionally you have following keys:<br>
+         * <br><tt>Bot, MobileBot, DesktopMode, TV, WebKit, Console, Watch</tt><br>
+         *
+         * @returns {boolean} <tt>true</tt> when the given key is one of the defined keys of userAgent, os, phone,
+         *                    tablet or one of the listed additional keys, otherwise <tt>false</tt>
+         * @function MobileDetect#is
+         */
+        is: function (key) {
+            return containsIC(this.userAgents(), key) ||
+                   equalIC(key, this.os()) ||
+                   equalIC(key, this.phone()) ||
+                   equalIC(key, this.tablet()) ||
+                   containsIC(impl.findMatches(impl.mobileDetectRules.utils, this.ua), key);
+        },
+
+        /**
+         * Do a quick test against navigator::userAgent.
+         *
+         * @param {String|RegExp} pattern the pattern, either as String or RegExp
+         *                        (a string will be converted to a case-insensitive RegExp).
+         * @returns {boolean} <tt>true</tt> when the pattern matches, otherwise <tt>false</tt>
+         * @function MobileDetect#match
+         */
+        match: function (pattern) {
+            if (!(pattern instanceof RegExp)) {
+                pattern = new RegExp(pattern, 'i');
+            }
+            return pattern.test(this.ua);
+        },
+
+        /**
+         * Checks whether the mobile device can be considered as phone regarding <code>screen.width</code>.
+         * <br>
+         * Obviously this method makes sense in browser environments only (not for Node.js)!
+         * @param {number} [maxPhoneWidth] the maximum logical pixels (aka. CSS-pixels) to be considered as phone.<br>
+         *        The argument is optional and if not present or falsy, the value of the constructor is taken.
+         * @returns {boolean|undefined} <code>undefined</code> if screen size wasn't detectable, else <code>true</code>
+         *          when screen.width is less or equal to maxPhoneWidth, otherwise <code>false</code>.<br>
+         *          Will always return <code>undefined</code> server-side.
+         */
+        isPhoneSized: function (maxPhoneWidth) {
+            return MobileDetect.isPhoneSized(maxPhoneWidth || this.maxPhoneWidth);
+        },
+
+        /**
+         * Returns the mobile grade ('A', 'B', 'C').
+         *
+         * @returns {String} one of the mobile grades ('A', 'B', 'C').
+         * @function MobileDetect#mobileGrade
+         */
+        mobileGrade: function () {
+            if (this._cache.grade === undefined) {
+                this._cache.grade = impl.mobileGrade(this);
+            }
+            return this._cache.grade;
+        }
+    };
+
+    // environment-dependent
+    if (typeof window !== 'undefined' && window.screen) {
+        MobileDetect.isPhoneSized = function (maxPhoneWidth) {
+            return maxPhoneWidth < 0 ? undefined : impl.getDeviceSmallerSide() <= maxPhoneWidth;
+        };
+    } else {
+        MobileDetect.isPhoneSized = function () {};
+    }
+
+    // should not be replaced by a completely new object - just overwrite existing methods
+    MobileDetect._impl = impl;
+    
+    MobileDetect.version = '1.4.5 2021-03-13';
+
+    return MobileDetect;
+}); // end of call of define()
+})((function (undefined) {
+    if ( true && module.exports) {
+        return function (factory) { module.exports = factory(); };
+    } else if (true) {
+        return __webpack_require__.amdD;
+    } else {}
+})());
+
+/***/ }),
 
 /***/ 18:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   $: function() { return /* binding */ TbsDatabase; }
+/* harmony export */ });
+/* harmony import */ var _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(618);
+/* harmony import */ var _tbs_data_table_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(765);
+
+
+class TbsDatabase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase */ .H {
+  constructor() {
+    super();
+    this.tables = [];
+  }
+  createTable(tableName) {
+    let table = new _tbs_data_table_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsDataTable */ .QF(tableName);
+    table.type = 'table';
+    this.tables.push(table);
+    return this.getTable(tableName);
+  }
+  createView(tableName) {
+    let table = new _tbs_data_table_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsDataTable */ .QF(tableName);
+    table.type = 'view';
+    this.tables.push(table);
+    return this.getTable(tableName);
+  }
+  removeTable(tableName) {
+    for (let i = 0, len = this.tables.length; i < len; i++) {
+      let table = this.tables[i];
+      if (table.tableName === tableName) {
+        this.tables.splice(i, 1);
+        break;
+      }
+    }
+  }
+  getTable(tableName) {
+    let result = null;
+    for (let i = 0, len = this.tables.length; i < len; i++) {
+      let table = this.tables[i];
+      if (table.tableName === tableName) {
+        result = table;
+        break;
+      }
+    }
+    return result;
+  }
+}
+
+/***/ }),
+
+/***/ 637:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   B: function() { return /* binding */ TbsGridPanelBase; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 /* harmony import */ var _tbs_base_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(618);
-/* harmony import */ var _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(541);
-/* harmony import */ var _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(543);
+/* harmony import */ var _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(652);
+/* harmony import */ var _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(860);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 
 
@@ -83,11 +1147,11 @@ class TbsGridPanelBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_3__/* .TbsB
     s += '<div class="tbs-grid-bottom-line"	style="left:30000px;"></div>';
     s += '<div class="tbs-grid-left-line" style="left:30000px;"></div>';
     s += '<div class="tbs-grid-right-line" style="left:30000px;"></div>';
-    s += '<div class="tbs-grid-input-panel" style="left:30000px;"></div>';
+    s += '<div class="tbs-grid-input-layer-panel" style="left:30000px;"></div>'; // confuse
     s += '<div class="tbs-grid-canvas"></div>';
-    s += '<div class="tbs-grid-panel-input">';
+    s += '<div class="tbs-grid-input-panel">'; // confuse
     s += '<input type="text" class="tbs-grid-input"  data-type="" data-click=""/>';
-    s += '<img class="tbs-grid-panel-input-icon" data-type="" data-click="" />';
+    s += '<img class="tbs-grid-input-panel-icon" data-type="" data-click="" />';
     s += '</div>';
     s += '<input type="text" class="tbs-grid-input-code" data-type="" data-click="" style="left:30000px;"/>';
     parentElement.insertAdjacentHTML('beforeend', s);
@@ -116,17 +1180,18 @@ class TbsGridPanelBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_3__/* .TbsB
 /***/ 360:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   T: function() { return /* binding */ TbsGridPanel10; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
-/* harmony import */ var _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(541);
-/* harmony import */ var _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(543);
+/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(637);
+/* harmony import */ var _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(652);
+/* harmony import */ var _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(860);
 /* harmony import */ var _tbs_grid_table_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(149);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 
 
@@ -368,17 +1433,18 @@ class TbsGridPanel10 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
 /***/ 719:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   i: function() { return /* binding */ TbsGridPanel20; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
-/* harmony import */ var _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(541);
-/* harmony import */ var _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(543);
+/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(637);
+/* harmony import */ var _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(652);
+/* harmony import */ var _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(860);
 /* harmony import */ var _tbs_grid_table_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(149);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 
 
@@ -456,7 +1522,7 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
         /**
          * Render: Start
          */
-        let tbsGridRenderInfo = new _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_3__/* .TbsGridRenderInfo */ .w(grid);
+        let tbsGridRenderInfo = new _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_3__/* .TbsGridRenderPanelInfo */ .I(grid);
         tbsGridRenderInfo.start(panelName, tableCell, grid.info_table.data[x], i, x);
         tbsGridRenderInfo = null;
         if (i == 0) tableCell.rowSpan = grid.headerRowCount;else tableCell.style.display = 'none';
@@ -478,55 +1544,14 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     grid.classRow.hideTableRows(grid, panelName, tableRows, tableRowIndex, pageRowCount);
   }
   setDataPanel2(param) {
-    let selector = this.selector;
-    const grid = this.grid;
-    let panelName = this.panelName2;
-    if (grid.fixedColumnIndex == -1) return;
-
-    /* table thead */
-    grid.classRow.setTableHead(grid, panelName);
-
-    /* table tbody */
-    let tablesRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
-    for (let i = 0, rowLen = tablesRows.length; i < rowLen; i++) {
-      let tableRow = tablesRows[i];
-      tableRow.style.height = grid.headerRowHeight + 'px';
-      for (let x = 0; x <= grid.fixedColumnIndex; x++) {
-        let column = grid.column_table.data[x];
-        let header = grid.headerColumnTable[i][x];
-        let tableCell = tableRow.childNodes[x];
-        let selectedValue = grid.isSelectedHeaderCell(panelName, x);
-        if (selectedValue == 1) tableCell.classList.add('tbs-grid-cell-select');
-        let columnName = header[tbsGridNames.column.name];
-        tableCell.style.textAlign = 'center'; // header[tbsGridNames.column.align];
-
-        tableCell.dataset.name = header[tbsGridNames.column.kind] == 'column' ? columnName : '';
-        tableCell.dataset.kind = header[tbsGridNames.column.kind];
-        tableCell.colSpan = header[tbsGridNames.column.colSpan];
-        tableCell.rowSpan = header[tbsGridNames.column.rowSpan];
-        tableCell.style.display = header[tbsGridNames.column.visible] == true ? '' : 'none';
-        if (header[tbsGridNames.column.kind] == 'column') {
-          let className = grid.classColumn.getHeaderProperty(columnName, tbsGridNames.column.className);
-          if (grid.notNull(className)) tableCell.classList.add(className);
-          tableCell.style.display = column[tbsGridNames.column.visible] == true ? '' : 'none';
-        }
-        tableCell.querySelector('.tbs-grid-cell-span-sort').textContent = '';
-        if (grid.sort_column_table.isRow(tbsGridNames.column.name, columnName) && header[tbsGridNames.column.kind] == 'column') {
-          let sortColumn = grid.classSort.getSortRow(columnName);
-          let sortSymbol = '';
-          if (sortColumn['order'] == 'desc') sortSymbol = '▼';else if (sortColumn['order'] == 'asc') sortSymbol = '▲';
-          tableCell.querySelector('.tbs-grid-cell-span-sort').textContent = sortSymbol;
-        }
-        tableCell.childNodes[0].childNodes[0].textContent = header[tbsGridNames.column.text];
-        if (header[tbsGridNames.column.kind] == 'empty') {}
-        ;
-      }
-    }
+    this.setDataPanelSub(this.panelName2, param);
   }
   setDataPanel0(param) {
+    this.setDataPanelSub(this.panelName0, param);
+  }
+  setDataPanelSub(panelName, param) {
     let selector = this.selector;
     const grid = this.grid;
-    let panelName = this.panelName0;
 
     /* table thead */
     grid.classRow.setTableHead(grid, panelName);
@@ -534,47 +1559,57 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     /* table tbody */
     let tablesRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
     let startColumnIndex = 0;
-    if (grid.fixedColumnIndex != -1) {
-      startColumnIndex = grid.fixedColumnIndex + 1;
-      for (let i = 0, rowLen = tablesRows.length; i < rowLen; i++) {
-        let tableRow = tablesRows[i];
-        tableRow.style.height = grid.headerRowHeight + 'px';
-        for (let x = 0; x <= grid.fixedColumnIndex; x++) {
-          let tableCell = tableRow.childNodes[x];
-          tableCell.style.display = 'none';
+    let lastColumnIndex = grid.column_table.count();
+    if (panelName == 'panel22') {
+      lastColumnIndex = grid.fixedColumnIndex + 1;
+    } else {
+      if (grid.fixedColumnIndex != -1) {
+        startColumnIndex = grid.fixedColumnIndex + 1;
+        for (let i = 0, rowLen = tablesRows.length; i < rowLen; i++) {
+          let tableRow = tablesRows[i];
+          tableRow.style.height = grid.headerRowHeight + 'px';
+          for (let x = 0; x <= grid.fixedColumnIndex; x++) {
+            let tableCell = tableRow.childNodes[x];
+            tableCell.style.display = 'none';
+          }
         }
       }
     }
     for (let i = 0, rowLen = tablesRows.length; i < rowLen; i++) {
       let tableRow = tablesRows[i];
       tableRow.style.height = grid.headerRowHeight + 'px';
-      for (let x = startColumnIndex, colLen = grid.column_table.count(); x < colLen; x++) {
-        let column = grid.column_table.data[x];
-        let header = grid.headerColumnTable[i][x];
-        let tableCell = tableRow.childNodes[x];
+      for (let x = startColumnIndex, colLen = lastColumnIndex; x < colLen; x++) {
+        const column = grid.column_table.data[x];
+        const header = grid.headerColumnTable[i][x];
+        const tableCell = tableRow.childNodes[x];
         let selectedValue = grid.isSelectedHeaderCell(panelName, x);
         if (selectedValue == 1) tableCell.classList.add('tbs-grid-cell-select');
         let columnName = header[tbsGridNames.column.name];
-        tableCell.style.display = '';
         tableCell.style.display = header[tbsGridNames.column.visible] == true ? '' : 'none';
         tableCell.style.textAlign = header[tbsGridNames.column.align];
-        tableCell.dataset.name = header[tbsGridNames.column.kind] == 'column' ? columnName : '';
-        tableCell.dataset.kind = header[tbsGridNames.column.kind];
         tableCell.colSpan = header[tbsGridNames.column.colSpan];
         tableCell.rowSpan = header[tbsGridNames.column.rowSpan];
+        tableCell.dataset.name = header[tbsGridNames.column.kind] == 'column' ? columnName : '';
+        tableCell.dataset.kind = header[tbsGridNames.column.kind];
         if (header[tbsGridNames.column.kind] == 'column') {
           let className = grid.classColumn.getHeaderProperty(columnName, tbsGridNames.column.className);
           if (grid.notNull(className)) tableCell.classList.add(className);
           tableCell.style.display = column[tbsGridNames.column.visible] == true ? '' : 'none';
+          let columnType = column[tbsGridNames.column.type];
+          if (columnType == tbsGridTypes.CellType.checkbox) {
+            const checkbox = tableCell.querySelector('.tbs-grid-html-checkbox');
+            checkbox.style.display = '';
+          }
         }
-        tableCell.querySelector('.tbs-grid-cell-span-sort').textContent = '';
+        tableCell.querySelector('.tbs-grid-html-sort').textContent = '';
         if (grid.sort_column_table.isRow(tbsGridNames.column.name, columnName) && header[tbsGridNames.column.kind] == 'column') {
           let sortColumn = grid.classSort.getSortRow(columnName);
           let sortSymbol = '';
           if (sortColumn['order'] == 'desc') sortSymbol = '▼';else if (sortColumn['order'] == 'asc') sortSymbol = '▲';
-          tableCell.querySelector('.tbs-grid-cell-span-sort').textContent = sortSymbol;
+          tableCell.querySelector('.tbs-grid-html-sort').textContent = sortSymbol;
         }
-        tableCell.childNodes[0].childNodes[0].textContent = header[tbsGridNames.column.text];
+        const textSpan = tableCell.querySelector('.tbs-grid-html-string');
+        textSpan.textContent = header[tbsGridNames.column.text];
       }
     }
   }
@@ -585,7 +1620,7 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     let clsPanel = this;
     let table = document.querySelector(selector + ' .tbs-grid-panel21 .tbs-grid-table');
     const cickEvent = function (e) {
-      if (e.target.classList.contains('tbs-grid-cell-checkbox')) {} else return;
+      if (e.target.classList.contains('tbs-grid-html-checkbox')) {} else return;
       if (clsPanel.isChecked) clsPanel.isChecked = false;else clsPanel.isChecked = true;
       for (let i = 0, len = grid.view_table.count(); i < len; i++) {
         grid.view_table.data[i].check = clsPanel.isChecked;
@@ -638,7 +1673,7 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     let eventPanel = document.querySelector(selector + ' .tbs-grid-' + panelName);
     const mouseDownEvent = function (e) {
       let col = e.target.closest('.tbs-grid-cell');
-      if (e.target.classList.contains('tbs-grid-cell-resize')) return;
+      if (e.target.classList.contains('tbs-grid-html-resize')) return;
       grid.startX = startX = window.pageXOffset + e.clientX;
       grid.startY = startY = window.pageYOffset + e.clientY;
       grid.lastX = lastX = window.pageXOffset + e.clientX;
@@ -763,7 +1798,40 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
         document.removeEventListener('mousemove', mouseMoveEvent);
         document.removeEventListener('mouseup', mouseUpEvent);
       } else {
-        if (mouseButton == 0 && startX > lastX - grid.mousePointRange && startX < lastX + grid.mousePointRange && startY > lastY - grid.mousePointRange && startY < lastY + grid.mousePointRange) {
+        let tableCell;
+        if (e.target.classList.contains('tbs-grid-html-checkbox')) {
+          debugger;
+          tableCell = e.target.parentNode.parentNode;
+          const column = grid.column_table.selectRowByRowIndex(tableCell.cellIndex);
+          const columnName = column[tbsGridNames.column.name];
+
+          // let isChecked = column[tbsGridNames.column.isChecked] ? true : false;
+          // if (isChecked) grid.column_table.update(columnName, tbsGridNames.column.isChecked, false);
+          // else grid.column_table.update(columnName, tbsGridNames.column.isChecked, true);
+          let isChecked = false;
+          if (e.target.checked) isChecked = false;else isChecked = true;
+          let newValue = isChecked ? grid.getTrueValue(columnName) : grid.getFalseValue(columnName);
+
+          // exclude : disabled checkbox
+          const callback = grid.getRenderer(columnName, 'callback');
+          for (let i = 0, len = grid.view_table.count(); i < len; i++) {
+            const dataRow = grid.view_table.selectRowByRowIndex(i);
+            if (callback) {
+              const eventRow = {};
+              eventRow.rowIndex = i;
+              eventRow.columnIndex = tableCell.cellIndex;
+              eventRow.columnName = columnName;
+              eventRow.value = dataRow[tbsGridNames.column.name];
+              eventRow.text = dataRow[tbsGridNames.column.name];
+              eventRow.data = dataRow;
+              const result = callback(grid, eventRow);
+              if (result.editable == false) continue;else grid.setValue(i, columnName, newValue);
+            } else {
+              grid.setValue(i, columnName, newValue);
+            }
+          }
+          grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+        } else if (mouseButton == 0 && startX > lastX - grid.mousePointRange && startX < lastX + grid.mousePointRange && startY > lastY - grid.mousePointRange && startY < lastY + grid.mousePointRange) {
           let element = e.target.closest('.tbs-grid-cell');
           let name = element.dataset.name;
           if (e.detail == 1) {
@@ -841,6 +1909,7 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       }
     };
     const selectCell = function (e, table) {
+      if (e.target.classList.contains('tbs-grid-html-checkbox')) return;
       let col = e.target.closest('.tbs-grid-cell');
       let column = grid.classColumn.getColumnByIndex(col.cellIndex);
       let columnName = column[tbsGridNames.column.name];
@@ -858,7 +1927,7 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
           let div = document.createElement('div');
           div.classList.add('tbs-grid-cell-div');
           let span = document.createElement('span');
-          span.classList.add('tbs-grid-cell-span');
+          span.classList.add('tbs-grid-html-string');
           div.appendChild(span);
           td.appendChild(div);
           tr.appendChild(td);
@@ -868,7 +1937,7 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
         }
         moveDiv = document.querySelector('.tbs-grid-move');
         moveDiv.style.display = 'none';
-        moveDiv.querySelector('.tbs-grid-cell-span').textContent = col.querySelector('.tbs-grid-cell-span').innerText;
+        moveDiv.querySelector('.tbs-grid-html-string').textContent = col.querySelector('.tbs-grid-html-string').innerText;
         moveDiv = document.querySelector('.tbs-grid-move');
         let colRect = col.getBoundingClientRect();
         moveCell = col;
@@ -987,7 +2056,7 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     const selectRefresh = function (type, lastX, lastY) {
       let content = document.querySelector(selector + ' .tbs-grid-panel30');
       let table = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-      trContent = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
+      const trContent = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
       let startRowIndex = grid.startRowIndex;
       let lastRowIndex = grid.lastRowIndex;
       let startCellIndex = grid.startCellIndex;
@@ -1039,21 +2108,32 @@ class TbsGridPanel20 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
 /***/ 730:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   z: function() { return /* binding */ TbsGridPanel30; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
-/* harmony import */ var _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(541);
-/* harmony import */ var _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(543);
+/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(637);
+/* harmony import */ var _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(652);
+/* harmony import */ var _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(860);
 /* harmony import */ var _tbs_grid_table_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(149);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 
 
 
+/*
+1. td, div, checkbox 에 다음과 같은 정보를 준다.
+    => data-row-index,      data-name,      data-column-index
+    => data-cell-row-index, data-cell-name, data-cell-column-index (template 일 경우)
+2. valueName, textName 이렇게 가져간다.
+3. 1개 일 경우 이름 필요없음
+   2개 일 경우 이름 필요 함  checkbox1, checkbox2, checkbox3 에 checkbox name을 준다.
+4. 이벤트에 정보를 넘겨줄때, rowIndex, columnIndex,
+                         cellRowIndex, cellColumnIndex
+*/
 class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridPanelBase */ .B {
   constructor(grid) {
     super(grid);
@@ -1149,7 +2229,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
         tableCell.dataset.displayRowIndex = i;
         tableCell.dataset.cellType = grid.info_table.selectValue(x, tbsGridNames.column.type);
         /* Render: Start */
-        let tbsGridRenderInfo = new _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_3__/* .TbsGridRenderInfo */ .w(grid);
+        let tbsGridRenderInfo = new _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_3__/* .TbsGridRenderPanelInfo */ .I(grid);
         tbsGridRenderInfo.start(panelName, tableCell, grid.info_table.data[x], i, x);
         tbsGridRenderInfo = null;
 
@@ -1197,7 +2277,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
         if (x <= grid.fixedColumnIndex) tableCell = tableRow.childNodes[x];
 
         /* Render: Start */
-        let tbsGridRender = new _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRender */ .s(grid);
+        let tbsGridRender = new _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderPanel */ .e(grid);
         tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], i, x);
         tbsGridRender = null;
         //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], i, x);
@@ -1240,10 +2320,16 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       grid.classRow.setTableRow(grid, tableRow, i, panelName);
       for (let x = 0; x <= lastColumnIndex; x++) {
         let tableCell = tableRow.childNodes[x];
+        tableCell.dataset.rowIndex = i;
+        tableCell.dataset.columnIndex = x;
+        tableCell.dataset.name = grid.column_table.data[x].name;
+        tableCell.childNodes[0].dataset.rowIndex = i;
+        tableCell.childNodes[0].dataset.columnIndex = x;
+        tableCell.childNodes[0].dataset.name = grid.column_table.data[x].name;
         if (grid.fixedColumnIndex != -1 && x <= grid.fixedColumnIndex) continue;
 
         /* Render: Start */
-        let tbsGridRender = new _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRender */ .s(grid);
+        let tbsGridRender = new _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderPanel */ .e(grid);
         tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], i, x);
         tbsGridRender = null;
 
@@ -1298,7 +2384,43 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     let flagDown = false;
     let flagLeft = false;
     let flagRight = false;
-    let eventPanel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
+    const mouseClickEvent = function (e) {
+      e.preventDefault();
+      if (e.target.classList.contains('tbs-grid-html-checkbox')) {} else return;
+      let rowIndex = e.target.parentNode.dataset.rowIndex;
+      let columnIndex = e.target.parentNode.dataset.columnIndex;
+      let columnName = e.target.parentNode.dataset.name;
+
+      // const column = grid.column_table.selectRowByRowIndex(columnIndex);
+      // let editable = column[tbsGridNames.column.editable];
+
+      let value = grid.view_table.selectValue(rowIndex, columnName);
+      // console.log(rowIndex);
+      // console.log(columnIndex);
+      // console.log(columnName);
+      // console.log(value);
+
+      if (grid.notEmpty(grid.user_clickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
+        const eventRow = {};
+        const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
+        eventRow.rowIndex = rowIndex;
+        eventRow.columnIndex = columnIndex;
+        eventRow.columnName = columnName;
+        eventRow.value = value;
+        eventRow.text = value;
+        eventRow.data = dataRows;
+        let result = grid.user_clickCheckbox(grid, eventRow);
+        if (result) {
+          let newValue = grid.reverseBoolean(value);
+          grid.setValue(rowIndex, columnName, newValue);
+          grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+        }
+      } else {
+        let newValue = grid.reverseBoolean(value);
+        grid.setValue(rowIndex, columnName, newValue);
+        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+      }
+    };
     const mouseDownEvent = function (e) {
       //if (e.detail == 1) console.log(`click ${e.detail}`);
       //if (e.detail == 2) console.log(`doubleclick ${e.detail}`);
@@ -1309,14 +2431,15 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       lastY = grid.lastY = window.pageYOffset + e.clientY;
       //console.log(`mouseUpEvent : lastX ${lastX} : lastY ${lastY}`)
       //console.log(`e.target.className ${e.target.className}`);
+
       let tableCell;
-      if (e.target.classList.contains('tbs-grid-cell-div-icon')) {
+      if (e.target.classList.contains('tbs-grid-html-icon')) {
         targetName = 'icon';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
+      } else if (e.target.classList.contains('tbs-grid-html-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
+      } else if (e.target.classList.contains('tbs-grid-html-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -1336,7 +2459,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
           if (targetName == 'icon') {
             if (grid.grid_mode == tbsGridTypes.GridMode.tree) {
               grid.classTree.setTreeFolding(tableCell);
-              selectCell(e);
+              //selectCell(e);
             } else if (grid.grid_mode == tbsGridTypes.GridMode.group) {
               grid.classGroup.setGroupFolding(tableCell);
               e.preventDefault();
@@ -1392,7 +2515,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
             mode: 'mouse'
           };
           if (e.detail == 1) {
-            let panelInput = document.querySelector(selector + ' .tbs-grid-panel-input');
+            let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
             if (panelInput.style.left != '30000px') {
               grid.editEnd();
               grid.input_focus();
@@ -1412,13 +2535,13 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     };
     const selectCell = function (e) {
       let tableCell;
-      if (e.target.classList.contains('tbs-grid-cell-div-icon')) {
+      if (e.target.classList.contains('tbs-grid-html-icon')) {
         targetName = 'icon';
-        tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
+        tableCell = e.target.closest('.tbs-grid-cell');
+      } else if (e.target.classList.contains('tbs-grid-html-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
+      } else if (e.target.classList.contains('tbs-grid-html-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -1432,34 +2555,20 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       lastCellIndex = startCellIndex;
       startRowIndex = grid.classColumn.getRowIndexInTable(tableCell.parentNode.rowIndex, eventPanelName);
       lastRowIndex = startRowIndex;
-      if (eventPanelName == 'panel60') {
-        if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
-          let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel61 .tbs-grid-table tbody tr:not([style*="display: none"])');
-          for (let i = 0, len = tableRows.length; i < len; i++) {
-            let tableRow = tableRows[i];
-            let rect = tableRow.childNodes[0].getBoundingClientRect();
-            if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
-              startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              break;
-            }
+      if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
+        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
+        for (let i = 0, len = tableRows.length; i < len; i++) {
+          let tableRow = tableRows[i];
+          let rect = tableRow.childNodes[0].getBoundingClientRect();
+          if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
+            startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
+            lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
+            break;
           }
         }
-      } else {
-        if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
-          let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
-          for (let i = 0, len = tableRows.length; i < len; i++) {
-            let tableRow = tableRows[i];
-            let rect = tableRow.childNodes[0].getBoundingClientRect();
-            if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
-              startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              break;
-            }
-          }
-        }
-        //console.log(`startRowIndex ${startRowIndex} startRowIndex ${startRowIndex} startCellIndex  ${startCellIndex} lastCellIndex ${lastCellIndex}`)
       }
+      //console.log(`startRowIndex ${startRowIndex} startRowIndex ${startRowIndex} startCellIndex  ${startCellIndex} lastCellIndex ${lastCellIndex}`)
+
       grid.classRange.removeRange(0, -1);
       let _topRowIndex = grid.classRange.selectRange(startRowIndex, startRowIndex, startCellIndex, lastCellIndex);
       grid.classPanel30.setDataPanel(_topRowIndex);
@@ -1482,44 +2591,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let moveX = grid.lastX - grid.startX;
       let lastX = grid.lastX;
       let lastY = grid.lastY;
-      if (grid.fixedRowIndex != -1) {
-        let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
-        if (eventPanelName == 'panel60') {
-          panel = document.querySelector(selector + ' .tbs-grid-group30');
-        }
-        let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
-        let rect = panel.getBoundingClientRect();
-        let absRect = grid.getOffset(panel);
-        let rect30 = panel30.getBoundingClientRect();
-        let absRect30 = grid.getOffset(panel30);
-        let panelTop = absRect.top;
-        let panelBottom = absRect30.top + rect30.height;
-        let panelLeft = absRect.left;
-        let panelRight = absRect.left + rect.width;
-
-        //console.log(`selectCellMove : lastX ${lastX} < panelLeft : ${panelLeft} > panelRight ${panelRight}`);
-
-        // Outside the area
-        if (lastX < panelLeft || lastX > panelRight || lastY < panelTop || lastY > panelBottom) {
-          if (lastX < panelLeft) {
-            flagLeft = true;
-            doInterval(tbsGridTypes.Direction.left);
-          }
-          if (lastX > panelRight) {
-            flagRight = true;
-            doInterval(tbsGridTypes.Direction.right);
-          }
-          if (lastY < panelTop) {
-            flagUp = true;
-            doInterval(tbsGridTypes.Direction.up);
-          }
-          if (lastY > panelBottom) {
-            flagDown = true;
-            doInterval(tbsGridTypes.Direction.down);
-          }
-        }
-        select(moveX, moveY);
-      } else if (grid.fixedColumnIndex != -1) {
+      if (grid.fixedColumnIndex != -1) {
         if (eventPanelName == 'panel32') {
           let panel32 = document.querySelector(selector + ' .tbs-grid-panel32');
           let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
@@ -1618,13 +2690,13 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     const selectCellCtrlMove = function (e) {};
     const selectCellShift = function (e) {
       let tableCell;
-      if (e.target.classList.contains('tbs-grid-cell-div-icon')) {
+      if (e.target.classList.contains('tbs-grid-html-icon')) {
         targetName = 'icon';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
+      } else if (e.target.classList.contains('tbs-grid-html-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
+      } else if (e.target.classList.contains('tbs-grid-html-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -1641,30 +2713,15 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
 
       //console.log(`startRowIndex ${startRowIndex} lastRowIndex ${lastRowIndex} startCellIndex  ${startCellIndex} lastCellIndex ${lastCellIndex}`)
 
-      if (eventPanelName == 'panel60') {
-        if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
-          let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel61 .tbs-grid-table tbody tr:not([style*="display: none"])');
-          for (let i = 0, len = tableRows.length; i < len; i++) {
-            let tableRow = tableRows[i];
-            let rect = tableRow.childNodes[0].getBoundingClientRect();
-            if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
-              startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              break;
-            }
-          }
-        }
-      } else {
-        if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
-          let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
-          for (let i = 0, len = tableRows.length; i < len; i++) {
-            let tableRow = tableRows[i];
-            let rect = tableRow.childNodes[0].getBoundingClientRect();
-            if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
-              startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              break;
-            }
+      if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
+        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
+        for (let i = 0, len = tableRows.length; i < len; i++) {
+          let tableRow = tableRows[i];
+          let rect = tableRow.childNodes[0].getBoundingClientRect();
+          if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
+            startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
+            lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
+            break;
           }
         }
       }
@@ -1690,44 +2747,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let moveX = grid.lastX - grid.startX;
       let lastX = grid.lastX;
       let lastY = grid.lastY;
-      if (grid.fixedRowIndex != -1) {
-        let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
-        if (eventPanelName == 'panel60') {
-          panel = document.querySelector(selector + ' .tbs-grid-group30');
-        }
-        let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
-        let rect = panel.getBoundingClientRect();
-        let absRect = grid.getOffset(panel);
-        let rect30 = panel30.getBoundingClientRect();
-        let absRect30 = grid.getOffset(panel30);
-        let panelTop = absRect.top;
-        let panelBottom = absRect30.top + rect30.height;
-        let panelLeft = absRect.left;
-        let panelRight = absRect.left + rect.width;
-
-        //console.log(`selectCellMove : lastX ${lastX} < panelLeft : ${panelLeft} > panelRight ${panelRight}`);
-
-        // Outside the area
-        if (lastX < panelLeft || lastX > panelRight || lastY < panelTop || lastY > panelBottom) {
-          if (lastX < panelLeft) {
-            flagLeft = true;
-            doInterval(tbsGridTypes.Direction.left);
-          }
-          if (lastX > panelRight) {
-            flagRight = true;
-            doInterval(tbsGridTypes.Direction.right);
-          }
-          if (lastY < panelTop) {
-            flagUp = true;
-            doInterval(tbsGridTypes.Direction.up);
-          }
-          if (lastY > panelBottom) {
-            flagDown = true;
-            doInterval(tbsGridTypes.Direction.down);
-          }
-        }
-        select(moveX, moveY);
-      } else if (grid.fixedColumnIndex != -1) {
+      if (grid.fixedColumnIndex != -1) {
         let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
         let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
         let rect = panel.getBoundingClientRect();
@@ -1878,23 +2898,13 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
         } else flagDown = false;
       } else if (type == 'up') {
         grid.classScroll.setBarPositionByDirection('up');
-        if (grid.fixedRowIndex != -1) {
-          if (lastRowIndex != 0) {
-            let minRowIndex = lastRowIndex;
-            minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
-            grid.classRange.removeRange(0, -1);
-            let _topRowIndex = grid.classRange.selectRange(startRowIndex, minRowIndex, startCellIndex, lastCellIndex);
-            grid.classPanel30.setDataPanel(_topRowIndex);
-          } else flagUp = false;
-        } else {
-          if (lastRowIndex != 0) {
-            let minRowIndex = lastRowIndex;
-            minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
-            grid.classRange.removeRange(0, -1);
-            let _topRowIndex = grid.classRange.selectRange(startRowIndex, minRowIndex, startCellIndex, lastCellIndex);
-            grid.classPanel30.setDataPanel(_topRowIndex);
-          } else flagUp = false;
-        }
+        if (lastRowIndex != 0) {
+          let minRowIndex = lastRowIndex;
+          minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
+          grid.classRange.removeRange(0, -1);
+          let _topRowIndex = grid.classRange.selectRange(startRowIndex, minRowIndex, startCellIndex, lastCellIndex);
+          grid.classPanel30.setDataPanel(_topRowIndex);
+        } else flagUp = false;
       }
     };
     const doInterval = function (type) {
@@ -1926,7 +2936,9 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
         }
       }
     };
+    const eventPanel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
     eventPanel.addEventListener('mousedown', mouseDownEvent);
+    eventPanel.addEventListener('click', mouseClickEvent);
   }
   panel31_select(eventPanelName) {
     let selector = this.selector;
@@ -1941,7 +2953,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     let flagRight = false;
     let eventPanel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
     const clickEvent = function (e) {
-      if (e.target.classList.contains('tbs-grid-cell-checkbox')) {} else return;
+      if (e.target.classList.contains('tbs-grid-html-checkbox')) {} else return;
       let rowIndex = e.target.parentNode.parentNode.dataset.rowIndex;
       grid.view_table.data[rowIndex].check = e.target.checked;
       grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
@@ -2049,34 +3061,20 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       // lastCellIndex  = startCellIndex;
       startRowIndex = grid.classColumn.getRowIndexInTable(tableCell.parentNode.rowIndex, eventPanelName);
       lastRowIndex = startRowIndex;
-      if (eventPanelName == 'panel61') {
-        if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
-          let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel61 .tbs-grid-table tbody tr:not([style*="display: none"])');
-          for (let i = 0, len = tableRows.length; i < len; i++) {
-            let tableRow = tableRows[i];
-            let rect = tableRow.childNodes[0].getBoundingClientRect();
-            if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
-              startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              break;
-            }
+      if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
+        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
+        for (let i = 0, len = tableRows.length; i < len; i++) {
+          let tableRow = tableRows[i];
+          let rect = tableRow.childNodes[0].getBoundingClientRect();
+          if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
+            startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
+            lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
+            break;
           }
         }
-      } else {
-        if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
-          let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
-          for (let i = 0, len = tableRows.length; i < len; i++) {
-            let tableRow = tableRows[i];
-            let rect = tableRow.childNodes[0].getBoundingClientRect();
-            if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
-              startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              break;
-            }
-          }
-        }
-        //console.log(`startRowIndex ${startRowIndex} startRowIndex ${startRowIndex} startCellIndex  ${startCellIndex} lastCellIndex ${lastCellIndex}`)
       }
+      //console.log(`startRowIndex ${startRowIndex} startRowIndex ${startRowIndex} startCellIndex  ${startCellIndex} lastCellIndex ${lastCellIndex}`)
+
       let fromCellIndex = grid.classColumn.getFirstVisibleColumnIndex();
       let toCellIndex = grid.classColumn.getLastVisibleColumnIndex();
       grid.classRange.removeRange(0, -1);
@@ -2092,44 +3090,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let moveX = grid.lastX - grid.startX;
       let lastX = grid.lastX;
       let lastY = grid.lastY;
-      if (grid.fixedRowIndex != -1) {
-        let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
-        if (eventPanelName == 'panel60') {
-          panel = document.querySelector(selector + ' .tbs-grid-group30');
-        }
-        let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
-        let rect = panel.getBoundingClientRect();
-        let absRect = grid.getOffset(panel);
-        let rect30 = panel30.getBoundingClientRect();
-        let absRect30 = grid.getOffset(panel30);
-        let panelTop = absRect.top;
-        let panelBottom = absRect30.top + rect30.height;
-        let panelLeft = absRect.left;
-        let panelRight = absRect.left + rect.width;
-
-        //console.log(`selectCellMove : lastX ${lastX} < panelLeft : ${panelLeft} > panelRight ${panelRight}`);
-
-        // Outside the area
-        if (lastX < panelLeft || lastX > panelRight || lastY < panelTop || lastY > panelBottom) {
-          if (lastX < panelLeft) {
-            flagLeft = true;
-            doInterval(tbsGridTypes.Direction.left);
-          }
-          if (lastX > panelRight) {
-            flagRight = true;
-            doInterval(tbsGridTypes.Direction.right);
-          }
-          if (lastY < panelTop) {
-            flagUp = true;
-            doInterval(tbsGridTypes.Direction.up);
-          }
-          if (lastY > panelBottom) {
-            flagDown = true;
-            doInterval(tbsGridTypes.Direction.down);
-          }
-        }
-        select(moveX, moveY);
-      } else if (grid.fixedColumnIndex != -1) {
+      if (grid.fixedColumnIndex != -1) {
         let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
         let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
         let rect = panel.getBoundingClientRect();
@@ -2211,30 +3172,15 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
 
       //console.log(`startRowIndex ${startRowIndex} lastRowIndex ${lastRowIndex} startCellIndex  ${startCellIndex} lastCellIndex ${lastCellIndex}`)
 
-      if (eventPanelName == 'panel60') {
-        if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
-          let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel61 .tbs-grid-table tbody tr:not([style*="display: none"])');
-          for (let i = 0, len = tableRows.length; i < len; i++) {
-            let tableRow = tableRows[i];
-            let rect = tableRow.childNodes[0].getBoundingClientRect();
-            if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
-              startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              break;
-            }
-          }
-        }
-      } else {
-        if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
-          let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
-          for (let i = 0, len = tableRows.length; i < len; i++) {
-            let tableRow = tableRows[i];
-            let rect = tableRow.childNodes[0].getBoundingClientRect();
-            if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
-              startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
-              break;
-            }
+      if (tableCell.rowSpan != undefined && tableCell.rowSpan > 1) {
+        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
+        for (let i = 0, len = tableRows.length; i < len; i++) {
+          let tableRow = tableRows[i];
+          let rect = tableRow.childNodes[0].getBoundingClientRect();
+          if (window.pageYOffset + rect.top < startY && startY < window.pageYOffset + rect.bottom) {
+            startRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
+            lastRowIndex = parseInt(tableRow.childNodes[0].childNodes[0].textContent) - 1;
+            break;
           }
         }
       }
@@ -2262,44 +3208,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let moveX = grid.lastX - grid.startX;
       let lastX = grid.lastX;
       let lastY = grid.lastY;
-      if (grid.fixedRowIndex != -1) {
-        let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
-        if (eventPanelName == 'panel60') {
-          panel = document.querySelector(selector + ' .tbs-grid-group30');
-        }
-        let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
-        let rect = panel.getBoundingClientRect();
-        let absRect = grid.getOffset(panel);
-        let rect30 = panel30.getBoundingClientRect();
-        let absRect30 = grid.getOffset(panel30);
-        let panelTop = absRect.top;
-        let panelBottom = absRect30.top + rect30.height;
-        let panelLeft = absRect.left;
-        let panelRight = absRect.left + rect.width;
-
-        //console.log(`selectCellMove : lastX ${lastX} < panelLeft : ${panelLeft} > panelRight ${panelRight}`);
-
-        // Outside the area
-        if (lastX < panelLeft || lastX > panelRight || lastY < panelTop || lastY > panelBottom) {
-          if (lastX < panelLeft) {
-            flagLeft = true;
-            doInterval(tbsGridTypes.Direction.left);
-          }
-          if (lastX > panelRight) {
-            flagRight = true;
-            doInterval(tbsGridTypes.Direction.right);
-          }
-          if (lastY < panelTop) {
-            flagUp = true;
-            doInterval(tbsGridTypes.Direction.up);
-          }
-          if (lastY > panelBottom) {
-            flagDown = true;
-            doInterval(tbsGridTypes.Direction.down);
-          }
-        }
-        select(moveX, moveY);
-      } else if (grid.fixedColumnIndex != -1) {
+      if (grid.fixedColumnIndex != -1) {
         let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
         let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
         let rect = panel.getBoundingClientRect();
@@ -2444,23 +3353,13 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
         } else flagDown = false;
       } else if (type == 'up') {
         grid.classScroll.setBarPositionByDirection('up');
-        if (grid.fixedRowIndex != -1) {
-          if (lastRowIndex != 0) {
-            let minRowIndex = lastRowIndex;
-            minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
-            grid.classRange.removeRange(0, -1);
-            let _topRowIndex = grid.classRange.selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
-            grid.classPanel30.setDataPanel(_topRowIndex);
-          } else flagUp = false;
-        } else {
-          if (lastRowIndex != 0) {
-            let minRowIndex = lastRowIndex;
-            minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
-            grid.classRange.removeRange(0, -1);
-            let _topRowIndex = grid.classRange.selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
-            grid.classPanel30.setDataPanel(_topRowIndex);
-          } else flagUp = false;
-        }
+        if (lastRowIndex != 0) {
+          let minRowIndex = lastRowIndex;
+          minRowIndex = grid.tbs_getMinRowIndexByMouseMove();
+          grid.classRange.removeRange(0, -1);
+          let _topRowIndex = grid.classRange.selectRange(startRowIndex, minRowIndex, fromCellIndex, toCellIndex);
+          grid.classPanel30.setDataPanel(_topRowIndex);
+        } else flagUp = false;
       }
     };
     const doInterval = function (type) {
@@ -2507,17 +3406,18 @@ class TbsGridPanel30 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
 /***/ 105:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   s: function() { return /* binding */ TbsGridPanel40; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
-/* harmony import */ var _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(541);
-/* harmony import */ var _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(543);
+/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(637);
+/* harmony import */ var _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(652);
+/* harmony import */ var _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(860);
 /* harmony import */ var _tbs_grid_table_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(149);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 
 
@@ -2622,7 +3522,7 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let column = grid.column_table.data[x];
       let tableCell = tableRow.childNodes[x];
       if (x > grid.fixedColumnIndex && x < startColumnIndex) continue;
-      let tbsGridRender = new _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRender */ .s(grid);
+      let tbsGridRender = new _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderPanel */ .e(grid);
       tbsGridRender.start(panelName, tableCell, column, 0, x);
       tbsGridRender = null;
       //grid.classRender.start(panelName, tableCell, column, 0, x);
@@ -2658,7 +3558,7 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       } else {
         if (x < startColumnIndex) continue;
       }
-      let tbsGridRender = new _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRender */ .s(grid);
+      let tbsGridRender = new _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderPanel */ .e(grid);
       tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
       tbsGridRender = null;
       //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
@@ -2687,13 +3587,13 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       lastX = grid.lastX = window.pageXOffset + e.clientX;
       lastY = grid.lastY = window.pageYOffset + e.clientY;
       let tableCell;
-      if (e.target.classList.contains('tbs-grid-cell-div-icon')) {
+      if (e.target.classList.contains('tbs-grid-html-icon')) {
         targetName = 'icon';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
+      } else if (e.target.classList.contains('tbs-grid-html-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
+      } else if (e.target.classList.contains('tbs-grid-html-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -2767,7 +3667,7 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
             mode: 'mouse'
           };
           if (e.detail == 1) {
-            let panelInput = document.querySelector(selector + ' .tbs-grid-panel-input');
+            let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
             if (panelInput.style.left != '30000px') {
               grid.editEnd();
               grid.input_focus();
@@ -2787,15 +3687,15 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     };
     const selectCell = function (e) {
       let tableCell;
-      //if      (e.target.classList.contains('tbs-grid-cell-div-icon')) { targetName = 'icon'; tableCell = e.target.parentNode.parentNode; }
+      //if      (e.target.classList.contains('tbs-grid-html-icon')) { targetName = 'icon'; tableCell = e.target.parentNode.parentNode; }
       //console.log(`e.target.className ${e.target.className}`);
-      if (e.target.classList.contains('tbs-grid-cell-div-icon')) {
+      if (e.target.classList.contains('tbs-grid-html-icon')) {
         targetName = 'icon';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
+      } else if (e.target.classList.contains('tbs-grid-html-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
+      } else if (e.target.classList.contains('tbs-grid-html-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -2864,13 +3764,13 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     const selectCellCtrlMove = function (e) {};
     const selectCellShift = function (e) {
       let tableCell;
-      if (e.target.classList.contains('tbs-grid-cell-div-icon')) {
+      if (e.target.classList.contains('tbs-grid-html-icon')) {
         targetName = 'icon';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
+      } else if (e.target.classList.contains('tbs-grid-html-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
+      } else if (e.target.classList.contains('tbs-grid-html-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -3155,44 +4055,7 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let moveX = grid.lastX - grid.startX;
       let lastX = grid.lastX;
       let lastY = grid.lastY;
-      if (grid.fixedRowIndex != -1) {
-        let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
-        if (eventPanelName == 'panel60') {
-          panel = document.querySelector(selector + ' .tbs-grid-group30');
-        }
-        let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
-        let rect = panel.getBoundingClientRect();
-        let absRect = grid.getOffset(panel);
-        let rect30 = panel30.getBoundingClientRect();
-        let absRect30 = grid.getOffset(panel30);
-        let panelTop = absRect.top;
-        let panelBottom = absRect30.top + rect30.height;
-        let panelLeft = absRect.left;
-        let panelRight = absRect.left + rect.width;
-
-        //console.log(`selectCellMove : lastX ${lastX} < panelLeft : ${panelLeft} > panelRight ${panelRight}`);
-
-        // Outside the area
-        if (lastX < panelLeft || lastX > panelRight || lastY < panelTop || lastY > panelBottom) {
-          if (lastX < panelLeft) {
-            flagLeft = true;
-            doInterval(tbsGridTypes.Direction.left);
-          }
-          if (lastX > panelRight) {
-            flagRight = true;
-            doInterval(tbsGridTypes.Direction.right);
-          }
-          if (lastY < panelTop) {
-            flagUp = true;
-            doInterval(tbsGridTypes.Direction.up);
-          }
-          if (lastY > panelBottom) {
-            flagDown = true;
-            doInterval(tbsGridTypes.Direction.down);
-          }
-        }
-        select(moveX, moveY);
-      } else if (grid.fixedColumnIndex != -1) {
+      if (grid.fixedColumnIndex != -1) {
         let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
         let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
         let rect = panel.getBoundingClientRect();
@@ -3278,17 +4141,18 @@ class TbsGridPanel40 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
 /***/ 708:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   H: function() { return /* binding */ TbsGridPanel50; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
-/* harmony import */ var _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(541);
-/* harmony import */ var _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(543);
+/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(637);
+/* harmony import */ var _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(652);
+/* harmony import */ var _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(860);
 /* harmony import */ var _tbs_grid_table_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(149);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 
 
@@ -3393,7 +4257,7 @@ class TbsGridPanel50 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let column = grid.column_table.data[x];
       let tableCell = tableRow.childNodes[x];
       if (x > grid.fixedColumnIndex && x < startColumnIndex) continue;
-      let tbsGridRender = new _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRender */ .s(grid);
+      let tbsGridRender = new _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderPanel */ .e(grid);
       tbsGridRender.start(panelName, tableCell, column, 0, x);
       tbsGridRender = null;
       //grid.classRender.start(panelName, tableCell, column, 0, x);
@@ -3428,7 +4292,7 @@ class TbsGridPanel50 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       } else {
         if (x < startColumnIndex) continue;
       }
-      let tbsGridRender = new _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRender */ .s(grid);
+      let tbsGridRender = new _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderPanel */ .e(grid);
       tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
       tbsGridRender = null;
       //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
@@ -3445,17 +4309,18 @@ class TbsGridPanel50 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
 /***/ 222:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   p: function() { return /* binding */ TbsGridPanel70; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
-/* harmony import */ var _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(541);
-/* harmony import */ var _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(543);
+/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(637);
+/* harmony import */ var _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(652);
+/* harmony import */ var _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(860);
 /* harmony import */ var _tbs_grid_table_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(149);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 
 
@@ -3522,7 +4387,7 @@ class TbsGridPanel70 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let columnName = column[tbsGridNames.column.name];
 
       /* Render: Start */
-      let tbsGridRender = new _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRender */ .s(grid);
+      let tbsGridRender = new _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderPanel */ .e(grid);
       tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
       tbsGridRender = null;
       //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
@@ -3548,7 +4413,7 @@ class TbsGridPanel70 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let columnName = column[tbsGridNames.column.name];
 
       /* Render: Start */
-      let tbsGridRender = new _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRender */ .s(grid);
+      let tbsGridRender = new _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderPanel */ .e(grid);
       tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
       tbsGridRender = null;
       //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
@@ -3591,7 +4456,7 @@ class TbsGridPanel70 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let columnName = column[tbsGridNames.column.name];
 
       /* Render: Start */
-      let tbsGridRender = new _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRender */ .s(grid);
+      let tbsGridRender = new _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderPanel */ .e(grid);
       tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
       tbsGridRender = null;
       //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
@@ -3618,7 +4483,7 @@ class TbsGridPanel70 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let columnName = column[tbsGridNames.column.name];
 
       /* Render: Start */
-      let tbsGridRender = new _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRender */ .s(grid);
+      let tbsGridRender = new _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderPanel */ .e(grid);
       tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
       tbsGridRender = null;
       //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
@@ -3730,16 +4595,17 @@ class TbsGridPanel70 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
 /***/ 661:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   g: function() { return /* binding */ TbsGridPanel80; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
-/* harmony import */ var _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(541);
-/* harmony import */ var _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(543);
+/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(637);
+/* harmony import */ var _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(652);
+/* harmony import */ var _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(860);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 
 
@@ -3929,7 +4795,7 @@ class TbsGridPanel80 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
           let div = document.createElement('div');
           div.classList.add('tbs-grid-cell-div');
           let span = document.createElement('span');
-          span.classList.add('tbs-grid-cell-span');
+          span.classList.add('tbs-grid-html-string');
           div.appendChild(span);
           td.appendChild(div);
           tr.appendChild(td);
@@ -3939,7 +4805,7 @@ class TbsGridPanel80 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
         }
         moveDiv = document.querySelector('.tbs-grid-move');
         moveDiv.style.display = 'none';
-        moveDiv.querySelector('.tbs-grid-cell-span').textContent = col.querySelector('.tbs-grid-panel-button-text').textContent;
+        moveDiv.querySelector('.tbs-grid-html-string').textContent = col.querySelector('.tbs-grid-panel-button-text').textContent;
         moveDiv = document.querySelector('.tbs-grid-move');
         let colRect = col.getBoundingClientRect();
         moveCell = col;
@@ -4048,7 +4914,7 @@ class TbsGridPanel80 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     const selectRefresh = function (type, lastX, lastY) {
       let content = document.querySelector(selector + ' .tbs-grid-panel30');
       let table = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-      trContent = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
+      const trContent = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
       let startRowIndex = grid.startRowIndex;
       let lastRowIndex = grid.lastRowIndex;
       let startCellIndex = grid.startCellIndex;
@@ -4124,16 +4990,17 @@ class TbsGridPanel80 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
 /***/ 472:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   j: function() { return /* binding */ TbsGridPanel90; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
-/* harmony import */ var _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(541);
-/* harmony import */ var _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(543);
+/* harmony import */ var _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(637);
+/* harmony import */ var _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(652);
+/* harmony import */ var _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(860);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 
 
@@ -4327,7 +5194,7 @@ class TbsGridPanel90 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
           let div = document.createElement('div');
           div.classList.add('tbs-grid-cell-div');
           let span = document.createElement('span');
-          span.classList.add('tbs-grid-cell-span');
+          span.classList.add('tbs-grid-html-string');
           div.appendChild(span);
           td.appendChild(div);
           tr.appendChild(td);
@@ -4337,7 +5204,7 @@ class TbsGridPanel90 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
         }
         moveDiv = document.querySelector('.tbs-grid-move');
         moveDiv.style.display = 'none';
-        moveDiv.querySelector('.tbs-grid-cell-span').textContent = col.querySelector('.tbs-grid-panel-button-text').textContent;
+        moveDiv.querySelector('.tbs-grid-html-string').textContent = col.querySelector('.tbs-grid-panel-button-text').textContent;
         moveDiv = document.querySelector('.tbs-grid-move');
         let colRect = col.getBoundingClientRect();
         moveCell = col;
@@ -4444,7 +5311,7 @@ class TbsGridPanel90 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
     const selectRefresh = function (type, lastX, lastY) {
       let content = document.querySelector(selector + ' .tbs-grid-panel30');
       let table = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-      trContent = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
+      const trContent = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
       let startRowIndex = grid.startRowIndex;
       let lastRowIndex = grid.lastRowIndex;
       let startCellIndex = grid.startCellIndex;
@@ -4518,39 +5385,419 @@ class TbsGridPanel90 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
 
 /***/ }),
 
-/***/ 933:
+/***/ 465:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   v: function() { return /* binding */ TbsGridRenderBase; }
+/* harmony export */   V: function() { return /* binding */ TbsGridRenderCheckbox; }
 /* harmony export */ });
-/* harmony import */ var _tbs_base_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(618);
+/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(221);
 
-class TbsGridRenderBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsBase */ .H {
-  constructor() {
-    super();
+class TbsGridRenderCheckbox {
+  addElement(param) {
+    const element = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridDom */ .E.createElement('checkbox');
+    const tableCell = param.tableCell;
+    if (tableCell.childNodes[0].innerHTML != '') tableCell.childNodes[0].innerHTML = '';
+    if (tableCell.querySelectorAll('.tbs-grid-html-checkbox').length == 0) tableCell.childNodes[0].append(element);
   }
-  createElement() {}
-  boundingData() {}
+  setBounding(param) {
+    const element = param.tableCell.querySelector('.tbs-grid-html-checkbox');
+    if (!element) return;
+    _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridDom */ .E.setStyle(param.tableCell, param); // editable, align, className,
+    if (['panel30', 'panel32'].indexOf(param.panelName) != -1) {
+      _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridDom */ .E.setCell(element, 'disabled', param.editable ? '' : 'disabled');
+    }
+
+    // set value
+    let value = false;
+    if (param.cellValue == param.grid.getTrueValue(param.columnName)) value = true;
+    element.checked = value;
+  }
 }
 
 /***/ }),
 
-/***/ 465:
+/***/ 833:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   V: function() { return /* binding */ TbsGridRenderCheckbox; }
+/* harmony export */   Z: function() { return /* binding */ TbsGridRenderGroup; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_render_base_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(933);
+/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(221);
 
-class TbsGridRenderCheckbox extends _tbs_grid_render_base_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridRenderBase */ .v {
-  createElement(tableCell) {
-    const element = document.createElement('input');
-    element.type = 'checkbox';
-    element.classList.add('tbs-grid-cell-checkbox');
-    if (tableCell.querySelectorAll('.tbs-grid-cell-checkbox').length == 0) {
-      tableCell.childNodes[0].append(element);
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+
+class TbsGridRenderGroup {
+  addElement(param) {
+    const row = param.grid.view_table.selectRowByRowIndex(param.rowIndex);
+    ;
+    let rowDepth = row[tbsGridNames.column.depth];
+    if (rowDepth <= param.grid.group_column_table.count()) {
+      const icon = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.createElement('icon');
+      const element = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.createElement('string');
+      if (param.tableCell.childNodes[0].innerHTML != '') param.tableCell.childNodes[0].innerHTML = '';
+      param.tableCell.childNodes[0].append(icon);
+      param.tableCell.childNodes[0].append(element);
+    } else {
+      const element = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.createElement('string');
+      if (param.tableCell.childNodes[0].innerHTML != '') param.tableCell.childNodes[0].innerHTML = '';
+      param.tableCell.childNodes[0].append(element);
+    }
+  }
+  setBounding(param) {
+    const row = param.grid.view_table.selectRowByRowIndex(param.rowIndex);
+    ;
+    let rowDepth = row[tbsGridNames.column.depth];
+    _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setStyle(param.tableCell, param);
+    _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(param.tableCell.childNodes[0], 'paddingLeft', rowDepth * 15 + 'px');
+    if (rowDepth <= param.grid.group_column_table.count()) {
+      param.grid.classGroup.setGroupIcon(param.tableCell, param.rowIndex);
+    }
+    const element = param.tableCell.querySelector('.tbs-grid-html-string');
+    _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCell(element, 'textContent', param.cellText);
+    console.log(param.cellText);
+  }
+}
+
+/***/ }),
+
+/***/ 860:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   I: function() { return /* binding */ TbsGridRenderPanelInfo; }
+/* harmony export */ });
+/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+/* harmony import */ var _tbs_grid_render_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(981);
+/* harmony import */ var _tbs_grid_render_checkbox_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(465);
+
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+
+
+class TbsGridRenderPanelInfo {
+  /**
+   * num, mode, checkbox
+   */
+
+  constructor(grid) {
+    this.grid = grid;
+    this.selector = '#' + grid.gridId;
+    this.column = null;
+    this.columnIndex = null;
+    this.columnName = null;
+    this.columnType = null;
+    this.valueName = null;
+    this.textName = null;
+    this.rowIndex = null;
+    this.columnIndex = null;
+    this.cellValue = null;
+    this.cellText = null; //user
+
+    this.align = null; //user
+    this.className = null; //user
+
+    this.width = null;
+    this.visible = null;
+    this.tableCell = null;
+    this.panelName = null;
+  }
+  start(panelName, tableCell, column, rowIndex, columnIndex) {
+    const grid = this.grid;
+    let render = this;
+    render.panelName = panelName;
+    render.tableCell = tableCell;
+    render.column = grid.info_table.selectRowByRowIndex(columnIndex);
+    render.rowIndex = rowIndex;
+    render.columnIndex = columnIndex;
+    render.columnName = grid.getProperty(column, tbsGridNames.column.name);
+    render.columnType = grid.getProperty(column, tbsGridNames.column.type);
+    render.visible = grid.getProperty(column, tbsGridNames.column.visible);
+    render.width = grid.getProperty(column, tbsGridNames.column.width);
+    render.align = grid.getProperty(column, tbsGridNames.column.align);
+    render.className = grid.getProperty(column, tbsGridNames.column.className);
+    if (panelName == 'panel41' || panelName == 'panle51' || panelName == 'panle71') columnType = tbsGridTypes.CellType.string;
+    if (panelName == 'panel21') {
+      if (render.columnName == 'num') {
+        render.cellValue = '';
+        render.cellText = '';
+      } else if (render.columnName == 'mode') {
+        render.cellValue = '';
+        render.cellText = '';
+      } else if (render.columnName == 'checkbox') {
+        render.cellValue = grid.classPanel20.isChecked;
+        render.cellText = grid.classPanel20.isChecked;
+      }
+    } else if (panelName == 'panel31') {
+      let dataRow = grid.getRow(render.rowIndex);
+      if (render.visible) {
+        if (render.columnName == 'num') {
+          if (grid.grid_mode == tbsGridTypes.GridMode.page) {
+            render.cellValue = grid.classPage.startRowIndex + render.rowIndex + 1;
+            render.cellText = grid.classPage.startRowIndex + render.rowIndex + 1;
+          } else {
+            render.cellValue = render.rowIndex + 1;
+            render.cellText = render.rowIndex + 1;
+          }
+          render.cellValue = render.rowIndex + 1;
+          render.cellText = render.rowIndex + 1;
+        } else if (render.columnName == 'mode') {
+          let mode = dataRow[tbsGridNames.column.mode];
+          mode = mode != '' && mode != 'S' ? mode : '';
+          render.cellValue = mode;
+          render.cellText = mode;
+        } else if (render.columnName == 'checkbox') {
+          let check = grid.null(dataRow['check']) ? false : dataRow['check'];
+          render.cellValue = check;
+          render.cellText = check;
+        }
+      }
+    } else if (panelName == 'panel41') {
+      if (render.columnName == 'num') {
+        render.cellValue = '∑';
+        render.cellText = '∑';
+      } else if (render.columnName == 'mode') {
+        render.cellValue = '';
+        render.cellText = '';
+      } else if (render.columnName == 'checkbox') {
+        render.cellValue = '';
+        render.cellText = '';
+      }
+    } else if (panelName == 'panel51') {
+      if (render.columnName == 'num') {
+        render.cellValue = '∑';
+        render.cellText = '∑';
+      } else if (render.columnName == 'mode') {
+        render.cellValue = '';
+        render.cellText = '';
+      } else if (render.columnName == 'checkbox') {
+        render.cellValue = '';
+        render.cellText = '';
+      }
+    } else if (panelName == 'panel71') {
+      if (render.columnName == 'num') {
+        render.cellValue = 'R';
+        render.cellText = 'R';
+      } else if (render.columnName == 'mode') {
+        render.cellValue = '';
+        render.cellText = '';
+      } else if (render.columnName == 'checkbox') {
+        render.cellValue = '';
+        render.cellText = '';
+      }
+    }
+    render.createHtml();
+  }
+  createHtml() {
+    const grid = this.grid;
+    if (this.columnType == tbsGridTypes.CellType.checkbox) {
+      if (this.visible && (this.panelName == 'panel21' || this.panelName == 'panel31')) {
+        const render = new _tbs_grid_render_checkbox_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderCheckbox */ .V();
+        render.addElement(this);
+      }
+    } else {
+      const render = new _tbs_grid_render_string_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridRenderString */ .h();
+      render.addElement(this);
+    }
+    this.setBounding();
+  }
+  setBounding() {
+    const param = {
+      className: this.className,
+      visible: this.visible,
+      align: this.align,
+      width: this.width
+    };
+    if (this.columnType == tbsGridTypes.CellType.checkbox) {
+      if (this.visible && (this.panelName == 'panel21' || this.panelName == 'panel31')) {
+        const render = new _tbs_grid_render_checkbox_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderCheckbox */ .V();
+        render.setBounding(this);
+      }
+    } else {
+      const render = new _tbs_grid_render_string_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridRenderString */ .h();
+      render.setBounding(this);
+    }
+  }
+}
+
+/***/ }),
+
+/***/ 652:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   e: function() { return /* binding */ TbsGridRenderPanel; }
+/* harmony export */ });
+/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+/* harmony import */ var _tbs_grid_render_checkbox_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(465);
+/* harmony import */ var _tbs_grid_render_string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(981);
+/* harmony import */ var _tbs_grid_render_group_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(833);
+/* harmony import */ var _tbs_grid_render_tree_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(712);
+/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(221);
+
+
+
+
+
+
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+class TbsGridRenderPanel {
+  constructor(grid) {
+    this.grid = grid;
+    this.selector = '#' + grid.gridId;
+    this.column = null;
+    this.columnIndex = null;
+    this.columnName = null;
+    this.columnType = null;
+    this.valueName = null;
+    this.textName = null;
+    this.rowIndex = null;
+    this.columnIndex = null;
+    this.cellValue = null;
+    this.cellText = null; //user
+
+    this.align = null; //user
+    this.className = null; //user
+
+    this.width = null;
+    this.visible = null;
+    this.editable = null;
+    this.tableCell = null;
+    this.panelName = null;
+    this.cellTemplate = null;
+  }
+  start(panelName, tableCell, column, rowIndex, columnIndex) {
+    const grid = this.grid;
+    let render = this;
+    render.panelName = panelName;
+    render.tableCell = tableCell;
+    render.column = column;
+    render.rowIndex = rowIndex;
+    render.columnIndex = columnIndex;
+    render.columnName = column[tbsGridNames.column.name];
+    render.columnType = column[tbsGridNames.column.type];
+    render.visible = column[tbsGridNames.column.visible];
+    render.width = column[tbsGridNames.column.width];
+    render.editable = column[tbsGridNames.column.editable];
+    if (['panel40', 'panel42', 'panel50', 'panel52'].indexOf(this.panelName) != -1) {
+      let dataTable = null;
+      if (['panel40', 'panel42'].indexOf(this.panelName) != -1) dataTable = grid.top_column_table;else if (['panel50', 'panel52'].indexOf(this.panelName) != -1) dataTable = grid.footer_column_table;
+      const summaryColumn = dataTable.selectRow(tbsGridNames.column.name, this.columnName);
+      if (grid.notNull(summaryColumn)) {
+        render.align = grid.notNull(summaryColumn[tbsGridNames.column.align]) ? summaryColumn[tbsGridNames.column.align] : column[tbsGridNames.column.align];
+        render.className = grid.notNull(summaryColumn[tbsGridNames.column.className]) ? summaryColumn[tbsGridNames.column.className] : column[tbsGridNames.column.align];
+      } else {
+        render.align = column[tbsGridNames.column.align];
+        render.className = column[tbsGridNames.column.className];
+      }
+      render.cellValue = grid.getValue(render.rowIndex, render.columnName, grid.top_table);
+      render.cellText = grid.getText(render.rowIndex, render.columnName, grid.top_table);
+    } else {
+      render.align = column[tbsGridNames.column.align];
+      render.className = column[tbsGridNames.column.className];
+      render.cellValue = grid.getValue(render.rowIndex, render.columnName);
+      render.cellText = grid.getText(render.rowIndex, render.columnName);
+    }
+    render.updateData();
+  }
+  updateData() {
+    const grid = this.grid;
+    let render = this;
+    if (grid.grid_mode == tbsGridTypes.GridMode.group) {
+      if (render.panelName == 'panel30' || render.panelName == 'panel32') {
+        if (render.columnName == 'group_column') {
+          let row = grid.view_table.selectRowByRowIndex(render.rowIndex);
+          let rowDepth = row[tbsGridNames.column.depth];
+          if (rowDepth <= grid.group_column_table.count()) {
+            render.cellText = grid.getText(render.rowIndex, grid.group_column_table.data[rowDepth - 1][tbsGridNames.column.name]) + '(' + row[tbsGridNames.column.children].length + ')';
+          } else {
+            render.cellText = grid.getText(render.rowIndex, render.columnName);
+          }
+        }
+      }
+    } else if (grid.grid_mode == tbsGridTypes.GridMode.tree) {
+      if (render.panelName == 'panel30' || render.panelName == 'panel32') {
+        if (render.columnIndex == 0) {
+          let row = grid.view_table.selectRowByRowIndex(render.rowIndex);
+          let rowDepth = row[tbsGridNames.column.depth];
+          const children = row[tbsGridNames.column.children];
+          if (children.length > 0) {
+            render.cellText = grid.getText(render.rowIndex, render.columnName) + '(' + row[tbsGridNames.column.children].length + ')';
+          } else {
+            render.cellText = grid.getText(render.rowIndex, render.columnName);
+          }
+        }
+      }
+    }
+    if (grid.fixedColumnIndex != -1) {
+      if (render.panelName.substring(6) == '2') {
+        if (render.columnIndex > grid.fixedColumnIndex) render.visible = false;
+      } else if (render.panelName.substring(6) == '0') {
+        if (render.columnIndex <= grid.fixedColumnIndex) render.visible = false;
+      }
+    }
+    render.createHtml();
+  }
+  createHtml() {
+    const grid = this.grid;
+    const render = this;
+    if (render.panelName == 'panel30' || render.panelName == 'panel32') {
+      if (this.columnType == tbsGridTypes.CellType.group) {
+        const render = new _tbs_grid_render_group_js__WEBPACK_IMPORTED_MODULE_3__/* .TbsGridRenderGroup */ .Z();
+        render.addElement(this);
+      } else if (grid.grid_mode == tbsGridTypes.GridMode.tree && this.columnIndex == 0) {
+        const render = new _tbs_grid_render_tree_js__WEBPACK_IMPORTED_MODULE_4__/* .TbsGridRenderTree */ ._();
+        render.addElement(this);
+      } else if (this.columnType == tbsGridTypes.CellType.checkbox) {
+        const render = new _tbs_grid_render_checkbox_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridRenderCheckbox */ .V();
+        render.addElement(this);
+      } else {
+        const render = new _tbs_grid_render_string_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderString */ .h();
+        render.addElement(this);
+      }
+    }
+    render.setBounding();
+  }
+  setBounding() {
+    const grid = this.grid;
+    if (this.panelName == 'panel72' || this.panelName == 'panel70') this.cellText = null;
+    if (grid.renderer && grid.renderer[this.columnName] && grid.renderer[this.columnName].callback && ['panel30', 'panel32'].indexOf(this.panelName) != -1) {
+      const dataRows = grid.view_table.selectRowByRowIndex(this.rowIndex);
+      const eventRow = {};
+      eventRow.rowIndex = this.rowIndex;
+      eventRow.columnIndex = this.columnIndex;
+      eventRow.columnName = this.columnName;
+      eventRow.value = this.cellValue;
+      eventRow.text = this.cellText;
+      eventRow.data = dataRows;
+      const result = grid.renderer[this.columnName].callback(grid, eventRow);
+      if (grid.notNull(result) && Object.keys(result).length > 0) {
+        // className, align, editable, cellValue
+        if (grid.notNull(result.className)) this.className = result.className;
+        if (grid.notNull(result.editable)) this.editable = result.editable;
+        if (grid.notNull(result.value)) this.cellValue = result.value;
+        if (grid.notNull(result.align)) this.align = result.align;
+      }
+    }
+    if (this.columnType == tbsGridTypes.CellType.group) {
+      const render = new _tbs_grid_render_group_js__WEBPACK_IMPORTED_MODULE_3__/* .TbsGridRenderGroup */ .Z();
+      render.setBounding(this);
+    } else if (grid.grid_mode == tbsGridTypes.GridMode.tree && this.columnIndex == 0) {
+      const render = new _tbs_grid_render_tree_js__WEBPACK_IMPORTED_MODULE_4__/* .TbsGridRenderTree */ ._();
+      render.setBounding(this);
+    } else if (this.columnType == tbsGridTypes.CellType.checkbox) {
+      const render = new _tbs_grid_render_checkbox_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridRenderCheckbox */ .V();
+      render.setBounding(this);
+    } else {
+      const render = new _tbs_grid_render_string_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderString */ .h();
+      render.setBounding(this);
     }
   }
 }
@@ -4560,16 +5807,205 @@ class TbsGridRenderCheckbox extends _tbs_grid_render_base_js__WEBPACK_IMPORTED_M
 /***/ 981:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   h: function() { return /* binding */ TbsGridRenderString; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_render_base_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(933);
+/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(221);
 
-class TbsGridRenderString extends _tbs_grid_render_base_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridRenderBase */ .v {
-  createElement(tableCell) {
-    let element = document.createElement('span');
-    element.classList.add('tbs-grid-cell-string');
-    if (tableCell.querySelectorAll('.tbs-grid-cell-string').length == 0) tableCell.childNodes[0].append(element);
+class TbsGridRenderString {
+  /**
+   * @param { panelName, columnName, tableCell, cellValue, className, visible, align, width }
+   */
+  addElement(param) {
+    const element = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridDom */ .E.createElement('string');
+    if (param.tableCell.childNodes[0].innerHTML != '') param.tableCell.childNodes[0].innerHTML = '';
+    param.tableCell.childNodes[0].append(element);
+  }
+  /**
+   * @param { panelName, columnName, tableCell, cellValue, className, visible, align, width }
+   */
+  setBounding(param) {
+    _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridDom */ .E.setStyle(param.tableCell, param);
+    if (param.cellValue) {
+      const element = param.tableCell.querySelector('.tbs-grid-html-string');
+      _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridDom */ .E.setCell(element, 'textContent', param.cellText);
+    }
+  }
+}
+
+/***/ }),
+
+/***/ 712:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   _: function() { return /* binding */ TbsGridRenderTree; }
+/* harmony export */ });
+/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(221);
+
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+
+class TbsGridRenderTree {
+  addElement(param) {
+    const row = param.grid.view_table.selectRowByRowIndex(param.rowIndex);
+    ;
+    const children = row[tbsGridNames.column.children];
+    for (let i = param.tableCell.childNodes[0].childNodes.length - 1; i >= 0; i--) {
+      param.tableCell.childNodes[0].childNodes[i].remove();
+    }
+    if (children.length > 0) {
+      const icon = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.createElement('icon');
+      const element = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.createElement('string');
+      param.tableCell.childNodes[0].appendChild(icon);
+      param.tableCell.childNodes[0].appendChild(element);
+    } else {
+      const element = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.createElement('string');
+      param.tableCell.childNodes[0].appendChild(element);
+    }
+  }
+  setBounding(param) {
+    const row = param.grid.view_table.selectRowByRowIndex(param.rowIndex);
+    const children = row[tbsGridNames.column.children];
+    let rowDepth = row[tbsGridNames.column.depth];
+    _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setStyle(param.tableCell, param);
+    if (children.length > 0) {
+      _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(param.tableCell.childNodes[0], 'paddingLeft', rowDepth * 15 + 'px');
+      param.grid.classTree.setTreeIcon(param.tableCell, param.rowIndex);
+    } else {
+      _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(param.tableCell.childNodes[0], 'paddingLeft', rowDepth * 15 + 15 + 'px');
+    }
+    const element = param.tableCell.querySelector('.tbs-grid-html-string');
+    _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCell(element, 'textContent', param.cellText);
+  }
+}
+
+/***/ }),
+
+/***/ 561:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   h: function() { return /* binding */ TbsGridFooter; }
+/* harmony export */ });
+/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+class TbsGridFooter {
+  constructor(grid) {
+    this.grid = grid;
+    this.selector = '#' + grid.gridId;
+  }
+  setFooterColumns(columns) {
+    const grid = this.grid;
+    columns.map(column => {
+      if (grid.null(column[tbsGridNames.column.align])) column[tbsGridNames.column.align] = 'center';
+      grid.footer_column_table.insert(column);
+    });
+  }
+  setFooterData() {
+    const grid = this.grid;
+    if (grid.footer_column_table.count() == 0) return;
+    let footerColumns = grid.footer_column_table.data;
+    let dataRow = {};
+    let columns = grid.column_table.data;
+    for (let x = 0, len = columns.length; x < len; x++) {
+      let column = columns[x];
+      let columnName = column[tbsGridNames.column.name];
+      dataRow[columnName] = null;
+    }
+    grid.footer_table.insert(dataRow);
+
+    /* get sum, avg */
+    for (let x = 0, len2 = grid.footer_column_table.count(); x < len2; x++) {
+      let footerColumn = grid.footer_column_table.data[x];
+      let columnName = footerColumn[tbsGridNames.column.name];
+      if (grid.isColumnTypeNumber(columnName)) {
+        let summaryType = footerColumn[tbsGridNames.column.summaryType];
+        let result = null;
+        if (summaryType == 'avg') {
+          result = grid.classPanel30.getAvg(columnName);
+          grid.footer_table.updateByRowIndex(0, columnName, result);
+        } else if (summaryType == 'sum') {
+          result = grid.classPanel30.getSum(columnName);
+          grid.footer_table.updateByRowIndex(0, columnName, result);
+        }
+      }
+    }
+  }
+  setFooterValue(rowIndex, columnName, value) {
+    const grid = this.grid;
+    let column = grid.column_table.selectRow(tbsGridNames.column.name, columnName);
+    let result = grid.getFormat(column, value);
+    grid.footer_table.updateByRowIndex(rowIndex, columnName, result.value);
+  }
+}
+
+/***/ }),
+
+/***/ 919:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   B: function() { return /* binding */ TbsGridTop; }
+/* harmony export */ });
+/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+class TbsGridTop {
+  constructor(grid) {
+    this.grid = grid;
+    this.selector = '#' + grid.gridId;
+  }
+  setTopColumns(columns) {
+    const grid = this.grid;
+    columns.map(column => {
+      if (grid.null(column[tbsGridNames.column.align])) column[tbsGridNames.column.align] = 'center';
+      grid.top_column_table.insert(column);
+    });
+  }
+  setTopData() {
+    const grid = this.grid;
+    if (grid.top_column_table.count() == 0) return;
+    let topColumns = grid.top_column_table.data;
+    let dataRow = {};
+    let columns = grid.column_table.data;
+    for (let x = 0, len = columns.length; x < len; x++) {
+      let column = columns[x];
+      let columnName = column[tbsGridNames.column.name];
+      dataRow[columnName] = null;
+    }
+    grid.top_table.insert(dataRow);
+
+    /* get sum, avg */
+    for (let x = 0, len2 = grid.top_column_table.count(); x < len2; x++) {
+      let topColumn = grid.top_column_table.data[x];
+      let columnName = topColumn[tbsGridNames.column.name];
+      if (grid.isColumnTypeNumber(columnName)) {
+        let summaryType = topColumn[tbsGridNames.column.summaryType];
+        let result = null;
+        if (summaryType == 'avg') {
+          result = grid.classPanel30.getAvg(columnName);
+          grid.top_table.updateByRowIndex(0, columnName, result);
+        } else if (summaryType == 'sum') {
+          result = grid.classPanel30.getSum(columnName);
+          grid.top_table.updateByRowIndex(0, columnName, result);
+        }
+      }
+    }
+  }
+  setTopValue(rowIndex, columnName, value) {
+    const grid = this.grid;
+    let column = grid.column_table.selectRow(tbsGridNames.column.name, columnName);
+    let result = grid.getFormat(column, value);
+    grid.top_table.updateByRowIndex(rowIndex, columnName, result.value);
   }
 }
 
@@ -4578,6 +6014,7 @@ class TbsGridRenderString extends _tbs_grid_render_base_js__WEBPACK_IMPORTED_MOD
 /***/ 618:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   H: function() { return /* binding */ TbsBase; }
 /* harmony export */ });
@@ -4655,6 +6092,7 @@ class TbsBase {
 /***/ 765:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   QF: function() { return /* binding */ TbsDataTable; }
 /* harmony export */ });
@@ -4662,8 +6100,8 @@ class TbsBase {
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 /* harmony import */ var _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(618);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 class TbsDataTable extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase */ .H {
   constructor(tableName) {
@@ -4679,6 +6117,23 @@ class TbsDataTable extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase 
    */
 
   select(field, value, topIndex) {
+    let result = [];
+    if (arguments.length == 0) {
+      result = this.data;
+    } else {
+      for (let i = 0, len = this.data.length; i < len; i++) {
+        let dataRow = this.data[i];
+        if (dataRow[field] == value) {
+          result.push(dataRow);
+          if (topIndex != undefined) {
+            if (result.length == topIndex) break;
+          }
+        }
+      }
+    }
+    return result;
+  }
+  selectRows(field, value, topIndex) {
     let result = [];
     if (arguments.length == 0) {
       result = this.data;
@@ -4780,8 +6235,12 @@ class TbsDataTable extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase 
     let dataRow = this.selectRowByRowId(rowId);
     dataRow[name] = value;
   }
-  count() {
-    return this.data.length;
+  count(field, value) {
+    if (arguments.length > 0) {
+      return this.select(field, value).length;
+    } else {
+      return this.data.length;
+    }
   }
 
   /**
@@ -4798,95 +6257,48 @@ class TbsDataCell extends (/* unused pure expression or super */ null && (TbsBas
 
 /***/ }),
 
-/***/ 634:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   $: function() { return /* binding */ TbsDatabase; }
-/* harmony export */ });
-/* harmony import */ var _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(618);
-/* harmony import */ var _tbs_data_table_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(765);
-
-
-class TbsDatabase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase */ .H {
-  constructor() {
-    super();
-    this.tables = [];
-  }
-  createTable(tableName) {
-    let table = new _tbs_data_table_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsDataTable */ .QF(tableName);
-    table.type = 'table';
-    this.tables.push(table);
-  }
-  createView(tableName) {
-    let table = new _tbs_data_table_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsDataTable */ .QF(tableName);
-    table.type = 'view';
-    this.tables.push(table);
-  }
-  removeTable(tableName) {
-    for (let i = 0, len = this.tables.length; i < len; i++) {
-      let table = this.tables[i];
-      if (table.tableName === tableName) {
-        this.tables.splice(i, 1);
-        break;
-      }
-    }
-  }
-  getTable(tableName) {
-    let result = null;
-    for (let i = 0, len = this.tables.length; i < len; i++) {
-      let table = this.tables[i];
-      if (table.tableName === tableName) {
-        result = table;
-        break;
-      }
-    }
-    return result;
-  }
-}
-
-/***/ }),
-
 /***/ 160:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   R: function() { return /* binding */ TbsGridBase; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(420);
-/* harmony import */ var _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(618);
-/* harmony import */ var _tbs_database_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(634);
-/* harmony import */ var _tbs_data_table_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(765);
-/* harmony import */ var _tbs_grid_cell_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(937);
-/* harmony import */ var _tbs_grid_columns_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(550);
-/* harmony import */ var _tbs_grid_combo_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(663);
-/* harmony import */ var _tbs_grid_control_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(48);
-/* harmony import */ var _tbs_grid_date_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(341);
-/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(221);
-/* harmony import */ var _tbs_grid_row_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(613);
-/* harmony import */ var _tbs_grid_filter_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(191);
-/* harmony import */ var _tbs_grid_filter_layer_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(356);
-/* harmony import */ var _tbs_grid_footer_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(186);
-/* harmony import */ var _tbs_grid_group_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(42);
-/* harmony import */ var _tbs_grid_page_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(654);
-/* harmony import */ var _panels_tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(18);
-/* harmony import */ var _panels_tbs_grid_panel10_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(360);
-/* harmony import */ var _panels_tbs_grid_panel20_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(719);
-/* harmony import */ var _panels_tbs_grid_panel30_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(730);
-/* harmony import */ var _panels_tbs_grid_panel40_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(105);
-/* harmony import */ var _panels_tbs_grid_panel50_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(708);
-/* harmony import */ var _panels_tbs_grid_panel70_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(222);
-/* harmony import */ var _panels_tbs_grid_panel80_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(661);
-/* harmony import */ var _panels_tbs_grid_panel90_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(472);
-/* harmony import */ var _tbs_grid_range_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(32);
-/* harmony import */ var _tbs_grid_range_panel_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(868);
-/* harmony import */ var _tbs_grid_render_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(541);
-/* harmony import */ var _tbs_grid_render_info_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(543);
-/* harmony import */ var _tbs_grid_scroll_base_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(505);
-/* harmony import */ var _tbs_grid_scroll_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(660);
-/* harmony import */ var _tbs_grid_sort_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(633);
-/* harmony import */ var _tbs_grid_top_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(378);
-/* harmony import */ var _tbs_grid_tree_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(909);
+/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+/* harmony import */ var _tbs_base_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(618);
+/* harmony import */ var _database_tbs_database_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
+/* harmony import */ var _tbs_data_table_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(765);
+/* harmony import */ var _tbs_grid_cell_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(937);
+/* harmony import */ var _tbs_grid_columns_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(550);
+/* harmony import */ var _tbs_grid_combo_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(663);
+/* harmony import */ var _tbs_grid_control_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(48);
+/* harmony import */ var _tbs_grid_date_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(341);
+/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(221);
+/* harmony import */ var _tbs_grid_row_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(613);
+/* harmony import */ var _tbs_grid_filter_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(191);
+/* harmony import */ var _tbs_grid_filter_layer_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(356);
+/* harmony import */ var _summary_tbs_grid_footer_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(561);
+/* harmony import */ var _tbs_grid_group_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(42);
+/* harmony import */ var _tbs_grid_page_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(654);
+/* harmony import */ var _panels_tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(637);
+/* harmony import */ var _panels_tbs_grid_panel10_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(360);
+/* harmony import */ var _panels_tbs_grid_panel20_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(719);
+/* harmony import */ var _panels_tbs_grid_panel30_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(730);
+/* harmony import */ var _panels_tbs_grid_panel40_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(105);
+/* harmony import */ var _panels_tbs_grid_panel50_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(708);
+/* harmony import */ var _panels_tbs_grid_panel70_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(222);
+/* harmony import */ var _panels_tbs_grid_panel80_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(661);
+/* harmony import */ var _panels_tbs_grid_panel90_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(472);
+/* harmony import */ var _tbs_grid_range_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(32);
+/* harmony import */ var _tbs_grid_range_panel_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(868);
+/* harmony import */ var _render_tbs_grid_render_panel_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(652);
+/* harmony import */ var _render_tbs_grid_render_panel_info_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(860);
+/* harmony import */ var _tbs_grid_scroll_base_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(505);
+/* harmony import */ var _tbs_grid_scroll_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(660);
+/* harmony import */ var _tbs_grid_sort_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(633);
+/* harmony import */ var _summary_tbs_grid_top_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(919);
+/* harmony import */ var _tbs_grid_tree_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(909);
+/* harmony import */ var _tbs_grid_configs_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(762);
 
 
 
@@ -4921,14 +6333,15 @@ class TbsDatabase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase *
 
 
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_32__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_32__/* .TbsGridNames */ .G();
-class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase */ .H {
+
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_34__/* .TbsBase */ .H {
   constructor(gridId, gridConfigs) {
     super();
     this.gridId = gridId;
-    this.gridConfig = gridConfigs ? gridConfigs[Object.keys(gridConfigs)[0]] : tbsGridConfigs[Object.keys(tbsGridConfigs)[0]];
-    this.gridConfigOptions = gridConfigs ? gridConfigs.options : tbsGridConfigs.options;
+    this.gridConfig = gridConfigs ? gridConfigs[Object.keys(gridConfigs)[0]] : _tbs_grid_configs_js__WEBPACK_IMPORTED_MODULE_33__.tbsGridConfigs[Object.keys(_tbs_grid_configs_js__WEBPACK_IMPORTED_MODULE_33__.tbsGridConfigs)[0]];
+    this.gridConfigOptions = gridConfigs ? gridConfigs.options : _tbs_grid_configs_js__WEBPACK_IMPORTED_MODULE_33__.tbsGridConfigs.options;
     this.grid_mode = '';
     this.mousePointRange = 15;
 
@@ -4944,89 +6357,25 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
      */
     this.columns = [];
     this.headerColumnTable = [];
+    this.renderer = null;
 
     /**
      * create database
      */
-    this.db = new _tbs_database_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsDatabase */ .$();
-
-    /**
-     * create columns table
-     */
-    this.db.createTable('column'); // columns table
-    this.column_table = this.db.getTable('column');
-
-    /**
-     * create field table name, dataType
-     */
-    this.db.createTable('field'); // columns table
-    this.data_column_table = this.db.getTable('data_column');
-
-    /**
-     * create source table
-     */
-    this.db.createTable('source'); // source_table
-    this.source_table = this.db.getTable('source');
-
-    /**
-     * create view table
-     */
-    this.db.createView('view'); // view_table
-    this.view_table = this.db.getTable('view');
-
-    /**
-     *  create sort column table
-     */
-    this.db.createTable('sort_column');
-    this.sort_column_table = this.db.getTable('sort_column');
-
-    /**
-     *  create filter column table
-     */
-    this.db.createTable('filter_column');
-    this.filter_column_table = this.db.getTable('filter_column');
-
-    /**
-     * create group table
-     */
-    this.db.createTable('group_column');
-    this.group_column_table = this.db.getTable('group_column');
-
-    /**
-     * create temp table
-     */
-    this.db.createView('tree');
-    this.tree_table = this.db.getTable('tree');
-
-    /**
-     * create page table
-     */
-    this.db.createView('page');
-    this.page_table = this.db.getTable('page');
-
-    /**
-     * create top column table
-     */
-    this.db.createTable('top_column');
-    this.top_column_table = this.db.getTable('top_column');
-
-    /**
-     * create top table
-     */
-    this.db.createTable('top');
-    this.top_table = this.db.getTable('top');
-
-    /**
-     * create footer table
-     */
-    this.db.createTable('footer_column');
-    this.footer_column_table = this.db.getTable('footer_column');
-
-    /**
-     * create footer table
-     */
-    this.db.createTable('footer');
-    this.footer_table = this.db.getTable('footer');
+    this.db = new _database_tbs_database_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsDatabase */ .$();
+    this.field_table = this.db.createTable('field');
+    this.column_table = this.db.createTable('column');
+    this.top_column_table = this.db.createTable('top_column');
+    this.footer_column_table = this.db.createTable('footer_column');
+    this.sort_column_table = this.db.createTable('sort_column');
+    this.filter_column_table = this.db.createTable('filter_column');
+    this.group_column_table = this.db.createTable('group_column');
+    this.source_table = this.db.createTable('source');
+    this.view_table = this.db.createView('view');
+    this.tree_table = this.db.createView('tree');
+    this.page_table = this.db.createView('page');
+    this.top_table = this.db.createTable('top');
+    this.footer_table = this.db.createTable('footer');
     this.data_update = [];
     this.data_insert = [];
     this.data_delete = [];
@@ -5034,8 +6383,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     /**
      * create info table
      */
-    this.db.createTable('info'); // info table
-    this.info_table = this.db.getTable('info');
+    this.info_table = this.db.createTable('info');
     this.info_table.insert({
       name: 'num',
       type: 'number',
@@ -5056,6 +6404,42 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
       align: 'center',
       width: 25,
       visible: false
+    });
+
+    /**
+     * cell template table
+     */
+    this.db.createTable('cellTemplate');
+    this.cell_template_table = this.db.getTable('cellTemplate');
+    this.cell_template_table.insert({
+      type: 'checkbox',
+      cellTemplate: 1,
+      children: ['checkbox', 'string']
+    }); //default
+    this.cell_template_table.insert({
+      type: 'checkbox',
+      cellTemplate: 2,
+      children: ['string', 'checkbox']
+    });
+    this.cell_template_table.insert({
+      type: 'group',
+      cellTemplate: 1,
+      children: ['icon', 'string']
+    });
+    this.cell_template_table.insert({
+      type: 'group',
+      cellTemplate: 2,
+      children: ['icon', 'img', 'string']
+    });
+    this.cell_template_table.insert({
+      type: 'tree',
+      cellTemplate: 1,
+      children: ['icon', 'string']
+    });
+    this.cell_template_table.insert({
+      type: 'tree',
+      cellTemplate: 2,
+      children: ['icon', 'img', 'string']
     });
 
     /**
@@ -5126,8 +6510,6 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
      *
      */
     this.fixedColumnIndex = -1;
-    this.fixedRowCount = 0; // required
-    this.fixedRowIndex = -1;
     /**
      * @description constant value
      *
@@ -5144,8 +6526,9 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     this.user_click = null;
     this.user_dblclick = null;
     this.user_edit = null;
-    this.user_cellBounding = null;
+    this.user_cellBounding = null; // @deprecated
     this.user_rowBounding = null;
+    this.user_clickCheckbox = null;
 
     /**
      * @description code
@@ -5159,41 +6542,40 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
      * @description class
      *
      */
-    this.classScroll = new _tbs_grid_scroll_base_js__WEBPACK_IMPORTED_MODULE_27__/* .TbsGridScrollBase */ .a(this);
-    this.verticalScroll = new _tbs_grid_scroll_js__WEBPACK_IMPORTED_MODULE_28__/* .TbsGridScroll */ .F(this, 'verticalScroll');
-    this.horizontalScroll = new _tbs_grid_scroll_js__WEBPACK_IMPORTED_MODULE_28__/* .TbsGridScroll */ .F(this, 'horizontalScroll');
-    this.classColumn = new _tbs_grid_columns_js__WEBPACK_IMPORTED_MODULE_3__/* .TbsGridColumns */ .L(this);
-    this.classControl = new _tbs_grid_control_js__WEBPACK_IMPORTED_MODULE_5__/* .TbsGridControl */ .v(this); // memory
-    this.classRange = new _tbs_grid_range_js__WEBPACK_IMPORTED_MODULE_23__/* .TbsGridRange */ .P(this); // memory
-    this.classRange40 = new _tbs_grid_range_panel_js__WEBPACK_IMPORTED_MODULE_24__/* .TbsGridRangePanel */ .z(this, 'panel40'); // memory
-    this.classRange50 = new _tbs_grid_range_panel_js__WEBPACK_IMPORTED_MODULE_24__/* .TbsGridRangePanel */ .z(this, 'panel50'); // memory
-    this.classFilter = new _tbs_grid_filter_js__WEBPACK_IMPORTED_MODULE_9__/* .TbsGridFilter */ .e(this); // memory
-    this.classGroup = new _tbs_grid_group_js__WEBPACK_IMPORTED_MODULE_12__/* .TbsGridGroup */ .l(this); // memory
-    this.classPage = new _tbs_grid_page_js__WEBPACK_IMPORTED_MODULE_13__/* .TbsGridPage */ .X(this); // memory
-    this.classSort = new _tbs_grid_sort_js__WEBPACK_IMPORTED_MODULE_29__/* .TbsGridSort */ .m(this); // memory
-    this.classTree = new _tbs_grid_tree_js__WEBPACK_IMPORTED_MODULE_31__/* .TbsGridTree */ .O(this); // memory
+    this.classScroll = new _tbs_grid_scroll_base_js__WEBPACK_IMPORTED_MODULE_28__/* .TbsGridScrollBase */ .a(this);
+    this.verticalScroll = new _tbs_grid_scroll_js__WEBPACK_IMPORTED_MODULE_29__/* .TbsGridScroll */ .F(this, 'verticalScroll');
+    this.horizontalScroll = new _tbs_grid_scroll_js__WEBPACK_IMPORTED_MODULE_29__/* .TbsGridScroll */ .F(this, 'horizontalScroll');
+    this.classColumn = new _tbs_grid_columns_js__WEBPACK_IMPORTED_MODULE_4__/* .TbsGridColumns */ .L(this);
+    this.classControl = new _tbs_grid_control_js__WEBPACK_IMPORTED_MODULE_6__/* .TbsGridControl */ .v(this); // memory
+    this.classRange = new _tbs_grid_range_js__WEBPACK_IMPORTED_MODULE_24__/* .TbsGridRange */ .P(this); // memory
+    this.classRange40 = new _tbs_grid_range_panel_js__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridRangePanel */ .z(this, 'panel40'); // memory
+    this.classRange50 = new _tbs_grid_range_panel_js__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridRangePanel */ .z(this, 'panel50'); // memory
+    this.classFilter = new _tbs_grid_filter_js__WEBPACK_IMPORTED_MODULE_10__/* .TbsGridFilter */ .e(this); // memory
+    this.classGroup = new _tbs_grid_group_js__WEBPACK_IMPORTED_MODULE_13__/* .TbsGridGroup */ .l(this); // memory
+    this.classPage = new _tbs_grid_page_js__WEBPACK_IMPORTED_MODULE_14__/* .TbsGridPage */ .X(this); // memory
+    this.classSort = new _tbs_grid_sort_js__WEBPACK_IMPORTED_MODULE_30__/* .TbsGridSort */ .m(this); // memory
+    this.classTree = new _tbs_grid_tree_js__WEBPACK_IMPORTED_MODULE_32__/* .TbsGridTree */ .O(this); // memory
 
-    this.classPanelBase = new _panels_tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_14__/* .TbsGridPanelBase */ .B(this);
-    this.classPanel10 = new _panels_tbs_grid_panel10_js__WEBPACK_IMPORTED_MODULE_15__/* .TbsGridPanel10 */ .T(this);
-    this.classPanel20 = new _panels_tbs_grid_panel20_js__WEBPACK_IMPORTED_MODULE_16__/* .TbsGridPanel20 */ .i(this);
-    this.classPanel30 = new _panels_tbs_grid_panel30_js__WEBPACK_IMPORTED_MODULE_17__/* .TbsGridPanel30 */ .z(this);
-    this.classPanel40 = new _panels_tbs_grid_panel40_js__WEBPACK_IMPORTED_MODULE_18__/* .TbsGridPanel40 */ .s(this);
-    this.classPanel50 = new _panels_tbs_grid_panel50_js__WEBPACK_IMPORTED_MODULE_19__/* .TbsGridPanel50 */ .H(this);
-    this.classPanel70 = new _panels_tbs_grid_panel70_js__WEBPACK_IMPORTED_MODULE_20__/* .TbsGridPanel70 */ .p(this);
-    this.classPanel80 = new _panels_tbs_grid_panel80_js__WEBPACK_IMPORTED_MODULE_21__/* .TbsGridPanel80 */ .g(this);
-    this.classPanel90 = new _panels_tbs_grid_panel90_js__WEBPACK_IMPORTED_MODULE_22__/* .TbsGridPanel90 */ .j(this);
+    this.classPanelBase = new _panels_tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_15__/* .TbsGridPanelBase */ .B(this);
+    this.classPanel10 = new _panels_tbs_grid_panel10_js__WEBPACK_IMPORTED_MODULE_16__/* .TbsGridPanel10 */ .T(this);
+    this.classPanel20 = new _panels_tbs_grid_panel20_js__WEBPACK_IMPORTED_MODULE_17__/* .TbsGridPanel20 */ .i(this);
+    this.classPanel30 = new _panels_tbs_grid_panel30_js__WEBPACK_IMPORTED_MODULE_18__/* .TbsGridPanel30 */ .z(this);
+    this.classPanel40 = new _panels_tbs_grid_panel40_js__WEBPACK_IMPORTED_MODULE_19__/* .TbsGridPanel40 */ .s(this);
+    this.classPanel50 = new _panels_tbs_grid_panel50_js__WEBPACK_IMPORTED_MODULE_20__/* .TbsGridPanel50 */ .H(this);
+    this.classPanel70 = new _panels_tbs_grid_panel70_js__WEBPACK_IMPORTED_MODULE_21__/* .TbsGridPanel70 */ .p(this);
+    this.classPanel80 = new _panels_tbs_grid_panel80_js__WEBPACK_IMPORTED_MODULE_22__/* .TbsGridPanel80 */ .g(this);
+    this.classPanel90 = new _panels_tbs_grid_panel90_js__WEBPACK_IMPORTED_MODULE_23__/* .TbsGridPanel90 */ .j(this);
 
     //this.classRender = new TbsGridRender(this);
 
-    this.classTop = new _tbs_grid_top_js__WEBPACK_IMPORTED_MODULE_30__/* .TbsGridTop */ .B(this); // memory
-    this.classFooter = new _tbs_grid_footer_js__WEBPACK_IMPORTED_MODULE_11__/* .TbsGridFooter */ .h(this); // memory
+    this.classTop = new _summary_tbs_grid_top_js__WEBPACK_IMPORTED_MODULE_31__/* .TbsGridTop */ .B(this); // memory
+    this.classFooter = new _summary_tbs_grid_footer_js__WEBPACK_IMPORTED_MODULE_12__/* .TbsGridFooter */ .h(this); // memory
 
     this.tbsGridDate; // memory
     this.tbsGridCombo; // memory
 
-    this.classDom = new _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_7__/* .TbsGridDom */ .E();
-    this.classRow = new _tbs_grid_row_js__WEBPACK_IMPORTED_MODULE_8__/* .TbsGridRow */ .g(this);
-    this.classCell = new _tbs_grid_cell_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridCell */ .u(this, null);
+    this.classRow = new _tbs_grid_row_js__WEBPACK_IMPORTED_MODULE_9__/* .TbsGridRow */ .g(this);
+    this.classCell = new _tbs_grid_cell_js__WEBPACK_IMPORTED_MODULE_3__/* .TbsGridCell */ .u(this, null);
   }
 
   /**
@@ -5206,47 +6588,21 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     const grid = this;
     let startCell;
     let startRowIndex = grid._startRowIndex;
-    if (grid.fixedRowIndex != -1) {
-      let panel;
-      if (startRowIndex <= grid.fixedRowIndex) panel = 'panel61';else {
-        panel = 'panel31';
-        let rowIndex1 = grid.getFirstRowIndex();
-        let rowIndex2 = grid.getLastRowIndex();
-        if (startRowIndex < rowIndex1) startRowIndex = rowIndex1;
-      }
-      let tableRows31 = document.querySelectorAll(selector + ' .tbs-grid-' + panel + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
-      let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
-      Loop1: for (let i = 0, len = tableRows31.length; i < len; i++) {
-        let tableRow31 = tableRows31[i];
-        let tableRow = tableRows[i];
-        let rowIndex = tableRow31.childNodes[0].dataset.rowIndex;
-        if (rowIndex == startRowIndex) {
-          for (let x = 0; x < this.column_table.count(); x++) {
-            let tableCell = tableRow.childNodes[x];
-            if (tableCell.classList.contains('tbs-grid-cell-start') || tableCell.classList.contains('tbs-grid-cell-select')) {
-              startCell = tableCell;
-              break Loop1;
-            }
-          }
-        }
-      }
-    } else {
-      let rowIndex1 = grid.getFirstRowIndex();
-      let rowIndex2 = grid.getLastRowIndex();
-      if (startRowIndex < rowIndex1) startRowIndex = rowIndex1;
-      let tableRows31 = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
-      let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + '  .tbs-grid-table tbody tr:not([style*="display: none"])');
-      Loop1: for (let i = 0, len = tableRows31.length; i < len; i++) {
-        let tableRow31 = tableRows31[i];
-        let tableRow = tableRows[i];
-        let rowIndex = tableRow31.childNodes[0].dataset.rowIndex;
-        if (rowIndex == startRowIndex) {
-          for (let x = 0; x < this.column_table.count(); x++) {
-            let tableCell = tableRow.childNodes[x];
-            if (tableCell.classList.contains('tbs-grid-cell-start') || tableCell.classList.contains('tbs-grid-cell-select')) {
-              startCell = tableCell;
-              break Loop1;
-            }
+    let rowIndex1 = grid.getFirstRowIndex();
+    let rowIndex2 = grid.getLastRowIndex();
+    if (startRowIndex < rowIndex1) startRowIndex = rowIndex1;
+    let tableRows31 = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
+    let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + '  .tbs-grid-table tbody tr:not([style*="display: none"])');
+    Loop1: for (let i = 0, len = tableRows31.length; i < len; i++) {
+      let tableRow31 = tableRows31[i];
+      let tableRow = tableRows[i];
+      let rowIndex = tableRow31.childNodes[0].dataset.rowIndex;
+      if (rowIndex == startRowIndex) {
+        for (let x = 0; x < this.column_table.count(); x++) {
+          let tableCell = tableRow.childNodes[x];
+          if (tableCell.classList.contains('tbs-grid-cell-start') || tableCell.classList.contains('tbs-grid-cell-select')) {
+            startCell = tableCell;
+            break Loop1;
           }
         }
       }
@@ -5258,55 +6614,27 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     const grid = this;
     let lastCell;
     let lastRowIndex = this._lastRowIndex;
-    if (grid.fixedRowIndex != -1) {
-      let panel;
-      if (lastRowIndex <= grid.fixedRowIndex) panel = 'panel61';else {
-        panel = 'panel31';
-        let rowIndex1 = grid.getFirstRowIndex();
-        let rowIndex2 = grid.getLastRowIndex();
-        if (lastRowIndex > rowIndex2) lastRowIndex = rowIndex2;
-      }
-      let tableRows31 = document.querySelectorAll(selector + ' .tbs-grid-' + panel + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
-      let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
-      for (let i = tableRows31.length - 1; i >= 0; i--) {
-        if (lastCell != undefined) break;
-        let tableRow31 = tableRows31[i];
-        let tableRow30 = tableRows[i];
-        let rowIndex = tableRow31.childNodes[0].dataset.rowIndex;
-        if (rowIndex == lastRowIndex) {
-          for (let x = this.column_table.count() - 1; x >= 0; x--) {
-            let tableCell = tableRow30.childNodes[x];
-            if (tableCell.classList.contains('tbs-grid-cell-start') || tableCell.classList.contains('tbs-grid-cell-select')) {
-              lastCell = tableCell;
-              break;
-            }
+    let rowIndex1 = grid.getFirstRowIndex();
+    let rowIndex2 = grid.getLastRowIndex();
+    if (lastRowIndex > rowIndex2) lastRowIndex = rowIndex2;
+    let tableRows31 = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
+    let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + '  .tbs-grid-table tbody tr:not([style*="display: none"])');
+    for (let i = tableRows31.length - 1; i >= 0; i--) {
+      if (lastCell != undefined) break;
+      let tableRow31 = tableRows31[i];
+      let tableRow30 = tableRows[i];
+      let rowIndex = tableRow31.childNodes[0].dataset.rowIndex;
+      if (rowIndex == lastRowIndex) {
+        for (let x = this.column_table.count() - 1; x >= 0; x--) {
+          let tableCell = tableRow30.childNodes[x];
+          if (tableCell.classList.contains('tbs-grid-cell-start') || tableCell.classList.contains('tbs-grid-cell-select')) {
+            lastCell = tableCell;
+            break;
           }
         }
       }
-      return lastCell;
-    } else {
-      let rowIndex1 = grid.getFirstRowIndex();
-      let rowIndex2 = grid.getLastRowIndex();
-      if (lastRowIndex > rowIndex2) lastRowIndex = rowIndex2;
-      let tableRows31 = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
-      let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + '  .tbs-grid-table tbody tr:not([style*="display: none"])');
-      for (let i = tableRows31.length - 1; i >= 0; i--) {
-        if (lastCell != undefined) break;
-        let tableRow31 = tableRows31[i];
-        let tableRow30 = tableRows[i];
-        let rowIndex = tableRow31.childNodes[0].dataset.rowIndex;
-        if (rowIndex == lastRowIndex) {
-          for (let x = this.column_table.count() - 1; x >= 0; x--) {
-            let tableCell = tableRow30.childNodes[x];
-            if (tableCell.classList.contains('tbs-grid-cell-start') || tableCell.classList.contains('tbs-grid-cell-select')) {
-              lastCell = tableCell;
-              break;
-            }
-          }
-        }
-      }
-      return lastCell;
     }
+    return lastCell;
   }
   clearSelectedLine() {
     this.topLineDiv.style = 'width :0px;top:0px;left:0px;';
@@ -5329,46 +6657,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
       grid.classRange.removeRange(0, -1);
       return;
     }
-    if (grid.fixedRowIndex != -1) {
-      let tableRows30 = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
-      if (grid.getRowCount() == 0) return;
-      let fixedColumnIndex = this.fixedColumnIndex;
-
-      /* Get startCell, lastCell */
-      let startCell, lastCell;
-      if (grid._startRowIndex <= grid.fixedRowIndex) startCell = grid.getFirstSelectedTableCell('panel60');else startCell = grid.getFirstSelectedTableCell('panel30');
-      if (grid._lastRowIndex <= grid.fixedRowIndex) lastCell = grid.getLastSelectedTableCell('panel60');else lastCell = grid.getLastSelectedTableCell('panel30');
-      if (startCell == undefined || lastCell == undefined) {
-        grid.clearSelectedLine();
-        return;
-      }
-      //console.log(`startCell.cellIndex : ${startCell.cellIndex} / lastCell.cellIndex : ${lastCell.cellIndex}`);
-
-      let startCellIndex = grid._startCellIndex;
-      let lastCellIndex = grid._lastCellIndex;
-      let rectMain = document.querySelector(selector + ' .tbs-grid-main').getBoundingClientRect();
-      let rectTable31 = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').getBoundingClientRect();
-      let rectWrap = document.querySelector(selector + ' .tbs-grid-wrap').getBoundingClientRect();
-      let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
-      let startRect = startCell.getBoundingClientRect();
-      let lastRect = lastCell.getBoundingClientRect();
-      let beforeLeft = rectTable31.left;
-      let rectTop = startRect.top - rectMain.top;
-      let rectBottom = lastRect.top - rectMain.top + lastRect.height;
-      let rectLeft = startRect.left - beforeLeft;
-      let rectRight = lastRect.left - beforeLeft + lastRect.width;
-      let rectPanelLeft = startCellIndex <= fixedColumnIndex ? rectLeft : rectPanel30.left - rectTable31.left;
-      let rectPanelBottom = rectPanel30.top - rectMain.top + rectPanel30.height;
-      let rectPanelRight = rectPanel30.left - rectTable31.left + rectPanel30.width;
-
-      // case outside line
-      if (rectLeft <= rectPanelLeft) rectLeft = rectPanelLeft;
-      if (rectBottom >= rectPanelBottom) rectBottom = rectPanelBottom - 2;
-      if (rectRight >= rectPanelRight) rectRight = rectPanelRight;
-      let lineHeight = rectBottom - rectTop;
-      let lineWidth = rectRight - rectLeft;
-      grid.setSelectedLine(lineWidth, lineHeight, rectTop, rectBottom, rectLeft, rectRight);
-    } else if (grid.fixedColumnIndex != -1) {
+    if (grid.fixedColumnIndex != -1) {
       let tableRows30 = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
       if (grid.getRowCount() == 0) return;
       let fixedColumnIndex = this.fixedColumnIndex;
@@ -5455,15 +6744,14 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let count = this.view_table.count();
     let topRowIndex = this.getFirstRowIndex();
     //============================================================= table display
-    let trLeftList = document.querySelectorAll(selector + ' .tbs-grid-panel31  .tbs-grid-table tbody tr');
-    let trFixLeftList = document.querySelectorAll(selector + ' .tbs-grid-panel61   .tbs-grid-table tbody tr');
-    let trContentList = document.querySelectorAll(selector + ' .tbs-grid-panel30   .tbs-grid-table tbody tr');
-    let trFixBottomtList = document.querySelectorAll(selector + ' .tbs-grid-panel32 .tbs-grid-table tbody tr');
+    const trLeftList = document.querySelectorAll(selector + ' .tbs-grid-panel31  .tbs-grid-table tbody tr');
+    const trContentList = document.querySelectorAll(selector + ' .tbs-grid-panel30   .tbs-grid-table tbody tr');
+    const trFixBottomtList = document.querySelectorAll(selector + ' .tbs-grid-panel32 .tbs-grid-table tbody tr');
     count = topRowIndex + this.pageRowCount;
     //=============================================================
-    let contentRect = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
-    let contentTableRect = document.querySelector(selector + ' .tbs-grid-panel30 > table').getBoundingClientRect();
-    let contentTableLeft = parseInt(document.querySelector(selector + ' .tbs-grid-panel30 > table').style.left, 10);
+    const contentRect = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
+    const contentTableRect = document.querySelector(selector + ' .tbs-grid-panel30 > table').getBoundingClientRect();
+    const contentTableLeft = parseInt(document.querySelector(selector + ' .tbs-grid-panel30 > table').style.left, 10);
     let startColumnIndex = 0;
     let lastColumnIndex = column.length - 1;
     let accWidth = 0;
@@ -5520,31 +6808,6 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
       i += 1;
     }
     //=============================================================
-    if (this.fixedRowIndex != -1) {
-      let i = 0;
-      for (let ri = 0; ri <= this.fixedRowIndex; ri++) {
-        if (ri > viewCount - 1) break;
-        let trLeft = trFixLeftList[i];
-        let trContent = trFixRightList[i];
-        let row = grid.view_table.data[ri];
-        //============================================================= left
-        leftTd = trLeft.childNodes[0];
-        leftTd.dataset.rowIndex = ri;
-        let selectedValue = this.isSelectedCell31(ri, 0);
-        if (selectedValue == 1) leftTd.classList.add('tbs-grid-cell-select');
-        //============================================================= content
-        for (let x = startColumnIndex; x <= lastColumnIndex; x++) {
-          let td = trContent.childNodes[x];
-          let selectedValue = this.isSelectedCell30(ri, x); //new
-          if (selectedValue == 1) {
-            if (this.startRowIndex == ri && this.startCellIndex == x) {
-              td.classList.add('tbs-grid-cell-start');
-            }
-          }
-        }
-      }
-      i += 1;
-    }
     this.displaySelectedLine();
   }
 
@@ -5555,7 +6818,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
   event_input() {
     let selector = '#' + this.gridId;
     const grid = this;
-    let panelInput = document.querySelector(selector + ' .tbs-grid-panel-input');
+    let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
     let input = document.querySelector(selector + ' .tbs-grid-input');
     let colType = input.dataset.type;
     const keydownEvent = function (e) {
@@ -5692,24 +6955,24 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
       let colType = grid.column_table.data[grid.startCellIndex][tbsGridNames.column.type];
     };
     const blurEvent = function (e) {
-      //console.dir(e);
-      //console.log(`SCROLL : blur event`);
-
-      let input = document.querySelector(selector + ' .tbs-grid-input');
-      let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-      let input_icon = document.querySelector(selector + ' .tbs-grid-panel-input-icon');
+      // inputLayerPanel 일 살아 있을 경우.
+      // focus가 사라진다 해도..input은 남아 있어야 해.
+      const inputLayerPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
+      if (inputLayerPanel.style.left != '30000px') return;
+      const input = document.querySelector(selector + ' .tbs-grid-input');
+      const input_code = document.querySelector(selector + ' .tbs-grid-input-code');
+      const input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
       let mode = input.dataset.mode;
       let rowIndex = input.dataset.rowIndex;
-      let cellIndex = input.dataset.cellIndex;
+      let cellIndex = input.dataset.columnIndex;
       let column = grid.column_table.data[cellIndex];
+
+      /* user blur event stop */
       if (rowIndex == undefined || cellIndex == undefined) {
         grid.input_hide();
         return;
       }
-      /* user blur event stop */
-      if (input.dataset.mode == undefined || input.dataset.mode == '') {
-        e.stopImmediatePropagation();
-      }
+      if (input.dataset.mode == undefined || input.dataset.mode == '') return; //{ e.stopImmediatePropagation(); }
       if (rowIndex == -1 || cellIndex == -1) return;
       if (grid.notNull(grid.user_edit)) {
         grid.editEnd(e, 'key');
@@ -5823,7 +7086,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
   event_input_icon() {
     let selector = '#' + this.gridId;
     const grid = this;
-    let input_icon = document.querySelector(selector + ' .tbs-grid-panel-input-icon');
+    let input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
     let colType = input_icon.dataset.type;
     const mousedownEvent = function (e) {
       //console.dir(e)
@@ -5832,19 +7095,15 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
       e.stopImmediatePropagation();
       let input = document.querySelector(selector + ' .tbs-grid-input');
       let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-      let input_panel = document.querySelector(selector + ' .tbs-grid-input-panel');
+      let input_panel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
       let column = grid.column_table.data[grid.startCellIndex];
       let colType = grid.column_table.data[grid.startCellIndex][tbsGridNames.column.type];
 
-      //tbs-grid-input-panel : calendar, combo
+      //tbs-grid-input-layer-panel : calendar, combo
       if (colType == 'date') {
-        grid.tbsGridDate = new _tbs_grid_date_js__WEBPACK_IMPORTED_MODULE_6__/* .TbsGridDate */ .I(grid, column, input);
-        // input_panel.style.width = '250px';
-        // input_panel.style.height = '146px';
+        grid.tbsGridDate = new _tbs_grid_date_js__WEBPACK_IMPORTED_MODULE_7__/* .TbsGridDate */ .I(grid, column, input);
       } else if (colType == tbsGridTypes.CellType.combo) {
-        grid.tbsGridCombo = new _tbs_grid_combo_js__WEBPACK_IMPORTED_MODULE_4__/* .TbsGridCombo */ .q(grid, column, input, input_code);
-        // input_panel.style.width = '200px';
-        // input_panel.style.height = '146px';
+        grid.tbsGridCombo = new _tbs_grid_combo_js__WEBPACK_IMPORTED_MODULE_5__/* .TbsGridCombo */ .q(grid, column, input, input_code);
       }
     };
     input_icon.addEventListener('mousedown', mousedownEvent);
@@ -5859,10 +7118,10 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let columns = grid.column_table.data;
     let column = columns[cellIndex];
     let colType = column[tbsGridNames.column.type];
-    let panelInput = document.querySelector(selector + ' .tbs-grid-panel-input');
+    let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
     let input = document.querySelector(selector + ' .tbs-grid-input');
     let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-    let input_icon = document.querySelector(selector + ' .tbs-grid-panel-input-icon');
+    let input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
     let panelMain = document.querySelector(selector + ' .tbs-grid-main');
     let td = document.querySelector(selector + ' .tbs-grid-group30 .tbs-grid-cell-start');
     if (td == null) return;
@@ -5885,7 +7144,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     input.dataset.mode = mode;
     input.dataset.type = colType;
     input.dataset.rowIndex = grid.startRowIndex;
-    input.dataset.cellIndex = grid.startCellIndex;
+    input.dataset.columnIndex = grid.startCellIndex;
     input.dataset.click = '';
     if (colType == 'date') {
       let width = parseInt(column[[tbsGridNames.column.width]]);
@@ -5916,41 +7175,44 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
   input_hide() {
     let selector = '#' + this.gridId;
     const grid = this;
-    let panelInput = document.querySelector(selector + ' .tbs-grid-panel-input');
-    let input = document.querySelector(selector + ' .tbs-grid-input');
-    let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
+    const panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
+    const input = document.querySelector(selector + ' .tbs-grid-input');
+    const input_code = document.querySelector(selector + ' .tbs-grid-input-code');
 
     // date, combo layer
-    let input_icon = document.querySelector(selector + ' .tbs-grid-panel-input-icon');
-    let input_panel = document.querySelector(selector + ' .tbs-grid-input-panel');
+    let input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
+    //let inputLayerPanel= document.querySelector(selector + ' .tbs-grid-input-layer-panel');
+
     panelInput.style.left = '30000px';
     panelInput.style.width = '0px';
     input.value = '';
     input_code.value = '';
     input.dataset.rowIndex = -1;
-    input.dataset.cellIndex = -1;
+    input.dataset.columnIndex = -1;
     input.dataset.mode = '';
     input.dataset.type = '';
     input_icon.style.display = 'none';
     input_icon.dataset.rowIndex = -1;
-    input_icon.dataset.cellIndex = -1;
+    input_icon.dataset.columnIndex = -1;
     input_icon.dataset.mode = '';
     input_icon.dataset.type = '';
 
     // date, combo layer
-    input_panel.innerHTML = '';
-    input_panel.style.width = '0px';
-    input_panel.style.left = '30000px';
-    input_panel.dataset.rowIndex = -1;
-    input_panel.dataset.cellIndex = -1;
-    input_panel.dataset.mode = '';
-    input_panel.dataset.type = '';
+    //console.log('input_hide');
+    // inputLayerPanel.innerHTML = '';
+    // inputLayerPanel.style.width = '0px';
+    // inputLayerPanel.style.left = '30000px';
+    // inputLayerPanel.dataset.rowIndex = -1;
+    // inputLayerPanel.dataset.columnIndex = -1;
+    // inputLayerPanel.dataset.mode = '';
+    // inputLayerPanel.dataset.type = '';
+
     if (this.tbsGridDate) {
       this.tbsGridDate.destroy();
       this.tbsGridDate = null;
     }
     if (this.tbsGridCombo) {
-      this.tbsGridCombo.tbs_destroy();
+      this.tbsGridCombo.destroy();
       this.tbsGridCombo = null;
     }
   }
@@ -5965,12 +7227,12 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let selector = '#' + this.gridId;
     const grid = this;
     let state = 0;
-    let panelInput = document.querySelector(selector + ' .tbs-grid-panel-input');
+    let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
     let input = document.querySelector(selector + ' .tbs-grid-input');
     let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
     let result = true;
     let rowIndex = state == 0 ? grid.startRowIndex : input.dataset.rowIndex;
-    let cellIndex = state == 0 ? grid.startCellIndex : input.dataset.cellIndex;
+    let cellIndex = state == 0 ? grid.startCellIndex : input.dataset.columnIndex;
     let column = grid.classColumn.getColumnByIndex(cellIndex);
     let columnName = grid.classColumn.getColumnName(cellIndex);
     let value = grid.getValue(rowIndex, columnName);
@@ -6001,16 +7263,16 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let selector = '#' + this.gridId;
     const grid = this;
     let state = 1;
-    let panelInput = document.querySelector(selector + ' .tbs-grid-panel-input');
+    let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
     let input = document.querySelector(selector + ' .tbs-grid-input');
     let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-    if (input.dataset.cellIndex == -1) {
+    if (input.dataset.columnIndex == -1) {
       grid.input_hide();
       return;
     }
     let result = true;
     let rowIndex = state == 0 ? grid.startRowIndex : input.dataset.rowIndex;
-    let cellIndex = state == 0 ? grid.startCellIndex : input.dataset.cellIndex;
+    let cellIndex = state == 0 ? grid.startCellIndex : input.dataset.columnIndex;
     let column = grid.classColumn.getColumnByIndex(cellIndex);
     let columnName = grid.classColumn.getColumnName(cellIndex);
     let value = grid.getValue(rowIndex, columnName);
@@ -6040,15 +7302,15 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let selector = '#' + this.gridId;
     const grid = this;
     let state = 2;
-    let panelInput = document.querySelector(selector + ' .tbs-grid-panel-input');
+    let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
     let input = document.querySelector(selector + ' .tbs-grid-input');
     let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-    if (grid.null(input.dataset.cellIndex) || input.dataset.cellIndex == -1) {
+    if (grid.null(input.dataset.columnIndex) || input.dataset.columnIndex == -1) {
       grid.input_hide();
     } else {
       let result = true;
       let rowIndex = state == 0 ? grid.startRowIndex : input.dataset.rowIndex;
-      let cellIndex = state == 0 ? grid.startCellIndex : input.dataset.cellIndex;
+      let cellIndex = state == 0 ? grid.startCellIndex : input.dataset.columnIndex;
       let column = grid.classColumn.getColumnByIndex(cellIndex);
       //let column = grid.column_table.selectRowByRowIndex(cellInex);
       let columnName = grid.classColumn.getColumnName(cellIndex);
@@ -6123,10 +7385,10 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     this.event_checkBox();
     this.event_mobileTouchDrag();
     document.addEventListener('scroll', function (e) {
-      let panelInputList = document.querySelectorAll(selector + ' .tbs-grid-panel-input');
+      let panelInputList = document.querySelectorAll(selector + ' .tbs-grid-input-panel');
       let inputList = document.querySelectorAll(selector + ' .tbs-grid-input');
-      let inputIconList = document.querySelectorAll(selector + ' .tbs-grid-panel-input-icon');
-      let inputPanelList = document.querySelectorAll(selector + ' .tbs-grid-input-panel');
+      let inputIconList = document.querySelectorAll(selector + ' .tbs-grid-input-panel-icon');
+      let inputPanelList = document.querySelectorAll(selector + ' .tbs-grid-input-layer-panel');
       for (let i = 0; i < inputList.length; i++) {
         let panelInput = panelInputList[i];
         let input = inputList[i];
@@ -6136,33 +7398,39 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
         panelInput.style.left = '30000px';
         panelInput.style.width = '0px';
         input.dataset.rowIndex = -1;
-        input.dataset.cellIndex = -1;
+        input.dataset.columnIndex = -1;
         input.dataset.mode = '';
         input.dataset.type = '';
         input_icon.style.display = 'none';
         input_icon.dataset.rowIndex = -1;
-        input_icon.dataset.cellIndex = -1;
+        input_icon.dataset.columnIndex = -1;
         input_icon.dataset.mode = '';
         input_icon.dataset.type = '';
         input_panel.innerHTML = '';
         input_panel.style.width = '0px';
         input_panel.style.left = '30000px';
         input_panel.dataset.rowIndex = -1;
-        input_panel.dataset.cellIndex = -1;
+        input_panel.dataset.columnIndex = -1;
         input_panel.dataset.mode = '';
         input_panel.dataset.type = '';
       }
     });
+    const bodyMouseDownEvent = function (e) {
+      let name = e.target.className;
+      const inputPanel = document.querySelector(selector + ' .tbs-grid-input-panel');
+      const inputLayerPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
+      if (name.indexOf('tbs-grid-panel10-filter-input') != -1 || inputPanel.contains(e.target) || inputLayerPanel.contains(e.target) || name.indexOf('tbs-grid-cell-filter-input') != -1 || name.indexOf('tbs-grid-cell-filter-combo') != -1) {} else {
+        inputLayerPanel.style.left = '30000px';
+        grid.input_focus();
+      }
+    };
+    document.body.addEventListener('mousedown', bodyMouseDownEvent);
     const mouseDownGridEvent = function (e) {
       let name = e.target.className;
-      //console.log('gird: ' + name)
-      e.stopPropagation();
-      if (name.indexOf('tbs-grid-panel10-filter-input') != -1 || name.indexOf('tbs-grid-cell-filter-input') != -1 || name.indexOf('tbs-grid-layer') != -1 || name.indexOf('tbs-grid-cell-filter-input') != -1 || name.indexOf('tbs-grid-cell-filter-combo') != -1) {} else {
-        document.querySelector(selector + ' .tbs-grid-layer').style.width = '0px';
-        document.querySelector(selector + ' .tbs-grid-layer').style.height = '0px';
-        document.querySelector(selector + ' .tbs-grid-layer').style.left = '30000px';
-        document.querySelector(selector + ' .tbs-grid-layer').style.display = 'none';
-        // document.querySelector(selector + ' .tbs-grid-input').focus();
+      const inputPanel = document.querySelector(selector + ' .tbs-grid-input-panel');
+      const inputLayerPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
+      if (name.indexOf('tbs-grid-panel10-filter-input') != -1 || inputPanel.contains(e.target) || inputLayerPanel.contains(e.target) || name.indexOf('tbs-grid-cell-filter-input') != -1 || name.indexOf('tbs-grid-cell-filter-combo') != -1) {} else {
+        inputLayerPanel.style.left = '30000px';
         grid.input_focus();
       }
     };
@@ -6184,7 +7452,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let isSortable = grid.isSortableColumn(cell.dataset.name);
     if (!isSortable) return false;
 
-    //let sortDiv = cell.querySelector('.tbs-grid-cell-span-sort');
+    //let sortDiv = cell.querySelector('.tbs-grid-html-sort');
     let curSortKind = '';
     let sortKind = '';
     if (grid.sort_column_table.isRow(tbsGridNames.column.name, columnName)) {
@@ -6204,7 +7472,9 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
       dataRow[tbsGridNames.column.order] = sortKind;
       grid.sort_column_table.insert(dataRow);
     }
-    if (grid.sort_column_table.count() == 0) {
+    let count = grid.sort_column_table.count();
+    let emptyCount = grid.sort_column_table.count('order', '');
+    if (count == emptyCount) {
       grid.classSort.initSortData();
     }
     if (grid.options.showFilterPanel) grid.classFilter.filters();
@@ -6283,7 +7553,6 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
         let displayTopRowIndex = Math.ceil(yBarTop * grid.verticalScroll.moveCount);
         actveTopRowIndex = displayTopRowIndex;
         let topRowIndex = displayTopRowIndex;
-        if (grid.fixedRowIndex != -1) topRowIndex = displayTopRowIndex + grid.fixedRowIndex + 1;
 
         //console.log(`topRowIndex ${topRowIndex} / displayTopRowIndex ${displayTopRowIndex} `);
         setTimeout(function () {
@@ -6299,13 +7568,13 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
       let xMove = e.changedTouches[0].clientX - xPos.x;
       let yMove = e.changedTouches[0].clientY - yPos.y;
       let tableCell, targetName;
-      if (e.target.classList.contains('tbs-grid-cell-div-icon')) {
+      if (e.target.classList.contains('tbs-grid-html-icon')) {
         targetName = 'icon';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-div-img')) {
+      } else if (e.target.classList.contains('tbs-grid-html-img')) {
         targetName = 'img';
         tableCell = e.target.parentNode.parentNode;
-      } else if (e.target.classList.contains('tbs-grid-cell-string')) {
+      } else if (e.target.classList.contains('tbs-grid-html-string')) {
         targetName = 'text';
         tableCell = e.target.parentNode.parentNode;
       } else if (e.target.classList.contains('tbs-grid-cell-div')) {
@@ -6344,7 +7613,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let eventDetail = 0; // 1 : click (resize), 2 : dblclick(auto resize)
     const mouseDownEvent = function (e) {
       e.stopPropagation();
-      if (e.target.classList.contains('tbs-grid-cell-resize')) {
+      if (e.target.classList.contains('tbs-grid-html-resize')) {
         tableCell = e.target.parentNode;
         resizer = e.target;
       } else return;
@@ -6359,7 +7628,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
         const style = window.getComputedStyle(tableCell);
         cellWidth = parseInt(style.width, 10);
         tableWidth = parseInt(document.querySelector(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table').getBoundingClientRect().width);
-        resizer.classList.add('.tbs-grid-cell-resizing');
+        resizer.classList.add('.tbs-grid-html-resizing');
         if (tableCell.dataset.name == '') {
           let cellIndex = tableCell.cellIndex;
           let lastCellIndex = cellIndex + tableCell.colSpan;
@@ -6377,7 +7646,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
         document.addEventListener('mouseup', mouseUpEvent);
       } else if (eventDetail == 2) {
         e.stopPropagation();
-        if (grid.isClassName(e.target, 'tbs-grid-cell-resize') != true) return;
+        if (grid.isClassName(e.target, 'tbs-grid-html-resize') != true) return;
         let cell = e.target.parentElement;
         let columnName = grid.classColumn.getColumnName(cell.cellIndex);
         let isAutoResizable = grid.isAutoResizableColumn(columnName);
@@ -6450,7 +7719,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     const mouseUpEvent = function (e) {
       if (eventDetail == 1) {
         e.stopPropagation();
-        resizer.classList.remove('.tbs-grid-cell-resizing');
+        resizer.classList.remove('.tbs-grid-html-resizing');
         document.removeEventListener('mousemove', mouseMoveEvent);
         document.removeEventListener('mouseup', mouseUpEvent);
       }
@@ -6467,8 +7736,6 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
         let tr = e.target.parentNode.parentNode.parentNode;
         let rowIndex = parseInt(tr.childNodes[0].childNodes[0].textContent) - 1;
         if (e.target.checked) grid.view_table.updateByRowIndex(rowIndex, tbsGridNames.column.isChecked, false);else grid.view_table.updateByRowIndex(rowIndex, tbsGridNames.column.isChecked, true);
-        // if (e.target.checked) grid.view_table.data[rowIndex].check = false;
-        // else grid.view_table.data[rowIndex].check = true;
       }
     };
     document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').addEventListener('mousedown', checkDowntEvent, false);
@@ -6486,8 +7753,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
           e.preventDefault();
           e.returnValue = false;
           grid.classScroll.setBarPositionByDirection('down');
-        }
-        if (e.deltaY < 0) {
+        } else if (e.deltaY < 0) {
           e.preventDefault();
           e.returnValue = false;
           grid.classScroll.setBarPositionByDirection('up');
@@ -6668,8 +7934,8 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     xBar.addEventListener('mousedown', xMouseDownEvent, false);
 
     //== y scroll
-    let yBar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
-    let yPos = {
+    const yBar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
+    const yPos = {
       top: 0,
       y: 0
     };
@@ -6679,23 +7945,24 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
       e.stopPropagation();
       actveTopRowIndex = -1;
       if (e.target.className != 'tbs-grid-vertical-scroll-bar') return;
-      yPos.top = Number(yBar.style.top.replace('px', ''));
+      const yBar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
+      if (grid.empty(yBar.style.top)) yPos.top = 0;else yPos.top = parseInt(yBar.style.top, 10);
       yPos.y = e.clientY;
       document.addEventListener('mousemove', yMouseMoveEvent);
       document.addEventListener('mouseup', yMouseUpEvent);
     };
     const yMouseMoveEvent = function (e) {
       let yBarTop = yPos.top + e.clientY - yPos.y;
-      if (yBarTop < 0) yBarTop = 0;else if (yBarTop > grid.verticalScroll.railSize) yBarTop = grid.verticalScroll.railSize;
+      if (yBarTop < 0) yBarTop = 0;else if (yBarTop >= grid.verticalScroll.railSize) yBarTop = grid.verticalScroll.railSize;
       let topRowIndex = Math.ceil(yBarTop * grid.verticalScroll.moveCount);
-
-      //console.log(`topRowIndex ${topRowIndex} / displayTopRowIndex ${displayTopRowIndex} `);
-      setTimeout(function () {
+      if (yBarTop >= grid.verticalScroll.railSize) topRowIndex = grid.view_table.count() - grid.pageIntRowCount;
+      //console.log(`topRowIndex ${topRowIndex} / yBarTop ${yBarTop} / railSize ${grid.verticalScroll.railSize} `);
+      setTimeout(() => {
         grid.classScroll.setBarPosition(grid.code_vertical, topRowIndex);
-      }, 1);
-      setTimeout(function () {
+      }, 10);
+      setTimeout(() => {
         grid.classPanel30.setDataPanel(topRowIndex);
-      }, 5);
+      }, 50);
     };
     const yMouseUpEvent = function (e) {
       e.stopPropagation();
@@ -6800,23 +8067,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let maxRowIndex;
     const rowIndexArray = [];
     let num;
-    if (grid.fixedRowIndex != -1 && grid.fixedColumnIndex != -1) {
-      num = grid.tbs_getMaxRowIndexByMouseMove2('panel62');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMaxRowIndexByMouseMove2('panel60');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMaxRowIndexByMouseMove2('panel32');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMaxRowIndexByMouseMove2('panel30');
-      if (num != undefined) rowIndexArray.push(num);
-      maxRowIndex = Math.max(...rowIndexArray);
-    } else if (grid.fixedRowIndex != -1) {
-      num = grid.tbs_getMaxRowIndexByMouseMove2('panel60');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMaxRowIndexByMouseMove2('panel30');
-      if (num != undefined) rowIndexArray.push(num);
-      maxRowIndex = Math.max(...rowIndexArray);
-    } else if (grid.fixedColumnIndex != -1) {
+    if (grid.fixedColumnIndex != -1) {
       num = grid.tbs_getMaxRowIndexByMouseMove2('panel32');
       if (num != undefined) rowIndexArray.push(num);
       num = grid.tbs_getMaxRowIndexByMouseMove2('panel30');
@@ -6833,23 +8084,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let minRowIndex;
     const rowIndexArray = [];
     let num;
-    if (grid.fixedRowIndex != -1 && grid.fixedColumnIndex != -1) {
-      num = grid.tbs_getMinRowIndexByMouseMove2('panel62');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMinRowIndexByMouseMove2('panel60');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMinRowIndexByMouseMove2('panel32');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMinRowIndexByMouseMove2('panel30');
-      if (num != undefined) rowIndexArray.push(num);
-      minRowIndex = Math.min(...rowIndexArray);
-    } else if (grid.fixedRowIndex != -1) {
-      num = grid.tbs_getMinRowIndexByMouseMove2('panel30');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMinRowIndexByMouseMove2('panel60');
-      if (num != undefined) rowIndexArray.push(num);
-      minRowIndex = Math.min(...rowIndexArray);
-    } else if (grid.fixedColumnIndex != -1) {
+    if (grid.fixedColumnIndex != -1) {
       num = grid.tbs_getMinRowIndexByMouseMove2('panel32');
       if (num != undefined) rowIndexArray.push(num);
       num = grid.tbs_getMinRowIndexByMouseMove2('panel30');
@@ -6865,23 +8100,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     const grid = this;
     let maxCellIndex, num;
     const rowIndexArray = [];
-    if (grid.fixedRowIndex != -1 && grid.fixedColumnIndex != -1) {
-      num = grid.tbs_getMaxCellIndexByMouseMove2('panel62');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMaxCellIndexByMouseMove2('panel60');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMaxCellIndexByMouseMove2('panel32');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMaxCellIndexByMouseMove2('panel30');
-      if (num != undefined) rowIndexArray.push(num);
-      maxCellIndex = Math.max(...rowIndexArray);
-    } else if (grid.fixedRowIndex != -1) {
-      num = grid.tbs_getMaxCellIndexByMouseMove2('panel60');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMaxCellIndexByMouseMove2('panel30');
-      if (num != undefined) rowIndexArray.push(num);
-      maxCellIndex = Math.max(...rowIndexArray);
-    } else if (grid.fixedColumnIndex != -1) {
+    if (grid.fixedColumnIndex != -1) {
       num = grid.tbs_getMaxCellIndexByMouseMove2('panel32');
       if (num != undefined) rowIndexArray.push(num);
       num = grid.tbs_getMaxCellIndexByMouseMove2('panel30');
@@ -6897,23 +8116,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     const grid = this;
     let minCellIndex, num;
     const rowIndexArray = [];
-    if (grid.fixedRowIndex != -1 && grid.fixedColumnIndex != -1) {
-      num = grid.tbs_getMinCellIndexByMouseMove2('panel62');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMinCellIndexByMouseMove2('panel60');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMinCellIndexByMouseMove2('panel32');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMinCellIndexByMouseMove2('panel30');
-      if (num != undefined) rowIndexArray.push(num);
-      minCellIndex = Math.min(...rowIndexArray);
-    } else if (grid.fixedRowIndex != -1) {
-      num = grid.tbs_getMinCellIndexByMouseMove2('panel60');
-      if (num != undefined) rowIndexArray.push(num);
-      num = grid.tbs_getMinCellIndexByMouseMove2('panel30');
-      if (num != undefined) rowIndexArray.push(num);
-      minCellIndex = Math.min(...rowIndexArray);
-    } else if (grid.fixedColumnIndex != -1) {
+    if (grid.fixedColumnIndex != -1) {
       num = grid.tbs_getMinCellIndexByMouseMove2('panel30');
       if (num != undefined) rowIndexArray.push(num);
       num = grid.tbs_getMinCellIndexByMouseMove2('panel32');
@@ -6932,18 +8135,8 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
     let len = tableRows ? tableRows.length : 0;
     let startRowIndex, lastRowIndex;
-    if (grid.fixedRowIndex != -1) {
-      if (panelName == 'panel60') {
-        startRowIndex = 0;
-        lastRowIndex = this.fixedRowIndex;
-      } else if (panelName == 'panel30') {
-        startRowIndex = 0;
-        lastRowIndex = len - 1;
-      }
-    } else {
-      startRowIndex = 0;
-      lastRowIndex = len - 1;
-    }
+    startRowIndex = 0;
+    lastRowIndex = len - 1;
     for (let i = startRowIndex; i < lastRowIndex + 1; i++) {
       let tableRow = tableRows[i];
       let tableRowIndex = i + 1;
@@ -6961,18 +8154,8 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
     let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
     let len = tableRows ? tableRows.length : 0;
     let startRowIndex, lastRowIndex;
-    if (grid.fixedRowIndex != -1) {
-      if (panelName == 'panel60') {
-        startRowIndex = 0;
-        lastRowIndex = this.fixedRowIndex;
-      } else if (panelName == 'panel30') {
-        startRowIndex = 0;
-        lastRowIndex = len - 1;
-      }
-    } else {
-      startRowIndex = 0;
-      lastRowIndex = len - 1;
-    }
+    startRowIndex = 0;
+    lastRowIndex = len - 1;
     for (let i = lastRowIndex; i >= startRowIndex; i--) {
       let tableRow = tableRows[i];
       let tableRowIndex = i + 1;
@@ -7163,52 +8346,22 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
       let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
       this.classPanel30.setDataPanel(_topRowIndex);
     } else if (type == 'up') {
-      if (this.fixedRowIndex != -1) {
-        dataRowIndex -= 1;
-        let topRowIndex = this.getFirstRowIndex();
-        if (dataRowIndex <= this.fixedRowIndex) topRowIndex = this.fixedRowIndex + 1;
-        if (topRowIndex < 0) topRowIndex = 0;
-        if (dataRowIndex < 0) dataRowIndex = 0;
-        if (dataRowIndex >= topRowIndex) {
-          //OK
-          this.classRange.removeRange(0, -1);
-          let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-          this.classPanel30.setDataPanel(_topRowIndex);
-        } else if (dataRowIndex < topRowIndex && dataRowIndex == topRowIndex - 1) {
-          this.classRange.removeRange(0, -1);
-          let rowIndex = this.classScroll.setBarPositionByDirection('up');
-          this.displayOneSelection(rowIndex, cellIndex);
-        } else {
-          this.classRange.removeRange(0, -1);
-          let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-          this.classPanel30.setDataPanel(_topRowIndex);
-        }
+      dataRowIndex -= 1;
+      let topRowIndex = this.getFirstRowIndex();
+      if (topRowIndex < 0) topRowIndex = 0;
+      if (dataRowIndex < 0) dataRowIndex = 0;
+      if (topRowIndex <= dataRowIndex) {
+        this.classRange.removeRange(0, -1);
+        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+        this.classPanel30.setDataPanel(_topRowIndex);
       } else {
-        dataRowIndex -= 1;
-        let topRowIndex = this.getFirstRowIndex();
-        if (topRowIndex < 0) topRowIndex = 0;
-        if (dataRowIndex < 0) dataRowIndex = 0;
-        if (topRowIndex <= dataRowIndex) {
-          this.classRange.removeRange(0, -1);
-          let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-          this.classPanel30.setDataPanel(_topRowIndex);
-        } else {
-          this.classRange.removeRange(0, -1);
-          let rowIndex = this.classScroll.setBarPositionByDirection('up');
-          this.displayOneSelection(rowIndex, cellIndex);
-        }
+        this.classRange.removeRange(0, -1);
+        let rowIndex = this.classScroll.setBarPositionByDirection('up');
+        this.displayOneSelection(rowIndex, cellIndex);
       }
     } else if (type == 'down') {
       let topRowIndex = this.getFirstRowIndex();
       let lastRowIndex = this.getLastRowIndex();
-      if (grid.fixedRowIndex != -1 && dataRowIndex == grid.fixedRowIndex) {
-        dataRowIndex += 1;
-        grid.classRange.removeRange(0, -1);
-        let _topRowIndex = grid.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex, dataRowIndex);
-        grid.classPanel30.setDataPanel(_topRowIndex);
-        grid.classScroll.setBarPosition(grid.code_vertical, dataRowIndex);
-        return;
-      }
       if (this.pageRowCount > this.pageIntRowCount) {
         if (tableRows.length == this.pageRowCount) {
           if (dataRowIndex == lastRowIndex) {
@@ -7327,7 +8480,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
           div.classList.add('tbs-grid-cell-div');
           td.appendChild(div);
           let span = document.createElement('span');
-          span.classList.add('tbs-grid-cell-span');
+          span.classList.add('tbs-grid-html-string');
           span.textContent = headerColumn[tbsGridNames.column.text];
           div.appendChild(span);
           td.appendChild(div);
@@ -7340,7 +8493,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
           let div = document.createElement('div');
           div.classList.add('tbs-grid-cell-div');
           let span = document.createElement('span');
-          span.classList.add('tbs-grid-cell-span');
+          span.classList.add('tbs-grid-html-string');
           span.textContent = headerColumn[tbsGridNames.column.text];
           div.appendChild(span);
           td.appendChild(div);
@@ -7353,7 +8506,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
           let div = document.createElement('div');
           div.classList.add('tbs-grid-cell-div');
           let span = document.createElement('span');
-          span.classList.add('tbs-grid-cell-span');
+          span.classList.add('tbs-grid-html-string');
           span.textContent = headerColumn[tbsGridNames.column.text];
           div.appendChild(span);
           td.appendChild(div);
@@ -7375,7 +8528,7 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
           div.classList.add('tbs-grid-cell-div');
           td.appendChild(div);
           let span = document.createElement('span');
-          span.classList.add('tbs-grid-cell-span');
+          span.classList.add('tbs-grid-html-string');
           span.textContent = row[column[tbsGridNames.column.name]];
           div.appendChild(span);
           td.appendChild(div);
@@ -7406,13 +8559,16 @@ class TbsGridBase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_33__/* .TbsBase 
 /***/ 937:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   u: function() { return /* binding */ TbsGridCell; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(221);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+
 class TbsGridCell {
   constructor(grid, column) {
     this.grid = grid;
@@ -7434,11 +8590,11 @@ class TbsGridCell {
       for (let x = 0, len = grid.column_table.count(); x < len; x++) {
         let tableCell = tableRow.childNodes[x];
         if (panelName.substring(6) == '2' && x > grid.fixedColumnIndex) {
-          grid.classDom.setCellStyle(tableCell, 'width', '0px');
-          grid.classDom.setCellStyle(tableCell, 'display', 'none');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'width', '0px');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'display', 'none');
         } else if (panelName.substring(6) == '0' && x <= grid.fixedColumnIndex) {
-          grid.classDom.setCellStyle(tableCell, 'width', '0px');
-          grid.classDom.setCellStyle(tableCell, 'display', 'none');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'width', '0px');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'display', 'none');
         }
       }
     }
@@ -7468,13 +8624,14 @@ export class TbsGridCellButton extends TbsGridCell {}
 /***/ 550:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   L: function() { return /* binding */ TbsGridColumns; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridColumns {
   constructor(grid) {
     this.grid = grid;
@@ -7837,7 +8994,7 @@ class TbsGridColumns {
     let selector = this.selector;
     const grid = this.grid;
     let leftPanelName = panelName;
-    if (panelName == 'panel61' || panelName == 'panel62' || panelName == 'panel60') leftPanelName = 'panel61';else leftPanelName = 'panel31';
+    leftPanelName = 'panel31';
     let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + leftPanelName + ' .tbs-grid-table tr');
     return parseInt(tableRows[tableRowIndex].childNodes[0].dataset.rowIndex);
   }
@@ -8153,37 +9310,13 @@ class TbsGridColumns {
     // styleLeft = parseInt(styleLeft, 10);
 
     let columns = grid.column_table.data;
-    if (panelName == 'panel32' || panelName == 'panel42' || panelName == 'panel52' || panelName == 'panel62') {
+    if (panelName == 'panel32' || panelName == 'panel42' || panelName == 'panel52') {
       let startColumnIndex = 0;
       let lastColumnIndex = grid.fixedColumnIndex;
       return {
         startColumnIndex: startColumnIndex,
         lastColumnIndex: lastColumnIndex
       };
-
-      // let sumWidth = 0;
-      // // get startColumnIndex
-      // for (let i = 0; i < this.fixedColumnIndex; i++) {
-      //     let column = columns[i];
-      //     if (column[tbsGridNames.column.visible] == false) continue;
-      //     sumWidth += parseInt(column[tbsGridNames.column.width]);
-      //     if (sumWidth + styleLeft > 0) {
-      //         startColumnIndex = i;
-      //         break;
-      //     }
-      // }
-      // sumWidth = rectTable.width;
-      // // get lastColumnIndex
-      // for (let i = this.fixedColumnIndex; i >= 0; i--) {
-      //     let column = columns[i];
-      //     if (column[tbsGridNames.column.visible] == false) continue;
-      //     sumWidth -= parseInt(column[tbsGridNames.column.width]);
-      //     if (sumWidth + styleLeft < rectPanel.width) {
-      //         lastColumnIndex = i;
-      //         break;
-      //     }
-      // }
-      // return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
     } else {
       let startColumnIndex = 0;
       let lastColumnIndex = columns.length - 1;
@@ -8192,30 +9325,6 @@ class TbsGridColumns {
         startColumnIndex: startColumnIndex,
         lastColumnIndex: lastColumnIndex
       };
-
-      // let sumWidth = 0;
-      // for (let i = 0, len = columns.length; i < len; i++) {
-      //     let column = columns[i];
-      //
-      //     if (column[tbsGridNames.column.visible] == false) sumWidth += 0;
-      //     else sumWidth += parseInt(column[tbsGridNames.column.width]);
-      //
-      //     if (sumWidth + styleLeft > 0) {
-      //         startColumnIndex = i;
-      //         break;
-      //     }
-      // }
-      // sumWidth = rectTable.width;
-      // for (let i = columns.length - 1; i >= 0; i--) {
-      //     let column = columns[i];
-      //     if (column[tbsGridNames.column.visible] == false) sumWidth -= 0;
-      //     else sumWidth -= parseInt(column[tbsGridNames.column.width]);
-      //     if (sumWidth + styleLeft < rectPanel.width) {
-      //         lastColumnIndex = i;
-      //         break;
-      //     }
-      // }
-      // return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
     }
   }
   getHeaderColumn(rowIndex, columnIndex) {
@@ -8318,13 +9427,14 @@ class TbsGridColumns {
 /***/ 663:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   q: function() { return /* binding */ TbsGridCombo; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridCombo {
   constructor(grid, column, input, input_code) {
     this.colType = tbsGridTypes.CellType.combo;
@@ -8333,9 +9443,9 @@ class TbsGridCombo {
     this.column = column;
     this.input = input;
     this.input_code = input_code;
-    this.tbs_create();
+    this.create();
   }
-  tbs_create() {
+  create() {
     let selector = '#' + this.grid.gridId;
     let div = document.createElement('div');
     div.className = 'tbs-grid-input-combo';
@@ -8354,8 +9464,8 @@ class TbsGridCombo {
     s += '      </table>';
     s += '  </div>';
     s += '</div>';
-    document.querySelector(selector + ' .tbs-grid-input-panel').innerHTML = s;
-    let inputPanel = document.querySelector(selector + ' .tbs-grid-input-panel');
+    document.querySelector(selector + ' .tbs-grid-input-layer-panel').innerHTML = s;
+    let inputPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
     inputPanel.style.width = '140px';
     inputPanel.style.height = '130px';
     let gridRect = document.querySelector(selector).getBoundingClientRect();
@@ -8368,45 +9478,46 @@ class TbsGridCombo {
     let documentRight = documentRect.right;
     let documentBottom = documentRect.bottom;
     if (left + 140 > documentRight) {
-      document.querySelector(selector + ' .tbs-grid-input-panel').style.left = `${right - 140}px`;
+      document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left = `${right - 140}px`;
     } else {
-      document.querySelector(selector + ' .tbs-grid-input-panel').style.left = `${left}px`;
+      document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left = `${left}px`;
     }
     if (top + height + 130 > documentBottom) {
-      document.querySelector(selector + ' .tbs-grid-input-panel').style.top = `${top - 130}px`;
+      document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.top = `${top - 130}px`;
     } else {
-      document.querySelector(selector + ' .tbs-grid-input-panel').style.top = `${top + height}px`;
+      document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.top = `${top + height}px`;
     }
     this.setData();
-    this.tbs_AddEvent();
+    this.AddEvent();
   }
-  tbs_clear() {
+  clear() {
     let selector = '#' + this.grid.gridId;
     const grid = this.grid;
     if (document.querySelector(selector + ' .tbs-grid-input-combo-select')) {
       document.querySelector(selector + ' .tbs-grid-input-combo-select').options.length = 0;
     }
   }
-  tbs_getDisplay() {
+  getDisplay() {
     return document.querySelectorAll('.tbs-grid-input-combo').length > 0 ? document.querySelector('.tbs-grid-input-combo').style.display : 'none';
   }
   setData() {
     let selector = '#' + this.grid.gridId;
     const grid = this.grid;
-    this.tbs_clear();
+    this.clear();
     let input_combo = document.querySelector(selector + ' .tbs-grid-input-combo-select');
     let rowIndex = this.input.dataset.rowIndex;
-    let cellIndex = this.input.dataset.cellIndex;
-    let column = grid.column_table.data[cellIndex];
-    let data = column.renderer.data;
-    let key = column.renderer.valueName;
-    let val = column.renderer.textName;
+    let cellIndex = this.input.dataset.columnIndex;
+    const column = grid.column_table.data[cellIndex];
+    let columnName = column[tbsGridNames.column.name];
+    const data = grid.renderer[columnName].data;
+    let key = data.valueName;
+    let val = data.textName;
     let value = this.input.value;
     let eCount = 0;
     if (value != '') {
       input_combo.options.length = 0;
-      for (let i = 0, len = data.length; i < len; i++) {
-        let row = data[i];
+      for (let i = 0, len = data.rows.length; i < len; i++) {
+        let row = data.rows[i];
         let option = document.createElement('option');
         option.value = row[key];
         option.text = row[val];
@@ -8434,48 +9545,178 @@ class TbsGridCombo {
       }
     }
   }
-  tbs_AddEvent() {
+  AddEvent() {
     let selector = '#' + this.grid.gridId;
     const grid = this.grid;
     let input = this.input;
     let input_code = this.input_code;
-    let gridCombo = this;
-    const changeEvent = function (e) {
+    const changeEvent = e => {
       let combo = document.querySelector(selector + ' .tbs-grid-input-combo-select');
       input.value = combo.selectedOptions[0].text;
       input_code.value = combo.selectedOptions[0].value;
       grid.input_focus();
-      // document.querySelector(selector + ' .tbs-grid-input').focus();
-      // document.querySelector(selector + ' .tbs-grid-input').select();
-      gridCombo.tbs_destroy();
+      this.destroy();
     };
     document.querySelector(selector + ' .tbs-grid-input-combo-select').addEventListener('change', changeEvent);
   }
-  tbs_destroy() {
+  destroy() {
     let selector = '#' + this.grid.gridId;
-    const grid = this.grid;
-    let input = this.input;
-    let input_code = this.input_code;
-    let gridDate = this;
-    document.querySelector(selector + ' .tbs-grid-input-panel').innerHTML = '';
-    document.querySelector(selector + ' .tbs-grid-input-panel').style.width = '0px';
-    document.querySelector(selector + ' .tbs-grid-input-panel').style.left = '30000px';
+    document.querySelector(selector + ' .tbs-grid-input-layer-panel').innerHTML = '';
+    document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.width = '0px';
+    document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left = '30000px';
   }
 }
 ;
 
 /***/ }),
 
+/***/ 762:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   tbsGridConfigs: function() { return /* binding */ tbsGridConfigs; }
+/* harmony export */ });
+/* harmony import */ var mobile_detect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(179);
+
+const tbsGridConfigs = {};
+
+/**
+ * Basically, the language with the fastest order is applied.
+ */
+
+tbsGridConfigs.en = {
+  culture: {
+    name: 'us',
+    language: 'us',
+    currencyChar: '$',
+    decimalChar: '.',
+    thousandChar: ',',
+    zeroChar: '-'
+  },
+  calendar: {
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    dayShortNames: ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'],
+    dayPattern: 'MM-dd-yyyy',
+    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    prevLinkName: 'prev',
+    nextLinkName: 'next',
+    todayLinkName: 'today'
+  },
+  font: {
+    fontSize: '12px',
+    fontFamily: 'Arial, Helvetica, sans-serif'
+  },
+  labels: {
+    /* placeholder */
+    sort_placeholder: 'Drag columns to sort',
+    group_placeholder: 'Drag columns to group',
+    /* Filter Label */
+    filter_select: 'Select',
+    filter_equal: 'Equal',
+    filter_notEqual: 'Does not equal',
+    filter_greater: 'Greater than',
+    filter_greaterEqual: 'Greater than or Equal to',
+    filter_less: 'Less than',
+    filter_lessEqual: 'Less than or Equal to',
+    filter_between: 'Between',
+    filter_blank: 'Blank',
+    filter_include: 'Include',
+    filter_notInclude: 'Not Include',
+    filter_startCharacter: 'Start Characters',
+    filter_endCharacter: 'End Characters',
+    /* Toolbar Label */
+    toolbar_button_filter: 'Filter',
+    toolbar_button_sorting: 'Sorting',
+    toolbar_button_grouping: 'Grouping',
+    toolbar_button_expand: 'Expand',
+    toolbar_button_collapse: 'Collapse',
+    toolbar_button_fixedColumn: 'Fixed Column',
+    toolbar_button_reset: 'Reset'
+  }
+};
+tbsGridConfigs.ko = {
+  culture: {
+    name: 'ko',
+    language: 'ko',
+    currencyChar: '₩',
+    decimalChar: '.',
+    thousandChar: ',',
+    zeroChar: '-'
+  },
+  calendar: {
+    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+    dayShortNames: ['일', '월', '화', '수', '목', '금.', '토'],
+    dayPattern: 'yyyy-MM-dd',
+    months: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    prevLinkName: '이전',
+    nextLinkName: '다음',
+    todayLinkName: '오늘'
+  },
+  font: {
+    fontSize: '12px',
+    fontFamily: 'Nanum Gothic, Arial, Helvetica, sans-serif'
+  },
+  labels: {
+    /* placeholder */
+    sort_placeholder: '소팅 컬럼을 드래그 하세요',
+    group_placeholder: '그룹 컬럼을 드래그 하세요.',
+    /* Filter Lables */
+    filter_select: '[선택]',
+    filter_equal: '같음',
+    filter_notEqual: '같지 않음',
+    filter_greater: '보다 큼',
+    filter_greaterEqual: '크거나 같음',
+    filter_less: '보다 작음',
+    filter_lessEqual: '작거나 같음',
+    filter_between: '범위',
+    filter_blank: '공백',
+    filter_include: '포함',
+    filter_notInclude: '포함 안함',
+    filter_startCharacter: '시작 문자',
+    filter_endCharacter: '끝 문자',
+    filter_placeholder: '',
+    /* Toolbar Label */
+    toolbar_button_filter: '필터',
+    toolbar_button_sorting: '소팅',
+    toolbar_button_grouping: '그룹핑',
+    toolbar_button_expand: '펼치기',
+    toolbar_button_collapse: '접기',
+    toolbar_button_fixedColumn: '고정컬럼',
+    toolbar_button_reset: '초기화'
+  }
+};
+
+/**
+ * Write options at the end
+ */
+const md = new mobile_detect__WEBPACK_IMPORTED_MODULE_0__(window.navigator.userAgent);
+tbsGridConfigs.options = {
+  imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.0.15/dist-js/img/',
+  isMobile: md.mobile(),
+  // true, false
+  userAgent: md.userAgent(),
+  // 'safari' etc
+
+  trueValue: 'Y',
+  // checkbox value
+  falseValue: 'N',
+  elseValue: 'N'
+};
+
+/***/ }),
+
 /***/ 48:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   v: function() { return /* binding */ TbsGridControl; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridControl {
   constructor(grid) {
     this.grid = grid;
@@ -8571,13 +9812,14 @@ class TbsGridControl {
 /***/ 341:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   I: function() { return /* binding */ TbsGridDate; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridDate {
   constructor(grid, column, input) {
     this.colType = 'date';
@@ -8606,18 +9848,10 @@ class TbsGridDate {
     s += '      <td class="tbs-grid-input-date-prev"  onclick="' + this.grid.gridId + '.tbsGridDate.prev();" style="width:40px;">' + prevLinkName + '</td>';
     s += '      <td class="tbs-grid-input-date-month" style="width:100px;">';
     s += '          <select class="tbs-grid-input-date-select-month" style="width:100px;" onchange="' + this.grid.gridId + '.tbsGridDate.selectMonth(this.value);">';
-    s += '          <option value="01">' + months[0] + '</option>';
-    s += '          <option value="02">' + months[1] + '</option>';
-    s += '          <option value="03">' + months[2] + '</option>';
-    s += '          <option value="04">' + months[3] + '</option>';
-    s += '          <option value="05">' + months[4] + '</option>';
-    s += '          <option value="06">' + months[5] + '</option>';
-    s += '          <option value="07">' + months[6] + '</option>';
-    s += '          <option value="08">' + months[7] + '</option>';
-    s += '          <option value="09">' + months[8] + '</option>';
-    s += '          <option value="10">' + months[9] + '</option>';
-    s += '          <option value="11">' + months[10] + '</option>';
-    s += '          <option value="12">' + months[11] + '</option>';
+    const array = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+    for (let i = 0; i < 12; i++) {
+      s += '          <option value="' + array[i] + '">' + months[i] + '</option>';
+    }
     s += '          </select></td>';
     s += '      <td class="tbs-grid-input-date-year"  style="width:50px;"></td>';
     s += '      <td class="tbs-grid-input-date-today" onclick="' + this.grid.gridId + '.tbsGridDate.today();" style="width:40px;">' + todayLinkName + '</td>';
@@ -8639,65 +9873,22 @@ class TbsGridDate {
     s += '      </tr>';
     s += '      </thead>';
     s += '      <tbody>';
-    s += '      <tr>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-    s += '      </tr>';
-    s += '      <tr>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-    s += '      </tr>';
-    s += '      <tr>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-    s += '      </tr>';
-    s += '      <tr>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-    s += '      </tr>';
-    s += '      <tr>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-    s += '      </tr>';
-    s += '      <tr>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
-    s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
-    s += '      </tr>';
+    for (let i = 0; i < 6; i++) {
+      s += '      <tr>';
+      s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-start"></div></td>';
+      s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
+      s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
+      s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
+      s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
+      s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div"></div></td>';
+      s += '      <td class="tbs-grid-input-date-cell"><div class="tbs-grid-input-date-div-end"></div></td>';
+      s += '      </tr>';
+    }
     s += '      </tbody>';
     s += '      </table>';
     s += '  </div>';
     s += '</div>';
-    document.querySelector(selector + ' .tbs-grid-input-panel').innerHTML = s;
+    document.querySelector(selector + ' .tbs-grid-input-layer-panel').innerHTML = s;
     let gridRect = document.querySelector(selector).getBoundingClientRect();
     let inputRect = this.input.getBoundingClientRect();
     let top = inputRect.top;
@@ -8708,14 +9899,14 @@ class TbsGridDate {
     let documentRight = documentRect.right;
     let documentBottom = documentRect.bottom;
     if (left + 231 > documentRight) {
-      document.querySelector(selector + ' .tbs-grid-input-panel').style.left = `${right - 231}px`;
+      document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left = `${right - 231}px`;
     } else {
-      document.querySelector(selector + ' .tbs-grid-input-panel').style.left = `${left}px`;
+      document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left = `${left}px`;
     }
     if (top + height + 187 > documentBottom) {
-      document.querySelector(selector + ' .tbs-grid-input-panel').style.top = `${top - 187}px`;
+      document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.top = `${top - 187}px`;
     } else {
-      document.querySelector(selector + ' .tbs-grid-input-panel').style.top = `${top + height}px`;
+      document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.top = `${top + height}px`;
     }
     this.setData();
     this.addEvent();
@@ -8911,12 +10102,9 @@ class TbsGridDate {
   }
   destroy() {
     let selector = '#' + this.grid.gridId;
-    const grid = this.grid;
-    let input = this.input;
-    let gridDate = this;
-    document.querySelector(selector + ' .tbs-grid-input-panel').innerHTML = '';
-    document.querySelector(selector + ' .tbs-grid-input-panel').style.width = '0px';
-    document.querySelector(selector + ' .tbs-grid-input-panel').style.left = '30000px';
+    document.querySelector(selector + ' .tbs-grid-input-layer-panel').innerHTML = '';
+    document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.width = '0px';
+    document.querySelector(selector + ' .tbs-grid-input-layer-panel').style.left = '30000px';
   }
 }
 
@@ -8925,95 +10113,125 @@ class TbsGridDate {
 /***/ 221:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   E: function() { return /* binding */ TbsGridDom; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 /* harmony import */ var _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(618);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 
 class TbsGridDom extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase */ .H {
-  /**
-   * Base Functions
-   *
-   */
-
-  null(p) {
-    return p == null || p == undefined;
+  static createElement(type) {
+    let tag = 'span';
+    let tagType = '';
+    let className = 'tbs-grid-html-string';
+    if (type == 'string') {} else if (type == 'icon') {
+      tag = 'span';
+      className = 'tbs-grid-html-icon';
+    } else if (type == 'img') {
+      tag = 'span';
+      className = 'tbs-grid-html-img';
+    } else if (type == 'checkbox') {
+      tag = 'input';
+      tagType = 'checkbox';
+      className = 'tbs-grid-html-checkbox';
+    }
+    return TbsGridDom.createHtml(tag, tagType, className);
   }
-  notNull(p) {
-    return !(p == null || p == undefined);
+  static createHtml(tag, tagType, className) {
+    const element = document.createElement(tag);
+    element.classList.add(className);
+    if (tag == 'input') element.type = tagType;
+    return element;
   }
-  empty(p) {
-    return p == '';
+  static addElement() {}
+  static setBounding() {}
+  static setStyle(tableCell, param) {
+    let className = param.className;
+    let display = param.visible == true ? '' : 'none';
+    let textAlign = param.align;
+    let width = param.width;
+    TbsGridDom.addUserClass(tableCell, className); // user event
+    TbsGridDom.setCellStyle(tableCell, 'display', display);
+    TbsGridDom.setCellStyle(tableCell, 'textAlign', textAlign); // user event
+    TbsGridDom.setCellStyle(tableCell, 'width', width);
   }
-  notEmpty(p) {
-    return this.notNull(p) && p != '';
+  static setCell(element, property, value) {
+    if (element[property] != value) element[property] = value;
   }
-
-  /**
-   * Dom Functions
-   *
-   */
-
-  setCell(tableCell, property, value) {
-    if (tableCell[property] != value) tableCell[property] = value;
-  }
-  setCellStyle(tableCell, property, value) {
+  static setCellStyle(tableCell, property, value) {
     if (tableCell.style[property] != value) tableCell.style[property] = value;
   }
-  addUserClass(tableCell, className) {
-    this.removeUserClass(tableCell);
-    if (this.notNull(className) && this.notEmpty(className)) tableCell.classList.add(className);
+  static addUserClass(tableCell, className) {
+    TbsGridDom.removeUserClass(tableCell);
+    if (className && className != '') tableCell.classList.add(className);
   }
-  removeUserClass(tableCell, className) {
+  static removeUserClass(tableCell, className) {
     // Create classNameArray : for remove except tbs-* className
-    let classNameArray = [];
+    const classNameArray = [];
     for (let i = 0, len = tableCell.classList.length; i < len; i++) {
       if (tableCell.classList[i].startsWith('tbs-grid-')) continue;else classNameArray.push(tableCell.classList[i]);
     }
     // Remove classNameArray
     for (let i = 0, len = classNameArray.length; i < len; i++) tableCell.classList.remove(classNameArray[i]);
   }
-  createElementCheckbox() {
-    let element = document.createElement('input');
+
+  /**
+   * Base Functions
+   *
+   */
+
+  // null(p) { return p == null || p == undefined; }
+  //
+  // notNull(p) { return !(p == null || p == undefined); }
+  //
+  // empty(p) { return p == '';  }
+  //
+  // notEmpty(p) { return this.notNull(p) && p != ''; }
+
+  /**
+   * Dom Functions
+   *
+   */
+  static createElementCheckbox() {
+    const element = document.createElement('input');
     element.type = 'checkbox';
-    element.classList.add('tbs-grid-cell-checkbox');
+    element.classList.add('tbs-grid-html-checkbox');
     return element;
   }
-  createElementCellDiv() {
-    let element = document.createElement('div');
+  static createElementCellDiv() {
+    const element = document.createElement('div');
     element.classList.add('tbs-grid-cell-div');
     return element;
   }
-  createElementCellIcon() {
-    let element = document.createElement('span');
-    element.classList.add('tbs-grid-cell-div-icon');
+  static createElementCellIcon() {
+    const element = document.createElement('span');
+    element.classList.add('tbs-grid-html-icon');
     return element;
   }
-  createElementCellText() {
-    let element = document.createElement('span');
-    element.classList.add('tbs-grid-cell-string');
+  static createElementCellText() {
+    const element = document.createElement('span');
+    element.classList.add('tbs-grid-html-string');
     element.textContent = '';
     return element;
   }
-  prependCheckbox(element, childElement) {
-    let el = element.querySelector('.tbs-grid-cell-div-icon');
+  static prependCheckbox(element, childElement) {
+    const el = element.querySelector('.tbs-grid-html-icon');
     if (el == undefined) element.prepend(childElement);
   }
-  prependIcon(element, childElement) {
-    let el = element.querySelector('.tbs-grid-cell-div-icon');
+  static prependIcon(element, childElement) {
+    const el = element.querySelector('.tbs-grid-html-icon');
     if (el == undefined) element.prepend(childElement);
   }
 
   /**
    * Table Functions
    */
-
-  createTable() {
-    let table = document.createElement('table');
+  static createTable() {
+    const table = document.createElement('table');
     table.className = 'tbs-grid-table';
     return table;
   }
@@ -9024,13 +10242,14 @@ class TbsGridDom extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase */
 /***/ 191:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   e: function() { return /* binding */ TbsGridFilter; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridFilter {
   constructor(grid) {
     this.grid = grid;
@@ -9111,7 +10330,6 @@ class TbsGridFilter {
     grid.view_table.remove();
     result.map(dataRow => grid.view_table.insert(grid.copyJson(dataRow)));
     grid.horizontalScroll.setScroll(grid.code_horizontal);
-    ;
     grid.verticalScroll.setScroll(grid.code_vertical);
     grid.classScroll.setBarPosition(grid.code_vertical, 0);
   }
@@ -9283,11 +10501,12 @@ class TbsGridFilter {
 /***/ 356:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* unused harmony export TbsGridFilterLayer */
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridFilterLayer {
   constructor(grid, icon, input, column) {
     this.grid = grid;
@@ -9458,73 +10677,17 @@ class TbsGridFilterLayer {
 
 /***/ }),
 
-/***/ 186:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   h: function() { return /* binding */ TbsGridFooter; }
-/* harmony export */ });
-/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
-class TbsGridFooter {
-  constructor(grid) {
-    this.grid = grid;
-    this.selector = '#' + grid.gridId;
-  }
-  setFooterColumns(columns) {
-    const grid = this.grid;
-    columns.map(column => {
-      if (grid.null(column[tbsGridNames.column.align])) column[tbsGridNames.column.align] = 'center';
-      grid.footer_column_table.insert(column);
-    });
-  }
-  setFooterData() {
-    const grid = this.grid;
-    if (grid.footer_column_table.count() == 0) return;
-    let footerColumns = grid.footer_column_table.data;
-    let dataRow = {};
-    let columns = grid.column_table.data;
-    for (let x = 0, len = columns.length; x < len; x++) {
-      let column = columns[x];
-      let columnName = column[tbsGridNames.column.name];
-      dataRow[columnName] = null;
-    }
-    grid.footer_table.insert(dataRow);
-
-    /* get sum, avg */
-    for (let x = 0, len2 = grid.footer_column_table.count(); x < len2; x++) {
-      let footerColumn = grid.footer_column_table.data[x];
-      let columnName = footerColumn[tbsGridNames.column.name];
-      if (grid.isColumnTypeNumber(columnName)) {
-        let sumType = footerColumn[tbsGridNames.column.summaryType];
-        let result = null;
-        if (sumType == 'sum') result = grid.classPanel30.getSum(columnName);else if (sumType == 'avg') result = grid.classPanel30.getAvg(columnName);
-        grid.footer_table.updateByRowIndex(0, columnName, grid.classPanel30.getSum(columnName));
-      }
-    }
-  }
-  setFooterValue(rowIndex, columnName, value) {
-    const grid = this.grid;
-    let column = grid.column_table.selectRow(tbsGridNames.column.name, columnName);
-    let result = grid.getFormat(column, value);
-    grid.footer_table.updateByRowIndex(rowIndex, columnName, result.value);
-  }
-}
-
-/***/ }),
-
 /***/ 42:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   l: function() { return /* binding */ TbsGridGroup; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridGroup {
   constructor(grid) {
     this.grid = grid;
@@ -9715,7 +10878,7 @@ class TbsGridGroup {
           text: 'Group'
         },
         width: 150,
-        type: 'string'
+        type: 'group'
       };
       if (grid.fixedColumnIndex != -1) grid.fixedColumnIndex += 1;
       grid.classColumn.addColumn(userColumn, 0, 0, tbsGridTypes.BeforeAfter.before);
@@ -9818,7 +10981,7 @@ class TbsGridGroup {
     const grid = this.grid;
     let row = grid.getRow(rowIndex);
     let arr = row[tbsGridNames.column.children];
-    let element = tableCell.querySelector('.tbs-grid-cell-div-icon');
+    let element = tableCell.querySelector('.tbs-grid-html-icon');
     if (grid.null(arr)) return;
     if (arr.length > 0) {
       let nextRow = grid.getRow(rowIndex + 1);
@@ -9830,7 +10993,12 @@ class TbsGridGroup {
   toggleGroupIcon(rowIndex, element, type) {
     let selector = this.selector;
     const grid = this.grid;
-    if (type == tbsGridNames.column.open) element.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_open.png)';else if (type == tbsGridNames.column.closed) element.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_closed.png)';else element.style['backgroundImage'] = '';
+    if (grid.null(element)) return;
+    if (type == tbsGridNames.column.open) {
+      element.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_open.png)';
+    } else if (type == tbsGridNames.column.closed) {
+      element.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_closed.png)';
+    } else element.style['backgroundImage'] = '';
   }
   isGroupChildrenRow(rowIndex) {
     let selector = this.selector;
@@ -9873,7 +11041,7 @@ class TbsGridGroup {
     const grid = this.grid;
     let rowIndex = parseInt(tableCell.parentNode.dataset.rowIndex);
     let row = grid.getRow(rowIndex);
-    let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
+    let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
     if (grid.null(spanIcon)) return;
     let folding = grid.classGroup.getGroupFlodingStatus(tableCell);
     if (folding == tbsGridNames.column.open) grid.classGroup.closeGroupRow(rowIndex);else if (folding == tbsGridNames.column.closed) grid.classGroup.openGroupRow(rowIndex, false);
@@ -9884,7 +11052,7 @@ class TbsGridGroup {
   }
   getGroupFlodingStatus(tableCell) {
     const grid = this.grid;
-    let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
+    let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
     if (grid.null(spanIcon)) return null;
     if (spanIcon.style['backgroundImage'].includes('tree_open.png')) return tbsGridNames.column.open;else if (spanIcon.style['backgroundImage'].includes('tree_closed.png')) return tbsGridNames.column.closed;else return null;
   }
@@ -9953,7 +11121,7 @@ class TbsGridGroup {
     const grid = this.grid;
 
     /* Check Existing */
-    if (grid.group_column_table.select(tbsGridNames.column.name, name, 1).length > 0) return;
+    if (grid.group_column_table.selectRows(tbsGridNames.column.name, name, 1).length > 0) return;
 
     /* create dataRow */
     let dataRow = {};
@@ -10127,13 +11295,14 @@ class TbsGridGroup {
 /***/ 654:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   X: function() { return /* binding */ TbsGridPage; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridPage {
   constructor(grid) {
     this.grid = grid;
@@ -10186,13 +11355,14 @@ class TbsGridPage {
 /***/ 32:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   P: function() { return /* binding */ TbsGridRange; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridRange {
   constructor(grid) {
     this.grid = grid;
@@ -10273,11 +11443,7 @@ class TbsGridRange {
       selectRange._lastCellIndex = _lastCellIndex;
     }
     grid.classRange.setRangeValue(_startRowIndex, _lastRowIndex, _startCellIndex, _lastCellIndex);
-    if (grid.fixedRowIndex == -1) {
-      topRowIndex = topRowIndex == undefined ? grid.getFirstRowIndex() : grid.fixedRowIndex + 1;
-    } else {
-      topRowIndex = topRowIndex == undefined ? grid.getFirstRowIndex() : topRowIndex;
-    }
+    topRowIndex = topRowIndex == undefined ? grid.getFirstRowIndex() : topRowIndex;
     return topRowIndex;
   };
   setRangeValue = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex) {
@@ -10407,13 +11573,14 @@ class TbsGridRange {
 /***/ 868:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   z: function() { return /* binding */ TbsGridRangePanel; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridRangePanel {
   constructor(grid, panelName) {
     this.grid = grid;
@@ -10495,11 +11662,7 @@ class TbsGridRangePanel {
       classRange._lastCellIndex = _lastCellIndex;
     }
     classRange.setRangeValue(_startRowIndex, _lastRowIndex, _startCellIndex, _lastCellIndex);
-    if (grid.fixedRowIndex == -1) {
-      topRowIndex = topRowIndex == undefined ? grid.getFirstRowIndex() : classRange.fixedRowIndex + 1;
-    } else {
-      topRowIndex = topRowIndex == undefined ? grid.getFirstRowIndex() : topRowIndex;
-    }
+    topRowIndex = topRowIndex == undefined ? grid.getFirstRowIndex() : topRowIndex;
     grid.classPanel30.setDataPanel(topRowIndex);
     grid.classPanel40.setDataPanel();
     grid.classPanel50.setDataPanel();
@@ -10689,17 +11852,7 @@ class TbsGridRangePanel {
     }
     let minCellIndex;
     const rowIndexArray = [];
-    if (grid.fixedRowIndex != -1 && grid.fixedColumnIndex != -1) {
-      num = classRange.getMinCellIndexByMouseMove2(panelName2);
-      if (num != undefined) rowIndexArray.push(num);
-      num = classRange.getMinCellIndexByMouseMove2(panelName0);
-      if (num != undefined) rowIndexArray.push(num);
-      minCellIndex = Math.min(...rowIndexArray);
-    } else if (grid.fixedRowIndex != -1) {
-      num = classRange.getMinCellIndexByMouseMove2(panelName0);
-      if (num != undefined) rowIndexArray.push(num);
-      minCellIndex = Math.min(...rowIndexArray);
-    } else if (grid.fixedColumnIndex != -1) {
+    if (grid.fixedColumnIndex != -1) {
       num = classRange.getMinCellIndexByMouseMove2(panelName2);
       if (num != undefined) rowIndexArray.push(num);
       num = classRange.getMinCellIndexByMouseMove2(panelName0);
@@ -10779,343 +11932,19 @@ class TbsGridRangePanel {
 
 /***/ }),
 
-/***/ 543:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   w: function() { return /* binding */ TbsGridRenderInfo; }
-/* harmony export */ });
-/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-/* harmony import */ var _render_tbs_grid_render_string_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(981);
-/* harmony import */ var _render_tbs_grid_render_checkbox_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(465);
-
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
-
-
-class TbsGridRenderInfo {
-  /**
-   * num, mode, checkbox
-   */
-
-  constructor(grid) {
-    this.grid = grid;
-    this.selector = '#' + grid.gridId;
-    this.column = null;
-    this.columnIndex = null;
-    this.columnName = null;
-    this.columnType = null;
-    this.valueName = null;
-    this.textName = null;
-    this.rowIndex = null;
-    this.columnIndex = null;
-    this.cellValue = null;
-    this.cellText = null; //user
-
-    this.align = null; //user
-    this.className = null; //user
-
-    this.width = null;
-    this.visible = null;
-    this.tableCell = null;
-    this.panelName = null;
-  }
-  start(panelName, tableCell, column, rowIndex, columnIndex) {
-    const grid = this.grid;
-    let render = this;
-    render.panelName = panelName;
-    render.tableCell = tableCell;
-    render.column = grid.info_table.selectRowByRowIndex(columnIndex);
-    render.rowIndex = rowIndex;
-    render.columnIndex = columnIndex;
-    render.columnName = grid.getProperty(column, tbsGridNames.column.name);
-    render.columnType = grid.getProperty(column, tbsGridNames.column.type);
-    render.visible = grid.getProperty(column, tbsGridNames.column.visible);
-    render.width = grid.getProperty(column, tbsGridNames.column.width);
-    render.align = grid.getProperty(column, tbsGridNames.column.align);
-    render.className = grid.getProperty(column, tbsGridNames.column.className);
-    if (panelName == 'panel41' || panelName == 'panle51' || panelName == 'panle71') columnType = tbsGridTypes.CellType.string;
-    if (panelName == 'panel21') {
-      if (render.columnName == 'num') {
-        render.cellValue = '';
-        render.cellText = '';
-      } else if (render.columnName == 'mode') {
-        render.cellValue = '';
-        render.cellText = '';
-      } else if (render.columnName == 'checkbox') {
-        render.cellValue = grid.classPanel20.isChecked;
-        render.cellText = '';
-      }
-    } else if (panelName == 'panel31') {
-      let dataRow = grid.getRow(render.rowIndex);
-      if (render.visible) {
-        if (render.columnName == 'num') {
-          if (grid.grid_mode == tbsGridTypes.GridMode.page) {
-            render.cellValue = grid.classPage.startRowIndex + render.rowIndex + 1;
-            render.cellText = grid.classPage.startRowIndex + render.rowIndex + 1;
-          } else {
-            render.cellValue = render.rowIndex + 1;
-            render.cellText = render.rowIndex + 1;
-          }
-          render.cellValue = render.rowIndex + 1;
-          render.cellText = render.rowIndex + 1;
-        } else if (render.columnName == 'mode') {
-          let mode = dataRow[tbsGridNames.column.mode];
-          mode = mode != '' && mode != 'S' ? mode : '';
-          render.cellValue = mode;
-          render.cellText = mode;
-        } else if (render.columnName == 'checkbox') {
-          let check = grid.null(dataRow['check']) ? false : dataRow['check'];
-          render.cellValue = check;
-          render.cellText = check;
-        }
-      }
-    } else if (panelName == 'panel41') {
-      if (render.columnName == 'num') {
-        render.cellValue = '∑';
-        render.cellText = '∑';
-      } else if (render.columnName == 'mode') {
-        render.cellValue = '';
-        render.cellText = '';
-      } else if (render.columnName == 'checkbox') {
-        render.cellValue = '';
-        render.cellText = '';
-      }
-    } else if (panelName == 'panel51') {
-      if (render.columnName == 'num') {
-        render.cellValue = '∑';
-        render.cellText = '∑';
-      } else if (render.columnName == 'mode') {
-        render.cellValue = '';
-        render.cellText = '';
-      } else if (render.columnName == 'checkbox') {
-        render.cellValue = '';
-        render.cellText = '';
-      }
-    } else if (panelName == 'panel71') {
-      if (render.columnName == 'num') {
-        render.cellValue = 'R';
-        render.cellText = 'R';
-      } else if (render.columnName == 'mode') {
-        render.cellValue = '';
-        render.cellText = '';
-      } else if (render.columnName == 'checkbox') {
-        render.cellValue = '';
-        render.cellText = '';
-      }
-    }
-    render.createHtml();
-  }
-  createHtml() {
-    const grid = this.grid;
-    if (this.columnType == tbsGridTypes.CellType.checkbox) {
-      if (this.visible && (this.panelName == 'panel21' || this.panelName == 'panel31')) {
-        const clsRender = new _render_tbs_grid_render_checkbox_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridRenderCheckbox */ .V();
-        clsRender.createElement(this.tableCell);
-      }
-    } else {
-      const clsRender = new _render_tbs_grid_render_string_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridRenderString */ .h();
-      clsRender.createElement(this.tableCell);
-    }
-    this.setBounding();
-  }
-  setBounding() {
-    const grid = this.grid;
-    grid.classDom.setCellStyle(this.tableCell, 'display', this.visible == true ? '' : 'none');
-    grid.classDom.addUserClass(this.tableCell, this.className); // user event
-    grid.classDom.setCellStyle(this.tableCell, 'textAlign', this.align); // user event
-    grid.classDom.setCellStyle(this.tableCell, 'width', this.width + 'px');
-    if (this.columnType == tbsGridTypes.CellType.checkbox) {
-      if (this.visible) {
-        let element = this.tableCell.querySelector('.tbs-grid-cell-checkbox');
-        element.checked = this.cellValue;
-      }
-    } else {
-      let element = this.tableCell.querySelector('.tbs-grid-cell-string');
-      grid.classDom.setCell(element, 'textContent', this.cellText);
-    }
-  }
-}
-
-/***/ }),
-
-/***/ 541:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   s: function() { return /* binding */ TbsGridRender; }
-/* harmony export */ });
-/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
-class TbsGridRender {
-  constructor(grid) {
-    this.grid = grid;
-    this.selector = '#' + grid.gridId;
-    this.column = null;
-    this.columnIndex = null;
-    this.columnName = null;
-    this.columnType = null;
-    this.valueName = null;
-    this.textName = null;
-    this.rowIndex = null;
-    this.columnIndex = null;
-    this.cellValue = null;
-    this.cellText = null; //user
-
-    this.align = null; //user
-    this.className = null; //user
-
-    this.width = null;
-    this.visible = null;
-    this.tableCell = null;
-    this.panelName = null;
-  }
-  start(panelName, tableCell, column, rowIndex, columnIndex) {
-    const grid = this.grid;
-    let render = this;
-    render.panelName = panelName;
-    render.tableCell = tableCell;
-    render.column = column;
-    render.rowIndex = rowIndex;
-    render.columnIndex = columnIndex;
-    render.columnName = column[tbsGridNames.column.name];
-    render.columnType = column[tbsGridNames.column.type];
-    render.visible = column[tbsGridNames.column.visible];
-    render.width = column[tbsGridNames.column.width];
-    if (render.panelName == 'panel40' || render.panelName == 'panel42') {
-      let topColumn = grid.getColumn(render.columnName, grid.top_column_table);
-      if (grid.notNull(topColumn)) {
-        render.align = grid.notNull(topColumn[tbsGridNames.column.align]) ? topColumn[tbsGridNames.column.align] : column[tbsGridNames.column.align];
-        render.className = grid.notNull(topColumn[tbsGridNames.column.className]) ? topColumn[tbsGridNames.column.className] : grid.classColumn.getColumnProperty(render.columnName, tbsGridNames.column.className);
-      } else {
-        render.align = column[tbsGridNames.column.align];
-        render.className = grid.classColumn.getColumnProperty(render.columnName, tbsGridNames.column.className);
-      }
-      render.cellValue = grid.getValue(render.rowIndex, render.columnName, grid.top_table);
-      render.cellText = grid.getText(render.rowIndex, render.columnName, grid.top_table);
-    } else if (this.panelName == 'panel50' || this.panelName == 'panel52') {
-      let footerColumn = grid.getColumn(this.columnName, grid.footer_column_table);
-      if (grid.notNull(footerColumn)) {
-        render.align = grid.notNull(footerColumn[tbsGridNames.column.align]) ? footerColumn[tbsGridNames.column.align] : column[tbsGridNames.column.align];
-        render.className = grid.notNull(footerColumn[tbsGridNames.column.className]) ? footerColumn[tbsGridNames.column.className] : grid.classColumn.getColumnProperty(render.columnName, tbsGridNames.column.className);
-      } else {
-        render.align = column[tbsGridNames.column.align];
-        render.className = grid.classColumn.getColumnProperty(render.columnName, tbsGridNames.column.className);
-      }
-      render.cellValue = grid.getValue(render.rowIndex, render.columnName, grid.footer_table);
-      render.cellText = grid.getText(render.rowIndex, render.columnName, grid.footer_table);
-    } else {
-      render.align = column[tbsGridNames.column.align];
-      render.className = grid.classColumn.getColumnProperty(render.columnName, tbsGridNames.column.className);
-      render.cellValue = grid.getValue(render.rowIndex, render.columnName);
-      render.cellText = grid.getText(render.rowIndex, render.columnName);
-    }
-    render.updateData();
-  }
-  updateData() {
-    const grid = this.grid;
-    let render = this;
-    if (grid.grid_mode == tbsGridTypes.GridMode.group) {
-      if (render.panelName == 'panel30' || render.panelName == 'panel32') {
-        if (render.columnName == 'group_column') {
-          let row = grid.getRow(render.rowIndex);
-          let rowDepth = row[tbsGridNames.column.depth];
-          if (rowDepth <= grid.group_column_table.count()) {
-            render.cellText = grid.getText(render.rowIndex, grid.group_column_table.data[rowDepth - 1][tbsGridNames.column.name]) + '(' + row[tbsGridNames.column.children].length + ')';
-          }
-        }
-      }
-    } else if (grid.grid_mode == tbsGridTypes.GridMode.tree) {
-      if (render.panelName == 'panel30' || render.panelName == 'panel32') {
-        if (render.columnIndex == 0) {
-          let row = grid.getRow(render.rowIndex);
-          let rowDepth = row[tbsGridNames.column.depth];
-          if (row[tbsGridNames.column.children] && row[tbsGridNames.column.children].length > 0) {
-            render.cellText = grid.getText(render.rowIndex, render.columnName) + '(' + row[tbsGridNames.column.children].length + ')';
-          } else {
-            render.cellText = grid.getText(render.rowIndex, render.columnName);
-          }
-        }
-      }
-    }
-    if (grid.fixedColumnIndex != -1) {
-      if (render.panelName.substring(6) == '2') {
-        if (render.columnIndex > grid.fixedColumnIndex) render.visible = false;
-      } else if (render.panelName.substring(6) == '0') {
-        if (render.columnIndex <= grid.fixedColumnIndex) render.visible = false;
-      }
-    }
-    render.createHtml();
-  }
-  createHtml() {
-    const grid = this.grid;
-    let render = this;
-    if (render.panelName == 'panel30' || render.panelName == 'panel32') {
-      if (grid.grid_mode == tbsGridTypes.GridMode.group) {
-        if (render.columnName == 'group_column') {
-          let row = grid.getRow(render.rowIndex);
-          let rowDepth = row[tbsGridNames.column.depth];
-          let icon = grid.classDom.createElementCellIcon(); // .tbs-grid-cell-div-icon .open-icon / .closed-icon
-          grid.classDom.prependIcon(render.tableCell.childNodes[0], icon);
-          grid.classGroup.setGroupIcon(render.tableCell, render.rowIndex);
-          grid.classDom.setCellStyle(render.tableCell.childNodes[0], 'paddingLeft', rowDepth * 15 + 'px');
-        } else {
-          let icons = render.tableCell.querySelectorAll('.tbs-grid-cell-div-icon');
-          if (icons.length > 0) icons[0].remove();
-        }
-      } else if (grid.grid_mode == tbsGridTypes.GridMode.tree) {
-        if (render.columnIndex == 0) {
-          let row = grid.getRow(render.rowIndex);
-          let rowDepth = row[tbsGridNames.column.depth];
-          let icon = grid.classDom.createElementCellIcon(); // .tbs-grid-cell-div-icon .open-icon / .closed-icon
-          grid.classDom.prependIcon(render.tableCell.childNodes[0], icon);
-          grid.classTree.setTreeIcon(render.tableCell, render.rowIndex);
-          grid.classDom.setCellStyle(render.tableCell.childNodes[0], 'paddingLeft', rowDepth * 15 + 'px');
-        } else {
-          let icons = render.tableCell.querySelectorAll('.tbs-grid-cell-div-icon');
-          if (icons.length > 0) icons[0].remove();
-        }
-      }
-    }
-    render.setBounding();
-  }
-  setBounding() {
-    const grid = this.grid;
-    grid.classDom.setCellStyle(this.tableCell, 'display', this.visible == true ? '' : 'none');
-    grid.classDom.addUserClass(this.tableCell, this.className); // user event
-    grid.classDom.setCellStyle(this.tableCell, 'textAlign', this.align); // user event
-    grid.classDom.setCellStyle(this.tableCell, 'width', this.width + 'px');
-    if (this.panelName == 'panel72' || this.panelName == 'panel70') {} else {
-      let spanText = this.tableCell.querySelector('.tbs-grid-cell-string');
-      grid.classDom.setCell(spanText, 'textContent', this.cellText); // user event
-    }
-    if (grid.user_cellBounding) {
-      if (this.panelName.substring(6) == '0' || this.panelName.substring(6) == '2') {
-        let param = {
-          element: this.tableCell,
-          rowIndex: this.rowIndex,
-          cellIndex: this.columnIndex
-        };
-        grid.tbs_executeEvent(grid.cellBounding, 'cellBounding', param);
-      }
-    }
-  }
-}
-
-/***/ }),
-
 /***/ 613:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   g: function() { return /* binding */ TbsGridRow; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(221);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+
 class TbsGridRow {
   constructor(grid) {
     this.grid = grid;
@@ -11127,18 +11956,18 @@ class TbsGridRow {
       for (let x = 0, len = grid.column_table.count(); x < len; x++) {
         let column = grid.column_table.data[x];
         let tableCell = tableRow.childNodes[x];
-        grid.classDom.setCellStyle(tableCell, 'width', column[tbsGridNames.column.width] + 'px');
-        grid.classDom.setCellStyle(tableCell, 'display', '');
+        _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'width', column[tbsGridNames.column.width] + 'px');
+        _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'display', '');
         if (column[tbsGridNames.column.visible] == false) {
-          grid.classDom.setCellStyle(tableCell, 'width', '0px');
-          grid.classDom.setCellStyle(tableCell, 'display', 'none');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'width', '0px');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'display', 'none');
         }
         if (panelName.substring(6) == '2' && x > grid.fixedColumnIndex) {
-          grid.classDom.setCellStyle(tableCell, 'width', '0px');
-          grid.classDom.setCellStyle(tableCell, 'display', 'none');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'width', '0px');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'display', 'none');
         } else if (panelName.substring(6) == '0' && x <= grid.fixedColumnIndex) {
-          grid.classDom.setCellStyle(tableCell, 'width', '0px');
-          grid.classDom.setCellStyle(tableCell, 'display', 'none');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'width', '0px');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'display', 'none');
         }
       }
     } else {
@@ -11147,8 +11976,8 @@ class TbsGridRow {
         let column = grid.column_table.data[x];
         let tableCell = tableRow.childNodes[x];
         if (panelName.substring(6) == '0') {
-          grid.classDom.setCellStyle(tableCell, 'display', column[tbsGridNames.column.visible] ? '' : 'none');
-          grid.classDom.setCellStyle(tableCell, 'width', column[tbsGridNames.column.width] + 'px');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'display', column[tbsGridNames.column.visible] ? '' : 'none');
+          _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.setCellStyle(tableCell, 'width', column[tbsGridNames.column.width] + 'px');
         }
       }
     }
@@ -11164,10 +11993,10 @@ class TbsGridRow {
         let depth = rowData[tbsGridNames.column.depth];
         let count = grid.null(rowData[tbsGridNames.column.children]) ? 0 : rowData[tbsGridNames.column.children].length;
         if (count > 0) {
-          if (depth == '1') grid.classDom.addUserClass(tableRow, 'tbs-row-color1');else if (depth == '2') grid.classDom.addUserClass(tableRow, 'tbs-row-color2');else if (depth == '3') grid.classDom.addUserClass(tableRow, 'tbs-row-color3');else if (depth == '4') grid.classDom.addUserClass(tableRow, 'tbs-row-color4');else if (depth == '5') grid.classDom.addUserClass(tableRow, 'tbs-row-color5');else grid.classDom.addUserClass(tableRow, 'tbs-row-color5');
+          if (depth == '1') _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.addUserClass(tableRow, 'tbs-row-color1');else if (depth == '2') _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.addUserClass(tableRow, 'tbs-row-color2');else if (depth == '3') _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.addUserClass(tableRow, 'tbs-row-color3');else if (depth == '4') _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.addUserClass(tableRow, 'tbs-row-color4');else if (depth == '5') _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.addUserClass(tableRow, 'tbs-row-color5');else _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.addUserClass(tableRow, 'tbs-row-color5');
         } else {
-          if (depth == '1') grid.classDom.removeUserClass(tableRow, 'tbs-row-color1');else if (depth == '2') grid.classDom.removeUserClass(tableRow, 'tbs-row-color2');else if (depth == '3') grid.classDom.removeUserClass(tableRow, 'tbs-row-color3');else if (depth == '4') grid.classDom.removeUserClass(tableRow, 'tbs-row-color4');else if (depth == '5') grid.classDom.removeUserClass(tableRow, 'tbs-row-color5');else {
-            grid.classDom.addUserClass(tableRow, 'tbs-row-color5');
+          if (depth == '1') _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.removeUserClass(tableRow, 'tbs-row-color1');else if (depth == '2') _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.removeUserClass(tableRow, 'tbs-row-color2');else if (depth == '3') _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.removeUserClass(tableRow, 'tbs-row-color3');else if (depth == '4') _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.removeUserClass(tableRow, 'tbs-row-color4');else if (depth == '5') _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.removeUserClass(tableRow, 'tbs-row-color5');else {
+            _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.addUserClass(tableRow, 'tbs-row-color5');
           }
         }
       }
@@ -11214,13 +12043,14 @@ class TbsGridRow {
 /***/ 505:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   a: function() { return /* binding */ TbsGridScrollBase; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridScrollBase {
   constructor(grid) {
     this.grid = grid;
@@ -11229,44 +12059,23 @@ class TbsGridScrollBase {
   setPanelSize() {
     let selector = this.selector;
     const grid = this.grid;
-    let rectGrid = document.querySelector(selector).getBoundingClientRect();
-    let main = document.querySelector(selector + ' .tbs-grid-main');
-    let panel10 = document.querySelector(selector + ' .tbs-grid-panel10'); // toolbar
-    let panel80 = document.querySelector(selector + ' .tbs-grid-panel80'); // groupping
-    let panel90 = document.querySelector(selector + ' .tbs-grid-panel90'); // sort
-
-    let panel20 = document.querySelector(selector + ' .tbs-grid-panel20');
-    let panel21 = document.querySelector(selector + ' .tbs-grid-panel21');
-    let panel22 = document.querySelector(selector + ' .tbs-grid-panel22');
-    let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
-    let panel31 = document.querySelector(selector + ' .tbs-grid-panel31');
-    let panel32 = document.querySelector(selector + ' .tbs-grid-panel32');
-    let panel40 = document.querySelector(selector + ' .tbs-grid-panel40');
-    let panel41 = document.querySelector(selector + ' .tbs-grid-panel41');
-    let panel42 = document.querySelector(selector + ' .tbs-grid-panel42');
-    let panel50 = document.querySelector(selector + ' .tbs-grid-panel50');
-    let panel51 = document.querySelector(selector + ' .tbs-grid-panel51');
-    let panel52 = document.querySelector(selector + ' .tbs-grid-panel52');
-
-    // let panel60 = document.querySelector(selector + ' .tbs-grid-panel60');
-    // let panel61 = document.querySelector(selector + ' .tbs-grid-panel61');
-    // let panel62 = document.querySelector(selector + ' .tbs-grid-panel62');
-
-    let panel70 = document.querySelector(selector + ' .tbs-grid-panel70');
-    let panel71 = document.querySelector(selector + ' .tbs-grid-panel71');
-    let panel72 = document.querySelector(selector + ' .tbs-grid-panel72');
-    let group20 = document.querySelector(selector + ' .tbs-grid-group20');
-    let group21 = document.querySelector(selector + ' .tbs-grid-group21');
-    let group30 = document.querySelector(selector + ' .tbs-grid-group30');
-    let group31 = document.querySelector(selector + ' .tbs-grid-group31');
-    let group40 = document.querySelector(selector + ' .tbs-grid-group40');
-    let group41 = document.querySelector(selector + ' .tbs-grid-group41');
-    let group50 = document.querySelector(selector + ' .tbs-grid-group50');
-    let group51 = document.querySelector(selector + ' .tbs-grid-group51');
-    let group60 = document.querySelector(selector + ' .tbs-grid-group60');
-    let group61 = document.querySelector(selector + ' .tbs-grid-group61');
-    let group70 = document.querySelector(selector + ' .tbs-grid-group70');
-    let group71 = document.querySelector(selector + ' .tbs-grid-group71');
+    const rectGrid = document.querySelector(selector).getBoundingClientRect();
+    const main = document.querySelector(selector + ' .tbs-grid-main');
+    const panel20 = document.querySelector(selector + ' .tbs-grid-panel20');
+    const panel22 = document.querySelector(selector + ' .tbs-grid-panel22');
+    const panel40 = document.querySelector(selector + ' .tbs-grid-panel40');
+    const panel42 = document.querySelector(selector + ' .tbs-grid-panel42');
+    const panel72 = document.querySelector(selector + ' .tbs-grid-panel72');
+    const group20 = document.querySelector(selector + ' .tbs-grid-group20');
+    const group21 = document.querySelector(selector + ' .tbs-grid-group21');
+    const group30 = document.querySelector(selector + ' .tbs-grid-group30');
+    const group31 = document.querySelector(selector + ' .tbs-grid-group31');
+    const group40 = document.querySelector(selector + ' .tbs-grid-group40');
+    const group41 = document.querySelector(selector + ' .tbs-grid-group41');
+    const group50 = document.querySelector(selector + ' .tbs-grid-group50');
+    const group51 = document.querySelector(selector + ' .tbs-grid-group51');
+    const group70 = document.querySelector(selector + ' .tbs-grid-group70');
+    const group71 = document.querySelector(selector + ' .tbs-grid-group71');
     let mainHeight = rectGrid.height;
     if (grid.options.showToolbarPanel) mainHeight -= 25;
     if (grid.options.showGroupPanel) mainHeight -= 33; // panel80
@@ -11276,23 +12085,13 @@ class TbsGridScrollBase {
     main.style.height = `${mainHeight}px`;
 
     // header : group21, group22 group20
-    let rectTable21 = document.querySelector(selector + ' .tbs-grid-panel21 .tbs-grid-table').getBoundingClientRect();
-    let rectTable22 = document.querySelector(selector + ' .tbs-grid-panel22 .tbs-grid-table').getBoundingClientRect();
+    const rectTable21 = document.querySelector(selector + ' .tbs-grid-panel21 .tbs-grid-table').getBoundingClientRect();
 
     // Consider hidden columns
-    let rectTable20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table').getBoundingClientRect();
+    const rectTable20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table').getBoundingClientRect();
     let height = parseInt(rectTable20.height);
     let fixedColumnsWidth = grid.classScroll.getFixedColumnsWidth();
-    if (grid.fixedRowIndex != -1 && grid.fixedColumnIndex != -1) {
-      group21.style.left = '0px';
-      group21.style.top = '0px';
-      group21.style.bottom = height + 'px';
-      group21.style.width = parseInt(rectTable21.width) + parseInt(fixedColumnsWidth) + 'px';
-      group21.style.height = height + 'px';
-      group20.style.left = parseInt(rectTable21.width) + parseInt(fixedColumnsWidth) + 'px';
-      group20.style.height = height + 'px';
-      panel22.style.left = parseInt(rectTable21.width) + 'px';
-    } else if (grid.fixedColumnIndex != -1) {
+    if (grid.fixedColumnIndex != -1) {
       group21.style.left = '0px';
       group21.style.top = '0px';
       group21.style.bottom = height + 'px';
@@ -11316,9 +12115,7 @@ class TbsGridScrollBase {
     }
     // Filter panel
     if (grid.options.showFilterPanel) {
-      let rectTable71 = document.querySelector(selector + ' .tbs-grid-panel71 .tbs-grid-table').getBoundingClientRect();
-      let rectTable72 = document.querySelector(selector + ' .tbs-grid-panel72 .tbs-grid-table').getBoundingClientRect();
-      let rectTable70 = document.querySelector(selector + ' .tbs-grid-panel70 .tbs-grid-table').getBoundingClientRect();
+      const rectTable70 = document.querySelector(selector + ' .tbs-grid-panel70 .tbs-grid-table').getBoundingClientRect();
       if (grid.fixedColumnIndex != -1) {
         group71.style.top = height + 'px';
         group71.style.width = group21.style.width;
@@ -11344,21 +12141,8 @@ class TbsGridScrollBase {
     }
     // summary top : group41, group42, group40
     if (grid.top_column_table.count() > 0) {
-      let rectTable41 = document.querySelector(selector + ' .tbs-grid-panel41 .tbs-grid-table').getBoundingClientRect();
-      let rectTable42 = document.querySelector(selector + ' .tbs-grid-panel42 .tbs-grid-table').getBoundingClientRect();
-      let rectTable40 = document.querySelector(selector + ' .tbs-grid-panel40 .tbs-grid-table').getBoundingClientRect();
-      if (grid.fixedRowIndex != -1 && grid.fixedColumnIndex != -1) {
-        group41.style.top = height + 'px';
-        group41.style.width = group21.style.width;
-        group41.style.height = parseInt(rectTable40.height) + 'px';
-        group40.style.top = height + 'px';
-        group40.style.left = group21.style.width;
-        group40.style.height = parseInt(rectTable40.height) + 'px';
-        panel42.style.left = panel22.style.left;
-        panel42.style.width = panel22.style.width;
-        panel42.style.height = parseInt(rectTable40.height) + 'px';
-        panel40.style.left = panel20.style.left;
-      } else if (grid.fixedColumnIndex != -1) {
+      const rectTable40 = document.querySelector(selector + ' .tbs-grid-panel40 .tbs-grid-table').getBoundingClientRect();
+      if (grid.fixedColumnIndex != -1) {
         group41.style.top = height + 'px';
         group41.style.width = group21.style.width;
         group41.style.height = parseInt(rectTable40.height) + 'px';
@@ -11382,73 +12166,14 @@ class TbsGridScrollBase {
       }
       height += parseInt(rectTable40.height);
     }
-    // frozen row : group61, group62, group60
-    if (grid.fixedRowIndex != -1 && grid.fixedColumnIndex != -1) {
-      group61.style.top = height + 'px';
-      group61.style.left = group21.style.left;
-      group61.style.width = group21.style.width;
-      group61.style.height = grid.fixedRowCount * grid.rowHeight + 'px';
-      group60.style.top = height + 'px';
-      group60.style.left = group20.style.left;
-      group60.style.width = group20.style.width;
-      group60.style.height = grid.fixedRowCount * grid.rowHeight + 'px';
-      panel61.style.height = grid.fixedRowCount * grid.rowHeight + 'px';
-      panel61.style.width = panel21.style.width;
-      panel62.style.height = grid.fixedRowCount * grid.rowHeight + 'px';
-      panel62.style.width = panel22.style.width;
-      panel62.style.left = panel22.style.left;
-      panel60.style.height = grid.fixedRowCount * grid.rowHeight + 'px';
-      panel60.style.width = group20.style.width;
-      height += grid.fixedRowCount * grid.rowHeight;
-    } else if (grid.fixedRowIndex != -1) {
-      let panel61 = document.querySelector(selector + ' .tbs-grid-panel61');
-      let rectTable61 = document.querySelector(selector + ' .tbs-grid-panel61 .tbs-grid-table').getBoundingClientRect();
-      group61.style.top = height + 'px';
-      group61.style.left = group21.style.left;
-      group61.style.width = group21.style.width;
-      group61.style.height = grid.fixedRowCount * grid.rowHeight + 'px';
-      group60.style.top = height + 'px';
-      group60.style.left = group20.style.left;
-      group60.style.width = group20.style.width;
-      group60.style.height = grid.fixedRowCount * grid.rowHeight + 'px';
-      panel61.style.height = grid.fixedRowCount * grid.rowHeight + 'px';
-      panel60.style.height = grid.fixedRowCount * grid.rowHeight + 'px';
-
-      //panel60.style.width  = group20.style.width;
-
-      height += grid.fixedRowCount * grid.rowHeight;
-    }
     // content : group31, group32, group30
-    if (grid.fixedRowIndex != -1) {
-      let rectTable31 = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').getBoundingClientRect();
-      let rectTable32 = document.querySelector(selector + ' .tbs-grid-panel32 .tbs-grid-table').getBoundingClientRect();
-      let rectTable30 = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table').getBoundingClientRect();
-      group31.style.top = height + 'px';
-      group30.style.top = height + 'px';
-      group31.style.width = group21.style.width;
-      group31.style.height = parseInt(rectTable30.height) + 'px';
-      group30.style.left = group21.style.width;
-      //group30.style.height = parseInt(rectTable30.height) + 'px';
-
-      panel32.style.left = panel22.style.left;
-      panel32.style.width = panel22.style.width;
-      panel40.style.left = panel20.style.left;
-
-      // let scroll = document.querySelector(selector + ' .tbs-grid-vertical-scroll');
-      // scroll.style.top = group31.style.top;
-      // let scroll6 = document.querySelector(selector + ' .tbs-grid-vertical-scroll6');
-      // scroll6.style.height = height + 'px';
-      // scroll6.style.display = '';
-    } else if (grid.fixedColumnIndex != -1) {
-      let rectTable31 = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').getBoundingClientRect();
-      let rectTable32 = document.querySelector(selector + ' .tbs-grid-panel32 .tbs-grid-table').getBoundingClientRect();
-      let rectTable30 = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table').getBoundingClientRect();
+    const panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
+    const panel32 = document.querySelector(selector + ' .tbs-grid-panel32');
+    if (grid.fixedColumnIndex != -1) {
       group31.style.top = height + 'px';
       group31.style.width = group21.style.width;
       group30.style.top = height + 'px';
       group30.style.left = group21.style.width;
-      panel32 = document.querySelector(selector + ' .tbs-grid-panel32');
-      panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
       panel32.style.width = '0px';
       panel30.style.left = '0px';
       panel32.style.left = panel22.style.left;
@@ -11458,47 +12183,32 @@ class TbsGridScrollBase {
       group31.style.width = group21.style.width;
       group30.style.top = height + 'px';
       group30.style.left = group21.style.width;
-      panel32 = document.querySelector(selector + ' .tbs-grid-panel32');
-      panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
       panel32.style.width = '0px';
       panel30.style.left = '0px';
     }
     // summary footer : group51, group52, group50
     if (grid.footer_column_table.count() > 0) {
-      if (grid.fixedColumnIndex != -1 && grid.fixedRowIndex != -1) {
-        let rectTable50 = document.querySelector(selector + ' .tbs-grid-panel50 .tbs-grid-table').getBoundingClientRect();
+      const panel50 = document.querySelector(selector + ' .tbs-grid-panel50');
+      const panel52 = document.querySelector(selector + ' .tbs-grid-panel52');
+      if (grid.fixedColumnIndex != -1) {
+        const rectTable50 = document.querySelector(selector + ' .tbs-grid-panel50 .tbs-grid-table').getBoundingClientRect();
         group31.style.bottom = parseInt(rectTable50.height) + 'px';
         group30.style.bottom = parseInt(rectTable50.height) + 'px';
         group51.style.width = group21.style.width;
         group51.style.height = parseInt(rectTable50.height) + 'px';
         group50.style.left = group21.style.width;
         group50.style.height = parseInt(rectTable50.height) + 'px';
-        panel52 = document.querySelector(selector + ' .tbs-grid-panel52');
-        panel50 = document.querySelector(selector + ' .tbs-grid-panel50');
-        panel52.style.left = panel22.style.left;
-      } else if (grid.fixedColumnIndex != -1) {
-        let rectTable50 = document.querySelector(selector + ' .tbs-grid-panel50 .tbs-grid-table').getBoundingClientRect();
-        group31.style.bottom = parseInt(rectTable50.height) + 'px';
-        group30.style.bottom = parseInt(rectTable50.height) + 'px';
-        group51.style.width = group21.style.width;
-        group51.style.height = parseInt(rectTable50.height) + 'px';
-        group50.style.left = group21.style.width;
-        group50.style.height = parseInt(rectTable50.height) + 'px';
-        panel52 = document.querySelector(selector + ' .tbs-grid-panel52');
-        panel50 = document.querySelector(selector + ' .tbs-grid-panel50');
         panel52.style.left = parseInt(rectTable21.width) + 'px';
         panel52.style.width = parseInt(fixedColumnsWidth) + 'px';
         panel52.style.height = parseInt(rectTable50.height) + 'px';
       } else {
-        let rectTable50 = document.querySelector(selector + ' .tbs-grid-panel50 .tbs-grid-table').getBoundingClientRect();
+        const rectTable50 = document.querySelector(selector + ' .tbs-grid-panel50 .tbs-grid-table').getBoundingClientRect();
         group51.style.width = group21.style.width;
         group51.style.height = parseInt(rectTable50.height) + 'px';
         group50.style.left = group21.style.width;
         group50.style.height = parseInt(rectTable50.height) + 'px';
         group31.style.bottom = parseInt(rectTable50.height) + 'px';
         group30.style.bottom = parseInt(rectTable50.height) + 'px';
-        panel52 = document.querySelector(selector + ' .tbs-grid-panel52');
-        panel50 = document.querySelector(selector + ' .tbs-grid-panel50');
         panel52.style.width = '0px';
         panel50.style.left = '0px';
         panel52.style.height = '0px';
@@ -11510,8 +12220,8 @@ class TbsGridScrollBase {
     let selector = this.selector;
     const grid = this.grid;
     if (type == grid.code_horizontal) {
-      let table20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
-      let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
+      const table20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
+      const xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
       let railSize = grid.horizontalScroll.railSize;
       let hiddenSize = grid.horizontalScroll.hiddenSize;
       let curLeft = Math.abs(parseInt(table20.style.left.replace('px', '')));
@@ -11519,11 +12229,12 @@ class TbsGridScrollBase {
     } else if (type == grid.code_vertical) {
       topRowIndex = grid.null(topRowIndex) ? 0 : topRowIndex;
       if (topRowIndex == 0) document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar').style.top = '0px';else if (grid.isLastTopRowIndex(topRowIndex)) {
-        document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar').style.top = grid.verticalScroll.railSize + 'px';
+        const yBar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
+        yBar.style.top = grid.verticalScroll.railSize + 'px';
       } else {
         let styleTop = parseInt(Math.ceil(topRowIndex / grid.verticalScroll.moveCount));
-        //console.log(`styleTop ${styleTop} topRowIndex ${topRowIndex}`);
         document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar').style.top = styleTop + 'px';
+        //console.log(`styleTop ${styleTop} topRowIndex ${topRowIndex}`);
       }
     }
   }
@@ -11531,7 +12242,6 @@ class TbsGridScrollBase {
     let selector = this.selector;
     const grid = this.grid;
     if (type == 'up') {
-      let displayTopRowIndex = grid.getFirstDisplayRowIndex();
       let trTopIndex = grid.getFirstRowIndex() - 1;
       if (trTopIndex < 0) return false;
       //-------------------------------------------------------------
@@ -11558,14 +12268,10 @@ class TbsGridScrollBase {
     if (type == 'right') {
       let hiddenSize = grid.horizontalScroll.hiddenSize;
       let moveWidth = 15;
-      let divContent = document.querySelector(selector + ' .tbs-grid-panel30');
-      let divHeaderMove = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
-      let divContentMove = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-      let sum = document.querySelector(selector + ' .tbs-grid-panel40');
-      let footer = document.querySelector(selector + ' .tbs-grid-panel50');
+      const divContent = document.querySelector(selector + ' .tbs-grid-panel30');
+      const divHeaderMove = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
+      const divContentMove = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
       if (divHeaderMove.style.left == -1 * hiddenSize + 'px') return;
-      let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
-      let railSize = grid.horizontalScroll.railSize;
       let curLeft = Math.abs(parseInt(divHeaderMove.style.left.replace('px', '')));
       if (divContentMove.getBoundingClientRect().width <= divContent.getBoundingClientRect().width) return;
       let sLeft;
@@ -11576,14 +12282,8 @@ class TbsGridScrollBase {
     }
     if (type == 'left') {
       let moveWidth = 15;
-      let divHeaderMove = document.querySelector(selector + ' .tbs-grid-panel20  .tbs-grid-table');
-      let divContentMove = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-      let sum = document.querySelector(selector + ' .tbs-grid-panel40');
-      let footer = document.querySelector(selector + ' .tbs-grid-panel50');
+      const divHeaderMove = document.querySelector(selector + ' .tbs-grid-panel20  .tbs-grid-table');
       if (divHeaderMove.style.left == '0px') return false;
-      let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
-      let railSize = grid.horizontalScroll.railSize;
-      let hiddenSize = grid.horizontalScroll.hiddenSize;
       let curLeft = Math.abs(parseInt(divHeaderMove.style.left.replace('px', '')));
       let sLeft;
       if (curLeft - moveWidth <= 0) sLeft = '0px';else sLeft = -1 * curLeft + moveWidth + 'px';
@@ -11595,7 +12295,7 @@ class TbsGridScrollBase {
   getContentPanelLeft(value) {
     let selector = this.selector;
     const grid = this.grid;
-    let panel20 = document.querySelector(selector + ' .tbs-grid-panel20');
+    const panel20 = document.querySelector(selector + ' .tbs-grid-panel20');
     value = parseInt(value, 10);
     let railSize = grid.horizontalScroll.railSize;
     let ratio = (panel20.childNodes[0].clientWidth - panel20.clientWidth) / railSize;
@@ -11606,23 +12306,21 @@ class TbsGridScrollBase {
     let selector = this.selector;
     const grid = this.grid;
     value = parseInt(value, 10) + 'px';
-    let panel20 = document.querySelector(selector + ' .tbs-grid-panel20');
-    let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
-    let panel40 = document.querySelector(selector + ' .tbs-grid-panel40');
-    let panel50 = document.querySelector(selector + ' .tbs-grid-panel50');
-    // let panel60= document.querySelector(selector + ' .tbs-grid-panel60');
-    let panel70 = document.querySelector(selector + ' .tbs-grid-panel70');
+    const panel20 = document.querySelector(selector + ' .tbs-grid-panel20');
+    const panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
+    const panel40 = document.querySelector(selector + ' .tbs-grid-panel40');
+    const panel50 = document.querySelector(selector + ' .tbs-grid-panel50');
+    const panel70 = document.querySelector(selector + ' .tbs-grid-panel70');
     if (grid.notNull(panel20.childNodes[0])) panel20.childNodes[0].style.left = value;
     if (grid.notNull(panel30.childNodes[0])) panel30.childNodes[0].style.left = value;
     if (grid.notNull(panel40.childNodes[0])) panel40.childNodes[0].style.left = value;
     if (grid.notNull(panel50.childNodes[0])) panel50.childNodes[0].style.left = value;
-    // if(grid.notNull(panel60.childNodes[0])) panel60.childNodes[0].style.left = value;
     if (grid.notNull(panel70.childNodes[0])) panel70.childNodes[0].style.left = value;
   }
   setContentPanelLeftMove(value) {
     let selector = this.selector;
     const grid = this.grid;
-    let table20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
+    const table20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
     let left = parseInt(table20.style.left, 10) + value + 'px';
     grid.classScroll.setContentPanelLeft(left);
   }
@@ -11634,17 +12332,15 @@ class TbsGridScrollBase {
   setColumnWidth20(panelName, colIndex, value) {
     let selector = this.selector;
     const grid = this.grid;
-    let colList = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table thead th');
-    let colList2 = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table thead th');
-    // let colList5 = document.querySelectorAll(selector + ' .tbs-grid-panel60 .tbs-grid-table thead th');
-    let colList3 = document.querySelectorAll(selector + ' .tbs-grid-panel40 .tbs-grid-table thead th');
-    let colList4 = document.querySelectorAll(selector + ' .tbs-grid-panel50 .tbs-grid-table thead th');
-    let colList7 = document.querySelectorAll(selector + ' .tbs-grid-panel70 .tbs-grid-table thead th');
+    const colList = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table thead th');
+    const colList2 = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table thead th');
+    const colList3 = document.querySelectorAll(selector + ' .tbs-grid-panel40 .tbs-grid-table thead th');
+    const colList4 = document.querySelectorAll(selector + ' .tbs-grid-panel50 .tbs-grid-table thead th');
+    const colList7 = document.querySelectorAll(selector + ' .tbs-grid-panel70 .tbs-grid-table thead th');
     let nWidth = parseInt(value) + 'px';
     grid.column_table.data[colIndex][tbsGridNames.column.width] = parseInt(value, 10);
     colList[colIndex].style.width = nWidth;
     colList2[colIndex].style.width = nWidth;
-    if (grid.fixedRowIndex != -1) colList5[colIndex].style.width = nWidth;
     if (grid.top_table.count() > 0) colList3[colIndex].style.width = nWidth;
     if (grid.footer_table.count() > 0) colList4[colIndex].style.width = nWidth;
     if (grid.options.showFilterPanel) colList7[colIndex].style.width = nWidth;
@@ -11655,17 +12351,15 @@ class TbsGridScrollBase {
   setColumnWidth22(panelName, colIndex, value) {
     let selector = this.selector;
     const grid = this.grid;
-    let colList = document.querySelectorAll(selector + ' .tbs-grid-panel22 .tbs-grid-table thead th');
-    let colList2 = document.querySelectorAll(selector + ' .tbs-grid-panel32 .tbs-grid-table thead th');
-    let colList5 = document.querySelectorAll(selector + ' .tbs-grid-panel62 .tbs-grid-table thead th');
-    let colList3 = document.querySelectorAll(selector + ' .tbs-grid-panel42 .tbs-grid-table thead th');
-    let colList4 = document.querySelectorAll(selector + ' .tbs-grid-panel52 .tbs-grid-table thead th');
-    let colList7 = document.querySelectorAll(selector + ' .tbs-grid-panel72 .tbs-grid-table thead th');
+    const colList = document.querySelectorAll(selector + ' .tbs-grid-panel22 .tbs-grid-table thead th');
+    const colList2 = document.querySelectorAll(selector + ' .tbs-grid-panel32 .tbs-grid-table thead th');
+    const colList3 = document.querySelectorAll(selector + ' .tbs-grid-panel42 .tbs-grid-table thead th');
+    const colList4 = document.querySelectorAll(selector + ' .tbs-grid-panel52 .tbs-grid-table thead th');
+    const colList7 = document.querySelectorAll(selector + ' .tbs-grid-panel72 .tbs-grid-table thead th');
     let nWidth = parseInt(value) + 'px';
     grid.column_table.data[colIndex][tbsGridNames.column.width] = parseInt(value, 10);
     colList[colIndex].style.width = nWidth;
     colList2[colIndex].style.width = nWidth;
-    if (grid.fixedRowIndex != -1) colList5[colIndex].style.width = nWidth;
     if (grid.top_column_table.count() > 0) colList3[colIndex].style.width = nWidth;
     if (grid.footer_column_table.count() > 0) colList4[colIndex].style.width = nWidth;
     if (grid.options.showFilterPanel) colList7[colIndex].style.width = nWidth;
@@ -11675,25 +12369,22 @@ class TbsGridScrollBase {
     grid.verticalScroll.setScroll(grid.code_vertical);
   }
   getFixedColumnsWidth() {
-    let selector = this.selector;
     const grid = this.grid;
     let result = 0;
     for (let x = 0; x <= grid.fixedColumnIndex; x++) {
       let column = grid.column_table.data[x];
       if (column[tbsGridNames.column.visible]) result += Number(column[tbsGridNames.column.width]);
     }
-    //console.log(result);
     return result;
   }
   setAllColumnWidth(arr) {
     let selector = this.selector;
     const grid = this.grid;
-    let thList20 = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table thead th');
-    let thList30 = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table thead th');
-    let thList40 = document.querySelectorAll(selector + ' .tbs-grid-panel40 .tbs-grid-table thead th');
-    let thList50 = document.querySelectorAll(selector + ' .tbs-grid-panel50 .tbs-grid-table thead th');
-    // let thList60 = document.querySelectorAll(selector + ' .tbs-grid-panel60 .tbs-grid-table thead th');
-    let thList70 = document.querySelectorAll(selector + ' .tbs-grid-panel70 .tbs-grid-table thead th');
+    const thList20 = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table thead th');
+    const thList30 = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table thead th');
+    const thList40 = document.querySelectorAll(selector + ' .tbs-grid-panel40 .tbs-grid-table thead th');
+    const thList50 = document.querySelectorAll(selector + ' .tbs-grid-panel50 .tbs-grid-table thead th');
+    const thList70 = document.querySelectorAll(selector + ' .tbs-grid-panel70 .tbs-grid-table thead th');
     for (let x = 0, len = grid.column_table.count(); x < len; x++) {
       grid.column_table.data[x].width = arr[x];
       let nWidth = arr[x] + 'px';
@@ -11701,7 +12392,6 @@ class TbsGridScrollBase {
       thList30[x].style.width = nWidth;
       if (grid.top_column_table.count() > 0) thList40[x].style.width = nWidth;
       if (grid.footer_columntable.data.length > 0) thList50[x].style.width = nWidth;
-      if (grid.fixedRowIndex != -1) thList60[x].style.width = nWidth;
       if (grid.options.showFilterPanel) thList70[x].style.width = nWidth;
     }
     grid.horizontalScroll.setScroll(grid.code_horizontal);
@@ -11724,13 +12414,14 @@ class TbsGridScrollBase {
 /***/ 660:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   F: function() { return /* binding */ TbsGridScroll; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridScroll {
   /**
    * ScrollName : verticalScroll, horizontalScroll, verticalScroll60, horizontalScroll32
@@ -11787,50 +12478,25 @@ class TbsGridScroll {
     let wrap = document.querySelector(selector + ' .tbs-grid-wrap');
     let pageRowCount = grid.pageRowCount;
     let dataLength = grid.view_table.count();
-    if (grid.fixedRowIndex != -1) {
-      dataLength = dataLength - (grid.fixedRowIndex + 1);
-      if (dataLength <= grid.pageIntRowCount) {
-        scroll.hideScroll(type);
-      } else if (grid.pageRowCount > grid.pageIntRowCount) {
-        if (dataLength >= pageRowCount) {
-          yScroll.style.display = '';
-          scrollBox.style.display = '';
-          wrap.style.marginRight = grid.verticalScroll.margin;
-          scroll.setScrollSize(type);
-        } else {
-          scroll.hideScroll(type);
-        }
+    if (dataLength <= grid.pageIntRowCount) {
+      scroll.hideScroll(type);
+    } else if (grid.pageRowCount > grid.pageIntRowCount) {
+      if (dataLength >= pageRowCount) {
+        yScroll.style.display = '';
+        scrollBox.style.display = '';
+        wrap.style.marginRight = grid.verticalScroll.margin;
+        scroll.setScrollSize(type);
       } else {
-        if (dataLength > pageRowCount) {
-          yScroll.style.display = '';
-          scrollBox.style.display = '';
-          wrap.style.marginRight = grid.verticalScroll.margin;
-          scroll.setScrollSize(type);
-        } else {
-          scroll.hideScroll(type);
-        }
+        scroll.hideScroll(type);
       }
     } else {
-      if (dataLength <= grid.pageIntRowCount) {
-        scroll.hideScroll(type);
-      } else if (grid.pageRowCount > grid.pageIntRowCount) {
-        if (dataLength >= pageRowCount) {
-          yScroll.style.display = '';
-          scrollBox.style.display = '';
-          wrap.style.marginRight = grid.verticalScroll.margin;
-          scroll.setScrollSize(type);
-        } else {
-          scroll.hideScroll(type);
-        }
+      if (dataLength > pageRowCount) {
+        yScroll.style.display = '';
+        scrollBox.style.display = '';
+        wrap.style.marginRight = grid.verticalScroll.margin;
+        scroll.setScrollSize(type);
       } else {
-        if (dataLength > pageRowCount) {
-          yScroll.style.display = '';
-          scrollBox.style.display = '';
-          wrap.style.marginRight = grid.verticalScroll.margin;
-          scroll.setScrollSize(type);
-        } else {
-          scroll.hideScroll(type);
-        }
+        scroll.hideScroll(type);
       }
     }
     yScroll = document.querySelector(selector + ' .tbs-grid-vertical-scroll'); // non-live
@@ -11926,19 +12592,11 @@ class TbsGridScroll {
     let selector = this.selector;
     const grid = this.grid;
     let scroll = this;
-    if (grid.fixedRowIndex != -1) {
-      let yWrap = document.querySelector(selector + ' .tbs-grid-vertical-scroll-wrap');
-      let rowCount = grid.getRowCount() - (grid.fixedRowIndex + 1);
-      let barSize = yWrap.clientHeight - rowCount * 6.3;
-      if (barSize < 50) barSize = 50;
-      return barSize;
-    } else {
-      let yWrap = document.querySelector(selector + ' .tbs-grid-vertical-scroll-wrap');
-      let rowCount = grid.getRowCount();
-      let barSize = yWrap.clientHeight - rowCount * 6.3;
-      if (barSize < 50) barSize = 50;
-      return barSize;
-    }
+    let yWrap = document.querySelector(selector + ' .tbs-grid-vertical-scroll-wrap');
+    let rowCount = grid.getRowCount();
+    let barSize = yWrap.clientHeight - rowCount * 6.3;
+    if (barSize < 50) barSize = 50;
+    return barSize;
   }
 
   /* railSize */
@@ -11976,13 +12634,8 @@ class TbsGridScroll {
     let moveCount = 0;
     let pageIntRowCount = grid.pageIntRowCount;
     let pageRowCount = grid.pageRowCount;
-    if (grid.fixedRowIndex != -1) {
-      let rowCount = grid.getRowCount() - (grid.fixedRowIndex + 1);
-      if (pageRowCount > pageIntRowCount) moveCount = Number((rowCount - pageRowCount + 1) / railSize);else moveCount = Number((rowCount - pageRowCount) / railSize); // 50 , 10 / 1000 px
-    } else {
-      let rowCount = grid.getRowCount();
-      if (pageRowCount > pageIntRowCount) moveCount = Number((rowCount - pageRowCount + 1) / railSize);else moveCount = Number((rowCount - pageRowCount) / railSize);
-    }
+    let rowCount = grid.getRowCount();
+    if (pageRowCount > pageIntRowCount) moveCount = Number((rowCount - pageRowCount + 1) / railSize);else moveCount = Number((rowCount - pageRowCount) / railSize);
     return moveCount;
   }
 
@@ -12016,13 +12669,14 @@ class TbsGridScroll {
 /***/ 633:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   m: function() { return /* binding */ TbsGridSort; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridSort {
   constructor(grid) {
     this.grid = grid;
@@ -12111,14 +12765,14 @@ class TbsGridSort {
 
     // add sortColumn in grid.sort_data
     // already existing column
-    let dataRows = grid.sort_column_table.select(tbsGridNames.column.name, name, 1);
+    let dataRows = grid.sort_column_table.selectRows(tbsGridNames.column.name, name, 1);
     if (dataRows.length > 0) return;
     let dataRow = {};
     dataRow[tbsGridNames.column.name] = name;
     dataRow[tbsGridNames.column.order] = order;
 
     /* create sort data */
-    console.log(name);
+    //console.log(name);
     if (grid.null(targetIndex)) grid.sort_column_table.insert(dataRow);else grid.sort_column_table.insertBefore(dataRow, targetIndex);
 
     // add button in group panel
@@ -12134,9 +12788,12 @@ class TbsGridSort {
 
     // remove sortColumn in grid.sort_column_table.data
     let name = element.dataset.name;
-    console.log('name :' + name);
+    //console.log('name :' + name);
+
     let rowIndex = grid.sort_column_table.selectRowIndex(tbsGridNames.column.name, name);
-    console.log('rowIndex :' + rowIndex);
+
+    //console.log('rowIndex :' + rowIndex);
+
     grid.sort_column_table.remove(rowIndex);
 
     // remove button in group panel
@@ -12263,13 +12920,16 @@ class TbsGridSort {
 /***/ 149:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   u: function() { return /* binding */ TbsGridTable; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
+/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(221);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+
 class TbsGridTable {
   constructor(grid) {
     this.grid = grid;
@@ -12277,7 +12937,7 @@ class TbsGridTable {
   createTable(panelName, startRowIndex, rowCount) {
     let selector = '#' + this.grid.gridId;
     const grid = this.grid;
-    const table = grid.classDom.createTable();
+    const table = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.createTable();
 
     /**
      * table head
@@ -12348,16 +13008,21 @@ class TbsGridTable {
         let div = document.createElement('div');
         div.classList.add('tbs-grid-cell-div');
         td.appendChild(div);
+        let input = document.createElement('input');
+        input.type = 'checkbox';
+        input.classList.add('tbs-grid-html-checkbox');
+        input.style.display = 'none';
+        div.appendChild(input);
         let span = document.createElement('span');
-        span.classList.add('tbs-grid-cell-span');
+        span.classList.add('tbs-grid-html-string');
         div.appendChild(span);
         let spanSort = document.createElement('span');
-        spanSort.classList.add('tbs-grid-cell-span-sort');
+        spanSort.classList.add('tbs-grid-html-sort');
         div.appendChild(spanSort);
         let reSizeDiv = document.createElement('div');
-        reSizeDiv.classList.add('tbs-grid-cell-resize');
+        reSizeDiv.classList.add('tbs-grid-html-resize');
         let sortDiv = document.createElement('div');
-        sortDiv.classList.add('tbs-grid-cell-sort');
+        sortDiv.classList.add('tbs-grid-html-sort');
         td.appendChild(div);
         td.appendChild(reSizeDiv);
         tr.appendChild(td);
@@ -12371,8 +13036,8 @@ class TbsGridTable {
         td.classList.add('tbs-grid-cell');
         td.style.width = column[tbsGridNames.column.width] + 'px';
         td.dataset.name = column[tbsGridNames.column.name];
-        td.dataset.cellIndex = i;
-        let div = grid.classDom.createElementCellDiv();
+        td.dataset.columnIndex = i;
+        let div = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.createElementCellDiv();
         td.appendChild(div);
         tr.appendChild(td);
       }
@@ -12390,13 +13055,13 @@ class TbsGridTable {
         let td = document.createElement('td');
         td.classList.add('tbs-grid-cell');
         td.style.width = column[tbsGridNames.column.width] + 'px';
-        if (panelName == 'panel22' || panelName == 'panel32' || panelName == 'panel42' || panelName == 'panel52' || panelName == 'panel62' || panelName == 'panel72') {
+        if (panelName == 'panel22' || panelName == 'panel32' || panelName == 'panel42' || panelName == 'panel52' || panelName == 'panel72') {
           td.style.display = 'none';
         }
         td.dataset.name = column[tbsGridNames.column.name];
-        td.dataset.cellIndex = i;
-        let div = grid.classDom.createElementCellDiv();
-        let spanText = grid.classDom.createElementCellText();
+        td.dataset.columnIndex = i;
+        let div = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.createElementCellDiv();
+        let spanText = _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.createElementCellText();
         div.appendChild(spanText);
         td.appendChild(div);
         tr.appendChild(td);
@@ -12411,65 +13076,8 @@ class TbsGridTable {
      * table row add
      */
 
-    const tbody = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' table tbody');
+    const tbody = document.querySelector(selector + ' .tbs-grid-' + panelName + ' table tbody');
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) this.createTableRow(panelName, tbody);
-  }
-}
-
-/***/ }),
-
-/***/ 378:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   B: function() { return /* binding */ TbsGridTop; }
-/* harmony export */ });
-/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
-
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
-class TbsGridTop {
-  constructor(grid) {
-    this.grid = grid;
-    this.selector = '#' + grid.gridId;
-  }
-  setTopColumns(columns) {
-    const grid = this.grid;
-    columns.map(column => {
-      if (grid.null(column[tbsGridNames.column.align])) column[tbsGridNames.column.align] = 'center';
-      grid.top_column_table.insert(column);
-    });
-  }
-  setTopData() {
-    const grid = this.grid;
-    if (grid.top_column_table.count() == 0) return;
-    let topColumns = grid.top_column_table.data;
-    let dataRow = {};
-    let columns = grid.column_table.data;
-    for (let x = 0, len = columns.length; x < len; x++) {
-      let column = columns[x];
-      let columnName = column[tbsGridNames.column.name];
-      dataRow[columnName] = null;
-    }
-    grid.top_table.insert(dataRow);
-
-    /* get sum, avg */
-    for (let x = 0, len2 = grid.top_column_table.count(); x < len2; x++) {
-      let topColumn = grid.top_column_table.data[x];
-      let columnName = topColumn[tbsGridNames.column.name];
-      if (grid.isColumnTypeNumber(columnName)) {
-        let sumType = topColumn[tbsGridNames.column.summaryType];
-        let result = null;
-        if (sumType == 'sum') result = grid.classPanel30.getSum(columnName);else if (sumType == 'avg') result = grid.classPanel30.getAvg(columnName);
-        grid.top_table.updateByRowIndex(0, columnName, grid.classPanel30.getSum(columnName));
-      }
-    }
-  }
-  setTopValue(rowIndex, columnName, value) {
-    const grid = this.grid;
-    let column = grid.column_table.selectRow(tbsGridNames.column.name, columnName);
-    let result = grid.getFormat(column, value);
-    grid.top_table.updateByRowIndex(rowIndex, columnName, result.value);
   }
 }
 
@@ -12478,13 +13086,14 @@ class TbsGridTop {
 /***/ 909:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   O: function() { return /* binding */ TbsGridTree; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
 class TbsGridTree {
   constructor(grid) {
     this.grid = grid;
@@ -12617,7 +13226,7 @@ class TbsGridTree {
     const grid = this.grid;
     let row = grid.getRow(rowIndex);
     let arrayChildren = row[tbsGridNames.column.children];
-    let element = tableCell.querySelector('.tbs-grid-cell-div-icon');
+    let element = tableCell.querySelector('.tbs-grid-html-icon');
     if (arrayChildren.length > 0) {
       let nextRow = grid.getRow(rowIndex + 1);
       if (grid.null(nextRow)) grid.classTree.toggleTreeIcon(rowIndex, element, 'closed');else {
@@ -12633,7 +13242,7 @@ class TbsGridTree {
   getTreeFlodingStatus(tableCell) {
     let selector = this.selector;
     const grid = this.grid;
-    let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
+    let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
     if (grid.null(spanIcon)) return null;
     if (spanIcon.style['backgroundImage'].includes('tree_open.png')) return tbsGridNames.column.open;else if (spanIcon.style['backgroundImage'].includes('tree_closed.png')) return tbsGridNames.column.closed;else return null;
   }
@@ -12642,7 +13251,7 @@ class TbsGridTree {
     const grid = this.grid;
     let rowIndex = parseInt(tableCell.parentNode.dataset.rowIndex);
     let row = grid.getRow(rowIndex);
-    let spanIcon = tableCell.querySelector('.tbs-grid-cell-div-icon');
+    let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
     if (grid.null(spanIcon)) return;
     let folding = grid.classTree.getTreeFlodingStatus(tableCell);
     if (folding == tbsGridNames.column.open) grid.classTree.closeTreeRow(rowIndex);else if (folding == tbsGridNames.column.closed) grid.classTree.openTreeRow(rowIndex, false);
@@ -12742,10 +13351,12 @@ class TbsGridTree {
 /***/ 420:
 /***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   G: function() { return /* binding */ TbsGridNames; },
-/* harmony export */   h: function() { return /* binding */ TbsGridTypes; }
+/* harmony export */   G4: function() { return /* binding */ TbsGridNames; },
+/* harmony export */   hY: function() { return /* binding */ TbsGridTypes; }
 /* harmony export */ });
+/* unused harmony export tbsGridNames */
 class TbsGridTypes {
   constructor() {
     this.FilterType = {
@@ -12782,7 +13393,9 @@ class TbsGridTypes {
       checkbox: 'checkbox',
       image: 'image',
       button: 'button',
-      link: 'link'
+      link: 'link',
+      group: 'group',
+      tree: 'tree'
     };
     this.Direction = {
       up: 'up',
@@ -12897,6 +13510,100 @@ class TbsGridNames {
     };
   }
 }
+const tbsGridNames = {
+  column: {
+    /**
+     * System Property
+     */
+    rowId: '_rowId',
+    rowMode: '_mode',
+    isChecked: '_isChecked',
+    num: '_number',
+    mode: '_mode',
+    checkbox: '_checkbox',
+    parentNum: '_parentNumber',
+    depth: '_depth',
+    children: 'children',
+    open: 'open',
+    closed: 'closed',
+    rowCount: '_rowCount',
+    isOpen: '_isOpen',
+    /**
+     * User Property
+     */
+    name: 'name',
+    text: 'text',
+    type: 'type',
+    dataType: 'dataType',
+    width: 'width',
+    editable: 'editable',
+    visible: 'visible',
+    align: 'align',
+    scale: 'scale',
+    roundType: 'roundType',
+    fixedScale: 'fixedScale',
+    scaleMax: 'scaleMax',
+    scaleMin: 'scalemin',
+    showZero: 'showZero',
+    commaUnit: 'commaUnit',
+    // to be deprecated, Fixed 3
+    thousandChar: 'thousandChar',
+    decimalChar: 'decimalChar',
+    currencyChar: 'currencyChar',
+    className: 'className',
+    // className
+    resizable: 'resizable',
+    sortable: 'sortable',
+    movable: 'movable',
+    autoResizable: 'autoResizable',
+    autoWidth: 'autoWidth',
+    summaryType: 'summaryType',
+    required: 'required',
+    combo: 'combo',
+    format: 'format',
+    kind: 'kind',
+    //header, column, empty
+    rowSpan: 'rowSpan',
+    colSpan: 'colSpan',
+    rowIndex: 'rowIndex',
+    colIndex: 'colIndex',
+    fromcol: 'fromcol',
+    tocol: 'tocol',
+    subRowSpan: 'subRowSpan',
+    subColSpan: 'subColSpan',
+    order: 'order',
+    value: 'value'
+  },
+  /**
+   * row property name
+   */
+  row: {
+    selectMode: 'selectMode',
+    addRow: 'addRow',
+    delRow: 'delRow'
+  },
+  /**
+   * tree property name
+   */
+  tree: {
+    itemName: 'itemName',
+    parentName: 'parentName',
+    rootValue: 'rootValue'
+  },
+  option: {
+    rowMode: 'rowMode',
+    checkbox: 'checkbox',
+    numWidth: 'numWidth',
+    rowModeWidth: 'rowModeWidth',
+    checkBoxWidth: 'checkBoxWidth',
+    insertRow: 'insertRow',
+    updateRow: 'updateRow',
+    deleteRow: 'deleteRow',
+    zeroChar: 'zeroChar',
+    useToolbar: 'useToolbar',
+    imageRoot: 'imageRoot'
+  }
+};
 
 /***/ })
 
@@ -12927,6 +13634,13 @@ class TbsGridNames {
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/amd define */
+/******/ 	!function() {
+/******/ 		__webpack_require__.amdD = function () {
+/******/ 			throw new Error('define cannot be used indirect');
+/******/ 		};
+/******/ 	}();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	!function() {
 /******/ 		// define getter functions for harmony exports
@@ -12957,17 +13671,62 @@ class TbsGridNames {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+!function() {
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   TbsGrid: function() { return /* binding */ TbsGrid; }
 /* harmony export */ });
 /* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(420);
 /* harmony import */ var _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(160);
+/* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(221);
+/* harmony import */ var _tbs_grid_configs_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(762);
 
-const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .h();
-const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G();
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+
+
 
 class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridBase */ .R {
+  getRenderer(columnName, property) {
+    let result = null;
+    if (arguments.length == 2) {
+      if (this.renderer && this.renderer[columnName] && this.renderer[columnName][property]) result = this.renderer[columnName][property];
+    } else if (arguments.length == 1) {
+      if (this.renderer && this.renderer[columnName]) result = this.renderer[columnName];
+    } else {
+      if (this.renderer) result = this.renderer;
+    }
+    return result;
+  }
+  reverseBoolean(value) {
+    if (value == 1) return 0;else if (value == 0) return 1;else if (value == '1') return '0';else if (value == '0') return '1';else if (value == 'y') return 'n';else if (value == 'n') return 'y';else if (value == 'Y') return 'N';else if (value == 'N') return 'Y';else if (value == true) return false;else if (value == false) return true;else return null;
+  }
+  /**
+   * Check Box Options
+   */
+  getTrueValue(columnName) {
+    return this.getBooleanValue(columnName, 'trueValue');
+  }
+  getFalseValue(columnName) {
+    return this.getBooleanValue(columnName, 'falseValue');
+  }
+  getElseValue(columnName) {
+    return this.getBooleanValue(columnName, 'elseValue');
+  }
+  getBooleanValue(columnName, valueType) {
+    let result = this.gridConfigOptions[valueType];
+    if (this.notNull(this.renderer) && this.notNull(this.renderer[columnName])) {
+      const renderer = this.renderer[columnName];
+      if (renderer[valueType]) result = renderer[valueType];
+    }
+    return result;
+  }
+  setRenderer(renderer) {
+    this.renderer = renderer;
+  }
+
   /**
    * Format Functions
    *
@@ -13001,12 +13760,13 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
         return result;
       }
       if (colType == tbsGridTypes.CellType.combo) {
-        let data = column.renderer.data;
-        let key = column.renderer.valueName;
-        let val = column.renderer.textName;
-        for (let i = 0, len = data.length; i < len; i++) {
-          if (data[i][key] == value) {
-            result.text = data[i][val];
+        const data = grid.renderer[column[tbsGridNames.column.name]].data;
+        let key = data.valueName;
+        let val = data.textName;
+        for (let i = 0, len = data.rows.length; i < len; i++) {
+          const row = data.rows[i];
+          if (row[key] == value) {
+            result.text = row[val];
             break;
           }
         }
@@ -13164,6 +13924,9 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
   }
   cellBounding(userFunction) {
     this.user_cellBounding = userFunction;
+  }
+  clickCheckbox(userFunction) {
+    this.user_clickCheckbox = userFunction;
   }
 
   /**
@@ -13427,83 +14190,6 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
     ;
     //this.tbs_addEventAll();
   }
-  tbs_setFrozenRow(fixedRowIndex, fixedRowCount) {
-    // role : Exist rowIndex in Html Table
-    let selector = '#' + this.gridId;
-    const grid = this;
-
-    //if (fixedRowIndex >= this.pageRowCount) { this.fixedRowIndex = -1; return; }
-    const fn_getTableRowIndex = function (rowIndex) {
-      let result = 0;
-      let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display:"])');
-      for (let i = 0, len = tableRows.length; i < tableRows.length; i++) {
-        let tableRow = tableRows[i];
-        let index = parseInt(tableRow.childNodes[0].dataset.rowIndex);
-        if (index == rowIndex) {
-          result = tablesRow.rowIndex;
-          break;
-        }
-      }
-      return result;
-    };
-    if (grid.null(fixedRowCount)) {
-      fixedRowCount = fn_getTableRowIndex(rowIndex);
-    }
-    if (fixedRowIndex + 1 > this.getRowCount() && fixedRowCount > grid.pageRowCount) {
-      this.fixedRowIndex = -1;
-      this.fixedRowCount = 0;
-      return;
-    }
-    this.fixedRowIndex = fixedRowIndex;
-    this.fixedRowCount = fixedRowCount;
-    let table31 = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table');
-    let table30 = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-
-    //table31 clone
-    let copyTable = table31.cloneNode(true);
-    let trList = copyTable.querySelectorAll('tbody tr');
-    for (let i = trList.length - 1; i >= 0; i--) {
-      if (i > fixedRowIndex) copytable.removeRow(-1);
-    }
-    panel61.innerHTML = '';
-    panel61.appendChild(copyTable);
-
-    //table30 clone
-    copyTable = table30.cloneNode(true);
-    trList = copyTable.querySelectorAll('tbody tr');
-    for (let i = trList.length - 1; i >= 0; i--) {
-      if (i > fixedRowIndex) copytable.removeRow(-1);
-    }
-    panel60.innerHTML = '';
-    panel60.appendChild(copyTable);
-    if (this.fixedColumnIndex != -1) {
-      grid.tbs_createFrozenColumnTable(table30, panel62, fixedColumnIndex, 'panel62');
-    }
-
-    //this.event_select('fixRight');
-    //this.event_select('fixLeft');
-
-    this.classScroll.setPanelSize();
-    this.horizontalScroll.setScroll(grid.code_horizontal);
-    ;
-    this.verticalScroll.setScroll(grid.code_vertical);
-    this.classPanel30.setDataPanel(grid.fixedRowIndex);
-  }
-  tbs_removeFrozenRow() {
-    let selector = '#' + this.gridId;
-    const grid = this;
-    this.fixedRowIndex = -1;
-    this.fixedRowCount = 0;
-    let panel61 = document.querySelector(selector + ' .tbs-grid-panel61');
-    let panel60 = document.querySelector(selector + ' .tbs-grid-panel60');
-    panel61.childNodes[0].innerHTML = '';
-    panel60.childNodes[0].innerHTML = '';
-    this.classScroll.setPanelSize();
-    this.horizontalScroll.setScroll(grid.code_horizontal);
-    ;
-    this.verticalScroll.setScroll(grid.code_vertical);
-    this.classPanel30.setDataPanel(0);
-  }
   getTextWidth(canvas, text, fontSize, fontFamily) {
     let selector = '#' + this.gridId;
     const grid = this;
@@ -13731,16 +14417,16 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
       if (oldValue != result.value) {
         grid.view_table.updateByRowIndex(rowIndex, columnName, result.value);
         let rowId = grid.view_table.selectValue(rowIndex, tbsGridNames.column.rowId);
-        grid.source_table.updateByRowId(tbsGridNames.column.rowId, columnName, result.value);
-        grid.source_table.updateByRowId(tbsGridNames.column.rowId, tbsGridNames.column.mode, 'I');
+        grid.source_table.updateByRowId(rowId, columnName, result.value);
+        grid.source_table.updateByRowId(rowId, tbsGridNames.column.mode, 'I');
       }
     } else {
       if (oldValue != result.value) {
         grid.view_table.updateByRowIndex(rowIndex, columnName, result.value);
         grid.view_table.updateByRowIndex(rowIndex, tbsGridNames.column.mode, 'U');
         let rowId = grid.view_table.selectValue(rowIndex, tbsGridNames.column.rowId);
-        grid.source_table.updateByRowId(tbsGridNames.column.rowId, columnName, result.value);
-        grid.source_table.updateByRowId(tbsGridNames.column.rowId, tbsGridNames.column.mode, 'I');
+        grid.source_table.updateByRowId(rowId, columnName, result.value);
+        grid.source_table.updateByRowId(rowId, tbsGridNames.column.mode, 'I');
       }
     }
   }
@@ -13775,7 +14461,7 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
 
   getPageRowCount(panelName) {
     const grid = this;
-    if (panelName == 'panel61' || panelName == 'panel62' || panelName == 'panel60') return grid.fixedRowCount;else return grid.pageRowCount;
+    return grid.pageRowCount;
   }
   getTopRowIndex(panelName, topRowIndex) {
     // function : Validate Top rowIndex
@@ -13787,42 +14473,17 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
     let selector = '#' + this.gridId;
     const grid = this;
     if (panelName == 'panel31' || panelName == 'panel32' || panelName == 'panel30') {
-      if (this.fixedRowIndex != -1) {
-        let topRowIndex2 = topRowIndex - (this.fixedRowIndex + 1);
-        let rowCount = this.getRowCount() - (this.fixedRowIndex + 1);
-        if (this.pageRowCount > this.pageIntRowCount) {
-          if (topRowIndex2 > rowCount - this.pageRowCount + 1) {
-            topRowIndex2 = rowCount - this.pageRowCount;
-            if (topRowIndex2 < 0) topRowIndex2 = 0;
-          }
-        } else {
-          if (topRowIndex2 > rowCount - this.pageRowCount) {
-            topRowIndex2 = rowCount - this.pageRowCount;
-            if (topRowIndex2 < 0) topRowIndex2 = 0;
-          }
+      let rowCount = this.getRowCount();
+      if (this.pageRowCount > this.pageIntRowCount) {
+        if (topRowIndex > rowCount - this.pageRowCount + 1) {
+          topRowIndex = rowCount - this.pageRowCount;
+          if (topRowIndex < 0) topRowIndex = 0;
         }
-        if (topRowIndex2 < 0) topRowIndex2 = 0;
-        topRowIndex = topRowIndex2 + (this.fixedRowIndex + 1);
       } else {
-        let rowCount = this.getRowCount();
-        if (this.pageRowCount > this.pageIntRowCount) {
-          if (topRowIndex > rowCount - this.pageRowCount + 1) {
-            topRowIndex = rowCount - this.pageRowCount;
-            if (topRowIndex < 0) topRowIndex = 0;
-          }
-        } else {
-          if (topRowIndex > rowCount - this.pageRowCount) {
-            topRowIndex = rowCount - this.pageRowCount;
-            if (topRowIndex < 0) topRowIndex = 0;
-          }
+        if (topRowIndex > rowCount - this.pageRowCount) {
+          topRowIndex = rowCount - this.pageRowCount;
+          if (topRowIndex < 0) topRowIndex = 0;
         }
-        if (topRowIndex < 0) topRowIndex = 0;
-      }
-    } else if (panelName == 'panel60') {
-      let rowCount = this.fixedRowCount;
-      if (topRowIndex > rowCount - this.fixedRowCount) {
-        topRowIndex = rowCount - this.fixedRowCount;
-        if (topRowIndex < 0) topRowIndex = 0;
       }
       if (topRowIndex < 0) topRowIndex = 0;
     }
@@ -13838,23 +14499,8 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
     let selector = '#' + this.gridId;
     const grid = this;
     let bottomRowIndex = 0;
-    if (this.fixedRowIndex != -1) {
-      if (panelName == 'panel31' || panelName == 'panel32' || panelName == 'panel30') {
-        let rowCount = this.getRowCount() - (this.fixedRowIndex + 1);
-        let displayTopRowIndex = topRowIndex - (this.fixedRowIndex + 1);
-        bottomRowIndex = displayTopRowIndex + this.getPageRowCount(panelName) - 1;
-        if (bottomRowIndex > rowCount - 1) bottomRowIndex = rowCount - 1;
-        bottomRowIndex = bottomRowIndex + (this.fixedRowIndex + 1);
-        //console.log(`getBottomRowIndex ${panelName} this.pageRowCount ${this.pageRowCount} topRowIndex ${topRowIndex} bottomRowIndex ${bottomRowIndex}`);
-      } else if (panelName == 'panel61' || panelName == 'panel62' || panelName == 'panel60') {
-        bottomRowIndex = topRowIndex + this.fixedRowCount - 1;
-        if (bottomRowIndex > this.fixedRowCount - 1) bottomRowIndex = this.fixedRowCount - 1;
-        //console.log(`getBottomRowIndex ${panelName} this.pageRowCount ${this.pageRowCount} topRowIndex ${topRowIndex} bottomRowIndex ${bottomRowIndex}`);
-      }
-    } else {
-      bottomRowIndex = topRowIndex + this.pageRowCount - 1;
-      if (bottomRowIndex > this.getRowCount() - 1) bottomRowIndex = this.getRowCount() - 1;
-    }
+    bottomRowIndex = topRowIndex + this.pageRowCount - 1;
+    if (bottomRowIndex > this.getRowCount() - 1) bottomRowIndex = this.getRowCount() - 1;
     return bottomRowIndex;
   }
   createRow(row) {
@@ -13884,9 +14530,7 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
     return this.view_table.count();
   }
   getRow(rowIndex) {
-    const grid = this;
-    if (rowIndex < 0 || rowIndex >= grid.view_table.count()) return null;
-    return grid.copyJson(grid.view_table.data[rowIndex]);
+    return this.view_table.selectRowByRowIndex(rowIndex);
   }
   getRows(startRowIndex = 0, endRowIndex = -1) {
     const grid = this;
@@ -14031,13 +14675,8 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
     let trList = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr');
     let topRowIndex = parseInt(trList[0].childNodes[0].dataset.rowIndex);
     if (panelName == '') {
-      if (grid.fixedRowIndex != -1) {
-        if (isNaN(topRowIndex)) topRowIndex = grid.fixedRowIndex + 1;
-        return topRowIndex;
-      } else {
-        if (isNaN(topRowIndex)) topRowIndex = 0;
-        return topRowIndex;
-      }
+      if (isNaN(topRowIndex)) topRowIndex = 0;
+      return topRowIndex;
     }
   }
   getLastRowIndex() {
@@ -14282,8 +14921,11 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
    *
    */
 
+  isEditableColumn(columnName) {
+    let result = this.column_table.selectRow(tbsGridNames.column.name, columnName);
+    return result.editable ? result.editable : false;
+  }
   isSortableColumn(columnName) {
-    let selector = '#' + this.gridId;
     const grid = this;
     let result = false;
     //let column = grid.classColumn.getColumn(columnName);
@@ -14393,7 +15035,7 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
     //selected 1, 0
     let result = 0;
     let rows = [];
-    if (panelName == 'panel31') rows = this.data_select_panel31;else if (panelName == 'panel32') rows = this.data_select_panel30;else if (panelName == 'panel30') rows = this.data_select_panel30;else if (panelName == 'panel41') rows = this.classRange40.data_select_panel31;else if (panelName == 'panel42') rows = this.classRange40.data_select_panel30;else if (panelName == 'panel40') rows = this.classRange40.data_select_panel30;else if (panelName == 'panel51') rows = this.classRange50.data_select_panel31;else if (panelName == 'panel52') rows = this.classRange50.data_select_panel30;else if (panelName == 'panel50') rows = this.classRange50.data_select_panel30;else if (panelName == 'panel61') rows = this.data_select_panel31;else if (panelName == 'panel62') rows = this.data_select_panel30;else if (panelName == 'panel60') rows = this.data_select_panel30;else rows = this.data_select_panel30;
+    if (panelName == 'panel31') rows = this.data_select_panel31;else if (panelName == 'panel32') rows = this.data_select_panel30;else if (panelName == 'panel30') rows = this.data_select_panel30;else if (panelName == 'panel41') rows = this.classRange40.data_select_panel31;else if (panelName == 'panel42') rows = this.classRange40.data_select_panel30;else if (panelName == 'panel40') rows = this.classRange40.data_select_panel30;else if (panelName == 'panel51') rows = this.classRange50.data_select_panel31;else if (panelName == 'panel52') rows = this.classRange50.data_select_panel30;else if (panelName == 'panel50') rows = this.classRange50.data_select_panel30;else rows = this.data_select_panel30;
     for (let i = 0, len = rows.length; i < len; i++) {
       let row = rows[i];
       if (rowIndex == row[0][0]) {
@@ -14500,12 +15142,13 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
    */
 
   addUserClass(element, className) {
-    grid.classDom.addUserClass(element, className);
+    _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridDom */ .E.addUserClass(element, className);
   }
   removeUserClass(tableCell, className) {
-    grid.classDom.removeUserClass(element, className);
+    _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridDom */ .E.removeUserClass(element, className);
   }
 }
+}();
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;

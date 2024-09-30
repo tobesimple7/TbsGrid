@@ -1183,10 +1183,16 @@ tbsGridConfigs.ko = {
  */
 const md = new mobile_detect__WEBPACK_IMPORTED_MODULE_0__(window.navigator.userAgent);
 tbsGridConfigs.options = {
-  imageRoot: '/src/img/',
+  imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.0.15/dist-js/img/',
   isMobile: md.mobile(),
   // true, false
-  userAgent: md.userAgent() // 'safari' etc
+  userAgent: md.userAgent(),
+  // 'safari' etc
+
+  trueValue: 'Y',
+  // checkbox value
+  falseValue: 'N',
+  elseValue: 'N'
 };
 var __webpack_exports__tbsGridConfigs = __webpack_exports__.r;
 export { __webpack_exports__tbsGridConfigs as tbsGridConfigs };
