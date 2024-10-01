@@ -2256,8 +2256,8 @@ tbs-grid (relative)
     background-repeat: no-repeat;
     background-position: center;
     border: none;
-    width: 15px;
-    height: 15px;
+    /*width: 15px;*/
+    /*height: 15px;*/
 }
 .tbs-grid .tbs-grid-table .tbs-grid-cell-div .tbs-grid-html-string {
     padding: 0px 3px 0px 3px;
@@ -2267,6 +2267,24 @@ tbs-grid (relative)
     vertical-align: middle;
     line-height: 1.5em;
     white-space: nowrap;
+}
+.tbs-grid .tbs-grid-table .tbs-grid-cell-div .tbs-grid-html-button {
+    padding: 0px 3px 0px 3px;
+    margin: 0px;
+    border: 1px solid #424242;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 80%
+}
+.tbs-grid .tbs-grid-table .tbs-grid-cell-div .tbs-grid-html-link {
+    padding: 0px 3px 0px 3px;
+    margin: 0px;
+    border: 0;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 80%
 }
 /* =========================================================================== */
 /*    [TBS Grid Layer]                                                         */
