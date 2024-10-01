@@ -64,15 +64,23 @@ export class TbsGridTree {
         if (isFirst == true) {
             grid.source_table.remove();
             for (let i = 0, len = data.length; i < len; i++) {
-                let dataRow = data[i];
+                const dataRow = data[i];
 
-                let item = {};
+                const item = {};
                 for (let x = 0, len = grid.column_table.count(); x < len; x++) {
-                    let column = grid.column_table.data[x];
+                    const column = grid.column_table.data[x];
                     let columnName = column[tbsGridNames.column.name];
                     let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
                     item[columnName] = val;
                 }
+
+                const dataColumns = grid.field_table.select();
+                for (let x = 0, len = dataColumns.length; x < len; x++) {
+                    const column = dataColumns[x];
+                    let columnName  = column[tbsGridNames.column.name];
+                    item[columnName] = dataRow[columnName];
+                }
+
                 grid.source_table.insert(item);
             }
         }

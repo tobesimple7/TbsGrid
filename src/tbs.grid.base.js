@@ -590,7 +590,7 @@ export class TbsGridBase extends TbsBase {
                 else {
                     //console.log('input');
                     let cellIndex = grid.startCellIndex;
-                    let column = grid.classColumn.getColumnByIndex(cellIndex);
+                    let column = grid.getColumnByIndex(cellIndex);
                     if (grid.notNull(column[tbsGridNames.column.editable]) && column[tbsGridNames.column.editable]) {
                         if (grid.notNull(grid.user_edit)) { // state
                             //console.log(`panelInput.style.left : ${panelInput.style.left}`);
@@ -711,7 +711,7 @@ export class TbsGridBase extends TbsBase {
 
                 for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
                     for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
-                        let val = grid.getValueByIndex(rowIndex, colIndex);
+                        let val = grid.getValueByColumnIndex(rowIndex, colIndex);
                         if (grid.null(val)) val = '';
                         s += val;
                         if (colIndex < lastCellIndex) s += '\t';
@@ -938,8 +938,8 @@ export class TbsGridBase extends TbsBase {
         let rowIndex  = (state == 0) ? grid.startRowIndex : input.dataset.rowIndex;
         let cellIndex = (state == 0) ? grid.startCellIndex : input.dataset.columnIndex;
 
-        let column = grid.classColumn.getColumnByIndex(cellIndex);
-        let columnName = grid.classColumn.getColumnName(cellIndex);
+        let column = grid.getColumnByIndex(cellIndex);
+        let columnName = grid.getColumnName(cellIndex);
         let value = grid.getValue(rowIndex, columnName);
         let text  = grid.getText(rowIndex, columnName);
 
@@ -983,8 +983,8 @@ export class TbsGridBase extends TbsBase {
         let rowIndex  = (state == 0) ? grid.startRowIndex  : input.dataset.rowIndex;
         let cellIndex = (state == 0) ? grid.startCellIndex : input.dataset.columnIndex;
 
-        let column = grid.classColumn.getColumnByIndex(cellIndex);
-        let columnName = grid.classColumn.getColumnName(cellIndex);
+        let column = grid.getColumnByIndex(cellIndex);
+        let columnName = grid.getColumnName(cellIndex);
         let value = grid.getValue(rowIndex, columnName);
         let text  = grid.getText(rowIndex, columnName);
 
@@ -1030,9 +1030,9 @@ export class TbsGridBase extends TbsBase {
             let rowIndex  = (state == 0) ? grid.startRowIndex : input.dataset.rowIndex;
             let cellIndex = (state == 0) ? grid.startCellIndex : input.dataset.columnIndex;
 
-            let column = grid.classColumn.getColumnByIndex(cellIndex);
+            let column = grid.getColumnByIndex(cellIndex);
             //let column = grid.column_table.selectRowByRowIndex(cellInex);
-            let columnName = grid.classColumn.getColumnName(cellIndex);
+            let columnName = grid.getColumnName(cellIndex);
             let value = grid.getValue(rowIndex, columnName);
             let text  = grid.getText(rowIndex, columnName);
 
@@ -1110,7 +1110,7 @@ export class TbsGridBase extends TbsBase {
         //================================================================== select event
         this.event_input();
         this.event_input_icon();
-        this.event_checkBox();
+        //this.event_checkBox();
 
         this.event_mobileTouchDrag();
 
@@ -1200,7 +1200,7 @@ export class TbsGridBase extends TbsBase {
         let selector = '#' + this.gridId;
         const grid = this;
 
-        let column = grid.classColumn.getColumn(cell.dataset.name);
+        let column = grid.getColumn(cell.dataset.name);
         let columnName = cell.dataset.name;
         // * sort(▼), (▲), (■) order
         if (cell == undefined) return false;
@@ -1416,13 +1416,13 @@ export class TbsGridBase extends TbsBase {
                 if (grid.isClassName(e.target, 'tbs-grid-html-resize') != true) return;
 
                 let cell = e.target.parentElement;
-                let columnName = grid.classColumn.getColumnName(cell.cellIndex);
+                let columnName = grid.getColumnName(cell.cellIndex);
 
                 let isAutoResizable = grid.isAutoResizableColumn(columnName);
                 if (isAutoResizable != true) return;
 
                 let colIndex   = cell.cellIndex + parseInt(cell.colSpan) - 1;
-                let column     = grid.classColumn.getColumn(columnName);
+                let column     = grid.getColumn(columnName);
                 let firstWidth = parseInt(column[tbsGridNames.column.width]);
                 let maxWidth  = 0;
 
@@ -1511,20 +1511,20 @@ export class TbsGridBase extends TbsBase {
         panel.addEventListener('mousedown', mouseDownEvent, false);
     }
 
-    event_checkBox() { //type : header, content
-        let selector = '#' + this.gridId;
-        const grid = this;
-        const checkDowntEvent = function(e) {
-            if (e.target.tagName == 'INPUT') {
-                let tr = e.target.parentNode.parentNode.parentNode;
-                let rowIndex = parseInt(tr.childNodes[0].childNodes[0].textContent) - 1;
-
-                if (e.target.checked) grid.view_table.updateByRowIndex(rowIndex, tbsGridNames.column.isChecked, false);
-                else grid.view_table.updateByRowIndex(rowIndex, tbsGridNames.column.isChecked, true);
-            }
-        }
-        document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').addEventListener('mousedown', checkDowntEvent, false);
-    }
+    // event_checkBox() { //type : header, content
+    //     let selector = '#' + this.gridId;
+    //     const grid = this;
+    //     const checkDowntEvent = function(e) {
+    //         if (e.target.tagName == 'INPUT') {
+    //             let tr = e.target.parentNode.parentNode.parentNode;
+    //             let rowIndex = parseInt(tr.childNodes[0].childNodes[0].textContent) - 1;
+    //
+    //             if (e.target.checked) grid.view_table.updateByRowIndex(rowIndex, tbsGridNames.column.isChecked, false);
+    //             else grid.view_table.updateByRowIndex(rowIndex, tbsGridNames.column.isChecked, true);
+    //         }
+    //     }
+    //     document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').addEventListener('mousedown', checkDowntEvent, false);
+    // }
 
     event_wheel() { //mouse wheel event
         let selector = '#' + this.gridId;
@@ -1830,8 +1830,8 @@ export class TbsGridBase extends TbsBase {
             rowIndex = param.rowIndex;
             cellIndex = param.cellIndex;
 
-            let column = grid.classColumn.getColumnByIndex(cellIndex);
-            let columnName = grid.classColumn.getColumnName(cellIndex);
+            let column = grid.getColumnByIndex(cellIndex);
+            let columnName = grid.getColumnName(cellIndex);
             let value = grid.getValue(rowIndex, columnName);
             let text  = grid.getText(rowIndex, columnName);
 
@@ -1850,8 +1850,8 @@ export class TbsGridBase extends TbsBase {
             rowIndex = param.rowIndex;
             cellIndex = param.cellIndex;
 
-            let column = grid.classColumn.getColumnByIndex(cellIndex);
-            let columnName = grid.classColumn.getColumnName(cellIndex);
+            let column = grid.getColumnByIndex(cellIndex);
+            let columnName = grid.getColumnName(cellIndex);
             let value = grid.getValue(rowIndex, columnName);
             let text  = grid.getText(rowIndex, columnName);
 

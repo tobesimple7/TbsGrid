@@ -221,15 +221,23 @@ export class TbsGridGroup {
             grid.source_table.remove();
 
             for (let i = 0, len = data.length; i < len; i++) {
-                let dataRow = data[i];
+                const dataRow = data[i];
 
-                let item = {};
+                const item = {};
                 for (let x = 0, len = grid.column_table.count(); x < len; x++) {
-                    let column = grid.column_table.data[x];
+                    const column = grid.column_table.data[x];
                     let columnName = column[tbsGridNames.column.name];
                     let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
                     item[columnName] = val;
                 }
+
+                const dataColumns = grid.field_table.select();
+                for (let x = 0, len = dataColumns.length; x < len; x++) {
+                    const column = dataColumns[x];
+                    let columnName  = column[tbsGridNames.column.name];
+                    item[columnName] = dataRow[columnName];
+                }
+
                 grid.source_table.insert(item);
             }
         }
@@ -582,7 +590,7 @@ export class TbsGridGroup {
         let selector = this.selector;
         const grid = this.grid;
 
-        let column = grid.classColumn.getColumn(columnName);
+        let column = grid.getColumn(columnName);
 
         let text= document.createElement('span');
         text.classList.add('tbs-grid-panel-button-text');
@@ -614,11 +622,11 @@ export class TbsGridGroup {
         else span.style.display = '';
 
         if (buttons.length == 0) {
-            grid.classColumn.setColumn('group_column', 'visible', false);
+            grid.setColumn('group_column', 'visible', false);
             // grid.apply();
         }
         else {
-            grid.classColumn.setColumn('group_column', 'visible', true);
+            grid.setColumn('group_column', 'visible', true);
             // grid.apply();
         }
         grid.classControl.after_setColumnVisible();

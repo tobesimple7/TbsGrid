@@ -71,6 +71,28 @@ export class TbsGridColumns {
         columns.map(column => searchColumn(column, null));
     }
 
+    getFirstVisibleColumnIndex() {
+        const grid = this.grid;
+
+        let result = null;
+        for (let i = 0; i < grid.column_table.count(); i++ ) {
+            let column = grid.column_table.data[i];
+            if (column[tbsGridNames.column.visible]) { result = i; break; }
+        }
+        return result;
+    }
+
+    getLastVisibleColumnIndex() {
+        const grid = this.grid;
+
+        let result = null;
+        for (let i = grid.column_table.count() - 1; i >= 0; i-- ) {
+            let column = grid.column_table.data[i];
+            if (column[tbsGridNames.column.visible]) { result = i; break; }
+        }
+        return result;
+    }
+
     /**
      * All Columns
      */
@@ -300,94 +322,6 @@ export class TbsGridColumns {
         }
     }
 
-    getColumn(name, table) {
-        const grid = this.grid;
-        if (grid.null(table)) table = grid.column_table;
-        return table.selectRow(tbsGridNames.column.name, name);
-    }
-
-    getColumnByIndex(colIndex, table) {
-        const grid = this.grid;
-        if (grid.null(table)) table = grid.column_table;
-        return table.data[colIndex];
-    }
-
-    getColumnName(colIndex, table) {
-        const grid = this.grid;
-        if (grid.null(table)) table = grid.column_table;
-        return table.selectValue(colIndex, tbsGridNames.column.name);
-    }
-
-    getColumnIndex(name, table) {
-        const grid = this.grid;
-        if (grid.null(table)) table = grid.column_table;
-        return table.selectRowIndex(tbsGridNames.column.name, name);
-    }
-
-    getColumns(table) {
-        const grid = this.grid;
-        if (grid.null(table)) table = grid.column_table;
-        return table.select();
-    }
-
-    getColumnPropertyByIndex(columnIndex, property, table) {
-        const grid = this.grid;
-        if (grid.null(table)) table = grid.column_table;
-        let column = table.data[columnIndex];
-        let result = grid.null(column[property]) ? null : column[property];
-        return result;
-    }
-
-    getColumnProperty(columnName, property, table) {
-        const grid = this.grid;
-        if (grid.null(table)) table = grid.column_table;
-
-        let columnIndex = table.selectRowIndex(tbsGridNames.column.name, columnName);
-        return grid.null(columnIndex) ? null : grid.classColumn.getColumnPropertyByIndex(columnIndex, property);
-    }
-
-    getFirstVisibleColumnIndex() {
-        const grid = this.grid;
-
-        let result = null;
-        for (let i = 0; i < grid.column_table.count(); i++ ) {
-            let column = grid.column_table.data[i];
-            if (column[tbsGridNames.column.visible]) { result = i; break; }
-        }
-        return result;
-    }
-
-    getLastVisibleColumnIndex() {
-        const grid = this.grid;
-
-        let result = null;
-        for (let i = grid.column_table.count() - 1; i >= 0; i-- ) {
-            let column = grid.column_table.data[i];
-            if (column[tbsGridNames.column.visible]) { result = i; break; }
-        }
-        return result;
-    }
-
-    setColumn(columnName, property, value, table) {
-        const grid = this.grid;
-
-        if (grid.null(table)) table = grid.column_table;
-        let column = table.selectRow(tbsGridNames.column.name, columnName);
-        column[property] = value;
-    }
-    
-    setColumnByType(columnType, property, value, table) {
-        const grid = this.grid;
-
-        if (grid.null(table)) table = grid.column_table;
-
-        let dataRows = table.selectRow(tbsGridNames.column.type, columnType);
-        dataRows.map(dataRow => {
-            let rowId = dataRow[tbsGridNames.column.rowId];
-            table.updateByRowId(rowId, property, value);
-        });
-    }
-
     getSelectedTableCell(rowIndex, cellIndex) {
         let selector = this.selector;
         const grid = this.grid;
@@ -552,7 +486,7 @@ export class TbsGridColumns {
                 let kind = userColumn[tbsGridNames.column.children] ? 'header' : 'column';
                 if (kind == 'column') {
                     let columnName = userColumn[tbsGridNames.column.name];
-                    let column = grid.classColumn.getColumn(columnName);
+                    let column = grid.getColumn(columnName);
                     headerColumn[tbsGridNames.column.name       ] = column[tbsGridNames.column.name];
                     headerColumn[tbsGridNames.column.text       ] = column.header[tbsGridNames.column.text];
                     headerColumn[tbsGridNames.column.align      ] = column.header[tbsGridNames.column.align] ? column.header[tbsGridNames.column.align] : 'center';
@@ -638,7 +572,7 @@ export class TbsGridColumns {
         if (grid.fixedColumnIndex >= grid.column_table.count() - 1) return;
 
         let fixedColumnIndex = grid.fixedColumnIndex;
-        let columnName = grid.classColumn.getColumnName(fixedColumnIndex);
+        let columnName = grid.getColumnName(fixedColumnIndex);
 
         let columnCount = 0;
 
@@ -676,7 +610,7 @@ export class TbsGridColumns {
                     if (childNode[tbsGridNames.column.children]) removeColumnNodes(childNode);
                     else {
                         let columnName = childNode[tbsGridNames.column.name];
-                        let columnIndex = grid.classColumn.getColumnIndex(columnName);
+                        let columnIndex = grid.getColumnIndex(columnName);
                         if (columnIndex > fixedColumnIndex) parentArray.splice(i, 1);
                     }
                 }
@@ -704,7 +638,7 @@ export class TbsGridColumns {
                     if (childNode[tbsGridNames.column.children]) removePreColumnNodes(childNode);
                     else {
                         let columnName = childNode[tbsGridNames.column.name];
-                        let columnIndex = grid.classColumn.getColumnIndex(columnName);
+                        let columnIndex = grid.getColumnIndex(columnName);
                         if (columnIndex <= fixedColumnIndex) parentArray.splice(i, 1);
                     }
                 }
@@ -749,7 +683,7 @@ export class TbsGridColumns {
             /* Delete column node */
             if (grid.null(node[tbsGridNames.column.children])) {
                 let columnName = node[tbsGridNames.column.name];
-                let columnIndex = grid.classColumn.getColumnIndex(columnName);
+                let columnIndex = grid.getColumnIndex(columnName);
                 if (columnIndex <= grid.fixedColumnIndex) newNode[tbsGridNames.column.children].splice(i, 1);
                 continue;
             }
@@ -831,7 +765,7 @@ export class TbsGridColumns {
         let selector = this.selector;
         const grid = this.grid;
 
-        let columnIndex = grid.classColumn.getColumnIndex(columnName);
+        let columnIndex = grid.getColumnIndex(columnName);
         return grid.classColumn.getHeaderPropertyByIndex(columnIndex, property);
     }
 

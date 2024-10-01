@@ -183,6 +183,9 @@ export class TbsGridRenderPanel30 {
             render.setBounding(this);
         }
         else if (this.columnType == tbsGridTypes.CellType.checkbox) {
+            if (this.cellValue == this.grid.getTrueValue(this.columnName)) this.cellValue = true;
+            else this.cellValue = false;
+
             const render = new TbsGridRenderCheckbox();
             render.setBounding(this);
         }

@@ -134,7 +134,7 @@ export class TbsGridPanel90 extends TbsGridPanelBase {
                         let rectMoveCell = moveElement.getBoundingClientRect();
 
                         let name = moveElement.dataset.name;
-                        let column = grid.classColumn.getColumn(name);
+                        let column = grid.getColumn(name);
                         let text = column.header[tbsGridNames.column.text];
                         let order = 'asc';
 

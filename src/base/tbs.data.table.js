@@ -69,6 +69,8 @@ export class TbsDataTable extends TbsBase {
         return dataRows.length > 0 ? dataRows[0] : null;
     }
 
+    selectRowIndexByRowId(rowId) { return this.selectRowIndex(tbsGridNames.column.rowId, rowId); }
+
     selectRowIndex(field, value) {
         let result = null;
         for (let i = 0, len = this.data.length; i < len; i++) {
@@ -78,7 +80,17 @@ export class TbsDataTable extends TbsBase {
         return result;
     }
 
-    selectValue(rowIndex, field) { return this.data[rowIndex][field]; };
+    selectRowRange(startRowIndex, endRowIndex) {
+        if (endRowIndex == undefined) endRowIndex = this.count() - 1
+
+        const result = [];
+        for (let i = startRowIndex; i <= endRowIndex; i++) result.push(data[i]);
+        return result;
+    }
+
+    selectValue(rowIndex, field) {
+        return this.data[rowIndex][field];
+    }
 
     isRow(field, value) {
         let dataRows = this.select(field, value, 1);
@@ -88,6 +100,7 @@ export class TbsDataTable extends TbsBase {
     /**
      * Insert
      */
+
     insert(dataRow) {
         if (this.type == 'table') {
             this.currentRowId += 1;
@@ -140,7 +153,10 @@ export class TbsDataTable extends TbsBase {
         let dataRows = this.select(tbsGridNames.column.name, columnName);
         dataRows.map(dataRow => dataRow[field] = value);
     }
-
+    updateRow(columnName, field, value) {
+        let dataRows = this.select(tbsGridNames.column.name, columnName);
+        dataRows.map(dataRow => dataRow[field] = value);
+    }
     updateByRowIndex(rowIndex, name, value) {
         let dataRow = this.data[rowIndex];
         dataRow[name] = value;
@@ -160,7 +176,3 @@ export class TbsDataTable extends TbsBase {
         }
     }
 }
-
-export class TbsDataRow extends TbsBase {}
-
-export class TbsDataCell extends TbsBase {}

@@ -19,8 +19,6 @@ export class TbsGridRenderCheckbox {
         }
 
         // set value
-        let value = false;
-        if (param.cellValue == param.grid.getTrueValue(param.columnName)) value = true;
-        element.checked = value;
+        element.checked = param.cellValue;
     }
 }

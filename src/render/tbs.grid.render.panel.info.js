@@ -99,7 +99,7 @@ export class TbsGridRenderPanelInfo {
                     render.cellText  = mode;
                 }
                 else if (render.columnName == 'checkbox') {
-                    let check = (grid.null(dataRow['check'])) ? false : dataRow['check'];
+                    let check = grid.isNull(dataRow[tbsGridNames.column.isChecked], false);
                     render.cellValue  = check;
                     render.cellText   = check;
                 }

@@ -29,7 +29,7 @@ export class TbsGridFilter {
             }
             let columnArray = [];
             for (let key in item){
-                let column = grid.classColumn.getColumn(key);
+                let column = grid.getColumn(key);
                 if (column[tbsGridNames.column.visible] === false) continue;
                 else columnArray.push(item[key]);
             }
@@ -85,9 +85,8 @@ export class TbsGridFilter {
 
     filters() {
         const grid = this.grid;
-
-        let result = grid.copyJson(grid.source_table.data);
-
+        const result = [];
+        grid.source_table.data.map(row => result.push(grid.copyJson(row)));
         for (let i = 0, len = grid.filter_column_table.count(); i < len; i++) {
             let filterColumn = grid.filter_column_table.data[i];
             result = grid.classFilter.filter(result, filterColumn);
@@ -103,7 +102,7 @@ export class TbsGridFilter {
     filter(data, filterColumn) {
         const grid = this.grid;
 
-        let column = grid.classColumn.getColumn(filterColumn.name);
+        let column = grid.getColumn(filterColumn.name);
         let columnType = column[tbsGridNames.column.type];
         let columnName = filterColumn.name;
         let filterType = filterColumn.type;

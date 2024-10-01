@@ -29,7 +29,7 @@ export class TbsGridSort {
                 let sortColumn = sortColumns[i];
                 let name = sortColumn[tbsGridNames.column.name];
 
-                let column = grid.classColumn.getColumn(name);
+                let column = grid.getColumn(name);
                 let type = column[tbsGridNames.column.type];
 
                 if (sortColumn['order'] == 'asc') {
@@ -192,7 +192,7 @@ export class TbsGridSort {
         let selector = this.selector;
         const grid = this.grid;
 
-        let column = grid.classColumn.getColumn(columnName);
+        let column = grid.getColumn(columnName);
         let sortColumn = grid.classSort.getSortRow(columnName);
 
         let order = sortColumn[tbsGridNames.column.order];
@@ -231,11 +231,11 @@ export class TbsGridSort {
         else span.style.display = '';
 
         if (buttons.length == 0) {
-            //grid.classColumn.setColumn('group_column', 'visible', false);
+            //grid.setColumn('group_column', 'visible', false);
             // grid.apply();
         }
         else {
-            //grid.classColumn.setColumn('group_column', 'visible', true);
+            //grid.setColumn('group_column', 'visible', true);
             // grid.apply();
         }
         grid.classControl.after_setColumnVisible();

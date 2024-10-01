@@ -118,7 +118,7 @@ tbsGridConfigs.ko = {
 const md = new MobileDetect(window.navigator.userAgent)
 tbsGridConfigs.options = {
     imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.4/dist-js/img/',
-    userImageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.4/dist-js/img/',
+    userImageRoot: '/src/img/',
     isMobile: md.mobile(), // true, false
     userAgent: md.userAgent(), // 'safari' etc
 

@@ -213,7 +213,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
             else clsPanel.isChecked = true;
 
             for (let i = 0, len = grid.view_table.count(); i < len; i++) {
-                grid.view_table.data[i].check = clsPanel.isChecked;
+                grid.view_table.data[i][tbsGridNames.column.isChecked] = clsPanel.isChecked;
             }
 
             grid.classPanel20.setDataPanel();
@@ -225,7 +225,8 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
         };
         const mouseUpEvent = function (e) {
             let targetName;
-            if (e.target.classList.contains('tbs-grid-cell'))          { targetName = 'cell'; }
+            if (e.target.classList.contains('tbs-grid-cell')) { targetName = 'cell'; }
+            else if (e.target.classList.contains('tbs-grid-cell-div')) { targetName = 'cell'; }
             else return;
             if (targetName == 'cell') {
                 let col = e.target.closest('.tbs-grid-cell')
@@ -321,7 +322,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                     let columnIndex = moveElement.dataset.columnIndex;
                     let rowIndex = moveElement.dataset.rowIndex;
 
-                    let column = grid.classColumn.getColumnByIndex(columnIndex);
+                    let column = grid.getColumnByIndex(columnIndex);
                     let name  = column[tbsGridNames.column.name];
                     let text  = column[tbsGridNames.column.text];
                     let order = 'asc';
@@ -374,7 +375,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                     let columnIndex = moveElement.dataset.columnIndex;
                     let rowIndex = moveElement.dataset.rowIndex;
 
-                    let column = grid.classColumn.getColumnByIndex(columnIndex);
+                    let column = grid.getColumnByIndex(columnIndex);
                     let name  = column[tbsGridNames.column.name];
                     let text  = column[tbsGridNames.column.text];
                     let order = 'asc';
@@ -564,7 +565,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
             if (e.target.classList.contains('tbs-grid-html-checkbox'))  return;
             let col = e.target.closest('.tbs-grid-cell');
 
-            let column = grid.classColumn.getColumnByIndex(col.cellIndex);
+            let column = grid.getColumnByIndex(col.cellIndex);
             let columnName = column[tbsGridNames.column.name];
 
             let isMovable = grid.isMovableColumn(columnName);
@@ -644,7 +645,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
             let moveY = lastY - startY;
             let moveX = lastX - startX;
 
-            // let column = grid.classColumn.getColumnByIndex(col.cellIndex);
+            // let column = grid.getColumnByIndex(col.cellIndex);
             // let columnName = column[tbsGridNames.column.name];
             let isMovable = grid.isMovableColumn();
             if (isMovable) {

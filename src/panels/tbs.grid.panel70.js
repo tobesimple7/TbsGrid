@@ -222,8 +222,8 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             let combo = e.target;
 
             let columnName = combo.dataset.name;
-            let column = grid.classColumn.getColumn(columnName);
-            let columnIndex = grid.classColumn.getColumnIndex(columnName);
+            let column = grid.getColumn(columnName);
+            let columnIndex = grid.getColumnIndex(columnName);
             let columnType = column[tbsGridNames.column.type];
 
             let filterType = combo.selectedOptions[0].value;
@@ -261,8 +261,8 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             //if (e.keyCode == 13 || e.keyCode == 9) {
             grid.FocusControl = 'filterInput';
             let columnName = input.dataset.name;
-            let column = grid.classColumn.getColumn(columnName);
-            let columnIndex = grid.classColumn.getColumnIndex(columnName);
+            let column = grid.getColumn(columnName);
+            let columnIndex = grid.getColumnIndex(columnName);
             let columnType = column[tbsGridNames.column.type];
 
             let combos = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-cell-filter-combo');

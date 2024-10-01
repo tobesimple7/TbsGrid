@@ -9,7 +9,7 @@ export class TbsBase {
     }
 
     notNull(p) {
-        return !(p == null || p == undefined);
+        return !(this.null(p));
     }
 
     empty(p) {
@@ -17,7 +17,7 @@ export class TbsBase {
     }
 
     notEmpty(p) {
-        return this.notNull(p) && p != '';
+        return !(this.empty(p));
     }
 
     isNull(a, b) {

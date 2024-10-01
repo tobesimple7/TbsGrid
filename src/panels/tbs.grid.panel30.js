@@ -300,8 +300,6 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
 
     }
 
-
-
     panel30_select(eventPanelName) {
         let selector = this.selector;
         const grid = this.grid;
@@ -891,12 +889,13 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         let eventPanel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
 
         const clickEvent = function (e) {
+            e.preventDefault();
             if (e.target.classList.contains('tbs-grid-html-checkbox')) {}
             else return;
 
             let rowIndex = e.target.parentNode.parentNode.dataset.rowIndex;
-
-            grid.view_table.data[rowIndex].check = e.target.checked;
+            let b = grid.view_table.data[rowIndex][tbsGridNames.column.isChecked];
+            grid.view_table.data[rowIndex][tbsGridNames.column.isChecked] = grid.isNull(b, false) ? false : true;
             grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
         }
 
@@ -912,8 +911,9 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             //console.log(`mouseUpEvent : lastX ${lastX} : lastY ${lastY}`)
             //console.log(`e.target.className ${e.target.className}`);
             let tableCell;
-            if      (e.target.classList.contains('tbs-grid-cell-div'))      { targetName = 'div' ; tableCell = e.target.parentNode; }
-            else if (e.target.classList.contains('tbs-grid-cell'))          { targetName = 'cell'; tableCell = e.target; }
+            if      (e.target.classList.contains('tbs-grid-cell-div'))    { tableCell = e.target.parentNode; }
+            else if (e.target.classList.contains('tbs-grid-html-string')) { tableCell = e.target.parentNode.parentNode; }
+            else if (e.target.classList.contains('tbs-grid-cell'))        { tableCell = e.target; }
             else return;
             if (tableCell.dataset.cellType != 'number') return;
 
@@ -999,8 +999,9 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         };
         const selectCell = function(e) {
             let tableCell;
-            if      (e.target.classList.contains('tbs-grid-cell-div'))      { targetName = 'div' ; tableCell = e.target.parentNode; }
-            else if (e.target.classList.contains('tbs-grid-cell'))          { targetName = 'cell'; tableCell = e.target; }
+            if      (e.target.classList.contains('tbs-grid-cell-div'))      { tableCell = e.target.parentNode; }
+            else if (e.target.classList.contains('tbs-grid-html-string'))   { tableCell = e.target.parentNode.parentNode; }
+            else if (e.target.classList.contains('tbs-grid-cell'))          { tableCell = e.target; }
             else return;
             if (tableCell.dataset.cellType != 'number') return;
 
@@ -1088,8 +1089,9 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         const selectCellCtrlMove = function(e) {}
         const selectCellShift = function(e) {
             let tableCell;
-            if      (e.target.classList.contains('tbs-grid-cell-div'))      { targetName = 'div' ; tableCell = e.target.parentNode; }
-            else if (e.target.classList.contains('tbs-grid-cell'))          { targetName = 'cell'; tableCell = e.target; }
+            if      (e.target.classList.contains('tbs-grid-cell-div'))    { tableCell = e.target.parentNode; }
+            else if (e.target.classList.contains('tbs-grid-html-string')) { tableCell = e.target.parentNode.parentNode; }
+            else if (e.target.classList.contains('tbs-grid-cell'))        { tableCell = e.target; }
             else return;
             if (tableCell.dataset.cellType != 'number') return;
 
