@@ -3,8 +3,8 @@ import { TbsGridTypes, TbsGridNames } from '../tbs.grid.types.js';
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
-import { TbsBase } from "../tbs.base.js";
-import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsBase } from "../base/tbs.base.js";
+import { TbsGridRenderPanel30 } from './tbs.grid.render.panel30.js';
 import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
 
 export class TbsGridPanelBase  extends TbsBase {

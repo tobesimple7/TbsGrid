@@ -35,7 +35,7 @@ export class TbsGridTypes {
             date: 'date',
             combo: 'combo',
             checkbox: 'checkbox',
-            image: 'image',
+            img: 'img',
             button: 'button',
             link: 'link',
             group: 'group',

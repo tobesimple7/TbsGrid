@@ -4,7 +4,7 @@ const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
-import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanel30 } from './tbs.grid.render.panel30.js';
 import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
 import { TbsGridTable } from "../tbs.grid.table.js";
 /*
@@ -180,7 +180,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 if (x <= grid.fixedColumnIndex) tableCell = tableRow.childNodes[x];
 
                 /* Render: Start */
-                let tbsGridRender = new TbsGridRenderPanel(grid);
+                let tbsGridRender = new TbsGridRenderPanel30(grid);
                 tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], i, x);
                 tbsGridRender = null;
                 //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], i, x);
@@ -240,7 +240,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 if (grid.fixedColumnIndex != -1 && x <= grid.fixedColumnIndex) continue;
 
                 /* Render: Start */
-                let tbsGridRender = new TbsGridRenderPanel(grid);
+                let tbsGridRender = new TbsGridRenderPanel30(grid);
                 tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], i, x);
                 tbsGridRender = null;
 
@@ -318,44 +318,70 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         let flagRight   = false;
 
         const mouseClickEvent = function (e) {
-            e.preventDefault();
 
             if (e.target.classList.contains('tbs-grid-html-checkbox')) {}
+            else if (e.target.classList.contains('tbs-grid-html-button')) {}
+            else if (e.target.classList.contains('tbs-grid-html-link')) {}
             else return;
 
             let rowIndex = e.target.parentNode.dataset.rowIndex;
             let columnIndex = e.target.parentNode.dataset.columnIndex;
             let columnName = e.target.parentNode.dataset.name;
-
-            // const column = grid.column_table.selectRowByRowIndex(columnIndex);
-            // let editable = column[tbsGridNames.column.editable];
-
+            let columnType = grid.column_table.selectValue(columnIndex, tbsGridNames.column.type);
             let value = grid.view_table.selectValue(rowIndex, columnName);
-            // console.log(rowIndex);
-            // console.log(columnIndex);
-            // console.log(columnName);
-            // console.log(value);
-
-            if (grid.notEmpty(grid.user_clickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
-                const eventRow = {};
-                const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
-                eventRow.rowIndex    = rowIndex;
-                eventRow.columnIndex = columnIndex;
-                eventRow.columnName  = columnName;
-                eventRow.value       = value;
-                eventRow.text        = value;
-                eventRow.data        = dataRows;
-                let result = grid.user_clickCheckbox(grid, eventRow);
-                if (result) {
+            if (columnType == tbsGridTypes.CellType.checkbox) {
+                e.preventDefault();
+                if (grid.notEmpty(grid.user_clickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
+                    const eventRow = {};
+                    const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
+                    eventRow.rowIndex    = rowIndex;
+                    eventRow.columnIndex = columnIndex;
+                    eventRow.columnName  = columnName;
+                    eventRow.value       = value;
+                    eventRow.text        = value;
+                    eventRow.data        = dataRows;
+                    let result = grid.user_clickCheckbox(grid, eventRow);
+                    if (result) {
+                        let newValue = grid.reverseBoolean(value);
+                        grid.setValue(rowIndex, columnName, newValue);
+                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+                    }
+                }
+                else {
                     let newValue = grid.reverseBoolean(value);
                     grid.setValue(rowIndex, columnName, newValue);
                     grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
                 }
             }
-            else {
-                let newValue = grid.reverseBoolean(value);
-                grid.setValue(rowIndex, columnName, newValue);
-                grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+            else if (columnType == tbsGridTypes.CellType.button) {
+                e.preventDefault();
+                if (grid.notEmpty(grid.user_clickButton) && e.target.disabled != 'disabled') {
+                    const eventRow = {};
+                    const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
+                    eventRow.rowIndex    = rowIndex;
+                    eventRow.columnIndex = columnIndex;
+                    eventRow.columnName  = columnName;
+                    eventRow.value       = value;
+                    eventRow.text        = value;
+                    eventRow.data        = dataRows;
+                    grid.user_clickButton(grid, eventRow);
+                }
+            }
+            else if (columnType == tbsGridTypes.CellType.link) {
+                if (grid.notEmpty(grid.user_clickLink)) {
+                    const eventRow = {};
+                    const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
+                    eventRow.rowIndex    = rowIndex;
+                    eventRow.columnIndex = columnIndex;
+                    eventRow.columnName  = columnName;
+                    eventRow.value       = value;
+                    eventRow.text        = value;
+                    eventRow.data        = dataRows;
+                    const result = grid.user_clickLink(grid, eventRow);
+                    if (!result) {
+                        e.preventDefault();
+                    }
+                }
             }
         }
 

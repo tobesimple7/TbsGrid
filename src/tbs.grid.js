@@ -49,7 +49,14 @@ export class TbsGrid extends TbsGridBase {
         }
         return result;
     }
-
+    getUserImageRoot(columnName) {
+        let result = this.gridConfigOptions.userImageRoot;
+        if (this.notNull(this.renderer) && this.notNull(this.renderer[columnName])) {
+            const renderer = this.renderer[columnName];
+            if (renderer.userImageRoot) result = renderer.userImageRoot;
+        }
+        return result;
+    }
     setRenderer(renderer) {
         this.renderer = renderer;
     }
@@ -275,6 +282,9 @@ export class TbsGrid extends TbsGridBase {
 
     clickCheckbox(userFunction) { this.user_clickCheckbox = userFunction;}
 
+    clickButton(userFunction) { this.user_clickButton = userFunction;}
+
+    clickLink(userFunction) { this.user_clickLink = userFunction;}
     /**
      * User Event : Paging
      */

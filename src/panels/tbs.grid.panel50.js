@@ -4,7 +4,7 @@ const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
-import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanel40 } from './tbs.grid.render.panel40.js';
 import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
 import { TbsGridTable } from "../tbs.grid.table.js";
 
@@ -118,7 +118,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
 
             if (x > grid.fixedColumnIndex && x < startColumnIndex) continue;
 
-            let tbsGridRender = new TbsGridRenderPanel(grid);
+            let tbsGridRender = new TbsGridRenderPanel40(grid);
             tbsGridRender.start(panelName, tableCell, column, 0, x);
             tbsGridRender = null;
             //grid.classRender.start(panelName, tableCell, column, 0, x);
@@ -155,7 +155,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
             }
             else { if (x < startColumnIndex) continue; }
 
-            let tbsGridRender = new TbsGridRenderPanel(grid);
+            let tbsGridRender = new TbsGridRenderPanel40(grid);
             tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
             tbsGridRender = null;
             //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);

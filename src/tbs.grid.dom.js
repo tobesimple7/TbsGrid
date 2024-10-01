@@ -3,7 +3,7 @@ import { TbsGridTypes, TbsGridNames } from './tbs.grid.types.js';
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
-import { TbsBase } from './tbs.base.js';
+import { TbsBase } from './base/tbs.base.js';
 
 export class TbsGridDom extends TbsBase {
 
@@ -17,14 +17,25 @@ export class TbsGridDom extends TbsBase {
             tag = 'span';
             className = 'tbs-grid-html-icon';
         }
-        else if (type == 'img') {
-            tag = 'span';
-            className = 'tbs-grid-html-img';
-        }
         else if (type == 'checkbox') {
             tag = 'input';
             tagType = 'checkbox';
             className = 'tbs-grid-html-checkbox';
+        }
+        else if (type == 'button') {
+            tag = 'button';
+            tagType = 'button';
+            className = 'tbs-grid-html-button';
+        }
+        else if (type == 'link') {
+            tag = 'a';
+            //tagType = 'button';
+            className = 'tbs-grid-html-link';
+        }
+        else if (type == 'img') {
+            tag = 'img';
+            //tagType = 'button';
+            className = 'tbs-grid-html-img';
         }
         return TbsGridDom.createHtml(tag, tagType, className);
     }

@@ -1,4 +1,4 @@
-import { TbsGridTypes, TbsGridNames } from './tbs.grid.types.js';
+import { TbsGridTypes, TbsGridNames } from '../tbs.grid.types.js';
 
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
@@ -18,7 +18,6 @@ export class TbsDataTable extends TbsBase {
     /**
      * select functions
      */
-
 
     select(field, value, topIndex) {
         let result = [];
@@ -160,18 +159,6 @@ export class TbsDataTable extends TbsBase {
             return this.data.length;
         }
     }
-
-    /**
-     * Column type Functions
-     */
-
-    setTypeString() {};
-
-    setTypeNumber() {};
-
-    setTypeCombo() {};
-
-    setTypeDate() {};
 }
 
 export class TbsDataRow extends TbsBase {}

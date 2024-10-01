@@ -1,3 +1,7 @@
+/**
+ * use only view_table
+ * row property : isShow
+ */
 import { TbsGridTypes, TbsGridNames } from './tbs.grid.types.js';
 
 const tbsGridTypes = new TbsGridTypes();

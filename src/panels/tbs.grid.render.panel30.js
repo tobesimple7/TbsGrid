@@ -1,14 +1,17 @@
 import { TbsGridTypes, TbsGridNames } from '../tbs.grid.types.js';
-import { TbsGridRenderCheckbox } from "./tbs.grid.render.checkbox.js";
-import { TbsGridRenderString } from "./tbs.grid.render.string.js";
-import { TbsGridRenderGroup } from "./tbs.grid.render.group.js";
-import { TbsGridRenderTree } from "./tbs.grid.render.tree.js";
+import { TbsGridRenderCheckbox } from "../render/tbs.grid.render.checkbox.js";
+import { TbsGridRenderString } from "../render/tbs.grid.render.string.js";
+import { TbsGridRenderGroup } from "../render/tbs.grid.render.group.js";
+import { TbsGridRenderTree } from "../render/tbs.grid.render.tree.js";
+import { TbsGridRenderButton } from "../render/tbs.grid.render.button.js";
 import { TbsGridDom } from "../tbs.grid.dom.js";
+import {TbsGridRenderLink} from "../render/tbs.grid.render.link.js";
+import {TbsGridRenderImg} from "../render/tbs.grid.render.img.js";
 
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
-export class TbsGridRenderPanel {
+export class TbsGridRenderPanel30 {
 
     constructor(grid) {
         this.grid     = grid;
@@ -58,32 +61,11 @@ export class TbsGridRenderPanel {
         render.width      = column[tbsGridNames.column.width];
         render.editable   = column[tbsGridNames.column.editable];
 
-       if (['panel40', 'panel42', 'panel50', 'panel52'].indexOf(this.panelName) != -1) {
-           let dataTable = null;
-           if (['panel40', 'panel42'].indexOf(this.panelName) != -1) dataTable = grid.top_column_table;
-           else if (['panel50', 'panel52'].indexOf(this.panelName) != -1) dataTable = grid.footer_column_table;
+        render.align      = column[tbsGridNames.column.align];
+        render.className  = column[tbsGridNames.column.className];
+        render.cellValue  = grid.getValue(render.rowIndex, render.columnName);
+        render.cellText   = grid.getText(render.rowIndex, render.columnName);
 
-           const summaryColumn = dataTable.selectRow(tbsGridNames.column.name, this.columnName);
-           if (grid.notNull(summaryColumn)) {
-               render.align      = grid.notNull(summaryColumn[tbsGridNames.column.align]) ?
-                   summaryColumn[tbsGridNames.column.align] : column[tbsGridNames.column.align];
-
-               render.className  = grid.notNull(summaryColumn[tbsGridNames.column.className]) ?
-                   summaryColumn[tbsGridNames.column.className] : column[tbsGridNames.column.align];
-           }
-           else {
-               render.align      = column[tbsGridNames.column.align];
-               render.className  = column[tbsGridNames.column.className];
-           }
-           render.cellValue  = grid.getValue(render.rowIndex, render.columnName, grid.top_table);
-           render.cellText   = grid.getText(render.rowIndex, render.columnName, grid.top_table);
-       }
-       else {
-            render.align      = column[tbsGridNames.column.align];
-            render.className  = column[tbsGridNames.column.className];
-            render.cellValue  = grid.getValue(render.rowIndex, render.columnName);
-            render.cellText   = grid.getText(render.rowIndex, render.columnName);
-       }
         render.updateData();
     }
 
@@ -134,9 +116,7 @@ export class TbsGridRenderPanel {
 
     createHtml() {
         const grid = this.grid;
-        const render = this;
-
-        if (render.panelName == 'panel30' || render.panelName == 'panel32') {
+        if (this.panelName == 'panel30' || this.panelName == 'panel32') {
             if (this.columnType == tbsGridTypes.CellType.group) {
                 const render = new TbsGridRenderGroup();
                 render.addElement(this);
@@ -149,12 +129,24 @@ export class TbsGridRenderPanel {
                 const render = new TbsGridRenderCheckbox();
                 render.addElement(this);
             }
+            else if (this.columnType == tbsGridTypes.CellType.button) {
+                const render = new TbsGridRenderButton();
+                render.addElement(this);
+            }
+            else if (this.columnType == tbsGridTypes.CellType.link) {
+                const render = new TbsGridRenderLink();
+                render.addElement(this);
+            }
+            else if (this.columnType == tbsGridTypes.CellType.img) {
+                const render = new TbsGridRenderImg();
+                render.addElement(this);
+            }
             else {
                 const render = new TbsGridRenderString();
                 render.addElement(this);
             }
         }
-        render.setBounding();
+        this.setBounding();
     }
 
     setBounding() {
@@ -192,6 +184,18 @@ export class TbsGridRenderPanel {
         }
         else if (this.columnType == tbsGridTypes.CellType.checkbox) {
             const render = new TbsGridRenderCheckbox();
+            render.setBounding(this);
+        }
+        else if (this.columnType == tbsGridTypes.CellType.button) {
+            const render = new TbsGridRenderButton();
+            render.setBounding(this);
+        }
+        else if (this.columnType == tbsGridTypes.CellType.link) {
+            const render = new TbsGridRenderLink();
+            render.setBounding(this);
+        }
+        else if (this.columnType == tbsGridTypes.CellType.img) {
+            const render = new TbsGridRenderImg();
             render.setBounding(this);
         }
         else {

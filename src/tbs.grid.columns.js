@@ -474,7 +474,6 @@ export class TbsGridColumns {
         const grid = this.grid;
 
         grid.fixedColumnIndex = -1;
-
         grid.classScroll.setPanelSize();
         grid.verticalScroll.setScroll(grid.code_vertical);
         grid.horizontalScroll.setScroll(grid.code_horizontal);
@@ -782,7 +781,7 @@ export class TbsGridColumns {
         // styleLeft = parseInt(styleLeft, 10);
 
         let columns = grid.column_table.data;
-        if (panelName == 'panel32' || panelName == 'panel42' || panelName == 'panel52') {
+        if (panelName == 'panel32' || panelName == 'panel42' || panelName == 'panel52' || panelName == 'panel72') {
             let startColumnIndex = 0;
             let lastColumnIndex = grid.fixedColumnIndex;
             return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };

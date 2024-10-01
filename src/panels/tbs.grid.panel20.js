@@ -4,7 +4,7 @@ const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
-import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanel30 } from './tbs.grid.render.panel30.js';
 import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
 import { TbsGridTable } from "../tbs.grid.table.js";
 
@@ -418,7 +418,6 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
             else {
                 let tableCell;
                 if (e.target.classList.contains('tbs-grid-html-checkbox')) {
-                    debugger;
                     tableCell = e.target.parentNode.parentNode;
                     const column = grid.column_table.selectRowByRowIndex(tableCell.cellIndex);
                     const columnName = column[tbsGridNames.column.name];

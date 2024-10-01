@@ -1,8 +1,8 @@
 import { TbsGridTypes, TbsGridNames } from './tbs.grid.types.js';
 
-import { TbsBase            } from './tbs.base.js';
-import { TbsDatabase        } from './database/tbs.database.js';
-import { TbsDataTable       } from './tbs.data.table.js';
+import { TbsBase            } from './base/tbs.base.js';
+import { TbsDatabase        } from './base/tbs.database.js';
+import { TbsDataTable       } from './base/tbs.data.table.js';
 import { TbsGridCell	    } from './tbs.grid.cell.js';
 import { TbsGridColumns	    } from './tbs.grid.columns.js';
 import { TbsGridCombo	    } from './tbs.grid.combo.js';
@@ -26,7 +26,7 @@ import { TbsGridPanel80	    } from './panels/tbs.grid.panel80.js';
 import { TbsGridPanel90	    } from './panels/tbs.grid.panel90.js';
 import { TbsGridRange	    } from './tbs.grid.range.js';
 import { TbsGridRangePanel  } from './tbs.grid.range.panel.js';
-import { TbsGridRenderPanel	    } from './render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanel30	    } from './panels/tbs.grid.render.panel30.js';
 import { TbsGridRenderPanelInfo  } from './render/tbs.grid.render.panel.info.js';
 import { TbsGridScrollBase  } from './tbs.grid.scroll.base.js';
 import { TbsGridScroll	    } from './tbs.grid.scroll.js';
@@ -209,7 +209,8 @@ export class TbsGridBase extends TbsBase {
         this.user_cellBounding = null; // @deprecated
         this.user_rowBounding = null;
         this.user_clickCheckbox = null;
-
+        this.user_clickButton = null;
+        this.user_clickLink = null;
         /**
          * @description code
          *

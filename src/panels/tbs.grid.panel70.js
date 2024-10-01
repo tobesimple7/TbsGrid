@@ -4,7 +4,7 @@ const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
-import { TbsGridRenderPanel } from '../render/tbs.grid.render.panel.js';
+import { TbsGridRenderPanel70 } from './tbs.grid.render.panel70.js';
 import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
 import { TbsGridTable } from "../tbs.grid.table.js";
 
@@ -64,23 +64,24 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 
-
         /* table thead */
         grid.classRow.setTableHead(grid, panelName);
 
         /* table tbody */
         let tableRows = document.querySelectorAll(selector + ` .tbs-grid-${panelName} .tbs-grid-table tbody tr`);
         let tableRow  = tableRows[0];
-        for (let x = 0; x <= lastColumnIndex; x++) {
+        for (let x = 0; x <= grid.fixedColumnIndex; x++) {
             let column = grid.column_table.data[x];
             let tableCell = tableRow.childNodes[x];
             let columnName = column[tbsGridNames.column.name];
 
             /* Render: Start */
-            let tbsGridRender = new TbsGridRenderPanel(grid);
-            tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
-            tbsGridRender = null;
+            // let tbsGridRender = new TbsGridRenderPanel70(grid);
+            // tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
+            // tbsGridRender = null;
             //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
+            let visible = column[tbsGridNames.column.visible];
+            tableCell.style.display = (visible) ? '' : 'none';
 
             let combo = grid.classFilter.createFilterCombo(column);
             combo.classList.add('tbs-grid-cell-filter-combo');
@@ -98,16 +99,18 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
         grid.classCell.hideTableCells(grid, panelName, tableRow, lastColumnIndex);
 
         tableRow = tableRows[1];
-        for (let x = 0; x <= lastColumnIndex; x++) {
+        for (let x = 0; x <= grid.fixedColumnIndex; x++) {
             let column = grid.column_table.data[x];
             let tableCell = tableRow.childNodes[x];
             let columnName = column[tbsGridNames.column.name];
 
             /* Render: Start */
-            let tbsGridRender = new TbsGridRenderPanel(grid);
-            tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
-            tbsGridRender = null;
+            // let tbsGridRender = new TbsGridRenderPanel70(grid);
+            // tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
+            // tbsGridRender = null;
             //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
+            let visible = column[tbsGridNames.column.visible];
+            tableCell.style.display = (visible) ? '' : 'none';
 
             // Set input
             let input = document.createElement('input');
@@ -149,10 +152,12 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             let columnName = column[tbsGridNames.column.name];
 
             /* Render: Start */
-            let tbsGridRender = new TbsGridRenderPanel(grid);
-            tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
-            tbsGridRender = null;
-            //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
+            // let tbsGridRender = new TbsGridRenderPanel70(grid);
+            // tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
+            // tbsGridRender = null;
+
+            let visible = column[tbsGridNames.column.visible];
+            tableCell.style.display = (visible) ? '' : 'none';
 
             let combo = grid.classFilter.createFilterCombo(column);
             combo.classList.add('tbs-grid-cell-filter-combo');
@@ -177,10 +182,12 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             let columnName = column[tbsGridNames.column.name];
 
             /* Render: Start */
-            let tbsGridRender = new TbsGridRenderPanel(grid);
-            tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
-            tbsGridRender = null;
-            //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
+            // let tbsGridRender = new TbsGridRenderPanel70(grid);
+            // tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
+            // tbsGridRender = null;
+
+            let visible = column[tbsGridNames.column.visible];
+            tableCell.style.display = (visible) ? '' : 'none';
 
             // Set input
             let input = document.createElement('input');
