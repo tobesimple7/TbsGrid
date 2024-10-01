@@ -1209,8 +1209,8 @@ tbsGridConfigs.ko = {
  */
 const md = new mobile_detect__WEBPACK_IMPORTED_MODULE_0__(window.navigator.userAgent);
 tbsGridConfigs.options = {
-  imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.0.15/dist-js/img/',
-  userImageRoot: '/src/img/',
+  imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.4/dist-js/img/',
+  userImageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.4/dist-js/img/',
   isMobile: md.mobile(),
   // true, false
   userAgent: md.userAgent(),
