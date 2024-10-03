@@ -35,11 +35,6 @@ I will try to make a good product.
 
 ### CDN
 ```html 
-// dependencies
-<script src="https://cdn.jsdelivr.net/npm/mobile-detect@1.4.5/mobile-detect.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
-// TbsGrid 
 <style  src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.5/dist-js/css/tbsgrid.css" />
 <script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.5/dist-js/tbsgrid-configs.js" />
 <script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.5/dist-js/tbsgrid.min.js" />
