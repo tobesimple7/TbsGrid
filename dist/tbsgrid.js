@@ -1,5 +1,17 @@
 /******/ var __webpack_modules__ = ({
 
+/***/ 213:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(a,b){if(true)!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (b),
+		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else {}})(this,function(){"use strict";function b(a,b){return"undefined"==typeof b?b={autoBom:!1}:"object"!=typeof b&&(console.warn("Deprecated: Expected third argument to be a object"),b={autoBom:!b}),b.autoBom&&/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(a.type)?new Blob(["\uFEFF",a],{type:a.type}):a}function c(a,b,c){var d=new XMLHttpRequest;d.open("GET",a),d.responseType="blob",d.onload=function(){g(d.response,b,c)},d.onerror=function(){console.error("could not download file")},d.send()}function d(a){var b=new XMLHttpRequest;b.open("HEAD",a,!1);try{b.send()}catch(a){}return 200<=b.status&&299>=b.status}function e(a){try{a.dispatchEvent(new MouseEvent("click"))}catch(c){var b=document.createEvent("MouseEvents");b.initMouseEvent("click",!0,!0,window,0,0,0,80,20,!1,!1,!1,!1,0,null),a.dispatchEvent(b)}}var f="object"==typeof window&&window.window===window?window:"object"==typeof self&&self.self===self?self:"object"==typeof __webpack_require__.g&&__webpack_require__.g.global===__webpack_require__.g?__webpack_require__.g:void 0,a=f.navigator&&/Macintosh/.test(navigator.userAgent)&&/AppleWebKit/.test(navigator.userAgent)&&!/Safari/.test(navigator.userAgent),g=f.saveAs||("object"!=typeof window||window!==f?function(){}:"download"in HTMLAnchorElement.prototype&&!a?function(b,g,h){var i=f.URL||f.webkitURL,j=document.createElement("a");g=g||b.name||"download",j.download=g,j.rel="noopener","string"==typeof b?(j.href=b,j.origin===location.origin?e(j):d(j.href)?c(b,g,h):e(j,j.target="_blank")):(j.href=i.createObjectURL(b),setTimeout(function(){i.revokeObjectURL(j.href)},4E4),setTimeout(function(){e(j)},0))}:"msSaveOrOpenBlob"in navigator?function(f,g,h){if(g=g||f.name||"download","string"!=typeof f)navigator.msSaveOrOpenBlob(b(f,h),g);else if(d(f))c(f,g,h);else{var i=document.createElement("a");i.href=f,i.target="_blank",setTimeout(function(){e(i)})}}:function(b,d,e,g){if(g=g||open("","_blank"),g&&(g.document.title=g.document.body.innerText="downloading..."),"string"==typeof b)return c(b,d,e);var h="application/octet-stream"===b.type,i=/constructor/i.test(f.HTMLElement)||f.safari,j=/CriOS\/[\d]+/.test(navigator.userAgent);if((j||h&&i||a)&&"undefined"!=typeof FileReader){var k=new FileReader;k.onloadend=function(){var a=k.result;a=j?a:a.replace(/^data:[^;]*;/,"data:attachment/file;"),g?g.location.href=a:location=a,g=null},k.readAsDataURL(b)}else{var l=f.URL||f.webkitURL,m=l.createObjectURL(b);g?g.location=m:location.href=m,g=null,setTimeout(function(){l.revokeObjectURL(m)},4E4)}});f.saveAs=g.saveAs=g, true&&(module.exports=g)});
+
+//# sourceMappingURL=FileSaver.min.js.map
+
+/***/ }),
+
 /***/ 719:
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
@@ -330,6 +342,334 @@ class TbsDatabase extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase *
       }
     }
     return result;
+  }
+}
+
+/***/ }),
+
+/***/ 358:
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   P: () => (/* binding */ TbsGridExcel)
+/* harmony export */ });
+/* harmony import */ var _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(447);
+/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(213);
+
+const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
+const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+
+class TbsGridExcel {
+  constructor(grid) {
+    this.grid = grid;
+    this.options = {};
+    //this.options.type = '';
+    this.options.fileName = '';
+  }
+  exportExcel(options) {
+    const grid = this.grid;
+    let headerRowCount = grid.headerRowCount;
+    let headerColumns = grid.headerColumnTable;
+    let columns = grid.column_table.data;
+    let rows = grid.getRows();
+    const table = document.createElement('table');
+    // table.style.border = 'solid 1px #9b9b9b';
+    table.style.borderSpacing = '0px';
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    /**
+     * create thead
+     */
+
+    let tableRows = this.createTableHead();
+    tableRows.map(row => thead.appendChild(row));
+
+    /**
+     * create panel20
+     */
+
+    tableRows = this.createPanel20();
+    tableRows.map(row => tbody.appendChild(row));
+
+    /**
+     * create panel40
+     */
+
+    tableRows = this.createPanel40();
+    tableRows.map(row => tbody.appendChild(row));
+
+    /**
+     * create panel30
+     */
+
+    tableRows = this.createPanel30();
+    tableRows.map(row => tbody.appendChild(row));
+
+    /**
+     * create panel50
+     */
+    tableRows = this.createPanel50();
+    tableRows.map(row => tbody.appendChild(row));
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    let type = 'application/vnd.ms-excel;charset=utf-8';
+    let fileName = options.fileName + '.xls';
+    let blob = new Blob([table.outerHTML], {
+      type: type
+    });
+    (0,file_saver__WEBPACK_IMPORTED_MODULE_1__.saveAs)(blob, fileName);
+  }
+  createTableHead() {
+    const grid = this.grid;
+    const result = [];
+    const tr = document.createElement('tr');
+    grid.column_table.data.map(column => {
+      const th = document.createElement('th');
+      th.style.width = column[tbsGridNames.column.visible] == true ? column.width + 'px' : '0px';
+      tr.appendChild(th);
+    });
+    result.push(tr);
+    return result;
+  }
+  createPanel20() {
+    const grid = this.grid;
+    const result = [];
+    grid.headerColumnTable.map(row => {
+      const tr = document.createElement('tr');
+      tr.style.height = grid.rowHeight + 'px';
+      for (let i = 0, len = row.length; i < len; i++) {
+        const column = row[i];
+        let kind = column[tbsGridNames.column.kind];
+        if (kind == 'empty') continue;
+        const td = document.createElement('td');
+        td.rowSpan = column[tbsGridNames.column.rowSpan];
+        td.colSpan = column[tbsGridNames.column.colSpan];
+        td.style.textAlign = column[tbsGridNames.column.align];
+        td.style.borderTop = 'solid 1px #9b9b9b';
+        td.style.borderLeft = 'solid 1px #9b9b9b';
+        td.style.borderRight = 'solid 1px #9b9b9b';
+        td.style.borderBottom = 'solid 1px #9b9b9b';
+        td.style.backgroundColor = '#fcf1f4';
+        td.textContent = column[tbsGridNames.column.text];
+        tr.appendChild(td);
+      }
+      result.push(tr);
+    });
+    return result;
+  }
+  createPanel30() {
+    const grid = this.grid;
+    const result = [];
+    grid.view_table.data.map(row => {
+      const tr = document.createElement('tr');
+      tr.style = 'height:' + grid.rowHeight + 'px';
+      for (let i = 0, len = grid.column_table.count(); i < len; i++) {
+        const column = grid.column_table.selectRowByRowIndex(i);
+        let columnName = column[tbsGridNames.column.name];
+        let visible = column[tbsGridNames.column.visible];
+        if (visible == false) continue;
+        let formatValue = grid.getFormat(column, row[columnName]);
+        let value = formatValue.value;
+        let text = formatValue.text;
+        const td = document.createElement('td');
+        td.rowSpan = 1;
+        td.colSpan = 1;
+        td.style.textAlign = column[tbsGridNames.column.align];
+        td.style.borderTop = 'solid 1px #9b9b9b';
+        td.style.borderLeft = 'solid 1px #9b9b9b';
+        td.style.borderRight = 'solid 1px #9b9b9b';
+        td.style.borderBottom = 'solid 1px #9b9b9b';
+        td.textContent = text;
+        tr.appendChild(td);
+      }
+      result.push(tr);
+    });
+    return result;
+  }
+  createPanel40() {
+    const grid = this.grid;
+    const result = [];
+    grid.top_table.data.map(row => {
+      const tr = document.createElement('tr');
+      tr.style = 'height:' + grid.rowHeight + 'px';
+      for (let i = 0, len = grid.column_table.count(); i < len; i++) {
+        const column = grid.column_table.selectRowByRowIndex(i);
+        let columnName = column[tbsGridNames.column.name];
+        let visible = column[tbsGridNames.column.visible];
+        if (visible == false) continue;
+        let formatValue = grid.getFormat(column, grid.isNull(row[columnName], ''));
+        let value = formatValue.value;
+        let text = formatValue.text;
+        if (grid.null(row[columnName])) {
+          value = '';
+          text = '';
+        }
+        const td = document.createElement('td');
+        td.rowSpan = 1;
+        td.colSpan = 1;
+        td.style.textAlign = column[tbsGridNames.column.align];
+        td.style.borderTop = 'solid 1px #9b9b9b';
+        td.style.borderLeft = 'solid 1px #9b9b9b';
+        td.style.borderRight = 'solid 1px #9b9b9b';
+        td.style.borderBottom = 'solid 1px #9b9b9b';
+        td.style.backgroundColor = '#dbffe3';
+        td.textContent = text;
+        tr.appendChild(td);
+      }
+      result.push(tr);
+    });
+    return result;
+  }
+  createPanel50() {
+    const grid = this.grid;
+    const result = [];
+    grid.footer_table.data.map(row => {
+      const tr = document.createElement('tr');
+      tr.style = 'height:' + grid.rowHeight + 'px';
+      for (let i = 0, len = grid.column_table.count(); i < len; i++) {
+        const column = grid.column_table.selectRowByRowIndex(i);
+        let columnName = column[tbsGridNames.column.name];
+        let visible = column[tbsGridNames.column.visible];
+        if (visible == false) continue;
+        let formatValue = grid.getFormat(column, grid.isNull(row[columnName], ''));
+        let value = formatValue.value;
+        let text = formatValue.text;
+        if (grid.null(row[columnName])) {
+          value = '';
+          text = '';
+        }
+        const td = document.createElement('td');
+        td.rowSpan = 1;
+        td.colSpan = 1;
+        td.style.textAlign = column[tbsGridNames.column.align];
+        td.style.borderTop = 'solid 1px #9b9b9b';
+        td.style.borderLeft = 'solid 1px #9b9b9b';
+        td.style.borderRight = 'solid 1px #9b9b9b';
+        td.style.borderBottom = 'solid 1px #9b9b9b';
+        td.style.backgroundColor = '#dbffe3';
+        td.textContent = text;
+        tr.appendChild(td);
+      }
+      result.push(tr);
+    });
+    return result;
+  }
+  createTableFooter() {}
+  excelExport_old(options) {
+    let selector = '#' + this.gridId;
+    const grid = this;
+    let headerRowCount = this.headerRowCount;
+    let headerColumns = this.headerColumnTable;
+    let columns = this.column_table.data;
+    let rows = this.getRows();
+    let table, thead, tbody, tr, th, td, input;
+    table = document.createElement('table');
+    //table.style = 'border:1px solid #ccc;';
+
+    thead = document.createElement('thead');
+    tr = document.createElement('tr');
+    let sumWidth = 0;
+    columns.map(column => {
+      th = document.createElement('th');
+      th.style.width = column[tbsGridNames.column.visible] == true ? parseInt(column.width) + 'px' : '0px';
+      th.style.display = column[tbsGridNames.column.visible] == true ? '' : 'none';
+      sumWidth += column[tbsGridNames.column.visible] == true ? parseInt(column.width) : 0;
+      tr.appendChild(th);
+    });
+    thead.appendChild(tr);
+    table.appendChild(thead);
+    tbody = document.createElement('tbody');
+    for (let i = 0; i < headerColumns.length; i++) {
+      tr = document.createElement('tr');
+      tr.style = 'height:' + this.rowHeight + 'px';
+      sumWidth = 0;
+      headerColumns[i].map(headerColumn => {
+        if (headerColumn[tbsGridNames.column.name]) {
+          let td = document.createElement('td');
+          if (i == 0) td.rowSpan = headerRowCount;else if (i < len - 1) td.rowSpan = headerRowCount - i; // 3 - 1
+
+          td.style = 'border:1px solid #ccc;background: #fcf1f4;';
+          td.style.textAlign = 'center';
+          let width = headerColumn['width'] != '' ? headerColumn['width'] : '100';
+          td.style.width = width + 'px';
+          sumWidth += Number(width);
+          //------------------------------------------------------
+          let div = document.createElement('div');
+          div.classList.add('tbs-grid-cell-div');
+          td.appendChild(div);
+          let span = document.createElement('span');
+          span.classList.add('tbs-grid-html-string');
+          span.textContent = headerColumn[tbsGridNames.column.text];
+          div.appendChild(span);
+          td.appendChild(div);
+          tr.appendChild(td);
+        } else if (headerColumn[tbsGridNames.column.text] != undefined) {
+          let td = document.createElement('td');
+          td.colSpan = headerColumn[tbsGridNames.column.colSpan];
+          td.style = 'border:1px solid #ccc;background: #fcf1f4;';
+          td.style.textAlign = 'center';
+          let div = document.createElement('div');
+          div.classList.add('tbs-grid-cell-div');
+          let span = document.createElement('span');
+          span.classList.add('tbs-grid-html-string');
+          span.textContent = headerColumn[tbsGridNames.column.text];
+          div.appendChild(span);
+          td.appendChild(div);
+          tr.appendChild(td);
+        } else {
+          let td = document.createElement('td');
+          td.style.display = 'none';
+          td.classList.add('tbs-grid-cell');
+          td.style.textAlign = 'center';
+          let div = document.createElement('div');
+          div.classList.add('tbs-grid-cell-div');
+          let span = document.createElement('span');
+          span.classList.add('tbs-grid-html-string');
+          span.textContent = headerColumn[tbsGridNames.column.text];
+          div.appendChild(span);
+          td.appendChild(div);
+          tr.appendChild(td);
+        }
+      });
+      tbody.appendChild(tr);
+      rows.map(row => {
+        tr = document.createElement('tr');
+        tr.style = 'height:' + this.rowHeight + 'px';
+        for (let x = 0, len = columns.length; x < len; x++) {
+          let column = columns[x];
+          let td = document.createElement('td');
+          td.style = 'border:1px solid #ccc;';
+          let width = column[tbsGridNames.column.width] != '' ? column[tbsGridNames.column.width] : '100';
+          td.style.width = width + 'px';
+          sumWidth += Number(width);
+          let div = document.createElement('div');
+          div.classList.add('tbs-grid-cell-div');
+          td.appendChild(div);
+          let span = document.createElement('span');
+          span.classList.add('tbs-grid-html-string');
+          span.textContent = row[column[tbsGridNames.column.name]];
+          div.appendChild(span);
+          td.appendChild(div);
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      });
+    }
+    table.appendChild(tbody);
+    let type = options.type;
+    let fileName = options.fileName;
+    let blob = new Blob([table.outerHTML], {
+      type: 'application/vnd.ms-excel;charset=utf-8'
+    });
+    (0,file_saver__WEBPACK_IMPORTED_MODULE_1__.saveAs)(blob, fileName);
+
+    // const myJsonString = '<table><tr><td>1</td><td>1</td><td>1</td></tr></table><table><tr><td>1</td><td>1</td><td>1</td></tr></table>';
+    // const blob = new Blob([myJsonString], {
+    // 	type: "application/vnd.ms-excel;charset=utf-8"
+    // });
+    // saveAs(blob, "table.xls");
+    //      , {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=" + document.characterSet})
   }
 }
 
@@ -9952,7 +10292,7 @@ class TbsGridGroup {
     }
 
     /* Summary */
-    grid.classGroup.getGroupSummary();
+    //grid.classGroup.getGroupSummary();
 
     // open depth
     if (grid.notNull(openDepth) && openDepth != 0) {
@@ -12841,7 +13181,7 @@ const tbsGridNames = {
 /******/ 	};
 /******/ 
 /******/ 	// Execute the module function
-/******/ 	__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 
 /******/ 	// Return the exports of the module
 /******/ 	return module.exports;
@@ -12860,6 +13200,18 @@ const tbsGridNames = {
 /******/ 	};
 /******/ })();
 /******/ 
+/******/ /* webpack/runtime/global */
+/******/ (() => {
+/******/ 	__webpack_require__.g = (function() {
+/******/ 		if (typeof globalThis === 'object') return globalThis;
+/******/ 		try {
+/******/ 			return this || new Function('return this')();
+/******/ 		} catch (e) {
+/******/ 			if (typeof window === 'object') return window;
+/******/ 		}
+/******/ 	})();
+/******/ })();
+/******/ 
 /******/ /* webpack/runtime/hasOwnProperty shorthand */
 /******/ (() => {
 /******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -12874,9 +13226,11 @@ var __webpack_exports__ = {};
 /* harmony import */ var _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(465);
 /* harmony import */ var _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(122);
 /* harmony import */ var _tbs_grid_configs_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(753);
+/* harmony import */ var _export_tbs_grid_excel_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(358);
 
 const tbsGridTypes = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridTypes */ .hY();
 const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridNames */ .G4();
+
 
 
 
@@ -14376,6 +14730,15 @@ class TbsGrid extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridB
   }
   removeUserClass(tableCell, className) {
     _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridDom */ .E.removeUserClass(element, className);
+  }
+
+  /**
+   * Export Excel
+   */
+
+  exportExcel(options) {
+    const excel = new _export_tbs_grid_excel_js__WEBPACK_IMPORTED_MODULE_4__/* .TbsGridExcel */ .P(this);
+    excel.exportExcel(options);
   }
 }
 var __webpack_exports__TbsGrid = __webpack_exports__.c;
