@@ -12,6 +12,8 @@ export class TbsGridSort {
         this.options = {}
     }
 
+
+
     setSortData(data, sortColumns) {
         /**
          * @function tbs_setSortData
@@ -149,7 +151,7 @@ export class TbsGridSort {
 
         grid.classSort.toggleSortPlaceHolder();
 
-        if (grid.grid_mode == tbsGridTypes.GridMode.group) {
+        if (grid.group_column_table.count() > 0) {
             grid.setData(grid.view_table.data, null, false);
         }
         else {
@@ -287,7 +289,7 @@ export class TbsGridSort {
             grid.classFilter.filters();
             grid.apply();
         }
-        if (grid.grid_mode == tbsGridTypes.GridMode.group) {
+        if (grid.group_column_table.count() > 0) {
             grid.setData(grid.view_table.data, null, false);
         }
         else {
@@ -295,5 +297,7 @@ export class TbsGridSort {
             grid.apply();
         }
     }
+
+
 }
 

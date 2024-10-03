@@ -5,7 +5,7 @@ const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
 import { TbsGridRenderPanel30 } from './tbs.grid.render.panel30.js';
-import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
+import { TbsGridRenderPanelInfo } from './tbs.grid.render.panel.info.js';
 import { TbsGridTable } from "../tbs.grid.table.js";
 
 export class TbsGridPanel10 extends TbsGridPanelBase {
@@ -106,29 +106,22 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
         /* Group Panel */
         const showGroupPanelEvent = function(e) {
             e.stopPropagation();
-            if (grid.grid_mode != tbsGridTypes.GridMode.group) {
-                grid.classGroup.allowGroupMode();
-            }
-            else {
-                if (grid.options.showGroupPanel) grid.classGroup.denyGroupMode();
-                else grid.classGroup.allowGroupMode();
-            }
+            if (grid.options.showGroupPanel) grid.classGroup.hideGroupPanel();
+            else grid.classGroup.showGroupPanel();
         }
         if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-group'))
             document.querySelector(selector + ' .tbs-grid-panel10-buttons-group').addEventListener('mousedown', showGroupPanelEvent);
 
         const expandGroupPanelEvent = function(e) {
             e.stopPropagation();
-            if (grid.grid_mode == tbsGridTypes.GridMode.group) {
-                grid.classGroup.expandGroup();
-            }
+            if (grid.group_column_table.count() > 0) grid.classGroup.expandGroup();
         }
         if (document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-expand'))
             document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-expand').addEventListener('mousedown', expandGroupPanelEvent);
 
         const collapseGroupPanelEvent = function(e) {
             e.stopPropagation();
-            if (grid.grid_mode == tbsGridTypes.GridMode.group) {
+            if (grid.group_column_table.count() > 0) {
                 grid.classGroup.collapseGroup();
             }
         }
@@ -137,7 +130,7 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
 
         const resetGroupPanelEvent = function(e) {
             e.stopPropagation();
-            if (grid.grid_mode == tbsGridTypes.GridMode.group) {
+            if (grid.group_column_table.count() > 0) {
                 grid.classGroup.initGroupData();
             }
         }

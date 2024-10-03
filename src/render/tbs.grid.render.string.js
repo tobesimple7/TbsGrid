@@ -6,7 +6,7 @@ export class TbsGridRenderString {
      */
     addElement(param) {
         const element = TbsGridDom.createElement('string');
-        if (param.tableCell.childNodes[0].innerHTML != '') param.tableCell.childNodes[0].innerHTML = '';
+        param.tableCell.childNodes[0].innerHTML = '';
         param.tableCell.childNodes[0].append(element);
     }
     /**
@@ -14,6 +14,13 @@ export class TbsGridRenderString {
      */
     setBounding(param) {
         TbsGridDom.setStyle(param.tableCell, param);
+        if (param.depth && param.columnIndex == 0) {
+            TbsGridDom.setCellStyle(param.tableCell.childNodes[0], 'paddingLeft', (param.depth * 15) + 'px');
+        }
+        else {
+            TbsGridDom.setCellStyle(param.tableCell.childNodes[0], 'paddingLeft', '0px');
+        }
+
         if (param.cellValue) {
             const element = param.tableCell.querySelector('.tbs-grid-html-string');
             TbsGridDom.setCell(element, 'textContent', param.cellText);

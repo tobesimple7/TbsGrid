@@ -1,14 +1,13 @@
 {
   "name": "tbsgrid",
-  "version": "0.2.6",
+  "version": "0.2.10",
   "description": "",
   "author": "tobesimple7",
   "license": "MIT",
   "homepage": "https://tobesimple.net",
   "repository": "https://github.com/tobesimple7/TbsGrid",
   "dependencies": {
-    "file-saver": "^2.0.5",
-    "mobile-detect": "^1.4.5"
+    "file-saver": "^2.0.5"
   },
   "files": [
     "dist/*", "dist-js/*"

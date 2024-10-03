@@ -40,8 +40,8 @@ tbs-grid (relative)
     --tbs-grid-cell-border: 1px solid #bbbbbb; /* var(--tbs-grid-cell-border); */
     --tbs-grid-cell-fixed-line-border: solid 2px #8d8d8d; /* var(--tbs-grid-cell-fixed-line-border); */
 }
-.tbs-row-color1 { background-color: #b7b7b7; }
-.tbs-row-color2 { background-color: #c0c0c0; }
+.tbs-row-color1 { background-color: #e2e5fa; }
+.tbs-row-color2 { background-color: #e7e9f8; }
 .tbs-row-color3 { background-color: #cccccc; }
 .tbs-row-color4 { background-color: #d7d7d7; }
 .tbs-row-color5 { background-color: #e3e2e2; }

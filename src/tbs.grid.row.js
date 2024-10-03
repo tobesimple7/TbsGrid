@@ -59,7 +59,7 @@ export class TbsGridRow {
 
         if (tableRow.style.display == 'none') tableRow.style.display = '';
 
-        if (grid.grid_mode == tbsGridTypes.GridMode.group) {
+        if (grid.group_column_table.count() > 0) {
             if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                 let rowData = grid.getRow(rowIndex);
                 let depth = rowData[tbsGridNames.column.depth];
@@ -91,6 +91,7 @@ export class TbsGridRow {
             }
         }
         else {
+            TbsGridDom.removeUserClass(tableRow, 'tbs-row-color1');
             if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                 let param = {element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex)};
                 grid.tbs_executeEvent(grid.user_rowBounding, 'rowBounding', param);

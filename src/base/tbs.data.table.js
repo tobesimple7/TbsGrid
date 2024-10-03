@@ -80,6 +80,11 @@ export class TbsDataTable extends TbsBase {
         return result;
     }
 
+    selectRowIdByRowIndex(rowIndex) {
+        const dataRow = this.selectRowByRowIndex(rowIndex);
+        return dataRow[tbsGridNames.column.rowId];
+    }
+
     selectRowRange(startRowIndex, endRowIndex) {
         if (endRowIndex == undefined) endRowIndex = this.count() - 1
 
@@ -174,5 +179,46 @@ export class TbsDataTable extends TbsBase {
         else {
             return this.data.length;
         }
+    }
+
+    /**
+     * orderBy
+     * @param sortColumns : [{ name : , order :, dataType: string | number }, ...]
+     */
+    orderBy(sortColumns) {
+        return this.data.toSorted((a, b) => {
+            // a : The first element
+            // b : The second element
+            for (let i = 0, len = sortColumns.length; i < len; i++) {
+                let sortColumn = sortColumns[i];
+                let name = sortColumn[tbsGridNames.column.name];
+                let type = (sortColumn[tbsGridNames.column.dataType]) ? sortColumn[tbsGridNames.column.dataType] : 'string';
+                let order = (sortColumn[tbsGridNames.column.order]) ? sortColumn[tbsGridNames.column.order] : 'asc';
+                if (order == 'asc') {
+                    if (type == tbsGridTypes.CellType.number) {
+                        let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')): 0;
+                        let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')): 0;
+                        if (x < y) return -1;
+                        else if (x > y) return 1;
+                    }
+                    else {
+                        if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
+                        else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
+                    }
+                }
+                else if (order == 'desc') {
+                    if (type == tbsGridTypes.CellType.number){
+                        let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')) : 0;
+                        let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')) : 0;
+                        if (x < y) return 1;
+                        else if (x > y) return -1;
+                    }
+                    else {
+                        if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
+                        else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
+                    }
+                }
+            }
+        });
     }
 }

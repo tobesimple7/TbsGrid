@@ -5,7 +5,7 @@ const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
 import { TbsGridRenderPanel30 } from './tbs.grid.render.panel30.js';
-import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
+import { TbsGridRenderPanelInfo } from './tbs.grid.render.panel.info.js';
 import { TbsGridTable } from "../tbs.grid.table.js";
 
 export class TbsGridPanel20 extends TbsGridPanelBase {
@@ -348,7 +348,8 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                         targetIndex = null;
                     }
 
-                    if (name != 'group_column') grid.classGroup.addGroupButton(name, text, order, targetIndex);
+                    //if (name != 'group_column') grid.classGroup.addGroupButton(name, text, order, targetIndex);
+                    grid.classGroup.addGroupButton(name, text, order, targetIndex);
 
                     flagLeft = false;
                     flagRight = false;

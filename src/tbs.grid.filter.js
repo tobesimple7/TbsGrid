@@ -85,7 +85,8 @@ export class TbsGridFilter {
 
     filters() {
         const grid = this.grid;
-        const result = [];
+        let result = [];
+
         grid.source_table.data.map(row => result.push(grid.copyJson(row)));
         for (let i = 0, len = grid.filter_column_table.count(); i < len; i++) {
             let filterColumn = grid.filter_column_table.data[i];
@@ -294,7 +295,7 @@ export class TbsGridFilter {
 
         grid.classRange.removeRange(0, -1);
 
-        if (grid.grid_mode == tbsGridTypes.GridMode.group) {
+        if (grid.group_column_table.count() > 0) {
             grid.setData(grid.view_table.data, null, false);
         }
         else {

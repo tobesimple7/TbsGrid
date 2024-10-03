@@ -13,79 +13,217 @@ export class TbsGridGroup {
         this.grid       = grid;
         this.selector   = '#' + grid.gridId;
         this.openDepth = null;
+        this.splitChar = '__$__'
+    }
+
+    setGroupData(data, openDepth  = 0, isFirst = true) {
+        let selector = this.selector;
+        const grid = this.grid;
+
+        if (isFirst) { if (grid.null(data) || data.length == 0) return; }
+
+        grid.classGroup.openDepth = openDepth;
+
+        // create source_data, view_table.data
+        if (isFirst) {
+            grid.source_table.remove();
+
+            for (let i = 0, len = data.length; i < len; i++) {
+                const dataRow = data[i];
+
+                const item = {};
+                for (let x = 0, len = grid.column_table.count(); x < len; x++) {
+                    const column = grid.column_table.data[x];
+                    let columnName = column[tbsGridNames.column.name];
+                    let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
+                    item[columnName] = val;
+                }
+
+                const dataColumns = grid.field_table.select();
+                for (let x = 0, len = dataColumns.length; x < len; x++) {
+                    const column = dataColumns[x];
+                    let columnName  = column[tbsGridNames.column.name];
+                    item[columnName] = dataRow[columnName];
+                }
+
+                grid.source_table.insert(item);
+            }
+        }
+
+        grid.group_header_table.remove();
+        grid.group_table.remove();
+        grid.view_table.remove();
+        grid.source_table.data.map(dataRow => grid.view_table.insert(grid.copyJson(dataRow)));
+
+        /* Filter */
+        grid.classFilter.filters();
+
+        /* Add Group Column */
+        grid.sort_column_table.data.map(dataRow => grid.temp_table.insert(grid.copyJson(dataRow)));
+        grid.sort_column_table.remove();
+
+        grid.group_column_table.data.map(dataRow => {
+            let columnName = dataRow[tbsGridNames.column.name];
+            //let groupOrder = grid.isNull(dataRow[tbsGridNames.column.order], '');
+
+            const row = grid.temp_table.selectRow(tbsGridNames.column.name, columnName);
+            if (row) {
+                let order = row[tbsGridNames.column.order];
+                if (order == '') order = 'asc';
+
+                row[tbsGridNames.column.order] = order;
+                grid.sort_column_table.insert(row);
+                // grid.group_column_table.update(columnName, tbsGridNames.column.order, order);
+            }
+            else {
+                const item = {};
+                item[tbsGridNames.column.name] = columnName;
+                item[tbsGridNames.column.order] = 'asc';
+                grid.sort_column_table.insert(item);
+                // grid.group_column_table.update(columnName, tbsGridNames.column.order, 'asc');
+            }
+            let rowIndex = grid.temp_table.selectRowIndex(tbsGridNames.column.name, columnName);
+            if (grid.notNull(rowIndex)) grid.temp_table.remove(rowIndex);
+        });
+
+        grid.temp_table.data.map(dataRow => grid.sort_column_table.insert(grid.copyJson(dataRow)));
+        grid.temp_table.remove();
+
+        /* Sorting */
+        grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
+
+        /* create group data */
+        grid.classGroup.createGroupData();
+
+        /* insert into view_table from group_table */
+        grid.view_table.remove();
+        for (let i = 0, len = grid.group_table.count(); i < len; i++) {
+            let dataRow = grid.group_table.data[i];
+
+            dataRow[tbsGridNames.column.mode]   = ''; // S, U, I, D, blank
+            dataRow[tbsGridNames.column.isOpen] = false;
+
+            for (let x = 0, len = grid.column_table.count(); x < len; x++) {
+                let column = grid.column_table.data[x];
+                let columnName = column[tbsGridNames.column.name];
+                let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
+
+                dataRow[columnName] = val;
+            }
+            grid.view_table.insert(grid.copyJson(dataRow));
+        }
+
+        /* Summary */
+        grid.classGroup.getGroupSummary();
+
+        // open depth
+        if (grid.notNull(openDepth) && openDepth != 0) {
+            for (let i = grid.view_table.count() - 1; i >= 0; i--) {
+                let row = grid.view_table.data[i];
+                let depth = row[tbsGridNames.column.depth];
+                if (depth > openDepth) grid.view_table.remove(i);
+            }
+        }
+
+        document.querySelector(selector + ' .tbs-grid-panel10-filter-input').value = '';
+        if (grid.view_table.count() == 0) {
+            document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = '0';
+            grid.verticalScroll.setScroll(grid.code_vertical);
+            grid.classPanel30.setDataPanel(0);
+        }
+        else {
+            document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = grid.view_table.count();
+            grid.verticalScroll.setScroll(grid.code_vertical);
+            grid.classPanel30.setDataPanel(0);
+            grid.classPanel40.setDataPanel();
+            grid.classPanel50.setDataPanel();
+        }
+        if (grid.options[tbsGridNames.column.autoWidth] == true)  grid.setColumnAutoWidth();
+
+        grid.classGroup.getGroupButtonList();
+        grid.classScroll.setPanelSize();
+
+        grid.classRange.removeRange(0, -1);
+        let _topRowIndex = grid.classRange.selectRange(0, 0, 0, 0);
+        grid.classPanel30.setDataPanel(_topRowIndex);
     }
 
     createGroupData(){
         const grid = this.grid;
 
-        grid.tree_table.remove();
-
-        /* get parent number */
-        const fn_setRelation = function(row, depth, parentNum) {
-            row[tbsGridNames.column.parentNum] = parentNum;
-            grid.tree_table.insert(grid.copyJson(row));
-
-            if (depth > grid.group_column_table.count()) return;
-
-            let key = grid.classGroup.getGroupKeyByDepth(row, depth);
-            for (let i = 0, len = grid.view_table.count(); i < len; i++) {
-                let dataRow = grid.view_table.data[i];
-                let childKey = grid.classGroup.getGroupKeyByDepth(dataRow, depth);
-                let childDepth = dataRow[tbsGridNames.column.depth];
-
-                if (key == childKey && childDepth == depth + 1) {
-                    fn_setRelation(dataRow, depth + 1, row[tbsGridNames.column.num]);
-                }
-            }
-        }
-
-        /* get children rowId */
-        const fn_getChildrenRowIds = function(row) {
-            row[tbsGridNames.column.children] = [];
-            for (let i = 0, len = grid.tree_table.count(); i < len; i++) {
-                let resultRow = grid.tree_table.data[i];
-                if (row[tbsGridNames.column.num] == resultRow[tbsGridNames.column.parentNum]) {
-                    row[tbsGridNames.column.children].push(resultRow[tbsGridNames.column.rowId]);
-                }
-            }
-        }
-
-        // Init
-        let maxDepth = grid.group_column_table.count() + 1;
-        grid.view_table.data.map(dataRow => {
-            if (grid.notNull([tbsGridNames.column.mode     ])) delete dataRow[tbsGridNames.column.mode     ];
-            if (grid.notNull([tbsGridNames.column.num      ])) delete dataRow[tbsGridNames.column.num      ];
-            if (grid.notNull([tbsGridNames.column.parentNum])) delete dataRow[tbsGridNames.column.parentNum];
-            dataRow[tbsGridNames.column.depth] = maxDepth;
-        });
-
         // create group data
-        let groupData = grid.classGroup.createGroupKeyData(grid.view_table.data);
+        const groupData = grid.classGroup.createGroupKeyData(grid.view_table.data);
         groupData.map(row => {
             grid.source_table.currentRowId += 1;
             row[tbsGridNames.column.rowId] = grid.source_table.currentRowId;
-            row['group_column'] = null;
-            grid.view_table.insert(grid.copyJson(row));
+            grid.group_header_table.insert(grid.copyJson(row));
         });
 
-        // set number
-        let num = 1;
-        grid.view_table.data.map(row => { num += 1; row[tbsGridNames.column.num] = num; });
+        // insert group table  select * from view_table, group_header_table
+        for (let i = 0, len = grid.group_header_table.count(); i < len; i++) {
+            const rootRow = grid.group_header_table.selectRowByRowIndex(i);
+            const children = [];
+            const item = {}
+            let rootDepth = rootRow[tbsGridNames.column.depth];
+            let rootString = this.getGroupKeyByDepth(rootRow, rootDepth);
 
-        // get Number, Parent Number
-        for (let i = 0, len = grid.view_table.count(); i < len; i++) {
-            let row = grid.view_table.data[i];
-            if (row[tbsGridNames.column.depth] == 1) fn_setRelation(row, 1, 0);
+            // get children group
+            let isChild = false;
+            for (let x = 0, len2 = grid.group_header_table.count(); x < len2; x++) {
+                const row = grid.group_header_table.selectRowByRowIndex(x);
+                let depth = row[tbsGridNames.column.depth];
+                let childString = this.getGroupKeyByDepth(row, rootDepth);
+                if (rootDepth + 1 == depth && rootString == childString) {
+                    isChild = true;
+                    children.push(row[tbsGridNames.column.rowId]);
+                }
+                else {
+                    if (isChild) break;
+                }
+            }
+
+            // insert group_header_table
+            rootRow[tbsGridNames.column.children] = children;
+            rootRow[tbsGridNames.column.isOpen] = false;
+            grid.group_table.insert(rootRow);
+
+            // insert view_table
+            const arr = []
+            isChild = false;
+            if (rootDepth == grid.group_column_table.count()) {
+                for (let x = 0, len2 = grid.view_table.count(); x < len2; x++) {
+                    const row = grid.view_table.selectRowByRowIndex(x);
+                    let depth = grid.group_column_table.count() + 1;
+                    let childString = this.getGroupKeyByDepth(row, rootDepth);
+                    if (rootString == childString) {
+                        isChild = true;
+                        children.push(row[tbsGridNames.column.rowId]);
+                        arr.push(x);
+                        row[tbsGridNames.column.isOpen] = false;
+                        row[tbsGridNames.column.depth] = grid.group_column_table.count() + 1;
+                        grid.group_table.insert(grid.copyJson(row));
+                    }
+                    else {
+                        if (isChild) break;
+                    }
+                }
+                rootRow[tbsGridNames.column.children] = children;
+                //delete row
+                if (arr.length > 0) {
+                    let startRowIndex = arr[0]
+                    let lastRowIndex = arr[arr.length - 1];
+                    for (let x = lastRowIndex; x >= startRowIndex; x--) {
+                        if (arr.indexOf(x) != -1) grid.view_table.remove(x);
+                    }
+                }
+            }
         }
-
-        // get children
-        grid.tree_table.data.map(row => fn_getChildrenRowIds(row));
     }
 
     createGroupKeyData(dataRows, depth = 1){
         const grid = this.grid;
-
-        let resultRows= [];
+        const resultRows = [];
+        const result = [];
 
         for (let i = depth, len = grid.group_column_table.count() + 1; i < len; i++) {
             let rows = dataRows.reduce((acc, row) => {
@@ -97,7 +235,28 @@ export class TbsGridGroup {
             rows = Object.values(rows);
             rows.map(row => resultRows.push(row));
         }
-        return resultRows;
+
+        const addRow = function (dataRow) {
+            let rootDepth = dataRow[tbsGridNames.column.depth];
+            let rootStr = grid.classGroup.getGroupKeyByDepth(dataRow, rootDepth);
+
+            result.push(dataRow);
+
+            for (let i = depth, len = resultRows.length; i < len; i++) {
+                const row = resultRows[i];
+                let depth = row[tbsGridNames.column.depth];
+                let str = grid.classGroup.getGroupKeyByDepth(row, rootDepth);
+                if (rootDepth + 1 == depth && rootStr == str) {
+                    addRow(row);
+                }
+            }
+        }
+
+        for (let i = 0, len = resultRows.length; i < len; i++) {
+            let depth = resultRows[i][tbsGridNames.column.depth];
+            if (depth == 1) addRow(resultRows[i]);
+        }
+        return result;
     }
 
     getGroupKeyByDepth(row, depth) {
@@ -106,7 +265,7 @@ export class TbsGridGroup {
         for (let i = 0; i < depth; i++) {
             let groupColumn = grid.group_column_table.data[i];
             let name = groupColumn[tbsGridNames.column.name];
-            key += '-' + row[name];
+            key += this.splitChar + grid.isNull(row[name], '');
         }
         return key;
     }
@@ -124,12 +283,6 @@ export class TbsGridGroup {
         return tempRow;
     }
 
-    setGroupColumns(groupColumns){
-        const grid = this.grid;
-
-        grid.group_column_table.remove();
-        groupColumns.map(column => grid.group_column_table.insert(grid.copyJson(column)))
-    }
 
     /**
      * Group Sum, Avg
@@ -201,143 +354,26 @@ export class TbsGridGroup {
         }
     }
 
-    setGroupData(data, openDepth  = 0, isFirst = true) {
-        let selector = this.selector;
-        const grid = this.grid;
 
-        if (grid.null(data) || data.length == 0) return;
-
-        grid.classGroup.openDepth = openDepth;
-
-        // create group column : group_column
-        if (grid.isColumnName('group_column') == false) {
-            let userColumn = {name: 'group_column', header: { text: 'Group'}, width: 150, type: 'group'}
-            if (grid.fixedColumnIndex != -1) grid.fixedColumnIndex += 1;
-            grid.classColumn.addColumn(userColumn, 0, 0, tbsGridTypes.BeforeAfter.before);
-        }
-
-        // create source_data, view_table.data
-        if (isFirst == true) {
-            grid.source_table.remove();
-
-            for (let i = 0, len = data.length; i < len; i++) {
-                const dataRow = data[i];
-
-                const item = {};
-                for (let x = 0, len = grid.column_table.count(); x < len; x++) {
-                    const column = grid.column_table.data[x];
-                    let columnName = column[tbsGridNames.column.name];
-                    let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
-                    item[columnName] = val;
-                }
-
-                const dataColumns = grid.field_table.select();
-                for (let x = 0, len = dataColumns.length; x < len; x++) {
-                    const column = dataColumns[x];
-                    let columnName  = column[tbsGridNames.column.name];
-                    item[columnName] = dataRow[columnName];
-                }
-
-                grid.source_table.insert(item);
-            }
-        }
-
-        // grid.view_table.remove();
-        grid.view_table.remove();
-        grid.source_table.data.map(dataRow => grid.view_table.insert(grid.copyJson(dataRow)));
-
-        /* Filter */
-        grid.classFilter.filters();
-
-        /* Soring */
-        grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
-
-        /* insert into tree_table */
-        grid.tree_table.remove();
-        grid.view_table.data.map(dataRow => grid.tree_table.insert(grid.copyJson(dataRow)));
-
-        /* create group data */
-        grid.classGroup.createGroupData();
-
-        /* insert into view_table from tree_table */
-        grid.view_table.remove();
-        for (let i = 0, len = grid.tree_table.count(); i < len; i++) {
-            let dataRow = grid.tree_table.data[i];
-
-            dataRow[tbsGridNames.column.mode]   = ''; // S, U, I, D, blank
-            dataRow[tbsGridNames.column.isOpen] = false;// keep open, closed state
-
-            for (let x = 0, len = grid.column_table.count(); x < len; x++) {
-                let column = grid.column_table.data[x];
-                let columnName = column[tbsGridNames.column.name];
-                let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
-
-                dataRow[columnName] = val;
-            }
-            grid.view_table.insert(grid.copyJson(dataRow));
-        }
-
-        /* Summary */
-        grid.classGroup.getGroupSummary();
-
-        /* create tree_table */
-        grid.tree_table.remove();
-        grid.view_table.data.map(dataRow => {
-            let item = grid.copyJson(dataRow);
-            item[tbsGridNames.column.isOpen] = false;
-            grid.tree_table.insert(item);
-        });
-
-        // open depth
-        if (grid.notNull(openDepth) && openDepth != 0) {
-            for (let i = grid.view_table.count() - 1; i >= 0; i--) {
-                let row = grid.view_table.data[i];
-                let depth = row[tbsGridNames.column.depth];
-                if (depth > openDepth) grid.view_table.remove(i);
-            }
-        }
-
-        document.querySelector(selector + ' .tbs-grid-panel10-filter-input').value = '';
-        if (grid.view_table.count() == 0) {
-            document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = '0';
-            grid.verticalScroll.setScroll(grid.code_vertical);
-            grid.classPanel30.setDataPanel(0);
-        }
-        else {
-            document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = grid.view_table.count();
-            grid.verticalScroll.setScroll(grid.code_vertical);
-            grid.classPanel30.setDataPanel(0);
-            grid.classPanel40.setDataPanel();
-            grid.classPanel50.setDataPanel();
-        }
-        if (grid.options[tbsGridNames.column.autoWidth] == true)  grid.setColumnAutoWidth();
-
-        grid.classGroup.getGroupButtonList();
-        grid.classScroll.setPanelSize();
-
-        grid.classRange.removeRange(0, -1);
-        let _topRowIndex = grid.classRange.selectRange(0, 0, 0, 0);
-        grid.classPanel30.setDataPanel(_topRowIndex);
-    }
 
     /**
      * spanIcon, spanImg, spanText
      */
 
     setGroupIcon(tableCell, rowIndex) {
-        let selector = this.selector;
         const grid = this.grid;
+
         let row = grid.getRow(rowIndex);
-        let arr = row[tbsGridNames.column.children];
+        let rootChildren = row[tbsGridNames.column.children];
         let element = tableCell.querySelector('.tbs-grid-html-icon');
 
-        if (grid.null(arr)) return;
+        if (grid.null(rootChildren)) return;
 
-        if (arr.length > 0) {
+        if (rootChildren.length > 0) {
             let nextRow = grid.getRow(rowIndex + 1);
             if (grid.null(nextRow)) grid.classGroup.toggleGroupIcon(rowIndex, element, 'closed');
             else {
-                if (nextRow[tbsGridNames.column.parentNum] == row[tbsGridNames.column.num])
+                if (rootChildren.indexOf(nextRow[tbsGridNames.column.rowId]) != -1)
                     grid.classGroup.toggleGroupIcon(rowIndex, element, 'open');
                 else
                     grid.classGroup.toggleGroupIcon(rowIndex, element, 'closed');
@@ -376,35 +412,48 @@ export class TbsGridGroup {
         return result;
     }
 
-    getGroupChildrenRows(folding, rowIndex, isAll = true) {
+    getGroupChildrenRows(folding, rowIndex) {
         const grid = this.grid;
+        const result = [];
 
-        let resultRows = [];
+        let rowId = grid.view_table.selectRowIdByRowIndex(rowIndex);
+        let startRowIndex = grid.group_table.selectRowIndexByRowId(rowId);
+        const rootRow = grid.group_table.selectRowByRowIndex(startRowIndex);
+        let rootDepth = rootRow[tbsGridNames.column.depth];
 
-        const fn_getChildrenRows = function(row) {
-            resultRows.push(grid.copyJson(row));
-            let arr = row[tbsGridNames.column.children];
-
-            if (folding == tbsGridNames.column.open) {
-                if (row[tbsGridNames.column.isOpen]) {
-                    for (let i = 0, len = arr.length; i < len; i++) {
-                        let dataRow = grid.tree_table.selectRow(tbsGridNames.column.rowId, arr[i]);
-                        fn_getChildrenRows(dataRow);
-                    }
+        let isChild = false;
+        if (folding == tbsGridNames.column.open) {
+            grid.group_table.updateByRowIndex(rowIndex, tbsGridNames.column.isOpen, true);
+            grid.group_table.updateByRowId(rowId, tbsGridNames.column.isOpen, true);
+            for (let i = startRowIndex + 1, len = grid.group_table.count(); i < len; i++) {
+                const dataRow = grid.group_table.selectRowByRowIndex(i);
+                let depth = dataRow[tbsGridNames.column.depth];
+                let isOpen = dataRow[tbsGridNames.column.isOpen];
+                if (depth == rootDepth + 1) {
+                    isChild = true;
+                    result.push(grid.copyJson(dataRow));
                 }
-            }
-            else {
-                for (let i = 0, len = arr.length; i < len; i++) {
-                    let dataRow = grid.tree_table.selectRow(tbsGridNames.column.rowId, arr[i]);
-                    fn_getChildrenRows(dataRow);
+                else {
+                    if (depth == rootDepth) break;
                 }
             }
         }
-        let row = grid.getRow(rowIndex);
-        fn_getChildrenRows(row);
-
-        resultRows.splice(0, 1);
-        return resultRows;
+        else if (folding == tbsGridNames.column.closed) {
+            grid.group_table.updateByRowIndex(rowIndex, tbsGridNames.column.isOpen, false);
+            grid.group_table.updateByRowId(rowId, tbsGridNames.column.isOpen, false);
+            for (let i = startRowIndex + 1, len = grid.group_table.count(); i < len; i++) {
+                const dataRow = grid.group_table.selectRowByRowIndex(i);
+                let depth = dataRow[tbsGridNames.column.depth];
+                if (depth > rootDepth) {
+                    isChild = true;
+                    result.push(grid.copyJson(dataRow));
+                }
+                else {
+                    if (depth == rootDepth) break;
+                }
+            }
+        }
+        return result;
     }
 
     setGroupFolding(tableCell) {
@@ -441,10 +490,9 @@ export class TbsGridGroup {
 
         let rowId = grid.view_table.selectValue(rowIndex, tbsGridNames.column.rowId);
 
-        grid.tree_table.updateByRowId(rowId, tbsGridNames.column.isOpen, true);
-        grid.view_table.updateByRowId(rowId, tbsGridNames.column.isOpen, true);
+        grid.group_table.updateByRowId(rowId, tbsGridNames.column.isOpen, true);
 
-        let rows = grid.classGroup.getGroupChildrenRows(tbsGridNames.column.open, rowIndex, false);
+        let rows = grid.classGroup.getGroupChildrenRows(tbsGridNames.column.open, rowIndex);
         for (let i = 0, len = rows.length; i < len; i++) {
             grid.view_table.insertAfter(rows[i], rowIndex + i);
         }
@@ -454,12 +502,10 @@ export class TbsGridGroup {
         const grid = this.grid;
 
         let rowId = grid.view_table.selectValue(rowIndex, tbsGridNames.column.rowId);
-        for (let i = 0, len = grid.view_table.count(); i < len; i++) {
-            if (rowId == grid.view_table.selectValue(i, tbsGridNames.column.rowId))
-                grid.view_table.updateByRowIndex(i, tbsGridNames.column.isOpen, true); // keep folding status
-        }
 
-        let rows = grid.classGroup.getGroupChildrenRows(tbsGridNames.column.closed, rowIndex, true);
+        grid.group_table.updateByRowId(rowId, tbsGridNames.column.isOpen, false);
+
+        let rows = grid.classGroup.getGroupChildrenRows(tbsGridNames.column.closed, rowIndex);
         rows.map(row => {
             grid.view_table.removeByRowId(row[tbsGridNames.column.rowId]);
         });
@@ -504,8 +550,7 @@ export class TbsGridGroup {
         else bar.append(button);
 
         grid.classGroup.toggleGroupPlaceHolder();
-        let data = grid.view_table.data;
-        grid.classGroup.setGroupData(data, null, false);
+        grid.classGroup.setGroupData(grid.view_table.data, null, false);
     }
 
     addGroupButton(name, text, order, targetIndex) {
@@ -530,10 +575,9 @@ export class TbsGridGroup {
         if (grid.notNull(targetIndex)) bar.insertBefore(button, bar.childNodes[targetIndex]);
         else bar.append(button);
 
-        grid.classGroup.toggleGroupPlaceHolder();
+        //grid.classGroup.toggleGroupPlaceHolder();
         let data = grid.view_table.data;
         grid.classGroup.setGroupData(data, null, false);
-        if (grid.options.showFilterPanel) grid.classFilter.showFilterPanel();
     }
 
     removeGroupButton(element) {
@@ -551,12 +595,15 @@ export class TbsGridGroup {
         let button = element.parentNode;
         button.remove();
 
-        grid.classGroup.toggleGroupPlaceHolder();
+        if (grid.group_column_table.count() > 0) {
+            grid.classGroup.toggleGroupPlaceHolder();
 
-        let data = grid.view_table.data;
-
-        grid.classGroup.setGroupData(data, null, false);
-        if (grid.options.showFilterPanel) grid.classFilter.showFilterPanel();
+            let data = grid.view_table.data;
+            grid.classGroup.setGroupData(data, null, false);
+        }
+        else {
+            this.initGroupData();
+        }
     }
 
     removeGroupButtonList() {
@@ -621,79 +668,74 @@ export class TbsGridGroup {
         if (buttons.length > 0) span.style.display = 'none';
         else span.style.display = '';
 
-        if (buttons.length == 0) {
-            grid.setColumn('group_column', 'visible', false);
-            // grid.apply();
-        }
-        else {
-            grid.setColumn('group_column', 'visible', true);
-            // grid.apply();
-        }
+        // if (buttons.length == 0) {
+        //     grid.setColumn('group_column', 'visible', false);
+        //     // grid.apply();
+        // }
+        // else {
+        //     grid.setColumn('group_column', 'visible', true);
+        //     // grid.apply();
+        // }
         grid.classControl.after_setColumnVisible();
     }
 
-    allowGroupMode() {
-        let selector = this.selector;
-        const grid = this.grid;
-        grid.setGridMode(tbsGridTypes.GridMode.group)
-        grid.classGroup.showGroupPanel();
-        grid.classRange.removeRange(0, -1);
-        grid.classScroll.setPanelSize();
-
-        if (grid.view_table.count() >= 0 && grid.null(grid.view_table.data[0]['group_column'])) grid.setData(grid.view_table.data);
-        else grid.apply();
-        if (grid.options.showFilterPanel) grid.classFilter.showFilterPanel();
-        grid.apply();
-    }
-
-    denyGroupMode() {
-        let selector = this.selector;
+    destroy() {
         const grid = this.grid;
 
-        for (let i = grid.view_table.count() - 1; i >= 0; i--) {
-            let row = grid.view_table.data[i];
-            if (grid.notNull(row[tbsGridNames.column.children]) && row[tbsGridNames.column.children].length != 0) grid.view_table.remove(i);
-        }
-        grid.classGroup.setGroupColumns([]);
-        grid.classGroup.getGroupButtonList();
+        grid.setGridMode('')
+        grid.group_column_table.remove();
+        grid.group_table.remove();
         grid.classGroup.hideGroupPanel();
         grid.classRange.removeRange(0, -1);
         grid.classScroll.setPanelSize();
-        grid.apply()
-        if (grid.options.showFilterPanel) grid.classFilter.showFilterPanel();
-
+        grid.setData(grid.source_table.data, false);
     }
 
     showGroupPanel() {
         let selector = this.selector;
         const grid = this.grid;
 
+        grid.classGroup.getGroupButtonList();
+
         grid.options.showGroupPanel = true;
         let panel = document.querySelector(selector + ' .tbs-grid-panel80');
         panel.classList.remove('tbs-grid-hide');
         panel.classList.add('tbs-grid-show');
+
+        grid.apply();
     }
 
     hideGroupPanel() {
         let selector = this.selector;
         const grid = this.grid;
 
+        grid.classGroup.removeGroupButtonList();
+
         grid.options.showGroupPanel = false;
         let panel = document.querySelector(selector + ' .tbs-grid-panel80');
         panel.classList.remove('tbs-grid-show');
         panel.classList.add('tbs-grid-hide');
+
+        grid.apply();
     }
 
     initGroupData() {
-        let selector = this.selector;
         const grid = this.grid;
 
-        grid.classGroup.setGroupColumns([]);
+        grid.setGridMode('')
+        grid.group_column_table.remove();
+        grid.sort_column_table.remove();
+        grid.group_table.remove();
+        grid.view_table.remove();
+
+        grid.classGroup.removeGroupButtonList();
+
         grid.classRange.removeRange(0, -1);
         grid.classScroll.setPanelSize();
         grid.verticalScroll.setScroll(grid.code_vertical);
-        if (grid.view_table.count() >= 0 && grid.null(grid.view_table.data[0]['group_column'])) grid.setData(grid.view_table.data, null, false);
-
+        //if (grid.view_table.count() >= 0 && grid.null(grid.view_table.data[0]['group_column'])) grid.setData(grid.view_table.data, null, false);
+        grid.setData(grid.source_table.data, null, false);
+        grid.apply();
     }
 
     getGroupRow(columnName) { return this.grid.group_column_table.selectRow(tbsGridNames.column.name, columnName); }

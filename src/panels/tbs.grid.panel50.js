@@ -5,7 +5,7 @@ const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
 import { TbsGridRenderPanel40 } from './tbs.grid.render.panel40.js';
-import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
+import { TbsGridRenderPanelInfo } from './tbs.grid.render.panel.info.js';
 import { TbsGridTable } from "../tbs.grid.table.js";
 
 export class TbsGridPanel50 extends TbsGridPanelBase {

@@ -619,8 +619,14 @@ export class TbsGrid extends TbsGridBase {
 
     showGroupPanel() { this.classGroup.showGroupPanel(); }
     hideGroupPanel() { this.classGroup.hideGroupPanel(); }
-    setGroupColumns(groupColumns) { this.classGroup.setGroupColumns(groupColumns); }
-
+    setGroupColumns(groupColumns){
+        this.group_column_table.remove();
+        groupColumns.map(column => this.group_column_table.insert(this.copyJson(column)))
+    }
+    setSortColumns(sortColumns){
+        this.sort_column_table.remove();
+        sortColumns.map(column => this.sort_column_table.insert(this.copyJson(column)))
+    }
     /**
      * Tree Functions
      */
@@ -889,9 +895,9 @@ export class TbsGrid extends TbsGridBase {
         let selector = '#' + this.gridId;
         const grid = this;
 
-        if (grid.grid_mode == tbsGridTypes.GridMode.group) grid.classGroup.setGroupData(data, openDepth, isFirst);
+        if (grid.group_column_table.count() > 0) grid.classGroup.setGroupData(data, openDepth, isFirst);
         else if (grid.grid_mode == tbsGridTypes.GridMode.tree) grid.classTree.setTreeData(data, openDepth, isFirst);
-        else grid.setGridData(data);
+        else grid.setGridData(data, isFirst);
     }
     setGridMode(gridMode) {
         let selector = '#' + this.gridId;
@@ -909,18 +915,21 @@ export class TbsGrid extends TbsGridBase {
         }
         else if (grid.grid_mode == tbsGridTypes.GridMode.tree) {}
     }
-    setGridData(data) {
+    setGridData(data, isFirst) {
         let selector = '#' + this.gridId;
         const grid = this;
 
         if (data == undefined) return;
 
-        this.data_insert = [];
-        this.data_update = [];
-        this.data_delete = [];
-
-        this.data_select_panel30 = [];
-        this.data_select_panel31 = [];
+        // this.data_insert = [];
+        // this.data_update = [];
+        // this.data_delete = [];
+        if (isFirst) {
+            this.source_table.remove();
+            this.view_table.remove();
+            this.data_select_panel30 = [];
+            this.data_select_panel31 = [];
+        }
 
         for (let i = 0, len = data.length; i < len; i++) {
             const dataRow = data[i];
@@ -1494,6 +1503,8 @@ export class TbsGrid extends TbsGridBase {
 
     addUserClass(element, className) { TbsGridDom.addUserClass(element, className); }
     removeUserClass(tableCell, className) { TbsGridDom.removeUserClass(element, className); }
+
+
 }
 
 

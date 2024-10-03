@@ -5,7 +5,7 @@ const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
 import { TbsGridRenderPanel70 } from './tbs.grid.render.panel70.js';
-import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
+import { TbsGridRenderPanelInfo } from './tbs.grid.render.panel.info.js';
 import { TbsGridTable } from "../tbs.grid.table.js";
 
 export class TbsGridPanel70 extends TbsGridPanelBase {
@@ -236,14 +236,14 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
                 input.value = '';
                 grid.classFilter.setFilterColumn(column, filterType, word);
                 grid.classFilter.filters();
-                if (grid.grid_mode == tbsGridTypes.GridMode.group || grid.grid_mode == tbsGridTypes.GridMode.tree) grid.setData(grid.view_table.data, null, false);
+                if (grid.group_column_table.count() > 0 || grid.grid_mode == tbsGridTypes.GridMode.tree) grid.setData(grid.view_table.data, null, false);
                 else grid.apply();
             }
             else if (filterType != '0' && word != '') {
                 let filterColumn = grid.filter_column_table.selectRow(tbsGridNames.column.name, column[tbsGridNames.column.name]);
                 grid.classFilter.setFilterColumn(column, filterType, word);
                 grid.classFilter.filters();
-                if (grid.grid_mode == tbsGridTypes.GridMode.group || grid.grid_mode == tbsGridTypes.GridMode.tree) grid.setData(grid.view_table.data, null, false);
+                if (grid.group_column_table.count() > 0 || grid.grid_mode == tbsGridTypes.GridMode.tree) grid.setData(grid.view_table.data, null, false);
                 else grid.apply();
             }
             else {
@@ -251,7 +251,8 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
                 grid.classFilter.removeFilterColumn(column);
                 grid.filter_column_table.removeByRowId(column)
                 grid.classFilter.filters();
-                if (grid.grid_mode == tbsGridTypes.GridMode.group || grid.grid_mode == tbsGridTypes.GridMode.tree) grid.setData(grid.view_table.data, null, false);
+                if (grid.group_column_table.count() > 0 || grid.grid_mode == tbsGridTypes.GridMode.tree)
+                    grid.setData(grid.view_table.data, null, false);
                 else grid.apply();
             }
         };
@@ -275,7 +276,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
                 let filterColumn = grid.filter_column_table.selectRow(tbsGridNames.column.name, column[tbsGridNames.column.name]);
                 grid.classFilter.setFilterColumn(column, filterType, word);
 
-                if (grid.grid_mode == tbsGridTypes.GridMode.group || grid.grid_mode == tbsGridTypes.GridMode.tree) grid.setData(grid.view_table.data, null, false);
+                if (grid.group_column_table.count() > 0 || grid.grid_mode == tbsGridTypes.GridMode.tree) grid.setData(grid.view_table.data, null, false);
                 else {
                     grid.classFilter.filters();
                     grid.apply();
@@ -285,7 +286,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
                 // delete filterColumn.
                 grid.classFilter.removeFilterColumn(column);
                 grid.classFilter.filters();
-                if (grid.grid_mode == tbsGridTypes.GridMode.group || grid.grid_mode == tbsGridTypes.GridMode.tree) grid.setData(grid.view_table.data, null, false);
+                if (grid.group_column_table.count() > 0 || grid.grid_mode == tbsGridTypes.GridMode.tree) grid.setData(grid.view_table.data, null, false);
                 else grid.apply();
             }
             if (e.keyCode == 13 || e.keyCode == 9) { grid.FocusControl = ''; }

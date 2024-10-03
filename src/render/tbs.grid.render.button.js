@@ -17,6 +17,8 @@ export class TbsGridRenderButton {
         TbsGridDom.setStyle(param.tableCell, param); // editable, align, className,
         TbsGridDom.setCell(element, 'disabled', (param.editable ? '' : 'disabled'));
 
+        TbsGridDom.setCellStyle(param.tableCell.childNodes[0], 'paddingLeft', '0px');
+
         // set value
         element.innerHTML = param.cellText;
     }

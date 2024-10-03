@@ -17,7 +17,7 @@ export class TbsGridRenderCheckbox {
         if (['panel30', 'panel32'].indexOf(param.panelName) != -1) {
             TbsGridDom.setCell(element, 'disabled', (param.editable ? '' : 'disabled'));
         }
-
+        TbsGridDom.setCellStyle(param.tableCell.childNodes[0], 'paddingLeft', '0px');
         // set value
         element.checked = param.cellValue;
     }

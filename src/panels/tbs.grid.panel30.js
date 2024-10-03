@@ -5,7 +5,7 @@ const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
 import { TbsGridRenderPanel30 } from './tbs.grid.render.panel30.js';
-import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
+import { TbsGridRenderPanelInfo } from './tbs.grid.render.panel.info.js';
 import { TbsGridTable } from "../tbs.grid.table.js";
 /*
 1. td, div, checkbox 에 다음과 같은 정보를 준다.
@@ -419,7 +419,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                             grid.classTree.setTreeFolding(tableCell);
                             //selectCell(e);
                         }
-                        else if (grid.grid_mode == tbsGridTypes.GridMode.group) {
+                        else if (grid.group_column_table.count() > 0) {
                             grid.classGroup.setGroupFolding(tableCell);
 
                             e.preventDefault();

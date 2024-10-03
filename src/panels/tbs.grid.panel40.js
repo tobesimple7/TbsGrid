@@ -5,7 +5,7 @@ const tbsGridNames = new TbsGridNames();
 
 import { TbsGridPanelBase } from './tbs.grid.panel.base.js';
 import { TbsGridRenderPanel40 } from './tbs.grid.render.panel40.js';
-import { TbsGridRenderPanelInfo } from '../render/tbs.grid.render.panel.info.js';
+import { TbsGridRenderPanelInfo } from './tbs.grid.render.panel.info.js';
 import { TbsGridTable } from "../tbs.grid.table.js";
 
 export class TbsGridPanel40 extends TbsGridPanelBase {
@@ -222,7 +222,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
                             grid.classTree.setTreeFolding(tableCell);
                             selectCell(e);
                         }
-                        else if (grid.grid_mode == tbsGridTypes.GridMode.group) {
+                        else if (grid.group_column_table.count() > 0) {
                             grid.classGroup.setGroupFolding(tableCell);
                             selectCell(e);
                         }
