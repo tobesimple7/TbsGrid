@@ -35,6 +35,8 @@ I will try to make a good product.
 
 ### CDN
 ```html 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 <style  src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.5/dist-js/css/tbsgrid.css" />
 <script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.5/dist-js/tbsgrid-configs.js" />
 <script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.5/dist-js/tbsgrid.min.js" />
