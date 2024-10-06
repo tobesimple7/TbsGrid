@@ -1,5 +1,6 @@
 import { TbsBase } from './tbs.base.js';
 import { TbsDataTable } from './tbs.data.table.js';
+import { TbsDataArrayTable } from "./tbs.data.array.table.js";
 
 export class TbsDatabase extends TbsBase {
 
@@ -19,6 +20,14 @@ export class TbsDatabase extends TbsBase {
     createView(tableName){
         let table = new TbsDataTable(tableName);
         table.type = 'view';
+        this.tables.push(table);
+
+        return this.getTable(tableName);
+    }
+
+    createArrayTable(tableName) {
+        let table = new TbsDataArrayTable(tableName);
+        table.type = 'table';
         this.tables.push(table);
 
         return this.getTable(tableName);

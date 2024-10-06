@@ -78,19 +78,19 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
             // create table tr
             grid.classRow.setTableRow(grid, tableRow, i, panelName);
 
-            for (let x = 0; x < grid.info_table.count(); x++) {
+            for (let x = 0; x < grid.info_column_table.count(); x++) {
                 let tableCell = tableRow.childNodes[x];
 
                 tableCell.dataset.rowIndex = i;
                 tableCell.dataset.displayRowIndex = i;
-                tableCell.dataset.cellType = grid.info_table.selectValue(x, tbsGridNames.column.type);
+                tableCell.dataset.cellType = grid.info_column_table.selectValue(x, tbsGridNames.column.type);
 
 
                 /**
                  * Render: Start
                  */
                 let tbsGridRenderInfo = new TbsGridRenderPanelInfo(grid);
-                tbsGridRenderInfo.start(panelName, tableCell, grid.info_table.data[x], i, x);
+                tbsGridRenderInfo.start(panelName, tableCell, grid.info_column_table.data[x], i, x);
                 tbsGridRenderInfo = null;
 
                 if (i == 0) tableCell.rowSpan = grid.headerRowCount;
@@ -103,7 +103,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
             }
 
             // on fixed columns
-            grid.classCell.hideTableCells(grid, panelName, tableRow, grid.info_table.count() - 1);
+            grid.classCell.hideTableCells(grid, panelName, tableRow, grid.info_column_table.count() - 1);
 
             tableRowIndex += 1;
         }
@@ -151,12 +151,12 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 }
             }
         }
-        for (let i = 0, rowLen = tablesRows.length; i < rowLen; i++) {
+        for (let i = 0, rowLen = grid.header_column_table.count(); i < rowLen; i++) {
             let tableRow = tablesRows[i];
             tableRow.style.height = grid.headerRowHeight + 'px';
             for (let x = startColumnIndex, colLen = lastColumnIndex; x < colLen; x++) {
                 const column = grid.column_table.data[x];
-                const header = grid.headerColumnTable[i][x];
+                const header = grid.header_column_table.data[i][x];
                 const tableCell = tableRow.childNodes[x];
 
                 let selectedValue = grid.isSelectedHeaderCell(panelName, x);
@@ -174,7 +174,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 tableCell.dataset.kind = header[tbsGridNames.column.kind];
 
                 if (header[tbsGridNames.column.kind] == 'column') {
-                    let className = grid.classColumn.getHeaderProperty(columnName, tbsGridNames.column.className);
+                    let className = grid.classHeader.getHeaderProperty(columnName, tbsGridNames.column.className);
                     if (grid.notNull(className)) tableCell.classList.add(className);
                     tableCell.style.display = (column[tbsGridNames.column.visible] == true) ? '' : 'none';
                     let columnType = column[tbsGridNames.column.type];
@@ -205,19 +205,42 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
         let clsPanel = this;
 
         let table = document.querySelector(selector + ' .tbs-grid-panel21 .tbs-grid-table');
+
         const cickEvent = function (e) {
             if (e.target.classList.contains('tbs-grid-html-checkbox')) { }
             else return;
 
+            const tableCell = e.target.parentNode.parentNode;
+            const column = grid.info_column_table.selectRowByRowIndex(tableCell.cellIndex);
+            const columnName = column[tbsGridNames.column.name];
+
             if (clsPanel.isChecked) clsPanel.isChecked = false;
             else clsPanel.isChecked = true;
 
-            for (let i = 0, len = grid.view_table.count(); i < len; i++) {
-                grid.view_table.data[i][tbsGridNames.column.isChecked] = clsPanel.isChecked;
-            }
+            const callback = grid.getInfoRenderer(columnName, 'callback');
 
-            grid.classPanel20.setDataPanel();
-            grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+            for (let i = 0, len = grid.view_table.count(); i < len; i++) {
+                const dataRow = grid.view_table.selectRowByRowIndex(i);
+                if (callback) {
+                    const eventRow = {}
+                    eventRow.rowIndex    = i;
+                    eventRow.columnIndex = tableCell.cellIndex;
+                    eventRow.columnName  = columnName;
+                    eventRow.value       = dataRow[tbsGridNames.column.isChecked];
+                    eventRow.text        = dataRow[tbsGridNames.column.isChecked];
+                    eventRow.data        = dataRow;
+                    const result = callback(grid, eventRow);
+                    if (result.editable == false) continue;
+                    else grid.view_table.data[i][tbsGridNames.column.isChecked] = clsPanel.isChecked;
+                }
+                else {
+                    grid.view_table.data[i][tbsGridNames.column.isChecked] = clsPanel.isChecked;
+                }
+            }
+            setTimeout(function() {
+                grid.classPanel20.setDataPanel();
+                grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+            }, 20);
         }
 
         const mouseDownEvent = function (e) {
@@ -480,7 +503,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                         if (isInPanel21 || isInPanel22) tdList20 = document.querySelectorAll(selector + ' .tbs-grid-panel22 tbody td:not([style*="display :none"]');
                         else tdList20 = document.querySelectorAll(selector + ' .tbs-grid-panel20 tbody td:not([style*="display :none"]');
 
-                        let headerColumns = grid.headerColumnTable;
+                        let headerColumns = grid.header_column_table.data;
                         let movingColumn = headerColumns[moveCellRowIndex - 1][moveCellIndex];
                         let targetColumn;
 
@@ -488,7 +511,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
 
                         for (let x = 0, len = tdList20.length; x < len; x++) {
                             let cell = tdList20[x];
-                            targetColumn = grid.headerColumnTable[cell.parentNode.rowIndex - 1][cell.cellIndex];
+                            targetColumn = grid.header_column_table.data[cell.parentNode.rowIndex - 1][cell.cellIndex];
 
                             if (lastX - startX > 0) { // right direction move.
                                 if ((lastX - fixedWidth <= cell.getBoundingClientRect().right
@@ -519,14 +542,14 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                         if (document.querySelectorAll('.tbs-grid-move').length > 0) {
                             let rectMoveCell = document.querySelector('.tbs-grid-move').getBoundingClientRect();
 
-                            let movingColumn = grid.headerColumnTable[moveCellRowIndex - 1][moveCellIndex];
+                            const movingColumn = grid.header_column_table.data[moveCellRowIndex - 1][moveCellIndex];
                             let tdList20 = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' tbody td:not([style*="display :none"]');
                             let fixedWidth = 50;
 
                             let targetColumn;
                             for (let x = 0, len = tdList20.length; x < len; x++) {
                                 let cell = tdList20[x];
-                                targetColumn = grid.headerColumnTable[cell.parentNode.rowIndex - 1][cell.cellIndex];
+                                targetColumn = grid.header_column_table.data[cell.parentNode.rowIndex - 1][cell.cellIndex];
 
                                 if (lastX - startX > 0) { // right direction move.
                                     if ((lastX - fixedWidth <= cell.getBoundingClientRect().right

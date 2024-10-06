@@ -7,8 +7,14 @@ export class TbsGridRenderImg {
         const element = TbsGridDom.createElement('img');
         const tableCell = param.tableCell;
 
-        //if (tableCell.childNodes[0].innerHTML != '') tableCell.childNodes[0].innerHTML = '';
-        if (tableCell.querySelectorAll('.tbs-grid-html-img').length == 0) tableCell.childNodes[0].append(element);
+        let count = tableCell.querySelectorAll('.tbs-grid-html-img').length;
+        let rootChildCount = tableCell.childNodes[0].childNodes.length;
+
+        if (rootChildCount > 1 || (rootChildCount == 1 && count == 0)) {
+            tableCell.childNodes[0].innerHTML = '';
+            tableCell.childNodes[0].append(element);
+        }
+        else if (count == 0) tableCell.childNodes[0].append(element);
     }
 
     setBounding(param) {

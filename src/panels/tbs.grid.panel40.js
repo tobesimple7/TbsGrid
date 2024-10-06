@@ -75,7 +75,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
         if (tableRows.length == 0) return;
 
         //startColumnIndex, lastColumIndex
-        let result = grid.classColumn.getDisplayedHeaderColumn();
+        let result = grid.classHeader.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 
@@ -106,7 +106,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
         let panelName = this.panelName2;
 
         //startColumnIndex, lastColumIndex
-        let result = grid.classColumn.getDisplayedHeaderColumn();
+        let result = grid.classHeader.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 
@@ -141,7 +141,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
         if (grid.top_table.count() == 0) return;
 
         //startColumnIndex, lastColumIndex
-        let result = grid.classColumn.getDisplayedHeaderColumn();
+        let result = grid.classHeader.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 
@@ -289,7 +289,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
                     else if (e.detail == 2) {
                         let isEditable = grid.column_table.data[startCellIndex][tbsGridNames.column.editable];
                         if (isEditable) {
-                            if (grid.notNull(grid.user_edit)) {
+                            if (grid.notNull(grid.edit)) {
                                 grid.editStart(e, 'mouse')
                             }
                             else {
@@ -615,7 +615,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
                     else if (e.detail == 2) {
                         let isEditable = grid.column_table.data[startCellIndex][tbsGridNames.column.editable];
                         if (isEditable) {
-                            if (grid.notNull(grid.user_edit)) {
+                            if (grid.notNull(grid.edit)) {
                                 //grid.input_edit(e, 0, 'mouse');
                                 grid.editStart(e, 'mouse');
                             }

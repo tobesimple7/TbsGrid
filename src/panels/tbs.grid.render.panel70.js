@@ -1,8 +1,8 @@
 import { TbsGridTypes, TbsGridNames } from '../tbs.grid.types.js';
-import { TbsGridRenderCheckbox } from "../render/tbs.grid.render.checkbox.js";
-import { TbsGridRenderString } from "../render/tbs.grid.render.string.js";
-import { TbsGridRenderGroup } from "../render/tbs.grid.render.group.js";
-import { TbsGridRenderTree } from "../render/tbs.grid.render.tree.js";
+import { TbsGridRenderCheckbox } from "../renderer/tbs.grid.render.checkbox.js";
+import { TbsGridRenderString } from "../renderer/tbs.grid.render.string.js";
+import { TbsGridRenderGroup } from "../renderer/tbs.grid.render.group.js";
+import { TbsGridRenderTree } from "../renderer/tbs.grid.render.tree.js";
 import { TbsGridDom } from "../tbs.grid.dom.js";
 
 const tbsGridTypes = new TbsGridTypes();

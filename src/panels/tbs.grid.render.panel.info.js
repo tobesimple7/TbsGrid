@@ -3,8 +3,8 @@ import { TbsGridTypes, TbsGridNames } from '../tbs.grid.types.js';
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();
 
-import { TbsGridRenderString } from "../render/tbs.grid.render.string.js";
-import { TbsGridRenderCheckbox } from "../render/tbs.grid.render.checkbox.js";
+import { TbsGridRenderString } from "../renderer/tbs.grid.render.string.js";
+import { TbsGridRenderCheckbox } from "../renderer/tbs.grid.render.checkbox.js";
 
 export class TbsGridRenderPanelInfo {
 
@@ -46,7 +46,7 @@ export class TbsGridRenderPanelInfo {
 
         render.panelName  = panelName;
         render.tableCell  = tableCell;
-        render.column     = grid.info_table.selectRowByRowIndex(columnIndex);
+        render.column     = grid.info_column_table.selectRowByRowIndex(columnIndex);
         render.rowIndex   = rowIndex;
         render.columnIndex= columnIndex;
 
@@ -166,6 +166,29 @@ export class TbsGridRenderPanelInfo {
     }
 
     setBounding() {
+        const grid = this.grid;
+        if (grid.infoRenderer &&  grid.infoRenderer[this.columnName]
+            && grid.infoRenderer[this.columnName].callback
+            && ['panel31'].indexOf(this.panelName) != -1) {
+
+            const dataRow = grid.view_table.selectRowByRowIndex(this.rowIndex);
+            const eventRow = {}
+            eventRow.rowIndex    = this.rowIndex;
+            eventRow.columnIndex = this.columnIndex;
+            eventRow.columnName  = this.columnName;
+            eventRow.value       = grid.isNull(dataRow[tbsGridNames.column.isChecked], false);
+            eventRow.text        = grid.isNull(dataRow[tbsGridNames.column.isChecked], false);
+            eventRow.data        = dataRow;
+            const result= grid.infoRenderer[this.columnName].callback(grid, eventRow);
+
+            if (grid.notNull(result) && Object.keys(result).length > 0 ) {
+                // className, align, editable, cellValue
+                if (grid.notNull(result.className)) this.className = result.className;
+                if (grid.notNull(result.editable )) this.editable = result.editable;
+                if (grid.notNull(result.value    )) this.cellValue = result.value;
+                if (grid.notNull(result.align    )) this.align = result.align;
+            }
+        }
         const param = {
             className: this.className,
             visible: this.visible,

@@ -19,7 +19,24 @@ export class TbsDataTable extends TbsBase {
      * select functions
      */
 
-    select(field, value, topIndex) {
+    select(whereColumns, orderColumns, count) {
+        /**
+         * whereColumns = [*{name: 'userName', type: include | startWith | lastWith }, count: 10}]
+         * orderColumns = [*{name: 'userName', order: asc | desc }]
+         * return : [{}, {}];
+         *
+         */
+        let result = [];
+        if (arguments.length == 0) {
+            result = this.data;
+        }
+        else if (arguments.length == 2) {
+            return this.data;
+        }
+        return result;
+    }
+
+    select2(field, value, topIndex) {
         let result = [];
         if (arguments.length == 0) {
             result = this.data;
@@ -58,14 +75,14 @@ export class TbsDataTable extends TbsBase {
     }
 
     selectRow(field, value) {
-        let dataRows = this.select(field, value, 1);
+        let dataRows = this.selectRows(field, value, 1);
         return dataRows.length > 0 ? dataRows[0] : null;
     }
 
     selectRowByRowIndex(rowIndex) { return this.data[rowIndex]; }
 
     selectRowByRowId(rowId) {
-        let dataRows = this.select(tbsGridNames.column.rowId, rowId, 1);
+        let dataRows = this.selectRows(tbsGridNames.column.rowId, rowId, 1);
         return dataRows.length > 0 ? dataRows[0] : null;
     }
 
@@ -98,13 +115,48 @@ export class TbsDataTable extends TbsBase {
     }
 
     isRow(field, value) {
-        let dataRows = this.select(field, value, 1);
+        let dataRows = this.selectRows(field, value, 1);
         return dataRows.length > 0;
     }
 
     /**
      * Insert
      */
+    insertRows(dataRows) {
+        if (this.type == 'table') {
+            dataRows.map(dataRow => {
+                this.currentRowId += 1;
+                dataRow[tbsGridNames.column.rowId] = this.currentRowId;
+                dataRow[tbsGridNames.column.rowMode] = '';
+            });
+        }
+        this.data.push(...dataRows);
+    }
+
+    insertRowsBefore(dataRows, rowIndex) {
+        if (this.type == 'table') {
+            dataRows.map(dataRow => {
+                this.currentRowId += 1;
+                dataRow[tbsGridNames.column.rowId] = this.currentRowId;
+                dataRow[tbsGridNames.column.rowMode] = '';
+            });
+        }
+        if (rowIndex < this.data.length) this.data.splice(rowIndex, 0, ...dataRows);
+        else this.data.push(...dataRows);
+    }
+
+    insertRowsAfter(dataRows, rowIndex) {
+        if (this.type == 'table') {
+            dataRows.map(dataRow => {
+                this.currentRowId += 1;
+                dataRow[tbsGridNames.column.rowId] = this.currentRowId;
+                dataRow[tbsGridNames.column.rowMode] = '';
+            });
+        }
+
+        if (rowIndex + 1 < this.data.length) this.data.splice(rowIndex + 1, 0, ...dataRows);
+        else this.data.push(...dataRows);
+    }
 
     insert(dataRow) {
         if (this.type == 'table') {
@@ -155,11 +207,11 @@ export class TbsDataTable extends TbsBase {
      */
 
     update(columnName, field, value) {
-        let dataRows = this.select(tbsGridNames.column.name, columnName);
+        let dataRows = this.selectRows(tbsGridNames.column.name, columnName);
         dataRows.map(dataRow => dataRow[field] = value);
     }
     updateRow(columnName, field, value) {
-        let dataRows = this.select(tbsGridNames.column.name, columnName);
+        let dataRows = this.selectRows(tbsGridNames.column.name, columnName);
         dataRows.map(dataRow => dataRow[field] = value);
     }
     updateByRowIndex(rowIndex, name, value) {
@@ -174,7 +226,7 @@ export class TbsDataTable extends TbsBase {
 
     count(field, value) {
         if (arguments.length > 0) {
-            return this.select(field, value).length;
+            return this.selectRows(field, value).length;
         }
         else {
             return this.data.length;
@@ -221,4 +273,121 @@ export class TbsDataTable extends TbsBase {
             }
         });
     }
+
+    // filter(data, filterColumn) {
+    //     const grid = this.grid;
+    //
+    //     let column = grid.getColumn(filterColumn.name);
+    //     let columnType = column[tbsGridNames.column.type];
+    //     let columnName = filterColumn.name;
+    //     let filterType = filterColumn.type;
+    //     let value = filterColumn.value;
+    //
+    //     return data.filter(function(dataRow) {
+    //         let bool = true;
+    //         if (columnType == tbsGridTypes.CellType.number) {
+    //             let columnText = dataRow[columnName];
+    //             let isExist = grid.classFilter.filterNumberByType(filterType, value, columnText);
+    //             return isExist;
+    //         }
+    //         else if (columnType == tbsGridTypes.CellType.string || columnType == tbsGridTypes.CellType.date || columnType || tbsGridTypes.CellType.combo) {
+    //             let val = dataRow[columnName];
+    //             let columnText = grid.getFormatText(column, val);
+    //
+    //             let isExist = grid.classFilter.filterStringByType(filterType, value, columnText);
+    //             return isExist;
+    //         }
+    //         else return true;
+    //     });
+    // }
+    //
+    // filterNumberByType(filterType, n, targetNumber) {
+    //     let selector = this.selector;
+    //     const grid = this.grid;
+    //
+    //     // @Rule : when number is null, number is zero
+    //     if (grid.null(n)) n = 0;
+    //     if (grid.null(targetNumber)) targetNumber = 0;
+    //
+    //     let toNumber = null;
+    //     if (filterType == grid.const_filterBetween) {
+    //         let arr = n.split('-');
+    //         n = parseFloat(arr[0]);
+    //         if (arr.length > 1) {
+    //             toNumber = parseFloat(arr[1]);
+    //         }
+    //         else {
+    //             toNumber = 99999999999999;
+    //         }
+    //     }
+    //     else {
+    //         n = parseFloat(n);
+    //         toNumber = null;
+    //     }
+    //
+    //     targetNumber = parseFloat(targetNumber);
+    //
+    //     if      (filterType == tbsGridTypes.FilterType.Equal) {
+    //         return (n == targetNumber) ? true : false;
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.NotEqual) {
+    //         return (n != targetNumber) ? true : false;
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.Greater) {
+    //         return (n < targetNumber) ? true : false;
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.GreaterEqual) {
+    //         return (n <= targetNumber) ? true : false;
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.Less) {
+    //         return (n > targetNumber) ? true : false;
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.LessEqual) {
+    //         return (n >= targetNumber) ? true : false;
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.Between) {
+    //         return (targetNumber >= n && targetNumber <= toNumber) ? true : false;
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.Blank) {
+    //         return grid.null(targetNumber) || targetNumber == 0;
+    //     }
+    // }
+    //
+    // filterStringByType(filterType, s, targetString) {
+    //     let selector = this.selector;
+    //     const grid = this.grid;
+    //     let regExp;
+    //
+    //     // String comparisons are case-insensitive.
+    //     s = s.toLowerCase();
+    //     targetString = targetString.toLowerCase();
+    //     if      (filterType == tbsGridTypes.FilterType.Equal) {
+    //         regExp =new RegExp(`^${s}$`)
+    //         return regExp.test(targetString);
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.NotEqual) {
+    //         regExp = new RegExp(`^${s}$`);
+    //         return regExp.test(targetString) == false ? true : false;
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.Include) {
+    //         regExp = new RegExp(`${s}`);
+    //         return regExp.test(targetString);
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.NotInclude) {
+    //         regExp = new RegExp(`${s}`);
+    //         return regExp.test(targetString) == false ? true : false;
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.StartCharacter) {
+    //         regExp = new RegExp(`^${s}`);
+    //         return regExp.test(targetString);
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.EndCharacter) {
+    //         regExp = new RegExp(`${s}$`);
+    //         return regExp.test(targetString);
+    //     }
+    //     else if (filterType == tbsGridTypes.FilterType.Blank) {
+    //         regExp = new RegExp(`^$`);
+    //         return regExp.test(targetString);
+    //     }
+    // }
 }

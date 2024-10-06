@@ -34,8 +34,13 @@ export class TbsGridRangePanel {
     }
 
     selectRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex) {
-        let selector = this.selector;
         const grid = this.grid;
+
+        if (grid.column_table.count() == 0) {
+            this.removeRange(0, -1, 0, -1);
+            return;
+        }
+
         let classRange = this;
         let panelName = this.panelName;
 
@@ -169,40 +174,6 @@ export class TbsGridRangePanel {
                 data.push(row);
             }
         }
-        /*
-        if (grid.headerRowCount > 1) {
-            function selectCell(trList, colIndex){
-                for (let i = trList.length - 1; i >=0; i--) {
-                    let cell = trList[i].childNodes[colIndex];
-                    if (cell.style.display == 'none') continue;
-                    else cell.classList.add('tbs-grid-cell-select');
-                }
-            }
-            // panel20
-            let trList = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table tbody tr');
-            for (let x = startCellIndex; x <= lastCellIndex; x++) selectCell(trList, x);
-            // panel22
-            if (grid.fixedColumnIndex != -1){
-                trList = document.querySelectorAll(selector + ' .tbs-grid-panel22 .tbs-grid-table tbody tr');
-                for (let x = startCellIndex; x <= lastCellIndex; x++) selectCell(trList, x);
-            }
-        }
-        else {
-            // panel20
-            let tableCells = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table tbody tr:last-child td');
-            for (let i = startCellIndex; i <= lastCellIndex; i++) {
-                tableCells[i].classList.add('tbs-grid-cell-select');
-            }
-            // panel22
-            if (grid.fixedColumnIndex != -1){
-                tableCells = document.querySelectorAll(selector + ' .tbs-grid-panel22 .tbs-grid-table tbody tr:last-child td');
-                for (let i = startCellIndex; i <= lastCellIndex; i++) {
-
-                    tableCells[i].classList.add('tbs-grid-cell-select');
-                }
-            }
-        }
-        */
     }
 
     removeRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex) {

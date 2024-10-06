@@ -36,6 +36,10 @@ export class TbsGridRange {
         let selector = this.selector;
         const grid = this.grid;
 
+        if (grid.column_table.count() == 0) {
+            return;
+        }
+
         if (arguments.length == 2) {
             startCellIndex = 0;
             lastCellIndex = -1;
@@ -177,7 +181,8 @@ export class TbsGridRange {
         }
         else {
             // panel20
-            let tableCells = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table tbody tr:last-child td');
+            const tableCells = document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table tbody tr:last-child td');
+            if (tableCells.length == 0) return;
             for (let i = startCellIndex; i <= lastCellIndex; i++) {
                 tableCells[i].classList.add('tbs-grid-cell-select');
             }

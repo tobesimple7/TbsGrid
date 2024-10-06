@@ -83,10 +83,10 @@ export class TbsGridRow {
                     }
                 }
             }
-            if (grid.user_rowBounding) {
+            if (grid.rowBounding) {
                 if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                     let param = {element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex)};
-                    grid.tbs_executeEvent(grid.user_rowBounding, 'rowBounding', param);
+                    grid.tbs_executeEvent(grid.rowBounding, 'rowBounding', param);
                 }
             }
         }
@@ -94,7 +94,7 @@ export class TbsGridRow {
             TbsGridDom.removeUserClass(tableRow, 'tbs-row-color1');
             if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                 let param = {element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex)};
-                grid.tbs_executeEvent(grid.user_rowBounding, 'rowBounding', param);
+                grid.tbs_executeEvent(grid.rowBounding, 'rowBounding', param);
             }
         }
         /* row alternative background color */
@@ -109,8 +109,11 @@ export class TbsGridRow {
     }
 
     hideTableRows(grid, panelName, tableRows, fromRowIndex, toRowIndex) {
+        if (grid.column_table.count() == 0) {
+            fromRowIndex = 0;
+        }
         for (let i = fromRowIndex, len = tableRows.length; i < len; i++) {
-            let tableRow = tableRows[i];
+            const tableRow = tableRows[i];
             if (tableRow) {
                 if (tableRow.style.display != 'none') tableRow.style.display = 'none';
             }

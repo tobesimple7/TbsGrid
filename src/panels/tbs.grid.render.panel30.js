@@ -1,12 +1,12 @@
 import { TbsGridTypes, TbsGridNames } from '../tbs.grid.types.js';
-import { TbsGridRenderCheckbox } from "../render/tbs.grid.render.checkbox.js";
-import { TbsGridRenderString } from "../render/tbs.grid.render.string.js";
-import { TbsGridRenderGroup } from "../render/tbs.grid.render.group.js";
-import { TbsGridRenderTree } from "../render/tbs.grid.render.tree.js";
-import { TbsGridRenderButton } from "../render/tbs.grid.render.button.js";
+import { TbsGridRenderCheckbox } from "../renderer/tbs.grid.render.checkbox.js";
+import { TbsGridRenderString } from "../renderer/tbs.grid.render.string.js";
+import { TbsGridRenderGroup } from "../renderer/tbs.grid.render.group.js";
+import { TbsGridRenderTree } from "../renderer/tbs.grid.render.tree.js";
+import { TbsGridRenderButton } from "../renderer/tbs.grid.render.button.js";
 import { TbsGridDom } from "../tbs.grid.dom.js";
-import {TbsGridRenderLink} from "../render/tbs.grid.render.link.js";
-import {TbsGridRenderImg} from "../render/tbs.grid.render.img.js";
+import {TbsGridRenderLink} from "../renderer/tbs.grid.render.link.js";
+import {TbsGridRenderImg} from "../renderer/tbs.grid.render.img.js";
 
 const tbsGridTypes = new TbsGridTypes();
 const tbsGridNames = new TbsGridNames();

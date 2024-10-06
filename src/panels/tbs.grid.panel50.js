@@ -71,7 +71,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
         if (tableRows.length == 0) return;
 
         //startColumnIndex, lastColumIndex
-        let result = grid.classColumn.getDisplayedHeaderColumn();
+        let result = grid.classHeader.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 
@@ -102,7 +102,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
         if (grid.footer_table.count() == 0) return;
 
         //startColumnIndex, lastColumIndex
-        let result = grid.classColumn.getDisplayedHeaderColumn();
+        let result = grid.classHeader.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 
@@ -135,7 +135,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
 
         if (grid.footer_table.count() == 0) return;
         //startColumnIndex, lastColumIndex
-        let result = grid.classColumn.getDisplayedHeaderColumn();
+        let result = grid.classHeader.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 

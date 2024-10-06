@@ -32,6 +32,13 @@ export class TbsGridTable {
 
         document.querySelector(selector + ' .tbs-grid-' + panelName).innerHTML = '';
         document.querySelector(selector + ' .tbs-grid-' + panelName).appendChild(table);
+
+        if (grid.column_table.count() == 0) {
+            const tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' tbody tr');
+            for (let i = 0; i < tableRows.length; i++) {
+                tableRows[i].style.display = 'none';
+            }
+        }
     }
 
     createTableHead(panelName, table) {
@@ -48,8 +55,8 @@ export class TbsGridTable {
 
         let thead = document.createElement('thead');
         let tr = document.createElement('tr');
-        for (let i = 0, len = grid.info_table.count(); i < len; i++) {
-            let dataRow = grid.info_table.data[i];
+        for (let i = 0, len = grid.info_column_table.count(); i < len; i++) {
+            let dataRow = grid.info_column_table.data[i];
 
             let th = document.createElement('th');
             th.style.width = dataRow[tbsGridNames.column.width] + 'px';
@@ -91,7 +98,8 @@ export class TbsGridTable {
         let tr = document.createElement('tr');
         if (panelName == 'panel20' || panelName == 'panel22') {
             tr.style = 'height:' + grid.headerRowHeight + 'px';
-            for (let i = 0, len = grid.headerColumnTable[0].length; i < len; i++) {
+
+            for (let i = 0; i < grid.column_table.count(); i++) {
                 let td = document.createElement('td');
 
                 td.classList.add('tbs-grid-cell');
@@ -130,8 +138,8 @@ export class TbsGridTable {
         else if (panelName.substring(6) == '1') {
             tr.style = 'display:;height:' + grid.rowHeight + 'px';
 
-            for (let i = 0; i < grid.info_table.count(); i++) {
-                let column = grid.info_table.data[i];
+            for (let i = 0; i < grid.info_column_table.count(); i++) {
+                let column = grid.info_column_table.data[i];
                 let td = document.createElement('td');
                 td.classList.add('tbs-grid-cell');
                 td.style.width = column[tbsGridNames.column.width] + 'px';

@@ -15,9 +15,9 @@ export class TbsGridControl {
         const grid = this.grid;
         let classControl = this;
 
-        grid.classColumn.updateColumnTable();
-        grid.classColumn.createHeaderColumns();
-        grid.classColumn.createHeaderColumnTable();
+        grid.classColumn.createColumnTable();
+        grid.classHeader.createHeaderColumns();
+        grid.classHeader.createHeaderColumnTable();
         grid.updateGrid(grid.column_table.data);
 
         grid.classRange.removeRange(0, -1);
@@ -34,9 +34,9 @@ export class TbsGridControl {
         const grid = this.grid;
         let classControl = this;
 
-        grid.classColumn.updateColumnTable();
-        grid.classColumn.createHeaderColumns();
-        grid.classColumn.createHeaderColumnTable();
+        grid.classColumn.createColumnTable();
+        grid.classHeader.createHeaderColumns();
+        grid.classHeader.createHeaderColumnTable();
         grid.updateGrid(grid.column_table.data);
 
         grid.classRange.removeRange(0, -1);
@@ -51,9 +51,9 @@ export class TbsGridControl {
         let classControl = this;
 
 
-        grid.classColumn.updateColumnTable();
-        grid.classColumn.createHeaderColumns();
-        grid.classColumn.createHeaderColumnTable();
+        grid.classColumn.createColumnTable();
+        grid.classHeader.createHeaderColumns();
+        grid.classHeader.createHeaderColumnTable();
         grid.updateGrid(grid.column_table.data);
 
         grid.classRange.removeRange(0, -1);

@@ -46,8 +46,8 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
     }
 
     setDataPanel() {
-        let selector = this.selector;
-        const grid = this.grid;
+         const grid = this.grid;
+         if (grid.column_table.count() == 0) return;
 
         this.setDataPanel2({panelName: 'panel72'});
         this.setDataPanel0({panelName: 'panel70'});
@@ -60,7 +60,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
 
         if (grid.options.showFilterPanel != true) return;
 
-        let result = grid.classColumn.getDisplayedHeaderColumn();
+        let result = grid.classHeader.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 
@@ -136,7 +136,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
 
         if (grid.options.showFilterPanel != true) return;
 
-        let result = grid.classColumn.getDisplayedHeaderColumn();
+        let result = grid.classHeader.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 

@@ -102,15 +102,15 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         let topRowIndex = grid.getTopRowIndex(panelName, param.topRowIndex);
         let bottomRowIndex = grid.getBottomRowIndex(panelName, topRowIndex);
 
-        let result = grid.classColumn.getDisplayedHeaderColumn();
+        let result = grid.classHeader.getDisplayedHeaderColumn();
         let startColumnIndex= 0;
-        let lastColumnIndex = grid.info_table.count() - 1;
+        let lastColumnIndex = grid.info_column_table.count() - 1;
 
         /* create table thead */
         //grid.classRow.setTableHead(grid, panelName);
 
         /* create table tbody */
-        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
+        const tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr');
         let tableRowIndex = 0;
         for (let i = topRowIndex; i < bottomRowIndex + 1; i++) {
             let tableRow = tableRows[tableRowIndex];
@@ -118,15 +118,15 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             /* create table tr */
             grid.classRow.setTableRow(grid, tableRow, i, panelName);
 
-            for (let x = 0; x < grid.info_table.count(); x++) {
+            for (let x = 0; x < grid.info_column_table.count(); x++) {
                 let tableCell = tableRow.childNodes[x];
 
                 tableCell.dataset.rowIndex = i;
                 tableCell.dataset.displayRowIndex = i;
-                tableCell.dataset.cellType = grid.info_table.selectValue(x, tbsGridNames.column.type);
+                tableCell.dataset.cellType = grid.info_column_table.selectValue(x, tbsGridNames.column.type);
                 /* Render: Start */
                 let tbsGridRenderInfo = new TbsGridRenderPanelInfo(grid);
-                tbsGridRenderInfo.start(panelName, tableCell, grid.info_table.data[x], i, x);
+                tbsGridRenderInfo.start(panelName, tableCell, grid.info_column_table.data[x], i, x);
                 tbsGridRenderInfo = null;
 
                 /* Render: Show Selected Cells */
@@ -157,7 +157,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         let bottomRowIndex = grid.getBottomRowIndex(panelName, topRowIndex);
 
         //startColumnIndex, lastColumIndex
-        let result = grid.classColumn.getDisplayedHeaderColumn(panelName);
+        let result = grid.classHeader.getDisplayedHeaderColumn(panelName);
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 
@@ -210,7 +210,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         let topRowIndex = grid.getTopRowIndex(panelName, param.topRowIndex);
         let bottomRowIndex = grid.getBottomRowIndex(panelName, topRowIndex);
 
-        let result = grid.classColumn.getDisplayedHeaderColumn();
+        let result = grid.classHeader.getDisplayedHeaderColumn();
         let startColumnIndex= result.startColumnIndex;
         let lastColumnIndex = result.lastColumnIndex;
 
@@ -316,7 +316,6 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         let flagRight   = false;
 
         const mouseClickEvent = function (e) {
-
             if (e.target.classList.contains('tbs-grid-html-checkbox')) {}
             else if (e.target.classList.contains('tbs-grid-html-button')) {}
             else if (e.target.classList.contains('tbs-grid-html-link')) {}
@@ -328,8 +327,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             let columnType = grid.column_table.selectValue(columnIndex, tbsGridNames.column.type);
             let value = grid.view_table.selectValue(rowIndex, columnName);
             if (columnType == tbsGridTypes.CellType.checkbox) {
-                e.preventDefault();
-                if (grid.notEmpty(grid.user_clickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
+                if (grid.notEmpty(grid.clickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
                     const eventRow = {};
                     const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex    = rowIndex;
@@ -338,22 +336,21 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                     eventRow.value       = value;
                     eventRow.text        = value;
                     eventRow.data        = dataRows;
-                    let result = grid.user_clickCheckbox(grid, eventRow);
+                    let result = grid.clickCheckbox(grid, eventRow);
                     if (result) {
                         let newValue = grid.reverseBoolean(value);
                         grid.setValue(rowIndex, columnName, newValue);
-                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
                     }
                 }
                 else {
                     let newValue = grid.reverseBoolean(value);
                     grid.setValue(rowIndex, columnName, newValue);
-                    grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
                 }
+                setTimeout(() => grid.classPanel30.setDataPanel(grid.getFirstRowIndex()), 20);
             }
             else if (columnType == tbsGridTypes.CellType.button) {
                 e.preventDefault();
-                if (grid.notEmpty(grid.user_clickButton) && e.target.disabled != 'disabled') {
+                if (grid.notEmpty(grid.clickButton) && e.target.disabled != 'disabled') {
                     const eventRow = {};
                     const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex    = rowIndex;
@@ -362,11 +359,11 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                     eventRow.value       = value;
                     eventRow.text        = value;
                     eventRow.data        = dataRows;
-                    grid.user_clickButton(grid, eventRow);
+                    grid.clickButton(grid, eventRow);
                 }
             }
             else if (columnType == tbsGridTypes.CellType.link) {
-                if (grid.notEmpty(grid.user_clickLink)) {
+                if (grid.notEmpty(grid.clickLink)) {
                     const eventRow = {};
                     const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex    = rowIndex;
@@ -375,7 +372,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                     eventRow.value       = value;
                     eventRow.text        = value;
                     eventRow.data        = dataRows;
-                    const result = grid.user_clickLink(grid, eventRow);
+                    const result = grid.clickLink(grid, eventRow);
                     if (!result) {
                         e.preventDefault();
                     }
@@ -396,8 +393,11 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             //console.log(`e.target.className ${e.target.className}`);
 
             let tableCell;
-            if      (e.target.classList.contains('tbs-grid-html-icon'))   { targetName = 'icon'; tableCell = e.target.parentNode.parentNode; }
-            else if (e.target.classList.contains('tbs-grid-html-img'))    { targetName = 'img' ; tableCell = e.target.parentNode.parentNode; }
+            if      (e.target.classList.contains('tbs-grid-html-icon'))    { targetName = 'icon'; tableCell = e.target.parentNode.parentNode; }
+            else if (e.target.classList.contains('tbs-grid-html-checkbox')) { targetName = 'icon'; tableCell = e.target.closest('.tbs-grid-cell'); }
+            else if (e.target.classList.contains('tbs-grid-html-button'))   { targetName = 'icon'; tableCell = e.target.closest('.tbs-grid-cell'); }
+            else if (e.target.classList.contains('tbs-grid-html-link'))     { targetName = 'icon'; tableCell = e.target.closest('.tbs-grid-cell'); }
+            else if (e.target.classList.contains('tbs-grid-html-img'))      { targetName = 'img' ; tableCell = e.target.parentNode.parentNode; }
             else if (e.target.classList.contains('tbs-grid-html-string')) { targetName = 'text'; tableCell = e.target.parentNode.parentNode; }
             else if (e.target.classList.contains('tbs-grid-cell-div'))    { targetName = 'div' ; tableCell = e.target.parentNode; }
             else if (e.target.classList.contains('tbs-grid-cell'))        { targetName = 'cell'; tableCell = e.target; }
@@ -456,8 +456,9 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
 
         const mouseUpEvent = function (e) {
             e.preventDefault();
-            e.stopPropagation();
-
+            // e.stopPropagation();
+            // console.log('0' + e.target.checked)
+            e.preventDefault();
             lastX = grid.lastX = window.pageXOffset + e.clientX;
             lastY = grid.lastY = window.pageYOffset + e.clientY;
 
@@ -470,46 +471,118 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             document.removeEventListener('mousemove', mouseMoveEvent);
             document.removeEventListener('mouseup', mouseUpEvent);
 
-            // console.log(`${mouseButton} ${startX} == ${lastX} ${startY} == ${lastY}`);
-            // input editing, input EditStart, input Editing, input EditEnd
             grid.input_focus();
 
             let isInArea = grid.isInPanel(e, eventPanelName, lastX, lastY);
             if (isInArea) {
-                if (mouseButton == 0 && grid.isMovedPositionInConstRange(startX, startY, lastX, lastY)) {
-                    let param = { e: e, rowIndex: startRowIndex, cellIndex: startCellIndex, mode: 'mouse' };
+                //======================================================================================================
+                // if (e.target.classList.contains('tbs-grid-html-checkbox')) {
+                //     let rowIndex = e.target.parentNode.dataset.rowIndex;
+                //     let columnIndex = e.target.parentNode.dataset.columnIndex;
+                //     let columnName = e.target.parentNode.dataset.name;
+                //     let columnType = grid.column_table.selectValue(columnIndex, tbsGridNames.column.type);
+                //     let value = grid.view_table.selectValue(rowIndex, columnName);
+                //
+                //     if (grid.notEmpty(grid.clickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
+                //         const eventRow = {};
+                //         const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
+                //         eventRow.rowIndex = rowIndex;
+                //         eventRow.columnIndex = columnIndex;
+                //         eventRow.columnName = columnName;
+                //         eventRow.value = value;
+                //         eventRow.text = value;
+                //         eventRow.data = dataRows;
+                //         let result = grid.clickCheckbox(grid, eventRow);
+                //         if (result) {
+                //             let newValue = grid.reverseBoolean(value);
+                //             grid.setValue(rowIndex, columnName, newValue);
+                //         }
+                //     }
+                //     else {
+                //         let newValue = grid.reverseBoolean(value);
+                //         grid.setValue(rowIndex, columnName, newValue);
+                //     }
+                //     setTimeout(() => grid.classPanel30.setDataPanel(grid.getFirstRowIndex()), 50);
+                // }
+                // else if (e.target.classList.contains('tbs-grid-html-button')) {
+                //     let rowIndex = e.target.parentNode.dataset.rowIndex;
+                //     let columnIndex = e.target.parentNode.dataset.columnIndex;
+                //     let columnName = e.target.parentNode.dataset.name;
+                //     let columnType = grid.column_table.selectValue(columnIndex, tbsGridNames.column.type);
+                //     let value = grid.view_table.selectValue(rowIndex, columnName);
+                //
+                //     if (grid.notEmpty(grid.clickButton) && e.target.disabled != 'disabled') {
+                //         const eventRow = {};
+                //         const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
+                //         eventRow.rowIndex = rowIndex;
+                //         eventRow.columnIndex = columnIndex;
+                //         eventRow.columnName = columnName;
+                //         eventRow.value = value;
+                //         eventRow.text = value;
+                //         eventRow.data = dataRows;
+                //         grid.clickButton(grid, eventRow);
+                //     }
+                // }
+                // else if (e.target.classList.contains('tbs-grid-html-link')) {
+                //     let rowIndex = e.target.parentNode.dataset.rowIndex;
+                //     let columnIndex = e.target.parentNode.dataset.columnIndex;
+                //     let columnName = e.target.parentNode.dataset.name;
+                //     let columnType = grid.column_table.selectValue(columnIndex, tbsGridNames.column.type);
+                //     let value = grid.view_table.selectValue(rowIndex, columnName);
+                //
+                //     if (grid.notEmpty(grid.clickLink)) {
+                //         const eventRow = {};
+                //         const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
+                //         eventRow.rowIndex = rowIndex;
+                //         eventRow.columnIndex = columnIndex;
+                //         eventRow.columnName = columnName;
+                //         eventRow.value = value;
+                //         eventRow.text = value;
+                //         eventRow.data = dataRows;
+                //         let result = grid.clickLink(grid, eventRow);
+                //         if (result == false) {
+                //             e.preventDefault();
+                //             e.stopPropagation();
+                //             e.cancell = true;
+                //         }
+                //     }
+                // }
+                // //======================================================================================================
+                // else {
+                    if (mouseButton == 0 && grid.isMovedPositionInConstRange(startX, startY, lastX, lastY)) {
+                        let param = {e: e, rowIndex: startRowIndex, cellIndex: startCellIndex, mode: 'mouse'};
 
-                    if (e.detail == 1) {
-                        let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
-                        if (panelInput.style.left != '30000px') {
-                            grid.editEnd();
-                            grid.input_focus();
+                        if (e.detail == 1) {
+                            let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
+                            if (panelInput.style.left != '30000px') {
+                                grid.editEnd();
+                                grid.input_focus();
+                            } else grid.tbs_executeEvent(true, 'click', param);
+                        } else if (e.detail == 2) {
+                            let isEditable = grid.column_table.data[startCellIndex][tbsGridNames.column.editable];
+                            if (isEditable) {
+                                if (grid.notNull(grid.edit)) {
+                                    grid.editStart(e, 'mouse')
+                                } else {
+                                    grid.input_show(e, 'mouse');
+                                }
+                            } else grid.tbs_executeEvent(true, 'dblclick', param);
                         }
-                        else grid.tbs_executeEvent(true, 'click', param);
                     }
-                    else if (e.detail == 2) {
-                        let isEditable = grid.column_table.data[startCellIndex][tbsGridNames.column.editable];
-                        if (isEditable) {
-                            if (grid.notNull(grid.user_edit)) {
-                                grid.editStart(e, 'mouse')
-                            }
-                            else {
-                                grid.input_show(e, 'mouse');
-                            }
-                        }
-                        else grid.tbs_executeEvent(true, 'dblclick', param);
-                    }
-                }
+                //}
             }
         };
 
         const selectCell = function(e) {
             let tableCell;
-            if (e.target.classList.contains('tbs-grid-html-icon'))         { targetName = 'icon'; tableCell = e.target.closest('.tbs-grid-cell'); }
-            else if (e.target.classList.contains('tbs-grid-html-img'))     { targetName = 'img' ; tableCell = e.target.parentNode.parentNode; }
-            else if (e.target.classList.contains('tbs-grid-html-string'))  { targetName = 'text'; tableCell = e.target.parentNode.parentNode; }
-            else if (e.target.classList.contains('tbs-grid-cell-div'))     { targetName = 'div' ; tableCell = e.target.parentNode; }
-            else if (e.target.classList.contains('tbs-grid-cell'))         { targetName = 'cell'; tableCell = e.target; }
+            if      (e.target.classList.contains('tbs-grid-html-icon'))     { targetName = 'icon'; tableCell = e.target.closest('.tbs-grid-cell'); }
+            // else if (e.target.classList.contains('tbs-grid-html-checkbox')) { targetName = 'icon'; tableCell = e.target.closest('.tbs-grid-cell'); }
+            // else if (e.target.classList.contains('tbs-grid-html-button'))   { targetName = 'icon'; tableCell = e.target.closest('.tbs-grid-cell'); }
+            // else if (e.target.classList.contains('tbs-grid-html-link'))     { targetName = 'icon'; tableCell = e.target.closest('.tbs-grid-cell'); }
+            // else if (e.target.classList.contains('tbs-grid-html-img'))      { targetName = 'img' ; tableCell = e.target.parentNode.parentNode; }
+            else if (e.target.classList.contains('tbs-grid-html-string'))   { targetName = 'text'; tableCell = e.target.parentNode.parentNode; }
+            else if (e.target.classList.contains('tbs-grid-cell-div'))      { targetName = 'div' ; tableCell = e.target.parentNode; }
+            else if (e.target.classList.contains('tbs-grid-cell'))          { targetName = 'cell'; tableCell = e.target; }
             else return;
 
             startCellIndex = tableCell.cellIndex;
@@ -530,7 +603,6 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 }
             }
             //console.log(`startRowIndex ${startRowIndex} startRowIndex ${startRowIndex} startCellIndex  ${startCellIndex} lastCellIndex ${lastCellIndex}`)
-
             grid.classRange.removeRange(0, -1);
             let _topRowIndex = grid.classRange.selectRange(startRowIndex, startRowIndex, startCellIndex, lastCellIndex);
             grid.classPanel30.setDataPanel(_topRowIndex);
@@ -888,15 +960,32 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
 
         let eventPanel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
 
-        const clickEvent = function (e) {
-            e.preventDefault();
-            if (e.target.classList.contains('tbs-grid-html-checkbox')) {}
-            else return;
+        const mouseClickEvent = function (e) {
+            if (e.target.classList.contains('tbs-grid-html-checkbox')) {} else return;
+            const tableCell = e.target.parentNode.parentNode;
+            let rowIndex = tableCell.dataset.rowIndex;
+            let columnIndex = tableCell.cellIndex;
+            let columnName = e.target.parentNode.dataset.name;
+            let value = grid.view_table.data[rowIndex][tbsGridNames.column.isChecked];
 
-            let rowIndex = e.target.parentNode.parentNode.dataset.rowIndex;
-            let b = grid.view_table.data[rowIndex][tbsGridNames.column.isChecked];
-            grid.view_table.data[rowIndex][tbsGridNames.column.isChecked] = grid.isNull(b, false) ? false : true;
-            grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+            if (grid.notEmpty(grid.clickInfoCheckbox) && e.target.disabled != 'disabled') {
+                const eventRow = {};
+                const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
+                eventRow.rowIndex    = rowIndex;
+                eventRow.columnIndex = columnIndex;
+                eventRow.columnName  = columnName;
+                eventRow.value       = grid.isNull(value, false);
+                eventRow.text        = grid.isNull(value, false);
+                eventRow.data        = dataRows;
+                let result = grid.clickInfoCheckbox(grid, eventRow);
+                if (result) {
+                    grid.view_table.data[rowIndex][tbsGridNames.column.isChecked] = grid.isNull(value, false) ? false : true;
+                }
+            }
+            else {
+                grid.view_table.data[rowIndex][tbsGridNames.column.isChecked] = grid.isNull(value, false) ? false : true;
+            }
+            setTimeout(() => grid.classPanel30.setDataPanel(grid.getFirstRowIndex()), 20);
         }
 
         const mouseDownEvent = function (e) {
@@ -984,7 +1073,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                     else if (e.detail == 2) {
                         let isEditable = grid.isEditable() .column_table.data[startCellIndex][tbsGridNames.column.editable];
                         if (isEditable) {
-                            if (grid.notNull(grid.user_edit)) {
+                            if (grid.notNull(grid.edit)) {
                                 //grid.input_edit(e, 0, 'mouse');
                                 grid.editStart(e, 'mouse');
                             }
@@ -1325,7 +1414,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         }
 
         eventPanel.addEventListener('mousedown', mouseDownEvent);
-        eventPanel.addEventListener('click', clickEvent);
+        eventPanel.addEventListener('click', mouseClickEvent);
     }
 }
 

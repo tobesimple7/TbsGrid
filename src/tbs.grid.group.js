@@ -114,7 +114,7 @@ export class TbsGridGroup {
         }
 
         /* Summary */
-        grid.classGroup.getGroupSummary();
+       //grid.classGroup.getGroupSummary();
 
         // open depth
         if (grid.notNull(openDepth) && openDepth != 0) {
