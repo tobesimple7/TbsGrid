@@ -35,6 +35,7 @@ I will try to make a good product.
 
 ### CDN
 ```html 
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
 <style  src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.17/dist-js/css/tbsgrid.css" />
