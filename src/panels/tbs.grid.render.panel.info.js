@@ -35,7 +35,7 @@ export class TbsGridRenderPanelInfo {
 
         this.width = null;
         this.visible = null;
-
+        this.editable = false;
         this.tableCell = null;
         this.panelName = null;
     }
@@ -55,7 +55,7 @@ export class TbsGridRenderPanelInfo {
 
         render.visible    = grid.getProperty(column, tbsGridNames.column.visible);
         render.width      = grid.getProperty(column, tbsGridNames.column.width);
-
+        render.editable   = grid.getProperty(column, tbsGridNames.column.editable);
         render.align      = grid.getProperty(column, tbsGridNames.column.align);
         render.className  = grid.getProperty(column, tbsGridNames.column.className);
 

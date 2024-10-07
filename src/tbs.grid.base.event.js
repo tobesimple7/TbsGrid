@@ -124,7 +124,7 @@ export class TbsGridBaseEvent extends TbsGridBase {
                 let s = input.value;
                 if (column[tbsGridNames.column.type] == tbsGridTypes.CellType.combo) s = input_code.value;
                 else if (column[tbsGridNames.column.type] == 'number' && grid.trim(s) == grid.options[tbsGridNames.option.zeroChar]) s = '0';
-                grid.setValueByIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
+                grid.setValueByColumnIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
                 grid.input_hide();
             }
             grid.apply();
@@ -219,7 +219,7 @@ export class TbsGridBaseEvent extends TbsGridBase {
                 for (let colIndex = startCellIndex; colIndex < startCellIndex + colArray.length; colIndex++) {
                     //if (grid.column_table.data[colIndex].column_readonly == true) continue;
                     if (grid.column_table.data[colIndex][tbsGridNames.column.editable] == false) continue;
-                    grid.setValueByIndex(rowIndex, colIndex, colArray[j]);
+                    grid.setValueByColumnIndex(rowIndex, colIndex, colArray[j]);
                     j += 1;
                 }
                 i += 1;
@@ -539,7 +539,7 @@ export class TbsGridBaseEvent extends TbsGridBase {
                         //console.log(2);
                         let s = input.value;
                         if (column[tbsGridNames.column.type] == tbsGridTypes.CellType.combo) s = input_code.value;
-                        grid.setValueByIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
+                        grid.setValueByColumnIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
                         grid.input_hide();
                         grid.apply();
                     }

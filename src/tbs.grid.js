@@ -1102,6 +1102,7 @@ export class TbsGrid extends TbsGridBaseUserEvent {
         if (mode == 'I') {
             if (oldValue != result.value) {
                 grid.view_table.updateByRowIndex(rowIndex, columnName, result.value);
+                grid.view_table.updateByRowIndex(rowIndex, tbsGridNames.column.mode, 'I');
 
                 let rowId = grid.view_table.selectValue(rowIndex, tbsGridNames.column.rowId);
 
@@ -1117,11 +1118,11 @@ export class TbsGrid extends TbsGridBaseUserEvent {
                 let rowId = grid.view_table.selectValue(rowIndex, tbsGridNames.column.rowId);
 
                 grid.source_table.updateByRowId(rowId, columnName, result.value);
-                grid.source_table.updateByRowId(rowId, tbsGridNames.column.mode, 'I');
+                grid.source_table.updateByRowId(rowId, tbsGridNames.column.mode, 'U');
             }
         }
     }
-    setValueByIndex(rowIndex, cellIndex, value) {
+    setValueByColumnIndex(rowIndex, cellIndex, value) {
         rowIndex = parseInt(rowIndex);
         cellIndex = parseInt(cellIndex);
         let columnName = this.getColumnName(cellIndex);

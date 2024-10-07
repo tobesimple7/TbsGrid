@@ -106,7 +106,7 @@ export class TbsDataTable extends TbsBase {
         if (endRowIndex == undefined) endRowIndex = this.count() - 1
 
         const result = [];
-        for (let i = startRowIndex; i <= endRowIndex; i++) result.push(data[i]);
+        for (let i = startRowIndex; i <= endRowIndex; i++) result.push(this.data[i]);
         return result;
     }
 

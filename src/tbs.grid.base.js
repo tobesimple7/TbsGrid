@@ -111,7 +111,7 @@ export class TbsGridBase extends TbsBase {
 
         this.info_column_table.insert({ name: 'num'     , type: 'number'  , align: 'center',  width: 50, visible: true  });
         this.info_column_table.insert({ name: 'mode'    , type: 'string'  , align: 'center',  width: 20, visible: false });
-        this.info_column_table.insert({ name: 'checkbox', type: 'checkbox', align: 'center',  width: 25, visible: false });
+        this.info_column_table.insert({ name: 'checkbox', type: 'checkbox', align: 'center',  width: 25, visible: false, editable: true });
 
         this.panel31_table = this.db.createView('panel21');
         this.panel31_table = this.db.createView('panel20');

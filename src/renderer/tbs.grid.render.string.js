@@ -29,9 +29,12 @@ export class TbsGridRenderString {
             TbsGridDom.setCellStyle(param.tableCell.childNodes[0], 'paddingLeft', '0px');
         }
 
+        const element = param.tableCell.querySelector('.tbs-grid-html-string');
         if (param.cellValue) {
-            const element = param.tableCell.querySelector('.tbs-grid-html-string');
             TbsGridDom.setCell(element, 'textContent', param.cellText);
+        }
+        else {
+            TbsGridDom.setCell(element, 'textContent', '');
         }
     }
 }
