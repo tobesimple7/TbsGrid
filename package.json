@@ -1,16 +1,17 @@
 {
   "name": "tbsgrid",
-  "version": "0.2.17",
+  "version": "0.2.19",
   "description": "",
   "author": "tobesimple7",
   "license": "MIT",
   "homepage": "https://tobesimple.net",
   "repository": "https://github.com/tobesimple7/TbsGrid",
   "dependencies": {
-    "file-saver": "^2.0.5"
+    "file-saver": "^2.0.5",
+    "xlsx": "^0.18.5"
   },
   "files": [
-    "dist/*", "dist-js/*"
+    "dist/*", "dist-js/*", "src/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

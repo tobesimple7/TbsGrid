@@ -403,7 +403,7 @@ class TbsDataTable extends _tbs_base_js__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase 
   selectRowRange(startRowIndex, endRowIndex) {
     if (endRowIndex == undefined) endRowIndex = this.count() - 1;
     const result = [];
-    for (let i = startRowIndex; i <= endRowIndex; i++) result.push(data[i]);
+    for (let i = startRowIndex; i <= endRowIndex; i++) result.push(this.data[i]);
     return result;
   }
   selectValue(rowIndex, field) {
@@ -1443,9 +1443,6 @@ const tbsGridNames = new _tbs_grid_types_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsG
 class TbsGridExcel {
   constructor(grid) {
     this.grid = grid;
-    this.options = {};
-    //this.options.type = '';
-    this.options.fileName = '';
   }
   exportExcel(options) {
     const grid = this.grid;
@@ -1469,37 +1466,71 @@ class TbsGridExcel {
     /**
      * create panel20
      */
-
-    tableRows = this.createPanel20();
-    tableRows.map(row => tbody.appendChild(row));
+    if (grid.isNull(options.showHeader, true)) {
+      tableRows = this.createPanel20();
+      tableRows.map(row => tbody.appendChild(row));
+    }
 
     /**
      * create panel40
      */
-
-    tableRows = this.createPanel40();
-    tableRows.map(row => tbody.appendChild(row));
+    if (grid.isNull(options.showTop, true)) {
+      tableRows = this.createPanel40();
+      tableRows.map(row => tbody.appendChild(row));
+    }
 
     /**
      * create panel30
      */
-
     tableRows = this.createPanel30();
     tableRows.map(row => tbody.appendChild(row));
 
     /**
      * create panel50
      */
-    tableRows = this.createPanel50();
-    tableRows.map(row => tbody.appendChild(row));
+    if (grid.isNull(options.showFooter, true)) {
+      tableRows = this.createPanel50();
+      tableRows.map(row => tbody.appendChild(row));
+    }
     table.appendChild(thead);
     table.appendChild(tbody);
-    let type = 'application/vnd.ms-excel;charset=utf-8';
-    let fileName = options.fileName + '.xls';
-    let blob = new Blob([table.outerHTML], {
-      type: type
-    });
-    (0,file_saver__WEBPACK_IMPORTED_MODULE_1__.saveAs)(blob, fileName);
+    let extensionType = options.extensionType;
+    let fileName = options.fileName;
+
+    // if (extensionType == 'csv') {
+    //     const blob = new Blob([table.outerHTML], { type: 'application/vnd.ms-excel;charset=utf-8' });
+    //     saveAs(blob, fileName + '.xls');
+    // }
+    // else
+    if (extensionType == 'xls') {
+      const wb = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.table_to_sheet(table);
+      XLSX.utils.book_append_sheet(wb, worksheet, fileName);
+      const wbout = XLSX.write(wb, {
+        bookType: 'xls',
+        type: 'binary'
+      });
+      (0,file_saver__WEBPACK_IMPORTED_MODULE_1__.saveAs)(new Blob([this.s2ab(wbout)], {
+        type: 'application/octet-stream'
+      }), fileName + '.xls');
+    } else if (extensionType == 'xlsx') {
+      const wb = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.table_to_sheet(table);
+      XLSX.utils.book_append_sheet(wb, worksheet, fileName);
+      const wbout = XLSX.write(wb, {
+        bookType: 'xlsx',
+        type: 'binary'
+      });
+      (0,file_saver__WEBPACK_IMPORTED_MODULE_1__.saveAs)(new Blob([this.s2ab(wbout)], {
+        type: 'application/octet-stream'
+      }), fileName + '.xlsx');
+    }
+  }
+  s2ab(s) {
+    let buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+    var view = new Uint8Array(buf); //create uint8array as viewer
+    for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+    return buf;
   }
   createTableHead() {
     const grid = this.grid;
@@ -1635,122 +1666,6 @@ class TbsGridExcel {
       result.push(tr);
     });
     return result;
-  }
-  createTableFooter() {}
-  excelExport_old(options) {
-    let selector = '#' + this.gridId;
-    const grid = this;
-    let headerRowCount = this.headerRowCount;
-    const headerColumns = grid.header_column_table.data;
-    const columns = this.column_table.data;
-    const rows = this.getRows();
-    let table, thead, tbody, tr, th, td, input;
-    table = document.createElement('table');
-    //table.style = 'border:1px solid #ccc;';
-
-    thead = document.createElement('thead');
-    tr = document.createElement('tr');
-    let sumWidth = 0;
-    columns.map(column => {
-      th = document.createElement('th');
-      th.style.width = column[tbsGridNames.column.visible] == true ? parseInt(column.width) + 'px' : '0px';
-      th.style.display = column[tbsGridNames.column.visible] == true ? '' : 'none';
-      sumWidth += column[tbsGridNames.column.visible] == true ? parseInt(column.width) : 0;
-      tr.appendChild(th);
-    });
-    thead.appendChild(tr);
-    table.appendChild(thead);
-    tbody = document.createElement('tbody');
-    for (let i = 0; i < headerColumns.length; i++) {
-      tr = document.createElement('tr');
-      tr.style = 'height:' + this.rowHeight + 'px';
-      sumWidth = 0;
-      headerColumns[i].map(headerColumn => {
-        if (headerColumn[tbsGridNames.column.name]) {
-          let td = document.createElement('td');
-          if (i == 0) td.rowSpan = headerRowCount;else if (i < len - 1) td.rowSpan = headerRowCount - i; // 3 - 1
-
-          td.style = 'border:1px solid #ccc;background: #fcf1f4;';
-          td.style.textAlign = 'center';
-          let width = headerColumn['width'] != '' ? headerColumn['width'] : '100';
-          td.style.width = width + 'px';
-          sumWidth += Number(width);
-          //------------------------------------------------------
-          let div = document.createElement('div');
-          div.classList.add('tbs-grid-cell-div');
-          td.appendChild(div);
-          let span = document.createElement('span');
-          span.classList.add('tbs-grid-html-string');
-          span.textContent = headerColumn[tbsGridNames.column.text];
-          div.appendChild(span);
-          td.appendChild(div);
-          tr.appendChild(td);
-        } else if (headerColumn[tbsGridNames.column.text] != undefined) {
-          let td = document.createElement('td');
-          td.colSpan = headerColumn[tbsGridNames.column.colSpan];
-          td.style = 'border:1px solid #ccc;background: #fcf1f4;';
-          td.style.textAlign = 'center';
-          let div = document.createElement('div');
-          div.classList.add('tbs-grid-cell-div');
-          let span = document.createElement('span');
-          span.classList.add('tbs-grid-html-string');
-          span.textContent = headerColumn[tbsGridNames.column.text];
-          div.appendChild(span);
-          td.appendChild(div);
-          tr.appendChild(td);
-        } else {
-          let td = document.createElement('td');
-          td.style.display = 'none';
-          td.classList.add('tbs-grid-cell');
-          td.style.textAlign = 'center';
-          let div = document.createElement('div');
-          div.classList.add('tbs-grid-cell-div');
-          let span = document.createElement('span');
-          span.classList.add('tbs-grid-html-string');
-          span.textContent = headerColumn[tbsGridNames.column.text];
-          div.appendChild(span);
-          td.appendChild(div);
-          tr.appendChild(td);
-        }
-      });
-      tbody.appendChild(tr);
-      rows.map(row => {
-        tr = document.createElement('tr');
-        tr.style = 'height:' + this.rowHeight + 'px';
-        for (let x = 0, len = columns.length; x < len; x++) {
-          let column = columns[x];
-          let td = document.createElement('td');
-          td.style = 'border:1px solid #ccc;';
-          let width = column[tbsGridNames.column.width] != '' ? column[tbsGridNames.column.width] : '100';
-          td.style.width = width + 'px';
-          sumWidth += Number(width);
-          let div = document.createElement('div');
-          div.classList.add('tbs-grid-cell-div');
-          td.appendChild(div);
-          let span = document.createElement('span');
-          span.classList.add('tbs-grid-html-string');
-          span.textContent = row[column[tbsGridNames.column.name]];
-          div.appendChild(span);
-          td.appendChild(div);
-          tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-      });
-    }
-    table.appendChild(tbody);
-    let type = options.type;
-    let fileName = options.fileName;
-    let blob = new Blob([table.outerHTML], {
-      type: 'application/vnd.ms-excel;charset=utf-8'
-    });
-    (0,file_saver__WEBPACK_IMPORTED_MODULE_1__.saveAs)(blob, fileName);
-
-    // const myJsonString = '<table><tr><td>1</td><td>1</td><td>1</td></tr></table><table><tr><td>1</td><td>1</td><td>1</td></tr></table>';
-    // const blob = new Blob([myJsonString], {
-    // 	type: "application/vnd.ms-excel;charset=utf-8"
-    // });
-    // saveAs(blob, "table.xls");
-    //      , {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=" + document.characterSet})
   }
 }
 
@@ -6250,6 +6165,7 @@ class TbsGridRenderPanelInfo {
 
     this.width = null;
     this.visible = null;
+    this.editable = false;
     this.tableCell = null;
     this.panelName = null;
   }
@@ -6265,6 +6181,7 @@ class TbsGridRenderPanelInfo {
     render.columnType = grid.getProperty(column, tbsGridNames.column.type);
     render.visible = grid.getProperty(column, tbsGridNames.column.visible);
     render.width = grid.getProperty(column, tbsGridNames.column.width);
+    render.editable = grid.getProperty(column, tbsGridNames.column.editable);
     render.align = grid.getProperty(column, tbsGridNames.column.align);
     render.className = grid.getProperty(column, tbsGridNames.column.className);
     if (panelName == 'panel41' || panelName == 'panle51' || panelName == 'panle71') columnType = tbsGridTypes.CellType.string;
@@ -6993,9 +6910,11 @@ class TbsGridRenderString {
     } else {
       _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridDom */ .E.setCellStyle(param.tableCell.childNodes[0], 'paddingLeft', '0px');
     }
+    const element = param.tableCell.querySelector('.tbs-grid-html-string');
     if (param.cellValue) {
-      const element = param.tableCell.querySelector('.tbs-grid-html-string');
       _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridDom */ .E.setCell(element, 'textContent', param.cellText);
+    } else {
+      _tbs_grid_dom_js__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridDom */ .E.setCell(element, 'textContent', '');
     }
   }
 }
@@ -7364,7 +7283,7 @@ class TbsGridBaseEvent extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* 
         if (isNaN(cellIndex)) return;
         let s = input.value;
         if (column[tbsGridNames.column.type] == tbsGridTypes.CellType.combo) s = input_code.value;else if (column[tbsGridNames.column.type] == 'number' && grid.trim(s) == grid.options[tbsGridNames.option.zeroChar]) s = '0';
-        grid.setValueByIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
+        grid.setValueByColumnIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
         grid.input_hide();
       }
       grid.apply();
@@ -7450,7 +7369,7 @@ class TbsGridBaseEvent extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* 
         for (let colIndex = startCellIndex; colIndex < startCellIndex + colArray.length; colIndex++) {
           //if (grid.column_table.data[colIndex].column_readonly == true) continue;
           if (grid.column_table.data[colIndex][tbsGridNames.column.editable] == false) continue;
-          grid.setValueByIndex(rowIndex, colIndex, colArray[j]);
+          grid.setValueByColumnIndex(rowIndex, colIndex, colArray[j]);
           j += 1;
         }
         i += 1;
@@ -7726,7 +7645,7 @@ class TbsGridBaseEvent extends _tbs_grid_base_js__WEBPACK_IMPORTED_MODULE_1__/* 
             //console.log(2);
             let s = input.value;
             if (column[tbsGridNames.column.type] == tbsGridTypes.CellType.combo) s = input_code.value;
-            grid.setValueByIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
+            grid.setValueByColumnIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
             grid.input_hide();
             grid.apply();
           } else {
@@ -8974,7 +8893,8 @@ class TbsGridBase extends _base_tbs_base_js__WEBPACK_IMPORTED_MODULE_36__/* .Tbs
       type: 'checkbox',
       align: 'center',
       width: 25,
-      visible: false
+      visible: false,
+      editable: true
     });
     this.panel31_table = this.db.createView('panel21');
     this.panel31_table = this.db.createView('panel20');
@@ -12746,6 +12666,7 @@ class TbsGrid extends _tbs_grid_base_user_event_js__WEBPACK_IMPORTED_MODULE_3__/
     if (mode == 'I') {
       if (oldValue != result.value) {
         grid.view_table.updateByRowIndex(rowIndex, columnName, result.value);
+        grid.view_table.updateByRowIndex(rowIndex, tbsGridNames.column.mode, 'I');
         let rowId = grid.view_table.selectValue(rowIndex, tbsGridNames.column.rowId);
         grid.source_table.updateByRowId(rowId, columnName, result.value);
         grid.source_table.updateByRowId(rowId, tbsGridNames.column.mode, 'I');
@@ -12756,11 +12677,11 @@ class TbsGrid extends _tbs_grid_base_user_event_js__WEBPACK_IMPORTED_MODULE_3__/
         grid.view_table.updateByRowIndex(rowIndex, tbsGridNames.column.mode, 'U');
         let rowId = grid.view_table.selectValue(rowIndex, tbsGridNames.column.rowId);
         grid.source_table.updateByRowId(rowId, columnName, result.value);
-        grid.source_table.updateByRowId(rowId, tbsGridNames.column.mode, 'I');
+        grid.source_table.updateByRowId(rowId, tbsGridNames.column.mode, 'U');
       }
     }
   }
-  setValueByIndex(rowIndex, cellIndex, value) {
+  setValueByColumnIndex(rowIndex, cellIndex, value) {
     rowIndex = parseInt(rowIndex);
     cellIndex = parseInt(cellIndex);
     let columnName = this.getColumnName(cellIndex);
