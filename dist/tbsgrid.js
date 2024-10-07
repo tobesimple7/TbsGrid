@@ -957,7 +957,6 @@ class TbsGridColumns {
 
     /* Change Fixed Column Index */
     if (grid.fixedColumnIndex != -1) {
-      debugger;
       if (moveColumn.colIndex <= grid.fixedColumnIndex && targetColumn.colIndex > grid.fixedColumnIndex) {
         let childCount = Number(moveColumn.colSpan);
         grid.fixedColumnIndex = grid.fixedColumnIndex - childCount;
@@ -968,6 +967,7 @@ class TbsGridColumns {
         grid.classColumn.setFixedColumn(grid.fixedColumnIndex);
       }
     }
+    grid.classPanel70.setDataPanel();
     grid.apply();
   }
   getSelectedTableCell(rowIndex, cellIndex) {
@@ -5102,14 +5102,9 @@ class TbsGridPanel70 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let column = grid.column_table.data[x];
       let tableCell = tableRow.childNodes[x];
       let columnName = column[tbsGridNames.column.name];
-
-      /* Render: Start */
-      // let tbsGridRender = new TbsGridRenderPanel70(grid);
-      // tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
-      // tbsGridRender = null;
-      //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
-      let visible = column[tbsGridNames.column.visible];
-      tableCell.style.display = visible ? '' : 'none';
+      tableCell.style.display = column[tbsGridNames.column.visible] ? '' : 'none';
+      tableCell.style.width = column[tbsGridNames.column.width] + 'px';
+      tableCell.dataset.name = columnName;
       let combo = grid.classFilter.createFilterCombo(column);
       combo.classList.add('tbs-grid-cell-filter-combo');
       combo.dataset.name = columnName;
@@ -5129,14 +5124,9 @@ class TbsGridPanel70 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let column = grid.column_table.data[x];
       let tableCell = tableRow.childNodes[x];
       let columnName = column[tbsGridNames.column.name];
-
-      /* Render: Start */
-      // let tbsGridRender = new TbsGridRenderPanel70(grid);
-      // tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
-      // tbsGridRender = null;
-      //grid.classRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
-      let visible = column[tbsGridNames.column.visible];
-      tableCell.style.display = visible ? '' : 'none';
+      tableCell.style.display = column[tbsGridNames.column.visible] ? '' : 'none';
+      tableCell.style.width = column[tbsGridNames.column.width] + 'px';
+      tableCell.dataset.name = columnName;
 
       // Set input
       let input = document.createElement('input');
@@ -5174,14 +5164,9 @@ class TbsGridPanel70 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let column = grid.column_table.data[x];
       let tableCell = tableRow.childNodes[x];
       let columnName = column[tbsGridNames.column.name];
-
-      /* Render: Start */
-      // let tbsGridRender = new TbsGridRenderPanel70(grid);
-      // tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 0, x);
-      // tbsGridRender = null;
-
-      let visible = column[tbsGridNames.column.visible];
-      tableCell.style.display = visible ? '' : 'none';
+      tableCell.style.display = column[tbsGridNames.column.visible] ? '' : 'none';
+      tableCell.style.width = column[tbsGridNames.column.width] + 'px';
+      tableCell.dataset.name = columnName;
       let combo = grid.classFilter.createFilterCombo(column);
       combo.classList.add('tbs-grid-cell-filter-combo');
       combo.dataset.name = columnName;
@@ -5202,15 +5187,9 @@ class TbsGridPanel70 extends _tbs_grid_panel_base_js__WEBPACK_IMPORTED_MODULE_1_
       let column = grid.column_table.data[x];
       let tableCell = tableRow.childNodes[x];
       let columnName = column[tbsGridNames.column.name];
-
-      /* Render: Start */
-      // let tbsGridRender = new TbsGridRenderPanel70(grid);
-      // tbsGridRender.start(panelName, tableCell, grid.column_table.data[x], 1, x);
-      // tbsGridRender = null;
-
-      let visible = column[tbsGridNames.column.visible];
-      tableCell.style.display = visible ? '' : 'none';
-
+      tableCell.style.display = column[tbsGridNames.column.visible] ? '' : 'none';
+      tableCell.style.width = column[tbsGridNames.column.width] + 'px';
+      tableCell.dataset.name = columnName;
       // Set input
       let input = document.createElement('input');
       input.classList.add('tbs-grid-cell-filter-input');

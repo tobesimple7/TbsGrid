@@ -306,7 +306,6 @@ export class TbsGridColumns {
 
         /* Change Fixed Column Index */
         if (grid.fixedColumnIndex != -1) {
-            debugger;
             if (moveColumn.colIndex <= grid.fixedColumnIndex && targetColumn.colIndex > grid.fixedColumnIndex) {
                 let childCount = Number(moveColumn.colSpan);
                 grid.fixedColumnIndex = grid.fixedColumnIndex - childCount;
@@ -319,6 +318,7 @@ export class TbsGridColumns {
                 grid.classColumn.setFixedColumn(grid.fixedColumnIndex);
             }
         }
+        grid.classPanel70.setDataPanel();
         grid.apply();
     }
 
