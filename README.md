@@ -24,7 +24,7 @@ I will try to make a good product.
 
 ## Notable features
 
-- This grid is made with only pure JavaScript and CSS.
+- This grid is made with JavaScript(Module) and CSS.
 - It can also bind large amounts of data.
 - Supports cross-browser.
 - It has various functions such as column movement, sorting, filtering, etc.
