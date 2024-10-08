@@ -194,7 +194,8 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
         let selector = this.selector;
         const grid = this.grid;
 
-        let panel = document.querySelector(selector + ' .tbs-grid-panel10');
+        grid.options.showToolbarPanel = true;
+        const panel = document.querySelector(selector + ' .tbs-grid-panel10');
         panel.classList.remove('tbs-grid-hide');
         panel.classList.add('tbs-grid-show');
 
@@ -207,7 +208,8 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
         let selector = this.selector;
         const grid = this.grid;
 
-        let panel = document.querySelector(selector + ' .tbs-grid-panel10');
+        grid.options.showToolbarPanel = false;
+        const panel = document.querySelector(selector + ' .tbs-grid-panel10');
         panel.classList.remove('tbs-grid-show');
         panel.classList.add('tbs-grid-hide');
 

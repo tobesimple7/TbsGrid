@@ -188,8 +188,9 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 if (grid.sort_column_table.isRow(tbsGridNames.column.name, columnName) && header[tbsGridNames.column.kind] == 'column') {
                     let sortColumn = grid.classSort.getSortRow(columnName);
                     let sortSymbol = '';
-                    if (sortColumn['order'] == 'desc') sortSymbol = '▼';
-                    else if (sortColumn['order'] == 'asc') sortSymbol = '▲';
+                    let orderNumber = grid.sort_column_table.selectRowIndex(tbsGridNames.column.name, columnName) + 1;
+                    if (sortColumn['order'] == 'desc') sortSymbol = '▼' + orderNumber;
+                    else if (sortColumn['order'] == 'asc') sortSymbol = '▲' + orderNumber;
                     tableCell.querySelector('.tbs-grid-html-sort').textContent = sortSymbol;
                 }
 
@@ -254,12 +255,13 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
             if (targetName == 'cell') {
                 let col = e.target.closest('.tbs-grid-cell')
                 if (col.cellIndex == 0) {
-                    let fromCellIndex = grid.classColumn.getFirstVisibleColumnIndex();
-                    let toCellIndex = grid.classColumn.getLastVisibleColumnIndex();
-
-                    grid.classRange.removeRange(0, -1);
-                    let _topRowIndex = grid.classRange.selectRange(0, -1, fromCellIndex, toCellIndex);
-                    grid.classPanel30.setDataPanel(_topRowIndex);
+                    // let fromCellIndex = grid.classColumn.getFirstVisibleColumnIndex();
+                    // let toCellIndex = grid.classColumn.getLastVisibleColumnIndex();
+                    //
+                    // grid.classRange.removeRange(0, -1);
+                    // let _topRowIndex = grid.classRange.selectRange(0, -1, fromCellIndex, toCellIndex);
+                    // grid.classPanel30.setDataPanel(_topRowIndex);
+                    grid.classSort.initSortData()
                 }
             }
             document.removeEventListener('mouseup', mouseUpEvent);

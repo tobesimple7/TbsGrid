@@ -1,4 +1,5 @@
 import {TbsGridDom} from "../tbs.grid.dom.js";
+import {tbsGridNames} from "../tbs.grid.types.js";
 
 export class TbsGridRenderString {
     /**
@@ -28,7 +29,6 @@ export class TbsGridRenderString {
         else {
             TbsGridDom.setCellStyle(param.tableCell.childNodes[0], 'paddingLeft', '0px');
         }
-
         const element = param.tableCell.querySelector('.tbs-grid-html-string');
         if (param.cellValue) {
             TbsGridDom.setCell(element, 'textContent', param.cellText);

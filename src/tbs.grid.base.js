@@ -194,7 +194,7 @@ export class TbsGridBase extends TbsBase {
         this.options[tbsGridNames.option.insertRow] = false;
         this.options[tbsGridNames.option.updateRow] = false;
         this.options[tbsGridNames.option.deleteRow] = false;
-        this.options[tbsGridNames.option.zeroChar] = this.getConfigCulture('zeroChar');
+        this.options[tbsGridNames.option.zeroChar] = '-';
         this.options[tbsGridNames.option.useToolbar] = true;
         this.options[tbsGridNames.option.imageRoot] = this.getConfigOption('imageRoot');
 

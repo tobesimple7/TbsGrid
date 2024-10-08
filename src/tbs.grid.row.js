@@ -63,25 +63,10 @@ export class TbsGridRow {
             if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                 let rowData = grid.getRow(rowIndex);
                 let depth = rowData[tbsGridNames.column.depth];
-                let count = grid.null(rowData[tbsGridNames.column.children]) ? 0 : rowData[tbsGridNames.column.children].length;
-                if (count > 0) {
-                    if      (depth == '1') TbsGridDom.addUserClass(tableRow, 'tbs-row-color1');
-                    else if (depth == '2') TbsGridDom.addUserClass(tableRow, 'tbs-row-color2');
-                    else if (depth == '3') TbsGridDom.addUserClass(tableRow, 'tbs-row-color3');
-                    else if (depth == '4') TbsGridDom.addUserClass(tableRow, 'tbs-row-color4');
-                    else if (depth == '5') TbsGridDom.addUserClass(tableRow, 'tbs-row-color5');
-                    else TbsGridDom.addUserClass(tableRow, 'tbs-row-color5');
-                }
-                else {
-                    if      (depth == '1') TbsGridDom.removeUserClass(tableRow, 'tbs-row-color1');
-                    else if (depth == '2') TbsGridDom.removeUserClass(tableRow, 'tbs-row-color2');
-                    else if (depth == '3') TbsGridDom.removeUserClass(tableRow, 'tbs-row-color3');
-                    else if (depth == '4') TbsGridDom.removeUserClass(tableRow, 'tbs-row-color4');
-                    else if (depth == '5') TbsGridDom.removeUserClass(tableRow, 'tbs-row-color5');
-                    else {
-                        TbsGridDom.addUserClass(tableRow, 'tbs-row-color5');
-                    }
-                }
+
+                if (depth == grid.group_column_table.count() + 1) TbsGridDom.addUserClass(tableRow, '.tbs-row-color-white');
+                else if (depth <= 5) TbsGridDom.addUserClass(tableRow, 'tbs-row-color' + depth);
+                else TbsGridDom.addUserClass(tableRow, '.tbs-row-color-white');
             }
             if (grid.rowBounding) {
                 if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {

@@ -60,8 +60,7 @@ tbsGridConfigs.en = {
     language: 'us',
     currencyChar: '$',
     decimalChar: '.',
-    thousandChar: ',',
-    zeroChar: '-'
+    thousandChar: ','
   },
   calendar: {
     dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -110,8 +109,7 @@ tbsGridConfigs.ko = {
     language: 'ko',
     currencyChar: '₩',
     decimalChar: '.',
-    thousandChar: ',',
-    zeroChar: '-'
+    thousandChar: ','
   },
   calendar: {
     dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
@@ -160,7 +158,7 @@ tbsGridConfigs.ko = {
  * Write options at the end
  */
 tbsGridConfigs.options = {
-  imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.4/dist-js/img/',
+  imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.23/dist-js/img/',
   userImageRoot: '/src/img/',
   isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
   // true, false

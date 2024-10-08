@@ -7,6 +7,7 @@ export class TbsGridTree {
     constructor(grid) {
         this.grid     = grid;
         this.selector = '#' + grid.gridId;
+        this.openDepth = null;
     }
 
     createTreeData() {
@@ -59,6 +60,7 @@ export class TbsGridTree {
         const grid = this.grid;
 
         if (grid.null(data) || data.length == 0) return;
+        this.openDepth = openDepth;
 
         /* create source_data */
         if (isFirst == true) {
@@ -219,14 +221,14 @@ export class TbsGridTree {
         grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
     }
 
-    getTreeChildrenRows(folding, rowIndex, isAll = true) {
+    getTreechildRows(folding, rowIndex, isAll = true) {
         // folding : open, closed
         let selector = this.selector;
         const grid = this.grid;
 
         let dataRows= grid.view_table.data;
         let resultRows= [];
-        const fn_getChildrenRows = function(row, count) {
+        const fn_getchildRows = function(row, count) {
             if (Object.keys(row).length == 0) return;
 
             if (count > 1) resultRows.push(grid.copyJson(row));
@@ -237,7 +239,7 @@ export class TbsGridTree {
                 if (count == 1) {
                     for (let i = 0, len = arr.length; i < len; i++) {
                         let dataRow = grid.getTreeRowByRowId(arr[i]);
-                        fn_getChildrenRows(dataRow, count + 1);
+                        fn_getchildRows(dataRow, count + 1);
                     }
                 }
                 else {
@@ -245,21 +247,21 @@ export class TbsGridTree {
                         if (row[tbsGridNames.column.isOpen]) {
                             for (let i = 0, len = arr.length; i < len; i++) {
                                 let dataRow = grid.getTreeRowByRowId(arr[i]);
-                                fn_getChildrenRows(dataRow, count + 1);
+                                fn_getchildRows(dataRow, count + 1);
                             }
                         }
                     }
                     else {
                         for (let i = 0, len = arr.length; i < len; i++) {
                             let dataRow = grid.getTreeRowByRowId(arr[i]);
-                            fn_getChildrenRows(dataRow, count + 1);
+                            fn_getchildRows(dataRow, count + 1);
                         }
                     }
                 }
             }
         }
         let row = grid.getRow(rowIndex);
-        fn_getChildrenRows(row, 1);
+        fn_getchildRows(row, 1);
         return resultRows;
     }
 
@@ -274,7 +276,7 @@ export class TbsGridTree {
                 grid.source_table.data[i][tbsGridNames.column.isOpen] = true; // keep folding status
         }
 
-        let rows = grid.classTree.getTreeChildrenRows(tbsGridNames.column.open, rowIndex, false);
+        let rows = grid.classTree.getTreechildRows(tbsGridNames.column.open, rowIndex, false);
         grid.classTree.addTreeRows(rowIndex);
 
     }
@@ -290,7 +292,7 @@ export class TbsGridTree {
                 grid.source_table.data[i][tbsGridNames.column.isOpen] = false; // keep folding status
         }
 
-        let rows = grid.classTree.getTreeChildrenRows(tbsGridNames.column.closed, rowIndex, true);
+        let rows = grid.classTree.getTreechildRows(tbsGridNames.column.closed, rowIndex, true);
         rows.map(row => grid.classTree.removeTreeRow(row));
 
     }
@@ -299,7 +301,7 @@ export class TbsGridTree {
         let selector = this.selector;
         const grid = this.grid;
 
-        let rows = grid.classTree.getTreeChildrenRows(tbsGridNames.column.open, rowIndex, false);
+        let rows = grid.classTree.getTreechildRows(tbsGridNames.column.open, rowIndex, false);
         for (let i = 0, startRowIndex = rowIndex + 1, len = rows.length; i < len; i++, startRowIndex++) {
             grid.classTree.addTreeRow(startRowIndex, rows[i]);
         }

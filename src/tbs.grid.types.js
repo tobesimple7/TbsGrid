@@ -75,11 +75,14 @@ export class TbsGridNames {
             parentNum: '_parentNumber',
             depth: '_depth',
             children: 'children',
+            childRowIds: '_childRowIds',
+            childRows: '_childRows',
+            childCount: '_childCount',
+            isOpen: '_isOpen',
+            isShow: '_isShow',
             open: 'open',
             closed: 'closed',
             rowCount: '_rowCount',
-            isOpen: '_isOpen',
-
             /**
              * User Property
              */

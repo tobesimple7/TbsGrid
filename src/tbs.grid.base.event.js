@@ -33,6 +33,13 @@ export class TbsGridBaseEvent extends TbsGridBase {
                 else if (e.keyCode == 38 && mode == '') { if(!(grid.options[tbsGridNames.row.addRow])) return; grid.editEnd(); grid.addRow('first');grid.input_focus();}   //up arrow
                 else if (e.keyCode == 40 && mode == '') { if(!(grid.options[tbsGridNames.row.addRow])) return; grid.editEnd(); grid.addRow('last'); grid.input_focus();}   //down arrow
                 //else if (e.keyCode == 46 && mode == '') { if(!(grid.options[tbsGridNames.row.addRow])) return; grid.editEnd(); grid.tbs_removeRow(); grid.input_focus();}   //delete key
+                else if ((e.keyCode == 65 || e.keyCode == 97) && mode == '') { //ctrl + a, A
+                    if (!(grid.options[tbsGridNames.row.addRow])) {
+                        grid.classRange.selectRange(0, -1, 0, -1);
+                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+                        grid.input_focus();
+                    }
+                }
             }
             else {
                 if      (e.keyCode == 37  && (mode == ''))  { grid.editEnd(); grid.tbs_moveCell('left' ); grid.input_focus();}
@@ -731,10 +738,10 @@ export class TbsGridBaseEvent extends TbsGridBase {
         grid.classSort.getSortButtonList();
 
         if (grid.group_column_table.count() > 0) {
-            grid.setData(grid.view_table.data, null, false);
+            grid.setData(grid.view_table.data, grid.classGroup.openDepth, false);
         }
         else if (grid.grid_mode == tbsGridTypes.GridMode.tree) {
-            grid.setData(grid.view_table.data, null, false);
+            grid.setData(grid.view_table.data, grid.classTree.openDepth, false);
         }
         else {
             if (grid.isSortableColumn()) {

@@ -210,7 +210,7 @@ export class TbsGridSort {
 
         let icon= document.createElement('span');
         icon.classList.add('tbs-grid-panel-button-icon');
-        icon.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'tree_closed.png)';
+        icon.style['backgroundImage'] = 'url(' + grid.options[tbsGridNames.option.imageRoot] + 'remove.png)';
         icon.dataset.name = columnName;
 
         let button = document.createElement('div');
@@ -227,19 +227,11 @@ export class TbsGridSort {
         let selector = this.selector;
         const grid = this.grid;
 
-        let buttons = document.querySelectorAll(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar .tbs-grid-panel-button');
-        let span = document.querySelector(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar-span');
+        const buttons = document.querySelectorAll(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar .tbs-grid-panel-button');
+        const span = document.querySelector(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar-span');
         if (buttons.length > 0) span.style.display = 'none';
         else span.style.display = '';
 
-        if (buttons.length == 0) {
-            //grid.setColumn('group_column', 'visible', false);
-            // grid.apply();
-        }
-        else {
-            //grid.setColumn('group_column', 'visible', true);
-            // grid.apply();
-        }
         grid.classControl.after_setColumnVisible();
     }
 

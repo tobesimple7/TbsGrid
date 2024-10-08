@@ -49,7 +49,7 @@ tbs-grid (relative)
 .tbs-row-color7 { background-color: #eeeeee; }
 .tbs-row-color8 { background-color: #eeeeee; }
 .tbs-row-color9 { background-color: #eeeeee; }
-
+.tbs-row-color-white { background-color: #ffffff; }
 .tbs-grid-show {
     display: block;
 }

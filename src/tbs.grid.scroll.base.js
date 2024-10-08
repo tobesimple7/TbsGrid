@@ -43,8 +43,8 @@ export class TbsGridScrollBase {
         let mainHeight = rectGrid.height;
 
         if (grid.options.showToolbarPanel) mainHeight -= 25;
-        if (grid.options.showGroupPanel)  mainHeight -= 33; // panel80
-        if (grid.options.showSortPanel)   mainHeight -= 33; // panel90
+        if (grid.options.showGroupPanel)   mainHeight -= 33; // panel80
+        if (grid.options.showSortPanel)    mainHeight -= 33; // panel90
         //if (grid.options.showFilterPanel) mainHeight -= grid.rowHeight * 2; // panel70
 
         main.style.height = `${mainHeight}px`;

@@ -80,13 +80,12 @@ export class TbsGridRenderPanel30 {
                 const row = grid.view_table.selectRowByRowIndex(render.rowIndex);
                 let rowDepth = row[tbsGridNames.column.depth];
                 if (rowDepth <= grid.group_column_table.count()) {
-                    render.cellText = grid.getText(render.rowIndex, grid.group_column_table.data[rowDepth - 1][tbsGridNames.column.name]) + '(' + row[tbsGridNames.column.children].length + ')';
+                    render.cellText = grid.getText(render.rowIndex, grid.group_column_table.data[rowDepth - 1][tbsGridNames.column.name]) + '(' + row[tbsGridNames.column.childRowIds].length + ')';
                     this.align = 'left';
                 }
                 else {
                     render.cellText = grid.getText(render.rowIndex, render.columnName);
                 }
-
             }
         }
         else if (grid.grid_mode == tbsGridTypes.GridMode.tree) {
@@ -110,6 +109,9 @@ export class TbsGridRenderPanel30 {
             else if (render.panelName == 'panel30') {
                 if (render.columnIndex <= grid.fixedColumnIndex) render.visible = false;
             }
+        }
+        if (this.columnType == tbsGridTypes.CellType.number) {
+            if (this.cellText != '') this.cellValue = this.cellText;
         }
         render.createHtml();
     }
