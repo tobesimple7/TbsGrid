@@ -1,25 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "useDefineForClassFields": true,
-    "module": "commonjs",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "outDir": "./dist-source",
+    "sourceMap": false,  // sourceMap 허용
+    "emitDeclarationOnly": false,
+    "noImplicitAny": false, // false : any 허용
+    "strictNullChecks": false, // null 대입 허용
+    "module": "es6",
+    "target": "es6",
+    "jsx": "react",
+    "allowJs": false,
+    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "lib": ["es6", "DOM"],
+    "typeRoots": ["./node_modules/@types"], // 보통 types 폴더를 만들어 타입 정의
+    //"typeRoots": ["./types", "./node_modules/@types"], // 에러 발생
+    "declaration": true, // .d.ts 파일을 자동으로 생성
+    //"declarationMap": false, // .d.ts.map 파일을 자동으로 생성
   },
-  "include": [
-    "tbs"
-  ]
+  "include": ["src"], // 디렉토리 재귀적으로 호출
+  "exclude" : ["node_modules"]
 }
