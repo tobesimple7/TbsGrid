@@ -275,8 +275,6 @@ export class TbsGridBase extends TbsBase {
         this.debug_mode = true;
         this.code_horizontal = 'horizontal';
         this.code_vertical   = 'vertical';
-
-
     }
 
     /**

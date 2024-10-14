@@ -6,11 +6,11 @@ import {columnAlias} from "./tbs.grid.types";
 export class TbsGridRow {
     grid: TbsGrid;
 
-    constructor(grid) {
+    constructor(grid: TbsGrid) {
         this.grid = grid;
     }
 
-    setTableHead(grid, panelName) {
+    setTableHead(grid: TbsGrid, panelName: string) {
         let selector = '#' + grid.gridId;
 
         if (grid.fixedColumnIndex != -1) {

@@ -1,6 +1,6 @@
 import {AddRowDirection, CellType, columnAlias, GridMode, optionAlias, rowAlias} from "../tbs.grid.types";
-import {TbsGridDate} from "../tbs.grid.date";
-import {TbsGridCombo} from "../tbs.grid.combo";
+import {TbsGridDate} from "../layer/tbs.grid.date";
+import {TbsGridCombo} from "../layer/tbs.grid.combo";
 import {TbsGrid} from "../tbs.grid";
 
 export class TbsGridBaseEvent {

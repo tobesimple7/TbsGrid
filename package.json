@@ -25,14 +25,18 @@
       "default": "./dist/tbsgrid.min.js"
     },
     "./package.json": "./package.json",
-    "./dist/tbsgrid-configs.js": "./dist/tbsgrid-configs.js",
-    "./dist/css/*": {
-      "import": "./dist/css/*",
-      "require": "./dist/css/*"
+    "./dist/tbsgrid-configs": "./dist/tbsgrid-configs.js",
+    "./dist/assets/css/*": {
+      "import": "./dist/assets/css/*",
+      "require": "./dist/assets/css/*"
     },
-    "./dist/img/*": {
-      "import": "./dist/img/*",
-      "require": "./dist/img/*"
+    "./dist/assets/img/*": {
+      "import": "./dist/assets/img/*",
+      "require": "./dist/assets/img/*"
+    },
+    "./dist/assets/img/*": {
+      "import": "./dist/assets/img/*",
+      "require": "./dist/assets/img/*"
     },
     "./dist/*": {
       "script": "./dist-js/*",

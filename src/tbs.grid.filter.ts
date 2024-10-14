@@ -127,8 +127,7 @@ export class TbsGridFilter {
         });
     }
 
-    filterNumberByType(filterType, n, targetNumber) {
-        let selector = this.selector;
+    filterNumberByType(filterType: FilterType, n: any, targetNumber: any) {
         const grid = this.grid;
 
         // @Rule : when number is null, number is zero
@@ -154,35 +153,33 @@ export class TbsGridFilter {
         targetNumber = parseFloat(targetNumber);
 
         if      (filterType == FilterType.Equal) {
-            return (n == targetNumber) ? true : false;
+            return n == targetNumber;
         }
         else if (filterType == FilterType.NotEqual) {
-            return (n != targetNumber) ? true : false;
+            return n != targetNumber;
         }
         else if (filterType == FilterType.Greater) {
-            return (n < targetNumber) ? true : false;
+            return n < targetNumber;
         }
         else if (filterType == FilterType.GreaterEqual) {
-            return (n <= targetNumber) ? true : false;
+            return n <= targetNumber;
         }
         else if (filterType == FilterType.Less) {
-            return (n > targetNumber) ? true : false;
+            return n > targetNumber;
         }
         else if (filterType == FilterType.LessEqual) {
-            return (n >= targetNumber) ? true : false;
+            return n >= targetNumber;
         }
         else if (filterType == FilterType.Between) {
-            return (targetNumber >= n && targetNumber <= toNumber) ? true : false;
+            return targetNumber >= n && targetNumber <= toNumber;
         }
         else if (filterType == FilterType.Blank) {
             return grid.null(targetNumber) || targetNumber == 0;
         }
     }
 
-    filterStringByType(filterType, s, targetString) {
-        let selector = this.selector;
-        const grid = this.grid;
-        let regExp;
+    filterStringByType(filterType: FilterType, s: any, targetString: any) {
+        let regExp: RegExp;
 
         // String comparisons are case-insensitive.
         s = s.toLowerCase();
@@ -193,7 +190,7 @@ export class TbsGridFilter {
         }
         else if (filterType == FilterType.NotEqual) {
             regExp = new RegExp(`^${s}$`);
-            return regExp.test(targetString) == false ? true : false;
+            return regExp.test(targetString) == false;
         }
         else if (filterType == FilterType.Include) {
             regExp = new RegExp(`${s}`);
@@ -201,7 +198,7 @@ export class TbsGridFilter {
         }
         else if (filterType == FilterType.NotInclude) {
             regExp = new RegExp(`${s}`);
-            return regExp.test(targetString) == false ? true : false;
+            return regExp.test(targetString) == false;
         }
         else if (filterType == FilterType.StartCharacter) {
             regExp = new RegExp(`^${s}`);

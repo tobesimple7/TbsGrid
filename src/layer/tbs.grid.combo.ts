@@ -1,6 +1,6 @@
 ﻿
-import {TbsGrid} from "./tbs.grid";
-import {CellType, columnAlias} from "./tbs.grid.types";
+import {TbsGrid} from "../tbs.grid";
+import {CellType, columnAlias} from "../tbs.grid.types";
 
 
 export class TbsGridCombo {
@@ -35,7 +35,7 @@ export class TbsGridCombo {
         s += '      <tr>';
         s += '          <td>';
         s += '              <select class="tbs-grid-input-combo-select" multiple>';
-        s += '                  <option class="tbs-grid-input-combo-option" value="1">1월</option>';
+        //s += '                  <option class="tbs-grid-input-combo-option" value="1">1월</option>';
         s += '              </select>';
         s += '          <td>';
         s += '      </tr>';
@@ -106,36 +106,16 @@ export class TbsGridCombo {
         let value = this.input.value;
         let eCount = 0;
 
-        if (value != '') {
-            input_combo.options.length = 0;
+        input_combo.options.length = 0;
 
-            for (let i = 0, len = data.rows.length; i < len; i++) {
-                let row = data.rows[i];
-                let option = document.createElement('option');
-                option.value = row[key];
-                option.text = row[val];
-                option.classList.add('tbs-grid-input-combo-option');
-                input_combo.append(option);
-                eCount = 1;
-            }
-        }
-        if (value == '' || eCount == 0) {
-            input_combo.options.length = 0;
-            let option = document.createElement('option');
-            if (columnName != '') {
-                option.value = '';
-                option.text = '==selected==';
-                option.classList.add('tbs-grid-input-combo-option');
-                input_combo.append(option);
-            }
-            for (let i = 0, len = data.length; i < len; i++) {
-                let row = data[i];
-                let option = document.createElement('option');
-                option.value = row[key];
-                option.text = row[val];
-                option.classList.add('tbs-grid-input-combo-option');
-                input_combo.append(option);
-            }
+        for (let i = 0, len = data.rows.length; i < len; i++) {
+            const row = data.rows[i];
+            const option = document.createElement('option');
+            option.value = row[key];
+            option.text = row[val];
+            option.classList.add('tbs-grid-input-combo-option');
+            input_combo.append(option);
+            eCount = 1;
         }
     }
 

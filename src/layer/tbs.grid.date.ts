@@ -1,5 +1,5 @@
-﻿import {TbsGrid} from "./tbs.grid";
-import {columnAlias} from "./tbs.grid.types";
+﻿import {TbsGrid} from "../tbs.grid";
+import {columnAlias} from "../tbs.grid.types";
 
 export class TbsGridDate{
     colType: any;
