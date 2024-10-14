@@ -15,7 +15,7 @@ export class TbsGridControl {
         grid.classColumn.createColumnTable();
         grid.classHeader.createHeaderColumns();
         grid.classHeader.createHeaderColumnTable();
-        grid.updateGrid(grid.column_table.data);
+        grid.updateGrid();
 
         grid.classRange.removeRange(0, -1);
         let _topRowIndex = grid.classRange.selectRange(0, 0, 0, 0);
@@ -32,7 +32,7 @@ export class TbsGridControl {
         grid.classColumn.createColumnTable();
         grid.classHeader.createHeaderColumns();
         grid.classHeader.createHeaderColumnTable();
-        grid.updateGrid(grid.column_table.data);
+        grid.updateGrid();
 
         grid.classRange.removeRange(0, -1);
         let _topRowIndex = grid.classRange.selectRange(0, 0, 0, 0);
@@ -49,7 +49,7 @@ export class TbsGridControl {
         grid.classColumn.createColumnTable();
         grid.classHeader.createHeaderColumns();
         grid.classHeader.createHeaderColumnTable();
-        grid.updateGrid(grid.column_table.data);
+        grid.updateGrid();
 
         grid.classRange.removeRange(0, -1);
         let _topRowIndex = grid.classRange.selectRange(0, 0, 0, 0);

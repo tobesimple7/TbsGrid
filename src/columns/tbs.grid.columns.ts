@@ -152,7 +152,7 @@ export class TbsGridColumns {
 
         grid.classHeader.createHeaderColumnTable();
 
-        grid.updateGrid(grid.column_table.data);
+        grid.updateGrid();
 
         grid.apply();
     }
@@ -178,7 +178,7 @@ export class TbsGridColumns {
 
         grid.column_table.data.splice(targetColumnIndex, rootColumn[columnAlias.colSpan]);
 
-        grid.updateGrid(grid.column_table.data);
+        grid.updateGrid();
 
         grid.classRange.removeRange(0, -1);
         let _topRowIndex = grid.classRange.selectRange(0, 0, 0, 0);

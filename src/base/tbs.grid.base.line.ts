@@ -1,6 +1,6 @@
 import {TbsGrid} from "../tbs.grid";
 
-export class TbsGridLine {
+export class TbsGridBaseLine {
 
     constructor() {
     }

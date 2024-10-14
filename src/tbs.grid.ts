@@ -29,12 +29,16 @@ import {TbsGridRow} from "./tbs.grid.row";
 import {TbsGridCell} from "./tbs.grid.cell";
 import {TbsGridBase} from "./base/tbs.grid.base";
 import {AddRowDirection, CellType, columnAlias, GridMode, optionAlias, rowAlias} from "./tbs.grid.types";
-import {TbsGridIs} from "./base/tbs.grid.is";
-import {TbsGridEvent} from "./base/tbs.grid.event";
-import { TbsGridUserEvent } from "./base/tbs.grid.user.event";
-import { TbsGridLine } from "./base/tbs.grid.line";
+import {TbsGridBaseIs} from "./base/tbs.grid.base.is";
+import {TbsGridBaseEvent} from "./base/tbs.grid.base.event";
+import { TbsGridBaseUserEvent } from "./base/tbs.grid.base.user.event";
+import { TbsGridBaseLine } from "./base/tbs.grid.base.line";
 
 export class TbsGrid extends TbsGridBase {
+
+    /**
+     * Class
+     */
 
     classScroll: TbsGridScrollBase;
     verticalScroll: TbsGridScroll;
@@ -204,17 +208,17 @@ export class TbsGrid extends TbsGridBase {
      *
      */
 
-    getFormatValue(col, value){
-        let result: any = this.getFormat(col, value);
+    getFormatValue(column: any, value: any){
+        let result: any = this.getFormat(column, value);
         return result.value;
     }
 
-    getFormatText(col, value){
-        let result: any = this.getFormat(col, value);
+    getFormatText(column: any, value: any){
+        let result: any = this.getFormat(column, value);
         return result.text;
     }
 
-    getFormat(column, value) {
+    getFormat(column: any, value: any) {
         const grid = this;
 
         let result: any = {};
@@ -263,7 +267,7 @@ export class TbsGrid extends TbsGridBase {
         }
     }
 
-    getFormatNumber(column, value) {
+    getFormatNumber(column: any, value: any) {
         const grid = this;
         const formatWon = function (n) {
             //return val.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); safari error
@@ -352,7 +356,7 @@ export class TbsGrid extends TbsGridBase {
         return result;
     }
 
-    getFormatDate(column, value) {
+    getFormatDate(column: any, value: any) {
         const grid = this;
         let result: any = {};
         value = value.replace(/\./gi, '');
@@ -416,49 +420,58 @@ export class TbsGrid extends TbsGridBase {
      */
 
     showGroupPanel() { this.classGroup.showGroupPanel(); }
+
     hideGroupPanel() { this.classGroup.hideGroupPanel(); }
-    setGroupColumns(groupColumns){
+
+    setGroupColumns(groupColumns: any[]){
         this.group_column_table.remove();
         groupColumns.map(column => this.group_column_table.insert(this.copyJson(column)))
     }
-    setSortColumns(sortColumns){
+
+    setSortColumns(sortColumns: any[]){
         this.sort_column_table.remove();
         sortColumns.map(column => this.sort_column_table.insert(this.copyJson(column)))
     }
+
     /**
      * Tree Functions
      */
 
     //setTreeOption(optionName, optionValue) { this.classTree.setTreeOption(optionName, optionValue); }
-    setTreeSortColumn(sortColumn) { this.classTree.setTreeSortColumns(sortColumn); }
+    setTreeSortColumn(sortColumn: any) { this.classTree.setTreeSortColumns(sortColumn); }
 
     /**
      *  Panel10 Functions
      */
 
     showToolbarPanel() { this.classPanel10.showToolbarPanel(); }
+
     hideToolbarPanel() { this.classPanel10.hideToolbarPanel(); }
 
-    showToolbarButtons(buttonType) { this.classPanel10.showToolbarButtons(buttonType); }
-    hideToolbarButtons(buttonType) { this.classPanel10.hideToolbarButtons(buttonType); }
+    showToolbarButtons(buttonType: string) { this.classPanel10.showToolbarButtons(buttonType); }
+
+    hideToolbarButtons(buttonType: string) { this.classPanel10.hideToolbarButtons(buttonType); }
 
     showFilterPanel() { this.classFilter.showFilterPanel(); }
+
     hideFilterPanel() { this.classFilter.hideFilterPanel(); }
 
     showSortPanel() { this.classSort.showSortPanel(); }
+
     hideSortPanel() { this.classSort.hideSortPanel(); }
 
     /**
      *  TbsGrid Config
      */
 
-    setGridConfig(tbsGridConfig) { this.gridConfig = tbsGridConfig;	}
+    setGridConfig(tbsGridConfig: any) { this.gridConfig = tbsGridConfig; }
 
     /**
      * Column Functions
      */
 
-    setFixedColumn(fixedColumnIndex) { this.classColumn.setFixedColumn(fixedColumnIndex); }
+    setFixedColumn(fixedColumnIndex: number) { this.classColumn.setFixedColumn(fixedColumnIndex); }
+
     removeFixedColumn() { this.classColumn.removeFixedColumn(); }
 
     /**
@@ -510,14 +523,7 @@ export class TbsGrid extends TbsGridBase {
         this.rightLineDiv  = document.querySelector(selector + ' .tbs-grid-right-line');
     }
 
-    setToolbar(toolbar) {
-        const grid = this;
-
-        if (toolbar == undefined) return;
-        //grid.showToolbarPanel = (toolbar.visible != undefined) ? grid.options.showToolbarPanel = toolbar.visible : grid.options.showToolbarPanel;
-    }
-
-    setDataColumns(columns) {
+    setDataColumns(columns: any[]) {
         // columns.map(column => {
         //     const dataRow = {}
         //     dataRow[columnAlias.name] = column[columnAlias.name];
@@ -526,7 +532,7 @@ export class TbsGrid extends TbsGridBase {
         // });
     }
 
-    setGrid(columns, options = {}) {
+    setGrid(columns: any[], options: any = {}) {
         const grid = this;
 
         grid.createOption(options);
@@ -541,12 +547,12 @@ export class TbsGrid extends TbsGridBase {
 
         grid.classHeader.createHeaderColumnTable();
 
-        grid.createGrid(grid.column_table.data);
+        grid.createGrid();
 
         grid.classPanel70.setDataPanel();
     }
 
-    createGrid(column) {
+    createGrid() {
         const grid = this;
 
         this.createHtml();
@@ -566,8 +572,7 @@ export class TbsGrid extends TbsGridBase {
         this.tbs_addEventAll();
     }
 
-    updateGrid(column) {
-        let selector = '#' + this.gridId;
+    updateGrid() {
         const grid = this;
 
         this.classPanel20.createTable();
@@ -592,6 +597,7 @@ export class TbsGrid extends TbsGridBase {
         let metrics = context.measureText(text);
         return metrics.width;
     };
+
     getTextWidth2(context, text) {
         let selector = '#' + this.gridId;
         const grid = this;
@@ -599,6 +605,7 @@ export class TbsGrid extends TbsGridBase {
         let metrics = context.measureText(text);
         return metrics.width;
     };
+
     setColumnAutoWidth(){
         let selector = '#' + this.gridId;
         const grid = this;
@@ -634,6 +641,7 @@ export class TbsGrid extends TbsGridBase {
         grid.classScroll.setAllColumnWidth(arr);
         grid.classPanel20.setDataPanel();
     }
+
     setRowHeight(type, rowHeight) {
         let selector = '#' + this.gridId;
         const grid = this;
@@ -677,6 +685,7 @@ export class TbsGrid extends TbsGridBase {
 
         }
     }
+
     setGridModePage() {
         let selector = '#' + this.gridId;
         const grid = this;
@@ -686,6 +695,7 @@ export class TbsGrid extends TbsGridBase {
 
         grid.classPage.pageRowCount = grid.classPage.options['pageRowCount'];
     }
+
     setGridModePagenation() {
         let selector = '#' + this.gridId;
         const grid = this;
@@ -693,14 +703,16 @@ export class TbsGrid extends TbsGridBase {
         const page: any = document.querySelector(selector + ' .tbs-grid-panel10-page');
         page.style.display = '';
     }
-    setData(data: any, openDepth: number = 0, isFirst: boolean = true) {
+
+    setData(data: any[], openDepth: number = 0, isFirst: boolean = true) {
         const grid = this;
 
         if (grid.group_column_table.count() > 0) grid.classGroup.setGroupData(data, openDepth, isFirst);
         else if (grid.grid_mode == GridMode.tree) grid.classTree.setTreeData(data, openDepth, isFirst);
         else grid.setGridData(data, isFirst);
     }
-    setGridMode(gridMode) {
+
+    setGridMode(gridMode: GridMode) {
         let selector = '#' + this.gridId;
         const grid = this;
 
@@ -716,6 +728,7 @@ export class TbsGrid extends TbsGridBase {
         }
         else if (grid.grid_mode == GridMode.tree) {}
     }
+
     setGridData(data, isFirst) {
         let selector = '#' + this.gridId;
         const grid = this;
@@ -780,6 +793,7 @@ export class TbsGrid extends TbsGridBase {
             grid.classPanel50.setDataPanel();
         }
     }
+
     refreshRefData() {
         // Data Init
         let selector = '#' + this.gridId;
@@ -813,18 +827,27 @@ export class TbsGrid extends TbsGridBase {
     /**
      * Columns API.
      */
+
     getColumn(name: string, table?) { return this.isNull(table, this.column_table).selectRow(columnAlias.name, name); }
+
     getColumns(table?: any) { return this.isNull(table, this.column_table).select();  }
+
     getColumnByIndex(columnIndex: number, table?: any) { return this.isNull(table, this.column_table).selectRowByRowIndex(columnIndex); }
+
     getColumnName(columnIndex: number, table?: any) { return this.isNull(table, this.column_table).selectValue(columnIndex, columnAlias.name); }
+
     getColumnIndex(columnName: string, table?: any) { return this.isNull(table, this.column_table).selectRowIndex(columnAlias.name, columnName); }
+
     setColumn(columnName: string, property: string, value: any, table?: any) { this.isNull(table, this.column_table).updateRow(columnName, property, value); }
 
     /**
      * Filter Columns
      */
+
     getFilterColumn(columnName) { return this.getColumn(columnName, this.filter_column_table); }
+
     getFilterColumnName(columnIndex) { return this.getColumnName(columnIndex, this.filter_column_table); }
+
     getFilterColumnIndex(columnName) { return this.getColumnIndex(columnName, this.filter_column_table); }
 
     /**
@@ -836,11 +859,15 @@ export class TbsGrid extends TbsGridBase {
     /**
      * Header Columns API.
      */
+
     getHeaderColumn(rowIndex: number, columnIndex: number) { return this.classHeader.getHeaderColumn(rowIndex, columnIndex); }
+
     getHeaderColumnByNumber(num) { return this.classHeader.getHeaderColumnByNumber(num); }
 
     addColumn(addColumn: any, targetColumnIndex: number, orderType: string) { this.classColumn.addColumn(addColumn, targetColumnIndex, orderType);}
+
     removeColumn(targetColumnIndex: number) { this.classColumn.removeColumn(targetColumnIndex); }
+
     setHeaderProperty(rowIndex: number, colIndex: number, property: string, value: any) { this.classHeader.setHeaderProperty(rowIndex, colIndex, property, value); }
 
     /**
@@ -898,13 +925,19 @@ export class TbsGrid extends TbsGridBase {
     /**
      * view table rows
      */
+
     getRowCount(table?: any) { return this.isNull(table, this.view_table).count(); }
+
     getRow(rowIndex: number, table?: any) { return this.isNull(table, this.view_table).selectRowByRowIndex(rowIndex); }
+
     getRows(startRowIndex?: number, endRowIndex?: number, table?: any) { return this.isNull(table, this.view_table).selectRowRange(startRowIndex, endRowIndex); }
+
     getRowByRowId(rowId: number, table?: any) { return this.isNull(table, this.view_table).selectRowByRowId(rowId); }
+
     getRowIndexByRowId(rowId: number, table?: any) { return this.isNull(table, this.view_table).selectRowIndexByRowId(rowId); }
 
     getCheckedRows() { return this.view_table.selectRows(columnAlias.isChecked, true); }
+
     getSelectedRows() {
         const result = [];
         for (let i = 0, len = this.view_table.count(); i < len; i++) {
@@ -912,6 +945,7 @@ export class TbsGrid extends TbsGridBase {
         }
         return result;
     }
+
     getSelectedRowsIndexArray() {
         const result: number[] = [];
         for (let rowIndex = 0, len = this.view_table.count(); rowIndex < len; rowIndex++) {
@@ -936,6 +970,7 @@ export class TbsGrid extends TbsGridBase {
         }
         return result;
     }
+
     getDeletedRowsData() {
         let rows = this.data_delete;
         let result = [];
@@ -948,6 +983,7 @@ export class TbsGrid extends TbsGridBase {
         }
         return result;
     }
+
     getUpdatedRowsData() {
         let rows = this.source_table.data;
         let result = [];
@@ -962,6 +998,7 @@ export class TbsGrid extends TbsGridBase {
         }
         return result;
     }
+
     getInsertedRowsData() {
         let rows = this.source_table.data;
         let result = [];
@@ -1069,6 +1106,7 @@ export class TbsGrid extends TbsGridBase {
             }
         }
     }
+
     removeRows(rows: any[]) {
         const grid = this;
 
@@ -1093,37 +1131,57 @@ export class TbsGrid extends TbsGridBase {
     /**
      * source table rows
      */
+
     getSourceRowCount(): number { return this.getRowCount(this.source_table); }
+
     getSourceRow(rowIndex: number): any { return this.getRow(rowIndex, this.source_table); }
+
     getSourceRows(startRowIndex: number, endRowIndex: number): any[] { return this.getRows(startRowIndex, endRowIndex, this.source_table); }
+
     getSourceRowByRowId(rowId: number): any { return this.getRowByRowId(rowId, this.source_table); }
+
     getSourceRowIndexByRowId(rowId: number): number { return this.getRowIndexByRowId(rowId, this.source_table); }
 
     /**
      * top table rows
      */
+
     getTopRowCount(): number { return this.getRowCount(this.top_table); }
+
     getTopRow(rowIndex: number): any { return this.getRow(rowIndex, this.top_table); }
+
     getTopRows(startRowIndex: number, endRowIndex: number): any[] { return this.getRows(startRowIndex, endRowIndex, this.top_table); }
+
     getTopRowByRowId(rowId: number): any { return this.getRowByRowId(rowId, this.top_table); }
+
     getTopRowIndexByRowId(rowId: number): number { return this.getRowIndexByRowId(rowId, this.top_table); }
 
     /**
      * footer table rows
      */
+
     getFooterRowCount(): number { return this.getRowCount(this.footer_table); }
+
     getFooterRow(rowIndex: number): any { return this.getRow(rowIndex, this.footer_table); }
+
     getFooterRows(startRowIndex: number, endRowIndex: number): any[] { return this.getRows(startRowIndex, endRowIndex, this.footer_table); }
+
     getFooterRowByRowId(rowId: number): any { return this.getRowByRowId(rowId, this.footer_table); }
+
     getFooterRowIndexByRowId(rowId: number): number { return this.getRowIndexByRowId(rowId, this.footer_table); }
 
     /**
      * tree table rows
      */
+
     getTreeRowCount(): number { return this.getRowCount(this.tree_table); }
+
     getTreeRow(rowIndex: number): any { return this.getRow(rowIndex, this.tree_table); }
+
     getTreeRows(startRowIndex: number, endRowIndex: number): any[] { return this.getRows(startRowIndex, endRowIndex, this.tree_table); }
+
     getTreeRowByRowId(rowId: number): any { return this.getRowByRowId(rowId, this.tree_table); }
+
     getTreeRowIndexByRowId(rowId: number): number { return this.getRowIndexByRowId(rowId, this.tree_table); }
 
     /**
@@ -1131,6 +1189,7 @@ export class TbsGrid extends TbsGridBase {
      */
 
     getValue(rowIndex: number, columnName: string, table?: any): any { return this.isNull(table, this.view_table).selectValue(rowIndex, columnName); }
+
     getValueByColumnIndex(rowIndex: number, columnIndex: number, table?: any): any {
         let columnName = this.getColumnName(columnIndex, table);
         return this.getValue(rowIndex, columnName, table);
@@ -1141,6 +1200,7 @@ export class TbsGrid extends TbsGridBase {
         let val = this.getValue(rowIndex, columnName, table);
         return this.getFormatText(column, val);
     }
+
     getTextByIndex(rowIndex: number, columnIndex: number, table?: any): any {
         let columnName = this.getColumnName(columnIndex); // column_table
         return this.getText(rowIndex, columnName, table);
@@ -1177,16 +1237,19 @@ export class TbsGrid extends TbsGridBase {
             }
         }
     }
+
     setValueByColumnIndex(rowIndex: number, cellIndex: number, value: any): void {
         let columnName = this.getColumnName(cellIndex);
         this.setValue(rowIndex, columnName, value);
     }
 
     /** info_column_table */
+
     getInfoValue(columnName: string, property: string): any {
         const dataRow = this.info_column_table.selectRow(columnAlias.name, columnName);
         return dataRow[property];
     }
+
     setInfoValue(columName: string, property: string, value: any): void { this.info_column_table.update(columName, property, value); }
 
     /**
@@ -1197,6 +1260,7 @@ export class TbsGrid extends TbsGridBase {
         let _topRowIndex = this.classRange.selectRange(rowIndex1, toRowIndex2, columnIndex1, columnIndex2);
         this.classPanel30.setDataPanel(_topRowIndex);
     }
+
     selectRange(rowIndex1: number, toRowIndex2: number, columnIndex1: number, columnIndex2: number): void {
         if (this.view_table.count() == 0 || this.column_table.count() == 0) return;
         let _topRowIndex = this.classRange.selectRange(rowIndex1, toRowIndex2, columnIndex1, columnIndex2);
@@ -1208,7 +1272,9 @@ export class TbsGrid extends TbsGridBase {
      */
 
     createOption(options: any) { this.setOptions(options); }
+
     setOption(optionName: string, optionValue: any) { this.options[optionName] = optionValue; }
+
     setOptions(options: any) { for (let key in options) this.setOption(key, options[key]); }
 
     /**
@@ -1222,6 +1288,7 @@ export class TbsGrid extends TbsGridBase {
      */
 
     addUserClass(element: any, className: string): void { TbsGridDom.addUserClass(element, className); }
+
     removeUserClass(element: any): void { TbsGridDom.removeUserClass(element); }
 
     /**
@@ -1239,9 +1306,10 @@ export class TbsGrid extends TbsGridBase {
  * Class Mixins
  *
  */
-export interface TbsGrid extends TbsGridIs, TbsGridEvent, TbsGridUserEvent, TbsGridLine {}
 
-applyMixins(TbsGrid, [TbsGridIs, TbsGridEvent, TbsGridUserEvent, TbsGridLine]);
+export interface TbsGrid extends TbsGridBaseIs, TbsGridBaseEvent, TbsGridBaseUserEvent, TbsGridBaseLine {}
+
+applyMixins(TbsGrid, [TbsGridBaseIs, TbsGridBaseEvent, TbsGridBaseUserEvent, TbsGridBaseLine]);
 
 function applyMixins(derivedCtor: any, constructors: any[]) {
     constructors.forEach((baseCtor) => {

@@ -116,6 +116,7 @@ export enum CellType {
 }
 
 export enum GridMode {
+    grid = '',
     tree = 'tree',
     page = 'page',
     pagination = 'pagination',

@@ -3,7 +3,7 @@ import {TbsGridDate} from "../tbs.grid.date";
 import {TbsGridCombo} from "../tbs.grid.combo";
 import {TbsGrid} from "../tbs.grid";
 
-export class TbsGridEvent {
+export class TbsGridBaseEvent {
     constructor() {
 
     }

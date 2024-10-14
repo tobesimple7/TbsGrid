@@ -1,4 +1,4 @@
-export class TbsGridUserEvent {
+export class TbsGridBaseUserEvent {
     onClick: any;
     onDblclick: any;
     onEdit: any;

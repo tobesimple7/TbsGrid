@@ -1,7 +1,7 @@
 import {CellType, columnAlias} from "../tbs.grid.types";
 import {TbsGrid} from "../tbs.grid";
 
-export class TbsGridIs {
+export class TbsGridBaseIs {
 
     constructor() {
     }

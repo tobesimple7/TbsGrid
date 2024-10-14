@@ -1,5 +1,5 @@
 import {TbsGrid} from "./tbs.grid";
-import {columnAlias, optionAlias} from "./tbs.grid.types";
+import {columnAlias, GridMode, optionAlias} from "./tbs.grid.types";
 
 export class TbsGridGroup {
     grid: TbsGrid;
@@ -836,7 +836,7 @@ export class TbsGridGroup {
     destroy() {
         const grid = this.grid;
 
-        grid.setGridMode('')
+        grid.setGridMode(GridMode.grid)
         grid.group_column_table.remove();
         grid.group_table.remove();
         grid.classGroup.hideGroupPanel();
@@ -876,7 +876,7 @@ export class TbsGridGroup {
     initGroupData() {
         const grid = this.grid;
 
-        grid.setGridMode('')
+        grid.setGridMode(GridMode.grid);
         grid.group_column_table.remove();
         grid.sort_column_table.remove();
         grid.group_table.remove();
