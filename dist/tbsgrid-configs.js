@@ -7,52 +7,21 @@
 		var a = factory();
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function() {
+})(self, function() {
 return /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	// The require scope
-/******/ 	var __webpack_require__ = {};
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/************************************************************************/
 var __webpack_exports__ = {};
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   tbsGridConfigs: function() { return /* binding */ tbsGridConfigs; }
-/* harmony export */ });
-const tbsGridConfigs = {};
+// This entry need to be wrapped in an IIFE because it uses a non-standard name for the exports (exports).
+!function() {
+var exports = __webpack_exports__;
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.tbsGridConfigs = void 0;
+exports.tbsGridConfigs = {};
 /**
  * Basically, the language with the fastest order is applied.
  */
-tbsGridConfigs['en'] = {
+exports.tbsGridConfigs.en = {
     culture: {
         name: 'us',
         language: 'us',
@@ -101,7 +70,7 @@ tbsGridConfigs['en'] = {
         toolbar_button_reset: 'Reset',
     }
 };
-tbsGridConfigs['ko'] = {
+exports.tbsGridConfigs.ko = {
     culture: {
         name: 'ko',
         language: 'ko',
@@ -154,7 +123,7 @@ tbsGridConfigs['ko'] = {
 /**
  * Write options at the end
  */
-tbsGridConfigs['options'] = {
+exports.tbsGridConfigs.options = {
     imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.23/dist-js/img/',
     userImageRoot: '/src/img/',
     isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent), // true, false
@@ -164,6 +133,7 @@ tbsGridConfigs['options'] = {
     elseValue: 'N',
 };
 
+}();
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;

@@ -38,9 +38,9 @@ I will try to make a good product.
 <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-<style  src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.28/dist/css/tbsgrid.css" />
-<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.28/dist/tbsgrid-configs.js" />
-<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.28/dist/tbsgrid.min.js" />
+<style  src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.30/dist/css/tbsgrid.css" />
+<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.30/dist/tbsgrid-configs.js" />
+<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.30/dist/tbsgrid.min.js" />
 
 ```
 ### NPM 

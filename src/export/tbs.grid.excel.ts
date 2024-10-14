@@ -75,6 +75,7 @@ export class TbsGridExcel {
         //     saveAs(blob, fileName + '.xls');
         // }
         // else
+
         if (extensionType == 'xls')       {
             const wb = XLSX.utils.book_new();
 
