@@ -124,8 +124,10 @@ exports.tbsGridConfigs.ko = {
  * Write options at the end
  */
 exports.tbsGridConfigs.options = {
-    imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.23/dist-js/img/',
-    userImageRoot: '/src/img/',
+    imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.34/dist/assets/img/',
+    userImageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.34/dist/assets/userImg/',
+    // imageRoot: '/src/assets/img/',
+    // userImageRoot: '/src/assets/userImg/',
     isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent), // true, false
     userAgent: navigator.userAgent, // 'safari' etc
     trueValue: 'Y', // checkbox value

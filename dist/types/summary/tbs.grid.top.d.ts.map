@@ -1,1 +1,0 @@
-{"version":3,"file":"tbs.grid.top.d.ts","sourceRoot":"","sources":["../../src/summary/tbs.grid.top.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,OAAO,EAAC,MAAM,aAAa,CAAC;AAGpC,qBAAa,UAAU;IACnB,IAAI,EAAE,OAAO,CAAC;IACd,QAAQ,EAAE,MAAM,CAAC;gBAEL,IAAI,KAAA;IAKhB,aAAa,CAAC,OAAO,KAAA;IAQrB,UAAU;IA4CV,WAAW,CAAC,QAAQ,KAAA,EAAE,UAAU,KAAA,EAAE,KAAK,KAAA;CAM1C"}

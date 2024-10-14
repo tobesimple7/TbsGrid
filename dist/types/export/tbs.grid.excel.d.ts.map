@@ -1,1 +1,0 @@
-{"version":3,"file":"tbs.grid.excel.d.ts","sourceRoot":"","sources":["../../src/export/tbs.grid.excel.ts"],"names":[],"mappings":"AAGA,OAAO,EAAC,OAAO,EAAC,MAAM,aAAa,CAAC;AAGpC,qBAAa,YAAY;IACrB,IAAI,EAAE,OAAO,CAAC;gBAEF,IAAI,EAAE,OAAO;IAIzB,WAAW,CAAC,OAAO,EAAE,GAAG;IAyFxB,IAAI,CAAC,CAAC,KAAA;IAON,eAAe;IAcf,aAAa;IAiCb,aAAa;IAqCb,aAAa;IA4Cb,aAAa;CAwChB"}

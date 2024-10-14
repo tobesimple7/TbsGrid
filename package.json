@@ -1,6 +1,6 @@
 {
   "name": "tbsgrid",
-  "version": "0.2.30",
+  "version": "0.2.35",
   "description": "",
   "author": "tobesimple7",
   "license": "MIT",
@@ -11,7 +11,7 @@
     "xlsx": "^0.18.5"
   },
   "files": [
-    "dist/*", "src/*"
+    "dist/*", "src/*", "types/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,7 +25,7 @@
       "default": "./dist/tbsgrid.min.js"
     },
     "./package.json": "./package.json",
-    "./dist/tbsgrid-configs": "./dist/tbsgrid-configs.js",
+    "./dist/tbsgrid-configs.js": "./dist/tbsgrid-configs.js",
     "./dist/assets/css/*": {
       "import": "./dist/assets/css/*",
       "require": "./dist/assets/css/*"
@@ -34,13 +34,9 @@
       "import": "./dist/assets/img/*",
       "require": "./dist/assets/img/*"
     },
-    "./dist/assets/img/*": {
-      "import": "./dist/assets/img/*",
-      "require": "./dist/assets/img/*"
-    },
-    "./dist/*": {
-      "script": "./dist-js/*",
-      "default": "./dist-js/*"
+    "./dist/assets/userImg/*": {
+      "import": "./dist/assets/userImg/*",
+      "require": "./dist/assets/userImg/*"
     }
   }
 }
