@@ -1,6 +1,6 @@
 {
   "name": "tbsgrid",
-  "version": "0.2.26",
+  "version": "0.2.28",
   "description": "",
   "author": "tobesimple7",
   "license": "MIT",
@@ -16,8 +16,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "main": "./dist/tbsgrid.js",
-  "module": "./dist/tbsgrid.js",
+  "main": "./dist/tbsgrid.min.js",
+  "module": "./dist/tbsgrid.min.js",
   "types": "./dist/types/**/*",
   "exports": {
     ".": {
