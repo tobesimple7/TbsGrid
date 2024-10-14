@@ -11,7 +11,7 @@
 return /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 213:
+/***/ 4213:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(a,b){if(true)!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (b),
@@ -23,643 +23,2186 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 980:
+/***/ 294:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   H: function() { return /* binding */ TbsBase; }
+/* harmony export */   R: function() { return /* binding */ TbsGridBase; }
 /* harmony export */ });
-class TbsBase {
-    constructor() {
-        this.debug_mode = false;
+/* harmony import */ var _tbs_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5052);
+/* harmony import */ var _database_tbs_database__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(132);
+/* harmony import */ var _tbs_grid_configs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4476);
+
+
+
+class TbsGridBase extends _tbs_base__WEBPACK_IMPORTED_MODULE_2__/* .TbsBase */ .H {
+    constructor(gridId, gridConfigs) {
+        super();
+        this.renderer = null;
+        this.infoRenderer = null;
+        this.gridId = gridId;
+        this.gridConfig = gridConfigs ?
+            gridConfigs[Object.keys(gridConfigs)[0]] : _tbs_grid_configs__WEBPACK_IMPORTED_MODULE_1__.tbsGridConfigs[Object.keys(_tbs_grid_configs__WEBPACK_IMPORTED_MODULE_1__.tbsGridConfigs)[0]];
+        this.gridConfigOptions = gridConfigs ? gridConfigs['options'] : _tbs_grid_configs__WEBPACK_IMPORTED_MODULE_1__.tbsGridConfigs['options'];
+        this.grid_mode = '';
+        this.mousePointRange = 15;
+        /**
+         * @description mobile, user agent
+         *
+         */
+        this.isMobile = this.gridConfigOptions['isMobile'];
+        this.userAgent = this.gridConfigOptions['userAgent'];
+        /**
+         * columns, headerColumnTable
+         */
+        this.columns = [];
+        this.headerColumnTable = [];
+        this.renderer = null;
+        this.infoRenderer = null;
+        /**
+         * create database
+         */
+        this.db = new _database_tbs_database__WEBPACK_IMPORTED_MODULE_0__/* .TbsDatabase */ .$();
+        // this.field_table        = this.db.createTable('field');
+        this.header_column_table = this.db.createArrayTable('header_column');
+        this.column_table = this.db.createTable('column');
+        this.top_column_table = this.db.createTable('top_column');
+        this.footer_column_table = this.db.createTable('footer_column');
+        this.sort_column_table = this.db.createTable('sort_column');
+        this.filter_column_table = this.db.createTable('filter_column');
+        this.group_column_table = this.db.createTable('group_column');
+        this.source_table = this.db.createTable('source');
+        this.view_table = this.db.createView('view');
+        this.group_table = this.db.createView('group');
+        this.group_header_table = this.db.createView('group_header');
+        this.tree_table = this.db.createView('tree');
+        this.page_table = this.db.createView('page');
+        this.top_table = this.db.createTable('top');
+        this.footer_table = this.db.createTable('footer');
+        this.temp_table = this.db.createTable('temp');
+        this.data_update = [];
+        this.data_insert = [];
+        this.data_delete = [];
+        /**
+         * create info table
+         */
+        this.info_column_table = this.db.createTable('info_column');
+        this.info_column_table.insert({ name: 'num', type: 'number', align: 'center', width: 50, visible: true });
+        this.info_column_table.insert({ name: 'mode', type: 'string', align: 'center', width: 20, visible: false });
+        this.info_column_table.insert({ name: 'checkbox', type: 'checkbox', align: 'center', width: 25, visible: false, editable: true });
+        this.panel21_table = this.db.createView('panel21');
+        this.panel20_table = this.db.createView('panel20');
+        this.panel31_table = this.db.createView('panel31');
+        /**
+         * cell template table
+         */
+        this.cell_template_table = this.db.createTable('cellTemplate');
+        this.cell_template_table.insert({ type: 'checkbox', cellTemplate: 1, children: ['checkbox', 'string'] }); //default
+        this.cell_template_table.insert({ type: 'checkbox', cellTemplate: 2, children: ['string', 'checkbox'] });
+        this.cell_template_table.insert({ type: 'group', cellTemplate: 1, children: ['icon', 'string'] });
+        this.cell_template_table.insert({ type: 'group', cellTemplate: 2, children: ['icon', 'img', 'string'] });
+        this.cell_template_table.insert({ type: 'tree', cellTemplate: 1, children: ['icon', 'string'] });
+        this.cell_template_table.insert({ type: 'tree', cellTemplate: 2, children: ['icon', 'img', 'string'] });
+        /**
+         * @description selection data
+         *
+         */
+        this.data_select_panel30 = [];
+        this.data_select_panel31 = [];
+        /**
+         * @description Row Count / Select Range
+         *
+         */
+        this.pageRowCount = 0;
+        this.pageIntRowCount = 0;
+        this.startRowIndex = -1;
+        this.startCellIndex = -1;
+        this.lastRowIndex = -1;
+        this.lastCellIndex = -1;
+        this._startRowIndex = -1;
+        this._startCellIndex = -1;
+        this._lastRowIndex = -1;
+        this._lastCellIndex = -1;
+        this.selectRangeArray = [];
+        this.startX = 0;
+        this.startY = 0;
+        this.lastX = 0;
+        this.lastY = 0;
+        this.const_filterValue = 'value';
+        this.const_filterType = 'type';
+        this.const_filterReset = 'Reset';
+        this.const_filterSave = 'Save';
+        this.headerRowCount = 0;
+        /* Options */
+        this.options = {};
+        /* toolbar, filter, sort, group panel optons */
+        this.options.showToolbarPanel = false;
+        this.options.showFilterPanel = false;
+        this.options.showSortPanel = false;
+        this.options.showGroupPanel = false;
+        /* Columns Options */
+        this.options.sortable = true;
+        this.options.resizable = true;
+        this.options.movable = true;
+        this.options.autoResizable = true;
+        this.options.autoWidth = false;
+        // Rows Options
+        this.options.selectMode = 'cells'; //@value : cell, cells(default) // row, rows : @deprecated
+        this.options.addRow = false; //== row option
+        this.options.delRow = false;
+        this.options.insertRow = false;
+        this.options.updateRow = false;
+        this.options.deleteRow = false;
+        this.options.zeroChar = '-';
+        this.options.useToolbar = true;
+        this.options.imageRoot = this.getConfigOption('imageRoot');
+        this.options.treeItemName = null;
+        this.options.treeParentName = null;
+        this.options.treeRootValue = null;
+        /**
+         * @description layout
+         *
+         */
+        this.fixedColumnIndex = -1;
+        /**
+         * @description constant value
+         *
+         */
+        this.headerRowHeight = 25;
+        this.rowHeight = 25;
+        this.topRowHeight = 25;
+        this.footerRowHeight = 25;
+        /**
+         * @description code
+         *
+         */
+        this.debug_mode = true;
+        this.code_horizontal = 'horizontal';
+        this.code_vertical = 'vertical';
     }
-    null(p) {
-        return p == null || p == undefined;
-    }
-    notNull(p) {
-        return !(this.null(p));
-    }
-    empty(p) {
-        return p == null || p == undefined || this.trim(p) == '';
-    }
-    notEmpty(p) {
-        return !(this.empty(p));
-    }
-    isNull(a, b) {
-        return this.null(a) ? b : a;
-    }
-    error(p) {
-        if (this.debug_mode) {
-            console.log('[TbsGrid error] ' + p);
-        }
-    }
-    caution(p) {
-        if (this.debug_mode) {
-            console.log('[TbsGrid caution] ' + p);
-        }
-    }
-    copyJson(p) {
-        return this.null(p) ? {} : JSON.parse(JSON.stringify(p));
-    }
-    substr2(s, index, len) {
-        let result = '';
-        try {
-            s = s.toString();
-            if (arguments.length == 2)
-                result = s.substring(index);
-            else if (arguments.length == 3)
-                result = s.substring(index).substring(0, len);
-            return result;
-        }
-        catch (e) {
-            return result;
-        }
-    }
-    trim(s) {
-        if (this.null(s))
-            return '';
-        else
-            return s.toString().replace(/^\s+|\s+$/gi, "");
-    }
-    round(num, dpLen) {
-        if (num > 0)
-            return +(Math.round(Number(num.toString() + 'e+' + dpLen.toString())) + 'e-' + dpLen.toString());
-        else
-            return -(Math.round(Number(Math.abs(num).toString() + 'e+' + dpLen.toString())) + 'e-' + dpLen.toString());
-    }
-    ceil(num, dpLen) {
-        let s = '1';
-        for (let i = 0; i < dpLen; i++) {
-            s += '0';
-        }
-        let n = parseInt(s);
-        return (Math.ceil(num * n) / n);
-    }
-    floor(num, dpLen) {
-        let s = '1';
-        for (let i = 0; i < dpLen; i++) {
-            s += '0';
-        }
-        let n = parseInt(s);
-        return (Math.floor(num * n) / n);
-    }
-    getProperty(jsonObject, property) {
-        if (this.empty(jsonObject[property]))
-            return null;
-        else
-            return jsonObject[property];
-    }
-    printMe() {
-    }
+    /**
+     * get configs value
+     */
+    getConfigCulture(label) { return this.null(this.gridConfig['culture'][label]) ? 'No Label' : this.gridConfig['culture'][label]; }
+    getConfigCalendar(label) { return this.null(this.gridConfig['calendar'][label]) ? 'No Label' : this.gridConfig['calendar'][label]; }
+    getConfigFont(label) { return this.null(this.gridConfig['font'][label]) ? 'No Label' : this.gridConfig['font'][label]; }
+    getConfigOption(label) { return this.null(this.gridConfigOptions[label]) ? 'No Label' : this.gridConfigOptions[label]; }
+    getConfigLabel(label) { return this.null(this.gridConfig['labels'][label]) ? 'No Label' : this.gridConfig['labels'][label]; }
 }
 
 
 /***/ }),
 
-/***/ 664:
+/***/ 6359:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   r: function() { return /* binding */ TbsDataArrayTable; }
+/* harmony export */   C: function() { return /* binding */ TbsGridEvent; }
 /* harmony export */ });
-/* harmony import */ var _tbs_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(980);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
+/* harmony import */ var _tbs_grid_date__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1495);
+/* harmony import */ var _tbs_grid_combo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7941);
 
 
-class TbsDataArrayTable extends _tbs_base__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase */ .H {
-    constructor(tableName) {
-        super();
-        this.tableName = tableName;
-        this.data = [];
-        this.currentRowId = -1;
-        this.type = 'table';
+
+class TbsGridEvent {
+    constructor() {
     }
-    /**
-     * select functions
-     */
-    selectRows(arrayIndex, field, value, topIndex) {
-        let result = [];
-        for (let i = 0, len = this.data[arrayIndex].length; i < len; i++) {
-            let dataRow = this.data[arrayIndex][i];
-            if (dataRow[field] == value) {
-                result.push(dataRow);
-                if (topIndex != undefined) {
-                    if (result.length == topIndex)
-                        break;
+    event_input() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let panelInputt = document.querySelector(selector + ' .tbs-grid-input-panel');
+        let input = document.querySelector(selector + ' .tbs-grid-input');
+        let colType = input.dataset.type;
+        const keydownEvent = function (e) {
+            //e.preventDefault();
+            //e.stopPropagation();
+            //e.stopImmediatePropagation();
+            let input = document.querySelector(selector + ' .tbs-grid-input');
+            let mode = input.dataset.mode;
+            if (mode == undefined)
+                mode = '';
+            if (e.ctrlKey) {
+                if (e.keyCode == 37 && mode == '') {
+                    if (!(grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .rowAlias */ .lg.addRow]))
+                        return;
+                    grid.editEnd();
+                    grid.addRow({}, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .AddRowDirection */ .hI.before);
+                    grid.input_focus();
+                } //left arrow //type : first, last, up, down
+                else if (e.keyCode == 39 && mode == '') {
+                    if (!(grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .rowAlias */ .lg.addRow]))
+                        return;
+                    grid.editEnd();
+                    grid.addRow({}, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .AddRowDirection */ .hI.after);
+                    grid.input_focus();
+                } //right arrow
+                else if (e.keyCode == 38 && mode == '') {
+                    if (!(grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .rowAlias */ .lg.addRow]))
+                        return;
+                    grid.editEnd();
+                    grid.addRow({}, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .AddRowDirection */ .hI.top);
+                    grid.input_focus();
+                } //up arrow
+                else if (e.keyCode == 40 && mode == '') {
+                    if (!(grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .rowAlias */ .lg.addRow]))
+                        return;
+                    grid.editEnd();
+                    grid.addRow({}, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .AddRowDirection */ .hI.bottom);
+                    grid.input_focus();
+                } //down arrow
+                //else if (e.keyCode == 46 && mode == '') { if(!(grid.options[rowAlias.addRow])) return; grid.editEnd(); grid.tbs_removeRow(); grid.input_focus();}   //delete key
+                else if ((e.keyCode == 65 || e.keyCode == 97) && mode == '') { //ctrl + a, A
+                    if (!(grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .rowAlias */ .lg.addRow])) {
+                        grid.classRange.selectRange(0, -1, 0, -1);
+                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+                        grid.input_focus();
+                    }
+                }
+            }
+            else {
+                if (e.keyCode == 37 && (mode == '')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('left');
+                    grid.input_focus();
+                }
+                else if (e.keyCode == 39 && (mode == '')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('right');
+                    grid.input_focus();
+                }
+                else if (e.keyCode == 38 && (mode == '')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('up');
+                    grid.input_focus();
+                }
+                else if (e.keyCode == 40 && (mode == '')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('down');
+                    grid.input_focus();
+                }
+                else if (e.keyCode == 13 && (mode == '')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('right');
+                    grid.input_focus();
+                } //enter
+                else if (e.keyCode == 9 && (mode == '')) {
+                    grid.editEnd();
+                    e.preventDefault();
+                    grid.tbs_moveCell('right');
+                    grid.input_focus();
+                } //tab
+                else if (e.keyCode == 37 && (mode == 'key')) { }
+                else if (e.keyCode == 39 && (mode == 'key')) { }
+                else if (e.keyCode == 38 && (mode == 'key')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('up');
+                    grid.input_focus();
+                }
+                else if (e.keyCode == 40 && (mode == 'key')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('down');
+                    grid.input_focus();
+                }
+                else if (e.keyCode == 13 && (mode == 'key')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('right');
+                    grid.input_focus();
+                } //enter key
+                else if (e.keyCode == 9 && (mode == 'key')) {
+                    grid.editEnd();
+                    e.preventDefault();
+                    grid.tbs_moveCell('right');
+                    grid.input_focus();
+                } //tab key
+                else if (e.keyCode == 37 && (mode == 'mouse')) { }
+                else if (e.keyCode == 39 && (mode == 'mouse')) { }
+                else if (e.keyCode == 38 && (mode == 'mouse')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('up');
+                    grid.input_focus();
+                }
+                else if (e.keyCode == 40 && (mode == 'mouse')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('down');
+                    grid.input_focus();
+                }
+                else if (e.keyCode == 13 && (mode == 'mouse')) {
+                    grid.editEnd();
+                    grid.tbs_moveCell('right');
+                    grid.input_focus();
+                } //enter key
+                else if (e.keyCode == 9 && (mode == 'mouse')) {
+                    grid.editEnd();
+                    e.preventDefault();
+                    grid.tbs_moveCell('right');
+                    grid.input_focus();
+                } //tab key
+                else if (e.keyCode >= 0 && e.keyCode <= 7) { } //function ctrlkey shifkey tabkey(9)등등
+                else if (e.keyCode >= 9 && e.keyCode <= 32) { }
+                else if (e.keyCode == 8) { } //backspace key
+                else if (e.keyCode == 127) { }
+                else if (e.ctrlKey || e.keyCode == 9 || e.keyCode == 46) { }
+                else if (e.keyCode >= 112 && e.keyCode <= 123) { }
+                else {
+                    //console.log('input');
+                    let cellIndex = grid.startCellIndex;
+                    let column = grid.getColumnByIndex(cellIndex);
+                    if (grid.isNull(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable], false)) {
+                        if (grid.notNull(grid.edit)) { // state
+                            //console.log(`panelInput.style.left : ${panelInput.style.left}`);
+                            if (panelInputt.style.left == '30000px') {
+                                grid.editStart(e, 'key');
+                            }
+                            else {
+                                grid.editing(e, 'key');
+                            }
+                        }
+                        else {
+                            grid.input_show(e, 'key');
+                        }
+                    }
+                }
+            }
+        };
+        const keyupEvent = function (e) {
+            //e.preventDefault();
+            //e.stopPropagation();
+            //e.stopImmediatePropagation();
+            const input = document.querySelector(selector + ' .tbs-grid-input');
+            let colType = input.dataset.type;
+        };
+        const clickEvent = function (e) {
+            let column = grid.column_table.data;
+            let input = document.querySelector(selector + ' .tbs-grid-input');
+            let colType = grid.column_table.data[grid.startCellIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.type];
+        };
+        const blurEvent = function (e) {
+            // inputLayerPanel 일 살아 있을 경우.
+            // focus가 사라진다 해도..input은 남아 있어야 해.
+            const inputLayerPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
+            if (inputLayerPanel.style.left != '30000px')
+                return;
+            const input = document.querySelector(selector + ' .tbs-grid-input');
+            const input_code = document.querySelector(selector + ' .tbs-grid-input-code');
+            const input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
+            let mode = input.dataset.mode;
+            let rowIndex = input.dataset.rowIndex;
+            let cellIndex = input.dataset.columnIndex;
+            let column = grid.column_table.data[cellIndex];
+            /* user blur event stop */
+            if (rowIndex == undefined || cellIndex == undefined) {
+                grid.input_hide();
+                return;
+            }
+            if (input.dataset.mode == undefined || input.dataset.mode == '')
+                return; //{ e.stopImmediatePropagation(); }
+            if (rowIndex == -1 || cellIndex == -1)
+                return;
+            if (grid.notNull(grid.edit)) {
+                grid.editEnd(e, 'key');
+            }
+            else {
+                if (isNaN(cellIndex))
+                    return;
+                let s = input.value;
+                if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.type] == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .CellType */ .vZ.combo)
+                    s = input_code.value;
+                else if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.type] == 'number' && grid.trim(s) == grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .optionAlias */ .s1.zeroChar])
+                    s = '0';
+                grid.setValueByColumnIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
+                grid.input_hide();
+            }
+            grid.apply();
+        };
+        const wheelEvent = function (e) { };
+        const copyEvent = function (e) {
+            const ta = document.createElement('textarea');
+            let s = '';
+            if (grid.classRange40.data_select_panel30.length > 0) {
+                let startRowIndex = 0;
+                let startCellIndex = grid.classRange40._startCellIndex;
+                let lastRowIndex = 0;
+                let lastCellIndex = grid.classRange40._lastCellIndex;
+                for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
+                    for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
+                        let columnName = grid.column_table.selectValue(colIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name);
+                        let val = grid.getValue(rowIndex, columnName, grid.top_table);
+                        if (grid.null(val))
+                            val = '';
+                        s += val;
+                        if (colIndex < lastCellIndex)
+                            s += '\t';
+                    }
+                    if (rowIndex < lastRowIndex)
+                        s += '\r\n';
+                }
+                ta.textContent = s;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+            else if (grid.classRange50.data_select_panel30.length > 0) {
+                let startRowIndex = 0;
+                let startCellIndex = grid.classRange50._startCellIndex;
+                let lastRowIndex = 0;
+                let lastCellIndex = grid.classRange50._lastCellIndex;
+                for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
+                    for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
+                        let val = grid.getValueByColumnIndex(rowIndex, colIndex, this.footer_table);
+                        if (grid.null(val))
+                            val = '';
+                        s += val;
+                        if (colIndex < lastCellIndex)
+                            s += '\t';
+                    }
+                    if (rowIndex < lastRowIndex)
+                        s += '\r\n';
+                }
+                ta.textContent = s;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+            else {
+                let startRowIndex = grid._startRowIndex;
+                let startCellIndex = grid._startCellIndex;
+                let lastRowIndex = grid._lastRowIndex;
+                let lastCellIndex = grid._lastCellIndex;
+                for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
+                    for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
+                        let val = grid.getValueByColumnIndex(rowIndex, colIndex);
+                        if (grid.null(val))
+                            val = '';
+                        s += val;
+                        if (colIndex < lastCellIndex)
+                            s += '\t';
+                    }
+                    if (rowIndex < lastRowIndex)
+                        s += '\r\n';
+                }
+                ta.textContent = s;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        };
+        const pasteEvent = function (e) {
+            let data = e.clipboardData.getData('text/plain');
+            let startRowIndex = grid.startRowIndex;
+            let startCellIndex = grid.startCellIndex;
+            //-------------------------------------------------------------
+            let td = grid.classColumn.getSelectedTableCell();
+            if (td == 'undefined' || td == null)
+                return;
+            //-------------------------------------------------------------
+            let rowArray = data.split('\r\n');
+            let i = 0;
+            for (let rowIndex = startRowIndex; rowIndex < startRowIndex + rowArray.length; rowIndex++) {
+                if (rowIndex >= grid.view_table.count())
+                    break;
+                let colArray = rowArray[i].split('\t');
+                let j = 0;
+                for (let colIndex = startCellIndex; colIndex < startCellIndex + colArray.length; colIndex++) {
+                    //if (grid.column_table.data[colIndex].column_readonly == true) continue;
+                    if (grid.column_table.data[colIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == false)
+                        continue;
+                    grid.setValueByColumnIndex(rowIndex, colIndex, colArray[j]);
+                    j += 1;
+                }
+                i += 1;
+            }
+            grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+        };
+        const cutEvent = function (e) { };
+        input.addEventListener('keydown', keydownEvent, true);
+        input.addEventListener('keyup', keyupEvent, true);
+        input.addEventListener('click', clickEvent, true);
+        input.addEventListener('blur', blurEvent, true);
+        input.addEventListener('wheel', wheelEvent, true);
+        input.addEventListener('copy', copyEvent, true);
+        input.addEventListener('paste', pasteEvent, true);
+        input.addEventListener('cut', cutEvent, true);
+    }
+    event_input_icon() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
+        let colType = input_icon.dataset.type;
+        const mousedownEvent = function (e) {
+            //console.dir(e)
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            const input = document.querySelector(selector + ' .tbs-grid-input');
+            const input_code = document.querySelector(selector + ' .tbs-grid-input-code');
+            const input_panel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
+            const column = grid.column_table.data[grid.startCellIndex];
+            const colType = grid.column_table.data[grid.startCellIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.type];
+            //tbs-grid-input-layer-panel : calendar, combo
+            if (colType == 'date') {
+                grid.tbsGridDate = new _tbs_grid_date__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDate */ .I(grid, column, input);
+            }
+            else if (colType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .CellType */ .vZ.combo) {
+                grid.tbsGridCombo = new _tbs_grid_combo__WEBPACK_IMPORTED_MODULE_2__/* .TbsGridCombo */ .q(grid, column, input, input_code);
+            }
+        };
+        input_icon.addEventListener('mousedown', mousedownEvent);
+    }
+    input_show(e, mode) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let lineWeight = 3;
+        let rowIndex = grid.startRowIndex;
+        let cellIndex = grid.startCellIndex;
+        let columns = grid.column_table.data;
+        let column = columns[cellIndex];
+        let colType = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.type];
+        let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
+        let input = document.querySelector(selector + ' .tbs-grid-input');
+        let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
+        let input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
+        let panelMain = document.querySelector(selector + ' .tbs-grid-main');
+        let td = document.querySelector(selector + ' .tbs-grid-group30 .tbs-grid-cell-start');
+        if (td == null)
+            return;
+        let value = this.getValue(rowIndex, column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name]);
+        const result = this.getFormat(column, value); //result.value, result.text
+        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == false)
+            return;
+        grid.tbs_moveCellLine(td, rowIndex, cellIndex);
+        let left = td.getBoundingClientRect().left;
+        let top = td.getBoundingClientRect().top;
+        let leftMain = panelMain.getBoundingClientRect().left;
+        let topMain = panelMain.getBoundingClientRect().top;
+        if (mode == 'mouse') {
+            if (colType == 'number' && grid.trim(result.text) == grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .optionAlias */ .s1.zeroChar])
+                input.value = '0';
+            else
+                input.value = result.text;
+            input_code.value = result.value;
+        }
+        panelInput.style.top = (top - topMain + lineWeight) + 'px';
+        panelInput.style.left = (left - leftMain + lineWeight) + 'px';
+        panelInput.style.height = (grid.rowHeight - lineWeight) + 'px';
+        input.dataset.mode = mode;
+        input.dataset.type = colType;
+        input.dataset.rowIndex = grid.startRowIndex;
+        input.dataset.columnIndex = grid.startCellIndex;
+        input.dataset.click = '';
+        if (colType == 'date') {
+            let width = parseInt(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.width]);
+            panelInput.style.width = (width - 15 - 3) + 'px';
+            input_icon.style.display = '';
+            input_icon.style.top = top + 'px';
+            input_icon.style.left = `${left + width - 15}px`;
+            input_icon.dataset.type = colType;
+            input_icon.src = grid.getConfigOption('imageRoot') + 'calendar.png';
+        }
+        else if (colType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .CellType */ .vZ.combo) {
+            let width = parseInt(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.width]);
+            panelInput.style.width = (width - 15 - 3) + 'px';
+            input_icon.style.display = '';
+            input_icon.style.top = top + 'px';
+            input_icon.style.left = `${left + width - 15}px`;
+            input_icon.dataset.type = colType;
+            input_icon.src = grid.getConfigOption('imageRoot') + 'down-arrow.png';
+        }
+        else {
+            input_icon.style.diplay = 'none';
+            input.style.backgroundRepeat = '';
+            input.style.backgroundImage = '';
+            input.style.backgroundPosition = '';
+            input.style.backgroundSize = '';
+            panelInput.style.width = (parseInt(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.width]) - lineWeight) + 'px';
+        }
+        if (mode == 'mouse')
+            input.select();
+    }
+    input_hide() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        const panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
+        const input = document.querySelector(selector + ' .tbs-grid-input');
+        const input_code = document.querySelector(selector + ' .tbs-grid-input-code');
+        // date, combo layer
+        const input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
+        //let inputLayerPanel= document.querySelector(selector + ' .tbs-grid-input-layer-panel');
+        panelInput.style.left = '30000px';
+        panelInput.style.width = '0px';
+        input.value = '';
+        input_code.value = '';
+        input.dataset.rowIndex = -1;
+        input.dataset.columnIndex = -1;
+        input.dataset.mode = '';
+        input.dataset.type = '';
+        input_icon.style.display = 'none';
+        input_icon.dataset.rowIndex = -1;
+        input_icon.dataset.columnIndex = -1;
+        input_icon.dataset.mode = '';
+        input_icon.dataset.type = '';
+        // date, combo layer
+        //console.log('input_hide');
+        // inputLayerPanel.innerHTML = '';
+        // inputLayerPanel.style.width = '0px';
+        // inputLayerPanel.style.left = '30000px';
+        // inputLayerPanel.dataset.rowIndex = -1;
+        // inputLayerPanel.dataset.columnIndex = -1;
+        // inputLayerPanel.dataset.mode = '';
+        // inputLayerPanel.dataset.type = '';
+        if (this.tbsGridDate) {
+            this.tbsGridDate.destroy();
+            this.tbsGridDate = null;
+        }
+        if (this.tbsGridCombo) {
+            this.tbsGridCombo.destroy();
+            this.tbsGridCombo = null;
+        }
+    }
+    input_focus() { if (this.isMobile == false)
+        document.querySelector('#' + this.gridId + ' .tbs-grid-input').focus(); }
+    editStart(e, mode) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let state = 0;
+        let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
+        let input = document.querySelector(selector + ' .tbs-grid-input');
+        let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
+        let result = true;
+        let rowIndex = (state == 0) ? grid.startRowIndex : input.dataset.rowIndex;
+        let cellIndex = (state == 0) ? grid.startCellIndex : input.dataset.columnIndex;
+        const eventRow = grid.getRow(rowIndex);
+        if (grid.group_column_table.count() > 0) {
+            if (eventRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.depth] <= grid.group_column_table.count())
+                return;
+        }
+        const column = grid.getColumnByIndex(cellIndex);
+        let columnName = grid.getColumnName(cellIndex);
+        let value = grid.getValue(rowIndex, columnName);
+        let text = grid.getText(rowIndex, columnName);
+        let eventData = {};
+        eventRow.rowIndex = rowIndex;
+        eventRow.columnIndex = cellIndex;
+        eventRow.columnName = columnName;
+        eventRow.value = value;
+        eventRow.text = text;
+        eventRow.state = state;
+        eventRow.newValue = input.value;
+        eventRow.data = eventRow;
+        if (mode == 'key') {
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
+                let result = grid.edit(grid, state, eventRow);
+                if (grid.isNull(result, true)) {
+                    grid.input_show(e, mode);
+                    grid.editing(e, mode);
+                }
+                else {
+                    // blur is certain
+                    document.querySelector(selector + ' .tbs-grid-input').blur();
                 }
             }
         }
-        return result;
-    }
-    selectRow(arrayIndex, field, value) {
-        let dataRows = this.selectRows(arrayIndex, field, value, 1);
-        return dataRows.length > 0 ? dataRows[0] : null;
-    }
-    selectRowByRowIndex(arrayIndex, rowIndex) { return this.data[arrayIndex][rowIndex]; }
-    selectRowByRowId(arrayIndex, rowId) {
-        let dataRows = this.selectRows(arrayIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId, 1);
-        return dataRows.length > 0 ? dataRows[0] : null;
-    }
-    selectRowIndexByRowId(arrayIndex, rowId) { return this.selectRowIndex(arrayIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId); }
-    selectRowIndex(arrayIndex, field, value) {
-        let result = null;
-        for (let i = 0, len = this.data[arrayIndex].length; i < len; i++) {
-            let dataRow = this.data[arrayIndex][i];
-            if (dataRow[field] == value) {
-                result = i;
-                break;
+        else {
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
+                let result = true;
+                result = grid.edit(grid, state, eventRow);
+                if (grid.null(result) || result == true) {
+                    grid.input_show(e, mode);
+                }
+                else {
+                    //grid.input_hide(); grid.apply(); // not certain
+                    document.querySelector(selector + ' .tbs-grid-input').blur(); // blur is certain
+                }
             }
         }
-        return result;
     }
-    selectRowIdByRowIndex(arrayIndex, rowIndex) {
-        const dataRow = this.selectRowByRowIndex(arrayIndex, rowIndex);
-        return dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId];
-    }
-    selectRowRange(arrayIndex, startRowIndex, endRowIndex) {
-        if (endRowIndex == undefined)
-            endRowIndex = this.count() - 1;
-        const result = [];
-        for (let i = startRowIndex; i <= endRowIndex; i++)
-            result.push(this.data[i]);
-        return result;
-    }
-    selectValue(arrayIndex, rowIndex, field) {
-        return this.data[arrayIndex][rowIndex][field];
-    }
-    isRow(arrayIndex, field, value) {
-        let dataRows = this.selectRows(arrayIndex, field, value, 1);
-        return dataRows.length > 0;
-    }
-    /**
-     * Insert
-     */
-    insertRows(arrayIndex, dataRows) {
-        if (this.type == 'table') {
-            dataRows.map(dataRow => {
-                this.currentRowId += 1;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-            });
+    editing(e, mode) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let state = 1;
+        let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
+        let input = document.querySelector(selector + ' .tbs-grid-input');
+        let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
+        if (input.dataset.columnIndex == -1) {
+            grid.input_hide();
+            return;
         }
-        if (this.null(this.data[arrayIndex]))
-            this.data[arrayIndex] = [];
-        this.data[arrayIndex].push(...dataRows);
-    }
-    insertRowsBefore(arrayIndex, dataRows, rowIndex) {
-        if (this.type == 'table') {
-            dataRows.map(dataRow => {
-                this.currentRowId += 1;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-            });
+        let result = true;
+        let rowIndex = (state == 0) ? grid.startRowIndex : input.dataset.rowIndex;
+        let cellIndex = (state == 0) ? grid.startCellIndex : input.dataset.columnIndex;
+        let column = grid.getColumnByIndex(cellIndex);
+        let columnName = grid.getColumnName(cellIndex);
+        let value = grid.getValue(rowIndex, columnName);
+        let text = grid.getText(rowIndex, columnName);
+        const eventRow = grid.getRow(rowIndex);
+        let eventData = {};
+        eventData.rowIndex = rowIndex;
+        eventData.columnIndex = cellIndex;
+        eventData.columnName = columnName;
+        eventData.value = value;
+        eventData.text = text;
+        eventData.state = state;
+        eventData.newValue = input.value;
+        eventData.data = eventRow;
+        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
+            let result = true;
+            if (state == 1 && panelInput.style.left != '30000px') {
+                result = grid.edit(grid, state, eventRow);
+                if (grid.null(result) || result == true) {
+                }
+                else {
+                    grid.input_hide();
+                    grid.apply();
+                }
+            }
         }
-        if (this.null(this.data[arrayIndex]))
-            this.data[arrayIndex] = [];
-        if (rowIndex < this.data[arrayIndex].length)
-            this.data[arrayIndex].splice(rowIndex, 0, ...dataRows);
-        else
-            this.data[arrayIndex].push(...dataRows);
     }
-    insertRowsAfter(arrayIndex, dataRows, rowIndex) {
-        if (this.type == 'table') {
-            dataRows.map(dataRow => {
-                this.currentRowId += 1;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-            });
-        }
-        if (this.null(this.data[arrayIndex]))
-            this.data[arrayIndex] = [];
-        if (rowIndex + 1 < this.data[arrayIndex].length)
-            this.data[arrayIndex].splice(rowIndex + 1, 0, ...dataRows);
-        else
-            this.data[arrayIndex].push(...dataRows);
-    }
-    insert(arrayIndex, dataRow) {
-        if (this.type == 'table') {
-            this.currentRowId += 1;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-        }
-        if (this.null(this.data[arrayIndex]))
-            this.data[arrayIndex] = [];
-        this.data[arrayIndex].push(dataRow);
-    }
-    insertBefore(arrayIndex, dataRow, rowIndex) {
-        if (this.type == 'table') {
-            this.currentRowId += 1;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-        }
-        if (this.null(this.data[arrayIndex]))
-            this.data[arrayIndex] = [];
-        if (rowIndex < this.data[arrayIndex].length)
-            this.data[arrayIndex].splice(rowIndex, 0, dataRow);
-        else
-            this.data[arrayIndex].push(dataRow);
-    }
-    insertAfter(arrayIndex, dataRow, rowIndex) {
-        if (this.type == 'table') {
-            this.currentRowId += 1;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-        }
-        if (this.null(this.data[arrayIndex]))
-            this.data[arrayIndex] = [];
-        if (rowIndex + 1 < this.data[arrayIndex].length)
-            this.data[arrayIndex].splice(rowIndex + 1, 0, dataRow);
-        else
-            this.data[arrayIndex].push(dataRow);
-    }
-    /**
-     * Remove
-     */
-    remove(arrayIndex, rowIndex) {
-        if (arguments.length == 2)
-            this.data[arrayIndex].splice(rowIndex, 1);
-        else if (arguments.length == 1)
-            this.data[arrayIndex] = [];
-        else
-            this.data = [];
-    }
-    removeByRowId(arryIndex, rowId) {
-        let rowIndex = this.selectRowIndex(arryIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId);
-        if (this.notNull(rowIndex))
-            this.remove(rowIndex);
-    }
-    /**
-     * Update
-     */
-    update(arrayIndex, columnName, field, value) {
-        let dataRows = this.selectRows(arrayIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
-        dataRows.map(dataRow => dataRow[field] = value);
-    }
-    updateRow(arrayIndex, columnName, field, value) {
-        let dataRows = this.selectRows(arrayIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
-        dataRows.map(dataRow => dataRow[field] = value);
-    }
-    updateByRowIndex(arrayIndex, rowIndex, name, value) {
-        let dataRow = this.data[arrayIndex][rowIndex];
-        dataRow[name] = value;
-    }
-    updateByRowId(arrayIndex, rowId, name, value) {
-        let dataRow = this.selectRowByRowId(arrayIndex, rowId);
-        dataRow[name] = value;
-    }
-    count(arrayIndex, field, value) {
-        if (arguments.length == 3) {
-            return this.selectRows(arrayIndex, field, value).length;
-        }
-        else if (arguments.length == 1) {
-            return this.data[arrayIndex].length;
+    editEnd(e, mode) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let state = 2;
+        let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
+        let input = document.querySelector(selector + ' .tbs-grid-input');
+        let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
+        if (grid.null(input.dataset.columnIndex) || input.dataset.columnIndex == -1) {
+            grid.input_hide();
         }
         else {
-            return this.data.length;
-        }
-    }
-    makeColIndex() {
-        for (let i = 0; i < this.count(); i++) {
-            const columns = this.data[i];
-            columns.map((column, index) => column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.colIndex] = index);
-        }
-    }
-}
-
-
-/***/ }),
-
-/***/ 695:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Q: function() { return /* binding */ TbsDataTable; }
-/* harmony export */ });
-/* harmony import */ var _tbs_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(980);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
-
-
-class TbsDataTable extends _tbs_base__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase */ .H {
-    constructor(tableName) {
-        super();
-        this.tableName = tableName;
-        this.data = [];
-        this.currentRowId = -1;
-        this.type = 'table';
-    }
-    /**
-     * select functions
-     */
-    select() {
-        /**
-         * whereColumns = [*{name: 'userName', type: include | startWith | lastWith }, count: 10}]
-         * orderColumns = [*{name: 'userName', order: asc | desc }]
-         * return : [{}, {}];
-         */
-    }
-    selectRows(field, value, topIndex) {
-        let result = [];
-        if (arguments.length == 0) {
-            result = this.data;
-        }
-        else {
-            for (let i = 0, len = this.data.length; i < len; i++) {
-                let dataRow = this.data[i];
-                if (dataRow[field] == value) {
-                    result.push(dataRow);
-                    if (topIndex != undefined) {
-                        if (result.length == topIndex)
-                            break;
+            let result = true;
+            let rowIndex = (state == 0) ? grid.startRowIndex : input.dataset.rowIndex;
+            let cellIndex = (state == 0) ? grid.startCellIndex : input.dataset.columnIndex;
+            let column = grid.getColumnByIndex(cellIndex);
+            //let column = grid.column_table.selectRowByRowIndex(cellInex);
+            let columnName = grid.getColumnName(cellIndex);
+            let value = grid.getValue(rowIndex, columnName);
+            let text = grid.getText(rowIndex, columnName);
+            let eventRow = grid.getRow(rowIndex);
+            const eventData = {};
+            eventData.rowIndex = rowIndex;
+            eventData.columnIndex = cellIndex;
+            eventData.columnName = columnName;
+            eventData.value = value;
+            eventData.text = text;
+            eventData.state = state;
+            eventData.newValue = input.value;
+            eventData.data = eventRow;
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
+                let result = true;
+                if (state == 2 && panelInput.style.left != '30000px') {
+                    result = grid.edit(grid, state, eventRow);
+                    if (grid.null(result) || result == true) {
+                        //console.log(2);
+                        let s = input.value;
+                        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.type] == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .CellType */ .vZ.combo)
+                            s = input_code.value;
+                        grid.setValueByColumnIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
+                        grid.input_hide();
+                        grid.apply();
+                    }
+                    else {
+                        grid.input_hide();
+                        grid.apply();
                     }
                 }
             }
         }
-        return result;
+        document.querySelector(selector + ' .tbs-grid-input').blur();
     }
-    selectRow(field, value) {
-        const dataRows = this.selectRows(field, value, 1);
-        return dataRows.length > 0 ? dataRows[0] : null;
-    }
-    selectRowByRowIndex(rowIndex) { return this.data[rowIndex]; }
-    selectRowByRowId(rowId) {
-        const dataRows = this.selectRows(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId, 1);
-        return dataRows.length > 0 ? dataRows[0] : null;
-    }
-    selectRowIndexByRowId(rowId) { return this.selectRowIndex(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId); }
-    selectRowIndex(field, value) {
-        let result = null;
-        for (let i = 0, len = this.data.length; i < len; i++) {
-            const dataRow = this.data[i];
-            if (dataRow[field] == value) {
-                result = i;
-                break;
+    /**
+     * Event Functions
+     *
+     */
+    tbs_addEventAll() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        this.classPanel20.panel21_select();
+        this.classPanel20.panel20_select('panel20');
+        this.classPanel20.panel20_select('panel22');
+        this.classPanel30.panel30_select('panel30');
+        this.classPanel30.panel31_select('panel31');
+        this.classPanel30.panel30_select('panel32');
+        this.classPanel40.panel40_select('panel40');
+        this.classPanel40.panel41_select('panel41');
+        this.classPanel40.panel40_select('panel42');
+        this.classPanel40.panel40_select('panel50');
+        this.classPanel40.panel41_select('panel51');
+        this.classPanel40.panel40_select('panel52');
+        this.classPanel70.panel70_select('panel70');
+        this.classPanel70.panel70_select('panel72');
+        // this.classPanel80.panel80_select();
+        // this.classPanel90.panel90_select();
+        //================================================================== select event
+        this.event_wheel();
+        this.event_scrollButton();
+        this.event_railClick();
+        this.event_dragScrollBar();
+        this.event_columnResize('panel20');
+        this.event_columnResize('panel22');
+        //================================================================== select event
+        this.event_input();
+        this.event_input_icon();
+        //this.event_checkBox();
+        this.event_mobileTouchDrag();
+        document.addEventListener('scroll', function (e) {
+            let panelInputList = document.querySelectorAll(selector + ' .tbs-grid-input-panel');
+            let inputList = document.querySelectorAll(selector + ' .tbs-grid-input');
+            let inputIconList = document.querySelectorAll(selector + ' .tbs-grid-input-panel-icon');
+            let inputPanelList = document.querySelectorAll(selector + ' .tbs-grid-input-layer-panel');
+            for (let i = 0; i < inputList.length; i++) {
+                let panelInput = panelInputList[i];
+                let input = inputList[i];
+                let input_icon = inputIconList[i];
+                let input_panel = inputPanelList[i];
+                input.value = '';
+                panelInput.style.left = '30000px';
+                panelInput.style.width = '0px';
+                input.dataset.rowIndex = -1;
+                input.dataset.columnIndex = -1;
+                input.dataset.mode = '';
+                input.dataset.type = '';
+                input_icon.style.display = 'none';
+                input_icon.dataset.rowIndex = -1;
+                input_icon.dataset.columnIndex = -1;
+                input_icon.dataset.mode = '';
+                input_icon.dataset.type = '';
+                input_panel.innerHTML = '';
+                input_panel.style.width = '0px';
+                input_panel.style.left = '30000px';
+                input_panel.dataset.rowIndex = -1;
+                input_panel.dataset.columnIndex = -1;
+                input_panel.dataset.mode = '';
+                input_panel.dataset.type = '';
             }
-        }
-        return result;
+        });
+        const bodyMouseDownEvent = function (e) {
+            let name = e.target.className;
+            const inputPanel = document.querySelector(selector + ' .tbs-grid-input-panel');
+            const inputLayerPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
+            if (name.indexOf('tbs-grid-panel10-filter-input') != -1
+                || inputPanel.contains(e.target)
+                || inputLayerPanel.contains(e.target)
+                || name.indexOf('tbs-grid-cell-filter-input') != -1
+                || name.indexOf('tbs-grid-cell-filter-combo') != -1) {
+            }
+            else {
+                inputLayerPanel.style.left = '30000px';
+                grid.input_focus();
+            }
+        };
+        document.body.addEventListener('mousedown', bodyMouseDownEvent);
+        const mouseDownGridEvent = function (e) {
+            let name = e.target.className;
+            const inputPanel = document.querySelector(selector + ' .tbs-grid-input-panel');
+            const inputLayerPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
+            if (name.indexOf('tbs-grid-panel10-filter-input') != -1
+                || inputPanel.contains(e.target)
+                || inputLayerPanel.contains(e.target)
+                || name.indexOf('tbs-grid-cell-filter-input') != -1
+                || name.indexOf('tbs-grid-cell-filter-combo') != -1) {
+            }
+            else {
+                inputLayerPanel.style.left = '30000px';
+                grid.input_focus();
+            }
+        };
+        document.querySelector(selector).addEventListener('mousedown', mouseDownGridEvent);
+        const windowResizeEvent = function (e) {
+            setTimeout(() => { grid.apply(); }, 200);
+        };
+        window.addEventListener('resize', windowResizeEvent, true);
     }
-    selectRowIdByRowIndex(rowIndex) {
-        const dataRow = this.selectRowByRowIndex(rowIndex);
-        return dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId];
-    }
-    selectRowRange(startRowIndex, endRowIndex) {
-        if (endRowIndex == undefined)
-            endRowIndex = this.count() - 1;
-        const result = [];
-        for (let i = startRowIndex; i <= endRowIndex; i++)
-            result.push(this.data[i]);
-        return result;
-    }
-    selectValue(rowIndex, field) {
-        return this.data[rowIndex][field];
-    }
-    isRow(field, value) {
-        const dataRows = this.selectRows(field, value, 1);
-        return dataRows.length > 0;
-    }
-    /**
-     * Insert
-     */
-    insertRows(dataRows) {
-        if (this.type == 'table') {
-            dataRows.map(dataRow => {
-                this.currentRowId += 1;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-            });
-        }
-        this.data.push(...dataRows);
-    }
-    insertRowsBefore(dataRows, rowIndex) {
-        if (this.type == 'table') {
-            dataRows.map(dataRow => {
-                this.currentRowId += 1;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-            });
-        }
-        if (rowIndex < this.data.length)
-            this.data.splice(rowIndex, 0, ...dataRows);
-        else
-            this.data.push(...dataRows);
-    }
-    insertRowsAfter(dataRows, rowIndex) {
-        if (this.type == 'table') {
-            dataRows.map(dataRow => {
-                this.currentRowId += 1;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-            });
-        }
-        if (rowIndex + 1 < this.data.length)
-            this.data.splice(rowIndex + 1, 0, ...dataRows);
-        else
-            this.data.push(...dataRows);
-    }
-    insert(dataRow) {
-        if (this.type == 'table') {
-            this.currentRowId += 1;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-        }
-        this.data.push(dataRow);
-    }
-    insertBefore(dataRow, rowIndex) {
-        if (this.type == 'table') {
-            this.currentRowId += 1;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-        }
-        if (rowIndex < this.data.length)
-            this.data.splice(rowIndex, 0, dataRow);
-        else
-            this.data.push(dataRow);
-    }
-    insertAfter(dataRow, rowIndex) {
-        if (this.type == 'table') {
-            this.currentRowId += 1;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
-        }
-        if (rowIndex + 1 < this.data.length)
-            this.data.splice(rowIndex + 1, 0, dataRow);
-        else
-            this.data.push(dataRow);
-    }
-    /**
-     * Remove
-     */
-    remove(rowIndex) {
-        if (arguments.length == 1)
-            this.data.splice(rowIndex, 1);
-        else
-            this.data = [];
-    }
-    removeByRowId(rowId) {
-        let rowIndex = this.selectRowIndex(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId);
-        if (this.notNull(rowIndex))
-            this.remove(rowIndex);
-    }
-    /**
-     * Update
-     */
-    update(columnName, field, value) {
-        let dataRows = this.selectRows(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
-        dataRows.map(dataRow => dataRow[field] = value);
-    }
-    updateRow(columnName, field, value) {
-        let dataRows = this.selectRows(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
-        dataRows.map(dataRow => dataRow[field] = value);
-    }
-    updateByRowIndex(rowIndex, name, value) {
-        let dataRow = this.data[rowIndex];
-        dataRow[name] = value;
-    }
-    updateByRowId(rowId, name, value) {
-        const dataRow = this.selectRowByRowId(rowId);
-        dataRow[name] = value;
-    }
-    count(field, value) {
-        if (arguments.length > 0) {
-            return this.selectRows(field, value).length;
+    event_columnSort(cell) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let column = grid.getColumn(cell.dataset.name);
+        let columnName = cell.dataset.name;
+        // * sort(▼), (▲), (■) order
+        if (cell == undefined)
+            return false;
+        let isSortable = grid.isSortableColumn(cell.dataset.name);
+        if (!isSortable)
+            return false;
+        //let sortDiv = cell.querySelector('.tbs-grid-html-sort');
+        let curSortKind = '';
+        let sortKind = '';
+        if (grid.sort_column_table.isRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName)) {
+            let dataRow = grid.sort_column_table.selectRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
+            curSortKind = dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.order];
         }
         else {
-            return this.data.length;
+            curSortKind = '';
+        }
+        if (curSortKind == 'desc')
+            sortKind = '';
+        else if (curSortKind == 'asc')
+            sortKind = 'desc';
+        else
+            sortKind = 'asc';
+        if (grid.sort_column_table.isRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName)) {
+            let dataRow = grid.sort_column_table.selectRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
+            let rowId = dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId];
+            grid.sort_column_table.updateByRowId(rowId, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.order, sortKind);
+        }
+        else {
+            let dataRow = {};
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name] = columnName;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.order] = sortKind;
+            grid.sort_column_table.insert(dataRow);
+        }
+        let count = grid.sort_column_table.count();
+        let emptyCount = grid.sort_column_table.count('order', '');
+        if (count == emptyCount) {
+            grid.classSort.initSortData();
+        }
+        if (grid.options.showFilterPanel)
+            grid.classFilter.filters();
+        grid.classSort.getSortButtonList();
+        if (grid.group_column_table.count() > 0) {
+            grid.setData(grid.view_table.data, grid.classGroup.openDepth, false);
+        }
+        else if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .GridMode */ .G3.tree) {
+            grid.setData(grid.view_table.data, grid.classTree.openDepth, false);
+        }
+        else {
+            if (grid.isSortableColumn()) {
+                grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
+                grid.classRange.removeRange(0, -1);
+                grid.apply();
+            }
         }
     }
-    // /**
-    //  * orderBy
-    //  * @param sortColumns : [{ name : , order :, dataType: string | number }, ...]
-    //  */
-    // orderBy(sortColumns: any) {
-    //     return this.data.toSorted((a, b) => {
-    //         // a : The first element
-    //         // b : The second element
-    //         for (let i = 0, len = sortColumns.length; i < len; i++) {
-    //             let sortColumn = sortColumns[i];
-    //             let name = sortColumn[columnAlias.name];
-    //             let type = (sortColumn[columnAlias.dataType]) ? sortColumn[columnAlias.dataType] : 'string';
-    //             let order = (sortColumn[columnAlias.order]) ? sortColumn[columnAlias.order] : 'asc';
-    //             if (order == 'asc') {
-    //                 if (type == CellType.number) {
-    //                     let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')): 0;
-    //                     let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')): 0;
-    //                     if (x < y) return -1;
-    //                     else if (x > y) return 1;
-    //                 }
-    //                 else {
-    //                     if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
-    //                     else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
-    //                 }
-    //             }
-    //             else if (order == 'desc') {
-    //                 if (type == CellType.number){
-    //                     let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')) : 0;
-    //                     let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')) : 0;
-    //                     if (x < y) return 1;
-    //                     else if (x > y) return -1;
-    //                 }
-    //                 else {
-    //                     if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
-    //                     else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
-    //                 }
-    //             }
+    event_mobileTouchDrag() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let startRowIndex, startCellIndex;
+        let lastRowIndex, lastCellIndex;
+        let xWrap = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-wrap');
+        let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
+        let xPos = { left: 0, x: 0 };
+        let yBar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
+        let yPos = { top: 0, y: 0 };
+        let actveTopRowIndex = -1;
+        const touchStartEvent = function (e) {
+            e.preventDefault();
+            document.body.style.overflow = 'hidden';
+            actveTopRowIndex = -1;
+            let col;
+            if (e.target.tagName == 'DIV') {
+                col = e.target.parentNode;
+            }
+            else if (e.target.tagName == 'SPAN') {
+                col = e.target.parentNode.parentNode;
+            }
+            else {
+                col = e.target;
+            }
+            let rowIndex = grid.classColumn.getRowIndexInTable(col.parentNode.rowIndex);
+            //grid.classRange.removeRange(0, -1);
+            //let _topRowIndex = grid.classRange.selectRange(rowIndex, rowIndex, col.cellIndex, col.cellIndex);
+            yPos.top = Number(yBar.style.top.replace('px', ''));
+            yPos.y = e.changedTouches[0].clientY;
+            xPos.left = Number(xBar.style.left.replace('px', ''));
+            xPos.x = e.changedTouches[0].clientX;
+            document.querySelector(selector + ' .tbs-grid-panel30').addEventListener('touchmove', touchMoveEvent);
+            document.querySelector(selector + ' .tbs-grid-panel30').addEventListener('touchend', touchEndEvent);
+        };
+        const touchMoveEvent = function (e) {
+            //e.stopPropagation();
+            let xMove = e.changedTouches[0].clientX - xPos.x;
+            let yMove = e.changedTouches[0].clientY - yPos.y;
+            ;
+            if (Math.abs(xMove) > Math.abs(yMove)) {
+                let left = xPos.left - xMove;
+                let xRailWidth = xWrap.clientWidth - xBar.clientWidth;
+                if (left < 0)
+                    left = 0;
+                if (left > xRailWidth)
+                    left = xRailWidth;
+                xBar.style.left = left.toString() + 'px';
+                const header = document.querySelector(selector + ' .tbs-grid-panel20');
+                let ratio = (header.childNodes[0].clientWidth - header.clientWidth) / xRailWidth;
+                let nLeft = (left * -1 * ratio).toString();
+                grid.classScroll.setContentPanelLeft(nLeft);
+                //grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+                grid.apply();
+            }
+            else if (Math.abs(xMove) < Math.abs(yMove)) {
+                let yBarTop = yPos.top - yMove;
+                if (yBarTop < 0)
+                    yBarTop = 0;
+                if (yBarTop > grid.verticalScroll.railSize)
+                    yBarTop = grid.verticalScroll.railSize;
+                let displayTopRowIndex = Math.ceil(yBarTop * grid.verticalScroll.moveCount);
+                actveTopRowIndex = displayTopRowIndex;
+                let topRowIndex = displayTopRowIndex;
+                //console.log(`topRowIndex ${topRowIndex} / displayTopRowIndex ${displayTopRowIndex} `);
+                setTimeout(function () { grid.classScroll.setBarPosition(grid.code_vertical, displayTopRowIndex); }, 1);
+                setTimeout(function () { grid.classPanel30.setDataPanel(topRowIndex); }, 5);
+            }
+        };
+        const touchEndEvent = function (e) {
+            //e.stopPropagation();
+            let xMove = e.changedTouches[0].clientX - xPos.x;
+            let yMove = e.changedTouches[0].clientY - yPos.y;
+            let tableCell, targetName;
+            if (e.target.classList.contains('tbs-grid-html-icon')) {
+                targetName = 'icon';
+                tableCell = e.target.parentNode.parentNode;
+            }
+            else if (e.target.classList.contains('tbs-grid-html-img')) {
+                targetName = 'img';
+                tableCell = e.target.parentNode.parentNode;
+            }
+            else if (e.target.classList.contains('tbs-grid-html-string')) {
+                targetName = 'text';
+                tableCell = e.target.parentNode.parentNode;
+            }
+            else if (e.target.classList.contains('tbs-grid-cell-div')) {
+                targetName = 'div';
+                tableCell = e.target.parentNode;
+            }
+            else if (e.target.classList.contains('tbs-grid-cell')) {
+                targetName = 'cell';
+                tableCell = e.target;
+            }
+            let eventPanelName = 'panel30';
+            startCellIndex = tableCell.cellIndex;
+            lastCellIndex = startCellIndex;
+            startRowIndex = grid.classColumn.getRowIndexInTable(tableCell.parentNode.rowIndex, eventPanelName);
+            lastRowIndex = startRowIndex;
+            if (Math.abs(xMove) < 5 && Math.abs(yMove) < 5) {
+                grid.classRange.removeRange(0, -1, 0, -1);
+                let _topRowIndex = grid.classRange.selectRange(startRowIndex, startRowIndex, startCellIndex, lastCellIndex);
+                grid.apply();
+            }
+            document.querySelector(selector + ' .tbs-grid-panel30').removeEventListener('touchmove', touchMoveEvent);
+            document.querySelector(selector + ' .tbs-grid-panel30').removeEventListener('touchend', touchEndEvent);
+            document.body.style.overflow = 'auto';
+        };
+        document.querySelector(selector + ' .tbs-grid-panel30').addEventListener('touchstart', touchStartEvent, false);
+    }
+    event_columnResize(panelName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let startX = 0; // mouse start x position
+        let movedWidth = 0; // moved width
+        let cellWidth = 0; // header cell width
+        let tableWidth = 0;
+        let initWidth = [];
+        let childList = [];
+        let tableCell, resizer;
+        let eventDetail = 0; // 1 : click (resize), 2 : dblclick(auto resize)
+        const mouseDownEvent = function (e) {
+            e.stopPropagation();
+            if (e.target.classList.contains('tbs-grid-html-resize')) {
+                tableCell = e.target.parentNode;
+                resizer = e.target;
+            }
+            else
+                return;
+            eventDetail = e.detail;
+            if (eventDetail == 1) {
+                e.stopPropagation();
+                // if (grid.options[columnAlias.resizable] == false) return;
+                let isResizable = grid.isResizableColumn(tableCell.dataset.name);
+                if (!isResizable)
+                    return;
+                startX = window.pageXOffset + e.clientX;
+                const style = window.getComputedStyle(tableCell);
+                cellWidth = parseInt(style.width, 10);
+                // @ts-ignore
+                tableWidth = parseInt(document.querySelector(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table').getBoundingClientRect().width);
+                resizer.classList.add('.tbs-grid-html-resizing');
+                if (tableCell.dataset.name == '') {
+                    let cellIndex = tableCell.cellIndex;
+                    let lastCellIndex = cellIndex + tableCell.colSpan;
+                    childList = [];
+                    initWidth = [];
+                    let thCells = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table thead th');
+                    for (let i = cellIndex; i < lastCellIndex; i++) {
+                        let thCell = thCells[i];
+                        let width = parseInt(thCell.style.width, 10);
+                        childList.push(i); // cell index
+                        initWidth.push(width); // cell width
+                    }
+                }
+                document.addEventListener('mousemove', mouseMoveEvent);
+                document.addEventListener('mouseup', mouseUpEvent);
+            }
+            else if (eventDetail == 2) {
+                e.stopPropagation();
+                if (grid.isClassName(e.target, 'tbs-grid-html-resize') != true)
+                    return;
+                let cell = e.target.parentElement;
+                let columnName = grid.getColumnName(cell.cellIndex);
+                let isAutoResizable = grid.isAutoResizableColumn(columnName);
+                if (isAutoResizable != true)
+                    return;
+                let colIndex = cell.cellIndex + parseInt(cell.colSpan) - 1;
+                let column = grid.getColumn(columnName);
+                let firstWidth = parseInt(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.width]);
+                let maxWidth = 0;
+                let canvas = document.querySelector(selector + ' .tbs-grid-canvas').childNodes[0];
+                let fontSize = grid.getConfigFont('fontSize');
+                let fontFamilty = grid.getConfigFont('fontFamily');
+                for (let i = 0, len = grid.header_column_table.count(); i < len; i++) {
+                    let headerColumns = grid.header_column_table.data[i];
+                    if (headerColumns[colIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.kind] == 'column') {
+                        let width = parseInt(grid.getTextWidth(canvas, headerColumns[colIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.text], fontSize, fontFamilty));
+                        if (width >= maxWidth)
+                            maxWidth = width;
+                    }
+                }
+                for (let i = 0, len = grid.view_table.count(); i < len; i++) {
+                    let val = grid.getText(i, columnName);
+                    let width = parseInt(grid.getTextWidth(canvas, val, fontSize, fontFamilty));
+                    if (width >= maxWidth)
+                        maxWidth = width;
+                }
+                grid.classScroll.setColumnWidth(panelName, colIndex, maxWidth + 20); // 20 is Correction value
+                grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+            }
+        };
+        //eventColumnResize
+        const mouseMoveEvent = function (e) {
+            if (eventDetail == 1) {
+                e.stopPropagation();
+                if (panelName == 'panel22') {
+                    movedWidth = e.clientX - startX;
+                    if (tableCell.dataset.name == '') {
+                        let count = childList.length;
+                        // @ts-ignore
+                        let moveWidth = parseInt(movedWidth / count);
+                        for (let i = 0, len = childList.length; i < len; i++) {
+                            let cellIndex = childList[i];
+                            let nWidth = (initWidth[i] + moveWidth) < 10 ? 10 : (initWidth[i] + moveWidth) + 'px';
+                            grid.classScroll.setColumnWidth(panelName, cellIndex, nWidth);
+                        }
+                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+                    }
+                    else {
+                        let cellIndex = tableCell.cellIndex;
+                        let nWidth = ((cellWidth + movedWidth) < 10 ? 10 : (cellWidth + movedWidth)) + 'px';
+                        grid.classScroll.setColumnWidth(panelName, cellIndex, nWidth);
+                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+                    }
+                }
+                else if (panelName == 'panel20') {
+                    movedWidth = e.clientX - startX;
+                    if (tableCell.dataset.name == '') {
+                        let count = childList.length;
+                        // @ts-ignore
+                        let moveWidth = parseInt(movedWidth / count);
+                        for (let i = 0, len = childList.length; i < len; i++) {
+                            let cellIndex = childList[i];
+                            let nWidth = (initWidth[i] + moveWidth) < 10 ? 10 : (initWidth[i] + moveWidth) + 'px';
+                            grid.classScroll.setColumnWidth(panelName, cellIndex, nWidth);
+                        }
+                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+                    }
+                    else {
+                        let cellIndex = tableCell.cellIndex;
+                        let nWidth = ((cellWidth + movedWidth) < 10 ? 10 : (cellWidth + movedWidth)) + 'px';
+                        grid.classScroll.setColumnWidth(panelName, cellIndex, nWidth);
+                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+                    }
+                }
+            }
+        };
+        //eventColumnResize
+        const mouseUpEvent = function (e) {
+            if (eventDetail == 1) {
+                e.stopPropagation();
+                resizer.classList.remove('.tbs-grid-html-resizing');
+                document.removeEventListener('mousemove', mouseMoveEvent);
+                document.removeEventListener('mouseup', mouseUpEvent);
+            }
+        };
+        const panel = document.querySelector(selector + ' .tbs-grid-' + panelName);
+        panel.addEventListener('mousedown', mouseDownEvent, false);
+    }
+    // event_checkBox() { //type : header, content
+    //     let selector = '#' + this.gridId;
+    //     const grid = this;
+    //     const checkDowntEvent = function(e) {
+    //         if (e.target.tagName == 'INPUT') {
+    //             let tr = e.target.parentNode.parentNode.parentNode;
+    //             let rowIndex = parseInt(tr.childNodes[0].childNodes[0].textContent) - 1;
+    //
+    //             if (e.target.checked) grid.view_table.updateByRowIndex(rowIndex, columnAlias.isChecked, false);
+    //             else grid.view_table.updateByRowIndex(rowIndex, columnAlias.isChecked, true);
     //         }
-    //     });
+    //     }
+    //     document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').addEventListener('mousedown', checkDowntEvent, false);
     // }
-    getSum(columnName) {
-        let result = 0;
-        for (let i = 0, len = this.count(); i < len; i++) {
-            const dataRow = this.data[i];
-            result += isNaN(dataRow[columnName]) ? 0 : parseFloat(dataRow[columnName]);
-        }
-        return result;
+    event_wheel() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let xScroll = document.querySelector(selector + ' .tbs-grid-horizontal-scroll');
+        let yScroll = document.querySelector(selector + ' .tbs-grid-vertical-scroll');
+        const mouseWheelEvent = function (e) {
+            let name = e.target.className;
+            if (name.indexOf('tbs-grid-input-combo') != -1) {
+            }
+            else {
+                grid.editEnd();
+                if (yScroll.style.display == '') {
+                    if (e.deltaY > 0) {
+                        e.preventDefault();
+                        e.returnValue = false;
+                        grid.classScroll.setBarPositionByDirection('down');
+                    }
+                    else if (e.deltaY < 0) {
+                        e.preventDefault();
+                        e.returnValue = false;
+                        grid.classScroll.setBarPositionByDirection('up');
+                    }
+                }
+                else if (xScroll.style.display == '') {
+                    if (e.deltaY > 0) {
+                        e.preventDefault();
+                        e.returnValue = false;
+                        //grid.classScroll.setBarPositionByDirection('right');
+                    }
+                    if (e.deltaY < 0) {
+                        e.preventDefault();
+                        e.returnValue = false;
+                        //this.classScroll.setBarPositionByDirection('left');
+                    }
+                }
+            }
+        };
+        document.querySelector(selector).addEventListener('wheel', mouseWheelEvent);
     }
-    getAvg(columnName) {
-        let rowCount = this.count();
-        let result = rowCount == 0 ? 0 : this.getSum(columnName) / rowCount;
-        return result;
-    }
-    getMax(columnName) {
-        const arrayItem = [];
-        let result = 0;
-        for (let i = 0, len = this.count(); i < len; i++) {
-            const dataRow = this.data[i];
-            result = isNaN(dataRow[columnName]) ? 0 : parseFloat(dataRow[columnName]);
-            arrayItem.push(result);
+    event_scrollButton() {
+        //mouse wheel event
+        //onmousedown -> onmouseup -> click
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let leftButton = document.querySelector(selector + ' .tbs-grid-horizontal-scroll .tbs-grid-horizontal-scroll-left');
+        let rightButton = document.querySelector(selector + ' .tbs-grid-horizontal-scroll .tbs-grid-horizontal-scroll-right');
+        let upButton = document.querySelector(selector + ' .tbs-grid-vertical-scroll .tbs-grid-vertical-scroll-up');
+        let downButton = document.querySelector(selector + ' .tbs-grid-vertical-scroll .tbs-grid-vertical-scroll-down');
+        let flag = false;
+        //-----------------------------------------------------------------
+        const leftButtonMouseDownEvent = function (e) {
+            document.addEventListener('mouseup', leftButtonMouseUpEvent);
+            flag = true;
+            doInterval('left');
+        };
+        const leftButtonMouseUpEvent = function (e) {
+            flag = false;
+            document.removeEventListener('mouseup', leftButtonMouseUpEvent);
+        };
+        //-----------------------------------------------------------------
+        const rightButtonMouseDownEvent = function (e) {
+            document.addEventListener('mouseup', rightButtonMouseUpEvent);
+            flag = true;
+            doInterval('right');
+        };
+        const rightButtonMouseUpEvent = function (e) {
+            flag = false;
+            document.removeEventListener('mouseup', rightButtonMouseUpEvent);
+        };
+        //-----------------------------------------------------------------
+        const upButtonMouseDownEvent = function (e) {
+            document.addEventListener('mouseup', upButtonMouseUpEvent);
+            flag = true;
+            doInterval('up');
+        };
+        const upButtonMouseUpEvent = function (e) {
+            flag = false;
+            document.removeEventListener('mouseup', upButtonMouseUpEvent);
+        };
+        //-----------------------------------------------------------------
+        const downButtonMouseDownEvent = function (e) {
+            document.addEventListener('mouseup', downButtonMouseUpEvent);
+            flag = true;
+            doInterval('down');
+        };
+        const downButtonMouseUpEvent = function (e) {
+            flag = false;
+            document.removeEventListener('mouseup', downButtonMouseUpEvent);
+        };
+        //-----------------------------------------------------------------
+        leftButton.addEventListener('mousedown', leftButtonMouseDownEvent);
+        rightButton.addEventListener('mousedown', rightButtonMouseDownEvent);
+        upButton.addEventListener('mousedown', upButtonMouseDownEvent);
+        downButton.addEventListener('mousedown', downButtonMouseDownEvent);
+        function doInterval(type) {
+            if (flag) {
+                setTimeout(function () { doInterval(type); }, 500);
+                grid.classScroll.setBarPositionByDirection(type);
+            }
         }
-        return Math.max.apply(null, arrayItem);
     }
-    getMin(columnName) {
-        const arrayItem = [];
-        let result = 0;
-        for (let i = 0, len = this.count(); i < len; i++) {
-            const dataRow = this.data[i];
-            result = isNaN(dataRow[columnName]) ? 0 : parseFloat(dataRow[columnName]);
-            arrayItem.push(result);
+    event_railClick() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        const xWrapClickEvent = function (e) {
+            let bar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
+            let left = parseInt(bar.style.left.replace('px', ''));
+            if (isNaN(left))
+                left = 0;
+            let barSize = grid.horizontalScroll.barSize;
+            if (e.offsetX >= left && e.offsetX <= (left + barSize))
+                return;
+            if (e.target.className != 'tbs-grid-horizontal-scroll-bar') {
+                if (e.offsetX > left) {
+                    let move = e.offsetX - (left + barSize);
+                    bar.style.left = (left + move) + 'px';
+                }
+                if (e.offsetX < left) {
+                    let move = e.offsetX;
+                    bar.style.left = (e.offsetX) + 'px';
+                }
+                let movedLeft = grid.classScroll.getContentPanelLeft(bar.style.left);
+                grid.classScroll.setContentPanelLeft(movedLeft);
+                grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+            }
+        };
+        const yWrapClickEvent = function (e) {
+            let bar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
+            let top = bar.style.top != '' ? parseInt(bar.style.top, 10) : 0;
+            let barSize = grid.verticalScroll.barSize;
+            if (e.offsetY >= top && e.offsetY <= (top + barSize))
+                return;
+            if (e.target.className != 'tbs-grid-vertical-scroll-bar') {
+                if (e.offsetY > top) {
+                    let move = e.offsetY - (top + barSize);
+                    bar.style.top = (top + move) + 'px';
+                }
+                else if (e.offsetY < top) {
+                    let move = e.offsetY;
+                    bar.style.top = e.offsetY + 'px';
+                }
+                // let topRowIndex = grid.getFirstRowIndex('panel30');
+                // if (grid.isLastRowIndex(topRowIndex)) bar.style.top = grid.verticalScroll.railSize + 'px';
+                e = null;
+                let moveCount = grid.verticalScroll.moveCount;
+                /*
+                @issue : parseInt(bar.style.top, 10) * moveCount < 0, topRowIndex always is 0.
+                7 * 0.063 = 0.48  ceil => yMovecount.
+            */
+                let trTopIndex = Math.ceil(parseInt(bar.style.top, 10) * moveCount);
+                bar = null;
+                grid.classPanel30.setDataPanel(trTopIndex);
+            }
+        };
+        //-----------------------------------------------------------------
+        document.querySelector(selector + ' .tbs-grid-horizontal-scroll .tbs-grid-horizontal-scroll-wrap').addEventListener('click', xWrapClickEvent);
+        document.querySelector(selector + ' .tbs-grid-vertical-scroll   .tbs-grid-vertical-scroll-wrap').addEventListener('click', yWrapClickEvent);
+    }
+    event_dragScrollBar() {
+        // function : drag scroll bar
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let xWrap = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-wrap');
+        let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
+        let xPos = { left: 0, x: 0 };
+        //== x scroll
+        const xMouseDownEvent = function (e) {
+            grid.editEnd();
+            e.stopPropagation();
+            if (e.target.className != 'tbs-grid-horizontal-scroll-bar')
+                return;
+            xPos.left = Number(xBar.style.left.replace('px', ''));
+            xPos.x = e.clientX;
+            document.addEventListener('mousemove', xMouseMoveEvent);
+            document.addEventListener('mouseup', xMouseUpEvent);
+        };
+        const xMouseMoveEvent = function (e) {
+            //e.preventDefault();	// next stop
+            //e.stopPropagation();	// up stop
+            let xMove = e.clientX - xPos.x;
+            let left = xPos.left + xMove;
+            let xRailWidth = xWrap.clientWidth - xBar.clientWidth;
+            if (left < 0)
+                left = 0;
+            if (left > xRailWidth)
+                left = xRailWidth;
+            xBar.style.left = left.toString() + 'px';
+            let header = document.querySelector(selector + ' .tbs-grid-panel20');
+            let content = document.querySelector(selector + ' .tbs-grid-panel30');
+            let sum = document.querySelector(selector + ' .tbs-grid-panel40');
+            let footer = document.querySelector(selector + ' .tbs-grid-panel50');
+            let ratio = (header.childNodes[0].clientWidth - header.clientWidth) / xRailWidth;
+            grid.classScroll.setContentPanelLeft((left * -1 * ratio).toString());
+            grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
+        };
+        const xMouseUpEvent = function (e) {
+            document.removeEventListener('mousemove', xMouseMoveEvent);
+            document.removeEventListener('mouseup', xMouseUpEvent);
+        };
+        xBar.addEventListener('mousedown', xMouseDownEvent, false);
+        //== y scroll
+        const yBar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
+        const yPos = { top: 0, y: 0 };
+        let actveTopRowIndex = -1;
+        const yMouseDownEvent = function (e) {
+            grid.editEnd();
+            e.stopPropagation();
+            actveTopRowIndex = -1;
+            if (e.target.className != 'tbs-grid-vertical-scroll-bar')
+                return;
+            const yBar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
+            if (grid.empty(yBar.style.top))
+                yPos.top = 0;
+            else
+                yPos.top = parseInt(yBar.style.top, 10);
+            yPos.y = e.clientY;
+            document.addEventListener('mousemove', yMouseMoveEvent);
+            document.addEventListener('mouseup', yMouseUpEvent);
+        };
+        const yMouseMoveEvent = function (e) {
+            let yBarTop = yPos.top + e.clientY - yPos.y;
+            if (yBarTop < 0)
+                yBarTop = 0;
+            else if (yBarTop >= grid.verticalScroll.railSize)
+                yBarTop = grid.verticalScroll.railSize;
+            let topRowIndex = Math.ceil(yBarTop * grid.verticalScroll.moveCount);
+            if (yBarTop >= grid.verticalScroll.railSize)
+                topRowIndex = grid.view_table.count() - grid.pageIntRowCount;
+            //console.log(`topRowIndex ${topRowIndex} / yBarTop ${yBarTop} / railSize ${grid.verticalScroll.railSize} `);
+            setTimeout(() => { grid.classScroll.setBarPosition(grid.code_vertical, topRowIndex); }, 10);
+            setTimeout(() => { grid.classPanel30.setDataPanel(topRowIndex); }, 50);
+        };
+        const yMouseUpEvent = function (e) {
+            e.stopPropagation();
+            document.removeEventListener('mousemove', yMouseMoveEvent);
+            document.removeEventListener('mouseup', yMouseUpEvent);
+        };
+        yBar.addEventListener('mousedown', yMouseDownEvent, false);
+    }
+    tbs_moveCellLine(cell, rowIndex, cellIndex) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let input = document.querySelector(selector + ' .tbs-grid-input');
+        let cellRect = cell.getBoundingClientRect();
+        let content = document.querySelector(selector + ' .tbs-grid-panel30');
+        let contentRect = content.getBoundingClientRect();
+        let table = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
+        //let tableRect = table.getBoundingClientRect();
+        if (cellRect.left < contentRect.left) {
+            let value = contentRect.left - cellRect.left;
+            grid.classScroll.setContentPanelLeftMove(value);
+            grid.classScroll.setBarPosition(grid.code_horizontal);
         }
-        return Math.min.apply(null, arrayItem);
+        else if (cellRect.right > contentRect.right) {
+            let value = contentRect.right - cellRect.right;
+            grid.classScroll.setContentPanelLeftMove(value);
+            grid.classScroll.setBarPosition(grid.code_horizontal);
+        }
+        grid.classRange.removeRange(0, -1);
+        let _topRowIndex = grid.classRange.selectRange(rowIndex, rowIndex, cellIndex, cellIndex);
+        grid.classPanel30.setDataPanel(_topRowIndex);
+    }
+    isMovedPositionInConstRange(startX, startY, lastX, lastY) {
+        let movedX = Math.abs(startX - lastX);
+        let movedY = Math.abs(startY - lastY);
+        return (movedX < this.mousePointRange && movedY < this.mousePointRange);
+    }
+    tbs_executeEvent(isUserFunction, eventType, param) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let e = null;
+        let mode = null;
+        let rowIndex = null;
+        let cellIndex = null;
+        let element = null;
+        if (eventType == 'rowBounding') {
+            element = param.element;
+            rowIndex = param.rowIndex;
+            const eventRow = {};
+            eventRow.rowIndex = rowIndex;
+            eventRow.data = grid.getRow(rowIndex);
+            if (grid.notNull(grid.rowBounding)) {
+                let flag = grid.rowBounding(grid, element, eventRow);
+            } //user function call
+        }
+        else if (eventType == 'click' || eventType == 'dblclick') {
+            e = param.e;
+            mode = param.mode; //mouse, key
+            rowIndex = param.rowIndex;
+            cellIndex = param.cellIndex;
+            let column = grid.getColumnByIndex(cellIndex);
+            let columnName = grid.getColumnName(cellIndex);
+            let value = grid.getValue(rowIndex, columnName);
+            let text = grid.getText(rowIndex, columnName);
+            const eventRow = {};
+            eventRow.rowIndex = rowIndex;
+            eventRow.columnIndex = cellIndex;
+            eventRow.columnName = columnName;
+            eventRow.value = value;
+            eventRow.text = text;
+            eventRow.data = grid.getRow(rowIndex);
+            if (eventType == 'click') {
+                if (grid.notNull(grid.click)) {
+                    let flag = grid.click(grid, eventRow);
+                } //user function call
+            }
+            else if (eventType == 'dblclick') {
+                if (grid.notNull(grid.dblclick)) {
+                    let flag = grid.dblclick(grid, eventRow);
+                } //user function call
+            }
+        }
+    }
+    tbs_getMaxRowIndexByMouseMove() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let maxRowIndex;
+        const rowIndexArray = [];
+        let num;
+        if (grid.fixedColumnIndex != -1) {
+            num = grid.tbs_getMaxRowIndexByMouseMove2('panel32');
+            if (num != undefined)
+                rowIndexArray.push(num);
+            num = grid.tbs_getMaxRowIndexByMouseMove2('panel30');
+            if (num != undefined)
+                rowIndexArray.push(num);
+            maxRowIndex = Math.max(...rowIndexArray);
+        }
+        else {
+            maxRowIndex = grid.tbs_getMaxRowIndexByMouseMove2('panel30');
+        }
+        return maxRowIndex;
+    }
+    tbs_getMinRowIndexByMouseMove() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let minRowIndex;
+        const rowIndexArray = [];
+        let num;
+        if (grid.fixedColumnIndex != -1) {
+            num = grid.tbs_getMinRowIndexByMouseMove2('panel32');
+            if (num != undefined)
+                rowIndexArray.push(num);
+            num = grid.tbs_getMinRowIndexByMouseMove2('panel30');
+            if (num != undefined)
+                rowIndexArray.push(num);
+            minRowIndex = Math.min(...rowIndexArray);
+        }
+        else {
+            minRowIndex = grid.tbs_getMinRowIndexByMouseMove2('panel30');
+        }
+        return minRowIndex;
+    }
+    tbs_getMaxCellIndexByMouseMove() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let maxCellIndex, num;
+        const rowIndexArray = [];
+        if (grid.fixedColumnIndex != -1) {
+            num = grid.tbs_getMaxCellIndexByMouseMove2('panel32');
+            if (num != undefined)
+                rowIndexArray.push(num);
+            num = grid.tbs_getMaxCellIndexByMouseMove2('panel30');
+            if (num != undefined)
+                rowIndexArray.push(num);
+            maxCellIndex = Math.max(...rowIndexArray);
+        }
+        else {
+            maxCellIndex = grid.tbs_getMaxCellIndexByMouseMove2('panel30');
+        }
+        return maxCellIndex;
+    }
+    tbs_getMinCellIndexByMouseMove() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let minCellIndex, num;
+        const rowIndexArray = [];
+        if (grid.fixedColumnIndex != -1) {
+            num = grid.tbs_getMinCellIndexByMouseMove2('panel30');
+            if (num != undefined)
+                rowIndexArray.push(num);
+            num = grid.tbs_getMinCellIndexByMouseMove2('panel32');
+            if (num != undefined)
+                rowIndexArray.push(num);
+            minCellIndex = Math.min(...rowIndexArray);
+        }
+        else {
+            minCellIndex = grid.tbs_getMinCellIndexByMouseMove2('panel30');
+        }
+        return minCellIndex;
+    }
+    tbs_getMaxRowIndexByMouseMove2(panelName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let lastY = this.lastY;
+        let maxRowIndex;
+        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
+        let len = (tableRows) ? tableRows.length : 0;
+        let startRowIndex, lastRowIndex;
+        startRowIndex = 0;
+        lastRowIndex = len - 1;
+        for (let i = startRowIndex; i < lastRowIndex + 1; i++) {
+            let tableRow = tableRows[i];
+            let tableRowIndex = i + 1;
+            let rect = grid.getOffset(tableRow);
+            let top = rect.top;
+            if (lastY > top)
+                maxRowIndex = grid.classColumn.getRowIndexInTable(tableRowIndex, panelName);
+        }
+        return maxRowIndex;
+    }
+    tbs_getMinRowIndexByMouseMove2(panelName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let lastY = this.lastY;
+        let minRowIndex;
+        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
+        let len = (tableRows) ? tableRows.length : 0;
+        let startRowIndex, lastRowIndex;
+        startRowIndex = 0;
+        lastRowIndex = len - 1;
+        for (let i = lastRowIndex; i >= startRowIndex; i--) {
+            let tableRow = tableRows[i];
+            let tableRowIndex = i + 1;
+            let rect = grid.getOffset(tableRow);
+            //console.log(`${panelName} i ${i} : rect.top ${rect.top} lastRowIndex ${lastRowIndex} : minRowIndex ${minRowIndex}  : lastY  ${this.lastY}`);
+            let bottom = rect.top + tableRow.getBoundingClientRect().height;
+            if (lastY < bottom)
+                minRowIndex = grid.classColumn.getRowIndexInTable(tableRowIndex, panelName);
+        }
+        return minRowIndex;
+    }
+    tbs_getMaxCellIndexByMouseMove2(panelName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let lastX = this.lastX;
+        let maxCellIndex;
+        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
+        let tableRow = tableRows[0];
+        let len = (tableRow && tableRow.childNodes) ? tableRow.childNodes.length : 0;
+        let startColumnIndex, lastColumnIndex;
+        if (grid.fixedColumnIndex != -1) {
+            if (panelName == 'panel32') {
+                startColumnIndex = 0;
+                lastColumnIndex = this.fixedColumnIndex + 1;
+            }
+            else if (panelName == 'panel30') {
+                startColumnIndex = this.fixedColumnIndex + 1;
+                lastColumnIndex = len;
+            }
+        }
+        else {
+            startColumnIndex = 0;
+            lastColumnIndex = len;
+        }
+        for (let x = startColumnIndex; x < lastColumnIndex; x++) {
+            const tableCell = tableRow.childNodes[x];
+            let column = grid.column_table.data[x];
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.visible] == false)
+                continue;
+            let rect = grid.getOffset(tableCell);
+            let rectLeft = rect.left;
+            //console.log(`${panelName} : tableCell.cellIndex  ${tableCell.cellIndex} : maxCellIndex ${maxCellIndex} : rect.left  ${rect.left} : rectRight ${rectLeft} : lastX  ${this.lastX}`);
+            if (lastX > rectLeft)
+                maxCellIndex = tableCell.cellIndex;
+        }
+        return maxCellIndex;
+    }
+    tbs_getMinCellIndexByMouseMove2(panelName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let lastX = this.lastX;
+        let minCellIndex;
+        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
+        let tableRow = tableRows[0];
+        let len = (tableRow && tableRow.childNodes) ? tableRow.childNodes.length : 0;
+        let startColumnIndex, lastColumnIndex;
+        if (grid.fixedColumnIndex != -1) {
+            if (panelName == 'panel32') {
+                startColumnIndex = 0;
+                lastColumnIndex = this.fixedColumnIndex;
+            }
+            else if (panelName == 'panel30') {
+                startColumnIndex = this.fixedColumnIndex + 1;
+                lastColumnIndex = len - 1;
+            }
+        }
+        else {
+            startColumnIndex = 0;
+            lastColumnIndex = len - 1;
+        }
+        for (let x = lastColumnIndex; x >= startColumnIndex; x--) {
+            const tableCell = tableRow.childNodes[x];
+            let column = grid.column_table.data[x];
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.visible] == false)
+                continue;
+            let rect = grid.getOffset(tableCell);
+            let rectRight = rect.left + tableCell.getBoundingClientRect().width;
+            //console.log(`${panelName} : tableCell.cellIndex  ${tableCell.cellIndex} : minCellIndex ${minCellIndex} : rect.left  ${rect.left} : rectRight ${rectRight} : lastX  ${this.lastX}`);
+            if (lastX < rectRight)
+                minCellIndex = tableCell.cellIndex;
+        }
+        return minCellIndex;
+    }
+    getOffset(el) {
+        let _x = 0;
+        let _y = 0;
+        while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+            _x += el.offsetLeft - el.scrollLeft;
+            _y += el.offsetTop - el.scrollTop;
+            el = el.offsetParent;
+        }
+        return { top: _y, left: _x };
+    }
+    tbs_moveNextRowCell(type) {
+        //tbs_moveNextRowCell: none use => need to improve
+        //type : left, right, up, down
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let rowIndex = -1;
+        let cellIndex = -1;
+        let trList = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
+        let td = document.querySelector(selector + ' .tbs-grid-cell-start');
+        if (td == null)
+            return;
+        let tableRowIndex = td.parentNode.rowIndex;
+        let dataRowIndex = this.classColumn.getRowIndexInTable(tableRowIndex);
+        cellIndex = td.cellIndex;
+        if (cellIndex == this.column_table.count() - 1 && dataRowIndex < this.view_table.count() - 1) {
+            this.classRange.removeRange(0, -1);
+            let _topRowIndex = this.classRange.selectRange(dataRowIndex + 1, dataRowIndex + 1, 0, 0);
+            this.classPanel30.setDataPanel(_topRowIndex);
+            let topRowIndex = this.getFirstRowIndex();
+            let lastRowIndex = this.getLastRowIndex();
+            let movedLeft = grid.classScroll.getContentPanelLeft(0);
+            grid.classScroll.setContentPanelLeft(movedLeft);
+            if (dataRowIndex == lastRowIndex - 1)
+                this.classPanel30.setDataPanel(topRowIndex + 1);
+            let input = document.querySelector(selector + ' .tbs-grid-input');
+            this.input_focus();
+        }
+        else {
+            this.tbs_moveCell(type);
+            let topRowIndex = this.getFirstRowIndex();
+            let movedLeft = grid.classScroll.getContentPanelLeft(0);
+            grid.classScroll.setContentPanelLeft(movedLeft);
+            grid.classScroll.setBarPosition(grid.code_vertical, topRowIndex);
+            let input = document.querySelector(selector + ' .tbs-grid-input');
+            this.input_focus();
+        }
+    }
+    tbs_moveCell(type) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let cellIndex = -1;
+        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
+        let tableRowIndex, dataRowIndex;
+        let tableCell = document.querySelector(selector + ' .tbs-grid-cell-start');
+        if (grid.null(tableCell))
+            return;
+        tableRowIndex = parseInt(tableCell.parentNode.rowIndex);
+        dataRowIndex = parseInt(tableCell.parentNode.dataset.rowIndex); //dataRowIndex
+        cellIndex = tableCell.cellIndex;
+        if (type == 'left') {
+            let startCellIndex = cellIndex;
+            cellIndex = cellIndex - 1;
+            for (let i = cellIndex; i >= 0; i--) {
+                let column = this.column_table.data[i];
+                if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.visible] == false)
+                    cellIndex -= 1;
+                else
+                    break;
+            }
+            if (cellIndex < 0 || this.column_table.data[cellIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.visible] == false) {
+                grid.classRange.removeRange(0, -1);
+                let _topRowIndex = grid.classRange.selectRange(dataRowIndex, dataRowIndex, startCellIndex, startCellIndex);
+                grid.classPanel30.setDataPanel(_topRowIndex);
+                return;
+            }
+            let tableRow = tableRows[tableRowIndex - 1];
+            let left1 = window.pageYOffset + tableRow.childNodes[cellIndex].getBoundingClientRect().left;
+            let divContent = document.querySelector(selector + ' .tbs-grid-panel30');
+            let left2 = window.pageYOffset + divContent.getBoundingClientRect().left;
+            if (left1 < left2) {
+                let moveWidth = left2 - left1;
+                let table20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
+                let table30 = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
+                let hiddenSize = this.horizontalScroll.hiddenSize;
+                let curLeft = Math.abs(parseInt(table20.style.left.replace('px', '')));
+                let sLeft;
+                if (curLeft - moveWidth < 0)
+                    sLeft = 0 + 'px';
+                else
+                    sLeft = -1 * curLeft + moveWidth + 'px';
+                grid.classScroll.setContentPanelLeft(sLeft);
+                grid.classScroll.setBarPosition(grid.code_horizontal);
+            }
+            grid.classRange.removeRange(0, -1);
+            let _topRowIndex = grid.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+            grid.classPanel30.setDataPanel(_topRowIndex);
+        }
+        else if (type == 'right') {
+            let startCellIndex = cellIndex;
+            cellIndex = cellIndex + 1;
+            for (let i = cellIndex, len = this.column_table.count(); i < len; i++) {
+                let column = this.column_table.data[i];
+                if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.visible] == false)
+                    cellIndex += 1;
+                else
+                    break;
+            }
+            if (cellIndex >= this.column_table.count())
+                cellIndex = startCellIndex;
+            let tableRow = tableRows[tableRowIndex - 1];
+            let right1 = window.pageYOffset + tableRow.childNodes[cellIndex].getBoundingClientRect().right;
+            let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
+            let right2 = window.pageYOffset + panel30.getBoundingClientRect().right;
+            if (right1 > right2) {
+                let moveWidth = right1 - right2;
+                let table20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
+                let hiddenSize = this.horizontalScroll.hiddenSize;
+                let curLeft = Math.abs(parseInt(table20.style.left.replace('px', '')));
+                let sLeft;
+                if (curLeft + moveWidth > hiddenSize)
+                    sLeft = -1 * hiddenSize + 'px';
+                else
+                    sLeft = table20.style.left.replace('px', '') - moveWidth + 'px';
+                grid.classScroll.setContentPanelLeft(sLeft);
+                grid.classScroll.setBarPosition(grid.code_horizontal);
+            }
+            this.classRange.removeRange(0, -1);
+            let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+            this.classPanel30.setDataPanel(_topRowIndex);
+        }
+        else if (type == 'up') {
+            dataRowIndex -= 1;
+            let topRowIndex = this.getFirstRowIndex();
+            if (topRowIndex < 0)
+                topRowIndex = 0;
+            if (dataRowIndex < 0)
+                dataRowIndex = 0;
+            if (topRowIndex <= dataRowIndex) {
+                this.classRange.removeRange(0, -1);
+                let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                this.classPanel30.setDataPanel(_topRowIndex);
+            }
+            else {
+                this.classRange.removeRange(0, -1);
+                let rowIndex = this.classScroll.setBarPositionByDirection('up');
+                this.displayOneSelection(rowIndex, cellIndex);
+            }
+        }
+        else if (type == 'down') {
+            let topRowIndex = this.getFirstRowIndex();
+            let lastRowIndex = this.getLastRowIndex();
+            if (this.pageRowCount > this.pageIntRowCount) {
+                if (tableRows.length == this.pageRowCount) {
+                    if (dataRowIndex == lastRowIndex) {
+                        if (dataRowIndex == this.view_table.count() - 1) {
+                            this.classRange.removeRange(0, -1);
+                            this.classScroll.setBarPositionByDirection('down', topRowIndex + 1);
+                            this.displayOneSelection(dataRowIndex, cellIndex);
+                        }
+                        else {
+                            dataRowIndex += 1;
+                            this.classRange.removeRange(0, -1);
+                            this.classScroll.setBarPositionByDirection('down', topRowIndex + 2);
+                            this.displayOneSelection(dataRowIndex, cellIndex);
+                        }
+                    }
+                    else if (dataRowIndex == lastRowIndex - 1) {
+                        dataRowIndex += 1;
+                        this.classRange.removeRange(0, -1);
+                        this.classScroll.setBarPositionByDirection('down', topRowIndex + 1);
+                        this.displayOneSelection(dataRowIndex, cellIndex);
+                    }
+                    else {
+                        dataRowIndex += 1;
+                        this.classRange.removeRange(0, -1);
+                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                        this.classPanel30.setDataPanel(_topRowIndex);
+                    }
+                }
+                else {
+                    if (dataRowIndex == lastRowIndex) {
+                        this.classRange.removeRange(0, -1);
+                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                        this.classPanel30.setDataPanel(_topRowIndex);
+                    }
+                    else {
+                        dataRowIndex += 1;
+                        this.classRange.removeRange(0, -1);
+                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                        this.classPanel30.setDataPanel(_topRowIndex);
+                    }
+                }
+            }
+            else {
+                if (tableRows.length == this.pageRowCount) {
+                    if (dataRowIndex == lastRowIndex) {
+                        if (dataRowIndex == this.view_table.count() - 1) {
+                            this.classRange.removeRange(0, -1);
+                            let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                            this.classPanel30.setDataPanel(_topRowIndex);
+                        }
+                        else {
+                            dataRowIndex += 1;
+                            this.classRange.removeRange(0, -1);
+                            this.classScroll.setBarPositionByDirection('down');
+                            this.displayOneSelection(dataRowIndex, cellIndex);
+                        }
+                    }
+                    else {
+                        dataRowIndex += 1;
+                        this.classRange.removeRange(0, -1);
+                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                        this.classPanel30.setDataPanel(_topRowIndex);
+                    }
+                }
+                else {
+                    if (dataRowIndex == lastRowIndex) {
+                        this.classRange.removeRange(0, -1);
+                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                        this.classPanel30.setDataPanel(_topRowIndex);
+                    }
+                    else {
+                        dataRowIndex += 1;
+                        this.classRange.removeRange(0, -1);
+                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
+                        this.classPanel30.setDataPanel(_topRowIndex);
+                    }
+                }
+            }
+        }
     }
 }
 
 
 /***/ }),
 
-/***/ 228:
+/***/ 9599:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   $: function() { return /* binding */ TbsDatabase; }
+/* harmony export */   A: function() { return /* binding */ TbsGridIs; }
 /* harmony export */ });
-/* harmony import */ var _tbs_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(980);
-/* harmony import */ var _tbs_data_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(695);
-/* harmony import */ var _tbs_data_array_table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(664);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
-
-
-class TbsDatabase extends _tbs_base__WEBPACK_IMPORTED_MODULE_2__/* .TbsBase */ .H {
+class TbsGridIs {
     constructor() {
-        super();
-        this.tables = [];
     }
-    createTable(tableName) {
-        const table = new _tbs_data_table__WEBPACK_IMPORTED_MODULE_0__/* .TbsDataTable */ .Q(tableName);
-        table.type = 'table';
-        this.tables.push(table);
-        return this.getTable(tableName);
+    /**
+     * Is Functions
+     *
+     */
+    isEditableColumn(columnName) {
+        let result = this.column_table.selectRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
+        return result.editable ? result.editable : false;
     }
-    createView(tableName) {
-        const table = new _tbs_data_table__WEBPACK_IMPORTED_MODULE_0__/* .TbsDataTable */ .Q(tableName);
-        table.type = 'view';
-        this.tables.push(table);
-        return this.getTable(tableName);
+    isSortableColumn(columnName) {
+        const grid = this;
+        let result = false;
+        //let column = grid.getColumn(columnName);
+        // if (column[columnAlias.sortable] == true)  result = true;
+        // else if (column[columnAlias.sortable] == false) result = false;
+        // else {
+        result = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.sortable];
+        //}
+        return result;
     }
-    createArrayTable(tableName) {
-        const table = new _tbs_data_array_table__WEBPACK_IMPORTED_MODULE_1__/* .TbsDataArrayTable */ .r(tableName);
-        table.type = 'table';
-        this.tables.push(table);
-        return this.getTable(tableName);
+    isResizableColumn(columnName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let result = false;
+        //let column = grid.getColumn(columnName);
+        // if (column[columnAlias.resizable] == true)  result = true;
+        // else if (column[columnAlias.resizable] == false) result = false;
+        // else {
+        result = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.resizable];
+        // }
+        return result;
     }
-    removeTable(tableName) {
-        for (let i = 0, len = this.tables.length; i < len; i++) {
-            const table = this.tables[i];
-            if (table.tableName === tableName) {
-                this.tables.splice(i, 1);
+    isMovableColumn(columnName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let result = false;
+        //let column = grid.getColumn(columnName);
+        // if (column[columnAlias.movable] == true)  result = true;
+        // else if (column[columnAlias.movable] == false) result = false;
+        // else {
+        result = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.movable];
+        // }
+        return result;
+    }
+    isAutoResizableColumn(columnName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let result = false;
+        //let column = grid.getColumn(columnName);
+        // if (column[columnAlias.autoResizable] == true)  result = true;
+        // else if (column[columnAlias.autoResizable] == false) result = false;
+        // else {
+        result = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.autoResizable];
+        //}
+        return result;
+    }
+    isAutoWidthColumn(columnName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let result = false;
+        //let column = grid.getColumn(columnName);
+        // if (column[columnAlias.autoResizable] == true)  result = true;
+        // else if (column[columnAlias.autoResizable] == false) result = false;
+        // else {
+        result = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.autoWidth];
+        //}
+        return result;
+    }
+    isClassName(element, className) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let result = element.classList.contains(className);
+        return result;
+    }
+    isNotValidColumnType(columnType) {
+        let arr = ['string', 'number', 'combo', 'date'];
+        return arr.indexOf(columnType) == -1 ? true : false;
+    }
+    isInPanel(e, panelName, startX, startY) {
+        /**
+         * @function  isInPanel
+         *
+         * @Description is existed in panel
+         * @param e
+         * @param panelName
+         * @deprecated startX
+         * @deprecated startY
+         * @returns {boolean}
+         */
+        let selector = '#' + this.gridId;
+        const grid = this;
+        //let lastX = window.pageXOffset + e.clientX;
+        //let lastY = window.pageYOffset + e.clientY;
+        let lastX = this.lastX;
+        let lastY = this.lastY;
+        let moveX = lastX - startX;
+        let moveY = lastY - startY;
+        let panel = document.querySelector(selector + ' .tbs-grid-' + panelName);
+        let absRect = grid.getOffset(panel);
+        let rect = panel.getBoundingClientRect();
+        let groupTop = absRect.top;
+        let groupBottom = absRect.top + rect.height;
+        let groupLeft = absRect.left;
+        let groupRight = absRect.left + rect.width;
+        //outside area
+        if (lastX < groupLeft || lastX > groupRight || lastY < groupTop || lastY > groupBottom)
+            return false;
+        else
+            return true;
+    }
+    isSelectedCell(panelName, rowIndex, cellIndex) {
+        //selected 1, 0
+        let result = 0;
+        let rows = [];
+        if (panelName == 'panel31')
+            rows = this.data_select_panel31;
+        else if (panelName == 'panel32')
+            rows = this.data_select_panel30;
+        else if (panelName == 'panel30')
+            rows = this.data_select_panel30;
+        else if (panelName == 'panel41')
+            rows = this.classRange40.data_select_panel31;
+        else if (panelName == 'panel42')
+            rows = this.classRange40.data_select_panel30;
+        else if (panelName == 'panel40')
+            rows = this.classRange40.data_select_panel30;
+        else if (panelName == 'panel51')
+            rows = this.classRange50.data_select_panel31;
+        else if (panelName == 'panel52')
+            rows = this.classRange50.data_select_panel30;
+        else if (panelName == 'panel50')
+            rows = this.classRange50.data_select_panel30;
+        else
+            rows = this.data_select_panel30;
+        for (let i = 0, len = rows.length; i < len; i++) {
+            let row = rows[i];
+            if (rowIndex == row[0][0]) {
+                result = row[1][cellIndex];
                 break;
             }
         }
+        return result;
     }
-    getTable(tableName) {
-        let result = null;
-        for (let i = 0, len = this.tables.length; i < len; i++) {
-            const table = this.tables[i];
-            if (table.tableName == tableName) {
-                result = table;
+    isSelectedHeaderCell(panelName, cellIndex) {
+        //selected 1, 0
+        let result = 0;
+        let rows = this.data_select_panel30;
+        for (let i = 0, len = rows.length; i < len; i++) {
+            let row = rows[i];
+            if (row[1][cellIndex] == 1) {
+                result = row[1][cellIndex];
                 break;
             }
+        }
+        return result;
+    }
+    isSelectedCell31(rowIndex, cellIndex) {
+        //selected 1, 0
+        let result = 0;
+        let rows = this.data_select_panel31;
+        for (let i = 0, len = rows.length; i < len; i++) {
+            let row = rows[i];
+            if (rowIndex == row[0][0]) {
+                result = row[1][cellIndex];
+                break;
+            }
+        }
+        return result;
+    }
+    isSelectedCell30(rowIndex, cellIndex) {
+        //selected 1, 0
+        let result = 0;
+        let rows = this.data_select_panel30;
+        for (let i = 0, len = rows.length; i < len; i++) {
+            let row = rows[i];
+            if (rowIndex == row[0][0]) {
+                result = row[1][cellIndex];
+                break;
+            }
+        }
+        return result;
+    }
+    isColumnName(columnName) {
+        const grid = this;
+        let result = false;
+        for (let i = 0, len = this.column_table.count(); i < len; i++) {
+            let column = this.column_table.data[i];
+            if (columnName == column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name]) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+    isColumnTypeNumber(columnName) {
+        const grid = this;
+        let result = false;
+        let column = grid.getColumn(columnName);
+        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.type] == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .CellType */ .vZ.number)
+            result = true;
+        return result;
+    }
+    isFilterColumnName(columnName) {
+        const grid = this;
+        return grid.filter_column_table.isRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
+    }
+    isLastTopRowIndex(rowIndex) {
+        const grid = this;
+        let result = false;
+        let rowCount = grid.getRowCount() - 1;
+        if (grid.pageIntRowCount >= rowCount - rowIndex + 1) {
+            return true;
         }
         return result;
     }
@@ -668,14 +2211,352 @@ class TbsDatabase extends _tbs_base__WEBPACK_IMPORTED_MODULE_2__/* .TbsBase */ .
 
 /***/ }),
 
-/***/ 760:
+/***/ 1425:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   C: function() { return /* binding */ TbsGridLine; }
+/* harmony export */ });
+class TbsGridLine {
+    constructor() {
+    }
+    /**
+     * Select Line Functions
+     *
+     */
+    getFirstSelectedTableCell(panelName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let startCell;
+        let startRowIndex = grid._startRowIndex;
+        let rowIndex1 = grid.getFirstRowIndex();
+        let rowIndex2 = grid.getLastRowIndex();
+        if (startRowIndex < rowIndex1)
+            startRowIndex = rowIndex1;
+        const tableRows31 = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
+        const tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + '  .tbs-grid-table tbody tr:not([style*="display: none"])');
+        Loop1: for (let i = 0, len = tableRows31.length; i < len; i++) {
+            const tableRow31 = tableRows31[i];
+            const tableRow = tableRows[i];
+            let rowIndex = tableRow31.childNodes[0].dataset.rowIndex;
+            if (rowIndex == startRowIndex) {
+                for (let x = 0; x < this.column_table.count(); x++) {
+                    let tableCell = tableRow.childNodes[x];
+                    if (tableCell.classList.contains('tbs-grid-cell-start') || tableCell.classList.contains('tbs-grid-cell-select')) {
+                        startCell = tableCell;
+                        break Loop1;
+                    }
+                }
+            }
+        }
+        return startCell;
+    }
+    getLastSelectedTableCell(panelName) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let lastCell;
+        let lastRowIndex = this._lastRowIndex;
+        let rowIndex1 = grid.getFirstRowIndex();
+        let rowIndex2 = grid.getLastRowIndex();
+        if (lastRowIndex > rowIndex2)
+            lastRowIndex = rowIndex2;
+        let tableRows31 = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
+        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + '  .tbs-grid-table tbody tr:not([style*="display: none"])');
+        for (let i = tableRows31.length - 1; i >= 0; i--) {
+            if (lastCell != undefined)
+                break;
+            let tableRow31 = tableRows31[i];
+            let tableRow30 = tableRows[i];
+            let rowIndex = tableRow31.childNodes[0].dataset.rowIndex;
+            if (rowIndex == lastRowIndex) {
+                for (let x = this.column_table.count() - 1; x >= 0; x--) {
+                    let tableCell = tableRow30.childNodes[x];
+                    if (tableCell.classList.contains('tbs-grid-cell-start') || tableCell.classList.contains('tbs-grid-cell-select')) {
+                        lastCell = tableCell;
+                        break;
+                    }
+                }
+            }
+        }
+        return lastCell;
+    }
+    clearSelectedLine() {
+        this.topLineDiv.style = 'width :0px;top:0px;left:0px;';
+        this.leftLineDiv.style = 'height:0px;top:0px;left:0px;';
+        this.bottomLineDiv.style = 'width :0px;top:0px;left:0px;';
+        this.rightLineDiv.style = 'height:0px;top:0px;left:0px;';
+    }
+    setSelectedLine(lineWidth, lineHeight, rectTop, rectBottom, rectLeft, rectRight) {
+        if (Number(rectTop) > Number(rectBottom) || Number(rectLeft) > Number(rectRight))
+            this.clearSelectedLine();
+        else {
+            this.topLineDiv.style = 'width:' + lineWidth + 'px;top:' + rectTop + 'px;left:' + rectLeft + 'px;';
+            this.leftLineDiv.style = 'height:' + lineHeight + 'px;top:' + rectTop + 'px;left:' + rectLeft + 'px;';
+            this.rightLineDiv.style = 'height:' + (lineHeight + 1) + 'px;top:' + rectTop + 'px;left:' + rectRight + 'px;';
+            this.bottomLineDiv.style = 'width:' + lineWidth + 'px;top:' + rectBottom + 'px;left:' + rectLeft + 'px;';
+        }
+    }
+    displaySelectedLine() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        if (grid.view_table.count() == 0) {
+            grid.classRange.removeRange(0, -1);
+            return;
+        }
+        if (grid.fixedColumnIndex != -1) {
+            let tableRows30 = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
+            if (grid.getRowCount() == 0)
+                return;
+            let fixedColumnIndex = this.fixedColumnIndex;
+            /* Get startCell, lastCell */
+            let startCell, lastCell;
+            //console.log(`grid._startCellIndex : ${grid._startCellIndex} / grid._lastCellIndex : ${ grid.fixedColumnIndex}`);
+            if (grid._startCellIndex <= grid.fixedColumnIndex)
+                startCell = grid.getFirstSelectedTableCell('panel32');
+            else
+                startCell = grid.getFirstSelectedTableCell('panel30');
+            if (grid._lastCellIndex <= grid.fixedColumnIndex)
+                lastCell = grid.getLastSelectedTableCell('panel32');
+            else
+                lastCell = grid.getLastSelectedTableCell('panel30');
+            if (startCell == undefined || lastCell == undefined) {
+                grid.clearSelectedLine();
+                return;
+            }
+            //console.log(`startCell.cellIndex : ${startCell.cellIndex} / lastCell.cellIndex : ${lastCell.cellIndex}`);
+            let startCellIndex = startCell.cellIndex;
+            let lastCellIndex = lastCell.cellIndex;
+            let rectMain = document.querySelector(selector + ' .tbs-grid-main').getBoundingClientRect();
+            let rectTable31 = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').getBoundingClientRect();
+            let rectWrap = document.querySelector(selector + ' .tbs-grid-wrap').getBoundingClientRect();
+            let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
+            let startRect = startCell.getBoundingClientRect();
+            let lastRect = lastCell.getBoundingClientRect();
+            let beforeLeft = rectTable31.left;
+            let rectTop = startRect.top - rectMain.top;
+            let rectBottom = lastRect.top - rectMain.top + lastRect.height;
+            let rectLeft = startRect.left - beforeLeft;
+            let rectRight = lastRect.left - beforeLeft + lastRect.width;
+            let rectPanelLeft = (startCellIndex <= fixedColumnIndex) ? rectLeft : rectPanel30.left - rectTable31.left;
+            let rectPanelBottom = rectPanel30.top - rectMain.top + rectPanel30.height;
+            let rectPanelRight = rectPanel30.left - rectTable31.left + rectPanel30.width;
+            // case outside line
+            if (rectLeft <= rectPanelLeft)
+                rectLeft = rectPanelLeft;
+            if (rectBottom >= rectPanelBottom)
+                rectBottom = rectPanelBottom - 2;
+            if (rectRight >= rectPanelRight)
+                rectRight = rectPanelRight;
+            let lineHeight = rectBottom - rectTop;
+            let lineWidth = rectRight - rectLeft;
+            grid.setSelectedLine(lineWidth, lineHeight, rectTop, rectBottom, rectLeft, rectRight);
+        }
+        else {
+            let tableRows30 = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
+            if (grid.getRowCount() == 0)
+                return;
+            let startCell = grid.getFirstSelectedTableCell('panel30');
+            let lastCell = grid.getLastSelectedTableCell('panel30');
+            if (startCell == undefined || lastCell == undefined) {
+                grid.clearSelectedLine();
+                return;
+            }
+            let rectMain = document.querySelector(selector + ' .tbs-grid-main').getBoundingClientRect();
+            let rectTable31 = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').getBoundingClientRect();
+            let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
+            let startRect = startCell.getBoundingClientRect();
+            let lastRect = lastCell.getBoundingClientRect();
+            let rectTop = startRect.top - rectMain.top;
+            let rectLeft = startRect.left - rectTable31.left;
+            let rectBottom = lastRect.top - rectMain.top + lastRect.height;
+            let rectRight = lastRect.left - rectTable31.left + lastRect.width;
+            let rectPanelLeft = rectPanel30.left - rectTable31.left;
+            let rectPanelBottom = rectPanel30.top - rectMain.top + rectPanel30.height;
+            let rectPanelRight = rectPanel30.left - rectTable31.left + rectPanel30.width;
+            // case outside line
+            if (rectLeft <= rectPanelLeft)
+                rectLeft = rectPanelLeft;
+            if (rectBottom >= rectPanelBottom)
+                rectBottom = rectPanelBottom - 2;
+            if (rectRight >= rectPanelRight)
+                rectRight = rectPanelRight;
+            let lineHeight = rectBottom - rectTop;
+            let lineWidth = rectRight - rectLeft;
+            grid.setSelectedLine(lineWidth, lineHeight, rectTop, rectBottom, rectLeft, rectRight);
+        }
+    }
+    displayOneSelection(startRowIndex, startCellIndex) {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        let column = this.column_table.data;
+        this.startRowIndex = startRowIndex;
+        this.lastRowIndex = startRowIndex;
+        this.startCellIndex = startCellIndex;
+        this.lastCellIndex = startCellIndex;
+        this._startRowIndex = startRowIndex;
+        this._lastRowIndex = startRowIndex;
+        this._startCellIndex = startCellIndex;
+        this._lastCellIndex = startCellIndex;
+        this.classRange.setRangeValue(startRowIndex, startRowIndex, startCellIndex, startCellIndex);
+        let count = this.view_table.count();
+        let topRowIndex = this.getFirstRowIndex();
+        //============================================================= table display
+        const trLeftList = document.querySelectorAll(selector + ' .tbs-grid-panel31  .tbs-grid-table tbody tr');
+        const trContentList = document.querySelectorAll(selector + ' .tbs-grid-panel30   .tbs-grid-table tbody tr');
+        const trFixBottomtList = document.querySelectorAll(selector + ' .tbs-grid-panel32 .tbs-grid-table tbody tr');
+        count = topRowIndex + this.pageRowCount;
+        //=============================================================
+        const contentRect = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
+        const contentTableRect = document.querySelector(selector + ' .tbs-grid-panel30 > table').getBoundingClientRect();
+        // @ts-ignore
+        const contentTableLeft = parseInt(document.querySelector(selector + ' .tbs-grid-panel30 > table').style.left, 10);
+        let startColumnIndex = 0;
+        let lastColumnIndex = column.length - 1;
+        let accWidth = 0;
+        for (let i = 0, len = column.length; i < len; i++) {
+            accWidth += parseInt(column[i].width);
+            if (accWidth + contentTableLeft > 0) {
+                startColumnIndex = i;
+                break;
+            }
+        }
+        accWidth = contentTableRect.width;
+        for (let i = column.length - 1; i >= 0; i--) {
+            accWidth -= parseInt(column[i].width);
+            if (accWidth + contentTableLeft < contentRect.width) {
+                lastColumnIndex = i;
+                break;
+            }
+        }
+        //============================================================= left, content, fixBottom
+        let viewCount = grid.view_table.count();
+        let i = 0;
+        for (let ri = topRowIndex; ri < count; ri++) {
+            if (ri > viewCount - 1)
+                break;
+            let trLeft = trLeftList[i];
+            let trContent = trContentList[i];
+            let trFixBottom = trFixBottomtList[i];
+            let row = grid.view_table.data[ri];
+            //============================================================= left
+            let leftTd = trLeft.childNodes[0];
+            let selectedValue = this.isSelectedCell31(ri, 0);
+            if (selectedValue == 1)
+                leftTd.classList.add('tbs-grid-cell-select');
+            //============================================================= content
+            for (let x = startColumnIndex; x <= lastColumnIndex; x++) {
+                let td = trContent.childNodes[x];
+                let selectedValue = this.isSelectedCell30(ri, x); //new
+                if (selectedValue == 1) {
+                    if (this.startRowIndex == ri && this.startCellIndex == x) {
+                        td.classList.add('tbs-grid-cell-start');
+                    }
+                }
+            }
+            //============================================================= fixBottom
+            if (this.fixedColumnIndex != -1) {
+                for (let x = 0; x <= this.fixedColumnIndex; x++) {
+                    let td = trFixBottom.childNodes[x];
+                    let selectedValue = this.isSelectedCell30(ri, x); //new
+                    if (selectedValue == 1) {
+                        if (this.startRowIndex == ri && this.startCellIndex == x) {
+                            td.classList.add('tbs-grid-cell-start');
+                        }
+                    }
+                }
+            }
+            i += 1;
+        }
+        //=============================================================
+        this.displaySelectedLine();
+    }
+    getFirstDisplayRowIndex(panelName = '') {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        if (this.view_table.count() == 0)
+            return -1;
+        const trList = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr');
+        // @ts-ignore
+        let displayRowIndex = parseInt(trList[0].childNodes[0].dataset.displayRowIndex);
+        if (isNaN(displayRowIndex))
+            displayRowIndex = 0;
+        return displayRowIndex;
+    }
+    getFirstRowIndex(panelName = '') {
+        // return : topRowIndex
+        let selector = '#' + this.gridId;
+        const grid = this;
+        if (this.view_table.count() == 0)
+            return -1;
+        let trList = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr');
+        // @ts-ignore
+        let topRowIndex = parseInt(trList[0].childNodes[0].dataset.rowIndex);
+        if (panelName == '') {
+            if (isNaN(topRowIndex))
+                topRowIndex = 0;
+            return topRowIndex;
+        }
+    }
+    getLastRowIndex() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        if (this.view_table.count() == 0)
+            return -1;
+        let trList = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
+        let topRowIndex = this.getFirstRowIndex();
+        return topRowIndex + trList.length - 1;
+    }
+    getLastTableRowIndex() {
+        let selector = '#' + this.gridId;
+        const grid = this;
+        const trList = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
+        return trList.length - 1;
+    }
+}
+
+
+/***/ }),
+
+/***/ 7154:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   N: function() { return /* binding */ TbsGridUserEvent; }
+/* harmony export */ });
+class TbsGridUserEvent {
+    constructor() {
+        /**
+         * user event
+         */
+        this.click = null; // (grid, row)
+        this.dblclick = null; // (grid, row)
+        this.edit = null; // (grid, state, row)
+        this.clickCheckbox = null; // (grid, row)
+        this.clickInfoCheckBox = null; // (grid, row)
+        this.clickButton = null; // (grid, row)
+        this.clickLink = null; // (grid, row)
+        this.rowBounding = null; // grid, element, row
+        this.clickPageFirst = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.clickPagePrev = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.clickPageIndex = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.clickPageNext = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.clickPageLast = null; // (grid, pageIndex, selectedPageCount, userFunction)
+    }
+}
+
+
+/***/ }),
+
+/***/ 8760:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   L: function() { return /* binding */ TbsGridColumns; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridColumns {
     constructor(grid) {
@@ -1088,14 +2969,14 @@ class TbsGridColumns {
 
 /***/ }),
 
-/***/ 609:
+/***/ 2609:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   e: function() { return /* binding */ TbsGridHeaders; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridHeaders {
     constructor(grid) {
@@ -1310,18 +3191,6 @@ class TbsGridHeaders {
             return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
         }
     }
-    getHeaderRootColumn(rowId) {
-    }
-    getHeaderParentColumn(rowId) {
-    }
-    getHeaderColumnByRowId(rowId) {
-    }
-    getHeaderChildColumns(rowId, depth = 1) {
-        if (arguments.length == 2) { }
-        else { }
-    }
-    setHeaderValue(rowIndex, columnIndex, value) {
-    }
     getHeaderColumn(rowIndex, columnIndex) {
         const grid = this.grid;
         return grid.header_column_table.data[rowIndex][columnIndex];
@@ -1382,7 +3251,558 @@ class TbsGridHeaders {
 
 /***/ }),
 
-/***/ 277:
+/***/ 176:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   r: function() { return /* binding */ TbsDataArrayTable; }
+/* harmony export */ });
+/* harmony import */ var _tbs_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5052);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
+
+
+class TbsDataArrayTable extends _tbs_base__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase */ .H {
+    constructor(tableName) {
+        super();
+        this.tableName = tableName;
+        this.data = [];
+        this.currentRowId = -1;
+        this.type = 'table';
+    }
+    /**
+     * select functions
+     */
+    selectRows(arrayIndex, field, value, topIndex) {
+        let result = [];
+        for (let i = 0, len = this.data[arrayIndex].length; i < len; i++) {
+            let dataRow = this.data[arrayIndex][i];
+            if (dataRow[field] == value) {
+                result.push(dataRow);
+                if (topIndex != undefined) {
+                    if (result.length == topIndex)
+                        break;
+                }
+            }
+        }
+        return result;
+    }
+    selectRow(arrayIndex, field, value) {
+        let dataRows = this.selectRows(arrayIndex, field, value, 1);
+        return dataRows.length > 0 ? dataRows[0] : null;
+    }
+    selectRowByRowIndex(arrayIndex, rowIndex) { return this.data[arrayIndex][rowIndex]; }
+    selectRowByRowId(arrayIndex, rowId) {
+        let dataRows = this.selectRows(arrayIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId, 1);
+        return dataRows.length > 0 ? dataRows[0] : null;
+    }
+    selectRowIndexByRowId(arrayIndex, rowId) { return this.selectRowIndex(arrayIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId); }
+    selectRowIndex(arrayIndex, field, value) {
+        let result = null;
+        for (let i = 0, len = this.data[arrayIndex].length; i < len; i++) {
+            let dataRow = this.data[arrayIndex][i];
+            if (dataRow[field] == value) {
+                result = i;
+                break;
+            }
+        }
+        return result;
+    }
+    selectRowIdByRowIndex(arrayIndex, rowIndex) {
+        const dataRow = this.selectRowByRowIndex(arrayIndex, rowIndex);
+        return dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId];
+    }
+    selectRowRange(arrayIndex, startRowIndex, endRowIndex) {
+        if (endRowIndex == undefined)
+            endRowIndex = this.count() - 1;
+        const result = [];
+        for (let i = startRowIndex; i <= endRowIndex; i++)
+            result.push(this.data[i]);
+        return result;
+    }
+    selectValue(arrayIndex, rowIndex, field) {
+        return this.data[arrayIndex][rowIndex][field];
+    }
+    isRow(arrayIndex, field, value) {
+        let dataRows = this.selectRows(arrayIndex, field, value, 1);
+        return dataRows.length > 0;
+    }
+    /**
+     * Insert
+     */
+    insertRows(arrayIndex, dataRows) {
+        if (this.type == 'table') {
+            dataRows.map(dataRow => {
+                this.currentRowId += 1;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
+            });
+        }
+        if (this.null(this.data[arrayIndex]))
+            this.data[arrayIndex] = [];
+        this.data[arrayIndex].push(...dataRows);
+    }
+    insertRowsBefore(arrayIndex, dataRows, rowIndex) {
+        if (this.type == 'table') {
+            dataRows.map(dataRow => {
+                this.currentRowId += 1;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
+            });
+        }
+        if (this.null(this.data[arrayIndex]))
+            this.data[arrayIndex] = [];
+        if (rowIndex < this.data[arrayIndex].length)
+            this.data[arrayIndex].splice(rowIndex, 0, ...dataRows);
+        else
+            this.data[arrayIndex].push(...dataRows);
+    }
+    insertRowsAfter(arrayIndex, dataRows, rowIndex) {
+        if (this.type == 'table') {
+            dataRows.map(dataRow => {
+                this.currentRowId += 1;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
+            });
+        }
+        if (this.null(this.data[arrayIndex]))
+            this.data[arrayIndex] = [];
+        if (rowIndex + 1 < this.data[arrayIndex].length)
+            this.data[arrayIndex].splice(rowIndex + 1, 0, ...dataRows);
+        else
+            this.data[arrayIndex].push(...dataRows);
+    }
+    insert(arrayIndex, dataRow) {
+        if (this.type == 'table') {
+            this.currentRowId += 1;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
+        }
+        if (this.null(this.data[arrayIndex]))
+            this.data[arrayIndex] = [];
+        this.data[arrayIndex].push(dataRow);
+    }
+    insertBefore(arrayIndex, dataRow, rowIndex) {
+        if (this.type == 'table') {
+            this.currentRowId += 1;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
+        }
+        if (this.null(this.data[arrayIndex]))
+            this.data[arrayIndex] = [];
+        if (rowIndex < this.data[arrayIndex].length)
+            this.data[arrayIndex].splice(rowIndex, 0, dataRow);
+        else
+            this.data[arrayIndex].push(dataRow);
+    }
+    insertAfter(arrayIndex, dataRow, rowIndex) {
+        if (this.type == 'table') {
+            this.currentRowId += 1;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = '';
+        }
+        if (this.null(this.data[arrayIndex]))
+            this.data[arrayIndex] = [];
+        if (rowIndex + 1 < this.data[arrayIndex].length)
+            this.data[arrayIndex].splice(rowIndex + 1, 0, dataRow);
+        else
+            this.data[arrayIndex].push(dataRow);
+    }
+    /**
+     * Remove
+     */
+    remove(arrayIndex, rowIndex) {
+        if (arguments.length == 2)
+            this.data[arrayIndex].splice(rowIndex, 1);
+        else if (arguments.length == 1)
+            this.data[arrayIndex] = [];
+        else
+            this.data = [];
+    }
+    removeByRowId(arryIndex, rowId) {
+        let rowIndex = this.selectRowIndex(arryIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId);
+        if (this.notNull(rowIndex))
+            this.remove(rowIndex);
+    }
+    /**
+     * Update
+     */
+    update(arrayIndex, columnName, field, value) {
+        let dataRows = this.selectRows(arrayIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
+        dataRows.map(dataRow => dataRow[field] = value);
+    }
+    updateRow(arrayIndex, columnName, field, value) {
+        let dataRows = this.selectRows(arrayIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
+        dataRows.map(dataRow => dataRow[field] = value);
+    }
+    updateByRowIndex(arrayIndex, rowIndex, name, value) {
+        let dataRow = this.data[arrayIndex][rowIndex];
+        dataRow[name] = value;
+    }
+    updateByRowId(arrayIndex, rowId, name, value) {
+        let dataRow = this.selectRowByRowId(arrayIndex, rowId);
+        dataRow[name] = value;
+    }
+    count(arrayIndex, field, value) {
+        if (arguments.length == 3) {
+            return this.selectRows(arrayIndex, field, value).length;
+        }
+        else if (arguments.length == 1) {
+            return this.data[arrayIndex].length;
+        }
+        else {
+            return this.data.length;
+        }
+    }
+    makeColIndex() {
+        for (let i = 0; i < this.count(); i++) {
+            const columns = this.data[i];
+            columns.map((column, index) => column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.colIndex] = index);
+        }
+    }
+}
+
+
+/***/ }),
+
+/***/ 8303:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Q: function() { return /* binding */ TbsDataTable; }
+/* harmony export */ });
+/* harmony import */ var _tbs_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5052);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
+
+
+class TbsDataTable extends _tbs_base__WEBPACK_IMPORTED_MODULE_1__/* .TbsBase */ .H {
+    constructor(tableName) {
+        super();
+        this.tableName = tableName;
+        this.data = [];
+        this.currentRowId = -1;
+        this.type = 'table';
+    }
+    /**
+     * select functions
+     */
+    select() {
+        /**
+         * whereColumns = [*{name: 'userName', type: include | startWith | lastWith }, count: 10}]
+         * orderColumns = [*{name: 'userName', order: asc | desc }]
+         * return : [{}, {}];
+         */
+    }
+    selectRows(field, value, topIndex) {
+        let result = [];
+        if (arguments.length == 0) {
+            result = this.data;
+        }
+        else {
+            for (let i = 0, len = this.data.length; i < len; i++) {
+                let dataRow = this.data[i];
+                if (dataRow[field] == value) {
+                    result.push(dataRow);
+                    if (topIndex != undefined) {
+                        if (result.length == topIndex)
+                            break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    selectRow(field, value) {
+        const dataRows = this.selectRows(field, value, 1);
+        return dataRows.length > 0 ? dataRows[0] : null;
+    }
+    selectRowByRowIndex(rowIndex) { return this.data[rowIndex]; }
+    selectRowByRowId(rowId) {
+        const dataRows = this.selectRows(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId, 1);
+        return dataRows.length > 0 ? dataRows[0] : null;
+    }
+    selectRowIndexByRowId(rowId) { return this.selectRowIndex(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId); }
+    selectRowIndex(field, value) {
+        let result = null;
+        for (let i = 0, len = this.data.length; i < len; i++) {
+            const dataRow = this.data[i];
+            if (dataRow[field] == value) {
+                result = i;
+                break;
+            }
+        }
+        return result;
+    }
+    selectRowIdByRowIndex(rowIndex) {
+        const dataRow = this.selectRowByRowIndex(rowIndex);
+        return dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId];
+    }
+    selectRowRange(startRowIndex, endRowIndex) {
+        if (endRowIndex == undefined)
+            endRowIndex = this.count() - 1;
+        const result = [];
+        for (let i = startRowIndex; i <= endRowIndex; i++)
+            result.push(this.data[i]);
+        return result;
+    }
+    selectValue(rowIndex, field) {
+        return this.data[rowIndex][field];
+    }
+    isRow(field, value) {
+        const dataRows = this.selectRows(field, value, 1);
+        return dataRows.length > 0;
+    }
+    /**
+     * Insert
+     */
+    insertRows(dataRows) {
+        if (this.type == 'table') {
+            dataRows.map(dataRow => {
+                this.currentRowId += 1;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = 'I';
+            });
+        }
+        this.data.push(...dataRows);
+    }
+    insertRowsBefore(dataRows, rowIndex) {
+        if (this.type == 'table') {
+            dataRows.map(dataRow => {
+                this.currentRowId += 1;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = 'I';
+            });
+        }
+        if (rowIndex < this.data.length)
+            this.data.splice(rowIndex, 0, ...dataRows);
+        else
+            this.data.push(...dataRows);
+    }
+    insertRowsAfter(dataRows, rowIndex) {
+        if (this.type == 'table') {
+            dataRows.map(dataRow => {
+                this.currentRowId += 1;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+                dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = 'I';
+            });
+        }
+        if (rowIndex + 1 < this.data.length)
+            this.data.splice(rowIndex + 1, 0, ...dataRows);
+        else
+            this.data.push(...dataRows);
+    }
+    insert(dataRow) {
+        if (this.type == 'table') {
+            this.currentRowId += 1;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = 'I';
+        }
+        this.data.push(dataRow);
+    }
+    insertBefore(dataRow, rowIndex) {
+        if (this.type == 'table') {
+            this.currentRowId += 1;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = 'I';
+        }
+        if (rowIndex < this.data.length)
+            this.data.splice(rowIndex, 0, dataRow);
+        else
+            this.data.push(dataRow);
+    }
+    insertAfter(dataRow, rowIndex) {
+        if (this.type == 'table') {
+            this.currentRowId += 1;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId] = this.currentRowId;
+            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowMode] = 'I';
+        }
+        if (rowIndex + 1 < this.data.length)
+            this.data.splice(rowIndex + 1, 0, dataRow);
+        else
+            this.data.push(dataRow);
+    }
+    /**
+     * Remove
+     */
+    remove(rowIndex) {
+        if (arguments.length == 1)
+            this.data.splice(rowIndex, 1);
+        else
+            this.data = [];
+    }
+    removeByRowId(rowId) {
+        let rowIndex = this.selectRowIndex(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.rowId, rowId);
+        if (this.notNull(rowIndex))
+            this.remove(rowIndex);
+    }
+    /**
+     * Update
+     */
+    update(columnName, field, value) {
+        let dataRows = this.selectRows(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
+        dataRows.map(dataRow => dataRow[field] = value);
+    }
+    updateRow(columnName, field, value) {
+        let dataRows = this.selectRows(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name, columnName);
+        dataRows.map(dataRow => dataRow[field] = value);
+    }
+    updateByRowIndex(rowIndex, name, value) {
+        let dataRow = this.data[rowIndex];
+        dataRow[name] = value;
+    }
+    updateByRowId(rowId, name, value) {
+        const dataRow = this.selectRowByRowId(rowId);
+        dataRow[name] = value;
+    }
+    count(field, value) {
+        if (arguments.length > 0) {
+            return this.selectRows(field, value).length;
+        }
+        else {
+            return this.data.length;
+        }
+    }
+    // /**
+    //  * orderBy
+    //  * @param sortColumns : [{ name : , order :, dataType: string | number }, ...]
+    //  */
+    // orderBy(sortColumns: any) {
+    //     return this.data.toSorted((a, b) => {
+    //         // a : The first element
+    //         // b : The second element
+    //         for (let i = 0, len = sortColumns.length; i < len; i++) {
+    //             let sortColumn = sortColumns[i];
+    //             let name = sortColumn[columnAlias.name];
+    //             let type = (sortColumn[columnAlias.dataType]) ? sortColumn[columnAlias.dataType] : 'string';
+    //             let order = (sortColumn[columnAlias.order]) ? sortColumn[columnAlias.order] : 'asc';
+    //             if (order == 'asc') {
+    //                 if (type == CellType.number) {
+    //                     let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')): 0;
+    //                     let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')): 0;
+    //                     if (x < y) return -1;
+    //                     else if (x > y) return 1;
+    //                 }
+    //                 else {
+    //                     if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
+    //                     else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
+    //                 }
+    //             }
+    //             else if (order == 'desc') {
+    //                 if (type == CellType.number){
+    //                     let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')) : 0;
+    //                     let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')) : 0;
+    //                     if (x < y) return 1;
+    //                     else if (x > y) return -1;
+    //                 }
+    //                 else {
+    //                     if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
+    //                     else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+    getSum(columnName) {
+        let result = 0;
+        for (let i = 0, len = this.count(); i < len; i++) {
+            const dataRow = this.data[i];
+            result += isNaN(dataRow[columnName]) ? 0 : parseFloat(dataRow[columnName]);
+        }
+        return result;
+    }
+    getAvg(columnName) {
+        let rowCount = this.count();
+        let result = rowCount == 0 ? 0 : this.getSum(columnName) / rowCount;
+        return result;
+    }
+    getMax(columnName) {
+        const arrayItem = [];
+        let result = 0;
+        for (let i = 0, len = this.count(); i < len; i++) {
+            const dataRow = this.data[i];
+            result = isNaN(dataRow[columnName]) ? 0 : parseFloat(dataRow[columnName]);
+            arrayItem.push(result);
+        }
+        return Math.max.apply(null, arrayItem);
+    }
+    getMin(columnName) {
+        const arrayItem = [];
+        let result = 0;
+        for (let i = 0, len = this.count(); i < len; i++) {
+            const dataRow = this.data[i];
+            result = isNaN(dataRow[columnName]) ? 0 : parseFloat(dataRow[columnName]);
+            arrayItem.push(result);
+        }
+        return Math.min.apply(null, arrayItem);
+    }
+}
+
+
+/***/ }),
+
+/***/ 132:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   $: function() { return /* binding */ TbsDatabase; }
+/* harmony export */ });
+/* harmony import */ var _tbs_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5052);
+/* harmony import */ var _tbs_data_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8303);
+/* harmony import */ var _tbs_data_array_table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(176);
+
+
+
+class TbsDatabase extends _tbs_base__WEBPACK_IMPORTED_MODULE_2__/* .TbsBase */ .H {
+    constructor() {
+        super();
+        this.tables = [];
+    }
+    createTable(tableName) {
+        const table = new _tbs_data_table__WEBPACK_IMPORTED_MODULE_0__/* .TbsDataTable */ .Q(tableName);
+        table.type = 'table';
+        this.tables.push(table);
+        return this.getTable(tableName);
+    }
+    createView(tableName) {
+        const table = new _tbs_data_table__WEBPACK_IMPORTED_MODULE_0__/* .TbsDataTable */ .Q(tableName);
+        table.type = 'view';
+        this.tables.push(table);
+        return this.getTable(tableName);
+    }
+    createArrayTable(tableName) {
+        const table = new _tbs_data_array_table__WEBPACK_IMPORTED_MODULE_1__/* .TbsDataArrayTable */ .r(tableName);
+        table.type = 'table';
+        this.tables.push(table);
+        return this.getTable(tableName);
+    }
+    removeTable(tableName) {
+        for (let i = 0, len = this.tables.length; i < len; i++) {
+            const table = this.tables[i];
+            if (table.tableName === tableName) {
+                this.tables.splice(i, 1);
+                break;
+            }
+        }
+    }
+    getTable(tableName) {
+        let result = null;
+        for (let i = 0, len = this.tables.length; i < len; i++) {
+            const table = this.tables[i];
+            if (table.tableName == tableName) {
+                result = table;
+                break;
+            }
+        }
+        return result;
+    }
+}
+
+
+/***/ }),
+
+/***/ 7277:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1391,9 +3811,9 @@ class TbsGridHeaders {
 /* harmony export */ });
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(347);
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(213);
+/* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4213);
 /* harmony import */ var file_saver__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(file_saver__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2978);
 
 
 
@@ -1619,16 +4039,16 @@ class TbsGridExcel {
 
 /***/ }),
 
-/***/ 324:
+/***/ 6324:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   B: function() { return /* binding */ TbsGridPanelBase; }
 /* harmony export */ });
-/* harmony import */ var _base_tbs_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(980);
+/* harmony import */ var _tbs_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5052);
 
-class TbsGridPanelBase extends _base_tbs_base__WEBPACK_IMPORTED_MODULE_0__/* .TbsBase */ .H {
+class TbsGridPanelBase extends _tbs_base__WEBPACK_IMPORTED_MODULE_0__/* .TbsBase */ .H {
     constructor(grid) {
         super();
         this.grid = grid;
@@ -1704,7 +4124,7 @@ class TbsGridPanelBase extends _base_tbs_base__WEBPACK_IMPORTED_MODULE_0__/* .Tb
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   T: function() { return /* binding */ TbsGridPanel10; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(324);
+/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6324);
 
 class TbsGridPanel10 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridPanelBase */ .B {
     constructor(grid) {
@@ -1963,17 +4383,17 @@ class TbsGridPanel10 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
 
 /***/ }),
 
-/***/ 597:
+/***/ 4597:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   i: function() { return /* binding */ TbsGridPanel20; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(324);
-/* harmony import */ var _tbs_grid_render_panel_info__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(787);
+/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6324);
+/* harmony import */ var _tbs_grid_render_panel_info__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3787);
 /* harmony import */ var _tbs_grid_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(983);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2978);
 
 
 
@@ -2714,18 +5134,18 @@ class TbsGridPanel20 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
 
 /***/ }),
 
-/***/ 612:
+/***/ 6612:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   z: function() { return /* binding */ TbsGridPanel30; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(324);
-/* harmony import */ var _tbs_grid_render_panel30__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(858);
-/* harmony import */ var _tbs_grid_render_panel_info__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(787);
+/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6324);
+/* harmony import */ var _tbs_grid_render_panel30__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7858);
+/* harmony import */ var _tbs_grid_render_panel_info__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3787);
 /* harmony import */ var _tbs_grid_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(983);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(2978);
 
 
 
@@ -4167,17 +6587,17 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
 
 /***/ }),
 
-/***/ 947:
+/***/ 7947:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   s: function() { return /* binding */ TbsGridPanel40; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(324);
-/* harmony import */ var _tbs_grid_render_panel40__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(693);
+/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6324);
+/* harmony import */ var _tbs_grid_render_panel40__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2693);
 /* harmony import */ var _tbs_grid_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(983);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2978);
 
 
 
@@ -4952,17 +7372,17 @@ class TbsGridPanel40 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
 
 /***/ }),
 
-/***/ 506:
+/***/ 9506:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   H: function() { return /* binding */ TbsGridPanel50; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(324);
-/* harmony import */ var _tbs_grid_render_panel40__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(693);
+/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6324);
+/* harmony import */ var _tbs_grid_render_panel40__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2693);
 /* harmony import */ var _tbs_grid_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(983);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2978);
 
 
 
@@ -5109,16 +7529,16 @@ class TbsGridPanel50 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
 
 /***/ }),
 
-/***/ 672:
+/***/ 4672:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   p: function() { return /* binding */ TbsGridPanel70; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(324);
+/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6324);
 /* harmony import */ var _tbs_grid_table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(983);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2978);
 
 
 
@@ -5376,15 +7796,15 @@ class TbsGridPanel70 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
 
 /***/ }),
 
-/***/ 327:
+/***/ 8327:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   g: function() { return /* binding */ TbsGridPanel80; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(324);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6324);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2978);
 
 
 class TbsGridPanel80 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridPanelBase */ .B {
@@ -5802,15 +8222,15 @@ class TbsGridPanel80 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
 
 /***/ }),
 
-/***/ 582:
+/***/ 7582:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   j: function() { return /* binding */ TbsGridPanel90; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(324);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6324);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2978);
 
 
 class TbsGridPanel90 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridPanelBase */ .B {
@@ -6233,16 +8653,16 @@ class TbsGridPanel90 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
 
 /***/ }),
 
-/***/ 787:
+/***/ 3787:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   I: function() { return /* binding */ TbsGridRenderPanelInfo; }
 /* harmony export */ });
-/* harmony import */ var _renderer_tbs_grid_render_string__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(390);
-/* harmony import */ var _renderer_tbs_grid_render_checkbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(90);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _renderer_tbs_grid_render_string__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7390);
+/* harmony import */ var _renderer_tbs_grid_render_checkbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2090);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 
 
@@ -6432,21 +8852,21 @@ class TbsGridRenderPanelInfo {
 
 /***/ }),
 
-/***/ 858:
+/***/ 7858:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   X: function() { return /* binding */ TbsGridRenderPanel30; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
-/* harmony import */ var _renderer_tbs_grid_render_group__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(328);
-/* harmony import */ var _renderer_tbs_grid_render_tree__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(91);
-/* harmony import */ var _renderer_tbs_grid_render_checkbox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(90);
-/* harmony import */ var _renderer_tbs_grid_render_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(911);
-/* harmony import */ var _renderer_tbs_grid_render_link__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(927);
-/* harmony import */ var _renderer_tbs_grid_render_img__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(948);
-/* harmony import */ var _renderer_tbs_grid_render_string__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(390);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
+/* harmony import */ var _renderer_tbs_grid_render_group__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3328);
+/* harmony import */ var _renderer_tbs_grid_render_tree__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9091);
+/* harmony import */ var _renderer_tbs_grid_render_checkbox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(2090);
+/* harmony import */ var _renderer_tbs_grid_render_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(4911);
+/* harmony import */ var _renderer_tbs_grid_render_link__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7927);
+/* harmony import */ var _renderer_tbs_grid_render_img__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5948);
+/* harmony import */ var _renderer_tbs_grid_render_string__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(7390);
 
 
 
@@ -6638,15 +9058,15 @@ class TbsGridRenderPanel30 {
 
 /***/ }),
 
-/***/ 693:
+/***/ 2693:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Q: function() { return /* binding */ TbsGridRenderPanel40; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
-/* harmony import */ var _renderer_tbs_grid_render_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(390);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
+/* harmony import */ var _renderer_tbs_grid_render_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7390);
 
 
 class TbsGridRenderPanel40 {
@@ -6737,21 +9157,21 @@ class TbsGridRenderPanel40 {
 
 /***/ }),
 
-/***/ 911:
+/***/ 4911:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   _: function() { return /* binding */ TbsGridRenderButton; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(359);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5359);
 
 class TbsGridRenderButton {
     addElement(param) {
         const element = _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridDom */ .E.createElement('button');
         const tableCell = param.tableCell;
-        let count = tableCell.querySelectorAll('.tbs-grid-html-button').length;
-        let rootChildCount = tableCell.childNodes[0].childNodes.length;
+        const count = tableCell.querySelectorAll('.tbs-grid-html-button').length;
+        const rootChildCount = tableCell.childNodes[0].childNodes.length;
         if (rootChildCount > 1 || (rootChildCount == 1 && count == 0)) {
             tableCell.childNodes[0].innerHTML = '';
             tableCell.childNodes[0].append(element);
@@ -6774,14 +9194,14 @@ class TbsGridRenderButton {
 
 /***/ }),
 
-/***/ 90:
+/***/ 2090:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   V: function() { return /* binding */ TbsGridRenderCheckbox; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(359);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5359);
 
 class TbsGridRenderCheckbox {
     addElement(param) {
@@ -6813,14 +9233,14 @@ class TbsGridRenderCheckbox {
 
 /***/ }),
 
-/***/ 328:
+/***/ 3328:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Z: function() { return /* binding */ TbsGridRenderGroup; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(359);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5359);
 
 class TbsGridRenderGroup {
     addElement(param) {
@@ -6875,15 +9295,15 @@ class TbsGridRenderGroup {
 
 /***/ }),
 
-/***/ 948:
+/***/ 5948:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Z: function() { return /* binding */ TbsGridRenderImg; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(359);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5359);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 
 class TbsGridRenderImg {
@@ -6916,14 +9336,14 @@ class TbsGridRenderImg {
 
 /***/ }),
 
-/***/ 927:
+/***/ 7927:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   _: function() { return /* binding */ TbsGridRenderLink; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(359);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5359);
 
 class TbsGridRenderLink {
     addElement(param) {
@@ -6953,14 +9373,14 @@ class TbsGridRenderLink {
 
 /***/ }),
 
-/***/ 390:
+/***/ 7390:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   h: function() { return /* binding */ TbsGridRenderString; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(359);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5359);
 
 class TbsGridRenderString {
     /**
@@ -7002,15 +9422,15 @@ class TbsGridRenderString {
 
 /***/ }),
 
-/***/ 91:
+/***/ 9091:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   _: function() { return /* binding */ TbsGridRenderTree; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(359);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5359);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 
 class TbsGridRenderTree {
@@ -7052,19 +9472,19 @@ class TbsGridRenderTree {
 
 /***/ }),
 
-/***/ 187:
+/***/ 3187:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   h: function() { return /* binding */ TbsGridFooter; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridFooter {
     constructor(grid) {
         this.grid = grid;
-        this.selector = '#' + grid.gridId;
+        this.selector = `#${grid.gridId}`;
     }
     setFooterColumns(columns) {
         const grid = this.grid;
@@ -7078,7 +9498,6 @@ class TbsGridFooter {
         const grid = this.grid;
         if (grid.footer_column_table.count() == 0)
             return;
-        let footerColumns = grid.footer_column_table.data;
         let dataRow = {};
         let columns = grid.column_table.data;
         for (let x = 0, len = columns.length; x < len; x++) {
@@ -7089,7 +9508,7 @@ class TbsGridFooter {
         grid.footer_table.insert(dataRow);
         /* get sum, avg */
         for (let x = 0, len2 = grid.footer_column_table.count(); x < len2; x++) {
-            let footerColumn = grid.footer_column_table.data[x];
+            const footerColumn = grid.footer_column_table.data[x];
             let columnName = footerColumn[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name];
             let summaryType = footerColumn[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.summaryType];
             let result = null;
@@ -7124,14 +9543,14 @@ class TbsGridFooter {
 
 /***/ }),
 
-/***/ 869:
+/***/ 6869:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   B: function() { return /* binding */ TbsGridTop; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridTop {
     constructor(grid) {
@@ -7196,201 +9615,108 @@ class TbsGridTop {
 
 /***/ }),
 
-/***/ 238:
+/***/ 5052:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   R: function() { return /* binding */ TbsGridBase; }
+/* harmony export */   H: function() { return /* binding */ TbsBase; }
 /* harmony export */ });
-/* harmony import */ var _base_tbs_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(980);
-/* harmony import */ var _base_tbs_database__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(228);
-/* harmony import */ var _tbs_grid_configs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(476);
-
-
-
-class TbsGridBase extends _base_tbs_base__WEBPACK_IMPORTED_MODULE_2__/* .TbsBase */ .H {
-    constructor(gridId, gridConfigs) {
-        super();
-        this.renderer = null;
-        this.infoRenderer = null;
-        this.gridId = gridId;
-        this.gridConfig = gridConfigs ?
-            gridConfigs[Object.keys(gridConfigs)[0]] : _tbs_grid_configs__WEBPACK_IMPORTED_MODULE_1__.tbsGridConfigs[Object.keys(_tbs_grid_configs__WEBPACK_IMPORTED_MODULE_1__.tbsGridConfigs)[0]];
-        this.gridConfigOptions = gridConfigs ? gridConfigs['options'] : _tbs_grid_configs__WEBPACK_IMPORTED_MODULE_1__.tbsGridConfigs['options'];
-        this.grid_mode = '';
-        this.mousePointRange = 15;
-        /**
-         * @description mobile, user agent
-         *
-         */
-        this.isMobile = this.gridConfigOptions['isMobile'];
-        this.userAgent = this.gridConfigOptions['userAgent'];
-        /**
-         * columns, headerColumnTable
-         */
-        this.columns = [];
-        this.headerColumnTable = [];
-        this.renderer = null;
-        this.infoRenderer = null;
-        /**
-         * create database
-         */
-        this.db = new _base_tbs_database__WEBPACK_IMPORTED_MODULE_0__/* .TbsDatabase */ .$();
-        this.field_table = this.db.createTable('field');
-        this.header_column_table = this.db.createArrayTable('header_column');
-        this.column_table = this.db.createTable('column');
-        this.top_column_table = this.db.createTable('top_column');
-        this.footer_column_table = this.db.createTable('footer_column');
-        this.sort_column_table = this.db.createTable('sort_column');
-        this.filter_column_table = this.db.createTable('filter_column');
-        this.group_column_table = this.db.createTable('group_column');
-        this.source_table = this.db.createTable('source');
-        this.view_table = this.db.createView('view');
-        this.group_table = this.db.createView('group');
-        this.group_header_table = this.db.createView('group_header');
-        this.tree_table = this.db.createView('tree');
-        this.page_table = this.db.createView('page');
-        this.top_table = this.db.createTable('top');
-        this.footer_table = this.db.createTable('footer');
-        this.temp_table = this.db.createTable('temp');
-        this.data_update = [];
-        this.data_insert = [];
-        this.data_delete = [];
-        /**
-         * create info table
-         */
-        this.info_column_table = this.db.createTable('info_column');
-        this.info_column_table.insert({ name: 'num', type: 'number', align: 'center', width: 50, visible: true });
-        this.info_column_table.insert({ name: 'mode', type: 'string', align: 'center', width: 20, visible: false });
-        this.info_column_table.insert({ name: 'checkbox', type: 'checkbox', align: 'center', width: 25, visible: false, editable: true });
-        this.panel21_table = this.db.createView('panel21');
-        this.panel20_table = this.db.createView('panel20');
-        this.panel31_table = this.db.createView('panel31');
-        /**
-         * cell template table
-         */
-        this.cell_template_table = this.db.createTable('cellTemplate');
-        this.cell_template_table.insert({ type: 'checkbox', cellTemplate: 1, children: ['checkbox', 'string'] }); //default
-        this.cell_template_table.insert({ type: 'checkbox', cellTemplate: 2, children: ['string', 'checkbox'] });
-        this.cell_template_table.insert({ type: 'group', cellTemplate: 1, children: ['icon', 'string'] });
-        this.cell_template_table.insert({ type: 'group', cellTemplate: 2, children: ['icon', 'img', 'string'] });
-        this.cell_template_table.insert({ type: 'tree', cellTemplate: 1, children: ['icon', 'string'] });
-        this.cell_template_table.insert({ type: 'tree', cellTemplate: 2, children: ['icon', 'img', 'string'] });
-        /**
-         * @description selection data
-         *
-         */
-        this.data_select_panel30 = [];
-        this.data_select_panel31 = [];
-        /**
-         * @description Row Count / Select Range
-         *
-         */
-        this.pageRowCount = 0;
-        this.pageIntRowCount = 0;
-        this.startRowIndex = -1;
-        this.startCellIndex = -1;
-        this.lastRowIndex = -1;
-        this.lastCellIndex = -1;
-        this._startRowIndex = -1;
-        this._startCellIndex = -1;
-        this._lastRowIndex = -1;
-        this._lastCellIndex = -1;
-        this.selectRangeArray = [];
-        this.startX = 0;
-        this.startY = 0;
-        this.lastX = 0;
-        this.lastY = 0;
-        this.const_filterValue = 'value';
-        this.const_filterType = 'type';
-        this.const_filterReset = 'Reset';
-        this.const_filterSave = 'Save';
-        this.headerRowCount = 0;
-        /* Options */
-        this.options = {};
-        /* toolbar, filter, sort, group panel optons */
-        this.options.showToolbarPanel = false;
-        this.options.showFilterPanel = false;
-        this.options.showSortPanel = false;
-        this.options.showGroupPanel = false;
-        /* Columns Options */
-        this.options.sortable = true;
-        this.options.resizable = true;
-        this.options.movable = true;
-        this.options.autoResizable = true;
-        this.options.autoWidth = false;
-        // Rows Options
-        this.options.selectMode = 'cells'; //@value : cell, cells(default) // row, rows : @deprecated
-        this.options.addRow = false; //== row option
-        this.options.delRow = false;
-        this.options.insertRow = false;
-        this.options.updateRow = false;
-        this.options.deleteRow = false;
-        this.options.zeroChar = '-';
-        this.options.useToolbar = true;
-        this.options.imageRoot = this.getConfigOption('imageRoot');
-        this.options.treeItemName = null;
-        this.options.treeParentName = null;
-        this.options.treeRootValue = null;
-        /**
-         * @description layout
-         *
-         */
-        this.fixedColumnIndex = -1;
-        /**
-         * @description constant value
-         *
-         */
-        this.headerRowHeight = 25;
-        this.rowHeight = 25;
-        this.topRowHeight = 25;
-        this.footerRowHeight = 25;
-        /**
-         * @description code
-         *
-         */
-        this.debug_mode = true;
-        this.code_horizontal = 'horizontal';
-        this.code_vertical = 'vertical';
-        /**
-         * user event
-         */
-        this.click = null; // (grid, row)
-        this.dblclick = null; // (grid, row)
-        this.edit = null; // (grid, state, row)
-        this.clickCheckbox = null; // (grid, row)
-        this.clickInfoCheckBox = null; // (grid, row)
-        this.clickButton = null; // (grid, row)
-        this.clickLink = null; // (grid, row)
-        this.rowBounding = null; // grid, element, row
-        this.clickPageFirst = null; // (grid, pageIndex, selectedPageCount, userFunction)
-        this.clickPagePrev = null; // (grid, pageIndex, selectedPageCount, userFunction)
-        this.clickPageIndex = null; // (grid, pageIndex, selectedPageCount, userFunction)
-        this.clickPageNext = null; // (grid, pageIndex, selectedPageCount, userFunction)
-        this.clickPageLast = null; // (grid, pageIndex, selectedPageCount, userFunction)
+class TbsBase {
+    constructor() {
+        this.debug_mode = false;
     }
-    /**
-     * get configs value
-     */
-    getConfigCulture(label) { return this.null(this.gridConfig['culture'][label]) ? 'No Label' : this.gridConfig['culture'][label]; }
-    getConfigCalendar(label) { return this.null(this.gridConfig['calendar'][label]) ? 'No Label' : this.gridConfig['calendar'][label]; }
-    getConfigFont(label) { return this.null(this.gridConfig['font'][label]) ? 'No Label' : this.gridConfig['font'][label]; }
-    getConfigOption(label) { return this.null(this.gridConfigOptions[label]) ? 'No Label' : this.gridConfigOptions[label]; }
-    getConfigLabel(label) { return this.null(this.gridConfig['labels'][label]) ? 'No Label' : this.gridConfig['labels'][label]; }
+    null(p) {
+        return p == null || p == undefined;
+    }
+    notNull(p) {
+        return !(this.null(p));
+    }
+    empty(p) {
+        return p == null || p == undefined || this.trim(p) == '';
+    }
+    notEmpty(p) {
+        return !(this.empty(p));
+    }
+    isNull(a, b) {
+        return this.null(a) ? b : a;
+    }
+    error(p) {
+        if (this.debug_mode) {
+            console.log('[TbsGrid error] ' + p);
+        }
+    }
+    caution(p) {
+        if (this.debug_mode) {
+            console.log('[TbsGrid caution] ' + p);
+        }
+    }
+    copyJson(p) {
+        return this.null(p) ? {} : JSON.parse(JSON.stringify(p));
+    }
+    substr2(s, index, len) {
+        let result = '';
+        try {
+            s = s.toString();
+            if (arguments.length == 2)
+                result = s.substring(index);
+            else if (arguments.length == 3)
+                result = s.substring(index).substring(0, len);
+            return result;
+        }
+        catch (e) {
+            return result;
+        }
+    }
+    trim(s) {
+        if (this.null(s))
+            return '';
+        else
+            return s.toString().replace(/^\s+|\s+$/gi, "");
+    }
+    round(num, dpLen) {
+        if (num > 0)
+            return +(Math.round(Number(num.toString() + 'e+' + dpLen.toString())) + 'e-' + dpLen.toString());
+        else
+            return -(Math.round(Number(Math.abs(num).toString() + 'e+' + dpLen.toString())) + 'e-' + dpLen.toString());
+    }
+    ceil(num, dpLen) {
+        let s = '1';
+        for (let i = 0; i < dpLen; i++) {
+            s += '0';
+        }
+        let n = parseInt(s);
+        return (Math.ceil(num * n) / n);
+    }
+    floor(num, dpLen) {
+        let s = '1';
+        for (let i = 0; i < dpLen; i++) {
+            s += '0';
+        }
+        let n = parseInt(s);
+        return (Math.floor(num * n) / n);
+    }
+    getProperty(jsonObject, property) {
+        if (this.empty(jsonObject[property]))
+            return null;
+        else
+            return jsonObject[property];
+    }
+    printMe() {
+    }
 }
 
 
 /***/ }),
 
-/***/ 43:
+/***/ 5043:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   u: function() { return /* binding */ TbsGridCell; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(359);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5359);
 
 class TbsGridCell {
     constructor(grid, column) {
@@ -7455,14 +9781,14 @@ export class TbsGridCellButton extends TbsGridCell {}
 
 /***/ }),
 
-/***/ 941:
+/***/ 7941:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   q: function() { return /* binding */ TbsGridCombo; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridCombo {
     constructor(grid, column, input, input_code) {
@@ -7601,7 +9927,7 @@ class TbsGridCombo {
 
 /***/ }),
 
-/***/ 476:
+/***/ 4476:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7727,7 +10053,7 @@ tbsGridConfigs['options'] = {
 
 /***/ }),
 
-/***/ 678:
+/***/ 4678:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7823,14 +10149,14 @@ class TbsGridControl {
 
 /***/ }),
 
-/***/ 495:
+/***/ 1495:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   I: function() { return /* binding */ TbsGridDate; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridDate {
     constructor(grid, column, input) {
@@ -8120,16 +10446,16 @@ class TbsGridDate {
 
 /***/ }),
 
-/***/ 359:
+/***/ 5359:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   E: function() { return /* binding */ TbsGridDom; }
 /* harmony export */ });
-/* harmony import */ var _base_tbs_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(980);
+/* harmony import */ var _tbs_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5052);
 
-class TbsGridDom extends _base_tbs_base__WEBPACK_IMPORTED_MODULE_0__/* .TbsBase */ .H {
+class TbsGridDom extends _tbs_base__WEBPACK_IMPORTED_MODULE_0__/* .TbsBase */ .H {
     static createElement(type) {
         let tag = 'span';
         let tagType = '';
@@ -8268,14 +10594,14 @@ class TbsGridDom extends _base_tbs_base__WEBPACK_IMPORTED_MODULE_0__/* .TbsBase 
 
 /***/ }),
 
-/***/ 533:
+/***/ 4533:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   e: function() { return /* binding */ TbsGridFilter; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridFilter {
     constructor(grid) {
@@ -8550,14 +10876,14 @@ class TbsGridFilter {
 
 /***/ }),
 
-/***/ 599:
+/***/ 8980:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   l: function() { return /* binding */ TbsGridGroup; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridGroup {
     constructor(grid) {
@@ -8594,12 +10920,12 @@ class TbsGridGroup {
                     let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
                     item[columnName] = val;
                 }
-                const dataColumns = grid.field_table.selectRows();
-                for (let x = 0, len = dataColumns.length; x < len; x++) {
-                    const column = dataColumns[x];
-                    let columnName = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name];
-                    item[columnName] = dataRow[columnName];
-                }
+                // const dataColumns: any[] = grid.field_table.selectRows();
+                // for (let x = 0, len = dataColumns.length; x < len; x++) {
+                //     const column = dataColumns[x];
+                //     let columnName  = column[columnAlias.name];
+                //     item[columnName] = dataRow[columnName];
+                // }
                 grid.source_table.insert(item);
             }
         }
@@ -9374,14 +11700,14 @@ class TbsGridGroup {
 
 /***/ }),
 
-/***/ 304:
+/***/ 7304:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   X: function() { return /* binding */ TbsGridPage; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridPage {
     constructor(grid) {
@@ -9442,14 +11768,14 @@ class TbsGridPage {
 
 /***/ }),
 
-/***/ 18:
+/***/ 7018:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   z: function() { return /* binding */ TbsGridRangePanel; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridRangePanel {
     constructor(grid, panelName) {
@@ -9805,14 +12131,14 @@ class TbsGridRangePanel {
 
 /***/ }),
 
-/***/ 358:
+/***/ 5358:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   P: function() { return /* binding */ TbsGridRange; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridRange {
     constructor(grid) {
@@ -10057,15 +12383,15 @@ class TbsGridRange {
 
 /***/ }),
 
-/***/ 740:
+/***/ 9359:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   g: function() { return /* binding */ TbsGridRow; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(359);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5359);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 
 class TbsGridRow {
@@ -10165,14 +12491,14 @@ class TbsGridRow {
 
 /***/ }),
 
-/***/ 411:
+/***/ 1411:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   a: function() { return /* binding */ TbsGridScrollBase; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridScrollBase {
     constructor(grid) {
@@ -10580,7 +12906,7 @@ class TbsGridScrollBase {
 
 /***/ }),
 
-/***/ 402:
+/***/ 9402:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10859,7 +13185,7 @@ class TbsGridScroll {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   m: function() { return /* binding */ TbsGridSort; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridSort {
     constructor(grid) {
@@ -11129,8 +13455,8 @@ class TbsGridSort {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   u: function() { return /* binding */ TbsGridTable; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(359);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5359);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 
 class TbsGridTable {
@@ -11299,14 +13625,14 @@ class TbsGridTable {
 
 /***/ }),
 
-/***/ 903:
+/***/ 3903:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   O: function() { return /* binding */ TbsGridTree; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(978);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2978);
 
 class TbsGridTree {
     constructor(grid) {
@@ -11368,12 +13694,12 @@ class TbsGridTree {
                     let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
                     item[columnName] = val;
                 }
-                const dataColumns = grid.field_table.selectRows();
-                for (let x = 0, len = dataColumns.length; x < len; x++) {
-                    const column = dataColumns[x];
-                    let columnName = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.name];
-                    item[columnName] = dataRow[columnName];
-                }
+                // const dataColumns: any[] = grid.field_table.selectRows();
+                // for (let x = 0, len = dataColumns.length; x < len; x++) {
+                //     const column = dataColumns[x];
+                //     let columnName  = column[columnAlias.name];
+                //     item[columnName] = dataRow[columnName];
+                // }
                 grid.source_table.insert(item);
             }
         }
@@ -11596,7 +13922,7 @@ class TbsGridTree {
 
 /***/ }),
 
-/***/ 978:
+/***/ 2978:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11605,6 +13931,7 @@ class TbsGridTree {
 /* harmony export */   OP: function() { return /* binding */ Direction; },
 /* harmony export */   RJ: function() { return /* binding */ FilterType; },
 /* harmony export */   VM: function() { return /* binding */ columnAlias; },
+/* harmony export */   hI: function() { return /* binding */ AddRowDirection; },
 /* harmony export */   lg: function() { return /* binding */ rowAlias; },
 /* harmony export */   s1: function() { return /* binding */ optionAlias; },
 /* harmony export */   uu: function() { return /* binding */ BeforeAfter; },
@@ -11653,6 +13980,13 @@ var GridMode;
     GridMode["page"] = "page";
     GridMode["pagination"] = "pagination";
 })(GridMode || (GridMode = {}));
+var AddRowDirection;
+(function (AddRowDirection) {
+    AddRowDirection["top"] = "top";
+    AddRowDirection["bottom"] = "bottom";
+    AddRowDirection["before"] = "before";
+    AddRowDirection["after"] = "after";
+})(AddRowDirection || (AddRowDirection = {}));
 var Direction;
 (function (Direction) {
     Direction["up"] = "up";
@@ -11857,37 +14191,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   TbsGrid: function() { return /* binding */ TbsGrid; }
 /* harmony export */ });
-/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(359);
-/* harmony import */ var _export_tbs_grid_excel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(277);
-/* harmony import */ var _tbs_grid_scroll_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(411);
-/* harmony import */ var _tbs_grid_scroll__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(402);
-/* harmony import */ var _columns_tbs_grid_headers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(609);
-/* harmony import */ var _columns_tbs_grid_columns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(760);
-/* harmony import */ var _tbs_grid_control__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(678);
-/* harmony import */ var _tbs_grid_range__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(358);
-/* harmony import */ var _tbs_grid_range_panel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(18);
-/* harmony import */ var _tbs_grid_filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(533);
-/* harmony import */ var _tbs_grid_group__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(599);
-/* harmony import */ var _tbs_grid_page__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(304);
+/* harmony import */ var _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(5359);
+/* harmony import */ var _export_tbs_grid_excel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7277);
+/* harmony import */ var _tbs_grid_scroll_base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1411);
+/* harmony import */ var _tbs_grid_scroll__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(9402);
+/* harmony import */ var _columns_tbs_grid_headers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2609);
+/* harmony import */ var _columns_tbs_grid_columns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8760);
+/* harmony import */ var _tbs_grid_control__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(4678);
+/* harmony import */ var _tbs_grid_range__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5358);
+/* harmony import */ var _tbs_grid_range_panel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7018);
+/* harmony import */ var _tbs_grid_filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(4533);
+/* harmony import */ var _tbs_grid_group__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8980);
+/* harmony import */ var _tbs_grid_page__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(7304);
 /* harmony import */ var _tbs_grid_sort__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(659);
-/* harmony import */ var _tbs_grid_tree__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(903);
-/* harmony import */ var _panels_tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(324);
+/* harmony import */ var _tbs_grid_tree__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(3903);
+/* harmony import */ var _panels_tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(6324);
 /* harmony import */ var _panels_tbs_grid_panel10__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(486);
-/* harmony import */ var _panels_tbs_grid_panel20__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(597);
-/* harmony import */ var _panels_tbs_grid_panel30__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(612);
-/* harmony import */ var _panels_tbs_grid_panel40__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(947);
-/* harmony import */ var _panels_tbs_grid_panel50__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(506);
-/* harmony import */ var _panels_tbs_grid_panel70__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(672);
-/* harmony import */ var _panels_tbs_grid_panel80__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(327);
-/* harmony import */ var _panels_tbs_grid_panel90__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(582);
-/* harmony import */ var _summary_tbs_grid_top__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(869);
-/* harmony import */ var _summary_tbs_grid_footer__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(187);
-/* harmony import */ var _tbs_grid_date__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(495);
-/* harmony import */ var _tbs_grid_combo__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(941);
-/* harmony import */ var _tbs_grid_row__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(740);
-/* harmony import */ var _tbs_grid_cell__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(43);
-/* harmony import */ var _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(238);
-/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(978);
+/* harmony import */ var _panels_tbs_grid_panel20__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(4597);
+/* harmony import */ var _panels_tbs_grid_panel30__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(6612);
+/* harmony import */ var _panels_tbs_grid_panel40__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(7947);
+/* harmony import */ var _panels_tbs_grid_panel50__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(9506);
+/* harmony import */ var _panels_tbs_grid_panel70__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(4672);
+/* harmony import */ var _panels_tbs_grid_panel80__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(8327);
+/* harmony import */ var _panels_tbs_grid_panel90__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(7582);
+/* harmony import */ var _summary_tbs_grid_top__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(6869);
+/* harmony import */ var _summary_tbs_grid_footer__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(3187);
+/* harmony import */ var _tbs_grid_row__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(9359);
+/* harmony import */ var _tbs_grid_cell__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(5043);
+/* harmony import */ var _base_tbs_grid_base__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(294);
+/* harmony import */ var _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(2978);
+/* harmony import */ var _base_tbs_grid_is__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(9599);
+/* harmony import */ var _base_tbs_grid_event__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(6359);
+/* harmony import */ var _base_tbs_grid_user_event__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(7154);
+/* harmony import */ var _base_tbs_grid_line__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(1425);
 
 
 
@@ -11919,204 +14255,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBase */ .R {
+
+
+class TbsGrid extends _base_tbs_grid_base__WEBPACK_IMPORTED_MODULE_23__/* .TbsGridBase */ .R {
     constructor(gridId, gridConfigs) {
         super(gridId, gridConfigs);
-        this.tbs_getMaxRowIndexByMouseMove = function () {
-            let selector = '#' + this.gridId;
-            const grid = this;
-            let maxRowIndex;
-            const rowIndexArray = [];
-            let num;
-            if (grid.fixedColumnIndex != -1) {
-                num = grid.tbs_getMaxRowIndexByMouseMove2('panel32');
-                if (num != undefined)
-                    rowIndexArray.push(num);
-                num = grid.tbs_getMaxRowIndexByMouseMove2('panel30');
-                if (num != undefined)
-                    rowIndexArray.push(num);
-                maxRowIndex = Math.max(...rowIndexArray);
-            }
-            else {
-                maxRowIndex = grid.tbs_getMaxRowIndexByMouseMove2('panel30');
-            }
-            return maxRowIndex;
-        };
-        this.tbs_getMinRowIndexByMouseMove = function () {
-            let selector = '#' + this.gridId;
-            const grid = this;
-            let minRowIndex;
-            const rowIndexArray = [];
-            let num;
-            if (grid.fixedColumnIndex != -1) {
-                num = grid.tbs_getMinRowIndexByMouseMove2('panel32');
-                if (num != undefined)
-                    rowIndexArray.push(num);
-                num = grid.tbs_getMinRowIndexByMouseMove2('panel30');
-                if (num != undefined)
-                    rowIndexArray.push(num);
-                minRowIndex = Math.min(...rowIndexArray);
-            }
-            else {
-                minRowIndex = grid.tbs_getMinRowIndexByMouseMove2('panel30');
-            }
-            return minRowIndex;
-        };
-        this.tbs_getMaxCellIndexByMouseMove = function () {
-            let selector = '#' + this.gridId;
-            const grid = this;
-            let maxCellIndex, num;
-            const rowIndexArray = [];
-            if (grid.fixedColumnIndex != -1) {
-                num = grid.tbs_getMaxCellIndexByMouseMove2('panel32');
-                if (num != undefined)
-                    rowIndexArray.push(num);
-                num = grid.tbs_getMaxCellIndexByMouseMove2('panel30');
-                if (num != undefined)
-                    rowIndexArray.push(num);
-                maxCellIndex = Math.max(...rowIndexArray);
-            }
-            else {
-                maxCellIndex = grid.tbs_getMaxCellIndexByMouseMove2('panel30');
-            }
-            return maxCellIndex;
-        };
-        this.tbs_getMinCellIndexByMouseMove = function () {
-            let selector = '#' + this.gridId;
-            const grid = this;
-            let minCellIndex, num;
-            const rowIndexArray = [];
-            if (grid.fixedColumnIndex != -1) {
-                num = grid.tbs_getMinCellIndexByMouseMove2('panel30');
-                if (num != undefined)
-                    rowIndexArray.push(num);
-                num = grid.tbs_getMinCellIndexByMouseMove2('panel32');
-                if (num != undefined)
-                    rowIndexArray.push(num);
-                minCellIndex = Math.min(...rowIndexArray);
-            }
-            else {
-                minCellIndex = grid.tbs_getMinCellIndexByMouseMove2('panel30');
-            }
-            return minCellIndex;
-        };
-        this.tbs_getMaxRowIndexByMouseMove2 = function (panelName) {
-            let selector = '#' + this.gridId;
-            const grid = this;
-            let lastY = this.lastY;
-            let maxRowIndex;
-            let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
-            let len = (tableRows) ? tableRows.length : 0;
-            let startRowIndex, lastRowIndex;
-            startRowIndex = 0;
-            lastRowIndex = len - 1;
-            for (let i = startRowIndex; i < lastRowIndex + 1; i++) {
-                let tableRow = tableRows[i];
-                let tableRowIndex = i + 1;
-                let rect = grid.getOffset(tableRow);
-                let top = rect.top;
-                if (lastY > top)
-                    maxRowIndex = grid.classColumn.getRowIndexInTable(tableRowIndex, panelName);
-            }
-            return maxRowIndex;
-        };
-        this.tbs_getMinRowIndexByMouseMove2 = function (panelName) {
-            let selector = '#' + this.gridId;
-            const grid = this;
-            let lastY = this.lastY;
-            let minRowIndex;
-            let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
-            let len = (tableRows) ? tableRows.length : 0;
-            let startRowIndex, lastRowIndex;
-            startRowIndex = 0;
-            lastRowIndex = len - 1;
-            for (let i = lastRowIndex; i >= startRowIndex; i--) {
-                let tableRow = tableRows[i];
-                let tableRowIndex = i + 1;
-                let rect = grid.getOffset(tableRow);
-                //console.log(`${panelName} i ${i} : rect.top ${rect.top} lastRowIndex ${lastRowIndex} : minRowIndex ${minRowIndex}  : lastY  ${this.lastY}`);
-                let bottom = rect.top + tableRow.getBoundingClientRect().height;
-                if (lastY < bottom)
-                    minRowIndex = grid.classColumn.getRowIndexInTable(tableRowIndex, panelName);
-            }
-            return minRowIndex;
-        };
-        this.tbs_getMaxCellIndexByMouseMove2 = function (panelName) {
-            let selector = '#' + this.gridId;
-            const grid = this;
-            let lastX = this.lastX;
-            let maxCellIndex;
-            let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
-            let tableRow = tableRows[0];
-            let len = (tableRow && tableRow.childNodes) ? tableRow.childNodes.length : 0;
-            let startColumnIndex, lastColumnIndex;
-            if (grid.fixedColumnIndex != -1) {
-                if (panelName == 'panel32') {
-                    startColumnIndex = 0;
-                    lastColumnIndex = this.fixedColumnIndex + 1;
-                }
-                else if (panelName == 'panel30') {
-                    startColumnIndex = this.fixedColumnIndex + 1;
-                    lastColumnIndex = len;
-                }
-            }
-            else {
-                startColumnIndex = 0;
-                lastColumnIndex = len;
-            }
-            for (let x = startColumnIndex; x < lastColumnIndex; x++) {
-                const tableCell = tableRow.childNodes[x];
-                let column = grid.column_table.data[x];
-                if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.visible] == false)
-                    continue;
-                let rect = grid.getOffset(tableCell);
-                let rectLeft = rect.left;
-                //console.log(`${panelName} : tableCell.cellIndex  ${tableCell.cellIndex} : maxCellIndex ${maxCellIndex} : rect.left  ${rect.left} : rectRight ${rectLeft} : lastX  ${this.lastX}`);
-                if (lastX > rectLeft)
-                    maxCellIndex = tableCell.cellIndex;
-            }
-            return maxCellIndex;
-        };
-        this.tbs_getMinCellIndexByMouseMove2 = function (panelName) {
-            let selector = '#' + this.gridId;
-            const grid = this;
-            let lastX = this.lastX;
-            let minCellIndex;
-            let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table tbody tr:not([style*="display: none"])');
-            let tableRow = tableRows[0];
-            let len = (tableRow && tableRow.childNodes) ? tableRow.childNodes.length : 0;
-            let startColumnIndex, lastColumnIndex;
-            if (grid.fixedColumnIndex != -1) {
-                if (panelName == 'panel32') {
-                    startColumnIndex = 0;
-                    lastColumnIndex = this.fixedColumnIndex;
-                }
-                else if (panelName == 'panel30') {
-                    startColumnIndex = this.fixedColumnIndex + 1;
-                    lastColumnIndex = len - 1;
-                }
-            }
-            else {
-                startColumnIndex = 0;
-                lastColumnIndex = len - 1;
-            }
-            for (let x = lastColumnIndex; x >= startColumnIndex; x--) {
-                const tableCell = tableRow.childNodes[x];
-                let column = grid.column_table.data[x];
-                if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.visible] == false)
-                    continue;
-                let rect = grid.getOffset(tableCell);
-                let rectRight = rect.left + tableCell.getBoundingClientRect().width;
-                //console.log(`${panelName} : tableCell.cellIndex  ${tableCell.cellIndex} : minCellIndex ${minCellIndex} : rect.left  ${rect.left} : rectRight ${rectRight} : lastX  ${this.lastX}`);
-                if (lastX < rectRight)
-                    minCellIndex = tableCell.cellIndex;
-            }
-            return minCellIndex;
-        };
-        /**
-         * @description class
-         *
-         */
         this.classScroll = new _tbs_grid_scroll_base__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridScrollBase */ .a(this);
         this.verticalScroll = new _tbs_grid_scroll__WEBPACK_IMPORTED_MODULE_27__/* .TbsGridScroll */ .F(this, 'verticalScroll');
         this.horizontalScroll = new _tbs_grid_scroll__WEBPACK_IMPORTED_MODULE_27__/* .TbsGridScroll */ .F(this, 'horizontalScroll');
@@ -12140,2099 +14283,17 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         this.classPanel70 = new _panels_tbs_grid_panel70__WEBPACK_IMPORTED_MODULE_17__/* .TbsGridPanel70 */ .p(this);
         this.classPanel80 = new _panels_tbs_grid_panel80__WEBPACK_IMPORTED_MODULE_18__/* .TbsGridPanel80 */ .g(this);
         this.classPanel90 = new _panels_tbs_grid_panel90__WEBPACK_IMPORTED_MODULE_19__/* .TbsGridPanel90 */ .j(this);
-        //this.classRender = new TbsGridRender(this);
-        this.classTop = new _summary_tbs_grid_top__WEBPACK_IMPORTED_MODULE_20__/* .TbsGridTop */ .B(this); // memory
-        this.classFooter = new _summary_tbs_grid_footer__WEBPACK_IMPORTED_MODULE_21__/* .TbsGridFooter */ .h(this); // memory
-        this.tbsGridDate; // memory
-        this.tbsGridCombo; // memory
-        this.classRow = new _tbs_grid_row__WEBPACK_IMPORTED_MODULE_24__/* .TbsGridRow */ .g(this);
+        this.classTop = new _summary_tbs_grid_top__WEBPACK_IMPORTED_MODULE_20__/* .TbsGridTop */ .B(this);
+        this.classFooter = new _summary_tbs_grid_footer__WEBPACK_IMPORTED_MODULE_21__/* .TbsGridFooter */ .h(this);
+        this.tbsGridDate;
+        this.tbsGridCombo;
+        this.classRow = new _tbs_grid_row__WEBPACK_IMPORTED_MODULE_22__/* .TbsGridRow */ .g(this);
         this.classCell = new _tbs_grid_cell__WEBPACK_IMPORTED_MODULE_29__/* .TbsGridCell */ .u(this, null);
         this.topLineDiv = null;
         this.bottomLineDiv = null;
         this.leftLineDiv = null;
         this.rightLineDiv = null;
     }
-    /**
-     * Is Functions
-     *
-     */
-    isEditableColumn(columnName) {
-        let result = this.column_table.selectRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name, columnName);
-        return result.editable ? result.editable : false;
-    }
-    isSortableColumn(columnName) {
-        const grid = this;
-        let result = false;
-        //let column = grid.getColumn(columnName);
-        // if (column[columnAlias.sortable] == true)  result = true;
-        // else if (column[columnAlias.sortable] == false) result = false;
-        // else {
-        result = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.sortable];
-        //}
-        return result;
-    }
-    isResizableColumn(columnName) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let result = false;
-        //let column = grid.getColumn(columnName);
-        // if (column[columnAlias.resizable] == true)  result = true;
-        // else if (column[columnAlias.resizable] == false) result = false;
-        // else {
-        result = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.resizable];
-        // }
-        return result;
-    }
-    isMovableColumn(columnName) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let result = false;
-        //let column = grid.getColumn(columnName);
-        // if (column[columnAlias.movable] == true)  result = true;
-        // else if (column[columnAlias.movable] == false) result = false;
-        // else {
-        result = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.movable];
-        // }
-        return result;
-    }
-    isAutoResizableColumn(columnName) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let result = false;
-        //let column = grid.getColumn(columnName);
-        // if (column[columnAlias.autoResizable] == true)  result = true;
-        // else if (column[columnAlias.autoResizable] == false) result = false;
-        // else {
-        result = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.autoResizable];
-        //}
-        return result;
-    }
-    isAutoWidthColumn(columnName) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let result = false;
-        //let column = grid.getColumn(columnName);
-        // if (column[columnAlias.autoResizable] == true)  result = true;
-        // else if (column[columnAlias.autoResizable] == false) result = false;
-        // else {
-        result = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.autoWidth];
-        //}
-        return result;
-    }
-    isClassName(element, className) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let result = element.classList.contains(className);
-        return result;
-    }
-    isNotValidColumnType(columnType) {
-        let arr = ['string', 'number', 'combo', 'date'];
-        return arr.indexOf(columnType) == -1 ? true : false;
-    }
-    isInPanel(e, panelName, startX, startY) {
-        /**
-         * @function  isInPanel
-         *
-         * @Description is existed in panel
-         * @param e
-         * @param panelName
-         * @deprecated startX
-         * @deprecated startY
-         * @returns {boolean}
-         */
-        let selector = '#' + this.gridId;
-        const grid = this;
-        //let lastX = window.pageXOffset + e.clientX;
-        //let lastY = window.pageYOffset + e.clientY;
-        let lastX = this.lastX;
-        let lastY = this.lastY;
-        let moveX = lastX - startX;
-        let moveY = lastY - startY;
-        let panel = document.querySelector(selector + ' .tbs-grid-' + panelName);
-        let absRect = grid.getOffset(panel);
-        let rect = panel.getBoundingClientRect();
-        let groupTop = absRect.top;
-        let groupBottom = absRect.top + rect.height;
-        let groupLeft = absRect.left;
-        let groupRight = absRect.left + rect.width;
-        //outside area
-        if (lastX < groupLeft || lastX > groupRight || lastY < groupTop || lastY > groupBottom)
-            return false;
-        else
-            return true;
-    }
-    isSelectedCell(panelName, rowIndex, cellIndex) {
-        //selected 1, 0
-        let result = 0;
-        let rows = [];
-        if (panelName == 'panel31')
-            rows = this.data_select_panel31;
-        else if (panelName == 'panel32')
-            rows = this.data_select_panel30;
-        else if (panelName == 'panel30')
-            rows = this.data_select_panel30;
-        else if (panelName == 'panel41')
-            rows = this.classRange40.data_select_panel31;
-        else if (panelName == 'panel42')
-            rows = this.classRange40.data_select_panel30;
-        else if (panelName == 'panel40')
-            rows = this.classRange40.data_select_panel30;
-        else if (panelName == 'panel51')
-            rows = this.classRange50.data_select_panel31;
-        else if (panelName == 'panel52')
-            rows = this.classRange50.data_select_panel30;
-        else if (panelName == 'panel50')
-            rows = this.classRange50.data_select_panel30;
-        else
-            rows = this.data_select_panel30;
-        for (let i = 0, len = rows.length; i < len; i++) {
-            let row = rows[i];
-            if (rowIndex == row[0][0]) {
-                result = row[1][cellIndex];
-                break;
-            }
-        }
-        return result;
-    }
-    isSelectedHeaderCell(panelName, cellIndex) {
-        //selected 1, 0
-        let result = 0;
-        let rows = this.data_select_panel30;
-        for (let i = 0, len = rows.length; i < len; i++) {
-            let row = rows[i];
-            if (row[1][cellIndex] == 1) {
-                result = row[1][cellIndex];
-                break;
-            }
-        }
-        return result;
-    }
-    isSelectedCell31(rowIndex, cellIndex) {
-        //selected 1, 0
-        let result = 0;
-        let rows = this.data_select_panel31;
-        for (let i = 0, len = rows.length; i < len; i++) {
-            let row = rows[i];
-            if (rowIndex == row[0][0]) {
-                result = row[1][cellIndex];
-                break;
-            }
-        }
-        return result;
-    }
-    isSelectedCell30(rowIndex, cellIndex) {
-        //selected 1, 0
-        let result = 0;
-        let rows = this.data_select_panel30;
-        for (let i = 0, len = rows.length; i < len; i++) {
-            let row = rows[i];
-            if (rowIndex == row[0][0]) {
-                result = row[1][cellIndex];
-                break;
-            }
-        }
-        return result;
-    }
-    isColumnName(columnName) {
-        const grid = this;
-        let result = false;
-        for (let i = 0, len = this.column_table.count(); i < len; i++) {
-            let column = this.column_table.data[i];
-            if (columnName == column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name]) {
-                result = true;
-                break;
-            }
-        }
-        return result;
-    }
-    isColumnTypeNumber(columnName) {
-        const grid = this;
-        let result = false;
-        let column = grid.getColumn(columnName);
-        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.type] == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .CellType */ .vZ.number)
-            result = true;
-        return result;
-    }
-    isFilterColumnName(columnName) {
-        const grid = this;
-        return grid.filter_column_table.isRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name, columnName);
-    }
-    isLastTopRowIndex(rowIndex) {
-        const grid = this;
-        let result = false;
-        let rowCount = grid.getRowCount() - 1;
-        if (grid.pageIntRowCount >= rowCount - rowIndex + 1) {
-            return true;
-        }
-        return result;
-    }
-    /**
-     * Select Line Functions
-     *
-     */
-    getFirstSelectedTableCell(panelName) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let startCell;
-        let startRowIndex = grid._startRowIndex;
-        let rowIndex1 = grid.getFirstRowIndex();
-        let rowIndex2 = grid.getLastRowIndex();
-        if (startRowIndex < rowIndex1)
-            startRowIndex = rowIndex1;
-        const tableRows31 = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
-        const tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + '  .tbs-grid-table tbody tr:not([style*="display: none"])');
-        Loop1: for (let i = 0, len = tableRows31.length; i < len; i++) {
-            const tableRow31 = tableRows31[i];
-            const tableRow = tableRows[i];
-            let rowIndex = tableRow31.childNodes[0].dataset.rowIndex;
-            if (rowIndex == startRowIndex) {
-                for (let x = 0; x < this.column_table.count(); x++) {
-                    let tableCell = tableRow.childNodes[x];
-                    if (tableCell.classList.contains('tbs-grid-cell-start') || tableCell.classList.contains('tbs-grid-cell-select')) {
-                        startCell = tableCell;
-                        break Loop1;
-                    }
-                }
-            }
-        }
-        return startCell;
-    }
-    getLastSelectedTableCell(panelName) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let lastCell;
-        let lastRowIndex = this._lastRowIndex;
-        let rowIndex1 = grid.getFirstRowIndex();
-        let rowIndex2 = grid.getLastRowIndex();
-        if (lastRowIndex > rowIndex2)
-            lastRowIndex = rowIndex2;
-        let tableRows31 = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr:not([style*="display: none"])');
-        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + '  .tbs-grid-table tbody tr:not([style*="display: none"])');
-        for (let i = tableRows31.length - 1; i >= 0; i--) {
-            if (lastCell != undefined)
-                break;
-            let tableRow31 = tableRows31[i];
-            let tableRow30 = tableRows[i];
-            let rowIndex = tableRow31.childNodes[0].dataset.rowIndex;
-            if (rowIndex == lastRowIndex) {
-                for (let x = this.column_table.count() - 1; x >= 0; x--) {
-                    let tableCell = tableRow30.childNodes[x];
-                    if (tableCell.classList.contains('tbs-grid-cell-start') || tableCell.classList.contains('tbs-grid-cell-select')) {
-                        lastCell = tableCell;
-                        break;
-                    }
-                }
-            }
-        }
-        return lastCell;
-    }
-    clearSelectedLine() {
-        this.topLineDiv.style = 'width :0px;top:0px;left:0px;';
-        this.leftLineDiv.style = 'height:0px;top:0px;left:0px;';
-        this.bottomLineDiv.style = 'width :0px;top:0px;left:0px;';
-        this.rightLineDiv.style = 'height:0px;top:0px;left:0px;';
-    }
-    setSelectedLine(lineWidth, lineHeight, rectTop, rectBottom, rectLeft, rectRight) {
-        if (Number(rectTop) > Number(rectBottom) || Number(rectLeft) > Number(rectRight))
-            this.clearSelectedLine();
-        else {
-            this.topLineDiv.style = 'width:' + lineWidth + 'px;top:' + rectTop + 'px;left:' + rectLeft + 'px;';
-            this.leftLineDiv.style = 'height:' + lineHeight + 'px;top:' + rectTop + 'px;left:' + rectLeft + 'px;';
-            this.rightLineDiv.style = 'height:' + (lineHeight + 1) + 'px;top:' + rectTop + 'px;left:' + rectRight + 'px;';
-            this.bottomLineDiv.style = 'width:' + lineWidth + 'px;top:' + rectBottom + 'px;left:' + rectLeft + 'px;';
-        }
-    }
-    displaySelectedLine() {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        if (grid.view_table.count() == 0) {
-            grid.classRange.removeRange(0, -1);
-            return;
-        }
-        if (grid.fixedColumnIndex != -1) {
-            let tableRows30 = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
-            if (grid.getRowCount() == 0)
-                return;
-            let fixedColumnIndex = this.fixedColumnIndex;
-            /* Get startCell, lastCell */
-            let startCell, lastCell;
-            //console.log(`grid._startCellIndex : ${grid._startCellIndex} / grid._lastCellIndex : ${ grid.fixedColumnIndex}`);
-            if (grid._startCellIndex <= grid.fixedColumnIndex)
-                startCell = grid.getFirstSelectedTableCell('panel32');
-            else
-                startCell = grid.getFirstSelectedTableCell('panel30');
-            if (grid._lastCellIndex <= grid.fixedColumnIndex)
-                lastCell = grid.getLastSelectedTableCell('panel32');
-            else
-                lastCell = grid.getLastSelectedTableCell('panel30');
-            if (startCell == undefined || lastCell == undefined) {
-                grid.clearSelectedLine();
-                return;
-            }
-            //console.log(`startCell.cellIndex : ${startCell.cellIndex} / lastCell.cellIndex : ${lastCell.cellIndex}`);
-            let startCellIndex = startCell.cellIndex;
-            let lastCellIndex = lastCell.cellIndex;
-            let rectMain = document.querySelector(selector + ' .tbs-grid-main').getBoundingClientRect();
-            let rectTable31 = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').getBoundingClientRect();
-            let rectWrap = document.querySelector(selector + ' .tbs-grid-wrap').getBoundingClientRect();
-            let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
-            let startRect = startCell.getBoundingClientRect();
-            let lastRect = lastCell.getBoundingClientRect();
-            let beforeLeft = rectTable31.left;
-            let rectTop = startRect.top - rectMain.top;
-            let rectBottom = lastRect.top - rectMain.top + lastRect.height;
-            let rectLeft = startRect.left - beforeLeft;
-            let rectRight = lastRect.left - beforeLeft + lastRect.width;
-            let rectPanelLeft = (startCellIndex <= fixedColumnIndex) ? rectLeft : rectPanel30.left - rectTable31.left;
-            let rectPanelBottom = rectPanel30.top - rectMain.top + rectPanel30.height;
-            let rectPanelRight = rectPanel30.left - rectTable31.left + rectPanel30.width;
-            // case outside line
-            if (rectLeft <= rectPanelLeft)
-                rectLeft = rectPanelLeft;
-            if (rectBottom >= rectPanelBottom)
-                rectBottom = rectPanelBottom - 2;
-            if (rectRight >= rectPanelRight)
-                rectRight = rectPanelRight;
-            let lineHeight = rectBottom - rectTop;
-            let lineWidth = rectRight - rectLeft;
-            grid.setSelectedLine(lineWidth, lineHeight, rectTop, rectBottom, rectLeft, rectRight);
-        }
-        else {
-            let tableRows30 = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
-            if (grid.getRowCount() == 0)
-                return;
-            let startCell = grid.getFirstSelectedTableCell('panel30');
-            let lastCell = grid.getLastSelectedTableCell('panel30');
-            if (startCell == undefined || lastCell == undefined) {
-                grid.clearSelectedLine();
-                return;
-            }
-            let rectMain = document.querySelector(selector + ' .tbs-grid-main').getBoundingClientRect();
-            let rectTable31 = document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').getBoundingClientRect();
-            let rectPanel30 = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
-            let startRect = startCell.getBoundingClientRect();
-            let lastRect = lastCell.getBoundingClientRect();
-            let rectTop = startRect.top - rectMain.top;
-            let rectLeft = startRect.left - rectTable31.left;
-            let rectBottom = lastRect.top - rectMain.top + lastRect.height;
-            let rectRight = lastRect.left - rectTable31.left + lastRect.width;
-            let rectPanelLeft = rectPanel30.left - rectTable31.left;
-            let rectPanelBottom = rectPanel30.top - rectMain.top + rectPanel30.height;
-            let rectPanelRight = rectPanel30.left - rectTable31.left + rectPanel30.width;
-            // case outside line
-            if (rectLeft <= rectPanelLeft)
-                rectLeft = rectPanelLeft;
-            if (rectBottom >= rectPanelBottom)
-                rectBottom = rectPanelBottom - 2;
-            if (rectRight >= rectPanelRight)
-                rectRight = rectPanelRight;
-            let lineHeight = rectBottom - rectTop;
-            let lineWidth = rectRight - rectLeft;
-            grid.setSelectedLine(lineWidth, lineHeight, rectTop, rectBottom, rectLeft, rectRight);
-        }
-    }
-    displayOneSelection(startRowIndex, startCellIndex) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let column = this.column_table.data;
-        this.startRowIndex = startRowIndex;
-        this.lastRowIndex = startRowIndex;
-        this.startCellIndex = startCellIndex;
-        this.lastCellIndex = startCellIndex;
-        this._startRowIndex = startRowIndex;
-        this._lastRowIndex = startRowIndex;
-        this._startCellIndex = startCellIndex;
-        this._lastCellIndex = startCellIndex;
-        this.classRange.setRangeValue(startRowIndex, startRowIndex, startCellIndex, startCellIndex);
-        let count = this.view_table.count();
-        let topRowIndex = this.getFirstRowIndex();
-        //============================================================= table display
-        const trLeftList = document.querySelectorAll(selector + ' .tbs-grid-panel31  .tbs-grid-table tbody tr');
-        const trContentList = document.querySelectorAll(selector + ' .tbs-grid-panel30   .tbs-grid-table tbody tr');
-        const trFixBottomtList = document.querySelectorAll(selector + ' .tbs-grid-panel32 .tbs-grid-table tbody tr');
-        count = topRowIndex + this.pageRowCount;
-        //=============================================================
-        const contentRect = document.querySelector(selector + ' .tbs-grid-panel30').getBoundingClientRect();
-        const contentTableRect = document.querySelector(selector + ' .tbs-grid-panel30 > table').getBoundingClientRect();
-        // @ts-ignore
-        const contentTableLeft = parseInt(document.querySelector(selector + ' .tbs-grid-panel30 > table').style.left, 10);
-        let startColumnIndex = 0;
-        let lastColumnIndex = column.length - 1;
-        let accWidth = 0;
-        for (let i = 0, len = column.length; i < len; i++) {
-            accWidth += parseInt(column[i].width);
-            if (accWidth + contentTableLeft > 0) {
-                startColumnIndex = i;
-                break;
-            }
-        }
-        accWidth = contentTableRect.width;
-        for (let i = column.length - 1; i >= 0; i--) {
-            accWidth -= parseInt(column[i].width);
-            if (accWidth + contentTableLeft < contentRect.width) {
-                lastColumnIndex = i;
-                break;
-            }
-        }
-        //============================================================= left, content, fixBottom
-        let viewCount = grid.view_table.count();
-        let i = 0;
-        for (let ri = topRowIndex; ri < count; ri++) {
-            if (ri > viewCount - 1)
-                break;
-            let trLeft = trLeftList[i];
-            let trContent = trContentList[i];
-            let trFixBottom = trFixBottomtList[i];
-            let row = grid.view_table.data[ri];
-            //============================================================= left
-            let leftTd = trLeft.childNodes[0];
-            let selectedValue = this.isSelectedCell31(ri, 0);
-            if (selectedValue == 1)
-                leftTd.classList.add('tbs-grid-cell-select');
-            //============================================================= content
-            for (let x = startColumnIndex; x <= lastColumnIndex; x++) {
-                let td = trContent.childNodes[x];
-                let selectedValue = this.isSelectedCell30(ri, x); //new
-                if (selectedValue == 1) {
-                    if (this.startRowIndex == ri && this.startCellIndex == x) {
-                        td.classList.add('tbs-grid-cell-start');
-                    }
-                }
-            }
-            //============================================================= fixBottom
-            if (this.fixedColumnIndex != -1) {
-                for (let x = 0; x <= this.fixedColumnIndex; x++) {
-                    let td = trFixBottom.childNodes[x];
-                    let selectedValue = this.isSelectedCell30(ri, x); //new
-                    if (selectedValue == 1) {
-                        if (this.startRowIndex == ri && this.startCellIndex == x) {
-                            td.classList.add('tbs-grid-cell-start');
-                        }
-                    }
-                }
-            }
-            i += 1;
-        }
-        //=============================================================
-        this.displaySelectedLine();
-    }
-    getFirstDisplayRowIndex(panelName = '') {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        if (this.view_table.count() == 0)
-            return -1;
-        const trList = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr');
-        // @ts-ignore
-        let displayRowIndex = parseInt(trList[0].childNodes[0].dataset.displayRowIndex);
-        if (isNaN(displayRowIndex))
-            displayRowIndex = 0;
-        return displayRowIndex;
-    }
-    getFirstRowIndex(panelName = '') {
-        // return : topRowIndex
-        let selector = '#' + this.gridId;
-        const grid = this;
-        if (this.view_table.count() == 0)
-            return -1;
-        let trList = document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-table tbody tr');
-        // @ts-ignore
-        let topRowIndex = parseInt(trList[0].childNodes[0].dataset.rowIndex);
-        if (panelName == '') {
-            if (isNaN(topRowIndex))
-                topRowIndex = 0;
-            return topRowIndex;
-        }
-    }
-    getLastRowIndex() {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        if (this.view_table.count() == 0)
-            return -1;
-        let trList = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
-        let topRowIndex = this.getFirstRowIndex();
-        return topRowIndex + trList.length - 1;
-    }
-    getLastTableRowIndex() {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        const trList = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
-        return trList.length - 1;
-    }
-    /////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////
-    event_input() {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let panelInputt = document.querySelector(selector + ' .tbs-grid-input-panel');
-        let input = document.querySelector(selector + ' .tbs-grid-input');
-        let colType = input.dataset.type;
-        const keydownEvent = function (e) {
-            //e.preventDefault();
-            //e.stopPropagation();
-            //e.stopImmediatePropagation();
-            let input = document.querySelector(selector + ' .tbs-grid-input');
-            let mode = input.dataset.mode;
-            if (mode == undefined)
-                mode = '';
-            if (e.ctrlKey) {
-                if (e.keyCode == 37 && mode == '') {
-                    if (!(grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .rowAlias */ .lg.addRow]))
-                        return;
-                    grid.editEnd();
-                    grid.addRow('up');
-                    grid.input_focus();
-                } //left arrow //type : first, last, up, down
-                else if (e.keyCode == 39 && mode == '') {
-                    if (!(grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .rowAlias */ .lg.addRow]))
-                        return;
-                    grid.editEnd();
-                    grid.addRow('down');
-                    grid.input_focus();
-                } //right arrow
-                else if (e.keyCode == 38 && mode == '') {
-                    if (!(grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .rowAlias */ .lg.addRow]))
-                        return;
-                    grid.editEnd();
-                    grid.addRow('first');
-                    grid.input_focus();
-                } //up arrow
-                else if (e.keyCode == 40 && mode == '') {
-                    if (!(grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .rowAlias */ .lg.addRow]))
-                        return;
-                    grid.editEnd();
-                    grid.addRow('last');
-                    grid.input_focus();
-                } //down arrow
-                //else if (e.keyCode == 46 && mode == '') { if(!(grid.options[rowAlias.addRow])) return; grid.editEnd(); grid.tbs_removeRow(); grid.input_focus();}   //delete key
-                else if ((e.keyCode == 65 || e.keyCode == 97) && mode == '') { //ctrl + a, A
-                    if (!(grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .rowAlias */ .lg.addRow])) {
-                        grid.classRange.selectRange(0, -1, 0, -1);
-                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
-                        grid.input_focus();
-                    }
-                }
-            }
-            else {
-                if (e.keyCode == 37 && (mode == '')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('left');
-                    grid.input_focus();
-                }
-                else if (e.keyCode == 39 && (mode == '')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('right');
-                    grid.input_focus();
-                }
-                else if (e.keyCode == 38 && (mode == '')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('up');
-                    grid.input_focus();
-                }
-                else if (e.keyCode == 40 && (mode == '')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('down');
-                    grid.input_focus();
-                }
-                else if (e.keyCode == 13 && (mode == '')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('right');
-                    grid.input_focus();
-                } //enter
-                else if (e.keyCode == 9 && (mode == '')) {
-                    grid.editEnd();
-                    e.preventDefault();
-                    grid.tbs_moveCell('right');
-                    grid.input_focus();
-                } //tab
-                else if (e.keyCode == 37 && (mode == 'key')) { }
-                else if (e.keyCode == 39 && (mode == 'key')) { }
-                else if (e.keyCode == 38 && (mode == 'key')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('up');
-                    grid.input_focus();
-                }
-                else if (e.keyCode == 40 && (mode == 'key')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('down');
-                    grid.input_focus();
-                }
-                else if (e.keyCode == 13 && (mode == 'key')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('right');
-                    grid.input_focus();
-                } //enter key
-                else if (e.keyCode == 9 && (mode == 'key')) {
-                    grid.editEnd();
-                    e.preventDefault();
-                    grid.tbs_moveCell('right');
-                    grid.input_focus();
-                } //tab key
-                else if (e.keyCode == 37 && (mode == 'mouse')) { }
-                else if (e.keyCode == 39 && (mode == 'mouse')) { }
-                else if (e.keyCode == 38 && (mode == 'mouse')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('up');
-                    grid.input_focus();
-                }
-                else if (e.keyCode == 40 && (mode == 'mouse')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('down');
-                    grid.input_focus();
-                }
-                else if (e.keyCode == 13 && (mode == 'mouse')) {
-                    grid.editEnd();
-                    grid.tbs_moveCell('right');
-                    grid.input_focus();
-                } //enter key
-                else if (e.keyCode == 9 && (mode == 'mouse')) {
-                    grid.editEnd();
-                    e.preventDefault();
-                    grid.tbs_moveCell('right');
-                    grid.input_focus();
-                } //tab key
-                else if (e.keyCode >= 0 && e.keyCode <= 7) { } //function ctrlkey shifkey tabkey(9)등등
-                else if (e.keyCode >= 9 && e.keyCode <= 32) { }
-                else if (e.keyCode == 8) { } //backspace key
-                else if (e.keyCode == 127) { }
-                else if (e.ctrlKey || e.keyCode == 9 || e.keyCode == 46) { }
-                else if (e.keyCode >= 112 && e.keyCode <= 123) { }
-                else {
-                    //console.log('input');
-                    let cellIndex = grid.startCellIndex;
-                    let column = grid.getColumnByIndex(cellIndex);
-                    if (grid.isNull(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.editable], false)) {
-                        if (grid.notNull(grid.edit)) { // state
-                            //console.log(`panelInput.style.left : ${panelInput.style.left}`);
-                            if (panelInputt.style.left == '30000px') {
-                                grid.editStart(e, 'key');
-                            }
-                            else {
-                                grid.editing(e, 'key');
-                            }
-                        }
-                        else {
-                            grid.input_show(e, 'key');
-                        }
-                    }
-                }
-            }
-        };
-        const keyupEvent = function (e) {
-            //e.preventDefault();
-            //e.stopPropagation();
-            //e.stopImmediatePropagation();
-            const input = document.querySelector(selector + ' .tbs-grid-input');
-            let colType = input.dataset.type;
-        };
-        const clickEvent = function (e) {
-            let column = grid.column_table.data;
-            let input = document.querySelector(selector + ' .tbs-grid-input');
-            let colType = grid.column_table.data[grid.startCellIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.type];
-        };
-        const blurEvent = function (e) {
-            // inputLayerPanel 일 살아 있을 경우.
-            // focus가 사라진다 해도..input은 남아 있어야 해.
-            const inputLayerPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
-            if (inputLayerPanel.style.left != '30000px')
-                return;
-            const input = document.querySelector(selector + ' .tbs-grid-input');
-            const input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-            const input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
-            let mode = input.dataset.mode;
-            let rowIndex = input.dataset.rowIndex;
-            let cellIndex = input.dataset.columnIndex;
-            let column = grid.column_table.data[cellIndex];
-            /* user blur event stop */
-            if (rowIndex == undefined || cellIndex == undefined) {
-                grid.input_hide();
-                return;
-            }
-            if (input.dataset.mode == undefined || input.dataset.mode == '')
-                return; //{ e.stopImmediatePropagation(); }
-            if (rowIndex == -1 || cellIndex == -1)
-                return;
-            if (grid.notNull(grid.edit)) {
-                grid.editEnd(e, 'key');
-            }
-            else {
-                if (isNaN(cellIndex))
-                    return;
-                let s = input.value;
-                if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.type] == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .CellType */ .vZ.combo)
-                    s = input_code.value;
-                else if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.type] == 'number' && grid.trim(s) == grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .optionAlias */ .s1.zeroChar])
-                    s = '0';
-                grid.setValueByColumnIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
-                grid.input_hide();
-            }
-            grid.apply();
-        };
-        const wheelEvent = function (e) { };
-        const copyEvent = function (e) {
-            const ta = document.createElement('textarea');
-            let s = '';
-            if (grid.classRange40.data_select_panel30.length > 0) {
-                let startRowIndex = 0;
-                let startCellIndex = grid.classRange40._startCellIndex;
-                let lastRowIndex = 0;
-                let lastCellIndex = grid.classRange40._lastCellIndex;
-                for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
-                    for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
-                        let columnName = grid.column_table.selectValue(colIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name);
-                        let val = grid.getValue(rowIndex, columnName, grid.top_table);
-                        if (grid.null(val))
-                            val = '';
-                        s += val;
-                        if (colIndex < lastCellIndex)
-                            s += '\t';
-                    }
-                    if (rowIndex < lastRowIndex)
-                        s += '\r\n';
-                }
-                ta.textContent = s;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-            }
-            else if (grid.classRange50.data_select_panel30.length > 0) {
-                let startRowIndex = 0;
-                let startCellIndex = grid.classRange50._startCellIndex;
-                let lastRowIndex = 0;
-                let lastCellIndex = grid.classRange50._lastCellIndex;
-                for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
-                    for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
-                        let val = grid.getValueByColumnIndex(rowIndex, colIndex, this.footer_table);
-                        if (grid.null(val))
-                            val = '';
-                        s += val;
-                        if (colIndex < lastCellIndex)
-                            s += '\t';
-                    }
-                    if (rowIndex < lastRowIndex)
-                        s += '\r\n';
-                }
-                ta.textContent = s;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-            }
-            else {
-                let startRowIndex = grid._startRowIndex;
-                let startCellIndex = grid._startCellIndex;
-                let lastRowIndex = grid._lastRowIndex;
-                let lastCellIndex = grid._lastCellIndex;
-                for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
-                    for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
-                        let val = grid.getValueByColumnIndex(rowIndex, colIndex);
-                        if (grid.null(val))
-                            val = '';
-                        s += val;
-                        if (colIndex < lastCellIndex)
-                            s += '\t';
-                    }
-                    if (rowIndex < lastRowIndex)
-                        s += '\r\n';
-                }
-                ta.textContent = s;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-            }
-        };
-        const pasteEvent = function (e) {
-            let data = e.clipboardData.getData('text/plain');
-            let startRowIndex = grid.startRowIndex;
-            let startCellIndex = grid.startCellIndex;
-            //-------------------------------------------------------------
-            let td = grid.classColumn.getSelectedTableCell();
-            if (td == 'undefined' || td == null)
-                return;
-            //-------------------------------------------------------------
-            let rowArray = data.split('\r\n');
-            let i = 0;
-            for (let rowIndex = startRowIndex; rowIndex < startRowIndex + rowArray.length; rowIndex++) {
-                if (rowIndex >= grid.view_table.count())
-                    break;
-                let colArray = rowArray[i].split('\t');
-                let j = 0;
-                for (let colIndex = startCellIndex; colIndex < startCellIndex + colArray.length; colIndex++) {
-                    //if (grid.column_table.data[colIndex].column_readonly == true) continue;
-                    if (grid.column_table.data[colIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.editable] == false)
-                        continue;
-                    grid.setValueByColumnIndex(rowIndex, colIndex, colArray[j]);
-                    j += 1;
-                }
-                i += 1;
-            }
-            grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
-        };
-        const cutEvent = function (e) { };
-        input.addEventListener('keydown', keydownEvent, true);
-        input.addEventListener('keyup', keyupEvent, true);
-        input.addEventListener('click', clickEvent, true);
-        input.addEventListener('blur', blurEvent, true);
-        input.addEventListener('wheel', wheelEvent, true);
-        input.addEventListener('copy', copyEvent, true);
-        input.addEventListener('paste', pasteEvent, true);
-        input.addEventListener('cut', cutEvent, true);
-    }
-    event_input_icon() {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
-        let colType = input_icon.dataset.type;
-        const mousedownEvent = function (e) {
-            //console.dir(e)
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            const input = document.querySelector(selector + ' .tbs-grid-input');
-            const input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-            const input_panel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
-            const column = grid.column_table.data[grid.startCellIndex];
-            const colType = grid.column_table.data[grid.startCellIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.type];
-            //tbs-grid-input-layer-panel : calendar, combo
-            if (colType == 'date') {
-                grid.tbsGridDate = new _tbs_grid_date__WEBPACK_IMPORTED_MODULE_22__/* .TbsGridDate */ .I(grid, column, input);
-            }
-            else if (colType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .CellType */ .vZ.combo) {
-                grid.tbsGridCombo = new _tbs_grid_combo__WEBPACK_IMPORTED_MODULE_23__/* .TbsGridCombo */ .q(grid, column, input, input_code);
-            }
-        };
-        input_icon.addEventListener('mousedown', mousedownEvent);
-    }
-    input_show(e, mode) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let lineWeight = 3;
-        let rowIndex = grid.startRowIndex;
-        let cellIndex = grid.startCellIndex;
-        let columns = grid.column_table.data;
-        let column = columns[cellIndex];
-        let colType = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.type];
-        let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
-        let input = document.querySelector(selector + ' .tbs-grid-input');
-        let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-        let input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
-        let panelMain = document.querySelector(selector + ' .tbs-grid-main');
-        let td = document.querySelector(selector + ' .tbs-grid-group30 .tbs-grid-cell-start');
-        if (td == null)
-            return;
-        let value = this.getValue(rowIndex, column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name]);
-        const result = this.getFormat(column, value); //result.value, result.text
-        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.editable] == false)
-            return;
-        grid.tbs_moveCellLine(td, rowIndex, cellIndex);
-        let left = td.getBoundingClientRect().left;
-        let top = td.getBoundingClientRect().top;
-        let leftMain = panelMain.getBoundingClientRect().left;
-        let topMain = panelMain.getBoundingClientRect().top;
-        if (mode == 'mouse') {
-            if (colType == 'number' && grid.trim(result.text) == grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .optionAlias */ .s1.zeroChar])
-                input.value = '0';
-            else
-                input.value = result.text;
-            input_code.value = result.value;
-        }
-        panelInput.style.top = (top - topMain + lineWeight) + 'px';
-        panelInput.style.left = (left - leftMain + lineWeight) + 'px';
-        panelInput.style.height = (grid.rowHeight - lineWeight) + 'px';
-        input.dataset.mode = mode;
-        input.dataset.type = colType;
-        input.dataset.rowIndex = grid.startRowIndex;
-        input.dataset.columnIndex = grid.startCellIndex;
-        input.dataset.click = '';
-        if (colType == 'date') {
-            let width = parseInt(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.width]);
-            panelInput.style.width = (width - 15 - 3) + 'px';
-            input_icon.style.display = '';
-            input_icon.style.top = top + 'px';
-            input_icon.style.left = `${left + width - 15}px`;
-            input_icon.dataset.type = colType;
-            input_icon.src = grid.getConfigOption('imageRoot') + 'calendar.png';
-        }
-        else if (colType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .CellType */ .vZ.combo) {
-            let width = parseInt(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.width]);
-            panelInput.style.width = (width - 15 - 3) + 'px';
-            input_icon.style.display = '';
-            input_icon.style.top = top + 'px';
-            input_icon.style.left = `${left + width - 15}px`;
-            input_icon.dataset.type = colType;
-            input_icon.src = grid.getConfigOption('imageRoot') + 'down-arrow.png';
-        }
-        else {
-            input_icon.style.diplay = 'none';
-            input.style.backgroundRepeat = '';
-            input.style.backgroundImage = '';
-            input.style.backgroundPosition = '';
-            input.style.backgroundSize = '';
-            panelInput.style.width = (parseInt(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.width]) - lineWeight) + 'px';
-        }
-        if (mode == 'mouse')
-            input.select();
-    }
-    input_hide() {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        const panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
-        const input = document.querySelector(selector + ' .tbs-grid-input');
-        const input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-        // date, combo layer
-        const input_icon = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
-        //let inputLayerPanel= document.querySelector(selector + ' .tbs-grid-input-layer-panel');
-        panelInput.style.left = '30000px';
-        panelInput.style.width = '0px';
-        input.value = '';
-        input_code.value = '';
-        input.dataset.rowIndex = -1;
-        input.dataset.columnIndex = -1;
-        input.dataset.mode = '';
-        input.dataset.type = '';
-        input_icon.style.display = 'none';
-        input_icon.dataset.rowIndex = -1;
-        input_icon.dataset.columnIndex = -1;
-        input_icon.dataset.mode = '';
-        input_icon.dataset.type = '';
-        // date, combo layer
-        //console.log('input_hide');
-        // inputLayerPanel.innerHTML = '';
-        // inputLayerPanel.style.width = '0px';
-        // inputLayerPanel.style.left = '30000px';
-        // inputLayerPanel.dataset.rowIndex = -1;
-        // inputLayerPanel.dataset.columnIndex = -1;
-        // inputLayerPanel.dataset.mode = '';
-        // inputLayerPanel.dataset.type = '';
-        if (this.tbsGridDate) {
-            this.tbsGridDate.destroy();
-            this.tbsGridDate = null;
-        }
-        if (this.tbsGridCombo) {
-            this.tbsGridCombo.destroy();
-            this.tbsGridCombo = null;
-        }
-    }
-    input_focus() { if (this.isMobile == false)
-        document.querySelector('#' + this.gridId + ' .tbs-grid-input').focus(); }
-    editStart(e, mode) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let state = 0;
-        let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
-        let input = document.querySelector(selector + ' .tbs-grid-input');
-        let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-        let result = true;
-        let rowIndex = (state == 0) ? grid.startRowIndex : input.dataset.rowIndex;
-        let cellIndex = (state == 0) ? grid.startCellIndex : input.dataset.columnIndex;
-        const eventRow = grid.getRow(rowIndex);
-        if (grid.group_column_table.count() > 0) {
-            if (eventRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.depth] <= grid.group_column_table.count())
-                return;
-        }
-        const column = grid.getColumnByIndex(cellIndex);
-        let columnName = grid.getColumnName(cellIndex);
-        let value = grid.getValue(rowIndex, columnName);
-        let text = grid.getText(rowIndex, columnName);
-        let eventData = {};
-        eventRow.rowIndex = rowIndex;
-        eventRow.columnIndex = cellIndex;
-        eventRow.columnName = columnName;
-        eventRow.value = value;
-        eventRow.text = text;
-        eventRow.state = state;
-        eventRow.newValue = input.value;
-        eventRow.data = eventRow;
-        if (mode == 'key') {
-            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
-                let result = grid.edit(grid, state, eventRow);
-                if (grid.isNull(result, true)) {
-                    grid.input_show(e, mode);
-                    grid.editing(e, mode);
-                }
-                else {
-                    // blur is certain
-                    document.querySelector(selector + ' .tbs-grid-input').blur();
-                }
-            }
-        }
-        else {
-            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
-                let result = true;
-                result = grid.edit(grid, state, eventRow);
-                if (grid.null(result) || result == true) {
-                    grid.input_show(e, mode);
-                }
-                else {
-                    //grid.input_hide(); grid.apply(); // not certain
-                    document.querySelector(selector + ' .tbs-grid-input').blur(); // blur is certain
-                }
-            }
-        }
-    }
-    editing(e, mode) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let state = 1;
-        let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
-        let input = document.querySelector(selector + ' .tbs-grid-input');
-        let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-        if (input.dataset.columnIndex == -1) {
-            grid.input_hide();
-            return;
-        }
-        let result = true;
-        let rowIndex = (state == 0) ? grid.startRowIndex : input.dataset.rowIndex;
-        let cellIndex = (state == 0) ? grid.startCellIndex : input.dataset.columnIndex;
-        let column = grid.getColumnByIndex(cellIndex);
-        let columnName = grid.getColumnName(cellIndex);
-        let value = grid.getValue(rowIndex, columnName);
-        let text = grid.getText(rowIndex, columnName);
-        const eventRow = grid.getRow(rowIndex);
-        let eventData = {};
-        eventData.rowIndex = rowIndex;
-        eventData.columnIndex = cellIndex;
-        eventData.columnName = columnName;
-        eventData.value = value;
-        eventData.text = text;
-        eventData.state = state;
-        eventData.newValue = input.value;
-        eventData.data = eventRow;
-        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
-            let result = true;
-            if (state == 1 && panelInput.style.left != '30000px') {
-                result = grid.edit(grid, state, eventRow);
-                if (grid.null(result) || result == true) {
-                }
-                else {
-                    grid.input_hide();
-                    grid.apply();
-                }
-            }
-        }
-    }
-    editEnd(e, mode) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let state = 2;
-        let panelInput = document.querySelector(selector + ' .tbs-grid-input-panel');
-        let input = document.querySelector(selector + ' .tbs-grid-input');
-        let input_code = document.querySelector(selector + ' .tbs-grid-input-code');
-        if (grid.null(input.dataset.columnIndex) || input.dataset.columnIndex == -1) {
-            grid.input_hide();
-        }
-        else {
-            let result = true;
-            let rowIndex = (state == 0) ? grid.startRowIndex : input.dataset.rowIndex;
-            let cellIndex = (state == 0) ? grid.startCellIndex : input.dataset.columnIndex;
-            let column = grid.getColumnByIndex(cellIndex);
-            //let column = grid.column_table.selectRowByRowIndex(cellInex);
-            let columnName = grid.getColumnName(cellIndex);
-            let value = grid.getValue(rowIndex, columnName);
-            let text = grid.getText(rowIndex, columnName);
-            let eventRow = grid.getRow(rowIndex);
-            const eventData = {};
-            eventData.rowIndex = rowIndex;
-            eventData.columnIndex = cellIndex;
-            eventData.columnName = columnName;
-            eventData.value = value;
-            eventData.text = text;
-            eventData.state = state;
-            eventData.newValue = input.value;
-            eventData.data = eventRow;
-            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
-                let result = true;
-                if (state == 2 && panelInput.style.left != '30000px') {
-                    result = grid.edit(grid, state, eventRow);
-                    if (grid.null(result) || result == true) {
-                        //console.log(2);
-                        let s = input.value;
-                        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.type] == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .CellType */ .vZ.combo)
-                            s = input_code.value;
-                        grid.setValueByColumnIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
-                        grid.input_hide();
-                        grid.apply();
-                    }
-                    else {
-                        grid.input_hide();
-                        grid.apply();
-                    }
-                }
-            }
-        }
-        document.querySelector(selector + ' .tbs-grid-input').blur();
-    }
-    /**
-     * Event Functions
-     *
-     */
-    tbs_addEventAll() {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        this.classPanel20.panel21_select();
-        this.classPanel20.panel20_select('panel20');
-        this.classPanel20.panel20_select('panel22');
-        this.classPanel30.panel30_select('panel30');
-        this.classPanel30.panel31_select('panel31');
-        this.classPanel30.panel30_select('panel32');
-        this.classPanel40.panel40_select('panel40');
-        this.classPanel40.panel41_select('panel41');
-        this.classPanel40.panel40_select('panel42');
-        this.classPanel40.panel40_select('panel50');
-        this.classPanel40.panel41_select('panel51');
-        this.classPanel40.panel40_select('panel52');
-        this.classPanel70.panel70_select('panel70');
-        this.classPanel70.panel70_select('panel72');
-        // this.classPanel80.panel80_select();
-        // this.classPanel90.panel90_select();
-        //================================================================== select event
-        this.event_wheel();
-        this.event_scrollButton();
-        this.event_railClick();
-        this.event_dragScrollBar();
-        this.event_columnResize('panel20');
-        this.event_columnResize('panel22');
-        //================================================================== select event
-        this.event_input();
-        this.event_input_icon();
-        //this.event_checkBox();
-        this.event_mobileTouchDrag();
-        document.addEventListener('scroll', function (e) {
-            let panelInputList = document.querySelectorAll(selector + ' .tbs-grid-input-panel');
-            let inputList = document.querySelectorAll(selector + ' .tbs-grid-input');
-            let inputIconList = document.querySelectorAll(selector + ' .tbs-grid-input-panel-icon');
-            let inputPanelList = document.querySelectorAll(selector + ' .tbs-grid-input-layer-panel');
-            for (let i = 0; i < inputList.length; i++) {
-                let panelInput = panelInputList[i];
-                let input = inputList[i];
-                let input_icon = inputIconList[i];
-                let input_panel = inputPanelList[i];
-                input.value = '';
-                panelInput.style.left = '30000px';
-                panelInput.style.width = '0px';
-                input.dataset.rowIndex = -1;
-                input.dataset.columnIndex = -1;
-                input.dataset.mode = '';
-                input.dataset.type = '';
-                input_icon.style.display = 'none';
-                input_icon.dataset.rowIndex = -1;
-                input_icon.dataset.columnIndex = -1;
-                input_icon.dataset.mode = '';
-                input_icon.dataset.type = '';
-                input_panel.innerHTML = '';
-                input_panel.style.width = '0px';
-                input_panel.style.left = '30000px';
-                input_panel.dataset.rowIndex = -1;
-                input_panel.dataset.columnIndex = -1;
-                input_panel.dataset.mode = '';
-                input_panel.dataset.type = '';
-            }
-        });
-        const bodyMouseDownEvent = function (e) {
-            let name = e.target.className;
-            const inputPanel = document.querySelector(selector + ' .tbs-grid-input-panel');
-            const inputLayerPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
-            if (name.indexOf('tbs-grid-panel10-filter-input') != -1
-                || inputPanel.contains(e.target)
-                || inputLayerPanel.contains(e.target)
-                || name.indexOf('tbs-grid-cell-filter-input') != -1
-                || name.indexOf('tbs-grid-cell-filter-combo') != -1) {
-            }
-            else {
-                inputLayerPanel.style.left = '30000px';
-                grid.input_focus();
-            }
-        };
-        document.body.addEventListener('mousedown', bodyMouseDownEvent);
-        const mouseDownGridEvent = function (e) {
-            let name = e.target.className;
-            const inputPanel = document.querySelector(selector + ' .tbs-grid-input-panel');
-            const inputLayerPanel = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
-            if (name.indexOf('tbs-grid-panel10-filter-input') != -1
-                || inputPanel.contains(e.target)
-                || inputLayerPanel.contains(e.target)
-                || name.indexOf('tbs-grid-cell-filter-input') != -1
-                || name.indexOf('tbs-grid-cell-filter-combo') != -1) {
-            }
-            else {
-                inputLayerPanel.style.left = '30000px';
-                grid.input_focus();
-            }
-        };
-        document.querySelector(selector).addEventListener('mousedown', mouseDownGridEvent);
-        const windowResizeEvent = function (e) {
-            setTimeout(() => { grid.apply(); }, 200);
-        };
-        window.addEventListener('resize', windowResizeEvent, true);
-    }
-    event_columnSort(cell) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let column = grid.getColumn(cell.dataset.name);
-        let columnName = cell.dataset.name;
-        // * sort(▼), (▲), (■) order
-        if (cell == undefined)
-            return false;
-        let isSortable = grid.isSortableColumn(cell.dataset.name);
-        if (!isSortable)
-            return false;
-        //let sortDiv = cell.querySelector('.tbs-grid-html-sort');
-        let curSortKind = '';
-        let sortKind = '';
-        if (grid.sort_column_table.isRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name, columnName)) {
-            let dataRow = grid.sort_column_table.selectRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name, columnName);
-            curSortKind = dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.order];
-        }
-        else {
-            curSortKind = '';
-        }
-        if (curSortKind == 'desc')
-            sortKind = '';
-        else if (curSortKind == 'asc')
-            sortKind = 'desc';
-        else
-            sortKind = 'asc';
-        if (grid.sort_column_table.isRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name, columnName)) {
-            let dataRow = grid.sort_column_table.selectRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name, columnName);
-            let rowId = dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId];
-            grid.sort_column_table.updateByRowId(rowId, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.order, sortKind);
-        }
-        else {
-            let dataRow = {};
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name] = columnName;
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.order] = sortKind;
-            grid.sort_column_table.insert(dataRow);
-        }
-        let count = grid.sort_column_table.count();
-        let emptyCount = grid.sort_column_table.count('order', '');
-        if (count == emptyCount) {
-            grid.classSort.initSortData();
-        }
-        if (grid.options.showFilterPanel)
-            grid.classFilter.filters();
-        grid.classSort.getSortButtonList();
-        if (grid.group_column_table.count() > 0) {
-            grid.setData(grid.view_table.data, grid.classGroup.openDepth, false);
-        }
-        else if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .GridMode */ .G3.tree) {
-            grid.setData(grid.view_table.data, grid.classTree.openDepth, false);
-        }
-        else {
-            if (grid.isSortableColumn()) {
-                grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
-                grid.classRange.removeRange(0, -1);
-                grid.apply();
-            }
-        }
-    }
-    event_mobileTouchDrag() {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let startRowIndex, startCellIndex;
-        let lastRowIndex, lastCellIndex;
-        let xWrap = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-wrap');
-        let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
-        let xPos = { left: 0, x: 0 };
-        let yBar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
-        let yPos = { top: 0, y: 0 };
-        let actveTopRowIndex = -1;
-        const touchStartEvent = function (e) {
-            e.preventDefault();
-            document.body.style.overflow = 'hidden';
-            actveTopRowIndex = -1;
-            let col;
-            if (e.target.tagName == 'DIV') {
-                col = e.target.parentNode;
-            }
-            else if (e.target.tagName == 'SPAN') {
-                col = e.target.parentNode.parentNode;
-            }
-            else {
-                col = e.target;
-            }
-            let rowIndex = grid.classColumn.getRowIndexInTable(col.parentNode.rowIndex);
-            //grid.classRange.removeRange(0, -1);
-            //let _topRowIndex = grid.classRange.selectRange(rowIndex, rowIndex, col.cellIndex, col.cellIndex);
-            yPos.top = Number(yBar.style.top.replace('px', ''));
-            yPos.y = e.changedTouches[0].clientY;
-            xPos.left = Number(xBar.style.left.replace('px', ''));
-            xPos.x = e.changedTouches[0].clientX;
-            document.querySelector(selector + ' .tbs-grid-panel30').addEventListener('touchmove', touchMoveEvent);
-            document.querySelector(selector + ' .tbs-grid-panel30').addEventListener('touchend', touchEndEvent);
-        };
-        const touchMoveEvent = function (e) {
-            //e.stopPropagation();
-            let xMove = e.changedTouches[0].clientX - xPos.x;
-            let yMove = e.changedTouches[0].clientY - yPos.y;
-            ;
-            if (Math.abs(xMove) > Math.abs(yMove)) {
-                let left = xPos.left - xMove;
-                let xRailWidth = xWrap.clientWidth - xBar.clientWidth;
-                if (left < 0)
-                    left = 0;
-                if (left > xRailWidth)
-                    left = xRailWidth;
-                xBar.style.left = left.toString() + 'px';
-                const header = document.querySelector(selector + ' .tbs-grid-panel20');
-                let ratio = (header.childNodes[0].clientWidth - header.clientWidth) / xRailWidth;
-                let nLeft = (left * -1 * ratio).toString();
-                grid.classScroll.setContentPanelLeft(nLeft);
-                //grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
-                grid.apply();
-            }
-            else if (Math.abs(xMove) < Math.abs(yMove)) {
-                let yBarTop = yPos.top - yMove;
-                if (yBarTop < 0)
-                    yBarTop = 0;
-                if (yBarTop > grid.verticalScroll.railSize)
-                    yBarTop = grid.verticalScroll.railSize;
-                let displayTopRowIndex = Math.ceil(yBarTop * grid.verticalScroll.moveCount);
-                actveTopRowIndex = displayTopRowIndex;
-                let topRowIndex = displayTopRowIndex;
-                //console.log(`topRowIndex ${topRowIndex} / displayTopRowIndex ${displayTopRowIndex} `);
-                setTimeout(function () { grid.classScroll.setBarPosition(grid.code_vertical, displayTopRowIndex); }, 1);
-                setTimeout(function () { grid.classPanel30.setDataPanel(topRowIndex); }, 5);
-            }
-        };
-        const touchEndEvent = function (e) {
-            //e.stopPropagation();
-            let xMove = e.changedTouches[0].clientX - xPos.x;
-            let yMove = e.changedTouches[0].clientY - yPos.y;
-            let tableCell, targetName;
-            if (e.target.classList.contains('tbs-grid-html-icon')) {
-                targetName = 'icon';
-                tableCell = e.target.parentNode.parentNode;
-            }
-            else if (e.target.classList.contains('tbs-grid-html-img')) {
-                targetName = 'img';
-                tableCell = e.target.parentNode.parentNode;
-            }
-            else if (e.target.classList.contains('tbs-grid-html-string')) {
-                targetName = 'text';
-                tableCell = e.target.parentNode.parentNode;
-            }
-            else if (e.target.classList.contains('tbs-grid-cell-div')) {
-                targetName = 'div';
-                tableCell = e.target.parentNode;
-            }
-            else if (e.target.classList.contains('tbs-grid-cell')) {
-                targetName = 'cell';
-                tableCell = e.target;
-            }
-            let eventPanelName = 'panel30';
-            startCellIndex = tableCell.cellIndex;
-            lastCellIndex = startCellIndex;
-            startRowIndex = grid.classColumn.getRowIndexInTable(tableCell.parentNode.rowIndex, eventPanelName);
-            lastRowIndex = startRowIndex;
-            if (Math.abs(xMove) < 5 && Math.abs(yMove) < 5) {
-                grid.classRange.removeRange(0, -1, 0, -1);
-                let _topRowIndex = grid.classRange.selectRange(startRowIndex, startRowIndex, startCellIndex, lastCellIndex);
-                grid.apply();
-            }
-            document.querySelector(selector + ' .tbs-grid-panel30').removeEventListener('touchmove', touchMoveEvent);
-            document.querySelector(selector + ' .tbs-grid-panel30').removeEventListener('touchend', touchEndEvent);
-            document.body.style.overflow = 'auto';
-        };
-        document.querySelector(selector + ' .tbs-grid-panel30').addEventListener('touchstart', touchStartEvent, false);
-    }
-    event_columnResize(panelName) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let startX = 0; // mouse start x position
-        let movedWidth = 0; // moved width
-        let cellWidth = 0; // header cell width
-        let tableWidth = 0;
-        let initWidth = [];
-        let childList = [];
-        let tableCell, resizer;
-        let eventDetail = 0; // 1 : click (resize), 2 : dblclick(auto resize)
-        const mouseDownEvent = function (e) {
-            e.stopPropagation();
-            if (e.target.classList.contains('tbs-grid-html-resize')) {
-                tableCell = e.target.parentNode;
-                resizer = e.target;
-            }
-            else
-                return;
-            eventDetail = e.detail;
-            if (eventDetail == 1) {
-                e.stopPropagation();
-                // if (grid.options[columnAlias.resizable] == false) return;
-                let isResizable = grid.isResizableColumn(tableCell.dataset.name);
-                if (!isResizable)
-                    return;
-                startX = window.pageXOffset + e.clientX;
-                const style = window.getComputedStyle(tableCell);
-                cellWidth = parseInt(style.width, 10);
-                // @ts-ignore
-                tableWidth = parseInt(document.querySelector(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table').getBoundingClientRect().width);
-                resizer.classList.add('.tbs-grid-html-resizing');
-                if (tableCell.dataset.name == '') {
-                    let cellIndex = tableCell.cellIndex;
-                    let lastCellIndex = cellIndex + tableCell.colSpan;
-                    childList = [];
-                    initWidth = [];
-                    let thCells = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-table thead th');
-                    for (let i = cellIndex; i < lastCellIndex; i++) {
-                        let thCell = thCells[i];
-                        let width = parseInt(thCell.style.width, 10);
-                        childList.push(i); // cell index
-                        initWidth.push(width); // cell width
-                    }
-                }
-                document.addEventListener('mousemove', mouseMoveEvent);
-                document.addEventListener('mouseup', mouseUpEvent);
-            }
-            else if (eventDetail == 2) {
-                e.stopPropagation();
-                if (grid.isClassName(e.target, 'tbs-grid-html-resize') != true)
-                    return;
-                let cell = e.target.parentElement;
-                let columnName = grid.getColumnName(cell.cellIndex);
-                let isAutoResizable = grid.isAutoResizableColumn(columnName);
-                if (isAutoResizable != true)
-                    return;
-                let colIndex = cell.cellIndex + parseInt(cell.colSpan) - 1;
-                let column = grid.getColumn(columnName);
-                let firstWidth = parseInt(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.width]);
-                let maxWidth = 0;
-                let canvas = document.querySelector(selector + ' .tbs-grid-canvas').childNodes[0];
-                let fontSize = grid.getConfigFont('fontSize');
-                let fontFamilty = grid.getConfigFont('fontFamily');
-                for (let i = 0, len = grid.header_column_table.count(); i < len; i++) {
-                    let headerColumns = grid.header_column_table.data[i];
-                    if (headerColumns[colIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.kind] == 'column') {
-                        let width = parseInt(grid.getTextWidth(canvas, headerColumns[colIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.text], fontSize, fontFamilty));
-                        if (width >= maxWidth)
-                            maxWidth = width;
-                    }
-                }
-                for (let i = 0, len = grid.view_table.count(); i < len; i++) {
-                    let val = grid.getText(i, columnName);
-                    let width = parseInt(grid.getTextWidth(canvas, val, fontSize, fontFamilty));
-                    if (width >= maxWidth)
-                        maxWidth = width;
-                }
-                grid.classScroll.setColumnWidth(panelName, colIndex, maxWidth + 20); // 20 is Correction value
-                grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
-            }
-        };
-        //eventColumnResize
-        const mouseMoveEvent = function (e) {
-            if (eventDetail == 1) {
-                e.stopPropagation();
-                if (panelName == 'panel22') {
-                    movedWidth = e.clientX - startX;
-                    if (tableCell.dataset.name == '') {
-                        let count = childList.length;
-                        // @ts-ignore
-                        let moveWidth = parseInt(movedWidth / count);
-                        for (let i = 0, len = childList.length; i < len; i++) {
-                            let cellIndex = childList[i];
-                            let nWidth = (initWidth[i] + moveWidth) < 10 ? 10 : (initWidth[i] + moveWidth) + 'px';
-                            grid.classScroll.setColumnWidth(panelName, cellIndex, nWidth);
-                        }
-                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
-                    }
-                    else {
-                        let cellIndex = tableCell.cellIndex;
-                        let nWidth = ((cellWidth + movedWidth) < 10 ? 10 : (cellWidth + movedWidth)) + 'px';
-                        grid.classScroll.setColumnWidth(panelName, cellIndex, nWidth);
-                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
-                    }
-                }
-                else if (panelName == 'panel20') {
-                    movedWidth = e.clientX - startX;
-                    if (tableCell.dataset.name == '') {
-                        let count = childList.length;
-                        // @ts-ignore
-                        let moveWidth = parseInt(movedWidth / count);
-                        for (let i = 0, len = childList.length; i < len; i++) {
-                            let cellIndex = childList[i];
-                            let nWidth = (initWidth[i] + moveWidth) < 10 ? 10 : (initWidth[i] + moveWidth) + 'px';
-                            grid.classScroll.setColumnWidth(panelName, cellIndex, nWidth);
-                        }
-                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
-                    }
-                    else {
-                        let cellIndex = tableCell.cellIndex;
-                        let nWidth = ((cellWidth + movedWidth) < 10 ? 10 : (cellWidth + movedWidth)) + 'px';
-                        grid.classScroll.setColumnWidth(panelName, cellIndex, nWidth);
-                        grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
-                    }
-                }
-            }
-        };
-        //eventColumnResize
-        const mouseUpEvent = function (e) {
-            if (eventDetail == 1) {
-                e.stopPropagation();
-                resizer.classList.remove('.tbs-grid-html-resizing');
-                document.removeEventListener('mousemove', mouseMoveEvent);
-                document.removeEventListener('mouseup', mouseUpEvent);
-            }
-        };
-        const panel = document.querySelector(selector + ' .tbs-grid-' + panelName);
-        panel.addEventListener('mousedown', mouseDownEvent, false);
-    }
-    // event_checkBox() { //type : header, content
-    //     let selector = '#' + this.gridId;
-    //     const grid = this;
-    //     const checkDowntEvent = function(e) {
-    //         if (e.target.tagName == 'INPUT') {
-    //             let tr = e.target.parentNode.parentNode.parentNode;
-    //             let rowIndex = parseInt(tr.childNodes[0].childNodes[0].textContent) - 1;
-    //
-    //             if (e.target.checked) grid.view_table.updateByRowIndex(rowIndex, columnAlias.isChecked, false);
-    //             else grid.view_table.updateByRowIndex(rowIndex, columnAlias.isChecked, true);
-    //         }
-    //     }
-    //     document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').addEventListener('mousedown', checkDowntEvent, false);
-    // }
-    event_wheel() {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let xScroll = document.querySelector(selector + ' .tbs-grid-horizontal-scroll');
-        let yScroll = document.querySelector(selector + ' .tbs-grid-vertical-scroll');
-        const mouseWheelEvent = function (e) {
-            grid.editEnd();
-            if (yScroll.style.display == '') {
-                if (e.deltaY > 0) {
-                    e.preventDefault();
-                    e.returnValue = false;
-                    grid.classScroll.setBarPositionByDirection('down');
-                }
-                else if (e.deltaY < 0) {
-                    e.preventDefault();
-                    e.returnValue = false;
-                    grid.classScroll.setBarPositionByDirection('up');
-                }
-            }
-            else if (xScroll.style.display == '') {
-                if (e.deltaY > 0) {
-                    e.preventDefault();
-                    e.returnValue = false;
-                    //grid.classScroll.setBarPositionByDirection('right');
-                }
-                if (e.deltaY < 0) {
-                    e.preventDefault();
-                    e.returnValue = false;
-                    //this.classScroll.setBarPositionByDirection('left');
-                }
-            }
-        };
-        document.querySelector(selector).addEventListener('wheel', mouseWheelEvent);
-    }
-    event_scrollButton() {
-        //mouse wheel event
-        //onmousedown -> onmouseup -> click
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let leftButton = document.querySelector(selector + ' .tbs-grid-horizontal-scroll .tbs-grid-horizontal-scroll-left');
-        let rightButton = document.querySelector(selector + ' .tbs-grid-horizontal-scroll .tbs-grid-horizontal-scroll-right');
-        let upButton = document.querySelector(selector + ' .tbs-grid-vertical-scroll .tbs-grid-vertical-scroll-up');
-        let downButton = document.querySelector(selector + ' .tbs-grid-vertical-scroll .tbs-grid-vertical-scroll-down');
-        let flag = false;
-        //-----------------------------------------------------------------
-        const leftButtonMouseDownEvent = function (e) {
-            document.addEventListener('mouseup', leftButtonMouseUpEvent);
-            flag = true;
-            doInterval('left');
-        };
-        const leftButtonMouseUpEvent = function (e) {
-            flag = false;
-            document.removeEventListener('mouseup', leftButtonMouseUpEvent);
-        };
-        //-----------------------------------------------------------------
-        const rightButtonMouseDownEvent = function (e) {
-            document.addEventListener('mouseup', rightButtonMouseUpEvent);
-            flag = true;
-            doInterval('right');
-        };
-        const rightButtonMouseUpEvent = function (e) {
-            flag = false;
-            document.removeEventListener('mouseup', rightButtonMouseUpEvent);
-        };
-        //-----------------------------------------------------------------
-        const upButtonMouseDownEvent = function (e) {
-            document.addEventListener('mouseup', upButtonMouseUpEvent);
-            flag = true;
-            doInterval('up');
-        };
-        const upButtonMouseUpEvent = function (e) {
-            flag = false;
-            document.removeEventListener('mouseup', upButtonMouseUpEvent);
-        };
-        //-----------------------------------------------------------------
-        const downButtonMouseDownEvent = function (e) {
-            document.addEventListener('mouseup', downButtonMouseUpEvent);
-            flag = true;
-            doInterval('down');
-        };
-        const downButtonMouseUpEvent = function (e) {
-            flag = false;
-            document.removeEventListener('mouseup', downButtonMouseUpEvent);
-        };
-        //-----------------------------------------------------------------
-        leftButton.addEventListener('mousedown', leftButtonMouseDownEvent);
-        rightButton.addEventListener('mousedown', rightButtonMouseDownEvent);
-        upButton.addEventListener('mousedown', upButtonMouseDownEvent);
-        downButton.addEventListener('mousedown', downButtonMouseDownEvent);
-        function doInterval(type) {
-            if (flag) {
-                setTimeout(function () { doInterval(type); }, 500);
-                grid.classScroll.setBarPositionByDirection(type);
-            }
-        }
-    }
-    event_railClick() {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        const xWrapClickEvent = function (e) {
-            let bar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
-            let left = parseInt(bar.style.left.replace('px', ''));
-            if (isNaN(left))
-                left = 0;
-            let barSize = grid.horizontalScroll.barSize;
-            if (e.offsetX >= left && e.offsetX <= (left + barSize))
-                return;
-            if (e.target.className != 'tbs-grid-horizontal-scroll-bar') {
-                if (e.offsetX > left) {
-                    let move = e.offsetX - (left + barSize);
-                    bar.style.left = (left + move) + 'px';
-                }
-                if (e.offsetX < left) {
-                    let move = e.offsetX;
-                    bar.style.left = (e.offsetX) + 'px';
-                }
-                let movedLeft = grid.classScroll.getContentPanelLeft(bar.style.left);
-                grid.classScroll.setContentPanelLeft(movedLeft);
-                grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
-            }
-        };
-        const yWrapClickEvent = function (e) {
-            let bar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
-            let top = bar.style.top != '' ? parseInt(bar.style.top, 10) : 0;
-            let barSize = grid.verticalScroll.barSize;
-            if (e.offsetY >= top && e.offsetY <= (top + barSize))
-                return;
-            if (e.target.className != 'tbs-grid-vertical-scroll-bar') {
-                if (e.offsetY > top) {
-                    let move = e.offsetY - (top + barSize);
-                    bar.style.top = (top + move) + 'px';
-                }
-                else if (e.offsetY < top) {
-                    let move = e.offsetY;
-                    bar.style.top = e.offsetY + 'px';
-                }
-                // let topRowIndex = grid.getFirstRowIndex('panel30');
-                // if (grid.isLastRowIndex(topRowIndex)) bar.style.top = grid.verticalScroll.railSize + 'px';
-                e = null;
-                let moveCount = grid.verticalScroll.moveCount;
-                /*
-                @issue : parseInt(bar.style.top, 10) * moveCount < 0, topRowIndex always is 0.
-                7 * 0.063 = 0.48  ceil => yMovecount.
-            */
-                let trTopIndex = Math.ceil(parseInt(bar.style.top, 10) * moveCount);
-                bar = null;
-                grid.classPanel30.setDataPanel(trTopIndex);
-            }
-        };
-        //-----------------------------------------------------------------
-        document.querySelector(selector + ' .tbs-grid-horizontal-scroll .tbs-grid-horizontal-scroll-wrap').addEventListener('click', xWrapClickEvent);
-        document.querySelector(selector + ' .tbs-grid-vertical-scroll   .tbs-grid-vertical-scroll-wrap').addEventListener('click', yWrapClickEvent);
-    }
-    event_dragScrollBar() {
-        // function : drag scroll bar
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let xWrap = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-wrap');
-        let xBar = document.querySelector(selector + ' .tbs-grid-horizontal-scroll-bar');
-        let xPos = { left: 0, x: 0 };
-        //== x scroll
-        const xMouseDownEvent = function (e) {
-            grid.editEnd();
-            e.stopPropagation();
-            if (e.target.className != 'tbs-grid-horizontal-scroll-bar')
-                return;
-            xPos.left = Number(xBar.style.left.replace('px', ''));
-            xPos.x = e.clientX;
-            document.addEventListener('mousemove', xMouseMoveEvent);
-            document.addEventListener('mouseup', xMouseUpEvent);
-        };
-        const xMouseMoveEvent = function (e) {
-            //e.preventDefault();	// next stop
-            //e.stopPropagation();	// up stop
-            let xMove = e.clientX - xPos.x;
-            let left = xPos.left + xMove;
-            let xRailWidth = xWrap.clientWidth - xBar.clientWidth;
-            if (left < 0)
-                left = 0;
-            if (left > xRailWidth)
-                left = xRailWidth;
-            xBar.style.left = left.toString() + 'px';
-            let header = document.querySelector(selector + ' .tbs-grid-panel20');
-            let content = document.querySelector(selector + ' .tbs-grid-panel30');
-            let sum = document.querySelector(selector + ' .tbs-grid-panel40');
-            let footer = document.querySelector(selector + ' .tbs-grid-panel50');
-            let ratio = (header.childNodes[0].clientWidth - header.clientWidth) / xRailWidth;
-            grid.classScroll.setContentPanelLeft((left * -1 * ratio).toString());
-            grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
-        };
-        const xMouseUpEvent = function (e) {
-            document.removeEventListener('mousemove', xMouseMoveEvent);
-            document.removeEventListener('mouseup', xMouseUpEvent);
-        };
-        xBar.addEventListener('mousedown', xMouseDownEvent, false);
-        //== y scroll
-        const yBar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
-        const yPos = { top: 0, y: 0 };
-        let actveTopRowIndex = -1;
-        const yMouseDownEvent = function (e) {
-            grid.editEnd();
-            e.stopPropagation();
-            actveTopRowIndex = -1;
-            if (e.target.className != 'tbs-grid-vertical-scroll-bar')
-                return;
-            const yBar = document.querySelector(selector + ' .tbs-grid-vertical-scroll-bar');
-            if (grid.empty(yBar.style.top))
-                yPos.top = 0;
-            else
-                yPos.top = parseInt(yBar.style.top, 10);
-            yPos.y = e.clientY;
-            document.addEventListener('mousemove', yMouseMoveEvent);
-            document.addEventListener('mouseup', yMouseUpEvent);
-        };
-        const yMouseMoveEvent = function (e) {
-            let yBarTop = yPos.top + e.clientY - yPos.y;
-            if (yBarTop < 0)
-                yBarTop = 0;
-            else if (yBarTop >= grid.verticalScroll.railSize)
-                yBarTop = grid.verticalScroll.railSize;
-            let topRowIndex = Math.ceil(yBarTop * grid.verticalScroll.moveCount);
-            if (yBarTop >= grid.verticalScroll.railSize)
-                topRowIndex = grid.view_table.count() - grid.pageIntRowCount;
-            //console.log(`topRowIndex ${topRowIndex} / yBarTop ${yBarTop} / railSize ${grid.verticalScroll.railSize} `);
-            setTimeout(() => { grid.classScroll.setBarPosition(grid.code_vertical, topRowIndex); }, 10);
-            setTimeout(() => { grid.classPanel30.setDataPanel(topRowIndex); }, 50);
-        };
-        const yMouseUpEvent = function (e) {
-            e.stopPropagation();
-            document.removeEventListener('mousemove', yMouseMoveEvent);
-            document.removeEventListener('mouseup', yMouseUpEvent);
-        };
-        yBar.addEventListener('mousedown', yMouseDownEvent, false);
-    }
-    tbs_moveCellLine(cell, rowIndex, cellIndex) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let input = document.querySelector(selector + ' .tbs-grid-input');
-        let cellRect = cell.getBoundingClientRect();
-        let content = document.querySelector(selector + ' .tbs-grid-panel30');
-        let contentRect = content.getBoundingClientRect();
-        let table = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-        //let tableRect = table.getBoundingClientRect();
-        if (cellRect.left < contentRect.left) {
-            let value = contentRect.left - cellRect.left;
-            grid.classScroll.setContentPanelLeftMove(value);
-            grid.classScroll.setBarPosition(grid.code_horizontal);
-        }
-        else if (cellRect.right > contentRect.right) {
-            let value = contentRect.right - cellRect.right;
-            grid.classScroll.setContentPanelLeftMove(value);
-            grid.classScroll.setBarPosition(grid.code_horizontal);
-        }
-        grid.classRange.removeRange(0, -1);
-        let _topRowIndex = grid.classRange.selectRange(rowIndex, rowIndex, cellIndex, cellIndex);
-        grid.classPanel30.setDataPanel(_topRowIndex);
-    }
-    isMovedPositionInConstRange(startX, startY, lastX, lastY) {
-        let movedX = Math.abs(startX - lastX);
-        let movedY = Math.abs(startY - lastY);
-        return (movedX < this.mousePointRange && movedY < this.mousePointRange);
-    }
-    tbs_executeEvent(isUserFunction, eventType, param) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let e = null;
-        let mode = null;
-        let rowIndex = null;
-        let cellIndex = null;
-        let element = null;
-        if (eventType == 'rowBounding') {
-            element = param.element;
-            rowIndex = param.rowIndex;
-            const eventRow = {};
-            eventRow.rowIndex = rowIndex;
-            eventRow.data = grid.getRow(rowIndex);
-            if (grid.notNull(grid.rowBounding)) {
-                let flag = grid.rowBounding(grid, element, eventRow);
-            } //user function call
-        }
-        else if (eventType == 'click' || eventType == 'dblclick') {
-            e = param.e;
-            mode = param.mode; //mouse, key
-            rowIndex = param.rowIndex;
-            cellIndex = param.cellIndex;
-            let column = grid.getColumnByIndex(cellIndex);
-            let columnName = grid.getColumnName(cellIndex);
-            let value = grid.getValue(rowIndex, columnName);
-            let text = grid.getText(rowIndex, columnName);
-            const eventRow = {};
-            eventRow.rowIndex = rowIndex;
-            eventRow.columnIndex = cellIndex;
-            eventRow.columnName = columnName;
-            eventRow.value = value;
-            eventRow.text = text;
-            eventRow.data = grid.getRow(rowIndex);
-            if (eventType == 'click') {
-                if (grid.notNull(grid.click)) {
-                    let flag = grid.click(grid, eventRow);
-                } //user function call
-            }
-            else if (eventType == 'dblclick') {
-                if (grid.notNull(grid.dblclick)) {
-                    let flag = grid.dblclick(grid, eventRow);
-                } //user function call
-            }
-        }
-    }
-    getOffset(el) {
-        let _x = 0;
-        let _y = 0;
-        while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-            _x += el.offsetLeft - el.scrollLeft;
-            _y += el.offsetTop - el.scrollTop;
-            el = el.offsetParent;
-        }
-        return { top: _y, left: _x };
-    }
-    tbs_moveNextRowCell(type) {
-        //tbs_moveNextRowCell: none use => need to improve
-        //type : left, right, up, down
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let rowIndex = -1;
-        let cellIndex = -1;
-        let trList = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display:"])');
-        let td = document.querySelector(selector + ' .tbs-grid-cell-start');
-        if (td == null)
-            return;
-        let tableRowIndex = td.parentNode.rowIndex;
-        let dataRowIndex = this.classColumn.getRowIndexInTable(tableRowIndex);
-        cellIndex = td.cellIndex;
-        if (cellIndex == this.column_table.count() - 1 && dataRowIndex < this.view_table.count() - 1) {
-            this.classRange.removeRange(0, -1);
-            let _topRowIndex = this.classRange.selectRange(dataRowIndex + 1, dataRowIndex + 1, 0, 0);
-            this.classPanel30.setDataPanel(_topRowIndex);
-            let topRowIndex = this.getFirstRowIndex();
-            let lastRowIndex = this.getLastRowIndex();
-            let movedLeft = grid.classScroll.getContentPanelLeft(0);
-            grid.classScroll.setContentPanelLeft(movedLeft);
-            if (dataRowIndex == lastRowIndex - 1)
-                this.classPanel30.setDataPanel(topRowIndex + 1);
-            let input = document.querySelector(selector + ' .tbs-grid-input');
-            this.input_focus();
-        }
-        else {
-            this.tbs_moveCell(type);
-            let topRowIndex = this.getFirstRowIndex();
-            let movedLeft = grid.classScroll.getContentPanelLeft(0);
-            grid.classScroll.setContentPanelLeft(movedLeft);
-            grid.classScroll.setBarPosition(grid.code_vertical, topRowIndex);
-            let input = document.querySelector(selector + ' .tbs-grid-input');
-            this.input_focus();
-        }
-    }
-    tbs_moveCell(type) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-        let cellIndex = -1;
-        let tableRows = document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-table tbody tr:not([style*="display: none"])');
-        let tableRowIndex, dataRowIndex;
-        let tableCell = document.querySelector(selector + ' .tbs-grid-cell-start');
-        if (grid.null(tableCell))
-            return;
-        tableRowIndex = parseInt(tableCell.parentNode.rowIndex);
-        dataRowIndex = parseInt(tableCell.parentNode.dataset.rowIndex); //dataRowIndex
-        cellIndex = tableCell.cellIndex;
-        if (type == 'left') {
-            let startCellIndex = cellIndex;
-            cellIndex = cellIndex - 1;
-            for (let i = cellIndex; i >= 0; i--) {
-                let column = this.column_table.data[i];
-                if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.visible] == false)
-                    cellIndex -= 1;
-                else
-                    break;
-            }
-            if (cellIndex < 0 || this.column_table.data[cellIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.visible] == false) {
-                grid.classRange.removeRange(0, -1);
-                let _topRowIndex = grid.classRange.selectRange(dataRowIndex, dataRowIndex, startCellIndex, startCellIndex);
-                grid.classPanel30.setDataPanel(_topRowIndex);
-                return;
-            }
-            let tableRow = tableRows[tableRowIndex - 1];
-            let left1 = window.pageYOffset + tableRow.childNodes[cellIndex].getBoundingClientRect().left;
-            let divContent = document.querySelector(selector + ' .tbs-grid-panel30');
-            let left2 = window.pageYOffset + divContent.getBoundingClientRect().left;
-            if (left1 < left2) {
-                let moveWidth = left2 - left1;
-                let table20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
-                let table30 = document.querySelector(selector + ' .tbs-grid-panel30 .tbs-grid-table');
-                let hiddenSize = this.horizontalScroll.hiddenSize;
-                let curLeft = Math.abs(parseInt(table20.style.left.replace('px', '')));
-                let sLeft;
-                if (curLeft - moveWidth < 0)
-                    sLeft = 0 + 'px';
-                else
-                    sLeft = -1 * curLeft + moveWidth + 'px';
-                grid.classScroll.setContentPanelLeft(sLeft);
-                grid.classScroll.setBarPosition(grid.code_horizontal);
-            }
-            grid.classRange.removeRange(0, -1);
-            let _topRowIndex = grid.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-            grid.classPanel30.setDataPanel(_topRowIndex);
-        }
-        else if (type == 'right') {
-            let startCellIndex = cellIndex;
-            cellIndex = cellIndex + 1;
-            for (let i = cellIndex, len = this.column_table.count(); i < len; i++) {
-                let column = this.column_table.data[i];
-                if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.visible] == false)
-                    cellIndex += 1;
-                else
-                    break;
-            }
-            if (cellIndex >= this.column_table.count())
-                cellIndex = startCellIndex;
-            let tableRow = tableRows[tableRowIndex - 1];
-            let right1 = window.pageYOffset + tableRow.childNodes[cellIndex].getBoundingClientRect().right;
-            let panel30 = document.querySelector(selector + ' .tbs-grid-panel30');
-            let right2 = window.pageYOffset + panel30.getBoundingClientRect().right;
-            if (right1 > right2) {
-                let moveWidth = right1 - right2;
-                let table20 = document.querySelector(selector + ' .tbs-grid-panel20 .tbs-grid-table');
-                let hiddenSize = this.horizontalScroll.hiddenSize;
-                let curLeft = Math.abs(parseInt(table20.style.left.replace('px', '')));
-                let sLeft;
-                if (curLeft + moveWidth > hiddenSize)
-                    sLeft = -1 * hiddenSize + 'px';
-                else
-                    sLeft = table20.style.left.replace('px', '') - moveWidth + 'px';
-                grid.classScroll.setContentPanelLeft(sLeft);
-                grid.classScroll.setBarPosition(grid.code_horizontal);
-            }
-            this.classRange.removeRange(0, -1);
-            let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-            this.classPanel30.setDataPanel(_topRowIndex);
-        }
-        else if (type == 'up') {
-            dataRowIndex -= 1;
-            let topRowIndex = this.getFirstRowIndex();
-            if (topRowIndex < 0)
-                topRowIndex = 0;
-            if (dataRowIndex < 0)
-                dataRowIndex = 0;
-            if (topRowIndex <= dataRowIndex) {
-                this.classRange.removeRange(0, -1);
-                let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-                this.classPanel30.setDataPanel(_topRowIndex);
-            }
-            else {
-                this.classRange.removeRange(0, -1);
-                let rowIndex = this.classScroll.setBarPositionByDirection('up');
-                this.displayOneSelection(rowIndex, cellIndex);
-            }
-        }
-        else if (type == 'down') {
-            let topRowIndex = this.getFirstRowIndex();
-            let lastRowIndex = this.getLastRowIndex();
-            if (this.pageRowCount > this.pageIntRowCount) {
-                if (tableRows.length == this.pageRowCount) {
-                    if (dataRowIndex == lastRowIndex) {
-                        if (dataRowIndex == this.view_table.count() - 1) {
-                            this.classRange.removeRange(0, -1);
-                            this.classScroll.setBarPositionByDirection('down', topRowIndex + 1);
-                            this.displayOneSelection(dataRowIndex, cellIndex);
-                        }
-                        else {
-                            dataRowIndex += 1;
-                            this.classRange.removeRange(0, -1);
-                            this.classScroll.setBarPositionByDirection('down', topRowIndex + 2);
-                            this.displayOneSelection(dataRowIndex, cellIndex);
-                        }
-                    }
-                    else if (dataRowIndex == lastRowIndex - 1) {
-                        dataRowIndex += 1;
-                        this.classRange.removeRange(0, -1);
-                        this.classScroll.setBarPositionByDirection('down', topRowIndex + 1);
-                        this.displayOneSelection(dataRowIndex, cellIndex);
-                    }
-                    else {
-                        dataRowIndex += 1;
-                        this.classRange.removeRange(0, -1);
-                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-                        this.classPanel30.setDataPanel(_topRowIndex);
-                    }
-                }
-                else {
-                    if (dataRowIndex == lastRowIndex) {
-                        this.classRange.removeRange(0, -1);
-                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-                        this.classPanel30.setDataPanel(_topRowIndex);
-                    }
-                    else {
-                        dataRowIndex += 1;
-                        this.classRange.removeRange(0, -1);
-                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-                        this.classPanel30.setDataPanel(_topRowIndex);
-                    }
-                }
-            }
-            else {
-                if (tableRows.length == this.pageRowCount) {
-                    if (dataRowIndex == lastRowIndex) {
-                        if (dataRowIndex == this.view_table.count() - 1) {
-                            this.classRange.removeRange(0, -1);
-                            let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-                            this.classPanel30.setDataPanel(_topRowIndex);
-                        }
-                        else {
-                            dataRowIndex += 1;
-                            this.classRange.removeRange(0, -1);
-                            this.classScroll.setBarPositionByDirection('down');
-                            this.displayOneSelection(dataRowIndex, cellIndex);
-                        }
-                    }
-                    else {
-                        dataRowIndex += 1;
-                        this.classRange.removeRange(0, -1);
-                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-                        this.classPanel30.setDataPanel(_topRowIndex);
-                    }
-                }
-                else {
-                    if (dataRowIndex == lastRowIndex) {
-                        this.classRange.removeRange(0, -1);
-                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-                        this.classPanel30.setDataPanel(_topRowIndex);
-                    }
-                    else {
-                        dataRowIndex += 1;
-                        this.classRange.removeRange(0, -1);
-                        let _topRowIndex = this.classRange.selectRange(dataRowIndex, dataRowIndex, cellIndex, cellIndex);
-                        this.classPanel30.setDataPanel(_topRowIndex);
-                    }
-                }
-            }
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////
     getUserImageRoot(columnName) {
         let result = this.gridConfigOptions['userImageRoot'];
         if (this.notNull(this.renderer) && this.notNull(this.renderer[columnName])) {
@@ -14335,13 +14396,13 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         let result = {};
         result.value = value;
         result.text = value;
-        let colType = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.type];
-        let format = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.format];
-        if (colType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .CellType */ .vZ.number) {
+        let colType = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.type];
+        let format = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.format];
+        if (colType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .CellType */ .vZ.number) {
             result = this.getFormatNumber(column, value);
-            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.visible] == false
-                || (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.showZero] == false && Number(result.value) == 0)) {
-                result.text = this.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .optionAlias */ .s1.zeroChar];
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.visible] == false
+                || (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.showZero] == false && Number(result.value) == 0)) {
+                result.text = this.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .optionAlias */ .s1.zeroChar];
             }
             return result;
         }
@@ -14351,8 +14412,8 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
                 result.text = '';
                 return result;
             }
-            if (colType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .CellType */ .vZ.combo) {
-                const data = grid.renderer[column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name]].data;
+            if (colType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .CellType */ .vZ.combo) {
+                const data = grid.renderer[column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.name]].data;
                 let key = data.valueName;
                 let val = data.textName;
                 for (let i = 0, len = data.rows.length; i < len; i++) {
@@ -14391,22 +14452,22 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         else if (grid.substr2(value.toString(), 0, 1) == '.')
             result.value = '0'; //php 0.1 => .1
         else {
-            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.currencyChar])
-                value = value.toString().replace(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.currencyChar], '');
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.currencyChar])
+                value = value.toString().replace(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.currencyChar], '');
             result.value = value.toString().replace(/,/gi, '');
         }
         if (grid.null(result.value)) {
-            result.text = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .optionAlias */ .s1.zeroChar];
+            result.text = grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .optionAlias */ .s1.zeroChar];
             return result;
         }
         result.text = result.value;
-        let type = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.type];
-        let scale = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.scale];
+        let type = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.type];
+        let scale = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.scale];
         let arr = scale.split(',');
         let decimalPoint = (arr.length > 1) ? this.trim(arr[1]) : '0';
         if (decimalPoint == '')
             decimalPoint = '0';
-        let roundType = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.roundType];
+        let roundType = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.roundType];
         let n = (result.value == undefined || result.value == '') ? '0' : result.value.toString(); //전체값
         let dpLen = 0; //decimal length
         if (decimalPoint == '0') {
@@ -14423,16 +14484,16 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
             else { // @ts-ignore
                 parseFloat(this.round(n, dpLen));
             }
-            result.text = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.commaUnit] == '0' ? n : formatWon(n);
+            result.text = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.commaUnit] == '0' ? n : formatWon(n);
         }
         else if (decimalPoint != '0') {
             result.text = formatWon(parseFloat(n));
-            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.fixedScale]) {
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.fixedScale]) {
                 dpLen = parseInt(decimalPoint);
                 n = (roundType == 'ceil') ? this.ceil(n, dpLen).toFixed(dpLen)
                     : (roundType == 'floor') ? this.floor(n, dpLen).toFixed(dpLen)
                         : this.round(n, dpLen).toFixed(dpLen);
-                result.text = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.commaUnit] == '0' ? n : formatWon(n);
+                result.text = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.commaUnit] == '0' ? n : formatWon(n);
             }
             else {
                 dpLen = parseInt(decimalPoint);
@@ -14448,18 +14509,18 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
                 // n =   (roundType == 'ceil')  ? parseFloat(this.ceil(n, dpLen))
                 //     : (roundType == 'floor') ? parseFloat(this.floor(n, dpLen))
                 //         : parseFloat(this.round(n, dpLen));
-                result.text = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.commaUnit] == '0' ? n : formatWon(n);
+                result.text = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.commaUnit] == '0' ? n : formatWon(n);
             }
         }
         if (result.text == '0') {
-            if (grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .optionAlias */ .s1.zeroChar] != '')
-                result.text = _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .optionAlias */ .s1.zeroChar;
+            if (grid.options[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .optionAlias */ .s1.zeroChar] != '')
+                result.text = _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .optionAlias */ .s1.zeroChar;
         }
         let regExp = new RegExp('', 'gi');
-        result.text = result.text.replaceAll(',', column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.thousandChar]);
-        result.text = result.text.replaceAll('.', column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.decimalChar]);
-        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.currencyChar])
-            result.text = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.currencyChar] + result.text;
+        result.text = result.text.replaceAll(',', column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.thousandChar]);
+        result.text = result.text.replaceAll('.', column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.decimalChar]);
+        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.currencyChar])
+            result.text = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.currencyChar] + result.text;
         return result;
     }
     getFormatDate(column, value) {
@@ -14476,7 +14537,7 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
             result.text = '';
             return result;
         }
-        let format = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.format];
+        let format = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.format];
         // date char : . - /
         let formatText = format.replace(/\./gi, '');
         formatText = formatText.replace(/\-/gi, '');
@@ -14596,12 +14657,12 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         //grid.showToolbarPanel = (toolbar.visible != undefined) ? grid.options.showToolbarPanel = toolbar.visible : grid.options.showToolbarPanel;
     }
     setDataColumns(columns) {
-        columns.map(column => {
-            const dataRow = {};
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name] = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name];
-            dataRow[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.dataType] = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.dataType];
-            this.field_table.insert(dataRow);
-        });
+        // columns.map(column => {
+        //     const dataRow = {}
+        //     dataRow[columnAlias.name] = column[columnAlias.name];
+        //     dataRow[columnAlias.dataType] = column[columnAlias.dataType];
+        //     this.field_table.insert(dataRow);
+        // });
     }
     setGrid(columns, options = {}) {
         const grid = this;
@@ -14670,8 +14731,8 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         let fontFamilty = grid.getConfigFont('fontFamily');
         for (let i = 0, len = grid.header_column_table.data.length; i < len; i++) {
             for (let x = 0, len2 = grid.column_table.count(); x < len2; x++) {
-                if (grid.header_column_table.data[i][x][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.kind] == 'column') {
-                    let width = parseInt(grid.getTextWidth(canvas, grid.header_column_table.data[i][x][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.text], fontSize, fontFamilty));
+                if (grid.header_column_table.data[i][x][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.kind] == 'column') {
+                    let width = parseInt(grid.getTextWidth(canvas, grid.header_column_table.data[i][x][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.text], fontSize, fontFamilty));
                     if (width >= arr[x]) {
                         arr[x] = width;
                     }
@@ -14755,7 +14816,7 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         const grid = this;
         if (grid.group_column_table.count() > 0)
             grid.classGroup.setGroupData(data, openDepth, isFirst);
-        else if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .GridMode */ .G3.tree)
+        else if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .GridMode */ .G3.tree)
             grid.classTree.setTreeData(data, openDepth, isFirst);
         else
             grid.setGridData(data, isFirst);
@@ -14764,15 +14825,15 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         let selector = '#' + this.gridId;
         const grid = this;
         grid.grid_mode = grid.trim(gridMode);
-        if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .GridMode */ .G3.page) {
+        if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .GridMode */ .G3.page) {
             grid.classPanel10.hideToolbarButtons('group');
             grid.setGridModePage();
         }
-        else if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .GridMode */ .G3.pagination) {
+        else if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .GridMode */ .G3.pagination) {
             grid.classPanel10.hideToolbarButtons('group');
             grid.setGridModePagenation();
         }
-        else if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .GridMode */ .G3.tree) { }
+        else if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .GridMode */ .G3.tree) { }
     }
     setGridData(data, isFirst) {
         let selector = '#' + this.gridId;
@@ -14794,18 +14855,18 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
             const columns = grid.column_table.selectRows();
             for (let x = 0, len = columns.length; x < len; x++) {
                 const column = columns[x];
-                let columnName = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name];
+                let columnName = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.name];
                 source[columnName] = this.null(dataRow[columnName]) ? null : this.getFormatValue(column, dataRow[columnName]);
             }
-            const dataColumns = grid.field_table.selectRows();
-            for (let x = 0, len = dataColumns.length; x < len; x++) {
-                const column = dataColumns[x];
-                let columnName = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name];
-                source[columnName] = dataRow[columnName];
-            }
+            // const dataColumns: any[] = grid.field_table.selectRows();
+            // for (let x = 0, len = dataColumns.length; x < len; x++) {
+            //     const column = dataColumns[x];
+            //     let columnName  = column[columnAlias.name];
+            //     source[columnName] = dataRow[columnName];
+            // }
             this.source_table.insert(source);
             this.view_table.insert(grid.copyJson(source));
-            if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .GridMode */ .G3.page)
+            if (grid.grid_mode == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .GridMode */ .G3.page)
                 this.page_table.insert(grid.copyJson(source));
         }
         /* create top_data */
@@ -14840,12 +14901,12 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
             let itemSelect = {};
             let itemLeftSelect = {};
             let itemLeftView = {};
-            itemSelect[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId] = data[rowIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId];
+            itemSelect[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId] = data[rowIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId];
             itemSelect = new Uint8ClampedArray([]); //new
-            itemLeftView[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode] = ''; //insert, update, delete
-            itemLeftView[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId] = data[rowIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId];
-            itemLeftSelect[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode] = 0; //insert, update, delete
-            itemLeftSelect[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId] = data[rowIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId];
+            itemLeftView[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode] = ''; //insert, update, delete
+            itemLeftView[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId] = data[rowIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId];
+            itemLeftSelect[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode] = 0; //insert, update, delete
+            itemLeftSelect[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId] = data[rowIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId];
             this.data_select_panel30.push(itemSelect);
             this.data_select_panel31.push(itemLeftSelect);
         }
@@ -14855,11 +14916,11 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
     /**
      * Columns API.
      */
-    getColumn(name, table) { return this.isNull(table, this.column_table).selectRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name, name); }
+    getColumn(name, table) { return this.isNull(table, this.column_table).selectRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.name, name); }
     getColumns(table) { return this.isNull(table, this.column_table).select(); }
     getColumnByIndex(columnIndex, table) { return this.isNull(table, this.column_table).selectRowByRowIndex(columnIndex); }
-    getColumnName(columnIndex, table) { return this.isNull(table, this.column_table).selectValue(columnIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name); }
-    getColumnIndex(columnName, table) { return this.isNull(table, this.column_table).selectRowIndex(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name, columnName); }
+    getColumnName(columnIndex, table) { return this.isNull(table, this.column_table).selectValue(columnIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.name); }
+    getColumnIndex(columnName, table) { return this.isNull(table, this.column_table).selectRowIndex(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.name, columnName); }
     setColumn(columnName, property, value, table) { this.isNull(table, this.column_table).updateRow(columnName, property, value); }
     /**
      * Filter Columns
@@ -14929,30 +14990,6 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
             bottomRowIndex = this.getRowCount() - 1;
         return bottomRowIndex;
     }
-    createRow(row) {
-        // let selector = '#' + this.gridId;
-        // const grid = this;
-        //
-        // let columns = this.column_table.data;
-        // this.maxRowId = this.maxRowId + 1;
-        // let rowId = this.maxRowId;
-        //
-        // const source: any = {};
-        // source[columnAlias.rowId] = rowId;
-        // source[columnAlias.rowMode] = 'I';
-        //
-        // const view: any = {};
-        // view[columnAlias.rowId] = rowId;
-        // view[columnAlias.rowMode] = 'I';
-        //
-        // for (let i = 0, len = columns.length; i < len; i++) {
-        //     let column = columns[i];
-        //     let columnName = column[columnAlias.name];
-        //     source[columnName] = this.null(row[columnName]) ? null : row[columnName];
-        //     view[columnName]   = this.null(row[columnName]) ? null : row[columnName];
-        // }
-        // return { source : source, view : view };
-    }
     /**
      * view table rows
      */
@@ -14961,7 +14998,7 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
     getRows(startRowIndex, endRowIndex, table) { return this.isNull(table, this.view_table).selectRowRange(startRowIndex, endRowIndex); }
     getRowByRowId(rowId, table) { return this.isNull(table, this.view_table).selectRowByRowId(rowId); }
     getRowIndexByRowId(rowId, table) { return this.isNull(table, this.view_table).selectRowIndexByRowId(rowId); }
-    getCheckedRows() { return this.view_table.selectRows(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.isChecked, true); }
+    getCheckedRows() { return this.view_table.selectRows(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.isChecked, true); }
     getSelectedRows() {
         const result = [];
         for (let i = 0, len = this.view_table.count(); i < len; i++) {
@@ -14971,7 +15008,7 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         return result;
     }
     getSelectedRowsIndexArray() {
-        let result = [];
+        const result = [];
         for (let rowIndex = 0, len = this.view_table.count(); rowIndex < len; rowIndex++) {
             if (this.isSelectedCell31(rowIndex, 0) == 1)
                 result.push(rowIndex);
@@ -15000,8 +15037,8 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         for (let i = 0, len = rows.length; i < len; i++) {
             let row = rows[i];
             let item = JSON.parse(JSON.stringify(row));
-            item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId];
-            item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode];
+            item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId];
+            item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode];
             result.push(item);
         }
         return result;
@@ -15013,8 +15050,8 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
             let row = rows[i];
             if (row.mode == 'U') {
                 let item = JSON.parse(JSON.stringify(row));
-                item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId];
-                item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode];
+                item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId];
+                item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode];
                 result.push(item);
             }
         }
@@ -15025,173 +15062,109 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         let result = [];
         for (let i = 0, len = rows.length; i < len; i++) {
             let row = rows[i];
-            if (row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode] == 'I') {
+            if (row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode] == 'I') {
                 let item = JSON.parse(JSON.stringify(row));
-                item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId];
-                item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode];
+                item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId];
+                item[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode] = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode];
                 result.push(item);
             }
         }
         return result;
     }
-    addRow(row, type = 'bottom') {
-        // //type : top, bottom, up, down
-        // let selector = '#' + this.gridId;
-        // const grid = this;
-        //
-        // let columns = this.column_table.data;
-        // let rowId = this.maxRowId + 1;
-        // this.maxRowId = rowId;
-        //
-        // let json = this.createRow(row);
-        // let source = json.source;
-        // let data30 = json.data30;
-        //
-        // let rowIndexList = this.getSelectedRowsIndexArray();
-        // if (rowIndexList.length == 0) type = 'bottom';
-        //
-        // if (type == 'top') {
-        //     this.source_table.data.unshift(source);
-        //     this.view_table.data.unshift(data30);
-        //
-        //     let topRowIndex = 0;
-        //
-        //     this.verticalScroll.setScroll(grid.code_vertical);
-        //     this.classScroll.setBarPosition(grid.code_vertical, topRowIndex);
-        //     this.classRange.removeRange(0, -1);
-        //     let _topRowIndex = this.classRange.selectRange(topRowIndex, topRowIndex);
-        //     this.classPanel30.setDataPanel(topRowIndex);
-        //     return;
-        // }
-        // if (type == 'bottom') {
-        //     this.source_table.insert(source);
-        //     this.view_table.insert(data30);
-        //
-        //     let dataLength = this.view_table.count();
-        //     let topRowIndex = this.getFirstRowIndex();
-        //
-        //     topRowIndex = dataLength - this.pageRowCount;
-        //     if (topRowIndex < 0) topRowIndex = 0;
-        //     if (this.pageRowCount > this.pageIntRowCount) {
-        //         topRowIndex = topRowIndex + 1;
-        //     }
-        //     this.verticalScroll.setScroll(grid.code_vertical);
-        //     this.classScroll.setBarPosition(grid.code_vertical, topRowIndex);
-        //     this.classRange.removeRange(0, -1);
-        //     let _topRowIndex = this.classRange.selectRange(dataLength - 1, dataLength - 1);
-        //     this.classPanel30.setDataPanel(topRowIndex);
-        //     return;
-        // }
-        // if (type == 'up') {
-        //     let minRowIndex = rowIndexList[0];
-        //     this.source_table.insertBefore(source, minRowIndex);
-        //     this.view_table.insertBefore(data30, minRowIndex);
-        //
-        //     let lastRowIndex = this.view_table.count() - 1;
-        //     let topRowIndex = this.getFirstRowIndex();
-        //
-        //     this.verticalScroll.setScroll(grid.code_vertical);
-        //     this.classScroll.setBarPosition(grid.code_vertical, topRowIndex);
-        //     this.classRange.removeRange(0, -1);
-        //     let _topRowIndex = this.classRange.selectRange(minRowIndex, minRowIndex);
-        //     this.classPanel30.setDataPanel(_topRowIndex);
-        //     return;
-        // }
-        // if (type == 'down') {
-        //     let minRowIndex = rowIndexList[0];
-        //     let addRowIndex = minRowIndex + 1;
-        //     if (minRowIndex == this.view_table.count() - 1) {
-        //         this.source_table.insert(source);
-        //         this.view_table.insert(data30);
-        //         addRowIndex = minRowIndex + 1;
-        //     }
-        //     else {
-        //         this.source_table.insertBefore(source, addRowIndex);
-        //         this.view_table.insertBefore(data30, addRowIndex);
-        //     }
-        //
-        //     this.classRange.removeRange(0, -1);
-        //     let _topRowIndex = this.classRange.selectRange(addRowIndex, addRowIndex);
-        //     this.classPanel30.setDataPanel(_topRowIndex);
-        //
-        //     if (this.pageRowCount > this.pageIntRowCount) {
-        //         if (addRowIndex == this.getLastRowIndex()) {
-        //             this.tbs_moveCell('down');
-        //
-        //             this.classRange.removeRange(0, -1);
-        //             let _topRowIndex = this.classRange.selectRange(addRowIndex, addRowIndex);
-        //             this.classPanel30.setDataPanel(_topRowIndex);
-        //
-        //             this.verticalScroll.setScroll(grid.code_vertical);
-        //             this.classScroll.setBarPosition(grid.code_vertical, grid.getFirstRowIndex());
-        //         }
-        //     }
-        // }
+    createRow(row) {
+        if (this.null(row))
+            row = {};
+        const columns = this.column_table.data;
+        const item = {};
+        for (let i = 0, len = columns.length; i < len; i++) {
+            const column = columns[i];
+            let columnName = column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.name];
+            item[columnName] = this.null(row[columnName]) ? null : row[columnName];
+        }
+        return item;
+    }
+    addRow(row, direction) {
+        //type : top, bottom, up, down
+        const grid = this;
+        const dataRow = this.createRow(row);
+        const rowIndexList = this.getSelectedRowsIndexArray();
+        if (rowIndexList.length == 0)
+            direction = _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .AddRowDirection */ .hI.bottom;
+        if (direction == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .AddRowDirection */ .hI.top) {
+            this.source_table.insertBefore(dataRow, 0);
+            this.view_table.insertBefore(dataRow, 0);
+            let topRowIndex = 0;
+            this.verticalScroll.setScroll(grid.code_vertical);
+            this.classScroll.setBarPosition(grid.code_vertical, topRowIndex);
+            this.classRange.removeRange(0, -1);
+            this.classRange.selectRange(topRowIndex, topRowIndex);
+            this.classPanel30.setDataPanel(topRowIndex);
+        }
+        else if (direction == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .AddRowDirection */ .hI.bottom) {
+            this.source_table.insert(dataRow);
+            this.view_table.insert(dataRow);
+            let dataLength = this.view_table.count();
+            let topRowIndex = this.getFirstRowIndex();
+            topRowIndex = dataLength - this.pageRowCount;
+            if (topRowIndex < 0)
+                topRowIndex = 0;
+            if (this.pageRowCount > this.pageIntRowCount) {
+                topRowIndex = topRowIndex + 1;
+            }
+            this.verticalScroll.setScroll(grid.code_vertical);
+            this.classScroll.setBarPosition(grid.code_vertical, topRowIndex);
+            this.classRange.removeRange(0, -1);
+            let _topRowIndex = this.classRange.selectRange(dataLength - 1, dataLength - 1);
+            this.classPanel30.setDataPanel(topRowIndex);
+        }
+        else if (direction == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .AddRowDirection */ .hI.before) {
+            let minRowIndex = rowIndexList[0];
+            this.source_table.insertBefore(dataRow, minRowIndex);
+            this.view_table.insertBefore(dataRow, minRowIndex);
+            let lastRowIndex = this.view_table.count() - 1;
+            let topRowIndex = this.getFirstRowIndex();
+            this.verticalScroll.setScroll(grid.code_vertical);
+            this.classScroll.setBarPosition(grid.code_vertical, topRowIndex);
+            this.classRange.removeRange(0, -1);
+            let _topRowIndex = this.classRange.selectRange(minRowIndex, minRowIndex);
+            this.classPanel30.setDataPanel(_topRowIndex);
+        }
+        else if (direction == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .AddRowDirection */ .hI.after) {
+            let minRowIndex = rowIndexList[0];
+            let addRowIndex = minRowIndex + 1;
+            this.source_table.insertAfter(dataRow, minRowIndex);
+            this.view_table.insertAfter(dataRow, minRowIndex);
+            this.classRange.removeRange(0, -1);
+            let _topRowIndex = this.classRange.selectRange(addRowIndex, addRowIndex);
+            this.classPanel30.setDataPanel(_topRowIndex);
+            if (this.pageRowCount > this.pageIntRowCount) {
+                if (addRowIndex == this.getLastRowIndex()) {
+                    this.tbs_moveCell('down');
+                    this.classRange.removeRange(0, -1);
+                    let _topRowIndex = this.classRange.selectRange(addRowIndex, addRowIndex);
+                    this.classPanel30.setDataPanel(_topRowIndex);
+                    this.verticalScroll.setScroll(grid.code_vertical);
+                    this.classScroll.setBarPosition(grid.code_vertical, grid.getFirstRowIndex());
+                }
+            }
+        }
     }
     removeRows(rows) {
-        // // let rows = this.getSelectedRows();
-        // let selector = '#' + this.gridId;
-        // const grid = this;
-        //
-        // if (this.null(rows) || rows.length == 0) return;
-        //
-        // let data = this.view_table.select();
-        //
-        // // before delete, find next, prev rowid (default. next rowid)
-        // let prevRowId = -1;
-        // let nextRowId = -1;
-        // let nextRowIndex = -1;
-        //
-        // for (let i = 0; i < data.length; i++) { 	// find next rowIndex
-        //     if (data[i][columnAlias.rowId] == rows[rows.length - 1][columnAlias.rowId]) { nextRowIndex = i + 1; break; }
-        // }
-        //
-        // nextRowIndex = (nextRowIndex > data.length - 1) ? nextRowIndex - 1 : nextRowIndex;
-        // nextRowId = data[nextRowIndex][columnAlias.rowId];
-        //
-        // //Data 삭제
-        // data = this.source_table.data;
-        // for (let i = data.length - 1; i >= 0; i--) { for (let x = rows.length - 1; x >= 0; x--) { if (data[i][columnAlias.rowId] == rows[x][columnAlias.rowId]) { data.splice(i, 1); break; } } }
-        //
-        // data = this.view_table.select();
-        // for (let i = data.length - 1; i >= 0; i--) {
-        //     for (let x = rows.length - 1; x >= 0; x--) {
-        //         if (data[i][columnAlias.rowId] == rows[x][columnAlias.rowId]) { data.splice(i, 1); break; }
-        //     }
-        // }
-        // data = this.data_delete;
-        // for (let i = data.length - 1; i >= 0; i--) { for (let x = rows.length - 1; x >= 0; x--) { if (data[i][columnAlias.rowId] == rows[x][columnAlias.rowId]) { data.splice(i, 1); break; } } }
-        // for (let i = 0; i < rows.length; i++) {
-        //     if (rows[i][columnAlias.rowMode] == '' || rows[i][columnAlias.rowMode] == 'U') { rows[i][columnAlias.rowMode] = 'D'; data.push(rows[i]); }
-        // }
-        // //==============================================
-        // let deleteFirstRowIndex = rows[0].rowIndex;
-        // let topRowIndex = this.getFirstRowIndex();
-        // //==============================================
-        // this.refreshRefData();
-        // //==============================================
-        // data = this.view_table.select();
-        // let realStartRowIndex = deleteFirstRowIndex;
-        // if (realStartRowIndex < 0) realStartRowIndex = 0;
-        // if (realStartRowIndex > this.view_table.count() - 1) {
-        //     realStartRowIndex = this.view_table.count() - 1;
-        // }
-        // grid.verticalScroll.setScroll(grid.code_vertical);
-        // grid.classRange.removeRange(0, -1);
-        // let _topRowIndex = grid.classRange.selectRange(realStartRowIndex, realStartRowIndex, 0, 0);
-        // grid.classPanel30.setDataPanel(_topRowIndex);
-        //
-        // grid.classScroll.setBarPosition(grid.code_vertical, grid.getFirstRowIndex());
-        //
-        // if (grid.pageRowCount > grid.pageIntRowCount) {
-        //     let lastRowIndex = grid.getLastRowIndex();
-        //     if (realStartRowIndex == lastRowIndex) {
-        //         grid.classScroll.setBarPositionByDirection('down');
-        //         grid.verticalScroll.setScroll(grid.code_vertical);
-        //         grid.classScroll.setBarPosition(grid.code_vertical, grid.getFirstRowIndex());
-        //
-        //     }
-        // }
+        const grid = this;
+        if (this.null(rows) || rows.length == 0)
+            return;
+        let topRowIndex = this.getFirstRowIndex();
+        for (let i = 0, len = rows.length; i < len; i++) {
+            const row = rows[i];
+            let rowId = row[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId];
+            this.source_table.removeByRowId(rowId);
+            this.view_table.removeByRowId(rowId);
+        }
+        grid.verticalScroll.setScroll(grid.code_vertical);
+        grid.classRange.removeRange(0, -1);
+        let _topRowIndex = grid.classRange.selectRange(topRowIndex, topRowIndex, 0, 0);
+        grid.classScroll.setBarPosition(grid.code_vertical, grid.getFirstRowIndex());
+        grid.classPanel30.setDataPanel(_topRowIndex);
     }
     /**
      * source table rows
@@ -15246,36 +15219,34 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         const grid = this;
         let cellIndex = this.getColumnIndex(columnName);
         let oldValue = this.view_table.data[rowIndex][columnName];
-        let mode = this.view_table.data[rowIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode];
+        let mode = this.view_table.data[rowIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode];
         let result = this.getFormat(this.column_table.selectRowByRowIndex(cellIndex), value);
         if (mode == 'I') {
             if (oldValue != result.value) {
                 grid.view_table.updateByRowIndex(rowIndex, columnName, result.value);
-                grid.view_table.updateByRowIndex(rowIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode, 'I');
-                let rowId = grid.view_table.selectValue(rowIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId);
+                grid.view_table.updateByRowIndex(rowIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode, 'I');
+                let rowId = grid.view_table.selectValue(rowIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId);
                 grid.source_table.updateByRowId(rowId, columnName, result.value);
-                grid.source_table.updateByRowId(rowId, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode, 'I');
+                grid.source_table.updateByRowId(rowId, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode, 'I');
             }
         }
         else {
             if (oldValue != result.value) {
                 grid.view_table.updateByRowIndex(rowIndex, columnName, result.value);
-                grid.view_table.updateByRowIndex(rowIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode, 'U');
-                let rowId = grid.view_table.selectValue(rowIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowId);
+                grid.view_table.updateByRowIndex(rowIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode, 'U');
+                let rowId = grid.view_table.selectValue(rowIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowId);
                 grid.source_table.updateByRowId(rowId, columnName, result.value);
-                grid.source_table.updateByRowId(rowId, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.rowMode, 'U');
+                grid.source_table.updateByRowId(rowId, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.rowMode, 'U');
             }
         }
     }
     setValueByColumnIndex(rowIndex, cellIndex, value) {
-        rowIndex = parseInt(rowIndex);
-        cellIndex = parseInt(cellIndex);
         let columnName = this.getColumnName(cellIndex);
         this.setValue(rowIndex, columnName, value);
     }
     /** info_column_table */
     getInfoValue(columnName, property) {
-        const dataRow = this.info_column_table.selectRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_26__/* .columnAlias */ .VM.name, columnName);
+        const dataRow = this.info_column_table.selectRow(_tbs_grid_types__WEBPACK_IMPORTED_MODULE_24__/* .columnAlias */ .VM.name, columnName);
         return dataRow[property];
     }
     setInfoValue(columName, property, value) { this.info_column_table.update(columName, property, value); }
@@ -15315,6 +15286,15 @@ class TbsGrid extends _tbs_grid_base__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridBas
         const excel = new _export_tbs_grid_excel__WEBPACK_IMPORTED_MODULE_0__/* .TbsGridExcel */ .P(this);
         excel.exportExcel(options);
     }
+}
+applyMixins(TbsGrid, [_base_tbs_grid_is__WEBPACK_IMPORTED_MODULE_25__/* .TbsGridIs */ .A, _base_tbs_grid_event__WEBPACK_IMPORTED_MODULE_26__/* .TbsGridEvent */ .C, _base_tbs_grid_user_event__WEBPACK_IMPORTED_MODULE_31__/* .TbsGridUserEvent */ .N, _base_tbs_grid_line__WEBPACK_IMPORTED_MODULE_32__/* .TbsGridLine */ .C]);
+function applyMixins(derivedCtor, constructors) {
+    constructors.forEach((baseCtor) => {
+        Object.getOwnPropertyNames(baseCtor.prototype).forEach((name) => {
+            Object.defineProperty(derivedCtor.prototype, name, Object.getOwnPropertyDescriptor(baseCtor.prototype, name) ||
+                Object.create(null));
+        });
+    });
 }
 
 }();

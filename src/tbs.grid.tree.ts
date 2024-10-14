@@ -77,12 +77,12 @@ export class TbsGridTree {
                     let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
                     item[columnName] = val;
                 }
-                const dataColumns: any[] = grid.field_table.selectRows();
-                for (let x = 0, len = dataColumns.length; x < len; x++) {
-                    const column = dataColumns[x];
-                    let columnName  = column[columnAlias.name];
-                    item[columnName] = dataRow[columnName];
-                }
+                // const dataColumns: any[] = grid.field_table.selectRows();
+                // for (let x = 0, len = dataColumns.length; x < len; x++) {
+                //     const column = dataColumns[x];
+                //     let columnName  = column[columnAlias.name];
+                //     item[columnName] = dataRow[columnName];
+                // }
 
                 grid.source_table.insert(item);
             }

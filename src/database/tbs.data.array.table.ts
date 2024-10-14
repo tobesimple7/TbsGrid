@@ -1,5 +1,5 @@
 
-import {TbsBase} from "./tbs.base";
+import {TbsBase} from "../tbs.base";
 import {columnAlias} from "../tbs.grid.types";
 
 

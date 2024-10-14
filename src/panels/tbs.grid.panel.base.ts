@@ -1,4 +1,4 @@
-import { TbsBase } from "../base/tbs.base";
+import { TbsBase } from "../tbs.base";
 import {TbsGrid} from "../tbs.grid";
 
 export class TbsGridPanelBase  extends TbsBase {

@@ -1,4 +1,4 @@
-import { TbsBase } from './base/tbs.base';
+import { TbsBase } from './tbs.base';
 
 export class TbsGridDom extends TbsBase {
 

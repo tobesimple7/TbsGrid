@@ -7,7 +7,7 @@ export class TbsGridFooter {
 
     constructor(grid: TbsGrid) {
         this.grid = grid;
-        this.selector = '#' + grid.gridId;
+        this.selector = `#${grid.gridId}`;
     }
 
     setFooterColumns(columns) {
@@ -23,8 +23,6 @@ export class TbsGridFooter {
 
         if (grid.footer_column_table.count() == 0) return;
 
-        let footerColumns = grid.footer_column_table.data;
-
         let dataRow = {};
         let columns = grid.column_table.data;
         for (let x = 0, len = columns.length; x < len; x++) {
@@ -36,7 +34,7 @@ export class TbsGridFooter {
 
         /* get sum, avg */
         for (let x = 0, len2 = grid.footer_column_table.count(); x < len2; x++) {
-            let footerColumn = grid.footer_column_table.data[x];
+            const footerColumn = grid.footer_column_table.data[x];
             let columnName = footerColumn[columnAlias.name];
 
             let summaryType = footerColumn[columnAlias.summaryType];

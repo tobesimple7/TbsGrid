@@ -1,4 +1,4 @@
-import {TbsBase} from './tbs.base';
+import {TbsBase} from '../tbs.base';
 import {columnAlias} from "../tbs.grid.types";
 
 export class TbsDataTable extends TbsBase {
@@ -100,7 +100,7 @@ export class TbsDataTable extends TbsBase {
             dataRows.map(dataRow => {
                 this.currentRowId += 1;
                 dataRow[columnAlias.rowId] = this.currentRowId;
-                dataRow[columnAlias.rowMode] = '';
+                dataRow[columnAlias.rowMode] = 'I';
             });
         }
         this.data.push(...dataRows);
@@ -111,7 +111,7 @@ export class TbsDataTable extends TbsBase {
             dataRows.map(dataRow => {
                 this.currentRowId += 1;
                 dataRow[columnAlias.rowId] = this.currentRowId;
-                dataRow[columnAlias.rowMode] = '';
+                dataRow[columnAlias.rowMode] = 'I';
             });
         }
         if (rowIndex < this.data.length) this.data.splice(rowIndex, 0, ...dataRows);
@@ -123,7 +123,7 @@ export class TbsDataTable extends TbsBase {
             dataRows.map(dataRow => {
                 this.currentRowId += 1;
                 dataRow[columnAlias.rowId] = this.currentRowId;
-                dataRow[columnAlias.rowMode] = '';
+                dataRow[columnAlias.rowMode] = 'I';
             });
         }
 
@@ -135,7 +135,7 @@ export class TbsDataTable extends TbsBase {
         if (this.type == 'table') {
             this.currentRowId += 1;
             dataRow[columnAlias.rowId] = this.currentRowId;
-            dataRow[columnAlias.rowMode] = '';
+            dataRow[columnAlias.rowMode] = 'I';
         }
         this.data.push(dataRow);
     }
@@ -144,7 +144,7 @@ export class TbsDataTable extends TbsBase {
         if (this.type == 'table') {
             this.currentRowId += 1;
             dataRow[columnAlias.rowId] = this.currentRowId;
-            dataRow[columnAlias.rowMode] = '';
+            dataRow[columnAlias.rowMode] = 'I';
         }
 
         if (rowIndex < this.data.length) this.data.splice(rowIndex, 0, dataRow);
@@ -155,7 +155,7 @@ export class TbsDataTable extends TbsBase {
         if (this.type == 'table') {
             this.currentRowId += 1;
             dataRow[columnAlias.rowId] = this.currentRowId;
-            dataRow[columnAlias.rowMode] = '';
+            dataRow[columnAlias.rowMode] = 'I';
         }
 
         if (rowIndex + 1 < this.data.length) this.data.splice(rowIndex + 1, 0, dataRow);

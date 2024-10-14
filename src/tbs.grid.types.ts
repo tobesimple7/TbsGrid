@@ -120,6 +120,12 @@ export enum GridMode {
     page = 'page',
     pagination = 'pagination',
 }
+export enum AddRowDirection {
+    top = 'top',
+    bottom = 'bottom',
+    before = 'before',
+    after = 'after'
+}
 
 export enum Direction {
     up = 'up',
@@ -209,7 +215,6 @@ export enum treeAlias {
     parentName = 'parentName',
     rootValue = 'rootValue',
 }
-
 export enum optionAlias {
     rowMode = 'rowMode',
     checkbox = 'checkbox',

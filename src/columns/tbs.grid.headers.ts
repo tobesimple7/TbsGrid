@@ -258,25 +258,7 @@ export class TbsGridHeaders {
             return { startColumnIndex: startColumnIndex, lastColumnIndex: lastColumnIndex };
         }
     }
-
-    getHeaderRootColumn(rowId) {
-
-    }
-    getHeaderParentColumn(rowId) {
-
-    }
-    getHeaderColumnByRowId(rowId) {
-
-    }
-    getHeaderChildColumns(rowId, depth = 1) {
-        if (arguments.length == 2) {}
-        else {}
-    }
-    setHeaderValue(rowIndex, columnIndex, value) {
-
-    }
-
-    getHeaderColumn(rowIndex, columnIndex) {
+    getHeaderColumn(rowIndex: number, columnIndex: number) {
         const grid = this.grid;
         return grid.header_column_table.data[rowIndex][columnIndex];
     }

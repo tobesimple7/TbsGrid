@@ -32,7 +32,7 @@ export class TbsGridRange {
         }
     }
 
-    selectRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex?: number) {
+    selectRange = function (startRowIndex, lastRowIndex, startCellIndex?, lastCellIndex?, topRowIndex?: number) {
         let selector = this.selector;
         const grid = this.grid;
 

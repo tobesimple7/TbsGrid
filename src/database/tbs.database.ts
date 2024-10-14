@@ -1,4 +1,4 @@
-import {TbsBase} from './tbs.base';
+import {TbsBase} from '../tbs.base';
 import {TbsDataTable} from "./tbs.data.table";
 import {TbsDataArrayTable} from "./tbs.data.array.table";
 

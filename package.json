@@ -21,8 +21,8 @@
   "types": "./dist/types/**/*",
   "exports": {
     ".": {
-      "import": "./dist/tbsgrid.js",
-      "default": "./dist/tbsgrid.js"
+      "import": "./dist/tbsgrid.min.js",
+      "default": "./dist/tbsgrid.min.js"
     },
     "./package.json": "./package.json",
     "./dist/tbsgrid-configs.js": "./dist/tbsgrid-configs.js",

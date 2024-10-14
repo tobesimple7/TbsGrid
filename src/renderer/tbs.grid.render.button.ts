@@ -6,8 +6,8 @@ export class TbsGridRenderButton {
         const element = TbsGridDom.createElement('button');
         const tableCell = param.tableCell;
 
-        let count = tableCell.querySelectorAll('.tbs-grid-html-button').length;
-        let rootChildCount = tableCell.childNodes[0].childNodes.length;
+        const count: number = tableCell.querySelectorAll('.tbs-grid-html-button').length;
+        const rootChildCount: number = tableCell.childNodes[0].childNodes.length;
 
         if (rootChildCount > 1 || (rootChildCount == 1 && count == 0)) {
             tableCell.childNodes[0].innerHTML = '';
