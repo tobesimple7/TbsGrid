@@ -76,16 +76,16 @@ export declare class TbsGridBase extends TbsBase {
     click: any;
     dblclick: any;
     edit: any;
-    clickCheckbox: any;
-    clickInfoCheckBox: any;
-    clickButton: any;
-    clickLink: any;
-    rowBounding: any;
-    clickPageFirst: any;
-    clickPagePrev: any;
-    clickPageIndex: any;
-    clickPageNext: any;
-    clickPageLast: any;
+    onClickCheckbox: any;
+    onClickInfoCheckBox: any;
+    onClickButton: any;
+    onClickLink: any;
+    onRowBounding: any;
+    onClickPageFirst: any;
+    onClickPagePrev: any;
+    onClickPageIndex: any;
+    onClickPageNext: any;
+    onClickPageLast: any;
     constructor(gridId: string, gridConfigs: object);
     /**
      * get configs value

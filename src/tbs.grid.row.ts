@@ -68,10 +68,10 @@ export class TbsGridRow {
                 else if (depth <= 5) TbsGridDom.addUserClass(tableRow, 'tbs-row-color' + depth);
                 else TbsGridDom.addUserClass(tableRow, '.tbs-row-color-white');
             }
-            if (grid.rowBounding) {
+            if (grid.onRowBounding) {
                 if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                     let param = {element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex)};
-                    grid.tbs_executeEvent(grid.rowBounding, 'rowBounding', param);
+                    grid.tbs_executeEvent(grid.onRowBounding, 'onRowBounding', param);
                 }
             }
         }
@@ -79,7 +79,7 @@ export class TbsGridRow {
             TbsGridDom.removeUserClass(tableRow);
             if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                 let param = {element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex)};
-                grid.tbs_executeEvent(grid.rowBounding, 'rowBounding', param);
+                grid.tbs_executeEvent(grid.onRowBounding, 'onRowBounding', param);
             }
         }
         /* row alternative background color */

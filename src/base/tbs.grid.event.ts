@@ -70,7 +70,7 @@ export class TbsGridEvent {
                     let cellIndex = grid.startCellIndex;
                     let column = grid.getColumnByIndex(cellIndex);
                     if (grid.isNull(column[columnAlias.editable], false)) {
-                        if (grid.notNull(grid.edit)) { // state
+                        if (grid.notNull(grid.onEdit)) { // state
                             //console.log(`panelInput.style.left : ${panelInput.style.left}`);
                             if (panelInputt.style.left == '30000px') {
                                 grid.editStart(e, 'key');
@@ -119,7 +119,7 @@ export class TbsGridEvent {
             if (input.dataset.mode == undefined || input.dataset.mode == '') return; //{ e.stopImmediatePropagation(); }
             if (rowIndex == -1 || cellIndex == -1) return;
 
-            if (grid.notNull(grid.edit)) {
+            if (grid.notNull(grid.onEdit)) {
                 grid.editEnd(e, 'key');
             }
             else {
@@ -432,8 +432,8 @@ export class TbsGridEvent {
         eventRow.data        = eventRow;
 
         if (mode == 'key') {
-            if (column[columnAlias.editable] == true && grid.notNull(grid.edit)) {
-                let result =  grid.edit(grid, state, eventRow);
+            if (column[columnAlias.editable] == true && grid.notNull(grid.onEdit)) {
+                let result =  grid.onEdit(grid, state, eventRow);
                 if (grid.isNull(result, true)) {
                     grid.input_show(e, mode);
                     grid.editing(e, mode);
@@ -445,9 +445,9 @@ export class TbsGridEvent {
             }
         }
         else {
-            if (column[columnAlias.editable] == true && grid.notNull(grid.edit)) {
+            if (column[columnAlias.editable] == true && grid.notNull(grid.onEdit)) {
                 let result = true;
-                result = grid.edit(grid, state, eventRow);
+                result = grid.onEdit(grid, state, eventRow);
                 if (grid.null(result) || result == true) {
                     grid.input_show(e, mode);
                 }
@@ -489,10 +489,10 @@ export class TbsGridEvent {
         eventData.state       = state;
         eventData.newValue    = input.value;
         eventData.data        = eventRow;
-        if (column[columnAlias.editable] == true && grid.notNull(grid.edit)) {
+        if (column[columnAlias.editable] == true && grid.notNull(grid.onEdit)) {
             let result = true;
             if (state == 1 && panelInput.style.left != '30000px') {
-                result = grid.edit(grid, state, eventRow);
+                result = grid.onEdit(grid, state, eventRow);
                 if (grid.null(result) || result == true) {
 
                 }
@@ -537,10 +537,10 @@ export class TbsGridEvent {
             eventData.state       = state;
             eventData.newValue    = input.value;
             eventData.data        = eventRow;
-            if (column[columnAlias.editable] == true && grid.notNull(grid.edit)) {
+            if (column[columnAlias.editable] == true && grid.notNull(grid.onEdit)) {
                 let result = true;
                 if (state == 2 && panelInput.style.left != '30000px') {
-                    result = grid.edit(grid, state, eventRow);
+                    result = grid.onEdit(grid, state, eventRow);
                     if (grid.null(result) || result == true) {
                         //console.log(2);
                         let s = input.value;
@@ -862,7 +862,7 @@ export class TbsGridEvent {
         let initWidth = [];
         let childList = [];
         let tableCell, resizer;
-        let eventDetail = 0; // 1 : click (resize), 2 : dblclick(auto resize)
+        let eventDetail = 0; // 1 : click (resize), 2 : onDblclick(auto resize)
         const mouseDownEvent = function (e) {
             e.stopPropagation();
             if (e.target.classList.contains('tbs-grid-html-resize')) {
@@ -1308,7 +1308,6 @@ export class TbsGridEvent {
     }
 
     tbs_executeEvent(this: TbsGrid, isUserFunction, eventType, param) {
-        let selector = '#' + this.gridId;
         const grid = this;
 
         let e = null;
@@ -1317,7 +1316,7 @@ export class TbsGridEvent {
         let cellIndex = null;
         let element = null;
 
-        if (eventType == 'rowBounding') {
+        if (eventType == 'onRowBounding') {
             element = param.element;
             rowIndex = param.rowIndex;
 
@@ -1325,9 +1324,10 @@ export class TbsGridEvent {
             eventRow.rowIndex    = rowIndex;
             eventRow.data        = grid.getRow(rowIndex);
 
-            if (grid.notNull(grid.rowBounding)) { let flag = grid.rowBounding(grid, element, eventRow); } //user function call
+            if (grid.notNull(grid.onRowBounding)) { let flag = grid.onRowBounding(grid, element, eventRow); } //user function call
         }
-        else if (eventType == 'click' || eventType == 'dblclick') {
+        else if (eventType == 'onClick' || eventType == 'onDblclick') {
+
             e = param.e;
             mode = param.mode; //mouse, key
             rowIndex = param.rowIndex;
@@ -1345,11 +1345,11 @@ export class TbsGridEvent {
             eventRow.value       = value;
             eventRow.text        = text;
             eventRow.data        = grid.getRow(rowIndex);
-            if (eventType == 'click') {
-                if (grid.notNull(grid.click)) { let flag = grid.click(grid, eventRow); } //user function call
+            if (eventType == 'onClick') {
+                if (grid.notNull(grid.onClick)) { let flag = grid.onClick(grid, eventRow); } //user function call
             }
-            else if (eventType == 'dblclick') {
-                if (grid.notNull(grid.dblclick)) { let flag = grid.dblclick(grid, eventRow); } //user function call
+            else if (eventType == 'onDblclick') {
+                if (grid.notNull(grid.onDblclick)) { let flag = grid.onDblclick(grid, eventRow); } //user function call
             }
         }
     }

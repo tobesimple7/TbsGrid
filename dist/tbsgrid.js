@@ -351,7 +351,7 @@ class TbsGridEvent {
                     let cellIndex = grid.startCellIndex;
                     let column = grid.getColumnByIndex(cellIndex);
                     if (grid.isNull(column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable], false)) {
-                        if (grid.notNull(grid.edit)) { // state
+                        if (grid.notNull(grid.onEdit)) { // state
                             //console.log(`panelInput.style.left : ${panelInput.style.left}`);
                             if (panelInputt.style.left == '30000px') {
                                 grid.editStart(e, 'key');
@@ -401,7 +401,7 @@ class TbsGridEvent {
                 return; //{ e.stopImmediatePropagation(); }
             if (rowIndex == -1 || cellIndex == -1)
                 return;
-            if (grid.notNull(grid.edit)) {
+            if (grid.notNull(grid.onEdit)) {
                 grid.editEnd(e, 'key');
             }
             else {
@@ -695,8 +695,8 @@ class TbsGridEvent {
         eventRow.newValue = input.value;
         eventRow.data = eventRow;
         if (mode == 'key') {
-            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
-                let result = grid.edit(grid, state, eventRow);
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.onEdit)) {
+                let result = grid.onEdit(grid, state, eventRow);
                 if (grid.isNull(result, true)) {
                     grid.input_show(e, mode);
                     grid.editing(e, mode);
@@ -708,9 +708,9 @@ class TbsGridEvent {
             }
         }
         else {
-            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.onEdit)) {
                 let result = true;
-                result = grid.edit(grid, state, eventRow);
+                result = grid.onEdit(grid, state, eventRow);
                 if (grid.null(result) || result == true) {
                     grid.input_show(e, mode);
                 }
@@ -749,10 +749,10 @@ class TbsGridEvent {
         eventData.state = state;
         eventData.newValue = input.value;
         eventData.data = eventRow;
-        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
+        if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.onEdit)) {
             let result = true;
             if (state == 1 && panelInput.style.left != '30000px') {
-                result = grid.edit(grid, state, eventRow);
+                result = grid.onEdit(grid, state, eventRow);
                 if (grid.null(result) || result == true) {
                 }
                 else {
@@ -791,10 +791,10 @@ class TbsGridEvent {
             eventData.state = state;
             eventData.newValue = input.value;
             eventData.data = eventRow;
-            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.edit)) {
+            if (column[_tbs_grid_types__WEBPACK_IMPORTED_MODULE_0__/* .columnAlias */ .VM.editable] == true && grid.notNull(grid.onEdit)) {
                 let result = true;
                 if (state == 2 && panelInput.style.left != '30000px') {
-                    result = grid.edit(grid, state, eventRow);
+                    result = grid.onEdit(grid, state, eventRow);
                     if (grid.null(result) || result == true) {
                         //console.log(2);
                         let s = input.value;
@@ -1096,7 +1096,7 @@ class TbsGridEvent {
         let initWidth = [];
         let childList = [];
         let tableCell, resizer;
-        let eventDetail = 0; // 1 : click (resize), 2 : dblclick(auto resize)
+        let eventDetail = 0; // 1 : click (resize), 2 : onDblclick(auto resize)
         const mouseDownEvent = function (e) {
             e.stopPropagation();
             if (e.target.classList.contains('tbs-grid-html-resize')) {
@@ -1508,24 +1508,23 @@ class TbsGridEvent {
         return (movedX < this.mousePointRange && movedY < this.mousePointRange);
     }
     tbs_executeEvent(isUserFunction, eventType, param) {
-        let selector = '#' + this.gridId;
         const grid = this;
         let e = null;
         let mode = null;
         let rowIndex = null;
         let cellIndex = null;
         let element = null;
-        if (eventType == 'rowBounding') {
+        if (eventType == 'onRowBounding') {
             element = param.element;
             rowIndex = param.rowIndex;
             const eventRow = {};
             eventRow.rowIndex = rowIndex;
             eventRow.data = grid.getRow(rowIndex);
-            if (grid.notNull(grid.rowBounding)) {
-                let flag = grid.rowBounding(grid, element, eventRow);
+            if (grid.notNull(grid.onRowBounding)) {
+                let flag = grid.onRowBounding(grid, element, eventRow);
             } //user function call
         }
-        else if (eventType == 'click' || eventType == 'dblclick') {
+        else if (eventType == 'onClick' || eventType == 'onDblclick') {
             e = param.e;
             mode = param.mode; //mouse, key
             rowIndex = param.rowIndex;
@@ -1541,14 +1540,14 @@ class TbsGridEvent {
             eventRow.value = value;
             eventRow.text = text;
             eventRow.data = grid.getRow(rowIndex);
-            if (eventType == 'click') {
-                if (grid.notNull(grid.click)) {
-                    let flag = grid.click(grid, eventRow);
+            if (eventType == 'onClick') {
+                if (grid.notNull(grid.onClick)) {
+                    let flag = grid.onClick(grid, eventRow);
                 } //user function call
             }
-            else if (eventType == 'dblclick') {
-                if (grid.notNull(grid.dblclick)) {
-                    let flag = grid.dblclick(grid, eventRow);
+            else if (eventType == 'onDblclick') {
+                if (grid.notNull(grid.onDblclick)) {
+                    let flag = grid.onDblclick(grid, eventRow);
                 } //user function call
             }
         }
@@ -2530,19 +2529,19 @@ class TbsGridUserEvent {
         /**
          * user event
          */
-        this.click = null; // (grid, row)
-        this.dblclick = null; // (grid, row)
-        this.edit = null; // (grid, state, row)
-        this.clickCheckbox = null; // (grid, row)
-        this.clickInfoCheckBox = null; // (grid, row)
-        this.clickButton = null; // (grid, row)
-        this.clickLink = null; // (grid, row)
-        this.rowBounding = null; // grid, element, row
-        this.clickPageFirst = null; // (grid, pageIndex, selectedPageCount, userFunction)
-        this.clickPagePrev = null; // (grid, pageIndex, selectedPageCount, userFunction)
-        this.clickPageIndex = null; // (grid, pageIndex, selectedPageCount, userFunction)
-        this.clickPageNext = null; // (grid, pageIndex, selectedPageCount, userFunction)
-        this.clickPageLast = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.onClick = null; // (grid, row)
+        this.onDblclick = null; // (grid, row)
+        this.onEdit = null; // (grid, state, row)
+        this.onClickCheckbox = null; // (grid, row)
+        this.onClickInfoCheckBox = null; // (grid, row)
+        this.onClickButton = null; // (grid, row)
+        this.onClickLink = null; // (grid, row)
+        this.onRowBounding = null; // grid, element, row
+        this.onClickPageFirst = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.onClickPagePrev = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.onClickPageIndex = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.onClickPageNext = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.onClickPageLast = null; // (grid, pageIndex, selectedPageCount, userFunction)
     }
 }
 
@@ -5387,7 +5386,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
             let columnType = grid.column_table.selectValue(columnIndex, _tbs_grid_types__WEBPACK_IMPORTED_MODULE_4__/* .columnAlias */ .VM.type);
             let value = grid.view_table.selectValue(rowIndex, columnName);
             if (columnType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_4__/* .CellType */ .vZ.checkbox) {
-                if (grid.notEmpty(grid.clickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
+                if (grid.notEmpty(grid.onClickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
                     const eventRow = {};
                     const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex = rowIndex;
@@ -5396,7 +5395,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                     eventRow.value = value;
                     eventRow.text = value;
                     eventRow.data = dataRows;
-                    let result = grid.clickCheckbox(grid, eventRow);
+                    let result = grid.onClickCheckbox(grid, eventRow);
                     if (result) {
                         let newValue = grid.reverseBoolean(value);
                         grid.setValue(rowIndex, columnName, newValue);
@@ -5410,7 +5409,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
             }
             else if (columnType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_4__/* .CellType */ .vZ.button) {
                 e.preventDefault();
-                if (grid.notEmpty(grid.clickButton) && e.target.disabled != 'disabled') {
+                if (grid.notEmpty(grid.onClickButton) && e.target.disabled != 'disabled') {
                     const eventRow = {};
                     const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex = rowIndex;
@@ -5419,11 +5418,11 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                     eventRow.value = value;
                     eventRow.text = value;
                     eventRow.data = dataRows;
-                    grid.clickButton(grid, eventRow);
+                    grid.onClickButton(grid, eventRow);
                 }
             }
             else if (columnType == _tbs_grid_types__WEBPACK_IMPORTED_MODULE_4__/* .CellType */ .vZ.link) {
-                if (grid.notEmpty(grid.clickLink)) {
+                if (grid.notEmpty(grid.onClickLink)) {
                     const eventRow = {};
                     const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex = rowIndex;
@@ -5432,7 +5431,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                     eventRow.value = value;
                     eventRow.text = value;
                     eventRow.data = dataRows;
-                    const result = grid.clickLink(grid, eventRow);
+                    const result = grid.onClickLink(grid, eventRow);
                     if (!result) {
                         e.preventDefault();
                     }
@@ -5567,7 +5566,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                 //     let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
                 //     let value = grid.view_table.selectValue(rowIndex, columnName);
                 //
-                //     if (grid.notEmpty(grid.clickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
+                //     if (grid.notEmpty(grid.onClickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
                 //         const eventRow = {};
                 //         const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                 //         eventRow.rowIndex = rowIndex;
@@ -5576,7 +5575,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                 //         eventRow.value = value;
                 //         eventRow.text = value;
                 //         eventRow.data = dataRows;
-                //         let result = grid.clickCheckbox(grid, eventRow);
+                //         let result = grid.onClickCheckbox(grid, eventRow);
                 //         if (result) {
                 //             let newValue = grid.reverseBoolean(value);
                 //             grid.setValue(rowIndex, columnName, newValue);
@@ -5595,7 +5594,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                 //     let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
                 //     let value = grid.view_table.selectValue(rowIndex, columnName);
                 //
-                //     if (grid.notEmpty(grid.clickButton) && e.target.disabled != 'disabled') {
+                //     if (grid.notEmpty(grid.onClickButton) && e.target.disabled != 'disabled') {
                 //         const eventRow = {};
                 //         const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                 //         eventRow.rowIndex = rowIndex;
@@ -5604,7 +5603,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                 //         eventRow.value = value;
                 //         eventRow.text = value;
                 //         eventRow.data = dataRows;
-                //         grid.clickButton(grid, eventRow);
+                //         grid.onClickButton(grid, eventRow);
                 //     }
                 // }
                 // else if (e.target.classList.contains('tbs-grid-html-link')) {
@@ -5614,7 +5613,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                 //     let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
                 //     let value = grid.view_table.selectValue(rowIndex, columnName);
                 //
-                //     if (grid.notEmpty(grid.clickLink)) {
+                //     if (grid.notEmpty(grid.onClickLink)) {
                 //         const eventRow = {};
                 //         const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                 //         eventRow.rowIndex = rowIndex;
@@ -5623,7 +5622,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                 //         eventRow.value = value;
                 //         eventRow.text = value;
                 //         eventRow.data = dataRows;
-                //         let result = grid.clickLink(grid, eventRow);
+                //         let result = grid.onClickLink(grid, eventRow);
                 //         if (result == false) {
                 //             e.preventDefault();
                 //             e.stopPropagation();
@@ -5642,12 +5641,12 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                             grid.input_focus();
                         }
                         else
-                            grid.tbs_executeEvent(true, 'click', param);
+                            grid.tbs_executeEvent(true, 'onClick', param);
                     }
                     else if (e.detail == 2) {
                         let isEditable = grid.column_table.data[startCellIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_4__/* .columnAlias */ .VM.editable];
                         if (isEditable) {
-                            if (grid.notNull(grid.edit)) {
+                            if (grid.notNull(grid.onEdit)) {
                                 grid.editStart(e, 'mouse');
                             }
                             else {
@@ -5655,7 +5654,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                             }
                         }
                         else
-                            grid.tbs_executeEvent(true, 'dblclick', param);
+                            grid.tbs_executeEvent(true, 'onDblclick', param);
                     }
                 }
                 //}
@@ -6096,7 +6095,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
             let columnName = e.target.parentNode.dataset.name;
             let value = grid.view_table.data[rowIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_4__/* .columnAlias */ .VM.isChecked];
             // @ts-ignore
-            if (grid.notEmpty(grid.clickInfoCheckbox) && e.target.disabled != 'disabled') {
+            if (grid.notEmpty(grid.onClickInfoCheckBox) && e.target.disabled != 'disabled') {
                 const eventRow = {};
                 const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                 eventRow.rowIndex = rowIndex;
@@ -6106,7 +6105,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                 eventRow.text = grid.isNull(value, false);
                 eventRow.data = dataRows;
                 // @ts-ignore
-                let result = grid.clickInfoCheckbox(grid, eventRow);
+                let result = grid.onClickInfoCheckBox(grid, eventRow);
                 if (result) {
                     grid.view_table.data[rowIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_4__/* .columnAlias */ .VM.isChecked] = grid.isNull(value, false) ? false : true;
                 }
@@ -6205,11 +6204,11 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                 if (mouseButton == 0 && grid.isMovedPositionInConstRange(startX, startY, lastX, lastY)) {
                     let param = { e: e, rowIndex: startRowIndex, cellIndex: startCellIndex, mode: 'mouse' };
                     if (e.detail == 1)
-                        grid.tbs_executeEvent(true, 'click', param);
+                        grid.tbs_executeEvent(true, 'onClick', param);
                     else if (e.detail == 2) {
                         let isEditable = grid.column_table.data[startCellIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_4__/* .columnAlias */ .VM.editable];
                         if (isEditable) {
-                            if (grid.notNull(grid.edit)) {
+                            if (grid.notNull(grid.onEdit)) {
                                 //grid.input_edit(e, 0, 'mouse');
                                 grid.editStart(e, 'mouse');
                             }
@@ -6218,7 +6217,7 @@ class TbsGridPanel30 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                             }
                         }
                         else
-                            grid.tbs_executeEvent(true, 'dblclick', param);
+                            grid.tbs_executeEvent(true, 'onDblclick', param);
                     }
                 }
             }
@@ -6863,12 +6862,12 @@ class TbsGridPanel40 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                             grid.input_focus();
                         }
                         else
-                            grid.tbs_executeEvent(true, 'click', param);
+                            grid.tbs_executeEvent(true, 'onClick', param);
                     }
                     else if (e.detail == 2) {
                         let isEditable = grid.column_table.data[startCellIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_3__/* .columnAlias */ .VM.editable];
                         if (isEditable) {
-                            if (grid.notNull(grid.edit)) {
+                            if (grid.notNull(grid.onEdit)) {
                                 grid.editStart(e, 'mouse');
                             }
                             else {
@@ -6876,7 +6875,7 @@ class TbsGridPanel40 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                             }
                         }
                         else
-                            grid.tbs_executeEvent(true, 'dblclick', param);
+                            grid.tbs_executeEvent(true, 'onDblclick', param);
                     }
                 }
             }
@@ -7235,11 +7234,11 @@ class TbsGridPanel40 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                 if (mouseButton == 0 && grid.isMovedPositionInConstRange(startX, startY, lastX, lastY)) {
                     let param = { e: e, rowIndex: startRowIndex, cellIndex: startCellIndex, mode: 'mouse' };
                     if (e.detail == 1)
-                        grid.tbs_executeEvent(true, 'click', param);
+                        grid.tbs_executeEvent(true, 'onClick', param);
                     else if (e.detail == 2) {
                         let isEditable = grid.column_table.data[startCellIndex][_tbs_grid_types__WEBPACK_IMPORTED_MODULE_3__/* .columnAlias */ .VM.editable];
                         if (isEditable) {
-                            if (grid.notNull(grid.edit)) {
+                            if (grid.notNull(grid.onEdit)) {
                                 //grid.input_edit(e, 0, 'mouse');
                                 grid.editStart(e, 'mouse');
                             }
@@ -7248,7 +7247,7 @@ class TbsGridPanel40 extends _tbs_grid_panel_base__WEBPACK_IMPORTED_MODULE_0__/*
                             }
                         }
                         else
-                            grid.tbs_executeEvent(true, 'dblclick', param);
+                            grid.tbs_executeEvent(true, 'onDblclick', param);
                     }
                 }
             }
@@ -12451,10 +12450,10 @@ class TbsGridRow {
                 else
                     _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.addUserClass(tableRow, '.tbs-row-color-white');
             }
-            if (grid.rowBounding) {
+            if (grid.onRowBounding) {
                 if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                     let param = { element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex) };
-                    grid.tbs_executeEvent(grid.rowBounding, 'rowBounding', param);
+                    grid.tbs_executeEvent(grid.onRowBounding, 'onRowBounding', param);
                 }
             }
         }
@@ -12462,7 +12461,7 @@ class TbsGridRow {
             _tbs_grid_dom__WEBPACK_IMPORTED_MODULE_1__/* .TbsGridDom */ .E.removeUserClass(tableRow);
             if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                 let param = { element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex) };
-                grid.tbs_executeEvent(grid.rowBounding, 'rowBounding', param);
+                grid.tbs_executeEvent(grid.onRowBounding, 'onRowBounding', param);
             }
         }
         /* row alternative background color */

@@ -1,47 +1,47 @@
 export class TbsGridUserEvent {
-    click: any;
-    dblclick: any;
-    edit: any;
-    clickCheckbox: any;
-    clickInfoCheckBox: any;
-    clickButton: any;
-    clickLink: any;
-    rowBounding: any;
-    clickPageFirst: any;
-    clickPagePrev: any;
-    clickPageIndex: any;
-    clickPageNext: any;
-    clickPageLast: any;
+    onClick: any;
+    onDblclick: any;
+    onEdit: any;
+    onClickCheckbox: any;
+    onClickInfoCheckBox: any;
+    onClickButton: any;
+    onClickLink: any;
+    onRowBounding: any;
+    onClickPageFirst: any;
+    onClickPagePrev: any;
+    onClickPageIndex: any;
+    onClickPageNext: any;
+    onClickPageLast: any;
 
     constructor() {
         /**
          * user event
          */
 
-        this.click = null; // (grid, row)
+        this.onClick = null; // (grid, row)
 
-        this.dblclick = null; // (grid, row)
+        this.onDblclick = null; // (grid, row)
 
-        this.edit = null; // (grid, state, row)
+        this.onEdit = null; // (grid, state, row)
 
-        this.clickCheckbox = null; // (grid, row)
+        this.onClickCheckbox = null; // (grid, row)
 
-        this.clickInfoCheckBox = null; // (grid, row)
+        this.onClickInfoCheckBox = null; // (grid, row)
 
-        this.clickButton = null; // (grid, row)
+        this.onClickButton = null; // (grid, row)
 
-        this.clickLink = null; // (grid, row)
+        this.onClickLink = null; // (grid, row)
 
-        this.rowBounding = null; // grid, element, row
+        this.onRowBounding = null; // grid, element, row
 
-        this.clickPageFirst = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.onClickPageFirst = null; // (grid, pageIndex, selectedPageCount, userFunction)
 
-        this.clickPagePrev = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.onClickPagePrev = null; // (grid, pageIndex, selectedPageCount, userFunction)
 
-        this.clickPageIndex = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.onClickPageIndex = null; // (grid, pageIndex, selectedPageCount, userFunction)
 
-        this.clickPageNext = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.onClickPageNext = null; // (grid, pageIndex, selectedPageCount, userFunction)
 
-        this.clickPageLast = null; // (grid, pageIndex, selectedPageCount, userFunction)
+        this.onClickPageLast = null; // (grid, pageIndex, selectedPageCount, userFunction)
     }
 }

@@ -295,7 +295,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
             let value = grid.view_table.selectValue(rowIndex, columnName);
             if (columnType == CellType.checkbox) {
-                if (grid.notEmpty(grid.clickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
+                if (grid.notEmpty(grid.onClickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
                     const eventRow: any = {};
                     const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex    = rowIndex;
@@ -304,7 +304,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                     eventRow.value       = value;
                     eventRow.text        = value;
                     eventRow.data        = dataRows;
-                    let result = grid.clickCheckbox(grid, eventRow);
+                    let result = grid.onClickCheckbox(grid, eventRow);
                     if (result) {
                         let newValue = grid.reverseBoolean(value);
                         grid.setValue(rowIndex, columnName, newValue);
@@ -318,7 +318,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             }
             else if (columnType == CellType.button) {
                 e.preventDefault();
-                if (grid.notEmpty(grid.clickButton) && e.target.disabled != 'disabled') {
+                if (grid.notEmpty(grid.onClickButton) && e.target.disabled != 'disabled') {
                     const eventRow: any = {};
                     const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex    = rowIndex;
@@ -327,11 +327,11 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                     eventRow.value       = value;
                     eventRow.text        = value;
                     eventRow.data        = dataRows;
-                    grid.clickButton(grid, eventRow);
+                    grid.onClickButton(grid, eventRow);
                 }
             }
             else if (columnType == CellType.link) {
-                if (grid.notEmpty(grid.clickLink)) {
+                if (grid.notEmpty(grid.onClickLink)) {
                     const eventRow: any = {};
                     const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex    = rowIndex;
@@ -340,7 +340,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                     eventRow.value       = value;
                     eventRow.text        = value;
                     eventRow.data        = dataRows;
-                    const result = grid.clickLink(grid, eventRow);
+                    const result = grid.onClickLink(grid, eventRow);
                     if (!result) {
                         e.preventDefault();
                     }
@@ -460,7 +460,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 //     let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
                 //     let value = grid.view_table.selectValue(rowIndex, columnName);
                 //
-                //     if (grid.notEmpty(grid.clickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
+                //     if (grid.notEmpty(grid.onClickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
                 //         const eventRow = {};
                 //         const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                 //         eventRow.rowIndex = rowIndex;
@@ -469,7 +469,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 //         eventRow.value = value;
                 //         eventRow.text = value;
                 //         eventRow.data = dataRows;
-                //         let result = grid.clickCheckbox(grid, eventRow);
+                //         let result = grid.onClickCheckbox(grid, eventRow);
                 //         if (result) {
                 //             let newValue = grid.reverseBoolean(value);
                 //             grid.setValue(rowIndex, columnName, newValue);
@@ -488,7 +488,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 //     let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
                 //     let value = grid.view_table.selectValue(rowIndex, columnName);
                 //
-                //     if (grid.notEmpty(grid.clickButton) && e.target.disabled != 'disabled') {
+                //     if (grid.notEmpty(grid.onClickButton) && e.target.disabled != 'disabled') {
                 //         const eventRow = {};
                 //         const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                 //         eventRow.rowIndex = rowIndex;
@@ -497,7 +497,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 //         eventRow.value = value;
                 //         eventRow.text = value;
                 //         eventRow.data = dataRows;
-                //         grid.clickButton(grid, eventRow);
+                //         grid.onClickButton(grid, eventRow);
                 //     }
                 // }
                 // else if (e.target.classList.contains('tbs-grid-html-link')) {
@@ -507,7 +507,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 //     let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
                 //     let value = grid.view_table.selectValue(rowIndex, columnName);
                 //
-                //     if (grid.notEmpty(grid.clickLink)) {
+                //     if (grid.notEmpty(grid.onClickLink)) {
                 //         const eventRow = {};
                 //         const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                 //         eventRow.rowIndex = rowIndex;
@@ -516,7 +516,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 //         eventRow.value = value;
                 //         eventRow.text = value;
                 //         eventRow.data = dataRows;
-                //         let result = grid.clickLink(grid, eventRow);
+                //         let result = grid.onClickLink(grid, eventRow);
                 //         if (result == false) {
                 //             e.preventDefault();
                 //             e.stopPropagation();
@@ -534,16 +534,16 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                             if (panelInput.style.left != '30000px') {
                                 grid.editEnd();
                                 grid.input_focus();
-                            } else grid.tbs_executeEvent(true, 'click', param);
+                            } else grid.tbs_executeEvent(true, 'onClick', param);
                         } else if (e.detail == 2) {
                             let isEditable = grid.column_table.data[startCellIndex][columnAlias.editable];
                             if (isEditable) {
-                                if (grid.notNull(grid.edit)) {
+                                if (grid.notNull(grid.onEdit)) {
                                     grid.editStart(e, 'mouse')
                                 } else {
                                     grid.input_show(e, 'mouse');
                                 }
-                            } else grid.tbs_executeEvent(true, 'dblclick', param);
+                            } else grid.tbs_executeEvent(true, 'onDblclick', param);
                         }
                     }
                 //}
@@ -946,7 +946,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             let value = grid.view_table.data[rowIndex][columnAlias.isChecked];
 
             // @ts-ignore
-            if (grid.notEmpty(grid.clickInfoCheckbox) && e.target.disabled != 'disabled') {
+            if (grid.notEmpty(grid.onClickInfoCheckBox) && e.target.disabled != 'disabled') {
                 const eventRow: any = {};
                 const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
                 eventRow.rowIndex    = rowIndex;
@@ -957,7 +957,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 eventRow.data        = dataRows;
 
                 // @ts-ignore
-                let result = grid.clickInfoCheckbox(grid, eventRow);
+                let result = grid.onClickInfoCheckBox(grid, eventRow);
                 if (result) {
                     grid.view_table.data[rowIndex][columnAlias.isChecked] = grid.isNull(value, false) ? false : true;
                 }
@@ -1057,11 +1057,11 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 if (mouseButton == 0 && grid.isMovedPositionInConstRange(startX, startY, lastX, lastY)) {
                     let param = { e: e, rowIndex: startRowIndex, cellIndex: startCellIndex, mode: 'mouse' };
 
-                    if (e.detail == 1) grid.tbs_executeEvent(true, 'click', param);
+                    if (e.detail == 1) grid.tbs_executeEvent(true, 'onClick', param);
                     else if (e.detail == 2) {
                         let isEditable = grid.column_table.data[startCellIndex][columnAlias.editable];
                         if (isEditable) {
-                            if (grid.notNull(grid.edit)) {
+                            if (grid.notNull(grid.onEdit)) {
                                 //grid.input_edit(e, 0, 'mouse');
                                 grid.editStart(e, 'mouse');
                             }
@@ -1069,7 +1069,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                                 grid.input_show(e, 'mouse');
                             }
                         }
-                        else grid.tbs_executeEvent(true, 'dblclick', param);
+                        else grid.tbs_executeEvent(true, 'onDblclick', param);
                     }
                 }
             }

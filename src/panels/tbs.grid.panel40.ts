@@ -290,19 +290,19 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
                             grid.editEnd();
                             grid.input_focus();
                         }
-                        else grid.tbs_executeEvent(true, 'click', param);
+                        else grid.tbs_executeEvent(true, 'onClick', param);
                     }
                     else if (e.detail == 2) {
                         let isEditable = grid.column_table.data[startCellIndex][columnAlias.editable];
                         if (isEditable) {
-                            if (grid.notNull(grid.edit)) {
+                            if (grid.notNull(grid.onEdit)) {
                                 grid.editStart(e, 'mouse')
                             }
                             else {
                                 grid.input_show(e, 'mouse');
                             }
                         }
-                        else grid.tbs_executeEvent(true, 'dblclick', param);
+                        else grid.tbs_executeEvent(true, 'onDblclick', param);
                     }
                 }
             }
@@ -626,11 +626,11 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
                 if (mouseButton == 0 && grid.isMovedPositionInConstRange(startX, startY, lastX, lastY)) {
                     let param = { e: e, rowIndex: startRowIndex, cellIndex: startCellIndex, mode: 'mouse' };
 
-                    if (e.detail == 1) grid.tbs_executeEvent(true, 'click', param);
+                    if (e.detail == 1) grid.tbs_executeEvent(true, 'onClick', param);
                     else if (e.detail == 2) {
                         let isEditable = grid.column_table.data[startCellIndex][columnAlias.editable];
                         if (isEditable) {
-                            if (grid.notNull(grid.edit)) {
+                            if (grid.notNull(grid.onEdit)) {
                                 //grid.input_edit(e, 0, 'mouse');
                                 grid.editStart(e, 'mouse');
                             }
@@ -638,7 +638,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
                                 grid.input_show(e, 'mouse');
                             }
                         }
-                        else grid.tbs_executeEvent(true, 'dblclick', param);
+                        else grid.tbs_executeEvent(true, 'onDblclick', param);
                     }
                 }
             }
