@@ -9,13 +9,8 @@
 Welcome to TbsGrid.
 This grid is javascript web data grid.
 
-Currently, TbsGrid is in the process of being built, documentation is being written, 
-and testing is in progress. 
-
-It is difficult to tell you to use it yet.
-
-We are working hard to improve its completeness.
-
+Currently, TbsGrid is currently in beta.
+There may be minor errors.
 ---
 
 Thank you for visiting TbsGrid.
