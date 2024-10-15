@@ -3,27 +3,43 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
-module.exports = {
+const merge = require('webpack-merge');
+
+module.exports = webpackConfigTs = {
     mode: 'production',
     entry: {
-        "tbs-grid-configs": path.resolve(__dirname, 'src/tbs.grid.configs.js'),
-        "tbs-grid": path.resolve(__dirname, 'src/tbs.grid.js'),
-        "tbs-grid.min": path.resolve(__dirname, 'src/tbs.grid.js'),
+        "tbsgrid-configs": path.resolve(__dirname, 'src/tbs.grid.configs.ts'),
+        "tbsgrid": path.resolve(__dirname, 'src/tbs.grid.ts'),
+        "tbsgrid.min": path.resolve(__dirname, 'src/tbs.grid.ts'),
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
-        libraryTarget: "umd",
         clean: false,
+        libraryTarget: "umd",
+        //library: 'tbs-grid',
+        //globalObject: 'this',
+        environment: {
+            arrowFunction: false,
+            bigIntLiteral: false,
+            const: false,
+            destructuring: false,
+            dynamicImport: false,
+            forOf: false,
+            module: false,
+            optionalChaining: false,
+            templateLiteral: false
+        }
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                }
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
             {
                 test: /\.css$/i,
@@ -36,18 +52,16 @@ module.exports = {
             },
         ],
     },
-    resolve: {
-        extensions: ['', '.js'],
-        alias: {
-            'tbsGridNames': path.resolve(__dirname, './src/tbs.grid.names'),
-            'tbsGridTypes': path.resolve(__dirname, './src/tbs.grid.types')
-        }
+    externals: {
+        xlsx: {
+            commonjs: 'xlsx',
+            commonjs2: 'xlsx',
+            amd: 'xlsx',
+            root: 'XLSX',
+        },
+        saveAs: 'file-saver'
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            'tbsGridNames': 'tbsGridNames',
-            'tbsGridTypes': 'tbsGridTypes',
-        }),
         new MiniCssExtractPlugin({
             linkType: false,
             filename: '[name].[contenthash].css',
@@ -69,3 +83,5 @@ module.exports = {
         })]
     }
 }
+//const commonConfig = require('./webpack.config.common.js');
+//module.exports = merge(commonConfig, webpackConfigTs);
