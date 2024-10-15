@@ -6261,6 +6261,10 @@ var TbsGridPanel20 = /** @class */ (function (_super) {
                         var checkbox = tableCell.querySelector('.tbs-grid-html-checkbox');
                         checkbox.style.display = '';
                     }
+                    else {
+                        var checkbox = tableCell.querySelector('.tbs-grid-html-checkbox');
+                        checkbox.style.display = 'none';
+                    }
                 }
                 tableCell.querySelector('.tbs-grid-html-sort').textContent = '';
                 if (grid.sort_column_table.isRow(tbs_grid_types_1.columnAlias.name, columnName) && header[tbs_grid_types_1.columnAlias.kind] == 'column') {
@@ -13741,24 +13745,23 @@ var TbsGridRange = /** @class */ (function () {
             var selector = this.selector;
             var grid = this.grid;
             if (panelName == 'panel30') {
-                document.querySelectorAll(selector + ' .tbs-grid-cell-start').forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-start'); });
-                document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-cell-select').forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
-                document.querySelectorAll(selector + ' .tbs-grid-panel32 .tbs-grid-cell-select').forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
-                document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-cell-select').forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
+                document.querySelectorAll("".concat(selector, " .tbs-grid-cell-start")).forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-start'); });
+                document.querySelectorAll("".concat(selector, " .tbs-grid-panel31 .tbs-grid-cell-select")).forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
+                document.querySelectorAll("".concat(selector, " .tbs-grid-panel32 .tbs-grid-cell-select")).forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
+                document.querySelectorAll("".concat(selector, " .tbs-grid-panel30 .tbs-grid-cell-select")).forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
             }
             else if (panelName == 'panel40') {
-                document.querySelectorAll(selector + ' .tbs-grid-panel41 .tbs-grid-cell-select').forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
-                document.querySelectorAll(selector + ' .tbs-grid-panel42 .tbs-grid-cell-select').forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
-                document.querySelectorAll(selector + ' .tbs-grid-panel40 .tbs-grid-cell-select').forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
+                document.querySelectorAll("".concat(selector, " .tbs-grid-panel41 .tbs-grid-cell-select")).forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
+                document.querySelectorAll("".concat(selector, " .tbs-grid-panel42 .tbs-grid-cell-select")).forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
+                document.querySelectorAll("".concat(selector, " .tbs-grid-panel40 .tbs-grid-cell-select")).forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
             }
             else if (panelName == 'panel50') {
-                document.querySelectorAll(selector + ' .tbs-grid-panel51 .tbs-grid-cell-select').forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
-                document.querySelectorAll(selector + ' .tbs-grid-panel52 .tbs-grid-cell-select').forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
-                document.querySelectorAll(selector + ' .tbs-grid-panel50 .tbs-grid-cell-select').forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
+                document.querySelectorAll("".concat(selector, " .tbs-grid-panel51 .tbs-grid-cell-select")).forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
+                document.querySelectorAll("".concat(selector, " .tbs-grid-panel52 .tbs-grid-cell-select")).forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
+                document.querySelectorAll("".concat(selector, " .tbs-grid-panel50 .tbs-grid-cell-select")).forEach(function (cell) { return cell.classList.remove('tbs-grid-cell-select'); });
             }
         };
         this.selectRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex) {
-            var selector = this.selector;
             var grid = this.grid;
             if (grid.column_table.count() == 0) {
                 return;
@@ -13783,7 +13786,6 @@ var TbsGridRange = /** @class */ (function () {
         };
         this.setRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex, type) {
             if (type === void 0) { type = 'add'; }
-            var selector = this.selector;
             var grid = this.grid;
             grid.startRowIndex = startRowIndex;
             grid.startCellIndex = startCellIndex;
@@ -13947,17 +13949,16 @@ var TbsGridRange = /** @class */ (function () {
             grid.data_select_panel30 = [];
             grid.data_select_panel31 = [];
             grid.selectRangeArray = [];
-            document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table td').forEach(function (td) {
+            document.querySelectorAll("".concat(selector, " .tbs-grid-panel20 .tbs-grid-table td")).forEach(function (td) {
                 td.classList.remove('tbs-grid-cell-select');
             });
             if (grid.fixedColumnIndex != -1) {
-                document.querySelectorAll(selector + ' .tbs-grid-panel22 .tbs-grid-table td').forEach(function (td) {
+                document.querySelectorAll("".concat(selector, " .tbs-grid-panel22 .tbs-grid-table td")).forEach(function (td) {
                     td.classList.remove('tbs-grid-cell-select');
                 });
             }
         };
         this.addRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex) {
-            var selector = this.selector;
             var grid = this.grid;
             if (arguments.length == 2) {
                 startCellIndex = 0;
@@ -13972,7 +13973,7 @@ var TbsGridRange = /** @class */ (function () {
             grid.classRange.setRange(startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex, 'add');
         };
         this.grid = grid;
-        this.selector = '#' + grid.gridId;
+        this.selector = "#".concat(grid.gridId);
     }
     return TbsGridRange;
 }());
