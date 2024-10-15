@@ -67,10 +67,10 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
     }
 
     setDataPanel(topRowIndex) {
-        let selector = this.selector;
+        const selector = this.selector;
         const grid = this.grid;
 
-        let tableRows =  document.querySelectorAll(selector + ' .tbs-grid-panel30 tbody tr');
+        const tableRows =  document.querySelectorAll(`${selector} .tbs-grid-panel30 tbody tr`);
         if (tableRows.length == 0) {
             grid.classPanel30.createTable();
         }
@@ -79,8 +79,6 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         }
 
         grid.classRange.removePanelRange('panel30');
-
-        grid.classPage.setPageData();
 
         this.setDataPanel1({ panelName: 'panel31', topRowIndex : topRowIndex });
         this.setDataPanel2({ panelName: 'panel30', topRowIndex : topRowIndex });
@@ -121,6 +119,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 tableCell.dataset.rowIndex = i;
                 tableCell.dataset.displayRowIndex = i;
                 tableCell.dataset.cellType = grid.info_column_table.selectValue(x, columnAlias.type);
+
                 /* Render: Start */
                 let tbsGridRenderInfo = new TbsGridRenderPanelInfo(grid);
                 tbsGridRenderInfo.start(panelName, tableCell, grid.info_column_table.data[x], i, x);
@@ -190,12 +189,12 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
         // hidden : Unnecessary tableRows
         grid.classRow.hideTableRows(grid, panelName, tableRows, tableRowIndex, grid.pageRowCount);
 
-        // panel32 : display rowCount
-        if (param.panelName == 'panel32') {
-            let rowCount = grid.getRowCount();
-            if (grid.grid_mode == GridMode.page) rowCount = grid.page_table.count();
-            document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = rowCount;
-        }
+        // // panel32 : display rowCount
+        // if (param.panelName == 'panel32') {
+        //     let rowCount = grid.getRowCount();
+        //     if (grid.grid_mode == GridMode.page) rowCount = grid.page_table.count();
+        //     document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = rowCount;
+        // }
     }
 
     setDataPanel0(param) {
@@ -258,13 +257,13 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
 
         // panel30 : display rowCount
         if (panelName == 'panel30') {
-            let rowCount;
+            let rowCount: number;
 
-            if (grid.grid_mode == GridMode.page || grid.grid_mode == GridMode.pagination) rowCount = grid.page_table.count();
-            else if (grid.grid_mode == GridMode.page || grid.grid_mode == GridMode.pagination) rowCount = '';
+            if (grid.grid_mode == GridMode.page) rowCount = grid.page_table.count();
+            else if (grid.grid_mode == GridMode.pagination) rowCount = grid.classPagination.pageTotalRowCount;
             else rowCount = grid.getRowCount();
 
-            document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = rowCount;
+            document.querySelector(selector + ' .tbs-grid-panel21 td div').textContent = String(rowCount);
         }
     }
 

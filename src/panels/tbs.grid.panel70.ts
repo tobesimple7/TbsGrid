@@ -221,7 +221,15 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
                 let filterColumn = grid.filter_column_table.selectRow(columnAlias.name, column[columnAlias.name]);
                 grid.classFilter.setFilterColumn(column, filterType, word);
                 grid.classFilter.filters();
-                if (grid.group_column_table.count() > 0 || grid.grid_mode == GridMode.tree) grid.setData(grid.view_table.data, null, false);
+                if (grid.group_column_table.count() > 0
+                    || grid.grid_mode == GridMode.tree
+                    || grid.grid_mode == GridMode.page
+                    || grid.grid_mode == GridMode.pagination
+                ) {
+                    if (grid.grid_mode == GridMode.page) grid.classPage.pageIndex = 1;
+                    else if (grid.grid_mode == GridMode.pagination) grid.classPagination.pageIndex = 1;
+                    grid.setData(grid.view_table.data, null, false);
+                }
                 else grid.apply();
             }
             else {
@@ -229,8 +237,15 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
                 grid.classFilter.removeFilterColumn(column);
                 grid.filter_column_table.removeByRowId(column)
                 grid.classFilter.filters();
-                if (grid.group_column_table.count() > 0 || grid.grid_mode == GridMode.tree)
+                if (grid.group_column_table.count() > 0
+                    || grid.grid_mode == GridMode.tree
+                    || grid.grid_mode == GridMode.page
+                    || grid.grid_mode == GridMode.pagination
+                ) {
+                    if (grid.grid_mode == GridMode.page) grid.classPage.pageIndex = 1;
+                    else if (grid.grid_mode == GridMode.pagination) grid.classPagination.pageIndex = 1;
                     grid.setData(grid.view_table.data, null, false);
+                }
                 else grid.apply();
             }
         };
@@ -254,7 +269,15 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
                 let filterColumn = grid.filter_column_table.selectRow(columnAlias.name, column[columnAlias.name]);
                 grid.classFilter.setFilterColumn(column, filterType, word);
 
-                if (grid.group_column_table.count() > 0 || grid.grid_mode == GridMode.tree) grid.setData(grid.view_table.data, null, false);
+                if (grid.group_column_table.count() > 0
+                    || grid.grid_mode == GridMode.tree
+                    || grid.grid_mode == GridMode.page
+                    || grid.grid_mode == GridMode.pagination
+                ) {
+                    if (grid.grid_mode == GridMode.page) grid.classPage.pageIndex = 1;
+                    else if (grid.grid_mode == GridMode.pagination) grid.classPagination.pageIndex = 1;
+                    grid.setData(grid.view_table.data, null, false);
+                }
                 else {
                     grid.classFilter.filters();
                     grid.apply();
@@ -264,7 +287,15 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
                 // delete filterColumn.
                 grid.classFilter.removeFilterColumn(column);
                 grid.classFilter.filters();
-                if (grid.group_column_table.count() > 0 || grid.grid_mode == GridMode.tree) grid.setData(grid.view_table.data, null, false);
+                if (grid.group_column_table.count() > 0
+                    || grid.grid_mode == GridMode.tree
+                    || grid.grid_mode == GridMode.page
+                    || grid.grid_mode == GridMode.pagination
+                ) {
+                    if (grid.grid_mode == GridMode.page) grid.classPage.pageIndex = 1;
+                    else if (grid.grid_mode == GridMode.pagination) grid.classPagination.pageIndex = 1;
+                    grid.setData(grid.view_table.data, null, false);
+                }
                 else grid.apply();
             }
 
@@ -277,8 +308,8 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
         // panel70.addEventListener('keyup', keyupEvent);
         // panel70.addEventListener('change', changeEvent);
 
-        let inputs = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-cell-filter-input');
-        let combos = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-cell-filter-combo');
+        let inputs = document.querySelectorAll(`${selector} .tbs-grid-${panelName} .tbs-grid-cell-filter-input`);
+        let combos = document.querySelectorAll(`${selector} .tbs-grid-${panelName} .tbs-grid-cell-filter-combo`);
 
         for (let i = 0, len = inputs.length; i < len; i++) {
             inputs[i].addEventListener('keyup', keyupEvent);

@@ -119,7 +119,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
         this.setDataPanelSub(this.panelName0, param);
     }
 
-    setDataPanelSub(panelName, param) {
+    setDataPanelSub(panelName: string, param: any) {
         let selector = this.selector;
         const grid = this.grid;
 
@@ -148,9 +148,18 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 }
             }
         }
+        let orderNum = 1;
+        grid.sort_column_table.data.map(dataRow => {
+            if (grid.notEmpty(dataRow['order'])) {
+                dataRow['orderNumber'] = orderNum;
+                orderNum += 1;
+            }
+        })
+
         for (let i = 0, rowLen = grid.header_column_table.count(); i < rowLen; i++) {
             const tableRow: any = tablesRows[i];
             tableRow.style.height = grid.headerRowHeight + 'px';
+
             for (let x = startColumnIndex, colLen = lastColumnIndex; x < colLen; x++) {
                 const column: any  = grid.column_table.data[x];
                 const header: any  = grid.header_column_table.data[i][x];
@@ -185,9 +194,12 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 if (grid.sort_column_table.isRow(columnAlias.name, columnName) && header[columnAlias.kind] == 'column') {
                     let sortColumn = grid.classSort.getSortRow(columnName);
                     let sortSymbol = '';
-                    let orderNumber = grid.sort_column_table.selectRowIndex(columnAlias.name, columnName) + 1;
-                    if (sortColumn['order'] == 'desc') sortSymbol = '▼' + orderNumber;
-                    else if (sortColumn['order'] == 'asc') sortSymbol = '▲' + orderNumber;
+
+                    let orderNumber = grid.isNull(sortColumn['orderNumber'], '');
+
+                    if (sortColumn['order'] == 'desc') sortSymbol = `▼${orderNumber}`;
+                    else if (sortColumn['order'] == 'asc') sortSymbol = `▲${orderNumber}`;
+
                     tableCell.querySelector('.tbs-grid-html-sort').textContent = sortSymbol;
                 }
 

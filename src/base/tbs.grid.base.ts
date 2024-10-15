@@ -1,4 +1,4 @@
-import {Options} from '../tbs.grid.types';
+import {GridOptions} from '../tbs.grid.types';
 import {TbsBase} from '../tbs.base';
 import {TbsDatabase, DataTableType} from '../database/tbs.database';
 import {TbsDataTable} from '../database/tbs.data.table';
@@ -82,8 +82,6 @@ export class TbsGridBase extends TbsBase {
     const_filterSave : string;
 
     headerRowCount: number;
-
-    options: Options;
 
     fixedColumnIndex: number;
     headerRowHeight: number;
@@ -222,42 +220,12 @@ export class TbsGridBase extends TbsBase {
 
         this.headerRowCount = 0;
 
-        /* Options */
-        this.options = {}
-
-        /* toolbar, filter, sort, group panel optons */
-        this.options.showToolbarPanel = false;
-        this.options.showFilterPanel = false;
-        this.options.showSortPanel = false;
-        this.options.showGroupPanel = false;
-
-        /* Columns Options */
-        this.options.sortable = true;
-        this.options.resizable = true;
-        this.options.movable = true;
-        this.options.autoResizable = true;
-        this.options.autoWidth = false;
-
-        // Rows Options
-        this.options.selectMode = 'cells';	//@value : cell, cells(default) // row, rows : @deprecated
-        this.options.addRow = false; 	//== row option
-        this.options.delRow = false;
-        this.options.insertRow = false;
-        this.options.updateRow = false;
-        this.options.deleteRow = false;
-        this.options.zeroChar = '-';
-        this.options.useToolbar = true;
-        this.options.imageRoot = this.getConfigOption('imageRoot');
-
-        this.options.treeItemName = null;
-        this.options.treeParentName = null;
-        this.options.treeRootValue = null;
-
         /**
          * @description layout
          *
          */
         this.fixedColumnIndex = -1;
+
         /**
          * @description constant value
          *
@@ -267,7 +235,6 @@ export class TbsGridBase extends TbsBase {
         this.topRowHeight = 25;
         this.footerRowHeight = 25;
 
-
         /**
          * @description code
          *
@@ -276,17 +243,6 @@ export class TbsGridBase extends TbsBase {
         this.code_horizontal = 'horizontal';
         this.code_vertical   = 'vertical';
     }
-
-    /**
-     * get configs value
-     */
-
-    getConfigCulture (label: string) { return this.null(this.gridConfig['culture'][label])  ? 'No Label' : this.gridConfig['culture'][label]; }
-    getConfigCalendar(label: string) { return this.null(this.gridConfig['calendar'][label]) ? 'No Label' : this.gridConfig['calendar'][label]; }
-    getConfigFont    (label: string) { return this.null(this.gridConfig['font'][label])     ? 'No Label' : this.gridConfig['font'][label]; }
-    getConfigOption  (label: string) { return this.null(this.gridConfigOptions[label])      ? 'No Label' : this.gridConfigOptions[label]; }
-    getConfigLabel   (label: string) { return this.null(this.gridConfig['labels'][label])   ? 'No Label' : this.gridConfig['labels'][label]; }
-
 }
 
 

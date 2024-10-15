@@ -20,13 +20,6 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
             s += '<div class="tbs-grid-panel10-filter" style="display:none;">';
                 s += '<input class="tbs-grid-panel10-filter-input" placeholder="Search">';
             s += '</div>';
-            s += '<div class="tbs-grid-panel10-page" style="display:none;">';
-                s += '<span class="tbs-grid-panel10-page-first">◁◁</span>';
-                s += '<span class="tbs-grid-panel10-page-prev">◀</span>';
-                s += '<span class="tbs-grid-panel10-page-select">1</span>';
-                s += '<span class="tbs-grid-panel10-page-next">▶</span>';
-                s += '<span class="tbs-grid-panel10-page-last">▷▷</span>';
-            s += '</div>';
                 s += '<div class="tbs-grid-panel10-buttons" style="display:;">';
                     s += '<div class="tbs-grid-panel10-buttons-wrap">';
                         s += '<span class="tbs-grid-panel10-buttons-filter">'+grid.getConfigLabel('toolbar_button_filter')+'</span>';
@@ -55,7 +48,7 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
     }
 
     panel10_select(){
-        let selector = this.selector;
+        const selector = this.selector;
         const grid = this.grid;
 
         /* Filter Panel */
@@ -148,41 +141,6 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
         // }
         // if (document.querySelector(selector + ' .tbs-grid-panel10-filter-input'))
         //     document.querySelector(selector + ' .tbs-grid-panel10-filter-input').addEventListener('keyup', setTotalFilterEvent);
-
-        const firstEvent = function(e) {
-            e.stopPropagation();
-            grid.classPage.pageIndex = 1;
-            grid.classPanel30.setDataPanel(0);
-        }
-        if (document.querySelector(selector + ' .tbs-grid-panel10-page-first'))
-            document.querySelector(selector + ' .tbs-grid-panel10-page-first').addEventListener('mousedown', firstEvent);
-        const prevEvent = function(e) {
-            e.stopPropagation();
-            grid.classPage.pageIndex -= 1 ;
-            grid.classPanel30.setDataPanel(0);
-        }
-        if (document.querySelector(selector + ' .tbs-grid-panel10-page-prev'))
-            document.querySelector(selector + ' .tbs-grid-panel10-page-prev').addEventListener('mousedown', prevEvent);
-        const curEvent = function(e) {
-            e.stopPropagation();
-            grid.classPanel30.setDataPanel(0);
-        }
-        if (document.querySelector(selector + ' .tbs-grid-panel10-page-select'))
-            document.querySelector(selector + ' .tbs-grid-panel10-page-select').addEventListener('mousedown', curEvent);
-        const nextEvent = function(e) {
-            e.stopPropagation();
-            grid.classPage.pageIndex += 1 ;
-            grid.classPanel30.setDataPanel(0);
-        }
-        if (document.querySelector(selector + ' .tbs-grid-panel10-page-next'))
-            document.querySelector(selector + ' .tbs-grid-panel10-page-next').addEventListener('mousedown', nextEvent);
-        const lastEvent = function(e) {
-            e.stopPropagation();
-            grid.classPage.pageIndex = grid.classPage.pageCount;
-            grid.classPanel30.setDataPanel(0);
-        }
-        if (document.querySelector(selector + ' .tbs-grid-panel10-page-last'))
-            document.querySelector(selector + ' .tbs-grid-panel10-page-last').addEventListener('mousedown', lastEvent);
     }
 
     showToolbarPanel() {
@@ -190,7 +148,7 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
         const grid = this.grid;
 
         grid.options.showToolbarPanel = true;
-        const panel = document.querySelector(selector + ' .tbs-grid-panel10');
+        const panel = document.querySelector(`${selector} .tbs-grid-panel10`);
         panel.classList.remove('tbs-grid-hide');
         panel.classList.add('tbs-grid-show');
 
@@ -204,7 +162,7 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
         const grid = this.grid;
 
         grid.options.showToolbarPanel = false;
-        const panel = document.querySelector(selector + ' .tbs-grid-panel10');
+        const panel = document.querySelector(`${selector} .tbs-grid-panel10`);
         panel.classList.remove('tbs-grid-show');
         panel.classList.add('tbs-grid-hide');
 
@@ -218,25 +176,25 @@ export class TbsGridPanel10 extends TbsGridPanelBase {
         const grid = this.grid;
 
         if (buttonType == 'filter') {
-            let button: any = document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter');
+            let button: any = document.querySelector(`${selector} .tbs-grid-panel10-buttons-filter`);
             button.style.display = '';
-            button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-filter-reset');
+            button = document.querySelector(`${selector} .tbs-grid-panel10-buttons-filter-reset`);
             button.style.display = '';
         }
         else if (buttonType == 'sort') {
-            let button: any = document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort');
+            let button: any = document.querySelector(`${selector} .tbs-grid-panel10-buttons-sort`);
             button.style.display = '';
-            button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-sort-reset');
+            button = document.querySelector(`${selector} .tbs-grid-panel10-buttons-sort-reset`);
             button.style.display = '';
         }
         else if (buttonType == 'group') {
-            let button: any = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group');  button.style.display = '';
-            button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-expand');button.style.display = '';
-            button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-collapse');button.style.display = '';
-            button = document.querySelector(selector + ' .tbs-grid-panel10-buttons-group-reset');button.style.display = '';
+            let button: any = document.querySelector(`${selector} .tbs-grid-panel10-buttons-group`);  button.style.display = '';
+            button = document.querySelector(`${selector} .tbs-grid-panel10-buttons-group-expand`);button.style.display = '';
+            button = document.querySelector(`${selector} .tbs-grid-panel10-buttons-group-collapse`);button.style.display = '';
+            button = document.querySelector(`${selector} .tbs-grid-panel10-buttons-group-reset`);button.style.display = '';
         }
         else if (buttonType == 'fixedColumn') {
-            let button: any = document.querySelector(selector + ' .tbs-grid-panel10-buttons-fixed-column'); button.style.display = '';
+            let button: any = document.querySelector(`${selector} .tbs-grid-panel10-buttons-fixed-column`); button.style.display = '';
         }
     }
 

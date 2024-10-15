@@ -112,8 +112,8 @@ tbsGridConfigs['ko'] = {
  * Write options at the end
  */
 tbsGridConfigs['options'] = {
-    imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.30/dist/assets/img/',
-    userImageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.30/dist/assets/userImg/',
+    imageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.35/dist/assets/img/',
+    userImageRoot: 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.35/dist/assets/userImg/',
     // imageRoot: '/src/assets/img/',
     // userImageRoot: '/src/assets/userImg/',
     isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent), // true, false

@@ -7,6 +7,10 @@ export class TbsGridBaseUserEvent {
     onClickButton: any;
     onClickLink: any;
     onRowBounding: any;
+
+    onClickPage: any;
+    onChangePageRowCount: any;
+
     onClickPageFirst: any;
     onClickPagePrev: any;
     onClickPageIndex: any;
@@ -33,6 +37,10 @@ export class TbsGridBaseUserEvent {
         this.onClickLink = null; // (grid, row)
 
         this.onRowBounding = null; // grid, element, row
+
+        this.onClickPage = null;
+
+        this.onChangePageRowCount = null;
 
         this.onClickPageFirst = null; // (grid, pageIndex, selectedPageCount, userFunction)
 

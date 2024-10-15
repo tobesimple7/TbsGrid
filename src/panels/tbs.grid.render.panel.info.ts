@@ -101,16 +101,17 @@ export class TbsGridRenderPanelInfo {
             if (render.visible) {
                 if (render.columnName == 'num') {
                     if (grid.grid_mode == GridMode.page) {
-                        render.cellValue  = grid.startRowIndex + render.rowIndex + 1;
-                        render.cellText   = grid.startRowIndex + render.rowIndex + 1;
+                        render.cellValue  = (grid.classPage.pageIndex - 1) * grid.options.pageRowCount + render.rowIndex + 1;
+                        render.cellText   = render.cellValue;
+                    }
+                    else if (grid.grid_mode == GridMode.page) {
+                        render.cellValue  = (grid.classPagination.pageIndex - 1) * grid.options.pageRowCount + render.rowIndex + 1;
+                        render.cellText   = render.cellValue;
                     }
                     else {
                         render.cellValue  = render.rowIndex + 1;
                         render.cellText   = render.rowIndex + 1;
                     }
-
-                    render.cellValue  = render.rowIndex + 1;
-                    render.cellText   = render.rowIndex + 1;
                 }
                 else if (render.columnName == 'mode') {
                     let mode = dataRow[columnAlias.rowMode];

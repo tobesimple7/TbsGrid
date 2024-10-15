@@ -316,10 +316,7 @@ export declare class TbsGrid extends TbsGridBase {
     createOption(options: any): void;
     setOption(optionName: any, optionValue: any): void;
     setOptions(options: any): void;
-    /**
-     * Page
-     */
-    setPageOption(optionName: any, optionValue: any): void;
+
     /**
      * Dom Lib
      */

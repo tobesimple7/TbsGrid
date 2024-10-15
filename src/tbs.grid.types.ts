@@ -79,7 +79,12 @@ export interface Column {
     format?: boolean,
     kind?: ColumnKind,
 }
-
+export enum ClickPageOrder {
+    first = 'first',
+    last = 'last',
+    prev = 'prev',
+    next = 'next'
+}
 export enum FilterType {
     Select         =  0,
     Equal          =  1,
@@ -230,20 +235,20 @@ export enum optionAlias {
     imageRoot = 'imageRoot',
 }
 
-export interface Options {
+export interface GridOptions {
     showToolbarPanel?: boolean,
     showFilterPanel?: boolean,
     showSortPanel?: boolean,
     showGroupPanel?: boolean,
 
-    /* Columns Options */
+    /* Columns GridOptions */
     sortable?: boolean,
     resizable?: boolean,
     movable?: boolean,
     autoResizable?: boolean,
     autoWidth?: boolean,
 
-    // Rows Options
+    // Rows GridOptions
     selectMode?: string,
     addRow?: boolean,
     delRow?: boolean,
@@ -258,5 +263,8 @@ export interface Options {
     treeItemName?: string,
     treeParentName?: string,
     treeRootValue?: string,
+
+    pageRowCount?: number;
+    pageRowCountList?: number[];
 }
 

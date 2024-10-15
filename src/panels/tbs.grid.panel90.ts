@@ -21,7 +21,7 @@ export class TbsGridPanel90 extends TbsGridPanelBase {
     }
 
     createTable() {
-        let selector = '#' + this.grid.gridId;
+        let selector = this.selector;
         const grid = this.grid;
 
         //if (grid.options.showSortPanel != true) return;

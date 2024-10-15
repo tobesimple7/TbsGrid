@@ -50,7 +50,7 @@ export class TbsGridBaseMain {
      */
 
     apply(this: TbsGrid) {
-        let selector = '#' + this.gridId;
+        let selector = `#${this.gridId}`;
         const grid = this;
 
         let topRowIndex = grid.getFirstRowIndex();
@@ -77,30 +77,22 @@ export class TbsGridBaseMain {
         grid.classPanel90.createHtml(elementGrid);
 
         elementGrid.insertAdjacentHTML('beforeend', '<div class="tbs-grid-main"><div class="tbs-grid-wrap" /></div>');
-        let elementMain = document.querySelector(selector + ' .tbs-grid-main');
-        let elementWrap = document.querySelector(selector + ' .tbs-grid-wrap');
+        let elementMain = document.querySelector(`${selector} .tbs-grid-main`);
+        let elementWrap = document.querySelector(`${selector} .tbs-grid-wrap`);
 
         grid.classPanel20.createHtml(elementWrap);
         grid.classPanel70.createHtml(elementWrap);
         grid.classPanel40.createHtml(elementWrap);
         grid.classPanel30.createHtml(elementWrap);
         grid.classPanel50.createHtml(elementWrap);
+        grid.classPanel99.createHtml(elementGrid);
 
         grid.classPanelBase.createEtcHtml(elementMain);
         elementRoot.insertAdjacentHTML('beforeend', '<div class="tbs-grid-layer" style="left:30000px;display: none;"></div>');
-        this.topLineDiv    = document.querySelector(selector + ' .tbs-grid-top-line');
-        this.bottomLineDiv = document.querySelector(selector + ' .tbs-grid-bottom-line');
-        this.leftLineDiv   = document.querySelector(selector + ' .tbs-grid-left-line');
-        this.rightLineDiv  = document.querySelector(selector + ' .tbs-grid-right-line');
-    }
-
-    setDataColumns(this: TbsGrid, columns: any[]) {
-        // columns.map(column => {
-        //     const dataRow = {}
-        //     dataRow[columnAlias.name] = column[columnAlias.name];
-        //     dataRow[columnAlias.dataType] = column[columnAlias.dataType];
-        //     this.field_table.insert(dataRow);
-        // });
+        this.topLineDiv    = document.querySelector(`${selector} .tbs-grid-top-line`);
+        this.bottomLineDiv = document.querySelector(`${selector} .tbs-grid-bottom-line`);
+        this.leftLineDiv   = document.querySelector(`${selector} .tbs-grid-left-line`);
+        this.rightLineDiv  = document.querySelector(`${selector} .tbs-grid-right-line`);
     }
 
     setGrid(this: TbsGrid, columns: any[], options: any = {}) {
@@ -257,47 +249,45 @@ export class TbsGridBaseMain {
         }
     }
 
-    setGridModePage(this: TbsGrid) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-
-        let page: any = document.querySelector(selector + ' .tbs-grid-panel10-page');
-        page.style.display = '';
-
-        grid.classPage.pageRowCount = grid.classPage.options['pageRowCount'];
-    }
-
-    setGridModePagenation(this: TbsGrid) {
-        let selector = '#' + this.gridId;
-        const grid = this;
-
-        const page: any = document.querySelector(selector + ' .tbs-grid-panel10-page');
-        page.style.display = '';
-    }
+    // setGridModePage(this: TbsGrid) {
+    //     let selector = `#${this.gridId}`;
+    //     const grid = this;
+    //
+    //     let page: any = document.querySelector(`${selector} .tbs-grid-panel10-page`);
+    //     page.style.display = '';
+    //
+    //     grid.classPage.pageRowCount = grid.options.pageRowCount;
+    // }
+    //
+    // setGridModePagination(this: TbsGrid) {
+    //     let selector = `#${this.gridId}`;
+    //     const grid = this;
+    //
+    //     const page: any = document.querySelector(`${selector} .tbs-grid-panel10-page`);
+    //     page.style.display = '';
+    // }
 
     setData(this: TbsGrid, data: any[], openDepth: number = 0, isFirst: boolean = true) {
         const grid = this;
 
         if (grid.group_column_table.count() > 0) grid.classGroup.setGroupData(data, openDepth, isFirst);
         else if (grid.grid_mode == GridMode.tree) grid.classTree.setTreeData(data, openDepth, isFirst);
+        else if (grid.grid_mode == GridMode.page) grid.classPage.setPageData(data, isFirst);
+        else if (grid.grid_mode == GridMode.pagination) grid.classPagination.setPaginationData(data);
         else grid.setGridData(data, isFirst);
     }
 
     setGridMode(this: TbsGrid, gridMode: GridMode) {
-        let selector = '#' + this.gridId;
         const grid = this;
 
         grid.grid_mode = grid.trim(gridMode);
 
         if (grid.grid_mode == GridMode.page) {
-            grid.classPanel10.hideToolbarButtons('group');
-            grid.setGridModePage();
+            grid.classPanel99.showPagePanel();
         }
         else if (grid.grid_mode == GridMode.pagination) {
-            grid.classPanel10.hideToolbarButtons('group');
-            grid.setGridModePagenation();
+            grid.classPanel99.showPagePanel();
         }
-        else if (grid.grid_mode == GridMode.tree) {}
     }
 
     setGridData(this: TbsGrid, data: any[], isFirst: boolean) {
@@ -336,7 +326,6 @@ export class TbsGridBaseMain {
 
             this.source_table.insert(source);
             this.view_table.insert(grid.copyJson(source));
-            if (grid.grid_mode == GridMode.page) this.page_table.insert(grid.copyJson(source));
         }
 
         /* create top_data */
@@ -425,5 +414,12 @@ export class TbsGridBaseMain {
     exportExcel(this: TbsGrid, options: any) {
         const excel = new TbsGridExcel(this);
         excel.exportExcel(options);
+    }
+
+    /**
+     * Pagination
+     */
+    setTotalRowCount(this: TbsGrid, totalRowCount: number) {
+        this.classPagination.setTotalRowCount(totalRowCount);
     }
 }

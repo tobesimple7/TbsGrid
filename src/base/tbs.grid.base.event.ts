@@ -742,6 +742,12 @@ export class TbsGridBaseEvent {
         else if (grid.grid_mode == GridMode.tree) {
             grid.setData(grid.view_table.data, grid.classTree.openDepth, false);
         }
+        else if (grid.grid_mode == GridMode.page) {
+            grid.setData(grid.view_table.data, null, false);
+        }
+        else if (grid.grid_mode == GridMode.pagination) {
+            grid.setData(grid.view_table.data);
+        }
         else {
             if (grid.isSortableColumn()) {
                 grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);

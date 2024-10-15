@@ -97,14 +97,6 @@ tbs-grid (relative)
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
-.tbs-grid .tbs-grid-panel10 {
-    width: 100%;
-    position: relative;
-    border-bottom: 1px solid #9b9b9b;
-    height: 25px;
-    overflow: hidden;
-    background: #dfe3e8;
-}
 .tbs-grid .tbs-grid-main {
     position: relative;
     width: 100%;
@@ -133,6 +125,14 @@ tbs-grid (relative)
 /* =========================================================================== */
 /*  Grid Group                                                                 */
 /* =========================================================================== */
+.tbs-grid .tbs-grid-panel10 {
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #9b9b9b;
+    height: 25px;
+    overflow: hidden;
+    background: #dfe3e8;
+}
 .tbs-grid .tbs-grid-group21 {
     position: absolute;
     top: 0px;
@@ -411,6 +411,14 @@ tbs-grid (relative)
     bottom: 0px;
     overflow: hidden;
     background: white;
+}
+.tbs-grid .tbs-grid-panel99 {
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #9b9b9b;
+    height: 28px;
+    overflow: hidden;
+    background: #efeeee;
 }
 /* =========================================================================== */
 /*  Grid Panel Table                                                           */
@@ -1794,121 +1802,6 @@ tbs-grid (relative)
 /* =========================================================================== */
 /*    Panel10 Toolbar                                                          */
 /* =========================================================================== */
-.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-wrap {
-    position: relative;
-    border-top: 0px solid #bbbbbb;
-    border-bottom: 0px solid #bbbbbb;
-    border-left: 0px solid #bbbbbb;
-    border-right: 0px solid #919191;
-    width: 100%;
-    height: 25px;
-    display: inline-block;
-    margin: 0px 0px 0px 0px;
-    border-spacing: 0px;
-    vertical-align: middle;
-}
-.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-filter {
-    position: relative;
-    border-top: 0px solid #bbbbbb;
-    border-bottom: 0px solid #bbbbbb;
-    border-left: 0px solid #bbbbbb;
-    border-right: var(--tbs-grid-cell-border);
-    width: 200px;
-    height: 25px;
-    display: inline-block;
-    margin: 0px 5px 0px 0px;
-    border-spacing: 0px;
-}
-.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-filter-input {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    background: #ffffff /*#f8f8f8*/;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
-    border: 0px;
-    border-spacing: 0px;
-    outline: none;
-}
-.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page {
-    position: relative;
-    border-top: 0px solid #bbbbbb;
-    border-bottom: 0px solid #bbbbbb;
-    border-left: 0px solid #bbbbbb;
-    border-right: 0px solid #919191;
-    /*width: 300px;*/
-    height: 25px;
-    display: inline-block;
-    margin: 0px 50px 0px 0px;
-    border-spacing: 0px;
-}
-.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page-first {
-    position: relative;
-    border-top: 0px solid #bbbbbb;
-    border-bottom: 0px solid #bbbbbb;
-    border-left: 0px solid #bbbbbb;
-    border-right: 0px solid #919191;
-    width: 30px;
-    height: 25px;
-    display: inline-block;
-    margin: 0px 0px 0px 5px;
-    border-spacing: 0px;
-    text-align: center;
-}
-.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page-prev {
-    position: relative;
-    border-top: 0px solid #bbbbbb;
-    border-bottom: 0px solid #bbbbbb;
-    border-left: 0px solid #bbbbbb;
-    border-right: 0px solid #919191;
-    width: 30px;
-    height: 25px;
-    display: inline-block;
-    margin: 0px 0px 0px 5px;
-    border-spacing: 0px;
-    text-align: center;
-}
-.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page-select {
-    position: relative;
-    border-top: 0px solid #bbbbbb;
-    border-bottom: 0px solid #bbbbbb;
-    border-left: 0px solid #bbbbbb;
-    border-right: 0px solid #919191;
-    width: 30px;
-    height: 25px;
-    display: inline-block;
-    margin: 0px 0px 0px 5px;
-    border-spacing: 0px;
-    text-align: center;
-}
-.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page-next {
-    position: relative;
-    border-top: 0px solid #bbbbbb;
-    border-bottom: 0px solid #bbbbbb;
-    border-left: 0px solid #bbbbbb;
-    border-right: 0px solid #919191;
-    width: 30px;
-    height: 25px;
-    display: inline-block;
-    margin: 0px 0px 0px 5px;
-    border-spacing: 0px;
-    text-align: center;
-}
-.tbs-grid .tbs-grid-panel10 .tbs-grid-panel10-page-last {
-    position: relative;
-    border-top: 0px solid #bbbbbb;
-    border-bottom: 0px solid #bbbbbb;
-    border-left: 0px solid #bbbbbb;
-    border-right: 0px solid #919191;
-    width: 20px;
-    height: 25px;
-    display: inline-block;
-    margin: 0px 0px 0px 5px;
-    border-spacing: 0px;
-    text-align: center;
-}
 .tbs-grid .tbs-grid-panel10 .tbs-grid-button {
     position: relative;
     width: 100px;
@@ -2079,6 +1972,120 @@ tbs-grid (relative)
     margin: 0px 0px 0px 2px;
     padding: 0px 10px 0px 10px;
     border-spacing: 0px;
+}
+/* =========================================================================== */
+/*    Panel10 Toolbar                                                          */
+/* =========================================================================== */
+.tbs-grid .tbs-grid-panel99 .tbs-grid-panel99-wrap {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 100%;
+    height: 28px;
+    padding: 0px;
+    margin: 0px 0px 0px 0px;
+    border-spacing: 0px;
+    vertical-align: middle;
+}
+.tbs-grid .tbs-grid-panel99 .tbs-grid-panel99-page {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 100%;
+    height: 28px;
+    padding: 0px;
+    margin: 3px 0px 0px 0px;
+    border-spacing: 0px;
+    vertical-align: middle;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel99 .tbs-grid-panel99-page-first {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 30px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 5px;
+    border-spacing: 0px;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel99 .tbs-grid-panel99-page-prev {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 30px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 5px;
+    border-spacing: 0px;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel99 .tbs-grid-panel99-page-select {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 80px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 5px;
+    border-spacing: 0px;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel99 .tbs-grid-panel99-page-next {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 30px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 5px;
+    border-spacing: 0px;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel99 .tbs-grid-panel99-page-last {
+    position: relative;
+    border-top: 0px solid #bbbbbb;
+    border-bottom: 0px solid #bbbbbb;
+    border-left: 0px solid #bbbbbb;
+    border-right: 0px solid #919191;
+    width: 20px;
+    height: 25px;
+    display: inline-block;
+    margin: 0px 0px 0px 5px;
+    border-spacing: 0px;
+    text-align: center;
+}
+.tbs-grid .tbs-grid-panel99 .bg-red {
+    background-color: rgb(255, 92, 92);
+}
+.tbs-grid .tbs-grid-panel99 .font-white {
+    color: #ffffff;
+}
+.tbs-grid .tbs-grid-panel99 .tbs-grid-panel99-page-combo {
+    position: relative;
+    /*border-top: 0px solid #bbbbbb;*/
+    /*border-bottom: 0px solid #bbbbbb;*/
+    /*border-left: 0px solid #bbbbbb;*/
+    /*border-right: 0px solid #919191;*/
+    width: 100px;
+    padding: 0px;
+    margin: 0px 0px 0px 30px;
+    border-spacing: 0px;
+    vertical-align: middle;
+    text-align: center;
 }
 /* =========================================================================== */
 /*   Panel80 Grouping                                                          */
