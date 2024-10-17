@@ -1,6 +1,6 @@
 
 import {TbsGrid} from "../tbs.grid";
-import {ColumnKind, columnAlias} from "../tbs.grid.types";
+import {ColumnKind, ColumnAlias} from "../tbs.grid.types";
 
 
 
@@ -19,9 +19,9 @@ export class TbsGridHeaders {
         const getChildrenColumnCount = function (userColumn) {
             let columnCount = 0;
             const getCount = function (userColumn) {
-                if (userColumn[columnAlias.children]) {
-                    for (let i = 0, len = userColumn[columnAlias.children].length; i < len; i++) {
-                        getCount(userColumn[columnAlias.children][i]);
+                if (userColumn[ColumnAlias.children]) {
+                    for (let i = 0, len = userColumn[ColumnAlias.children].length; i < len; i++) {
+                        getCount(userColumn[ColumnAlias.children][i]);
                     }
                 }
                 else columnCount += 1;
@@ -35,9 +35,9 @@ export class TbsGridHeaders {
             const getDepth = (userColumn, depth = 1) => {
                 if (depth > maxDepth)
                     maxDepth = depth;
-                if (userColumn[columnAlias.children]) {
-                    for (let i = 0, len = userColumn[columnAlias.children].length; i < len; i++) {
-                        getDepth(userColumn[columnAlias.children][i], depth + 1);
+                if (userColumn[ColumnAlias.children]) {
+                    for (let i = 0, len = userColumn[ColumnAlias.children].length; i < len; i++) {
+                        getDepth(userColumn[ColumnAlias.children][i], depth + 1);
                     }
                 }
             }
@@ -48,14 +48,14 @@ export class TbsGridHeaders {
         const setNumber = function(userColumns, rowIndex, parentNum = 0) {
             userColumns.map(userColumn => {
                 num = num + 1;
-                userColumn[columnAlias.num] = num;
-                userColumn[columnAlias.parentNum] = parentNum;
+                userColumn[ColumnAlias.num] = num;
+                userColumn[ColumnAlias.parentNum] = parentNum;
 
-                userColumn[columnAlias.rowIndex] = rowIndex;
-                userColumn[columnAlias.rowSpan] = userColumn[columnAlias.children] ? 1 : headerRowCount - rowIndex;
-                userColumn[columnAlias.colSpan] = getChildrenColumnCount(userColumn);
-                if (userColumn[columnAlias.children]) {
-                    setNumber(userColumn[columnAlias.children], rowIndex + 1, num);
+                userColumn[ColumnAlias.rowIndex] = rowIndex;
+                userColumn[ColumnAlias.rowSpan] = userColumn[ColumnAlias.children] ? 1 : headerRowCount - rowIndex;
+                userColumn[ColumnAlias.colSpan] = getChildrenColumnCount(userColumn);
+                if (userColumn[ColumnAlias.children]) {
+                    setNumber(userColumn[ColumnAlias.children], rowIndex + 1, num);
                 }
             });
         }
@@ -76,84 +76,84 @@ export class TbsGridHeaders {
             userColumns.map(userColumn => {
                 let headerColumn = {};
 
-                let kind     = userColumn[columnAlias.children] ? 'header' : 'column';
+                let kind     = userColumn[ColumnAlias.children] ? 'header' : 'column';
                 let name     = null;
                 let text     = null;
                 let align    = null;
                 let className= null;
-                let rowSpan  = userColumn[columnAlias.rowSpan ];
-                let colSpan  = userColumn[columnAlias.colSpan ];
-                let rowIndex = userColumn[columnAlias.rowIndex];
-                let colIndex = userColumn[columnAlias.colIndex];
+                let rowSpan  = userColumn[ColumnAlias.rowSpan ];
+                let colSpan  = userColumn[ColumnAlias.colSpan ];
+                let rowIndex = userColumn[ColumnAlias.rowIndex];
+                let colIndex = userColumn[ColumnAlias.colIndex];
                 let visible  = null;
 
-                let children = grid.isNull(userColumn[columnAlias.children], null);
-                let num      = userColumn[columnAlias.num];
-                let parentNum= userColumn[columnAlias.parentNum];
+                let children = grid.isNull(userColumn[ColumnAlias.children], null);
+                let num      = userColumn[ColumnAlias.num];
+                let parentNum= userColumn[ColumnAlias.parentNum];
 
                 let type = 'string';
 
                 if (kind == 'column') {
-                    let columnName = userColumn[columnAlias.name];
+                    let columnName = userColumn[ColumnAlias.name];
                     let column = grid.getColumn(columnName);
 
-                    name       = column[columnAlias.name];
-                    text       = grid.isNull(column.header[columnAlias.text]   , null);
-                    align      = grid.isNull(column.header[columnAlias.align]  , 'center');
-                    className  = grid.isNull(column[columnAlias.className]     , null);
-                    visible    = grid.isNull(column[columnAlias.visible]       , true);
+                    name       = column[ColumnAlias.name];
+                    text       = grid.isNull(column.header[ColumnAlias.text]   , null);
+                    align      = grid.isNull(column.header[ColumnAlias.align]  , 'center');
+                    className  = grid.isNull(column[ColumnAlias.className]     , null);
+                    visible    = grid.isNull(column[ColumnAlias.visible]       , true);
                 }
                 else {
-                    name      = grid.isNull(userColumn[columnAlias.name]     , null);
-                    align     = grid.isNull(userColumn[columnAlias.align]    , 'center');
-                    text      = grid.isNull(userColumn[columnAlias.text]     , null);
-                    className = grid.isNull(userColumn[columnAlias.className], null);
-                    visible   = grid.isNull(userColumn[columnAlias.visible]  , true);
+                    name      = grid.isNull(userColumn[ColumnAlias.name]     , null);
+                    align     = grid.isNull(userColumn[ColumnAlias.align]    , 'center');
+                    text      = grid.isNull(userColumn[ColumnAlias.text]     , null);
+                    className = grid.isNull(userColumn[ColumnAlias.className], null);
+                    visible   = grid.isNull(userColumn[ColumnAlias.visible]  , true);
                 }
 
-                headerColumn[columnAlias.kind     ] = kind;
-                headerColumn[columnAlias.name     ] = name;
-                headerColumn[columnAlias.align    ] = align;
-                headerColumn[columnAlias.text     ] = text;
-                headerColumn[columnAlias.className] = className;
-                headerColumn[columnAlias.visible  ] = visible;
+                headerColumn[ColumnAlias.kind     ] = kind;
+                headerColumn[ColumnAlias.name     ] = name;
+                headerColumn[ColumnAlias.align    ] = align;
+                headerColumn[ColumnAlias.text     ] = text;
+                headerColumn[ColumnAlias.className] = className;
+                headerColumn[ColumnAlias.visible  ] = visible;
 
-                headerColumn[columnAlias.rowSpan  ] = rowSpan;
-                headerColumn[columnAlias.colSpan  ] = colSpan;
-                headerColumn[columnAlias.rowIndex ] = rowIndex;
-                headerColumn[columnAlias.colIndex ] = colIndex;
+                headerColumn[ColumnAlias.rowSpan  ] = rowSpan;
+                headerColumn[ColumnAlias.colSpan  ] = colSpan;
+                headerColumn[ColumnAlias.rowIndex ] = rowIndex;
+                headerColumn[ColumnAlias.colIndex ] = colIndex;
 
-                headerColumn[columnAlias.children ] = children
+                headerColumn[ColumnAlias.children ] = children
 
-                headerColumn[columnAlias.num      ] = num;
-                headerColumn[columnAlias.parentNum] = parentNum;
+                headerColumn[ColumnAlias.num      ] = num;
+                headerColumn[ColumnAlias.parentNum] = parentNum;
 
-                headerColumn[columnAlias.type     ] = type;
+                headerColumn[ColumnAlias.type     ] = type;
 
-                let childrenCount = headerColumn[columnAlias.children] ? headerColumn[columnAlias.children].length : 0;
-                let columnCount   = headerColumn[columnAlias.colSpan];
+                let childrenCount = headerColumn[ColumnAlias.children] ? headerColumn[ColumnAlias.children].length : 0;
+                let columnCount   = headerColumn[ColumnAlias.colSpan];
 
                 headerColumnRows[rowIndex].push(headerColumn);
 
                 let blankColumn = {};
-                blankColumn[columnAlias.kind      ] = 'empty';
-                blankColumn[columnAlias.name      ] = name;
-                blankColumn[columnAlias.align     ] = align;
-                blankColumn[columnAlias.text      ] = text;
-                blankColumn[columnAlias.className ] = className
-                blankColumn[columnAlias.visible   ] = false;
+                blankColumn[ColumnAlias.kind      ] = 'empty';
+                blankColumn[ColumnAlias.name      ] = name;
+                blankColumn[ColumnAlias.align     ] = align;
+                blankColumn[ColumnAlias.text      ] = text;
+                blankColumn[ColumnAlias.className ] = className
+                blankColumn[ColumnAlias.visible   ] = false;
 
-                blankColumn[columnAlias.rowSpan   ] = rowSpan;
-                blankColumn[columnAlias.colSpan   ] = colSpan;
-                blankColumn[columnAlias.rowIndex  ] = rowIndex;
-                blankColumn[columnAlias.colIndex  ] = colIndex;
+                blankColumn[ColumnAlias.rowSpan   ] = rowSpan;
+                blankColumn[ColumnAlias.colSpan   ] = colSpan;
+                blankColumn[ColumnAlias.rowIndex  ] = rowIndex;
+                blankColumn[ColumnAlias.colIndex  ] = colIndex;
 
-                blankColumn[columnAlias.children  ] = children
+                blankColumn[ColumnAlias.children  ] = children
 
-                blankColumn[columnAlias.num       ] = num;
-                blankColumn[columnAlias.parentNum ] = parentNum;
+                blankColumn[ColumnAlias.num       ] = num;
+                blankColumn[ColumnAlias.parentNum ] = parentNum;
 
-                headerColumn[columnAlias.type     ] = type;
+                headerColumn[ColumnAlias.type     ] = type;
 
                 //make blank column(row)
                 if (childrenCount == 0) {
@@ -165,8 +165,8 @@ export class TbsGridHeaders {
                     for (let i =  1; i < columnCount; i++) headerColumnRows[rowIndex].push(blankColumn);
                 }
 
-                if (userColumn[columnAlias.children]) {
-                    createHeaderColumns(userColumn[columnAlias.children]);
+                if (userColumn[ColumnAlias.children]) {
+                    createHeaderColumns(userColumn[ColumnAlias.children]);
                 }
             });
         }
@@ -179,9 +179,9 @@ export class TbsGridHeaders {
 
         headerColumnRows.map((columns, rowIndex) => {
             columns.map((column, colIndex) => {
-                column[columnAlias.rowIndex] = rowIndex;
-                column[columnAlias.colIndex] = colIndex;
-                delete column[columnAlias.children];
+                column[ColumnAlias.rowIndex] = rowIndex;
+                column[ColumnAlias.colIndex] = colIndex;
+                delete column[ColumnAlias.children];
             })
         })
 
@@ -220,9 +220,9 @@ export class TbsGridHeaders {
 
             for (let x = grid.fixedColumnIndex; x >= 0; x--) {
                 const column = grid.header_column_table.selectRowByRowIndex(0, x);
-                if (column[columnAlias.kind] != 'empty') {
+                if (column[ColumnAlias.kind] != 'empty') {
                     rootColumnIndex = x;
-                    rootColumnColSpan = column[columnAlias.colSpan];
+                    rootColumnColSpan = column[ColumnAlias.colSpan];
                     break;
                 }
             }
@@ -269,10 +269,10 @@ export class TbsGridHeaders {
 
         let result;
         const getParentColumn = function (headerColumn) {
-            if (headerColumn[columnAlias.num] == num) { result = headerColumn; return; }
-            if (headerColumn[columnAlias.children]) {
-                for (let i = 0, len = headerColumn[columnAlias.children].length; i < len; i++) {
-                    getParentColumn(headerColumn[columnAlias.children][i]);
+            if (headerColumn[ColumnAlias.num] == num) { result = headerColumn; return; }
+            if (headerColumn[ColumnAlias.children]) {
+                for (let i = 0, len = headerColumn[ColumnAlias.children].length; i < len; i++) {
+                    getParentColumn(headerColumn[ColumnAlias.children][i]);
                 }
             }
         }
@@ -301,17 +301,17 @@ export class TbsGridHeaders {
         const grid = this.grid;
 
         const column = grid.header_column_table.data[rowIndex][colIndex];
-        let kind = column[columnAlias.kind];
+        let kind = column[ColumnAlias.kind];
         column[property] = value;
 
         if (kind == ColumnKind.column) {
-            let name = column[columnAlias.name];
-            let dataRow: any = grid.column_table.selectRow(columnAlias.name, name);
-            if (property == columnAlias.text) {
-                dataRow.header[columnAlias.text] = value;
+            let name = column[ColumnAlias.name];
+            let dataRow: any = grid.column_table.selectRow(ColumnAlias.name, name);
+            if (property == ColumnAlias.text) {
+                dataRow.header[ColumnAlias.text] = value;
             }
-            else if (property == columnAlias.className) {
-                dataRow.header[columnAlias.className] = value;
+            else if (property == ColumnAlias.className) {
+                dataRow.header[ColumnAlias.className] = value;
             }
             else {
                 dataRow.header[property] = value;

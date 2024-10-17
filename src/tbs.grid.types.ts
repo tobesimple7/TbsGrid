@@ -25,7 +25,8 @@ export interface GroupColumn {
 
 export interface SortColumn {
     name: string,
-    order: string
+    order: string,
+    orderNumber: number
 }
 
 export interface FilterColumn {
@@ -46,6 +47,7 @@ export interface Column {
     _childRows: any[],
     _childCount: number,
     _isOpen: boolean,
+
     /**
      * User Property
      */
@@ -79,12 +81,57 @@ export interface Column {
     format?: boolean,
     kind?: ColumnKind,
 }
+
+export interface GridOption {
+    showToolbarPanel?: boolean,
+    showFilterPanel?: boolean,
+    showSortPanel?: boolean,
+    showGroupPanel?: boolean,
+
+    // Columns GridOption
+    sortable?: boolean,
+    resizable?: boolean,
+    movable?: boolean,
+    autoResizable?: boolean,
+    autoWidth?: boolean,
+
+    // Rows GridOption
+    selectMode?: string,
+    addRow?: boolean,
+    delRow?: boolean,
+    insertRow?: boolean,
+    updateRow?: boolean,
+    deleteRow?: boolean,
+    zeroChar?: string,
+    useToolbar?: boolean,
+    imageRoot?: string,
+
+    // Tree Options
+    treeItemName?: string,
+    treeParentName?: string,
+    treeRootValue?: string,
+
+    // Paging Options
+    pageRowCount?: number;
+    pageRowCountList?: number[];
+
+    trueValue?: any;
+    falseValue?: any;
+    elseValue?: any;
+}
+
+export interface GridRenderer {
+    trueValue?: any;
+    falseValue?: any;
+    elseValue?: any;
+}
 export enum ClickPageOrder {
     first = 'first',
     last = 'last',
     prev = 'prev',
     next = 'next'
 }
+
 export enum FilterType {
     Select         =  0,
     Equal          =  1,
@@ -126,6 +173,7 @@ export enum GridMode {
     page = 'page',
     pagination = 'pagination',
 }
+
 export enum AddRowDirection {
     top = 'top',
     bottom = 'bottom',
@@ -145,7 +193,25 @@ export enum BeforeAfter {
     after = 'after'
 }
 
-export enum columnAlias {
+/**
+ * Alias
+ */
+
+export enum OptionAlias {
+    rowMode = 'rowMode',
+    checkbox = 'checkbox',
+    numWidth = 'numWidth',
+    rowModeWidth = 'rowModeWidth',
+    checkBoxWidth = 'checkBoxWidth',
+    insertRow = 'insertRow',
+    updateRow = 'updateRow',
+    deleteRow = 'deleteRow',
+    zeroChar  = 'zeroChar',
+    useToolbar = 'useToolbar',
+    imageRoot = 'imageRoot',
+}
+
+export enum ColumnAlias {
     rowId = '_rowId',
     rowMode = '_mode',
     isChecked = '_isChecked',
@@ -204,67 +270,19 @@ export enum columnAlias {
     order = 'order',
     value = 'value'
 }
-/**
- * row property name
- */
-export enum rowAlias {
+
+export enum RowAlias {
     selectMode = 'selectMode',
     addRow = 'addRow',
     delRow = 'delRow'
 }
 
-/**
- * tree property name
- */
-export enum treeAlias {
+export enum TreeAlias {
     itemName = 'itemName',
     parentName = 'parentName',
     rootValue = 'rootValue',
 }
-export enum optionAlias {
-    rowMode = 'rowMode',
-    checkbox = 'checkbox',
-    numWidth = 'numWidth',
-    rowModeWidth = 'rowModeWidth',
-    checkBoxWidth = 'checkBoxWidth',
-    insertRow = 'insertRow',
-    updateRow = 'updateRow',
-    deleteRow = 'deleteRow',
-    zeroChar  = 'zeroChar',
-    useToolbar = 'useToolbar',
-    imageRoot = 'imageRoot',
-}
 
-export interface GridOptions {
-    showToolbarPanel?: boolean,
-    showFilterPanel?: boolean,
-    showSortPanel?: boolean,
-    showGroupPanel?: boolean,
 
-    /* Columns GridOptions */
-    sortable?: boolean,
-    resizable?: boolean,
-    movable?: boolean,
-    autoResizable?: boolean,
-    autoWidth?: boolean,
 
-    // Rows GridOptions
-    selectMode?: string,
-    addRow?: boolean,
-    delRow?: boolean,
-    insertRow?: boolean,
-    updateRow?: boolean,
-    deleteRow?: boolean,
-    zeroChar?: string,
-    useToolbar?: boolean,
-    imageRoot?: string,
-
-    // Tree Options
-    treeItemName?: string,
-    treeParentName?: string,
-    treeRootValue?: string,
-
-    pageRowCount?: number;
-    pageRowCountList?: number[];
-}
 

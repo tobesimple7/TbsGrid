@@ -2,7 +2,7 @@
 import { TbsGridRenderString } from "../renderer/tbs.grid.render.string";
 import { TbsGridRenderCheckbox } from "../renderer/tbs.grid.render.checkbox";
 import {TbsGrid} from "../tbs.grid";
-import {CellType, columnAlias, GridMode} from "../tbs.grid.types";
+import {CellType, ColumnAlias, GridMode} from "../tbs.grid.types";
 
 export class TbsGridRenderPanelInfo {
 
@@ -71,14 +71,14 @@ export class TbsGridRenderPanelInfo {
         render.rowIndex   = rowIndex;
         render.columnIndex= columnIndex;
 
-        render.columnName = grid.getProperty(column, columnAlias.name);
-        render.columnType = grid.getProperty(column, columnAlias.type);
+        render.columnName = grid.getProperty(column, ColumnAlias.name);
+        render.columnType = grid.getProperty(column, ColumnAlias.type);
 
-        render.visible    = grid.getProperty(column, columnAlias.visible);
-        render.width      = grid.getProperty(column, columnAlias.width);
-        render.editable   = grid.getProperty(column, columnAlias.editable);
-        render.align      = grid.getProperty(column, columnAlias.align);
-        render.className  = grid.getProperty(column, columnAlias.className);
+        render.visible    = grid.getProperty(column, ColumnAlias.visible);
+        render.width      = grid.getProperty(column, ColumnAlias.width);
+        render.editable   = grid.getProperty(column, ColumnAlias.editable);
+        render.align      = grid.getProperty(column, ColumnAlias.align);
+        render.className  = grid.getProperty(column, ColumnAlias.className);
 
         if (panelName == 'panel41' || panelName == 'panle51' || panelName == 'panle71') this.columnType = CellType.string;
 
@@ -114,14 +114,14 @@ export class TbsGridRenderPanelInfo {
                     }
                 }
                 else if (render.columnName == 'mode') {
-                    let mode = dataRow[columnAlias.rowMode];
+                    let mode = dataRow[ColumnAlias.rowMode];
                     mode = (mode != '' && mode != 'S') ? mode : '';
 
                     render.cellValue = mode;
                     render.cellText  = mode;
                 }
                 else if (render.columnName == 'checkbox') {
-                    let check = grid.isNull(dataRow[columnAlias.isChecked], false);
+                    let check = grid.isNull(dataRow[ColumnAlias.isChecked], false);
                     render.cellValue  = check;
                     render.cellText   = check;
                 }
@@ -198,8 +198,8 @@ export class TbsGridRenderPanelInfo {
             eventRow.rowIndex    = this.rowIndex;
             eventRow.columnIndex = this.columnIndex;
             eventRow.columnName  = this.columnName;
-            eventRow.value       = grid.isNull(dataRow[columnAlias.isChecked], false);
-            eventRow.text        = grid.isNull(dataRow[columnAlias.isChecked], false);
+            eventRow.value       = grid.isNull(dataRow[ColumnAlias.isChecked], false);
+            eventRow.text        = grid.isNull(dataRow[ColumnAlias.isChecked], false);
             eventRow.data        = dataRow;
             const result= grid.infoRenderer[this.columnName].callback(grid, eventRow);
 

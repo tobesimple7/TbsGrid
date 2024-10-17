@@ -1,5 +1,5 @@
 import {TbsGrid} from "../tbs.grid";
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 
 
 
@@ -73,14 +73,14 @@ export class TbsGridRenderPanel70 {
         this.rowIndex   = rowIndex;
         this.columnIndex= columnIndex;
 
-        this.columnName = column[columnAlias.name];
-        this.columnType = column[columnAlias.type];
+        this.columnName = column[ColumnAlias.name];
+        this.columnType = column[ColumnAlias.type];
 
-        this.visible    = column[columnAlias.visible];
-        this.width      = column[columnAlias.width];
+        this.visible    = column[ColumnAlias.visible];
+        this.width      = column[ColumnAlias.width];
 
-        this.align = column[columnAlias.align];
-        this.className = column[columnAlias.className];
+        this.align = column[ColumnAlias.align];
+        this.className = column[ColumnAlias.className];
 
         render.updateData();
     }

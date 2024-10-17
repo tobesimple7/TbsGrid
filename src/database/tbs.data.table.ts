@@ -1,5 +1,5 @@
 import {TbsBase} from '../tbs.base';
-import {columnAlias} from "../tbs.grid.types";
+import {CellType, ColumnAlias, SortColumn} from "../tbs.grid.types";
 
 export class TbsDataTable extends TbsBase {
     tableName: string;
@@ -55,11 +55,11 @@ export class TbsDataTable extends TbsBase {
     selectRowByRowIndex(rowIndex: number): object { return this.data[rowIndex]; }
 
     selectRowByRowId(rowId: any) : object {
-        const dataRows: object[] = this.selectRows(columnAlias.rowId, rowId, 1);
+        const dataRows: object[] = this.selectRows(ColumnAlias.rowId, rowId, 1);
         return dataRows.length > 0 ? dataRows[0] : null;
     }
 
-    selectRowIndexByRowId(rowId: any) : number { return this.selectRowIndex(columnAlias.rowId, rowId); }
+    selectRowIndexByRowId(rowId: any) : number { return this.selectRowIndex(ColumnAlias.rowId, rowId); }
 
     selectRowIndex(field: any, value: any) : number {
         let result: number = null;
@@ -72,7 +72,7 @@ export class TbsDataTable extends TbsBase {
 
     selectRowIdByRowIndex(rowIndex: any) {
         const dataRow = this.selectRowByRowIndex(rowIndex);
-        return dataRow[columnAlias.rowId];
+        return dataRow[ColumnAlias.rowId];
     }
 
     selectRowRange(startRowIndex?: number, endRowIndex?: number) {
@@ -99,8 +99,8 @@ export class TbsDataTable extends TbsBase {
         if (this.type == 'table') {
             dataRows.map(dataRow => {
                 this.currentRowId += 1;
-                dataRow[columnAlias.rowId] = this.currentRowId;
-                dataRow[columnAlias.rowMode] = 'I';
+                dataRow[ColumnAlias.rowId] = this.currentRowId;
+                dataRow[ColumnAlias.rowMode] = 'I';
             });
         }
         this.data.push(...dataRows);
@@ -110,8 +110,8 @@ export class TbsDataTable extends TbsBase {
         if (this.type == 'table') {
             dataRows.map(dataRow => {
                 this.currentRowId += 1;
-                dataRow[columnAlias.rowId] = this.currentRowId;
-                dataRow[columnAlias.rowMode] = 'I';
+                dataRow[ColumnAlias.rowId] = this.currentRowId;
+                dataRow[ColumnAlias.rowMode] = 'I';
             });
         }
         if (rowIndex < this.data.length) this.data.splice(rowIndex, 0, ...dataRows);
@@ -122,8 +122,8 @@ export class TbsDataTable extends TbsBase {
         if (this.type == 'table') {
             dataRows.map(dataRow => {
                 this.currentRowId += 1;
-                dataRow[columnAlias.rowId] = this.currentRowId;
-                dataRow[columnAlias.rowMode] = 'I';
+                dataRow[ColumnAlias.rowId] = this.currentRowId;
+                dataRow[ColumnAlias.rowMode] = 'I';
             });
         }
 
@@ -134,8 +134,8 @@ export class TbsDataTable extends TbsBase {
     insert(dataRow: object) {
         if (this.type == 'table') {
             this.currentRowId += 1;
-            dataRow[columnAlias.rowId] = this.currentRowId;
-            dataRow[columnAlias.rowMode] = 'I';
+            dataRow[ColumnAlias.rowId] = this.currentRowId;
+            dataRow[ColumnAlias.rowMode] = 'I';
         }
         this.data.push(dataRow);
     }
@@ -143,8 +143,8 @@ export class TbsDataTable extends TbsBase {
     insertBefore(dataRow: object, rowIndex: any) {
         if (this.type == 'table') {
             this.currentRowId += 1;
-            dataRow[columnAlias.rowId] = this.currentRowId;
-            dataRow[columnAlias.rowMode] = 'I';
+            dataRow[ColumnAlias.rowId] = this.currentRowId;
+            dataRow[ColumnAlias.rowMode] = 'I';
         }
 
         if (rowIndex < this.data.length) this.data.splice(rowIndex, 0, dataRow);
@@ -154,8 +154,8 @@ export class TbsDataTable extends TbsBase {
     insertAfter(dataRow: any, rowIndex: number) {
         if (this.type == 'table') {
             this.currentRowId += 1;
-            dataRow[columnAlias.rowId] = this.currentRowId;
-            dataRow[columnAlias.rowMode] = 'I';
+            dataRow[ColumnAlias.rowId] = this.currentRowId;
+            dataRow[ColumnAlias.rowMode] = 'I';
         }
 
         if (rowIndex + 1 < this.data.length) this.data.splice(rowIndex + 1, 0, dataRow);
@@ -171,7 +171,7 @@ export class TbsDataTable extends TbsBase {
     }
 
     removeByRowId(rowId: any) {
-        let rowIndex = this.selectRowIndex(columnAlias.rowId, rowId);
+        let rowIndex = this.selectRowIndex(ColumnAlias.rowId, rowId);
         if (this.notNull(rowIndex)) this.remove(rowIndex);
     }
 
@@ -180,11 +180,11 @@ export class TbsDataTable extends TbsBase {
      */
 
     update(columnName: string, field: string, value: any) {
-        let dataRows = this.selectRows(columnAlias.name, columnName);
+        let dataRows = this.selectRows(ColumnAlias.name, columnName);
         dataRows.map(dataRow => dataRow[field] = value);
     }
     updateRow(columnName: string, field: string, value: any) {
-        let dataRows = this.selectRows(columnAlias.name, columnName);
+        let dataRows = this.selectRows(ColumnAlias.name, columnName);
         dataRows.map(dataRow => dataRow[field] = value);
     }
     updateByRowIndex(rowIndex: number, name: string, value: any) {
@@ -206,46 +206,47 @@ export class TbsDataTable extends TbsBase {
         }
     }
 
-    // /**
-    //  * orderBy
-    //  * @param sortColumns : [{ name : , order :, dataType: string | number }, ...]
-    //  */
-    // orderBy(sortColumns: any) {
-    //     return this.data.toSorted((a, b) => {
-    //         // a : The first element
-    //         // b : The second element
-    //         for (let i = 0, len = sortColumns.length; i < len; i++) {
-    //             let sortColumn = sortColumns[i];
-    //             let name = sortColumn[columnAlias.name];
-    //             let type = (sortColumn[columnAlias.dataType]) ? sortColumn[columnAlias.dataType] : 'string';
-    //             let order = (sortColumn[columnAlias.order]) ? sortColumn[columnAlias.order] : 'asc';
-    //             if (order == 'asc') {
-    //                 if (type == CellType.number) {
-    //                     let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')): 0;
-    //                     let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')): 0;
-    //                     if (x < y) return -1;
-    //                     else if (x > y) return 1;
-    //                 }
-    //                 else {
-    //                     if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
-    //                     else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
-    //                 }
-    //             }
-    //             else if (order == 'desc') {
-    //                 if (type == CellType.number){
-    //                     let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')) : 0;
-    //                     let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')) : 0;
-    //                     if (x < y) return 1;
-    //                     else if (x > y) return -1;
-    //                 }
-    //                 else {
-    //                     if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
-    //                     else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
-    //                 }
-    //             }
-    //         }
-    //     });
-    // }
+    /**
+     * orderBy
+     * @param sortColumns : [{ name : , order :, dataType: string | number }, ...]
+     */
+    orderBy(column_table: TbsDataTable, sort_column_table: TbsDataTable) {
+        return this.data.sort((a, b) => {
+            for (let i = 0, len: number = sort_column_table.count(); i < len; i++) {
+                const sortColumn: any = sort_column_table.data[i];
+                const name: string = sortColumn[ColumnAlias.name];
+                const order: string = (sortColumn[ColumnAlias.order]) ? sortColumn[ColumnAlias.order] : 'asc';
+
+                const column: any = column_table.selectRow(ColumnAlias.name, name);
+                const type: string = column[ColumnAlias.type];
+
+                if (order == 'asc') {
+                    if (type == CellType.number) {
+                        let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')): 0;
+                        let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')): 0;
+                        if (x < y) return -1;
+                        else if (x > y) return 1;
+                    }
+                    else {
+                        if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
+                        else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
+                    }
+                }
+                else if (order == 'desc') {
+                    if (type == CellType.number){
+                        let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')) : 0;
+                        let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')) : 0;
+                        if (x < y) return 1;
+                        else if (x > y) return -1;
+                    }
+                    else {
+                        if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
+                        else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
+                    }
+                }
+            }
+        });
+    }
 
     getSum(columnName: string) {
         let result = 0;
@@ -290,7 +291,7 @@ export class TbsDataTable extends TbsBase {
     //     const grid = this.grid;
     //
     //     let column = grid.getColumn(filterColumn.name);
-    //     let columnType = column[columnAlias.type];
+    //     let columnType = column[ColumnAlias.type];
     //     let columnName = filterColumn.name;
     //     let filterType = filterColumn.type;
     //     let value = filterColumn.value;

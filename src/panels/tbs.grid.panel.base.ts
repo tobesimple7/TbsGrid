@@ -60,17 +60,18 @@ export class TbsGridPanelBase  extends TbsBase {
         // s += '</div>';
         /* ETC */
         s += '<div class="tbs-grid-scroll-box" style="display:none;"></div>';
-        s += '<div class="tbs-grid-top-line" style="left:30000px;"></div>';
-        s += '<div class="tbs-grid-bottom-line"	style="left:30000px;"></div>';
-        s += '<div class="tbs-grid-left-line" style="left:30000px;"></div>';
-        s += '<div class="tbs-grid-right-line" style="left:30000px;"></div>';
-        s += '<div class="tbs-grid-input-layer-panel" style="left:30000px;"></div>';  // confuse
+        s += '<div class="tbs-grid-top-line" style="left:70000px;"></div>';
+        s += '<div class="tbs-grid-bottom-line"	style="left:70000px;"></div>';
+        s += '<div class="tbs-grid-left-line" style="left:70000px;"></div>';
+        s += '<div class="tbs-grid-right-line" style="left:70000px;"></div>';
+        s += '<div class="tbs-grid-input-layer-panel" style="left:70000px;"></div>';  // confuse
         s += '<div class="tbs-grid-canvas"></div>';
         s += '<div class="tbs-grid-input-panel">'; // confuse
         s += '<input type="text" class="tbs-grid-input"  data-type="" data-click=""/>';
-        s += '<img class="tbs-grid-input-panel-icon" data-type="" data-click="" />';
+        //s += '<img class="tbs-grid-input-panel-icon" data-type="" data-click="" />';
+        s += '<div class="tbs-grid-input-panel-icon" data-type="" data-click=""><span></span></div>';
         s += '</div>';
-        s += '<input type="text" class="tbs-grid-input-code" data-type="" data-click="" style="left:30000px;"/>';
+        s += '<input type="text" class="tbs-grid-input-code" data-type="" data-click="" style="left:70000px;"/>';
 
         parentElement.insertAdjacentHTML('beforeend', s);
         parentElement.querySelector(' .tbs-grid-canvas').appendChild(document.createElement('canvas'));

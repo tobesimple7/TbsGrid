@@ -1,4 +1,4 @@
-import {AddRowDirection, CellType, columnAlias, GridMode, optionAlias, rowAlias} from "../tbs.grid.types";
+import {AddRowDirection, CellType, ColumnAlias, GridMode, OptionAlias, RowAlias} from "../tbs.grid.types";
 import {TbsGridDate} from "../layer/tbs.grid.date";
 import {TbsGridCombo} from "../layer/tbs.grid.combo";
 import {TbsGrid} from "../tbs.grid";
@@ -24,13 +24,13 @@ export class TbsGridBaseEvent {
             let mode = input.dataset.mode;
             if (mode == undefined) mode = '';
             if (e.ctrlKey) {
-                if      (e.keyCode == 37 && mode == '') { if(!(grid.options[rowAlias.addRow])) return; grid.editEnd(); grid.addRow({}, AddRowDirection.before); grid.input_focus();}   //left arrow //type : first, last, up, down
-                else if (e.keyCode == 39 && mode == '') { if(!(grid.options[rowAlias.addRow])) return; grid.editEnd(); grid.addRow({}, AddRowDirection.after); grid.input_focus();}   //right arrow
-                else if (e.keyCode == 38 && mode == '') { if(!(grid.options[rowAlias.addRow])) return; grid.editEnd(); grid.addRow({}, AddRowDirection.top); grid.input_focus();}   //up arrow
-                else if (e.keyCode == 40 && mode == '') { if(!(grid.options[rowAlias.addRow])) return; grid.editEnd(); grid.addRow({}, AddRowDirection.bottom); grid.input_focus();}   //down arrow
-                //else if (e.keyCode == 46 && mode == '') { if(!(grid.options[rowAlias.addRow])) return; grid.editEnd(); grid.tbs_removeRow(); grid.input_focus();}   //delete key
+                if      (e.keyCode == 37 && mode == '') { if(!(grid.options[RowAlias.addRow])) return; grid.editEnd(); grid.addRow({}, AddRowDirection.before); grid.input_focus();}   //left arrow //type : first, last, up, down
+                else if (e.keyCode == 39 && mode == '') { if(!(grid.options[RowAlias.addRow])) return; grid.editEnd(); grid.addRow({}, AddRowDirection.after); grid.input_focus();}   //right arrow
+                else if (e.keyCode == 38 && mode == '') { if(!(grid.options[RowAlias.addRow])) return; grid.editEnd(); grid.addRow({}, AddRowDirection.top); grid.input_focus();}   //up arrow
+                else if (e.keyCode == 40 && mode == '') { if(!(grid.options[RowAlias.addRow])) return; grid.editEnd(); grid.addRow({}, AddRowDirection.bottom); grid.input_focus();}   //down arrow
+                //else if (e.keyCode == 46 && mode == '') { if(!(grid.options[RowAlias.addRow])) return; grid.editEnd(); grid.tbs_removeRow(); grid.input_focus();}   //delete key
                 else if ((e.keyCode == 65 || e.keyCode == 97) && mode == '') { //ctrl + a, A
-                    if (!(grid.options[rowAlias.addRow])) {
+                    if (!(grid.options[RowAlias.addRow])) {
                         grid.classRange.selectRange(0, -1, 0, -1);
                         grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
                         grid.input_focus();
@@ -69,10 +69,10 @@ export class TbsGridBaseEvent {
                     //console.log('input');
                     let cellIndex = grid.startCellIndex;
                     let column = grid.getColumnByIndex(cellIndex);
-                    if (grid.isNull(column[columnAlias.editable], false)) {
+                    if (grid.isNull(column[ColumnAlias.editable], false)) {
                         if (grid.notNull(grid.onEdit)) { // state
                             //console.log(`panelInput.style.left : ${panelInput.style.left}`);
-                            if (panelInputt.style.left == '30000px') {
+                            if (panelInputt.style.left == '70000px') {
                                 grid.editStart(e, 'key');
                             }
                             else {
@@ -96,17 +96,14 @@ export class TbsGridBaseEvent {
         const clickEvent = function(e) {
             let column = grid.column_table.data;
             let input = document.querySelector(selector + ' .tbs-grid-input');
-            let colType = grid.column_table.data[grid.startCellIndex][columnAlias.type];
+            let colType = grid.column_table.data[grid.startCellIndex][ColumnAlias.type];
         }
         const blurEvent = function(e) {
-            // inputLayerPanel 일 살아 있을 경우.
-            // focus가 사라진다 해도..input은 남아 있어야 해.
             const inputLayerPanel: any = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
-            if (inputLayerPanel.style.left != '30000px') return;
+            if (inputLayerPanel.style.left != '70000px') return;
 
             const input: any = document.querySelector(selector + ' .tbs-grid-input');
             const input_code: any = document.querySelector(selector + ' .tbs-grid-input-code');
-            const input_icon: any = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
 
             let mode = input.dataset.mode;
             let rowIndex  = input.dataset.rowIndex;
@@ -125,8 +122,8 @@ export class TbsGridBaseEvent {
             else {
                 if (isNaN(cellIndex)) return;
                 let s = input.value;
-                if (column[columnAlias.type] == CellType.combo) s = input_code.value;
-                else if (column[columnAlias.type] == 'number' && grid.trim(s) == grid.options[optionAlias.zeroChar]) s = '0';
+                if (column[ColumnAlias.type] == CellType.combo) s = input_code.value;
+                else if (column[ColumnAlias.type] == 'number' && grid.trim(s) == grid.options[OptionAlias.zeroChar]) s = '0';
                 grid.setValueByColumnIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
                 grid.input_hide();
             }
@@ -144,7 +141,7 @@ export class TbsGridBaseEvent {
 
                 for (let rowIndex = startRowIndex; rowIndex <= lastRowIndex; rowIndex++) {
                     for (let colIndex = startCellIndex; colIndex <= lastCellIndex; colIndex++) {
-                        let columnName = grid.column_table.selectValue(colIndex, columnAlias.name);
+                        let columnName = grid.column_table.selectValue(colIndex, ColumnAlias.name);
                         let val = grid.getValue(rowIndex, columnName, grid.top_table);
                         if (grid.null(val)) val = '';
                         s += val;
@@ -221,7 +218,7 @@ export class TbsGridBaseEvent {
 
                 for (let colIndex = startCellIndex; colIndex < startCellIndex + colArray.length; colIndex++) {
                     //if (grid.column_table.data[colIndex].column_readonly == true) continue;
-                    if (grid.column_table.data[colIndex][columnAlias.editable] == false) continue;
+                    if (grid.column_table.data[colIndex][ColumnAlias.editable] == false) continue;
                     grid.setValueByColumnIndex(rowIndex, colIndex, colArray[j]);
                     j += 1;
                 }
@@ -257,7 +254,7 @@ export class TbsGridBaseEvent {
             const input_code: any = document.querySelector(selector + ' .tbs-grid-input-code');
             const input_panel: any = document.querySelector(selector + ' .tbs-grid-input-layer-panel');
             const column: any = grid.column_table.data[grid.startCellIndex];
-            const colType: any = grid.column_table.data[grid.startCellIndex][columnAlias.type];
+            const colType: any = grid.column_table.data[grid.startCellIndex][ColumnAlias.type];
 
             //tbs-grid-input-layer-panel : calendar, combo
             if (colType == 'date') {
@@ -280,21 +277,21 @@ export class TbsGridBaseEvent {
 
         let columns = grid.column_table.data;
         let column = columns[cellIndex];
-        let colType  = column[columnAlias.type];
+        let colType  = column[ColumnAlias.type];
 
         let panelInput: any = document.querySelector(selector + ' .tbs-grid-input-panel');
         let input: any = document.querySelector(selector + ' .tbs-grid-input');
         let input_code: any = document.querySelector(selector + ' .tbs-grid-input-code');
-        let input_icon: any = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
+
 
         let panelMain: any =  document.querySelector(selector + ' .tbs-grid-main');
         let td = document.querySelector(selector + ' .tbs-grid-group30 .tbs-grid-cell-start');
         if (td == null) return;
 
-        let value  = this.getValue(rowIndex, column[columnAlias.name]);
+        let value  = this.getValue(rowIndex, column[ColumnAlias.name]);
         const result: any = this.getFormat(column, value); //result.value, result.text
 
-        if (column[columnAlias.editable] == false) return;
+        if (column[ColumnAlias.editable] == false) return;
 
         grid.tbs_moveCellLine(td, rowIndex, cellIndex);
 
@@ -305,7 +302,7 @@ export class TbsGridBaseEvent {
         let topMain = panelMain.getBoundingClientRect().top;
 
         if (mode == 'mouse') {
-            if (colType == 'number' && grid.trim(result.text) == grid.options[optionAlias.zeroChar]) input.value = '0';
+            if (colType == 'number' && grid.trim(result.text) == grid.options[OptionAlias.zeroChar]) input.value = '0';
             else input.value = result.text;
             input_code.value = result.value;
         }
@@ -319,27 +316,24 @@ export class TbsGridBaseEvent {
         input.dataset.columnIndex = grid.startCellIndex;
         input.dataset.click = '';
 
+        let input_icon: any = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
         if (colType == 'date') {
-            let width = parseInt(column[columnAlias.width]);
+            let width = parseInt(column[ColumnAlias.width]);
             panelInput.style.width = (width - 15 - 3) + 'px';
 
             input_icon.style.display = '';
-            input_icon.style.top  = top  + 'px';
-            input_icon.style.left = `${left + width - 15}px`;
             input_icon.dataset.type = colType;
 
-            input_icon.src = grid.getConfigOption('imageRoot') + 'calendar.png';
+            input_icon.childNodes[0].className = 'tbs-grid-html-icon-date';
         }
         else if (colType == CellType.combo) {
-            let width = parseInt(column[columnAlias.width]);
+            let width = parseInt(column[ColumnAlias.width]);
             panelInput.style.width = (width - 15 - 3) + 'px';
 
             input_icon.style.display = '';
-            input_icon.style.top  = top  + 'px';
-            input_icon.style.left = `${left + width - 15}px`;
             input_icon.dataset.type = colType;
 
-            input_icon.src = grid.getConfigOption('imageRoot') + 'down-arrow.png';
+            input_icon.childNodes[0].className = 'tbs-grid-html-icon-combo';
         }
         else {
             input_icon.style.diplay = 'none';
@@ -347,7 +341,7 @@ export class TbsGridBaseEvent {
             input.style.backgroundImage = '';
             input.style.backgroundPosition = '';
             input.style.backgroundSize = '';
-            panelInput.style.width = (parseInt(column[columnAlias.width]) - lineWeight) + 'px';
+            panelInput.style.width = (parseInt(column[ColumnAlias.width]) - lineWeight) + 'px';
         }
         if (mode == 'mouse') input.select();
     }
@@ -364,7 +358,7 @@ export class TbsGridBaseEvent {
         const input_icon: any = document.querySelector(selector + ' .tbs-grid-input-panel-icon');
         //let inputLayerPanel= document.querySelector(selector + ' .tbs-grid-input-layer-panel');
 
-        panelInput.style.left = '30000px';
+        panelInput.style.left = '70000px';
         panelInput.style.width = '0px';
         input.value = '';
         input_code.value = '';
@@ -384,7 +378,7 @@ export class TbsGridBaseEvent {
         //console.log('input_hide');
         // inputLayerPanel.innerHTML = '';
         // inputLayerPanel.style.width = '0px';
-        // inputLayerPanel.style.left = '30000px';
+        // inputLayerPanel.style.left = '70000px';
         // inputLayerPanel.dataset.rowIndex = -1;
         // inputLayerPanel.dataset.columnIndex = -1;
         // inputLayerPanel.dataset.mode = '';
@@ -412,7 +406,7 @@ export class TbsGridBaseEvent {
         const eventRow = grid.getRow(rowIndex);
 
         if (grid.group_column_table.count() > 0) {
-            if (eventRow[columnAlias.depth] <= grid.group_column_table.count()) return;
+            if (eventRow[ColumnAlias.depth] <= grid.group_column_table.count()) return;
         }
 
         const column: any = grid.getColumnByIndex(cellIndex);
@@ -432,7 +426,7 @@ export class TbsGridBaseEvent {
         eventRow.data        = eventRow;
 
         if (mode == 'key') {
-            if (column[columnAlias.editable] == true && grid.notNull(grid.onEdit)) {
+            if (column[ColumnAlias.editable] == true && grid.notNull(grid.onEdit)) {
                 let result =  grid.onEdit(grid, state, eventRow);
                 if (grid.isNull(result, true)) {
                     grid.input_show(e, mode);
@@ -445,7 +439,7 @@ export class TbsGridBaseEvent {
             }
         }
         else {
-            if (column[columnAlias.editable] == true && grid.notNull(grid.onEdit)) {
+            if (column[ColumnAlias.editable] == true && grid.notNull(grid.onEdit)) {
                 let result = true;
                 result = grid.onEdit(grid, state, eventRow);
                 if (grid.null(result) || result == true) {
@@ -489,9 +483,9 @@ export class TbsGridBaseEvent {
         eventData.state       = state;
         eventData.newValue    = input.value;
         eventData.data        = eventRow;
-        if (column[columnAlias.editable] == true && grid.notNull(grid.onEdit)) {
+        if (column[ColumnAlias.editable] == true && grid.notNull(grid.onEdit)) {
             let result = true;
-            if (state == 1 && panelInput.style.left != '30000px') {
+            if (state == 1 && panelInput.style.left != '70000px') {
                 result = grid.onEdit(grid, state, eventRow);
                 if (grid.null(result) || result == true) {
 
@@ -537,14 +531,14 @@ export class TbsGridBaseEvent {
             eventData.state       = state;
             eventData.newValue    = input.value;
             eventData.data        = eventRow;
-            if (column[columnAlias.editable] == true && grid.notNull(grid.onEdit)) {
+            if (column[ColumnAlias.editable] == true && grid.notNull(grid.onEdit)) {
                 let result = true;
-                if (state == 2 && panelInput.style.left != '30000px') {
+                if (state == 2 && panelInput.style.left != '70000px') {
                     result = grid.onEdit(grid, state, eventRow);
                     if (grid.null(result) || result == true) {
                         //console.log(2);
                         let s = input.value;
-                        if (column[columnAlias.type] == CellType.combo) s = input_code.value;
+                        if (column[ColumnAlias.type] == CellType.combo) s = input_code.value;
                         grid.setValueByColumnIndex(rowIndex, cellIndex, grid.getFormatValue(column, s));
                         grid.input_hide();
                         grid.apply();
@@ -618,7 +612,7 @@ export class TbsGridBaseEvent {
                 let input_panel: any= inputPanelList[i];
                 input.value = '';
 
-                panelInput.style.left = '30000px';
+                panelInput.style.left = '70000px';
                 panelInput.style.width= '0px';
 
                 input.dataset.rowIndex = -1;
@@ -634,7 +628,7 @@ export class TbsGridBaseEvent {
 
                 input_panel.innerHTML = '';
                 input_panel.style.width = '0px';
-                input_panel.style.left = '30000px';
+                input_panel.style.left = '70000px';
                 input_panel.dataset.rowIndex = -1;
                 input_panel.dataset.columnIndex = -1;
                 input_panel.dataset.mode = '';
@@ -656,7 +650,7 @@ export class TbsGridBaseEvent {
                 || name.indexOf('tbs-grid-cell-filter-combo' ) != -1) {
             }
             else {
-                inputLayerPanel.style.left = '30000px';
+                inputLayerPanel.style.left = '70000px';
                 grid.input_focus();
             }
         };
@@ -675,7 +669,7 @@ export class TbsGridBaseEvent {
                 || name.indexOf('tbs-grid-cell-filter-combo' ) != -1) {
             }
             else {
-                inputLayerPanel.style.left = '30000px';
+                inputLayerPanel.style.left = '70000px';
                 grid.input_focus();
             }
         }
@@ -703,9 +697,9 @@ export class TbsGridBaseEvent {
         let curSortKind = '';
         let sortKind = '';
 
-        if (grid.sort_column_table.isRow(columnAlias.name, columnName)) {
-            let dataRow = grid.sort_column_table.selectRow(columnAlias.name, columnName);
-            curSortKind = dataRow[columnAlias.order];
+        if (grid.sort_column_table.isRow(ColumnAlias.name, columnName)) {
+            let dataRow = grid.sort_column_table.selectRow(ColumnAlias.name, columnName);
+            curSortKind = dataRow[ColumnAlias.order];
         }
         else {
             curSortKind = '';
@@ -715,15 +709,15 @@ export class TbsGridBaseEvent {
         else if (curSortKind == 'asc') sortKind = 'desc';
         else sortKind = 'asc';
 
-        if (grid.sort_column_table.isRow(columnAlias.name, columnName)) {
-            let dataRow = grid.sort_column_table.selectRow(columnAlias.name, columnName);
-            let rowId = dataRow[columnAlias.rowId];
-            grid.sort_column_table.updateByRowId(rowId, columnAlias.order, sortKind);
+        if (grid.sort_column_table.isRow(ColumnAlias.name, columnName)) {
+            let dataRow = grid.sort_column_table.selectRow(ColumnAlias.name, columnName);
+            let rowId = dataRow[ColumnAlias.rowId];
+            grid.sort_column_table.updateByRowId(rowId, ColumnAlias.order, sortKind);
         }
         else {
             let dataRow = {};
-            dataRow[columnAlias.name] = columnName;
-            dataRow[columnAlias.order] = sortKind;
+            dataRow[ColumnAlias.name] = columnName;
+            dataRow[ColumnAlias.order] = sortKind;
             grid.sort_column_table.insert(dataRow);
         }
 
@@ -750,7 +744,7 @@ export class TbsGridBaseEvent {
         }
         else {
             if (grid.isSortableColumn()) {
-                grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
+                grid.classSort.orderBy();
                 grid.classRange.removeRange(0, -1);
                 grid.apply();
             }
@@ -880,7 +874,7 @@ export class TbsGridBaseEvent {
             eventDetail = e.detail;
             if (eventDetail == 1) {
                 e.stopPropagation();
-                // if (grid.options[columnAlias.resizable] == false) return;
+                // if (grid.options[ColumnAlias.resizable] == false) return;
 
                 let isResizable = grid.isResizableColumn(tableCell.dataset.name);
                 if (!isResizable) return;
@@ -925,7 +919,7 @@ export class TbsGridBaseEvent {
 
                 let colIndex   = cell.cellIndex + parseInt(cell.colSpan) - 1;
                 let column     = grid.getColumn(columnName);
-                let firstWidth = parseInt(column[columnAlias.width]);
+                let firstWidth = parseInt(column[ColumnAlias.width]);
                 let maxWidth  = 0;
 
                 let canvas = document.querySelector(selector + ' .tbs-grid-canvas').childNodes[0];
@@ -936,8 +930,8 @@ export class TbsGridBaseEvent {
                 for (let i = 0, len = grid.header_column_table.count(); i < len; i++){
                     let headerColumns = grid.header_column_table.data[i];
 
-                    if (headerColumns[colIndex][columnAlias.kind] == 'column') {
-                        let width = parseInt(grid.getTextWidth(canvas, headerColumns[colIndex][columnAlias.text], fontSize, fontFamilty));
+                    if (headerColumns[colIndex][ColumnAlias.kind] == 'column') {
+                        let width = parseInt(grid.getTextWidth(canvas, headerColumns[colIndex][ColumnAlias.text], fontSize, fontFamilty));
                         if (width >= maxWidth) maxWidth = width;
                     }
                 }
@@ -1024,8 +1018,8 @@ export class TbsGridBaseEvent {
     //             let tr = e.target.parentNode.parentNode.parentNode;
     //             let rowIndex = parseInt(tr.childNodes[0].childNodes[0].textContent) - 1;
     //
-    //             if (e.target.checked) grid.view_table.updateByRowIndex(rowIndex, columnAlias.isChecked, false);
-    //             else grid.view_table.updateByRowIndex(rowIndex, columnAlias.isChecked, true);
+    //             if (e.target.checked) grid.view_table.updateByRowIndex(rowIndex, ColumnAlias.isChecked, false);
+    //             else grid.view_table.updateByRowIndex(rowIndex, ColumnAlias.isChecked, true);
     //         }
     //     }
     //     document.querySelector(selector + ' .tbs-grid-panel31 .tbs-grid-table').addEventListener('mousedown', checkDowntEvent, false);
@@ -1313,14 +1307,13 @@ export class TbsGridBaseEvent {
         return (movedX < this.mousePointRange && movedY < this.mousePointRange);
     }
 
-    tbs_executeEvent(this: TbsGrid, isUserFunction, eventType, param) {
+    executeEvent(this: TbsGrid, eventType: string, param: any) {
         const grid = this;
 
-        let e = null;
-        let mode = null;
-        let rowIndex = null;
-        let cellIndex = null;
-        let element = null;
+        let e: any = null;
+        let rowIndex: number = null;
+        let cellIndex: number = null;
+        let element: any = null;
 
         if (eventType == 'onRowBounding') {
             element = param.element;
@@ -1333,14 +1326,12 @@ export class TbsGridBaseEvent {
             if (grid.notNull(grid.onRowBounding)) { let flag = grid.onRowBounding(grid, element, eventRow); } //user function call
         }
         else if (eventType == 'onClick' || eventType == 'onDblclick') {
-
             e = param.e;
-            mode = param.mode; //mouse, key
             rowIndex = param.rowIndex;
             cellIndex = param.cellIndex;
 
-            let column = grid.getColumnByIndex(cellIndex);
-            let columnName = grid.getColumnName(cellIndex);
+            const column = grid.getColumnByIndex(cellIndex);
+            let columnName: string = grid.getColumnName(cellIndex);
             let value = grid.getValue(rowIndex, columnName);
             let text  = grid.getText(rowIndex, columnName);
 
@@ -1506,7 +1497,7 @@ export class TbsGridBaseEvent {
         for (let x = startColumnIndex; x < lastColumnIndex; x++) {
             const tableCell: any = tableRow.childNodes[x];
             let column = grid.column_table.data[x];
-            if (column[columnAlias.visible] == false) continue;
+            if (column[ColumnAlias.visible] == false) continue;
             let rect = grid.getOffset(tableCell);
             let rectLeft = rect.left;
             //console.log(`${panelName} : tableCell.cellIndex  ${tableCell.cellIndex} : maxCellIndex ${maxCellIndex} : rect.left  ${rect.left} : rectRight ${rectLeft} : lastX  ${this.lastX}`);
@@ -1543,7 +1534,7 @@ export class TbsGridBaseEvent {
         for (let x = lastColumnIndex; x >= startColumnIndex; x--) {
             const tableCell: any = tableRow.childNodes[x];
             let column = grid.column_table.data[x];
-            if (column[columnAlias.visible] == false) continue;
+            if (column[ColumnAlias.visible] == false) continue;
             let rect = grid.getOffset(tableCell);
             let rectRight= rect.left + tableCell.getBoundingClientRect().width;
             //console.log(`${panelName} : tableCell.cellIndex  ${tableCell.cellIndex} : minCellIndex ${minCellIndex} : rect.left  ${rect.left} : rectRight ${rectRight} : lastX  ${this.lastX}`);
@@ -1629,10 +1620,10 @@ export class TbsGridBaseEvent {
             cellIndex = cellIndex - 1;
             for (let i = cellIndex; i >= 0; i--) {
                 let column = this.column_table.data[i];
-                if (column[columnAlias.visible] == false) cellIndex -= 1;
+                if (column[ColumnAlias.visible] == false) cellIndex -= 1;
                 else break;
             }
-            if (cellIndex < 0 || this.column_table.data[cellIndex][columnAlias.visible] == false) {
+            if (cellIndex < 0 || this.column_table.data[cellIndex][ColumnAlias.visible] == false) {
                 grid.classRange.removeRange(0, -1);
                 let _topRowIndex = grid.classRange.selectRange(dataRowIndex, dataRowIndex, startCellIndex, startCellIndex);
                 grid.classPanel30.setDataPanel(_topRowIndex);
@@ -1668,7 +1659,7 @@ export class TbsGridBaseEvent {
             cellIndex = cellIndex + 1;
             for (let i = cellIndex, len = this.column_table.count(); i < len; i++){
                 let column = this.column_table.data[i]
-                if (column[columnAlias.visible] == false) cellIndex += 1;
+                if (column[ColumnAlias.visible] == false) cellIndex += 1;
                 else break;
             }
             if (cellIndex >= this.column_table.count()) cellIndex = startCellIndex;

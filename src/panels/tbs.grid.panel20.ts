@@ -3,7 +3,7 @@ import { TbsGridPanelBase } from './tbs.grid.panel.base';
 import { TbsGridRenderPanelInfo } from './tbs.grid.render.panel.info';
 import { TbsGridTable } from "../tbs.grid.table";
 import {TbsGrid} from "../tbs.grid";
-import {CellType, columnAlias} from "../tbs.grid.types";
+import {CellType, ColumnAlias} from "../tbs.grid.types";
 
 export class TbsGridPanel20 extends TbsGridPanelBase {
     isChecked: boolean;
@@ -80,7 +80,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
 
                 tableCell.dataset.rowIndex = i;
                 tableCell.dataset.displayRowIndex = i;
-                tableCell.dataset.cellType = grid.info_column_table.selectValue(x, columnAlias.type);
+                tableCell.dataset.cellType = grid.info_column_table.selectValue(x, ColumnAlias.type);
 
 
                 /**
@@ -168,30 +168,34 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 let selectedValue = grid.isSelectedHeaderCell(panelName, x);
                 if (selectedValue == 1) tableCell.classList.add('tbs-grid-cell-select');
 
-                let columnName = header[columnAlias.name];
+                let columnName = header[ColumnAlias.name];
 
-                tableCell.style.display = (header[columnAlias.visible] == true) ? '' : 'none';
-                tableCell.style.textAlign = header[columnAlias.align];
+                tableCell.style.display = (header[ColumnAlias.visible] == true) ? '' : 'none';
+                tableCell.style.textAlign = header[ColumnAlias.align];
 
-                tableCell.colSpan = header[columnAlias.colSpan];
-                tableCell.rowSpan = header[columnAlias.rowSpan];
+                tableCell.colSpan = header[ColumnAlias.colSpan];
+                tableCell.rowSpan = header[ColumnAlias.rowSpan];
 
-                tableCell.dataset.name = (header[columnAlias.kind] == 'column') ? columnName : '';
-                tableCell.dataset.kind = header[columnAlias.kind];
+                tableCell.dataset.name = (header[ColumnAlias.kind] == 'column') ? columnName : '';
+                tableCell.dataset.kind = header[ColumnAlias.kind];
 
-                if (header[columnAlias.kind] == 'column') {
-                    let className = grid.classHeader.getHeaderProperty(columnName, columnAlias.className);
+                if (header[ColumnAlias.kind] == 'column') {
+                    let className = grid.classHeader.getHeaderProperty(columnName, ColumnAlias.className);
                     if (grid.notNull(className)) tableCell.classList.add(className);
-                    tableCell.style.display = (column[columnAlias.visible] == true) ? '' : 'none';
-                    let columnType = column[columnAlias.type];
+                    tableCell.style.display = (column[ColumnAlias.visible] == true) ? '' : 'none';
+                    let columnType = column[ColumnAlias.type];
                     if (columnType == CellType.checkbox) {
                         const checkbox = tableCell.querySelector('.tbs-grid-html-checkbox');
                         checkbox.style.display = '';
                     }
+                    else {
+                        const checkbox = tableCell.querySelector('.tbs-grid-html-checkbox');
+                        checkbox.style.display = 'none';
+                    }
                 }
 
                 tableCell.querySelector('.tbs-grid-html-sort').textContent = '';
-                if (grid.sort_column_table.isRow(columnAlias.name, columnName) && header[columnAlias.kind] == 'column') {
+                if (grid.sort_column_table.isRow(ColumnAlias.name, columnName) && header[ColumnAlias.kind] == 'column') {
                     let sortColumn = grid.classSort.getSortRow(columnName);
                     let sortSymbol = '';
 
@@ -204,7 +208,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 }
 
                 const textSpan = tableCell.querySelector('.tbs-grid-html-string');
-                textSpan.textContent = header[columnAlias.text];
+                textSpan.textContent = header[ColumnAlias.text];
             }
         }
     }
@@ -222,7 +226,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
 
             const tableCell = e.target.parentNode.parentNode;
             const column = grid.info_column_table.selectRowByRowIndex(tableCell.cellIndex);
-            const columnName = column[columnAlias.name];
+            const columnName = column[ColumnAlias.name];
 
             if (clsPanel.isChecked) clsPanel.isChecked = false;
             else clsPanel.isChecked = true;
@@ -236,15 +240,15 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                     eventRow.rowIndex    = i;
                     eventRow.columnIndex = tableCell.cellIndex;
                     eventRow.columnName  = columnName;
-                    eventRow.value       = dataRow[columnAlias.isChecked];
-                    eventRow.text        = dataRow[columnAlias.isChecked];
+                    eventRow.value       = dataRow[ColumnAlias.isChecked];
+                    eventRow.text        = dataRow[ColumnAlias.isChecked];
                     eventRow.data        = dataRow;
                     const result = callback(grid, eventRow);
                     if (result.editable == false) continue;
-                    else grid.view_table.data[i][columnAlias.isChecked] = clsPanel.isChecked;
+                    else grid.view_table.data[i][ColumnAlias.isChecked] = clsPanel.isChecked;
                 }
                 else {
-                    grid.view_table.data[i][columnAlias.isChecked] = clsPanel.isChecked;
+                    grid.view_table.data[i][ColumnAlias.isChecked] = clsPanel.isChecked;
                 }
             }
             setTimeout(function() {
@@ -364,8 +368,8 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                     let rowIndex = moveElement.dataset.rowIndex;
 
                     let column = grid.getColumnByIndex(columnIndex);
-                    let name  = column[columnAlias.name];
-                    let text  = column[columnAlias.text];
+                    let name  = column[ColumnAlias.name];
+                    let text  = column[ColumnAlias.text];
                     let order = 'asc';
 
                     // Find the one that is smaller to the button left than then move element left
@@ -418,8 +422,8 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                     let rowIndex = moveElement.dataset.rowIndex;
 
                     let column = grid.getColumnByIndex(columnIndex);
-                    let name  = column[columnAlias.name];
-                    let text  = column[columnAlias.text];
+                    let name  = column[ColumnAlias.name];
+                    let text  = column[ColumnAlias.text];
                     let order = 'asc';
 
                     // Find the one that is smaller to the button left than then move element left
@@ -463,11 +467,11 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 if (e.target.classList.contains('tbs-grid-html-checkbox')) {
                     tableCell = e.target.parentNode.parentNode;
                     const column = grid.column_table.selectRowByRowIndex(tableCell.cellIndex);
-                    const columnName = column[columnAlias.name];
+                    const columnName = column[ColumnAlias.name];
 
-                    // let isChecked = column[columnAlias.isChecked] ? true : false;
-                    // if (isChecked) grid.column_table.update(columnName, columnAlias.isChecked, false);
-                    // else grid.column_table.update(columnName, columnAlias.isChecked, true);
+                    // let isChecked = column[ColumnAlias.isChecked] ? true : false;
+                    // if (isChecked) grid.column_table.update(columnName, ColumnAlias.isChecked, false);
+                    // else grid.column_table.update(columnName, ColumnAlias.isChecked, true);
                     let isChecked = false;
                     if (e.target.checked) isChecked = false;
                     else isChecked = true;
@@ -483,8 +487,8 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                             eventRow.rowIndex    = i;
                             eventRow.columnIndex = tableCell.cellIndex;
                             eventRow.columnName  = columnName;
-                            eventRow.value       = dataRow[columnAlias.name];
-                            eventRow.text        = dataRow[columnAlias.name];
+                            eventRow.value       = dataRow[ColumnAlias.name];
+                            eventRow.text        = dataRow[ColumnAlias.name];
                             eventRow.data        = dataRow;
                             const result = callback(grid, eventRow);
                             if (result.editable == false) continue;
@@ -534,8 +538,8 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                             if (lastX - startX > 0) { // right direction move.
                                 if ((lastX - fixedWidth <= cell.getBoundingClientRect().right
                                         && lastX + fixedWidth >= cell.getBoundingClientRect().right)
-                                    && movingColumn[columnAlias.rowIndex] == targetColumn[columnAlias.rowIndex]
-                                    && movingColumn[columnAlias.parentNum] == targetColumn[columnAlias.parentNum]
+                                    && movingColumn[ColumnAlias.rowIndex] == targetColumn[ColumnAlias.rowIndex]
+                                    && movingColumn[ColumnAlias.parentNum] == targetColumn[ColumnAlias.parentNum]
                                     && moveCell.cellIndex != cell.cellIndex) {
                                     grid.classColumn.changeColumnOrder(movingColumn, targetColumn, 'after');
                                     break;
@@ -544,8 +548,8 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                             else {
                                 if ((lastX - fixedWidth <= cell.getBoundingClientRect().left
                                         && lastX + fixedWidth >= cell.getBoundingClientRect().left)
-                                    && movingColumn[columnAlias.rowIndex] == targetColumn[columnAlias.rowIndex]
-                                    && movingColumn[columnAlias.parentNum] == targetColumn[columnAlias.parentNum]
+                                    && movingColumn[ColumnAlias.rowIndex] == targetColumn[ColumnAlias.rowIndex]
+                                    && movingColumn[ColumnAlias.parentNum] == targetColumn[ColumnAlias.parentNum]
                                     && moveCell.cellIndex != cell.cellIndex) {
                                     grid.classColumn.changeColumnOrder(movingColumn, targetColumn, 'before');
                                     break;
@@ -572,8 +576,8 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                                 if (lastX - startX > 0) { // right direction move.
                                     if ((lastX - fixedWidth <= cell.getBoundingClientRect().right
                                             && lastX + fixedWidth >= cell.getBoundingClientRect().right)
-                                        && movingColumn[columnAlias.rowIndex] == targetColumn[columnAlias.rowIndex]
-                                        && movingColumn[columnAlias.parentNum] == targetColumn[columnAlias.parentNum]
+                                        && movingColumn[ColumnAlias.rowIndex] == targetColumn[ColumnAlias.rowIndex]
+                                        && movingColumn[ColumnAlias.parentNum] == targetColumn[ColumnAlias.parentNum]
                                         && moveCell.cellIndex != cell.cellIndex) {
                                         grid.classColumn.changeColumnOrder(movingColumn, targetColumn, 'after');
                                         break;
@@ -582,8 +586,8 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                                 else {
                                     if ((lastX - fixedWidth <= cell.getBoundingClientRect().left
                                             && lastX + fixedWidth >= cell.getBoundingClientRect().left)
-                                        && movingColumn[columnAlias.rowIndex] == targetColumn[columnAlias.rowIndex]
-                                        && movingColumn[columnAlias.parentNum] == targetColumn[columnAlias.parentNum]  //column_parentNum
+                                        && movingColumn[ColumnAlias.rowIndex] == targetColumn[ColumnAlias.rowIndex]
+                                        && movingColumn[ColumnAlias.parentNum] == targetColumn[ColumnAlias.parentNum]  //column_parentNum
                                         && moveCell.cellIndex != cell.cellIndex) {
                                         grid.classColumn.changeColumnOrder(movingColumn, targetColumn, 'before');
                                         break;
@@ -608,7 +612,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
             let col = e.target.closest('.tbs-grid-cell');
 
             let column = grid.getColumnByIndex(col.cellIndex);
-            let columnName = column[columnAlias.name];
+            let columnName = column[ColumnAlias.name];
 
             let isMovable = grid.isMovableColumn(columnName);
             if (isMovable) {
@@ -659,7 +663,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 moveDiv.style.height = nHeight;
                 moveDiv.childNodes[0].style.width = nWidth;
                 moveDiv.childNodes[0].style.height = nHeight;
-                moveDiv.style.left = '30000px';
+                moveDiv.style.left = '70000px';
                 moveDiv.style.top = '0px';
 
                 moveDiv.dataset.columnIndex = col.cellIndex;
@@ -688,7 +692,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
             let moveX = lastX - startX;
 
             // let column = grid.getColumnByIndex(col.cellIndex);
-            // let columnName = column[columnAlias.name];
+            // let columnName = column[ColumnAlias.name];
             let isMovable: any = grid.isMovableColumn();
             if (isMovable) {
                 let moveDiv: any = document.querySelector('.tbs-grid-move');
@@ -748,7 +752,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 let maxCellIndex;
                 for (let x = 0, len = tdList.length; x < len; x++) {
                     let cell =  tdList[x];
-                    if (grid.column_table.data[x][columnAlias.visible] == false) continue;
+                    if (grid.column_table.data[x][ColumnAlias.visible] == false) continue;
 
                     let left = window.pageXOffset + cell.getBoundingClientRect().left;
                     if (lastX > left) maxCellIndex = cell.cellIndex;
@@ -762,7 +766,7 @@ export class TbsGridPanel20 extends TbsGridPanelBase {
                 let minCellIndex;
                 for (let x = tdList.length - 1; x >= 0; x--) {
                     let cell =  tdList[x];
-                    if (grid.column_table.data[x][columnAlias.visible] == false) continue;
+                    if (grid.column_table.data[x][ColumnAlias.visible] == false) continue;
                     let right = window.pageXOffset + cell.getBoundingClientRect().right;
                     if (lastX < right) minCellIndex = cell.cellIndex;
                 }

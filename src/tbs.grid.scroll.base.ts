@@ -1,5 +1,5 @@
 import {TbsGrid} from "./tbs.grid";
-import {columnAlias} from "./tbs.grid.types";
+import {ColumnAlias} from "./tbs.grid.types";
 
 export class TbsGridScrollBase {
 
@@ -380,7 +380,7 @@ export class TbsGridScrollBase {
         const colList7: any = document.querySelectorAll(selector + ' .tbs-grid-panel70 .tbs-grid-table thead th');
 
         let nWidth = parseInt(value) + 'px';
-        grid.column_table.data[colIndex][columnAlias.width] = parseInt(value, 10);
+        grid.column_table.data[colIndex][ColumnAlias.width] = parseInt(value, 10);
 
         colList[colIndex].style.width  = nWidth;
         colList2[colIndex].style.width = nWidth;
@@ -403,7 +403,7 @@ export class TbsGridScrollBase {
         const colList7: any = document.querySelectorAll(selector + ' .tbs-grid-panel72 .tbs-grid-table thead th');
 
         let nWidth = parseInt(value) + 'px';
-        grid.column_table.data[colIndex][columnAlias.width] = parseInt(value, 10);
+        grid.column_table.data[colIndex][ColumnAlias.width] = parseInt(value, 10);
 
         colList[colIndex].style.width  = nWidth;
         colList2[colIndex].style.width = nWidth;
@@ -423,7 +423,7 @@ export class TbsGridScrollBase {
         let result = 0;
         for (let x = 0; x <= grid.fixedColumnIndex; x++){
             let column = grid.column_table.data[x];
-            if (column[columnAlias.visible]) result += Number(column[columnAlias.width]);
+            if (column[ColumnAlias.visible]) result += Number(column[ColumnAlias.width]);
         }
         return result;
     }

@@ -1,5 +1,5 @@
 import {TbsGrid} from "./tbs.grid";
-import {columnAlias, rowAlias} from "./tbs.grid.types";
+import {ColumnAlias, RowAlias} from "./tbs.grid.types";
 
 export class TbsGridRangePanel {
     grid: TbsGrid;
@@ -137,7 +137,7 @@ export class TbsGridRangePanel {
         let classRange = this;
         let panelName = this.panelName;
 
-        if (grid.options[rowAlias.selectMode] == 'cell') {
+        if (grid.options[RowAlias.selectMode] == 'cell') {
             startRowIndex = startRowIndex;
             lastRowIndex  = startRowIndex;
         }
@@ -328,7 +328,7 @@ export class TbsGridRangePanel {
         for (let x = startColumnIndex; x < lastColumnIndex; x++) {
             let tableCell: any = tableRow.childNodes[x];
             let column = grid.column_table.data[x];
-            if (column[columnAlias.visible] == false) continue;
+            if (column[ColumnAlias.visible] == false) continue;
             let rect = grid.getOffset(tableCell);
             let rectLeft = rect.left;
             //console.log(`rect2.left ${rect2.left} rectLeft ${rectLeft} lastX ${lastX} `);
@@ -366,7 +366,7 @@ export class TbsGridRangePanel {
         for (let x = lastColumnIndex; x >= startColumnIndex; x--) {
             let tableCell: any = tableRow.childNodes[x];
             let column = grid.column_table.data[x];
-            if (column[columnAlias.visible] == false) continue;
+            if (column[ColumnAlias.visible] == false) continue;
             let rect = grid.getOffset(tableCell);
             let rectRight= rect.left + tableCell.getBoundingClientRect().width;
             if (lastX < rectRight) minCellIndex = tableCell.cellIndex;

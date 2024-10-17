@@ -1,7 +1,7 @@
 
 import {TbsGridDom} from "./tbs.grid.dom";
 import {TbsGrid} from "./tbs.grid";
-import {columnAlias} from "./tbs.grid.types";
+import {ColumnAlias} from "./tbs.grid.types";
 
 export class TbsGridCell {
     grid: TbsGrid;
@@ -15,8 +15,8 @@ export class TbsGridCell {
     createHtml() {
         // const grid = this.grid;
         //
-        // let type = this.column[columnAlias.type];
-        // let cellTemplate = this.column[columnAlias.cellTemplate];
+        // let type = this.column[ColumnAlias.type];
+        // let cellTemplate = this.column[ColumnAlias.cellTemplate];
         //
         // if (grid.null(cellTemplate)) {
         //     this.createCell(type);

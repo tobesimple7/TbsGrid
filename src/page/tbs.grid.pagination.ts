@@ -1,5 +1,5 @@
 import {TbsGrid} from "../tbs.grid";
-import {columnAlias, GridMode} from "../tbs.grid.types";
+import {ColumnAlias, GridMode} from "../tbs.grid.types";
 
 export class TbsGridPagination {
     grid: TbsGrid;
@@ -42,7 +42,7 @@ export class TbsGridPagination {
             const columns: any[] = grid.column_table.selectRows();
             for (let x = 0, len = columns.length; x < len; x++) {
                 const column = columns[x];
-                let columnName  = column[columnAlias.name];
+                let columnName  = column[ColumnAlias.name];
                 source[columnName] = grid.null(dataRow[columnName]) ? null : grid.getFormatValue(column, dataRow[columnName]);
             }
 
@@ -55,7 +55,7 @@ export class TbsGridPagination {
         grid.classFilter.filters();
 
         /* Sorting */
-        grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
+        grid.classSort.orderBy();
 
         /**
          * pageIndex

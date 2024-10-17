@@ -1,5 +1,5 @@
 ﻿import {TbsGrid} from "../tbs.grid";
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 
 export class TbsGridDate{
     colType: any;
@@ -218,7 +218,7 @@ export class TbsGridDate{
         let selector = '#' + this.grid;
         const grid = this.grid;
 
-        let format = this.column[columnAlias.format];
+        let format = this.column[ColumnAlias.format];
         format = format.replace('yyyy', curYear);
         format = format.replace('MM', this.addZero(curMonth));
         format = format.replace('dd', this.addZero(curDay));
@@ -272,7 +272,7 @@ export class TbsGridDate{
             let MM = grid.substr2(dateText, 5, 2);
             let dd = grid.substr2(dateText,8, 2);
 
-            let format = column[columnAlias.format];
+            let format = column[ColumnAlias.format];
             format = format.replace('yyyy', yyyy);
             format = format.replace('MM', MM);
             format = format.replace('dd', dd);
@@ -306,7 +306,7 @@ export class TbsGridDate{
 
         (document.querySelector(selector + ' .tbs-grid-input-layer-panel') as any).innerHTML = '';
         (document.querySelector(selector + ' .tbs-grid-input-layer-panel') as any).style.width = '0px';
-        (document.querySelector(selector + ' .tbs-grid-input-layer-panel') as any).style.left = '30000px';
+        (document.querySelector(selector + ' .tbs-grid-input-layer-panel') as any).style.left = '70000px';
     }
 }
 

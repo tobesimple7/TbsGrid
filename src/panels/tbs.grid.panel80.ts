@@ -2,7 +2,7 @@
 import { TbsGridPanelBase } from './tbs.grid.panel.base';
 import { TbsGridRenderPanel30 } from './tbs.grid.render.panel30';
 import { TbsGridRenderPanelInfo } from './tbs.grid.render.panel.info';
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 export class TbsGridPanel80 extends TbsGridPanelBase {
 
     constructor(grid) {
@@ -61,7 +61,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
         const mouseDownEvent = function(e) {
             let element;
 
-            if      (e.target.classList.contains('tbs-grid-panel-button-icon')) { targetName = 'icon'   ; element = e.target; }
+            if      (e.target.classList.contains('tbs-grid-html-icon-remove')) { targetName = 'icon'   ; element = e.target; }
             else if (e.target.classList.contains('tbs-grid-panel-button-text')) { targetName = 'text'   ; element = e.target; }
             else if (e.target.classList.contains('tbs-grid-panel-button'))      { targetName = 'button' ; element = e.target; }
             else if (e.target.classList.contains('tbs-grid-panel-bar'))         { targetName = 'bar'    ; element = e.target; }
@@ -102,7 +102,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
 
         const mouseUpEvent = function(e) {
             let element;
-            if      (e.target.classList.contains('tbs-grid-panel-button-icon')) { targetName = 'icon'   ; element = e.target; }
+            if      (e.target.classList.contains('tbs-grid-html-icon-remove')) { targetName = 'icon'   ; element = e.target; }
             else if (e.target.classList.contains('tbs-grid-panel-button-text')) { targetName = 'text'   ; element = e.target; }
             else if (e.target.classList.contains('tbs-grid-panel-button'))      { targetName = 'button' ; element = e.target; }
             else if (e.target.classList.contains('tbs-grid-panel-bar'))         { targetName = 'bar'    ; element = e.target; }
@@ -131,7 +131,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
 
                         let name  = moveElement.dataset.name;
                         let column = grid.getColumn(name);
-                        let text  = column[columnAlias.text];
+                        let text  = column[ColumnAlias.text];
                         let order = 'asc';
 
                         // Find the one that is smaller to the button left than then move element left
@@ -182,7 +182,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
         const selectCell = function(e, table) {
             let element;
 
-            if      (e.target.classList.contains('tbs-grid-panel-button-icon')) { targetName = 'icon'   ; element = e.target; }
+            if      (e.target.classList.contains('tbs-grid-html-icon-remove')) { targetName = 'icon'   ; element = e.target; }
             else if (e.target.classList.contains('tbs-grid-panel-button-text')) { targetName = 'text'   ; element = e.target; }
             else if (e.target.classList.contains('tbs-grid-panel-button'))      { targetName = 'button' ; element = e.target; }
             else if (e.target.classList.contains('tbs-grid-panel-bar'))         { targetName = 'bar'    ; element = e.target; }
@@ -244,7 +244,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
                 moveDiv.style.height = nHeight;
                 moveDiv.childNodes[0].style.width = nWidth;
                 moveDiv.childNodes[0].style.height = nHeight;
-                moveDiv.style.left = '30000px';
+                moveDiv.style.left = '70000px';
                 moveDiv.style.top = '0px';
 
                 moveDiv.dataset.columnIndex = null;
@@ -325,7 +325,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
                 let maxCellIndex;
                 for (let x = 0, len = tdList.length; x < len; x++) {
                     let cell: any =  tdList[x];
-                    if (grid.column_table.data[x][columnAlias.visible] == false) continue;
+                    if (grid.column_table.data[x][ColumnAlias.visible] == false) continue;
                     let left = window.scrollX + cell.getBoundingClientRect().left;
                     if (lastX > left) maxCellIndex = cell.cellIndex;
                 }
@@ -338,7 +338,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
                 let minCellIndex;
                 for (let x = tdList.length - 1; x >= 0; x--) {
                     let cell: any =  tdList[x];
-                    if (grid.column_table.data[x][columnAlias.visible] == false) continue;
+                    if (grid.column_table.data[x][ColumnAlias.visible] == false) continue;
                     let right = window.pageXOffset + cell.getBoundingClientRect().right;
                     if (lastX < right) minCellIndex = cell.cellIndex;
                 }
@@ -373,7 +373,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
                     grid.classScroll.setBarPositionByDirection('right');
                     for (let trRowIndex = 0; trRowIndex < trCount; trRowIndex++) {
                         for (let cellIndex = 0; cellIndex < tdCount; cellIndex++) {
-                            if (grid.column_table.data[cellIndex][columnAlias.visible] == false) continue;
+                            if (grid.column_table.data[cellIndex][ColumnAlias.visible] == false) continue;
                             let left = window.scrollX + trContent[trRowIndex].childNodes[cellIndex].getBoundingClientRect().left;
                             if (lastX > left) maxCellIndex = trContent[trRowIndex].childNodes[cellIndex].cellIndex;
                         }
@@ -395,7 +395,7 @@ export class TbsGridPanel80 extends TbsGridPanelBase {
                     grid.classScroll.setBarPositionByDirection('left');
                     for (let rowIndex = 0; rowIndex < trCount; rowIndex++) {
                         for (let cellIndex = tdCount - 1; cellIndex >= 0; cellIndex--) {
-                            if (grid.column_table.data[cellIndex][columnAlias.visible] == false) continue;
+                            if (grid.column_table.data[cellIndex][ColumnAlias.visible] == false) continue;
                             let right = window.pageXOffset + trContent[rowIndex].childNodes[cellIndex].getBoundingClientRect().right;
                             if (lastX < right) minCellIndex = trContent[rowIndex].childNodes[cellIndex].cellIndex;
                         }

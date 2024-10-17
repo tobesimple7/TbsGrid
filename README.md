@@ -3,7 +3,7 @@
 <a href="https://tobesimple.net/" target="_blank"><img alt="tbsgrid" src="https://img.shields.io/badge/Html-CSS-blue"></a> 
 <a href="https://tobesimple.net/" target="_blank"><img alt="tbsgrid" src="https://img.shields.io/badge/Pure-Javascript-blue"></a> 
 <a href="https://tobesimple.net/" target="_blank"><img alt="tbsgrid" src="https://img.shields.io/badge/Web-Grid-blue"></a>
-<a href="https://tobesimple.net/"><img alt="GitHub Workflow Status" src="https://img.shields.io/badge/build-0.2.38-blue"></a>
+<a href="https://tobesimple.net/"><img alt="GitHub Workflow Status" src="https://img.shields.io/badge/build-0.2.40-blue"></a>
 </p>
 
 Welcome to TbsGrid.
@@ -42,9 +42,9 @@ I will try to make a good product.
 <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
-<style  src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.38/dist/assets/css/tbsgrid.css" />
-<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.38/dist/tbsgrid-configs.js" />
-<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.38/dist/tbsgrid.min.js" />
+<style  src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.40/dist/css/tbsgrid.css" />
+<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.40/dist/tbsgrid-configs.js" />
+<script src="https://cdn.jsdelivr.net/npm/tbsgrid@0.2.40/dist/tbsgrid.min.js" />
 
 ```
 ### NPM 

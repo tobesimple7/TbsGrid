@@ -1,6 +1,6 @@
 
 import {TbsBase} from "../tbs.base";
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 
 
 
@@ -44,11 +44,11 @@ export class TbsDataArrayTable extends TbsBase {
     selectRowByRowIndex(arrayIndex: any, rowIndex: any) { return this.data[arrayIndex][rowIndex]; }
 
     selectRowByRowId(arrayIndex: any, rowId: any) {
-        let dataRows = this.selectRows(arrayIndex, columnAlias.rowId, rowId, 1);
+        let dataRows = this.selectRows(arrayIndex, ColumnAlias.rowId, rowId, 1);
         return dataRows.length > 0 ? dataRows[0] : null;
     }
 
-    selectRowIndexByRowId(arrayIndex: any, rowId: any) { return this.selectRowIndex(arrayIndex, columnAlias.rowId, rowId); }
+    selectRowIndexByRowId(arrayIndex: any, rowId: any) { return this.selectRowIndex(arrayIndex, ColumnAlias.rowId, rowId); }
 
     selectRowIndex(arrayIndex: any, field: any, value: any) {
         let result = null;
@@ -61,7 +61,7 @@ export class TbsDataArrayTable extends TbsBase {
 
     selectRowIdByRowIndex(arrayIndex: any, rowIndex: any) {
         const dataRow = this.selectRowByRowIndex(arrayIndex, rowIndex);
-        return dataRow[columnAlias.rowId];
+        return dataRow[ColumnAlias.rowId];
     }
 
     selectRowRange(arrayIndex: any, startRowIndex: any, endRowIndex: any) {
@@ -88,8 +88,8 @@ export class TbsDataArrayTable extends TbsBase {
         if (this.type == 'table') {
             dataRows.map(dataRow => {
                 this.currentRowId += 1;
-                dataRow[columnAlias.rowId] = this.currentRowId;
-                dataRow[columnAlias.rowMode] = '';
+                dataRow[ColumnAlias.rowId] = this.currentRowId;
+                dataRow[ColumnAlias.rowMode] = '';
             });
         }
         if (this.null(this.data[arrayIndex])) this.data[arrayIndex] = [];
@@ -100,8 +100,8 @@ export class TbsDataArrayTable extends TbsBase {
         if (this.type == 'table') {
             dataRows.map(dataRow => {
                 this.currentRowId += 1;
-                dataRow[columnAlias.rowId] = this.currentRowId;
-                dataRow[columnAlias.rowMode] = '';
+                dataRow[ColumnAlias.rowId] = this.currentRowId;
+                dataRow[ColumnAlias.rowMode] = '';
             });
         }
         if (this.null(this.data[arrayIndex])) this.data[arrayIndex] = [];
@@ -113,8 +113,8 @@ export class TbsDataArrayTable extends TbsBase {
         if (this.type == 'table') {
             dataRows.map(dataRow => {
                 this.currentRowId += 1;
-                dataRow[columnAlias.rowId] = this.currentRowId;
-                dataRow[columnAlias.rowMode] = '';
+                dataRow[ColumnAlias.rowId] = this.currentRowId;
+                dataRow[ColumnAlias.rowMode] = '';
             });
         }
         if (this.null(this.data[arrayIndex])) this.data[arrayIndex] = [];
@@ -125,8 +125,8 @@ export class TbsDataArrayTable extends TbsBase {
     insert(arrayIndex: any, dataRow: any) {
         if (this.type == 'table') {
             this.currentRowId += 1;
-            dataRow[columnAlias.rowId] = this.currentRowId;
-            dataRow[columnAlias.rowMode] = '';
+            dataRow[ColumnAlias.rowId] = this.currentRowId;
+            dataRow[ColumnAlias.rowMode] = '';
         }
         if (this.null(this.data[arrayIndex])) this.data[arrayIndex] = [];
 
@@ -136,8 +136,8 @@ export class TbsDataArrayTable extends TbsBase {
     insertBefore(arrayIndex: any, dataRow: any, rowIndex: any) {
         if (this.type == 'table') {
             this.currentRowId += 1;
-            dataRow[columnAlias.rowId] = this.currentRowId;
-            dataRow[columnAlias.rowMode] = '';
+            dataRow[ColumnAlias.rowId] = this.currentRowId;
+            dataRow[ColumnAlias.rowMode] = '';
         }
         if (this.null(this.data[arrayIndex])) this.data[arrayIndex] = [];
 
@@ -148,8 +148,8 @@ export class TbsDataArrayTable extends TbsBase {
     insertAfter(arrayIndex: any, dataRow: any, rowIndex: any) {
         if (this.type == 'table') {
             this.currentRowId += 1;
-            dataRow[columnAlias.rowId] = this.currentRowId;
-            dataRow[columnAlias.rowMode] = '';
+            dataRow[ColumnAlias.rowId] = this.currentRowId;
+            dataRow[ColumnAlias.rowMode] = '';
         }
         if (this.null(this.data[arrayIndex])) this.data[arrayIndex] = [];
         if (rowIndex + 1 < this.data[arrayIndex].length) this.data[arrayIndex].splice(rowIndex + 1, 0, dataRow);
@@ -166,7 +166,7 @@ export class TbsDataArrayTable extends TbsBase {
     }
 
     removeByRowId(arryIndex: any, rowId: any) {
-        let rowIndex = this.selectRowIndex(arryIndex, columnAlias.rowId, rowId);
+        let rowIndex = this.selectRowIndex(arryIndex, ColumnAlias.rowId, rowId);
         if (this.notNull(rowIndex)) this.remove(rowIndex);
     }
 
@@ -175,11 +175,11 @@ export class TbsDataArrayTable extends TbsBase {
      */
 
     update(arrayIndex: any, columnName: any, field: any, value: any) {
-        let dataRows = this.selectRows(arrayIndex, columnAlias.name, columnName);
+        let dataRows = this.selectRows(arrayIndex, ColumnAlias.name, columnName);
         dataRows.map(dataRow => dataRow[field] = value);
     }
     updateRow(arrayIndex: any, columnName: any, field: any, value: any) {
-        let dataRows = this.selectRows(arrayIndex, columnAlias.name, columnName);
+        let dataRows = this.selectRows(arrayIndex, ColumnAlias.name, columnName);
         dataRows.map(dataRow => dataRow[field] = value);
     }
     updateByRowIndex(arrayIndex: any, rowIndex: any, name: any, value: any) {
@@ -207,7 +207,7 @@ export class TbsDataArrayTable extends TbsBase {
     makeColIndex () : void {
         for (let i = 0; i < this.count(); i++) {
             const columns = this.data[i];
-            columns.map((column: any, index: any) => column[columnAlias.colIndex] = index);
+            columns.map((column: any, index: any) => column[ColumnAlias.colIndex] = index);
         }
     }
 }

@@ -35,7 +35,7 @@ import {TbsGridBaseColumns} from "./base/tbs.grid.base.columns";
 import {TbsGridBaseRows} from "./base/tbs.grid.base.rows";
 import {TbsGridBaseData} from "./base/tbs.grid.base.data";
 import {TbsGridBaseMain} from "./base/tbs.grid.base.main";
-import {GridOptions} from "./tbs.grid.types";
+import {GridOption} from "./tbs.grid.types";
 import {TbsGridPagination} from "./page/tbs.grid.pagination";
 
 export class TbsGrid extends TbsGridBase {
@@ -86,7 +86,7 @@ export class TbsGrid extends TbsGridBase {
     leftLineDiv   : any;
     rightLineDiv  : any;
 
-    options: GridOptions;
+    options: GridOption;
 
     constructor(gridId: string, gridConfigs: object) {
         super(gridId, gridConfigs);
@@ -137,7 +137,7 @@ export class TbsGrid extends TbsGridBase {
 
         ////////////////////////////////////////////////////////////////////////
 
-        /* GridOptions */
+        /* GridOption */
         this.options = {}
 
         /* toolbar, filter, sort, group panel optons */
@@ -162,16 +162,18 @@ export class TbsGrid extends TbsGridBase {
         this.options.deleteRow = false;
         this.options.zeroChar = '-';
         this.options.useToolbar = true;
-        this.options.imageRoot = this.getConfigOption('imageRoot');
+        this.options.imageRoot = 'https://cdn.jsdelivr.net/npm/tbsgrid@0.2.39/dist/userImg/',
 
         this.options.treeItemName = null;
         this.options.treeParentName = null;
         this.options.treeRootValue = null;
 
-
         this.options.pageRowCount = 10;
         this.options.pageRowCountList = [10, 20, 30, 50, 100];
 
+        this.options.trueValue = 'Y';
+        this.options.falseValue = 'N';
+        this.options.elseValue = 'N';
     }
 
     /**
@@ -184,8 +186,6 @@ export class TbsGrid extends TbsGridBase {
 
     getConfigFont    (label: string) { return this.null(this.gridConfig['font'][label])     ? 'No Label' : this.gridConfig['font'][label]; }
 
-    getConfigOption  (label: string) { return this.null(this.gridConfigOptions[label])      ? 'No Label' : this.gridConfigOptions[label]; }
-
     getConfigLabel   (label: string) { return this.null(this.gridConfig['labels'][label])   ? 'No Label' : this.gridConfig['labels'][label]; }
 
     /**
@@ -195,10 +195,10 @@ export class TbsGrid extends TbsGridBase {
     setGridConfig(tbsGridConfig: any) { this.gridConfig = tbsGridConfig; }
 
     getUserImageRoot(columnName: string) {
-        let result = this.gridConfigOptions['userImageRoot'];
+        let result = this.options.imageRoot;
         if (this.notNull(this.renderer) && this.notNull(this.renderer[columnName])) {
             const renderer = this.renderer[columnName];
-            if (renderer.userImageRoot) result = renderer.userImageRoot;
+            if (renderer.imageRoot) result = renderer.imageRoot;
         }
         return result;
     }

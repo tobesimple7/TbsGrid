@@ -3,7 +3,7 @@ import { TbsGridPanelBase } from './tbs.grid.panel.base';
 import { TbsGridRenderPanel40 } from './tbs.grid.render.panel40';
 import { TbsGridRenderPanelInfo } from './tbs.grid.render.panel.info';
 import { TbsGridTable } from "../tbs.grid.table";
-import {columnAlias, Direction, GridMode, rowAlias} from "../tbs.grid.types";
+import {ColumnAlias, Direction, GridMode, RowAlias} from "../tbs.grid.types";
 
 export class TbsGridPanel40 extends TbsGridPanelBase {
 
@@ -150,7 +150,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
         let tableRow = tableRows[0];
         for (let x = 0, len = grid.column_table.count(); x < len; x++) {
             let column = grid.column_table.data[x];
-            let columnName = column[columnAlias.name];
+            let columnName = column[ColumnAlias.name];
             let tableCell = tableRow.childNodes[x];
 
             if (grid.fixedColumnIndex != -1) {
@@ -246,7 +246,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
             e.stopPropagation();
 
             //if (grid.option_selectOne == true) return;
-            if (grid.options[rowAlias.selectMode] == 'cell') return;
+            if (grid.options[RowAlias.selectMode] == 'cell') return;
 
             // @ts-ignore
             if (window.event.ctrlKey) selectCellCtrlMove(e);
@@ -286,14 +286,14 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
 
                     if (e.detail == 1) {
                         let panelInput: any = document.querySelector(selector + ' .tbs-grid-input-panel');
-                        if (panelInput.style.left != '30000px') {
+                        if (panelInput.style.left != '70000px') {
                             grid.editEnd();
                             grid.input_focus();
                         }
-                        else grid.tbs_executeEvent(true, 'onClick', param);
+                        else grid.executeEvent('onClick', param);
                     }
                     else if (e.detail == 2) {
-                        let isEditable = grid.column_table.data[startCellIndex][columnAlias.editable];
+                        let isEditable = grid.column_table.data[startCellIndex][ColumnAlias.editable];
                         if (isEditable) {
                             if (grid.notNull(grid.onEdit)) {
                                 grid.editStart(e, 'mouse')
@@ -302,7 +302,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
                                 grid.input_show(e, 'mouse');
                             }
                         }
-                        else grid.tbs_executeEvent(true, 'onDblclick', param);
+                        else grid.executeEvent('onDblclick', param);
                     }
                 }
             }
@@ -588,7 +588,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
             e.stopPropagation();
 
             //if (grid.option_selectOne == true) return;
-            if (grid.options[rowAlias.selectMode] == 'cell') return;
+            if (grid.options[RowAlias.selectMode] == 'cell') return;
 
             // @ts-ignore
             if (window.event.ctrlKey) selectCellCtrlMove(e);
@@ -624,21 +624,20 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
             let isInArea = grid.isInPanel(e, eventPanelName, lastX, lastY);
             if (isInArea) {
                 if (mouseButton == 0 && grid.isMovedPositionInConstRange(startX, startY, lastX, lastY)) {
-                    let param = { e: e, rowIndex: startRowIndex, cellIndex: startCellIndex, mode: 'mouse' };
+                    const param = { e: e, rowIndex: startRowIndex, cellIndex: startCellIndex, mode: 'mouse' };
 
-                    if (e.detail == 1) grid.tbs_executeEvent(true, 'onClick', param);
+                    if (e.detail == 1) grid.executeEvent('onClick', param);
                     else if (e.detail == 2) {
-                        let isEditable = grid.column_table.data[startCellIndex][columnAlias.editable];
+                        let isEditable = grid.column_table.data[startCellIndex][ColumnAlias.editable];
                         if (isEditable) {
                             if (grid.notNull(grid.onEdit)) {
-                                //grid.input_edit(e, 0, 'mouse');
                                 grid.editStart(e, 'mouse');
                             }
                             else {
                                 grid.input_show(e, 'mouse');
                             }
                         }
-                        else grid.tbs_executeEvent(true, 'onDblclick', param);
+                        else grid.executeEvent('onDblclick', param);
                     }
                 }
             }
@@ -653,7 +652,7 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
             startRowIndex  = grid.classColumn.getRowIndexInTable(tableCell.parentNode.rowIndex, eventPanelName);
             lastRowIndex   = startRowIndex;
 
-            let panelName = eventPanelName;
+            let panelName: string = eventPanelName;
             if (panelName == 'panel41') {
                 grid.classRange40.removeRange(0, -1);
                 grid.classRange40.selectRange(0, 0);
@@ -674,19 +673,19 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
             let lastX = grid.lastX;
             let lastY = grid.lastY;
             if (grid.fixedColumnIndex != -1) {
-                let panel  = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
-                let panel30= document.querySelector(selector + ' .tbs-grid-panel30');
+                const panel  = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
+                const panel30= document.querySelector(selector + ' .tbs-grid-panel30');
 
-                let rect= panel.getBoundingClientRect();
-                let absRect = grid.getOffset(panel);
+                const rect= panel.getBoundingClientRect();
+                const absRect = grid.getOffset(panel);
 
-                let rect30= panel30.getBoundingClientRect();
-                let absRect30 = grid.getOffset(panel30);
+                const rect30= panel30.getBoundingClientRect();
+                const absRect30 = grid.getOffset(panel30);
 
-                let panelTop   = absRect.top;
-                let panelBottom= absRect.top + rect.height;
-                let panelLeft  = absRect.left;
-                let panelRight = absRect30.left + rect30.width;
+                const panelTop   = absRect.top;
+                const panelBottom= absRect.top + rect.height;
+                const panelLeft  = absRect.left;
+                const panelRight = absRect30.left + rect30.width;
 
                 // Outside the area
                 if (lastX < panelLeft || lastX > panelRight || lastY < panelTop || lastY > panelBottom) {
@@ -698,14 +697,14 @@ export class TbsGridPanel40 extends TbsGridPanelBase {
                 select(moveX, moveY);
             }
             else {
-                let panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
-                let rect= panel.getBoundingClientRect();
-                let absRect = grid.getOffset(panel);
+                const panel = document.querySelector(selector + ' .tbs-grid-' + eventPanelName);
+                const rect= panel.getBoundingClientRect();
+                const absRect = grid.getOffset(panel);
 
-                let panelTop   = absRect.top;
-                let panelBottom= absRect.top + rect.height;
-                let panelLeft  = absRect.left;
-                let panelRight = absRect.left + rect.width;
+                const panelTop   = absRect.top;
+                const panelBottom= absRect.top + rect.height;
+                const panelLeft  = absRect.left;
+                const panelRight = absRect.left + rect.width;
 
                 // Outside the area
                 if (lastX < panelLeft || lastX > panelRight || lastY < panelTop || lastY > panelBottom) {

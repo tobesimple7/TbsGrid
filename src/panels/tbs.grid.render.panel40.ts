@@ -1,5 +1,5 @@
 import {TbsGrid} from "../tbs.grid";
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 import {TbsGridRenderString} from "../renderer/tbs.grid.render.string";
 
 
@@ -73,11 +73,11 @@ export class TbsGridRenderPanel40 {
         this.rowIndex   = rowIndex;
         this.columnIndex= columnIndex;
 
-        this.columnName = column[columnAlias.name];
-        this.columnType = column[columnAlias.type];
+        this.columnName = column[ColumnAlias.name];
+        this.columnType = column[ColumnAlias.type];
 
-        this.visible    = column[columnAlias.visible];
-        this.width      = column[columnAlias.width];
+        this.visible    = column[ColumnAlias.visible];
+        this.width      = column[ColumnAlias.width];
 
         let columnTable = null;
         let dataTable = null;
@@ -91,20 +91,20 @@ export class TbsGridRenderPanel40 {
             dataTable = grid.footer_table;
         }
 
-        const summaryColumn = columnTable.selectRow(columnAlias.name, this.columnName);
+        const summaryColumn = columnTable.selectRow(ColumnAlias.name, this.columnName);
         if (grid.notNull(summaryColumn)) {
-            this.align = grid.notNull(summaryColumn[columnAlias.align]) ?
-                summaryColumn[columnAlias.align] : column[columnAlias.align];
+            this.align = grid.notNull(summaryColumn[ColumnAlias.align]) ?
+                summaryColumn[ColumnAlias.align] : column[ColumnAlias.align];
 
-            this.className = grid.notNull(summaryColumn[columnAlias.className]) ?
-                summaryColumn[columnAlias.className] : column[columnAlias.className];
+            this.className = grid.notNull(summaryColumn[ColumnAlias.className]) ?
+                summaryColumn[ColumnAlias.className] : column[ColumnAlias.className];
 
             this.cellValue = grid.getValue(this.rowIndex, this.columnName, dataTable);
             this.cellText = grid.getText(this.rowIndex, this.columnName, dataTable);
         }
         else {
-            this.align = column[columnAlias.align];
-            this.className = column[columnAlias.className];
+            this.align = column[ColumnAlias.align];
+            this.className = column[ColumnAlias.className];
         }
 
 

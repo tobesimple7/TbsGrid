@@ -4,7 +4,6 @@ import {TbsDataArrayTable} from "./tbs.data.array.table";
 
 export type DataTableType = TbsDataTable | TbsDataArrayTable;
 
-
 export class TbsDatabase extends TbsBase {
     tables: DataTableType[];
 

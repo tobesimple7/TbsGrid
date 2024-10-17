@@ -1,4 +1,4 @@
-import {AddRowDirection, CellType, columnAlias, optionAlias} from "../tbs.grid.types";
+import {AddRowDirection, CellType, ColumnAlias, GridRenderer, OptionAlias} from "../tbs.grid.types";
 import {TbsGrid} from "../tbs.grid";
 
 export class TbsGridBaseData {
@@ -33,29 +33,29 @@ export class TbsGridBaseData {
 
         let cellIndex = this.getColumnIndex(columnName);
         let oldValue = this.view_table.data[rowIndex][columnName];
-        let mode = this.view_table.data[rowIndex][columnAlias.rowMode];
+        let mode = this.view_table.data[rowIndex][ColumnAlias.rowMode];
 
         let result = this.getFormat(this.column_table.selectRowByRowIndex(cellIndex), value);
         if (mode == 'I') {
             if (oldValue != result.value) {
                 grid.view_table.updateByRowIndex(rowIndex, columnName, result.value);
-                grid.view_table.updateByRowIndex(rowIndex, columnAlias.rowMode, 'I');
+                grid.view_table.updateByRowIndex(rowIndex, ColumnAlias.rowMode, 'I');
 
-                let rowId: number = grid.view_table.selectValue(rowIndex, columnAlias.rowId);
+                let rowId: number = grid.view_table.selectValue(rowIndex, ColumnAlias.rowId);
 
                 grid.source_table.updateByRowId(rowId, columnName, result.value);
-                grid.source_table.updateByRowId(rowId, columnAlias.rowMode, 'I');
+                grid.source_table.updateByRowId(rowId, ColumnAlias.rowMode, 'I');
             }
         }
         else {
             if (oldValue != result.value) {
                 grid.view_table.updateByRowIndex(rowIndex, columnName, result.value);
-                grid.view_table.updateByRowIndex(rowIndex, columnAlias.rowMode, 'U');
+                grid.view_table.updateByRowIndex(rowIndex, ColumnAlias.rowMode, 'U');
 
-                let rowId: number = grid.view_table.selectValue(rowIndex, columnAlias.rowId);
+                let rowId: number = grid.view_table.selectValue(rowIndex, ColumnAlias.rowId);
 
                 grid.source_table.updateByRowId(rowId, columnName, result.value);
-                grid.source_table.updateByRowId(rowId, columnAlias.rowMode, 'U');
+                grid.source_table.updateByRowId(rowId, ColumnAlias.rowMode, 'U');
             }
         }
     }
@@ -68,7 +68,7 @@ export class TbsGridBaseData {
     /** info_column_table */
 
     getInfoValue(this: TbsGrid, columnName: string, property: string): any {
-        const dataRow = this.info_column_table.selectRow(columnAlias.name, columnName);
+        const dataRow = this.info_column_table.selectRow(ColumnAlias.name, columnName);
         return dataRow[property];
     }
 
@@ -78,33 +78,24 @@ export class TbsGridBaseData {
      * Check Box Options
      */
 
-    getTrueValue(this: TbsGrid, columnName: string) { return this.getBooleanValue(columnName, 'trueValue' ); }
+    getTrueValue(this: TbsGrid, columnName: string): any { return this.getBooleanValue(columnName, 'trueValue' ); }
 
-    getFalseValue(this: TbsGrid, columnName: string){ return this.getBooleanValue(columnName, 'falseValue'); }
+    getFalseValue(this: TbsGrid, columnName: string): any { return this.getBooleanValue(columnName, 'falseValue'); }
 
-    getElseValue(this: TbsGrid, columnName: string) { return this.getBooleanValue(columnName, 'elseValue' ); }
+    getElseValue(this: TbsGrid, columnName: string): any { return this.getBooleanValue(columnName, 'elseValue'); }
 
     getBooleanValue(this: TbsGrid, columnName: string, valueType: string) {
-        let result = this.gridConfigOptions[valueType];
+        let result = this.options[valueType];
         if (this.notNull(this.renderer) && this.notNull(this.renderer[columnName])) {
-            const renderer = this.renderer[columnName];
+            const renderer: GridRenderer = this.renderer[columnName];
             if (renderer[valueType]) result = renderer[valueType];
         }
         return result;
     }
 
-    reverseBoolean(this: TbsGrid, value: string | number | boolean) {
-        if      (value == 1)   return 0;
-        else if (value == 0)   return 1;
-        else if (value == '1') return '0';
-        else if (value == '0') return '1';
-        else if (value == 'y') return 'n';
-        else if (value == 'n') return 'y';
-        else if (value == 'Y') return 'N';
-        else if (value == 'N') return 'Y';
-        else if (value == true)  return false;
-        else if (value == false) return true;
-        else return null;
+    reverseBoolean(this: TbsGrid, columnName: string, value: any) {
+        if (value == this.getTrueValue(columnName)) return this.getFalseValue(columnName);
+        else return this.getTrueValue(columnName);
     }
 
     /**
@@ -129,14 +120,14 @@ export class TbsGridBaseData {
         result.value = value;
         result.text = value;
 
-        let colType = column[columnAlias.type];
-        let format  = column[columnAlias.format];
+        let colType = column[ColumnAlias.type];
+        let format  = column[ColumnAlias.format];
 
         if (colType == CellType.number) {
             result = this.getFormatNumber(column, value);
-            if (column[columnAlias.visible] == false
-                || (column[columnAlias.showZero] == false && Number(result.value) == 0 )) {
-                result.text = this.options[optionAlias.zeroChar];
+            if (column[ColumnAlias.visible] == false
+                || (column[ColumnAlias.showZero] == false && Number(result.value) == 0 )) {
+                result.text = this.options[OptionAlias.zeroChar];
             }
             return result;
         }
@@ -147,7 +138,7 @@ export class TbsGridBaseData {
                 return result;
             }
             if (colType == CellType.combo) {
-                const data = grid.renderer[column[columnAlias.name]].data;
+                const data = grid.renderer[column[ColumnAlias.name]].data;
 
                 let key = data.valueName;
                 let val = data.textName;
@@ -187,24 +178,24 @@ export class TbsGridBaseData {
         else if (grid.trim(value) == '')  result.value = null;
         else if (grid.substr2(value.toString(), 0, 1) == '.') result.value = '0'; //php 0.1 => .1
         else {
-            if (column[columnAlias.currencyChar])  value = value.toString().replace(column[columnAlias.currencyChar], '');
+            if (column[ColumnAlias.currencyChar])  value = value.toString().replace(column[ColumnAlias.currencyChar], '');
             result.value = value.toString().replace(/,/gi, '')
         }
 
         if (grid.null(result.value)) {
-            result.text = grid.options[optionAlias.zeroChar];
+            result.text = grid.options[OptionAlias.zeroChar];
             return result;
         }
         result.text = result.value;
 
-        let type = column[columnAlias.type];
-        let scale = column[columnAlias.scale];
+        let type = column[ColumnAlias.type];
+        let scale = column[ColumnAlias.scale];
 
         let arr = scale.split(',');
         let decimalPoint = (arr.length > 1) ? this.trim(arr[1]) : '0';
         if (decimalPoint == '') decimalPoint = '0';
 
-        let roundType = column[columnAlias.roundType];
+        let roundType = column[ColumnAlias.roundType];
         let n = (result.value == undefined || result.value == '') ? '0' : result.value.toString(); //전체값
         let dpLen = 0; //decimal length
 
@@ -222,16 +213,16 @@ export class TbsGridBaseData {
             else { // @ts-ignore
                 parseFloat(this.round(n, dpLen));
             }
-            result.text = column[columnAlias.commaUnit] == '0' ? n : formatWon(n);
+            result.text = column[ColumnAlias.commaUnit] == '0' ? n : formatWon(n);
         }
         else if (decimalPoint != '0') {
             result.text = formatWon(parseFloat(n));
-            if (column[columnAlias.fixedScale]) {
+            if (column[ColumnAlias.fixedScale]) {
                 dpLen = parseInt(decimalPoint);
                 n =   (roundType == 'ceil')  ? this.ceil(n, dpLen).toFixed(dpLen)
                     : (roundType == 'floor') ? this.floor(n, dpLen).toFixed(dpLen)
                         : this.round(n, dpLen).toFixed(dpLen);
-                result.text = column[columnAlias.commaUnit] == '0' ? n : formatWon(n);
+                result.text = column[ColumnAlias.commaUnit] == '0' ? n : formatWon(n);
             }
             else {
                 dpLen = parseInt(decimalPoint);
@@ -247,16 +238,16 @@ export class TbsGridBaseData {
                 // n =   (roundType == 'ceil')  ? parseFloat(this.ceil(n, dpLen))
                 //     : (roundType == 'floor') ? parseFloat(this.floor(n, dpLen))
                 //         : parseFloat(this.round(n, dpLen));
-                result.text = column[columnAlias.commaUnit] == '0' ? n : formatWon(n);
+                result.text = column[ColumnAlias.commaUnit] == '0' ? n : formatWon(n);
             }
         }
         if (result.text == '0') {
-            if (grid.options[optionAlias.zeroChar] != '') result.text = optionAlias.zeroChar;
+            if (grid.options[OptionAlias.zeroChar] != '') result.text = OptionAlias.zeroChar;
         }
         let regExp = new RegExp('', 'gi');
-        result.text = result.text.replaceAll(',',  column[columnAlias.thousandChar]);
-        result.text = result.text.replaceAll('.',  column[columnAlias.decimalChar]);
-        if (column[columnAlias.currencyChar]) result.text = column[columnAlias.currencyChar] + result.text
+        result.text = result.text.replaceAll(',',  column[ColumnAlias.thousandChar]);
+        result.text = result.text.replaceAll('.',  column[ColumnAlias.decimalChar]);
+        if (column[ColumnAlias.currencyChar]) result.text = column[ColumnAlias.currencyChar] + result.text
         return result;
     }
 
@@ -276,7 +267,7 @@ export class TbsGridBaseData {
             result.text = '';
             return result;
         }
-        let format = column[columnAlias.format];
+        let format = column[ColumnAlias.format];
 
         // date char : . - /
         let formatText = format.replace(/\./gi, '');

@@ -1,5 +1,5 @@
 import {TbsGrid} from "./tbs.grid";
-import {CellType, columnAlias, optionAlias } from "./tbs.grid.types";
+import {CellType, ColumnAlias, OptionAlias, SortColumn} from "./tbs.grid.types";
 
 export class TbsGridSort {
     grid: TbsGrid;
@@ -10,99 +10,55 @@ export class TbsGridSort {
 
     constructor(grid: TbsGrid) {
         this.grid       = grid;
-        this.selector   = '#' + grid.gridId;
+        this.selector   = `#${grid.gridId}`;
 
         this.sortColumns = [];
         this.options = {}
     }
-
-    setSortData(data, sortColumns) {
-        /**
-         * @function tbs_setSortData
-         *
-         * @param sortColumns : [{ name : , order : }, ...]
-         */
-        let selector = this.selector;
+    orderBy() {
         const grid = this.grid;
-        let len = sortColumns.length;
-
-        data.sort((a, b) => {
-            // a : The first element
-            // b : The second element
-            for (let i = 0; i < len; i++) {
-                let sortColumn = sortColumns[i];
-                let name = sortColumn[columnAlias.name];
-
-                let column = grid.getColumn(name);
-                let type = column[columnAlias.type];
-
-                if (sortColumn['order'] == 'asc') {
-                    if (type == CellType.number) {
-                        let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')): 0;
-                        let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')): 0;
-                        if (x < y) return -1;
-                        else if (x > y) return 1;
-                    }
-                    else {
-                        if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
-                        else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
-                    }
-                }
-                else if (sortColumn['order'] == 'desc') {
-                    if (type == CellType.number){
-                        let x = a[name] != null && isNaN(a[name]) == false ? Number(a[name].toString().replace(/\,/g, '')) : 0;
-                        let y = b[name] != null && isNaN(b[name]) == false ? Number(b[name].toString().replace(/\,/g, '')) : 0;
-                        if (x < y) return 1;
-                        else if (x > y) return -1;
-                    }
-                    else {
-                        if ((a[name] == null ? '' : a[name]).toString().toLowerCase() < (b[name] == null ? '' : b[name]).toString().toLowerCase()) return 1;
-                        else if ((a[name] == null ? '' : a[name]).toString().toLowerCase() > (b[name] == null ? '' : b[name]).toString().toLowerCase()) return -1;
-                    }
-                }
-            }
-        });
+        grid.view_table.orderBy(grid.column_table, grid.sort_column_table);
     }
 
-    getSortRow(columnName) { return this.grid.sort_column_table.selectRow(columnAlias.name, columnName); }
+    getSortRow(columnName: string) { return this.grid.sort_column_table.selectRow(ColumnAlias.name, columnName); }
 
-    changeSortButtonOrder(name, text, order, targetIndex) {
-        let selector = this.selector;
+    changeSortButtonOrder(name: string, text: string, order: string, targetIndex: number) {
+        const selector = this.selector;
         const grid = this.grid;
 
         /* targetIndex <> name Index */
         let sourceIndex = null;
         for (let i = 0, len = grid.sort_column_table.count(); i < len; i++) {
-            let dataRow = grid.sort_column_table.data[i];
-            if (name == dataRow[columnAlias.name] && i == targetIndex) return;
-            else if (name == dataRow[columnAlias.name]) { sourceIndex = i;  break; }
+            const dataRow = grid.sort_column_table.data[i];
+            if (name == dataRow[ColumnAlias.name] && i == targetIndex) return;
+            else if (name == dataRow[ColumnAlias.name]) { sourceIndex = i;  break; }
         }
 
         /* new sort data */
-        let dataRow = {};
-        dataRow[columnAlias.name]  = name;
-        dataRow[columnAlias.order] = grid.sort_column_table.selectValue(sourceIndex, columnAlias.order);
+        const dataRow = {};
+        dataRow[ColumnAlias.name]  = name;
+        dataRow[ColumnAlias.order] = grid.sort_column_table.selectValue(sourceIndex, ColumnAlias.order);
 
         /* update source column */
-        grid.sort_column_table.updateByRowIndex(sourceIndex, columnAlias.name, '_temp_sort');
+        grid.sort_column_table.updateByRowIndex(sourceIndex, ColumnAlias.name, '_temp_sort');
 
         /* create sort data */
         if (grid.null(targetIndex)) grid.sort_column_table.insert(dataRow);
         else grid.sort_column_table.insertBefore(dataRow, targetIndex);
 
         /* remove source */
-        sourceIndex = grid.sort_column_table.selectRowIndex(columnAlias.name, '_temp_sort');
+        sourceIndex = grid.sort_column_table.selectRowIndex(ColumnAlias.name, '_temp_sort');
         grid.sort_column_table.remove(sourceIndex);
 
-        let button = grid.classSort.createSortButton(name);
-        let bar = document.querySelector(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar');
+        const button = grid.classSort.createSortButton(name);
+        const bar = document.querySelector(`${selector} .tbs-grid-panel90 .tbs-grid-panel-bar`);
         if (grid.notNull(targetIndex)) bar.insertBefore(button, bar.childNodes[targetIndex]);
         else bar.append(button);
 
         grid.classSort.getSortButtonList();
 
         grid.classSort.toggleSortPlaceHolder();
-        grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
+        grid.classSort.orderBy();
     }
 
     addSortButton(name, text, order, targetIndex) {
@@ -111,12 +67,12 @@ export class TbsGridSort {
 
         // add sortColumn in grid.sort_data
         // already existing column
-        let dataRows = grid.sort_column_table.selectRows(columnAlias.name, name, 1);
+        let dataRows = grid.sort_column_table.selectRows(ColumnAlias.name, name, 1);
         if (dataRows.length > 0) return;
 
         let dataRow = {};
-        dataRow[columnAlias.name]  = name;
-        dataRow[columnAlias.order] = order;
+        dataRow[ColumnAlias.name]  = name;
+        dataRow[ColumnAlias.order] = order;
 
         /* create sort data */
         //console.log(name);
@@ -130,7 +86,7 @@ export class TbsGridSort {
         else bar.append(button);
 
         grid.classSort.toggleSortPlaceHolder();
-        grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
+        grid.classSort.orderBy();
     }
 
     removeSortButton(element) {
@@ -141,7 +97,7 @@ export class TbsGridSort {
         let name = element.dataset.name;
         //console.log('name :' + name);
 
-        let rowIndex = grid.sort_column_table.selectRowIndex(columnAlias.name, name);
+        let rowIndex = grid.sort_column_table.selectRowIndex(ColumnAlias.name, name);
 
         //console.log('rowIndex :' + rowIndex);
 
@@ -158,7 +114,7 @@ export class TbsGridSort {
         }
         else {
             if (grid.isSortableColumn()) {
-                grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
+                grid.classSort.orderBy();
                 grid.classRange.removeRange(0, -1);
                 grid.classPanel30.setDataPanel(0);
             }
@@ -183,7 +139,7 @@ export class TbsGridSort {
 
         for (let i = 0, len = grid.sort_column_table.count(); i < len; i++) {
             let dataRow = grid.sort_column_table.data[i];
-            let columnName = dataRow[columnAlias.name];
+            let columnName = dataRow[ColumnAlias.name];
             let button = grid.classSort.createSortButton(columnName);
             let bar = document.querySelector(selector + ' .tbs-grid-panel90 .tbs-grid-panel-bar');
             if (grid.null(bar)) return;
@@ -199,20 +155,19 @@ export class TbsGridSort {
         let column = grid.getColumn(columnName);
         let sortColumn = grid.classSort.getSortRow(columnName);
 
-        let order = sortColumn[columnAlias.order];
+        let order = sortColumn[ColumnAlias.order];
         let orderChar = '';
         if (order == 'asc') orderChar = '▲';
         else if (order == 'desc') orderChar = '▼';
         else orderChar = '';
 
-        let text= document.createElement('span');
+        const text= document.createElement('span');
         text.classList.add('tbs-grid-panel-button-text');
-        text.textContent  = column.header[columnAlias.text] + orderChar;
+        text.textContent  = column.header[ColumnAlias.text] + orderChar;
         text.dataset.name = columnName;
 
-        let icon= document.createElement('span');
-        icon.classList.add('tbs-grid-panel-button-icon');
-        icon.style['backgroundImage'] = 'url(' + grid.options[optionAlias.imageRoot] + 'remove.png)';
+        const icon= document.createElement('span');
+        icon.classList.add('tbs-grid-html-icon-remove');
         icon.dataset.name = columnName;
 
         let button = document.createElement('div');

@@ -1,4 +1,4 @@
-import {CellType, columnAlias} from "../tbs.grid.types";
+import {CellType, ColumnAlias} from "../tbs.grid.types";
 import {TbsGrid} from "../tbs.grid";
 
 export class TbsGridBaseIs {
@@ -12,7 +12,7 @@ export class TbsGridBaseIs {
      */
 
     isEditableColumn(this:TbsGrid, columnName: string): boolean {
-        let result: any = this.column_table.selectRow(columnAlias.name, columnName);
+        let result: any = this.column_table.selectRow(ColumnAlias.name, columnName);
         return result.editable ? result.editable : false;
     }
 
@@ -22,10 +22,10 @@ export class TbsGridBaseIs {
         let result = false;
         //let column = grid.getColumn(columnName);
 
-        // if (column[columnAlias.sortable] == true)  result = true;
-        // else if (column[columnAlias.sortable] == false) result = false;
+        // if (column[ColumnAlias.sortable] == true)  result = true;
+        // else if (column[ColumnAlias.sortable] == false) result = false;
         // else {
-        result = grid.options[columnAlias.sortable];
+        result = grid.options[ColumnAlias.sortable];
         //}
         return result;
     }
@@ -37,10 +37,10 @@ export class TbsGridBaseIs {
         let result = false;
         //let column = grid.getColumn(columnName);
 
-        // if (column[columnAlias.resizable] == true)  result = true;
-        // else if (column[columnAlias.resizable] == false) result = false;
+        // if (column[ColumnAlias.resizable] == true)  result = true;
+        // else if (column[ColumnAlias.resizable] == false) result = false;
         // else {
-        result = grid.options[columnAlias.resizable];
+        result = grid.options[ColumnAlias.resizable];
         // }
         return result;
     }
@@ -52,10 +52,10 @@ export class TbsGridBaseIs {
         let result = false;
         //let column = grid.getColumn(columnName);
 
-        // if (column[columnAlias.movable] == true)  result = true;
-        // else if (column[columnAlias.movable] == false) result = false;
+        // if (column[ColumnAlias.movable] == true)  result = true;
+        // else if (column[ColumnAlias.movable] == false) result = false;
         // else {
-        result = grid.options[columnAlias.movable];
+        result = grid.options[ColumnAlias.movable];
         // }
         return result;
     }
@@ -67,10 +67,10 @@ export class TbsGridBaseIs {
         let result = false;
         //let column = grid.getColumn(columnName);
 
-        // if (column[columnAlias.autoResizable] == true)  result = true;
-        // else if (column[columnAlias.autoResizable] == false) result = false;
+        // if (column[ColumnAlias.autoResizable] == true)  result = true;
+        // else if (column[ColumnAlias.autoResizable] == false) result = false;
         // else {
-        result = grid.options[columnAlias.autoResizable];
+        result = grid.options[ColumnAlias.autoResizable];
         //}
         return result;
     }
@@ -82,10 +82,10 @@ export class TbsGridBaseIs {
         let result = false;
         //let column = grid.getColumn(columnName);
 
-        // if (column[columnAlias.autoResizable] == true)  result = true;
-        // else if (column[columnAlias.autoResizable] == false) result = false;
+        // if (column[ColumnAlias.autoResizable] == true)  result = true;
+        // else if (column[ColumnAlias.autoResizable] == false) result = false;
         // else {
-        result = grid.options[columnAlias.autoWidth];
+        result = grid.options[ColumnAlias.autoWidth];
         //}
         return result;
     }
@@ -216,7 +216,7 @@ export class TbsGridBaseIs {
         let result = false;
         for (let i = 0, len = this.column_table.count(); i < len; i++) {
             let column = this.column_table.data[i];
-            if (columnName == column[columnAlias.name]) {
+            if (columnName == column[ColumnAlias.name]) {
                 result = true;
                 break;
             }
@@ -229,13 +229,13 @@ export class TbsGridBaseIs {
 
         let result = false;
         let column = grid.getColumn(columnName)
-        if (column[columnAlias.type] == CellType.number) result = true;
+        if (column[ColumnAlias.type] == CellType.number) result = true;
         return result;
     }
 
     isFilterColumnName(this:TbsGrid, columnName: string): boolean {
         const grid = this;
-        return grid.filter_column_table.isRow(columnAlias.name, columnName);
+        return grid.filter_column_table.isRow(ColumnAlias.name, columnName);
     }
 
     isLastTopRowIndex(this:TbsGrid, rowIndex: number): boolean {

@@ -1,5 +1,5 @@
 import {TbsGrid} from "./tbs.grid";
-import {CellType, columnAlias, FilterType} from "./tbs.grid.types";
+import {CellType, ColumnAlias, FilterType} from "./tbs.grid.types";
 
 export class TbsGridFilter {
     grid: TbsGrid;
@@ -30,7 +30,7 @@ export class TbsGridFilter {
     //         let columnArray = [];
     //         for (let key in item){
     //             let column = grid.getColumn(key);
-    //             if (column[columnAlias.visible] === false) continue;
+    //             if (column[ColumnAlias.visible] === false) continue;
     //             else columnArray.push(item[key]);
     //         }
     //
@@ -104,7 +104,7 @@ export class TbsGridFilter {
         const grid = this.grid;
 
         let column = grid.getColumn(filterColumn.name);
-        let columnType = column[columnAlias.type];
+        let columnType = column[ColumnAlias.type];
         let columnName = filterColumn.name;
         let filterType = filterColumn.type;
         let value = filterColumn.value;
@@ -217,24 +217,24 @@ export class TbsGridFilter {
     setFilterColumn(column, filterType, word) {
         const grid = this.grid;
 
-        let dataRow = grid.filter_column_table.selectRow(columnAlias.name, column[columnAlias.name]);
+        let dataRow = grid.filter_column_table.selectRow(ColumnAlias.name, column[ColumnAlias.name]);
         if (grid.null(dataRow)) {
             const item: any = {}
-            item.name = column[columnAlias.name];
+            item.name = column[ColumnAlias.name];
             item.type = filterType;
             item.value = word;
             grid.filter_column_table.insert(item);
         }
         else {
-            let rowId = dataRow[columnAlias.rowId];
-            grid.filter_column_table.updateByRowId(rowId, columnAlias.type, filterType);
-            grid.filter_column_table.updateByRowId(rowId, columnAlias.value, word);
+            let rowId = dataRow[ColumnAlias.rowId];
+            grid.filter_column_table.updateByRowId(rowId, ColumnAlias.type, filterType);
+            grid.filter_column_table.updateByRowId(rowId, ColumnAlias.value, word);
         }
     }
 
     removeFilterColumn(column) {
         const grid = this.grid;
-        let rowId = column[columnAlias.rowId];
+        let rowId = column[ColumnAlias.rowId];
         grid.filter_column_table.removeByRowId(rowId);
     }
 
@@ -242,7 +242,7 @@ export class TbsGridFilter {
         const grid = this.grid;
 
         let combo = document.createElement('select');
-        if (column[columnAlias.type] == CellType.number) {
+        if (column[ColumnAlias.type] == CellType.number) {
             grid.classFilter.addFilterComboOption(combo, FilterType.Select      , grid.getConfigLabel('filter_select'));
             grid.classFilter.addFilterComboOption(combo, FilterType.Equal       , grid.getConfigLabel('filter_equal'));
             grid.classFilter.addFilterComboOption(combo, FilterType.GreaterEqual, grid.getConfigLabel('filter_greaterEqual'));

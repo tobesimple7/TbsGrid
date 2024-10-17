@@ -1,5 +1,5 @@
 import {TbsGrid} from "./tbs.grid";
-import {columnAlias, optionAlias} from "./tbs.grid.types";
+import {ColumnAlias, OptionAlias} from "./tbs.grid.types";
 
 export class TbsGridTree {
     grid: TbsGrid;
@@ -8,7 +8,7 @@ export class TbsGridTree {
 
     constructor(grid) {
         this.grid     = grid;
-        this.selector = '#' + grid.gridId;
+        this.selector = `#${grid.gridId}`;
         this.openDepth = null;
     }
 
@@ -18,12 +18,12 @@ export class TbsGridTree {
         grid.tree_table.remove();
 
         const fn_getChildrenRowIds = function(row) {
-            row[columnAlias.children] = [];
+            row[ColumnAlias.children] = [];
 
             for (let i = 0, len = grid.view_table.count(); i < len; i++) {
                 let dataRow = grid.view_table.data[i];
                 if (row[grid.options.treeItemName] == dataRow[grid.options.treeParentName]) {
-                    row[columnAlias.children].push(dataRow[columnAlias.rowId]);
+                    row[ColumnAlias.children].push(dataRow[ColumnAlias.rowId]);
                 }
             }
         }
@@ -31,14 +31,14 @@ export class TbsGridTree {
         const fn_setRelation = function(row, depth = 1) {
             fn_getChildrenRowIds(row);
 
-            row[columnAlias.depth] = depth;
+            row[ColumnAlias.depth] = depth;
             grid.tree_table.insert(grid.copyJson(row));
 
-            let arr = row[columnAlias.children];
+            let arr = row[ColumnAlias.children];
             if (arr.length > 0) {
                 for (let i = 0, len = grid.view_table.count(); i < len; i++) {
                     let dataRow = grid.view_table.data[i];
-                    if (arr.indexOf(dataRow[columnAlias.rowId]) != -1) fn_setRelation(dataRow, depth + 1);
+                    if (arr.indexOf(dataRow[ColumnAlias.rowId]) != -1) fn_setRelation(dataRow, depth + 1);
                 }
             }
         }
@@ -73,14 +73,14 @@ export class TbsGridTree {
                 const item = {};
                 for (let x = 0, len = grid.column_table.count(); x < len; x++) {
                     const column = grid.column_table.data[x];
-                    let columnName = column[columnAlias.name];
+                    let columnName = column[ColumnAlias.name];
                     let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
                     item[columnName] = val;
                 }
                 // const dataColumns: any[] = grid.field_table.selectRows();
                 // for (let x = 0, len = dataColumns.length; x < len; x++) {
                 //     const column = dataColumns[x];
-                //     let columnName  = column[columnAlias.name];
+                //     let columnName  = column[ColumnAlias.name];
                 //     item[columnName] = dataRow[columnName];
                 // }
 
@@ -95,7 +95,7 @@ export class TbsGridTree {
         grid.classFilter.filters();
 
         /* Soring */
-        grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
+        grid.classSort.orderBy();
 
         /* insert into tree_table */
         grid.tree_table.remove();
@@ -109,12 +109,12 @@ export class TbsGridTree {
         for (let i = 0, len = grid.tree_table.count(); i < len; i++) {
             let dataRow = grid.tree_table.data[i];
 
-            dataRow[columnAlias.rowMode]      = '';
-            dataRow[columnAlias.isOpen]    = false;
+            dataRow[ColumnAlias.rowMode]      = '';
+            dataRow[ColumnAlias.isOpen]    = false;
 
             for (let x = 0, len = grid.column_table.count(); x < len; x++) {
                 let column = grid.column_table.data[x];
-                let columnName  = column[columnAlias.name];
+                let columnName  = column[ColumnAlias.name];
                 let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
 
                 dataRow[columnName] = val;
@@ -129,7 +129,7 @@ export class TbsGridTree {
         grid.tree_table.remove();
         grid.view_table.data.map(dataRow => {
             let item = grid.copyJson(dataRow);
-            item[columnAlias.isOpen] = false;
+            item[ColumnAlias.isOpen] = false;
             grid.tree_table.insert(item);
         });
 
@@ -137,7 +137,7 @@ export class TbsGridTree {
         if (grid.notNull(openDepth)) {
             for (let i = grid.view_table.count() - 1; i >= 0; i--) {
                 let row = grid.view_table.data[i];
-                let depth = row[columnAlias.depth];
+                let depth = row[ColumnAlias.depth];
                 if (openDepth != 0 && depth > openDepth) grid.view_table.remove(i);
             }
         }
@@ -155,7 +155,7 @@ export class TbsGridTree {
             grid.classPanel40.setDataPanel();
             grid.classPanel50.setDataPanel();
         }
-        if (grid.options[columnAlias.autoWidth] == true)  grid.setColumnAutoWidth();
+        if (grid.options[ColumnAlias.autoWidth] == true)  grid.setColumnAutoWidth();
 
         grid.classRange.removeRange(0, -1);
         let _topRowIndex = grid.classRange.selectRange(0, 0, 0, 0);
@@ -163,59 +163,61 @@ export class TbsGridTree {
     }
 
     setTreeIcon(tableCell, rowIndex) {
-        let selector = this.selector;
         const grid = this.grid;
 
-        let row = grid.getRow(rowIndex);
-        let arrayChildren = row[columnAlias.children];
-        let element = tableCell.querySelector('.tbs-grid-html-icon');
+        const row = grid.getRow(rowIndex);
+        const arrayChildren = row[ColumnAlias.children];
+        const element = tableCell.querySelector('.tbs-grid-html-icon');
 
         if (arrayChildren.length > 0) {
-            let nextRow = grid.getRow(rowIndex + 1);
-            if (grid.null(nextRow)) grid.classTree.toggleTreeIcon(rowIndex, element, 'closed');
+            const nextRow = grid.getRow(rowIndex + 1);
+            if (grid.null(nextRow)) grid.classTree.toggleTreeIcon(element, 'closed');
             else {
                 if (nextRow[grid.options.treeParentName] == row[grid.options.treeItemName])
-                    grid.classTree.toggleTreeIcon(rowIndex, element, 'open');
+                    grid.classTree.toggleTreeIcon(element, 'open');
                 else
-                    grid.classTree.toggleTreeIcon(rowIndex, element, 'closed');
+                    grid.classTree.toggleTreeIcon(element, 'closed');
             }
         }
-        else grid.classTree.toggleTreeIcon(rowIndex, element);
+        else grid.classTree.toggleTreeIcon(element);
     }
 
-    toggleTreeIcon(rowIndex, element, type?) {
-        let selector = this.selector;
-        const grid = this.grid;
-
-        if      (type == columnAlias.open)   element.style['backgroundImage'] = 'url(' + grid.options[optionAlias.imageRoot] + 'tree_open.png)';
-        else if (type == columnAlias.closed) element.style['backgroundImage'] = 'url(' + grid.options[optionAlias.imageRoot] + 'tree_closed.png)';
-        else element.style['backgroundImage'] = '';
+    toggleTreeIcon(element, type?) {
+        if (type == ColumnAlias.open) {
+            element.classList.remove('tbs-grid-html-icon-closed');
+            element.classList.add('tbs-grid-html-icon-open');
+        }
+        else if (type == ColumnAlias.closed) {
+            element.classList.remove('tbs-grid-html-icon-open');
+            element.classList.add('tbs-grid-html-icon-closed');
+        }
+        else {
+            element.classList.remove('tbs-grid-html-icon-open');
+            element.classList.remove('tbs-grid-html-icon-closed');
+        }
     }
 
-    getTreeFlodingStatus(tableCell) {
-        let selector = this.selector;
+    getTreeFoldingStatus(tableCell) {
         const grid = this.grid;
 
-        let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
+        const spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
         if (grid.null(spanIcon)) return null;
 
-        if (spanIcon.style['backgroundImage'].includes('tree_open.png')) return columnAlias.open;
-        else if (spanIcon.style['backgroundImage'].includes('tree_closed.png')) return columnAlias.closed;
+        if (spanIcon.className.includes('tbs-grid-html-icon-open')) return ColumnAlias.open;
+        else if (spanIcon.className.includes('tbs-grid-html-icon-closed')) return ColumnAlias.closed;
         else return null;
     }
 
     setTreeFolding(tableCell) {
-        let selector = this.selector;
         const grid = this.grid;
 
         let rowIndex = parseInt(tableCell.parentNode.dataset.rowIndex);
-        let row = grid.getRow(rowIndex);
         let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
         if (grid.null(spanIcon)) return;
 
-        let folding = grid.classTree.getTreeFlodingStatus(tableCell);
-        if      (folding == columnAlias.open)   grid.classTree.closeTreeRow(rowIndex);
-        else if (folding == columnAlias.closed) grid.classTree.openTreeRow(rowIndex);
+        let folding = grid.classTree.getTreeFoldingStatus(tableCell);
+        if      (folding == ColumnAlias.open)   grid.classTree.closeTreeRow(rowIndex);
+        else if (folding == ColumnAlias.closed) grid.classTree.openTreeRow(rowIndex);
 
         grid.horizontalScroll.setScroll(grid.code_horizontal);;
         grid.verticalScroll.setScroll(grid.code_vertical);
@@ -224,7 +226,6 @@ export class TbsGridTree {
 
     getTreechildRows(folding, rowIndex, isAll = true) {
         // folding : open, closed
-        let selector = this.selector;
         const grid = this.grid;
 
         let dataRows= grid.view_table.data;
@@ -234,7 +235,7 @@ export class TbsGridTree {
 
             if (count > 1) resultRows.push(grid.copyJson(row));
 
-            let arr = row[columnAlias.children];
+            let arr = row[ColumnAlias.children];
             if (arr.length > 0) {
                 //default : get first lower rows
                 if (count == 1) {
@@ -244,8 +245,8 @@ export class TbsGridTree {
                     }
                 }
                 else {
-                    if (folding == columnAlias.open) {
-                        if (row[columnAlias.isOpen]) {
+                    if (folding == ColumnAlias.open) {
+                        if (row[ColumnAlias.isOpen]) {
                             for (let i = 0, len = arr.length; i < len; i++) {
                                 let dataRow = grid.getTreeRowByRowId(arr[i]);
                                 fn_getchildRows(dataRow, count + 1);
@@ -267,49 +268,45 @@ export class TbsGridTree {
     }
 
     openTreeRow(rowIndex) {
-        let selector = this.selector;
         const grid = this.grid;
 
         let row = grid.getRow(rowIndex);
-        let rowId = row[columnAlias.rowId];
+        let rowId = row[ColumnAlias.rowId];
         for (let i = 0, len = grid.source_table.count(); i < len; i++) {
-            if (rowId == grid.source_table.data[i][columnAlias.rowId])
-                grid.source_table.data[i][columnAlias.isOpen] = true; // keep folding status
+            if (rowId == grid.source_table.data[i][ColumnAlias.rowId])
+                grid.source_table.data[i][ColumnAlias.isOpen] = true; // keep folding status
         }
 
-        let rows = grid.classTree.getTreechildRows(columnAlias.open, rowIndex, false);
+        let rows = grid.classTree.getTreechildRows(ColumnAlias.open, rowIndex, false);
         grid.classTree.addTreeRows(rowIndex);
 
     }
 
     closeTreeRow(rowIndex) {
-        let selector = this.selector;
         const grid = this.grid;
 
         let row = grid.getRow(rowIndex);
-        let rowId = row[columnAlias.rowId];
+        let rowId = row[ColumnAlias.rowId];
         for (let i = 0, len = grid.source_table.count(); i < len; i++) {
-            if (rowId == grid.source_table.data[i][columnAlias.rowId])
-                grid.source_table.data[i][columnAlias.isOpen] = false; // keep folding status
+            if (rowId == grid.source_table.data[i][ColumnAlias.rowId])
+                grid.source_table.data[i][ColumnAlias.isOpen] = false; // keep folding status
         }
 
-        let rows = grid.classTree.getTreechildRows(columnAlias.closed, rowIndex, true);
+        let rows = grid.classTree.getTreechildRows(ColumnAlias.closed, rowIndex, true);
         rows.map(row => grid.classTree.removeTreeRow(row));
 
     }
 
     addTreeRows(rowIndex) {
-        let selector = this.selector;
         const grid = this.grid;
 
-        let rows = grid.classTree.getTreechildRows(columnAlias.open, rowIndex, false);
+        let rows = grid.classTree.getTreechildRows(ColumnAlias.open, rowIndex, false);
         for (let i = 0, startRowIndex = rowIndex + 1, len = rows.length; i < len; i++, startRowIndex++) {
             grid.classTree.addTreeRow(startRowIndex, rows[i]);
         }
     }
 
     addTreeRow(startRowIndex, row) {
-        let selector = this.selector;
         const grid = this.grid;
 
         startRowIndex = parseInt(startRowIndex);
@@ -324,7 +321,7 @@ export class TbsGridTree {
     removeTreeRow(row) {
         const grid = this.grid;
 
-        grid.view_table.removeByRowId(row[columnAlias.rowId]);
+        grid.view_table.removeByRowId(row[ColumnAlias.rowId]);
 
         grid.data_select_panel30 = [];
         grid.data_select_panel31 = [];

@@ -1,11 +1,11 @@
 
 import {TbsGridDom} from "../tbs.grid.dom";
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 
 export class TbsGridRenderTree {
     addElement(param) {
         const row = param.grid.view_table.selectRowByRowIndex(param.rowIndex);;
-        const children = row[columnAlias.children];
+        const children = row[ColumnAlias.children];
         for (let i = param.tableCell.childNodes[0].childNodes.length - 1; i >= 0; i--) {
             param.tableCell.childNodes[0].childNodes[i].remove();
         }
@@ -24,8 +24,8 @@ export class TbsGridRenderTree {
 
     setBounding(param) {
         const row = param.grid.view_table.selectRowByRowIndex(param.rowIndex);
-        const children = row[columnAlias.children];
-        let rowDepth = row[columnAlias.depth];
+        const children = row[ColumnAlias.children];
+        let rowDepth = row[ColumnAlias.depth];
 
         TbsGridDom.setStyle(param.tableCell, param);
 

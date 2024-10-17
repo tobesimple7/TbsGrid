@@ -1,7 +1,7 @@
 
 import { TbsGridDom } from "./tbs.grid.dom";
 import {TbsGrid} from "./tbs.grid";
-import {columnAlias} from "./tbs.grid.types";
+import {ColumnAlias} from "./tbs.grid.types";
 
 export class TbsGridTable {
 
@@ -61,8 +61,8 @@ export class TbsGridTable {
             let dataRow = grid.info_column_table.data[i];
 
             let th = document.createElement('th');
-            th.style.width = dataRow[columnAlias.width] + 'px';
-            th.style.display = dataRow[columnAlias.visible] ? '' : 'none';
+            th.style.width = dataRow[ColumnAlias.width] + 'px';
+            th.style.display = dataRow[ColumnAlias.visible] ? '' : 'none';
             tr.appendChild(th);
         }
         thead.appendChild(tr);
@@ -83,9 +83,9 @@ export class TbsGridTable {
         for (let i = 0, len = grid.column_table.count(); i < len; i++) {
             let column = grid.column_table.data[i];
             let th = document.createElement('th');
-            th.style.width = (column[columnAlias.visible] == true) ? parseInt(column[columnAlias.width]) + 'px' : '0px';
-            th.style.display = (column[columnAlias.visible] == true) ? '' : 'none';
-            sumWidth += (grid.column_table.data[i][columnAlias.visible] == true) ? parseInt(column[columnAlias.width]) : 0;
+            th.style.width = (column[ColumnAlias.visible] == true) ? parseInt(column[ColumnAlias.width]) + 'px' : '0px';
+            th.style.display = (column[ColumnAlias.visible] == true) ? '' : 'none';
+            sumWidth += (grid.column_table.data[i][ColumnAlias.visible] == true) ? parseInt(column[ColumnAlias.width]) : 0;
             tr.appendChild(th);
         }
         thead.appendChild(tr);
@@ -144,8 +144,8 @@ export class TbsGridTable {
                 const column: any = grid.info_column_table.data[i];
                 const td: any = document.createElement('td');
                 td.classList.add('tbs-grid-cell');
-                td.style.width = column[columnAlias.width] + 'px';
-                td.dataset.name = column[columnAlias.name];
+                td.style.width = column[ColumnAlias.width] + 'px';
+                td.dataset.name = column[ColumnAlias.name];
                 td.dataset.columnIndex = i;
 
                 let div = TbsGridDom.createElementCellDiv();
@@ -169,13 +169,13 @@ export class TbsGridTable {
                 const column: any = grid.column_table.data[i];
                 const td: any = document.createElement('td');
                 td.classList.add('tbs-grid-cell');
-                td.style.width = column[columnAlias.width] + 'px';
+                td.style.width = column[ColumnAlias.width] + 'px';
 
                 if (panelName == 'panel22' || panelName == 'panel32' || panelName == 'panel42' || panelName == 'panel52' || panelName == 'panel72') {
                     td.style.display = 'none';
                 }
 
-                td.dataset.name = column[columnAlias.name];
+                td.dataset.name = column[ColumnAlias.name];
                 td.dataset.columnIndex = i;
 
                 let div = TbsGridDom.createElementCellDiv();

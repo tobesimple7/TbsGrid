@@ -1,4 +1,4 @@
-import {AddRowDirection, columnAlias} from "../tbs.grid.types";
+import {AddRowDirection, ColumnAlias} from "../tbs.grid.types";
 import {TbsGrid} from "../tbs.grid";
 
 export class TbsGridBaseRows {
@@ -20,7 +20,7 @@ export class TbsGridBaseRows {
 
     getRowIndexByRowId(this: TbsGrid,rowId: number, table?: any) { return this.isNull(table, this.view_table).selectRowIndexByRowId(rowId); }
 
-    getCheckedRows(this: TbsGrid) { return this.view_table.selectRows(columnAlias.isChecked, true); }
+    getCheckedRows(this: TbsGrid) { return this.view_table.selectRows(ColumnAlias.isChecked, true); }
 
     getSelectedRows(this: TbsGrid) {
         const result = [];
@@ -61,8 +61,8 @@ export class TbsGridBaseRows {
         for (let i = 0, len = rows.length; i < len; i++) {
             let row = rows[i];
             let item = JSON.parse(JSON.stringify(row));
-            item[columnAlias.rowId] = row[columnAlias.rowId];
-            item[columnAlias.rowMode]  = row[columnAlias.rowMode];
+            item[ColumnAlias.rowId] = row[ColumnAlias.rowId];
+            item[ColumnAlias.rowMode]  = row[ColumnAlias.rowMode];
             result.push(item);
         }
         return result;
@@ -75,8 +75,8 @@ export class TbsGridBaseRows {
             let row = rows[i];
             if (row.mode == 'U') {
                 let item = JSON.parse(JSON.stringify(row));
-                item[columnAlias.rowId] = row[columnAlias.rowId];
-                item[columnAlias.rowMode] = row[columnAlias.rowMode];
+                item[ColumnAlias.rowId] = row[ColumnAlias.rowId];
+                item[ColumnAlias.rowMode] = row[ColumnAlias.rowMode];
                 result.push(item);
             }
         }
@@ -88,10 +88,10 @@ export class TbsGridBaseRows {
         let result = [];
         for (let i = 0, len = rows.length; i < len; i++) {
             let row = rows[i];
-            if (row[columnAlias.rowMode] == 'I') {
+            if (row[ColumnAlias.rowMode] == 'I') {
                 let item = JSON.parse(JSON.stringify(row));
-                item[columnAlias.rowId] = row[columnAlias.rowId];
-                item[columnAlias.rowMode ] = row[columnAlias.rowMode];
+                item[ColumnAlias.rowId] = row[ColumnAlias.rowId];
+                item[ColumnAlias.rowMode ] = row[ColumnAlias.rowMode];
                 result.push(item);
             }
         }
@@ -106,7 +106,7 @@ export class TbsGridBaseRows {
 
         for (let i = 0, len = columns.length; i < len; i++) {
             const column: any = columns[i];
-            let columnName: string = column[columnAlias.name];
+            let columnName: string = column[ColumnAlias.name];
             item[columnName] = this.null(row[columnName]) ? null : row[columnName];
         }
         return item;
@@ -200,7 +200,7 @@ export class TbsGridBaseRows {
 
         for (let i = 0, len = rows.length; i < len; i++) {
             const row = rows[i];
-            let rowId = row[columnAlias.rowId];
+            let rowId = row[ColumnAlias.rowId];
             this.source_table.removeByRowId(rowId);
             this.view_table.removeByRowId(rowId);
         }

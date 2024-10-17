@@ -1,4 +1,4 @@
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 import {TbsGrid} from "../tbs.grid";
 
 export class TbsGridBaseColumns {
@@ -19,15 +19,15 @@ export class TbsGridBaseColumns {
      * Columns API.
      */
 
-    getColumn(this: TbsGrid, name: string, table?) { return this.isNull(table, this.column_table).selectRow(columnAlias.name, name); }
+    getColumn(this: TbsGrid, name: string, table?) { return this.isNull(table, this.column_table).selectRow(ColumnAlias.name, name); }
 
     getColumns(this: TbsGrid, table?: any) { return this.isNull(table, this.column_table).select();  }
 
     getColumnByIndex(this: TbsGrid, columnIndex: number, table?: any) { return this.isNull(table, this.column_table).selectRowByRowIndex(columnIndex); }
 
-    getColumnName(this: TbsGrid, columnIndex: number, table?: any) { return this.isNull(table, this.column_table).selectValue(columnIndex, columnAlias.name); }
+    getColumnName(this: TbsGrid, columnIndex: number, table?: any) { return this.isNull(table, this.column_table).selectValue(columnIndex, ColumnAlias.name); }
 
-    getColumnIndex(this: TbsGrid, columnName: string, table?: any) { return this.isNull(table, this.column_table).selectRowIndex(columnAlias.name, columnName); }
+    getColumnIndex(this: TbsGrid, columnName: string, table?: any) { return this.isNull(table, this.column_table).selectRowIndex(ColumnAlias.name, columnName); }
 
     setColumn(this: TbsGrid, columnName: string, property: string, value: any, table?: any) { this.isNull(table, this.column_table).updateRow(columnName, property, value); }
 
@@ -35,11 +35,11 @@ export class TbsGridBaseColumns {
      * Filter Columns
      */
 
-    getFilterColumn(this: TbsGrid, columnName) { return this.getColumn(columnName, this.filter_column_table); }
+    getFilterColumn(this: TbsGrid, columnName: string) { return this.getColumn(columnName, this.filter_column_table); }
 
-    getFilterColumnName(this: TbsGrid, columnIndex) { return this.getColumnName(columnIndex, this.filter_column_table); }
+    getFilterColumnName(this: TbsGrid, columnIndex: number): string { return this.getColumnName(columnIndex, this.filter_column_table); }
 
-    getFilterColumnIndex(this: TbsGrid, columnName) { return this.getColumnIndex(columnName, this.filter_column_table); }
+    getFilterColumnIndex(this: TbsGrid, columnName: string): number { return this.getColumnIndex(columnName, this.filter_column_table); }
 
     /**
      * Columns API

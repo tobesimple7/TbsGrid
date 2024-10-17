@@ -1,7 +1,7 @@
 
 import { TbsGridDom } from "./tbs.grid.dom";
 import {TbsGrid} from "./tbs.grid";
-import {columnAlias} from "./tbs.grid.types";
+import {ColumnAlias} from "./tbs.grid.types";
 
 export class TbsGridRow {
     grid: TbsGrid;
@@ -20,9 +20,9 @@ export class TbsGridRow {
                 let column = grid.column_table.data[x];
                 let tableCell = tableRow.childNodes[x];
 
-                TbsGridDom.setCellStyle(tableCell, 'width', column[columnAlias.width] + 'px');
+                TbsGridDom.setCellStyle(tableCell, 'width', column[ColumnAlias.width] + 'px');
                 TbsGridDom.setCellStyle(tableCell, 'display', '');
-                if (column[columnAlias.visible] == false) {
+                if (column[ColumnAlias.visible] == false) {
                     TbsGridDom.setCellStyle(tableCell, 'width', '0px');
                     TbsGridDom.setCellStyle(tableCell, 'display', 'none');
                 }
@@ -43,8 +43,8 @@ export class TbsGridRow {
                 let column = grid.column_table.data[x];
                 let tableCell = tableRow.childNodes[x];
                 if (panelName.substring(6) == '0') {
-                    TbsGridDom.setCellStyle(tableCell, 'display', column[columnAlias.visible] ? '' : 'none');
-                    TbsGridDom.setCellStyle(tableCell, 'width', column[columnAlias.width] + 'px');
+                    TbsGridDom.setCellStyle(tableCell, 'display', column[ColumnAlias.visible] ? '' : 'none');
+                    TbsGridDom.setCellStyle(tableCell, 'width', column[ColumnAlias.width] + 'px');
                 }
             }
         }
@@ -62,7 +62,7 @@ export class TbsGridRow {
         if (grid.group_column_table.count() > 0) {
             if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                 let rowData = grid.getRow(rowIndex);
-                let depth = rowData[columnAlias.depth];
+                let depth = rowData[ColumnAlias.depth];
 
                 if (depth == grid.group_column_table.count() + 1) TbsGridDom.addUserClass(tableRow, '.tbs-row-color-white');
                 else if (depth <= 5) TbsGridDom.addUserClass(tableRow, 'tbs-row-color' + depth);
@@ -71,7 +71,7 @@ export class TbsGridRow {
             if (grid.onRowBounding) {
                 if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                     let param = {element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex)};
-                    grid.tbs_executeEvent(grid.onRowBounding, 'onRowBounding', param);
+                    grid.executeEvent(grid.onRowBounding, 'onRowBounding', param);
                 }
             }
         }
@@ -79,7 +79,7 @@ export class TbsGridRow {
             TbsGridDom.removeUserClass(tableRow);
             if (panelName.substring(6) == '0' || panelName.substring(6) == '2') {
                 let param = {element: tableRow, rowIndex: rowIndex, data: grid.getRow(rowIndex)};
-                grid.tbs_executeEvent(grid.onRowBounding, 'onRowBounding', param);
+                grid.executeEvent(grid.onRowBounding, 'onRowBounding', param);
             }
         }
         /* row alternative background color */

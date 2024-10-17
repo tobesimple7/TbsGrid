@@ -25,7 +25,7 @@ export class TbsGridFilterLayer {
     //     let combo = document.createElement('select');
     //     combo.classList.add('tbs-grid-layer-filter-combo');
     //     //combo.multiple = 'multiple';
-    //     if (column[columnAlias.type] == CellType.string) {
+    //     if (column[ColumnAlias.type] == CellType.string) {
     //         let option;
     //         gridFilter.addComboOption(combo, tbsGridTypes.FilterType.Equal         , grid.getCofnigLabel('filter_equal'));
     //         gridFilter.addComboOption(combo, tbsGridTypes.FilterType.Include 	  , grid.getCofnigLabel('filter_include'));
@@ -35,7 +35,7 @@ export class TbsGridFilterLayer {
     //         gridFilter.addComboOption(combo, tbsGridTypes.FilterType.NotEqual      , grid.getCofnigLabel('filter_notEqual'));
     //         gridFilter.addComboOption(combo, tbsGridTypes.FilterType.NotInclude 	  , grid.getCofnigLabel('filter_notInclude'));
     //     }
-    //     else if (column[columnAlias.type] == CellType.number) {
+    //     else if (column[ColumnAlias.type] == CellType.number) {
     //         let option;
     //         gridFilter.addComboOption(combo, tbsGridTypes.FilterType.Select      , grid.getCofnigLabel('filter_select'));
     //         gridFilter.addComboOption(combo, tbsGridTypes.FilterType.Equal       , grid.getCofnigLabel('filter_equal'));
@@ -139,7 +139,7 @@ export class TbsGridFilterLayer {
     //
     //     const changeEvent = function (e) {
     //         let combo = e.target;
-    //         let columnType = column[columnAlias.type];
+    //         let columnType = column[ColumnAlias.type];
     //         // if (columnType == CellType.number) {
     //         //     let toInput = document.querySelector(selector + ' .tbs-grid-layer-filter-content-input-to');
     //         //     if (combo.selectedOptions[0].value == grid.const_filterBetween) toInput.style.display = '';
@@ -161,7 +161,7 @@ export class TbsGridFilterLayer {
     //
     //         document.querySelector(selector + ' .tbs-grid-layer').innerHTML = '';
     //         document.querySelector(selector + ' .tbs-grid-layer').style.width = '0px';
-    //         document.querySelector(selector + ' .tbs-grid-layer').style.left = '30000px';
+    //         document.querySelector(selector + ' .tbs-grid-layer').style.left = '70000px';
     //     };
     //     const resetEvent = function (e) {
     //         document.querySelector(selector + ' .tbs-grid-layer-filter-content-input').value = '';
@@ -181,7 +181,7 @@ export class TbsGridFilterLayer {
     //     let iconElement = this.iconElement
     //     let inputElement =this.inputElement
     //
-    //     let filterColumn = grid.filter_column_table.selectRow(columnAlias.name, column[columnAlias.name]);
+    //     let filterColumn = grid.filter_column_table.selectRow(ColumnAlias.name, column[ColumnAlias.name]);
     //
     //     if (grid.notNull(filterColumn)) {
     //         let combo = document.querySelector(selector + ' .tbs-grid-layer-filter-combo');

@@ -1,5 +1,5 @@
 import {TbsGrid} from "./tbs.grid";
-import {rowAlias} from "./tbs.grid.types";
+import {RowAlias} from "./tbs.grid.types";
 
 export class TbsGridRange {
     grid: TbsGrid;
@@ -7,7 +7,7 @@ export class TbsGridRange {
 
     constructor(grid: TbsGrid) {
         this.grid = grid;
-        this.selector = '#' + grid.gridId;
+        this.selector = `#${grid.gridId}`;
     }
 
     removePanelRange = function (panelName = '') {
@@ -15,25 +15,24 @@ export class TbsGridRange {
         const grid = this.grid;
 
         if (panelName == 'panel30') {
-            document.querySelectorAll(selector + ' .tbs-grid-cell-start' ).forEach(cell => cell.classList.remove('tbs-grid-cell-start'));
-            document.querySelectorAll(selector + ' .tbs-grid-panel31 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
-            document.querySelectorAll(selector + ' .tbs-grid-panel32 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
-            document.querySelectorAll(selector + ' .tbs-grid-panel30 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
+            document.querySelectorAll(`${selector} .tbs-grid-cell-start` ).forEach(cell => cell.classList.remove('tbs-grid-cell-start'));
+            document.querySelectorAll(`${selector} .tbs-grid-panel31 .tbs-grid-cell-select`).forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
+            document.querySelectorAll(`${selector} .tbs-grid-panel32 .tbs-grid-cell-select`).forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
+            document.querySelectorAll(`${selector} .tbs-grid-panel30 .tbs-grid-cell-select`).forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
         }
         else if (panelName == 'panel40') {
-            document.querySelectorAll(selector + ' .tbs-grid-panel41 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
-            document.querySelectorAll(selector + ' .tbs-grid-panel42 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
-            document.querySelectorAll(selector + ' .tbs-grid-panel40 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
+            document.querySelectorAll(`${selector} .tbs-grid-panel41 .tbs-grid-cell-select`).forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
+            document.querySelectorAll(`${selector} .tbs-grid-panel42 .tbs-grid-cell-select`).forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
+            document.querySelectorAll(`${selector} .tbs-grid-panel40 .tbs-grid-cell-select`).forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
         }
         else if (panelName == 'panel50') {
-            document.querySelectorAll(selector + ' .tbs-grid-panel51 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
-            document.querySelectorAll(selector + ' .tbs-grid-panel52 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
-            document.querySelectorAll(selector + ' .tbs-grid-panel50 .tbs-grid-cell-select').forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
+            document.querySelectorAll(`${selector} .tbs-grid-panel51 .tbs-grid-cell-select`).forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
+            document.querySelectorAll(`${selector} .tbs-grid-panel52 .tbs-grid-cell-select`).forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
+            document.querySelectorAll(`${selector} .tbs-grid-panel50 .tbs-grid-cell-select`).forEach(cell => cell.classList.remove('tbs-grid-cell-select'));
         }
     }
 
     selectRange = function (startRowIndex, lastRowIndex, startCellIndex?, lastCellIndex?, topRowIndex?: number) {
-        let selector = this.selector;
         const grid = this.grid;
 
         if (grid.column_table.count() == 0) {
@@ -54,7 +53,6 @@ export class TbsGridRange {
     }
 
     setRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex, type = 'add') {
-        let selector = this.selector;
         const grid = this.grid;
 
         grid.startRowIndex  = startRowIndex;
@@ -106,7 +104,7 @@ export class TbsGridRange {
         let selector = this.selector;
         const grid = this.grid;
 
-        if (grid.options[rowAlias.selectMode] == 'cell') {
+        if (grid.options[RowAlias.selectMode] == 'cell') {
             startRowIndex = startRowIndex;
             lastRowIndex  = startRowIndex;
         }
@@ -212,19 +210,18 @@ export class TbsGridRange {
         grid.data_select_panel31 = [];
         grid.selectRangeArray = [];
 
-        document.querySelectorAll(selector + ' .tbs-grid-panel20 .tbs-grid-table td').forEach(function(td) {
+        document.querySelectorAll(`${selector} .tbs-grid-panel20 .tbs-grid-table td`).forEach(function(td) {
             td.classList.remove('tbs-grid-cell-select');
         });
         if (grid.fixedColumnIndex != -1){
-            document.querySelectorAll(selector + ' .tbs-grid-panel22 .tbs-grid-table td').forEach(function(td) {
+            document.querySelectorAll(`${selector} .tbs-grid-panel22 .tbs-grid-table td`).forEach(function(td) {
                 td.classList.remove('tbs-grid-cell-select');
             });
         }
 
     }
 
-    addRange = function (startRowIndex, lastRowIndex, startCellIndex, lastCellIndex, topRowIndex) {
-        let selector = this.selector;
+    addRange = function (startRowIndex: number, lastRowIndex: number, startCellIndex: number, lastCellIndex: number, topRowIndex: number) {
         const grid = this.grid;
 
         if (arguments.length == 2) {

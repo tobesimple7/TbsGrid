@@ -1,4 +1,4 @@
-import {BeforeAfter, CellType, columnAlias} from "../tbs.grid.types";
+import {BeforeAfter, CellType, ColumnAlias} from "../tbs.grid.types";
 import {TbsGrid} from "../tbs.grid";
 
 export class TbsGridColumns {
@@ -16,21 +16,21 @@ export class TbsGridColumns {
         const userColumns = [];
 
         const getChildren = function(node, rowIndex, startColumnIndex, lastColumnIndex) {
-            node[columnAlias.children] = [];
+            node[ColumnAlias.children] = [];
 
             for (let x = startColumnIndex; x <= lastColumnIndex; x++) {
                 const column = grid.header_column_table.selectRowByRowIndex(rowIndex + 1, x);
                 if (grid.null(column)) break;
 
-                if (column[columnAlias.kind] == 'column') {
-                    let columnName = column[columnAlias.name];
-                    node[columnAlias.children].push(grid.getColumn(columnName));
+                if (column[ColumnAlias.kind] == 'column') {
+                    let columnName = column[ColumnAlias.name];
+                    node[ColumnAlias.children].push(grid.getColumn(columnName));
                 }
-                else if (column[columnAlias.kind] == 'header') {
-                    node[columnAlias.children].push(column);
+                else if (column[ColumnAlias.kind] == 'header') {
+                    node[ColumnAlias.children].push(column);
 
                     let sIndex = x;
-                    let eIndex = x + column[columnAlias.colSpan] - 1;
+                    let eIndex = x + column[ColumnAlias.colSpan] - 1;
                     getChildren(column, rowIndex + 1, sIndex, eIndex);
                 }
             }
@@ -39,18 +39,18 @@ export class TbsGridColumns {
         //  header 정보와 컬럼 정보를 가져온다.
         for (let x = 0; x < grid.column_table.count(); x++) {
             const column = grid.header_column_table.selectRowByRowIndex(0, x);
-            if (grid.notNull(column[columnAlias.num])) delete column[columnAlias.num];
-            if (grid.notNull(column[columnAlias.parentNum])) delete column[columnAlias.parentNum];
+            if (grid.notNull(column[ColumnAlias.num])) delete column[ColumnAlias.num];
+            if (grid.notNull(column[ColumnAlias.parentNum])) delete column[ColumnAlias.parentNum];
 
-            if (column[columnAlias.kind] == 'column') {
-                let columnName = column[columnAlias.name];
+            if (column[ColumnAlias.kind] == 'column') {
+                let columnName = column[ColumnAlias.name];
                 userColumns.push(grid.getColumn(columnName));
             }
-            else if (column[columnAlias.kind] == 'header') {
+            else if (column[ColumnAlias.kind] == 'header') {
                 userColumns.push(column);
 
                 let startColumnIndex = x;
-                let lastColumnIndex = x + column[columnAlias.colSpan] - 1;
+                let lastColumnIndex = x + column[ColumnAlias.colSpan] - 1;
                 getChildren(column, 0, startColumnIndex, lastColumnIndex);
             }
         }
@@ -61,38 +61,38 @@ export class TbsGridColumns {
     setColumnDefaultValue(column: any) {
         const grid = this.grid;
 
-        let columnType = column[columnAlias.type];
-        if (grid.null(column[columnAlias.dataType])) {
-            if (columnType == CellType.number)      column[columnAlias.dataType] = CellType.number;
-            else if (columnType == CellType.date)   column[columnAlias.dataType] = CellType.string;
-            else if (columnType == CellType.combo)  column[columnAlias.dataType] = CellType.string;
-            else column[columnAlias.dataType] = CellType.string;
+        let columnType = column[ColumnAlias.type];
+        if (grid.null(column[ColumnAlias.dataType])) {
+            if (columnType == CellType.number)      column[ColumnAlias.dataType] = CellType.number;
+            else if (columnType == CellType.date)   column[ColumnAlias.dataType] = CellType.string;
+            else if (columnType == CellType.combo)  column[ColumnAlias.dataType] = CellType.string;
+            else column[ColumnAlias.dataType] = CellType.string;
         }
 
-        if (grid.null(column[columnAlias.width]))    column[columnAlias.width]    = 100;
-        if (grid.null(column[columnAlias.editable])) column[columnAlias.editable] = false;
-        if (grid.null(column[columnAlias.visible ])) column[columnAlias.visible ] = true;
+        if (grid.null(column[ColumnAlias.width]))    column[ColumnAlias.width]    = 100;
+        if (grid.null(column[ColumnAlias.editable])) column[ColumnAlias.editable] = false;
+        if (grid.null(column[ColumnAlias.visible ])) column[ColumnAlias.visible ] = true;
 
         if (columnType == CellType.string) {
-            if (grid.null(column[columnAlias.align])) column[columnAlias.align] = 'left';
+            if (grid.null(column[ColumnAlias.align])) column[ColumnAlias.align] = 'left';
         }
         else if (columnType == CellType.number) {
-            if (grid.null(column[columnAlias.align]))        column[columnAlias.align]        = 'right';
-            if (grid.null(column[columnAlias.scale]))        column[columnAlias.scale]        = '18,0';
-            if (grid.null(column[columnAlias.roundType]))    column[columnAlias.roundType]    = 'round';
-            if (grid.null(column[columnAlias.fixedScale]))   column[columnAlias.fixedScale]   = true;
-            if (grid.null(column[columnAlias.showZero]))     column[columnAlias.showZero]     = false;
-            if (grid.null(column[columnAlias.commaUnit]))    column[columnAlias.commaUnit]    = 3; // Fixed value.
-            if (grid.null(column[columnAlias.thousandChar])) column[columnAlias.thousandChar] = grid.getConfigCulture('thousandChar');
-            if (grid.null(column[columnAlias.decimalChar]))  column[columnAlias.decimalChar]  = grid.getConfigCulture('decimalChar');
-            //if (grid.null(column[columnAlias.currencyChar])) column[columnAlias.currencyChar] = grid.getConfigCulture('currencyChar');
+            if (grid.null(column[ColumnAlias.align]))        column[ColumnAlias.align]        = 'right';
+            if (grid.null(column[ColumnAlias.scale]))        column[ColumnAlias.scale]        = '18,0';
+            if (grid.null(column[ColumnAlias.roundType]))    column[ColumnAlias.roundType]    = 'round';
+            if (grid.null(column[ColumnAlias.fixedScale]))   column[ColumnAlias.fixedScale]   = true;
+            if (grid.null(column[ColumnAlias.showZero]))     column[ColumnAlias.showZero]     = false;
+            if (grid.null(column[ColumnAlias.commaUnit]))    column[ColumnAlias.commaUnit]    = 3; // Fixed value.
+            if (grid.null(column[ColumnAlias.thousandChar])) column[ColumnAlias.thousandChar] = grid.getConfigCulture('thousandChar');
+            if (grid.null(column[ColumnAlias.decimalChar]))  column[ColumnAlias.decimalChar]  = grid.getConfigCulture('decimalChar');
+            //if (grid.null(column[ColumnAlias.currencyChar])) column[ColumnAlias.currencyChar] = grid.getConfigCulture('currencyChar');
         }
         else if (columnType == CellType.date)   {
-            if (grid.null(column[columnAlias.align]))  column[columnAlias.align]  = 'center';
-            if (grid.null(column[columnAlias.format])) column[columnAlias.format] = grid.getConfigCalendar('dayPattern');
+            if (grid.null(column[ColumnAlias.align]))  column[ColumnAlias.align]  = 'center';
+            if (grid.null(column[ColumnAlias.format])) column[ColumnAlias.format] = grid.getConfigCalendar('dayPattern');
         }
         else if (columnType == CellType.combo)  {
-            if (grid.null(column[columnAlias.align])) column[columnAlias.align] = 'left';
+            if (grid.null(column[ColumnAlias.align])) column[ColumnAlias.align] = 'left';
         }
         return column;
     }
@@ -101,13 +101,13 @@ export class TbsGridColumns {
         const grid = this.grid;
 
         const searchColumn = function (column) {
-            if (!column[columnAlias.children]) {
-                let columnType = column[columnAlias.type];
+            if (!column[ColumnAlias.children]) {
+                let columnType = column[ColumnAlias.type];
 
-                column[columnAlias.type] = grid.null(columnType) ? CellType.string : columnType;
+                column[ColumnAlias.type] = grid.null(columnType) ? CellType.string : columnType;
                 grid.classColumn.setColumnDefaultValue(column);
             }
-            else column[columnAlias.children].map(n => searchColumn(n));
+            else column[ColumnAlias.children].map(n => searchColumn(n));
         }
         columns.map(column => searchColumn(column));
     }
@@ -117,8 +117,8 @@ export class TbsGridColumns {
 
         let dataRows = [];
         const searchColumn = function (column) {
-            if (!column[columnAlias.children]) dataRows.push(column);
-            else column[columnAlias.children].map(n => searchColumn(n));
+            if (!column[ColumnAlias.children]) dataRows.push(column);
+            else column[ColumnAlias.children].map(n => searchColumn(n));
         }
         grid.columns.map(column => searchColumn(column));
 
@@ -170,13 +170,13 @@ export class TbsGridColumns {
         let lastRowIndex = grid.headerRowCount;
 
         let startColIndex = targetColumnIndex;
-        let lastColIndex = targetColumnIndex + rootColumn[columnAlias.colSpan] - 1;
+        let lastColIndex = targetColumnIndex + rootColumn[ColumnAlias.colSpan] - 1;
 
         grid.header_column_table.data.map(columns => {
-            columns.splice(targetColumnIndex, rootColumn[columnAlias.colSpan]);
+            columns.splice(targetColumnIndex, rootColumn[ColumnAlias.colSpan]);
         });
 
-        grid.column_table.data.splice(targetColumnIndex, rootColumn[columnAlias.colSpan]);
+        grid.column_table.data.splice(targetColumnIndex, rootColumn[ColumnAlias.colSpan]);
 
         grid.updateGrid();
 
@@ -200,7 +200,7 @@ export class TbsGridColumns {
 
             for (let i = colIndex; i >= 0; i--) {
                 const dataRow = grid.header_column_table.data[rootRowIndex][i];
-                let kind = dataRow[columnAlias.kind];
+                let kind = dataRow[ColumnAlias.kind];
                 if (kind != 'empty') {
                     result = dataRow;
                     break;
@@ -227,8 +227,8 @@ export class TbsGridColumns {
         const moveRootColumn   = this.getParentTableCell(moveColumn);
         const targetRootColumn = this.getParentTableCell(targetColumn);
 
-        let moveRootRowId   = grid.null(moveRootColumn)  ? -1 : moveRootColumn[columnAlias.rowId];
-        let targetRootRowId = grid.null(targetRootColumn) ? -1 : targetRootColumn[columnAlias.rowId];
+        let moveRootRowId   = grid.null(moveRootColumn)  ? -1 : moveRootColumn[ColumnAlias.rowId];
+        let targetRootRowId = grid.null(targetRootColumn) ? -1 : targetRootColumn[ColumnAlias.rowId];
 
         if (moveRootRowId != targetRootRowId) return;
 
@@ -255,7 +255,7 @@ export class TbsGridColumns {
             for (let x = rangeStartColIndex; x <= rangeLastColIndex; x++) {
                 const column = columns[x];
                 temp[i].push(grid.copyJson(column));
-                column[columnAlias.name] = '__$$changed$$__';
+                column[ColumnAlias.name] = '__$$changed$$__';
             }
         }
 
@@ -266,7 +266,7 @@ export class TbsGridColumns {
                 grid.header_column_table.insertRowsBefore(i, columns, targetColIndex);
             }
             else if (orderType == 'after') {
-                let index = targetColIndex + targetColumn[columnAlias.colSpan] - 1;
+                let index = targetColIndex + targetColumn[ColumnAlias.colSpan] - 1;
                 grid.header_column_table.insertRowsAfter(i, columns, index);
             }
         }
@@ -277,7 +277,7 @@ export class TbsGridColumns {
             const columns = grid.header_column_table.data[i];
             for (let x = columns.length - 1; x >= 0; x--) {
                 const column = columns[x];
-                if (column[columnAlias.name] == '__$$changed$$__') columns.splice(x, 1);
+                if (column[ColumnAlias.name] == '__$$changed$$__') columns.splice(x, 1);
             }
         }
         
@@ -289,7 +289,7 @@ export class TbsGridColumns {
         for (let x = 0; x < grid.column_table.count(); x++) {
             for (let i = 0; i < grid.header_column_table.count(); i++) {
                 const column = grid.header_column_table.data[i][x];
-                if (column[columnAlias.kind] == 'column') copyColumns.push(grid.copyJson(column));
+                if (column[ColumnAlias.kind] == 'column') copyColumns.push(grid.copyJson(column));
             }
         }
 
@@ -422,7 +422,7 @@ export class TbsGridColumns {
         let result = null;
         for (let i = 0; i < grid.column_table.count(); i++ ) {
             let column = grid.column_table.data[i];
-            if (column[columnAlias.visible]) { result = i; break; }
+            if (column[ColumnAlias.visible]) { result = i; break; }
         }
         return result;
     }
@@ -433,7 +433,7 @@ export class TbsGridColumns {
         let result = null;
         for (let i = grid.column_table.count() - 1; i >= 0; i-- ) {
             let column = grid.column_table.data[i];
-            if (column[columnAlias.visible]) { result = i; break; }
+            if (column[ColumnAlias.visible]) { result = i; break; }
         }
         return result;
     }

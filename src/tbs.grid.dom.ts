@@ -85,40 +85,13 @@ export class TbsGridDom extends TbsBase {
         // Remove classNameArray
         for (let i = 0, len = classNameArray.length; i < len; i++) tableCell.classList.remove(classNameArray[i]);
     }
-
-    /**
-     * Base Functions
-     *
-     */
-
-    // null(p) { return p == null || p == undefined; }
-    //
-    // notNull(p) { return !(p == null || p == undefined); }
-    //
-    // empty(p) { return p == '';  }
-    //
-    // notEmpty(p) { return this.notNull(p) && p != ''; }
-
     /**
      * Dom Functions
      *
      */
-    static createElementCheckbox() {
-        const element = document.createElement('input');
-        element.type = 'checkbox';
-        element.classList.add('tbs-grid-html-checkbox');
-        return element;
-    }
-
     static createElementCellDiv() {
         const element = document.createElement('div');
         element.classList.add('tbs-grid-cell-div');
-        return element;
-    }
-
-    static createElementCellIcon() {
-        const element = document.createElement('span');
-        element.classList.add('tbs-grid-html-icon');
         return element;
     }
 
@@ -129,19 +102,6 @@ export class TbsGridDom extends TbsBase {
         return element;
     }
 
-    static prependCheckbox(element, childElement) {
-        const el = element.querySelector('.tbs-grid-html-icon');
-        if (el == undefined) element.prepend(childElement);
-    }
-
-    static prependIcon(element, childElement) {
-        const el = element.querySelector('.tbs-grid-html-icon');
-        if (el == undefined) element.prepend(childElement);
-    }
-
-    /**
-     * Table Functions
-     */
     static createTable() {
         const table = document.createElement('table');
         table.className = 'tbs-grid-table';

@@ -1,5 +1,5 @@
 import {TbsGridDom} from "../tbs.grid.dom";
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 
 export class TbsGridRenderImg {
 
@@ -27,7 +27,7 @@ export class TbsGridRenderImg {
         // set value
         element.src = param.grid.getUserImageRoot(param.columnName) + param.cellValue;
         element.width = param.grid.getRenderer(param.columnName, 'width') ?
-                        param.grid.getRenderer(param.columnName, 'width') : param.column[columnAlias.width];
+                        param.grid.getRenderer(param.columnName, 'width') : param.column[ColumnAlias.width];
         element.height = param.grid.getRenderer(param.columnName, 'height') ?
                         param.grid.getRenderer(param.columnName, 'height') : param.grid.rowHeight;
     }

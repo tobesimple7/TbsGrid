@@ -1,5 +1,5 @@
 import {TbsGrid} from "./tbs.grid";
-import {columnAlias, GridMode, optionAlias} from "./tbs.grid.types";
+import {ColumnAlias, GridMode, OptionAlias} from "./tbs.grid.types";
 
 export class TbsGridGroup {
     grid: TbsGrid;
@@ -41,7 +41,7 @@ export class TbsGridGroup {
                 const item = {};
                 for (let x = 0, len = grid.column_table.count(); x < len; x++) {
                     const column = grid.column_table.data[x];
-                    let columnName = column[columnAlias.name];
+                    let columnName = column[ColumnAlias.name];
                     let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
                     item[columnName] = val;
                 }
@@ -49,7 +49,7 @@ export class TbsGridGroup {
                 // const dataColumns: any[] = grid.field_table.selectRows();
                 // for (let x = 0, len = dataColumns.length; x < len; x++) {
                 //     const column = dataColumns[x];
-                //     let columnName  = column[columnAlias.name];
+                //     let columnName  = column[ColumnAlias.name];
                 //     item[columnName] = dataRow[columnName];
                 // }
 
@@ -72,26 +72,26 @@ export class TbsGridGroup {
         grid.sort_column_table.remove();
 
         grid.group_column_table.data.map(dataRow => {
-            let columnName = dataRow[columnAlias.name];
-            //let groupOrder = grid.isNull(dataRow[columnAlias.order], '');
+            let columnName = dataRow[ColumnAlias.name];
+            //let groupOrder = grid.isNull(dataRow[ColumnAlias.order], '');
 
-            const row = grid.temp_table.selectRow(columnAlias.name, columnName);
+            const row = grid.temp_table.selectRow(ColumnAlias.name, columnName);
             if (row) {
-                let order = row[columnAlias.order];
+                let order = row[ColumnAlias.order];
                 if (order == '') order = 'asc';
 
-                row[columnAlias.order] = order;
+                row[ColumnAlias.order] = order;
                 grid.sort_column_table.insert(row);
-                // grid.group_column_table.update(columnName, columnAlias.order, order);
+                // grid.group_column_table.update(columnName, ColumnAlias.order, order);
             }
             else {
                 const item = {};
-                item[columnAlias.name] = columnName;
-                item[columnAlias.order] = 'asc';
+                item[ColumnAlias.name] = columnName;
+                item[ColumnAlias.order] = 'asc';
                 grid.sort_column_table.insert(item);
-                // grid.group_column_table.update(columnName, columnAlias.order, 'asc');
+                // grid.group_column_table.update(columnName, ColumnAlias.order, 'asc');
             }
-            let rowIndex = grid.temp_table.selectRowIndex(columnAlias.name, columnName);
+            let rowIndex = grid.temp_table.selectRowIndex(ColumnAlias.name, columnName);
             if (grid.notNull(rowIndex)) grid.temp_table.remove(rowIndex);
         });
 
@@ -99,7 +99,7 @@ export class TbsGridGroup {
         grid.temp_table.remove();
 
         /* Sorting */
-        grid.classSort.setSortData(grid.view_table.data, grid.sort_column_table.data);
+        grid.classSort.orderBy();
 
         /* create group data */
         grid.classGroup.createGroupData();
@@ -109,12 +109,12 @@ export class TbsGridGroup {
         for (let i = 0, len = grid.group_table.count(); i < len; i++) {
             let dataRow = grid.group_table.data[i];
 
-            dataRow[columnAlias.rowMode]   = ''; // S, U, I, D, blank
-            dataRow[columnAlias.isOpen] = false;
+            dataRow[ColumnAlias.rowMode]   = ''; // S, U, I, D, blank
+            dataRow[ColumnAlias.isOpen] = false;
 
             for (let x = 0, len = grid.column_table.count(); x < len; x++) {
                 let column = grid.column_table.data[x];
-                let columnName = column[columnAlias.name];
+                let columnName = column[ColumnAlias.name];
                 let val = grid.null(dataRow[columnName]) ? null : dataRow[columnName];
 
                 dataRow[columnName] = val;
@@ -128,16 +128,16 @@ export class TbsGridGroup {
 
         // open depth
         grid.view_table.data.map(row => {
-            let depth = row[columnAlias.depth];
+            let depth = row[ColumnAlias.depth];
 
-            row[columnAlias.isOpen] = (depth < openDepth) ? true : false;
-            row[columnAlias.childRows] = [];
+            row[ColumnAlias.isOpen] = (depth < openDepth) ? true : false;
+            row[ColumnAlias.childRows] = [];
         })
 
         if (openDepth <= grid.group_column_table.count()) {
             for (let i = grid.view_table.count() - 1; i >= 0; i--) {
                 const rootRow = grid.view_table.selectRowByRowIndex(i);
-                let rootDepth = rootRow[columnAlias.depth];
+                let rootDepth = rootRow[ColumnAlias.depth];
 
                 if (rootDepth == openDepth && rootDepth <= grid.group_column_table.count()) {
                     this.closeGroupRow(i);
@@ -160,7 +160,7 @@ export class TbsGridGroup {
             grid.classPanel40.setDataPanel();
             grid.classPanel50.setDataPanel();
         }
-        if (grid.options[columnAlias.autoWidth] == true)  grid.setColumnAutoWidth();
+        if (grid.options[ColumnAlias.autoWidth] == true)  grid.setColumnAutoWidth();
 
         grid.classGroup.getGroupButtonList();
         grid.classScroll.setPanelSize();
@@ -177,7 +177,7 @@ export class TbsGridGroup {
         const groupData = grid.classGroup.createGroupKeyData(grid.view_table.data);
         groupData.map(row => {
             grid.source_table.currentRowId += 1;
-            row[columnAlias.rowId] = grid.source_table.currentRowId;
+            row[ColumnAlias.rowId] = grid.source_table.currentRowId;
             grid.group_header_table.insert(grid.copyJson(row));
         });
 
@@ -186,18 +186,18 @@ export class TbsGridGroup {
             const rootRow = grid.group_header_table.selectRowByRowIndex(i);
             const children = [];
             const item = {}
-            let rootDepth = rootRow[columnAlias.depth];
+            let rootDepth = rootRow[ColumnAlias.depth];
             let rootString = this.getGroupKeyByDepth(rootRow, rootDepth);
 
             // get children group
             let isChild = false;
             for (let x = 0, len2 = grid.group_header_table.count(); x < len2; x++) {
                 const row = grid.group_header_table.selectRowByRowIndex(x);
-                let depth = row[columnAlias.depth];
+                let depth = row[ColumnAlias.depth];
                 let childString = this.getGroupKeyByDepth(row, rootDepth);
                 if (rootDepth + 1 == depth && rootString == childString) {
                     isChild = true;
-                    children.push(row[columnAlias.rowId]);
+                    children.push(row[ColumnAlias.rowId]);
                 }
                 else {
                     if (isChild) break;
@@ -205,8 +205,8 @@ export class TbsGridGroup {
             }
 
             // insert group_header_table
-            rootRow[columnAlias.childRowIds] = children;
-            rootRow[columnAlias.isOpen] = false;
+            rootRow[ColumnAlias.childRowIds] = children;
+            rootRow[ColumnAlias.isOpen] = false;
             grid.group_table.insert(rootRow);
 
             // insert view_table
@@ -219,17 +219,17 @@ export class TbsGridGroup {
                     let childString = this.getGroupKeyByDepth(row, rootDepth);
                     if (rootString == childString) {
                         isChild = true;
-                        children.push(row[columnAlias.rowId]);
+                        children.push(row[ColumnAlias.rowId]);
                         arr.push(x);
-                        row[columnAlias.isOpen] = false;
-                        row[columnAlias.depth] = grid.group_column_table.count() + 1;
+                        row[ColumnAlias.isOpen] = false;
+                        row[ColumnAlias.depth] = grid.group_column_table.count() + 1;
                         grid.group_table.insert(grid.copyJson(row));
                     }
                     else {
                         if (isChild) break;
                     }
                 }
-                rootRow[columnAlias.childRowIds] = children;
+                rootRow[ColumnAlias.childRowIds] = children;
                 //delete row
                 if (arr.length > 0) {
                     let startRowIndex = arr[0]
@@ -259,14 +259,14 @@ export class TbsGridGroup {
         }
 
         const addRow = function (dataRow) {
-            let rootDepth = dataRow[columnAlias.depth];
+            let rootDepth = dataRow[ColumnAlias.depth];
             let rootStr = grid.classGroup.getGroupKeyByDepth(dataRow, rootDepth);
 
             result.push(dataRow);
 
             for (let i = depth, len = resultRows.length; i < len; i++) {
                 const row = resultRows[i];
-                let depth = row[columnAlias.depth];
+                let depth = row[ColumnAlias.depth];
                 let str = grid.classGroup.getGroupKeyByDepth(row, rootDepth);
                 if (rootDepth + 1 == depth && rootStr == str) {
                     addRow(row);
@@ -275,7 +275,7 @@ export class TbsGridGroup {
         }
 
         for (let i = 0, len = resultRows.length; i < len; i++) {
-            let depth = resultRows[i][columnAlias.depth];
+            let depth = resultRows[i][ColumnAlias.depth];
             if (depth == 1) addRow(resultRows[i]);
         }
         return result;
@@ -286,7 +286,7 @@ export class TbsGridGroup {
         let key = '';
         for (let i = 0; i < depth; i++) {
             let groupColumn = grid.group_column_table.data[i];
-            let name = groupColumn[columnAlias.name];
+            let name = groupColumn[ColumnAlias.name];
             key += this.splitChar + grid.isNull(row[name], '');
         }
         return key;
@@ -298,9 +298,9 @@ export class TbsGridGroup {
         let tempRow = {};
         for (let i = 0; i < depth; i++) {
             let groupColumn = grid.group_column_table.data[i];
-            let name = groupColumn[columnAlias.name];
+            let name = groupColumn[ColumnAlias.name];
             tempRow[name] = row[name];
-            tempRow[columnAlias.depth] = depth;
+            tempRow[ColumnAlias.depth] = depth;
         }
         return tempRow;
     }
@@ -313,7 +313,7 @@ export class TbsGridGroup {
         const grid = this.grid;
 
         const rootRow = grid.view_table.selectRowByRowIndex(rowIndex)
-        const rootDepth = rootRow[columnAlias.depth];
+        const rootDepth = rootRow[ColumnAlias.depth];
 
         // if (rootDepth <= grid.group_column_table.count()) return;
 
@@ -323,18 +323,18 @@ export class TbsGridGroup {
 
             if (grid.null(row)) break;
 
-            let depth = row[columnAlias.depth];
+            let depth = row[ColumnAlias.depth];
             if (rootDepth + 1 == depth) resultRows.push(row);
             else if (rootDepth == depth) break;
         }
 
         for (let i = 0, len = grid.column_table.count(); i < len; i++) {
             const column = grid.column_table.data[i];
-            let columnName = column[columnAlias.name];
+            let columnName = column[ColumnAlias.name];
 
-            if (grid.null(column[columnAlias.summaryType])) continue;
+            if (grid.null(column[ColumnAlias.summaryType])) continue;
 
-            let summaryType = column[columnAlias.summaryType];
+            let summaryType = column[ColumnAlias.summaryType];
 
             const arrayItem = [];
             resultRows.map(row => {
@@ -361,12 +361,12 @@ export class TbsGridGroup {
 
         let childCount = 0;
         if (rootDepth < grid.group_column_table.count()) {
-            resultRows.map(row => childCount += row[columnAlias.childCount]);
+            resultRows.map(row => childCount += row[ColumnAlias.childCount]);
         }
         else {
             childCount = resultRows.length;
         }
-        rootRow[columnAlias.childCount] = childCount;
+        rootRow[ColumnAlias.childCount] = childCount;
     }
 
     getGroupSummary() {
@@ -375,7 +375,7 @@ export class TbsGridGroup {
         for (let depthIndex = grid.group_column_table.count(); depthIndex >= 1; depthIndex--) {
             for (let i = grid.view_table.count() - 1; i >= 0; i--) {
                 const row = grid.view_table.data[i];
-                let depth = row[columnAlias.depth];
+                let depth = row[ColumnAlias.depth];
                 if (depth == depthIndex) this.getGroupDepthSummary(i);
             }
         }
@@ -383,177 +383,55 @@ export class TbsGridGroup {
         // agv 만 나중에...
         for (let i = grid.view_table.count() - 1; i >= 0; i--) {
             const row = grid.view_table.data[i];
-            let depth = row[columnAlias.depth];
+            let depth = row[ColumnAlias.depth];
             if (depth <= grid.group_column_table.count()) {
                 for (let x = 0, len2 = grid.column_table.count(); x < len2; x++) {
                     const column = grid.column_table.data[x];
-                    let columnName = column[columnAlias.name];
-                    let summaryType = grid.isNull(column[columnAlias.summaryType], '');
+                    let columnName = column[ColumnAlias.name];
+                    let summaryType = grid.isNull(column[ColumnAlias.summaryType], '');
                     if (summaryType == 'avg') {
-                        row[columnName] = row[columnName] / row[columnAlias.childCount];
+                        row[columnName] = row[columnName] / row[ColumnAlias.childCount];
                     }
                 }
             }
         }
     }
 
-    // getGroupSummary2() {
-    //     let selector = this.selector;
-    //     const grid = this.grid;
-    //
-    //     const getGroupSummary = function (array, columnName, isLastDepth) {
-    //         let result = {};
-    //         result.rowCount = 0;
-    //         result.sum = 0;
-    //
-    //         for (let i = 0, len = grid.view_table.count(); i < len; i++) {
-    //             let row = grid.view_table.data[i];
-    //             let rowId = row[columnAlias.rowId];
-    //             array.map(item => {
-    //                 if (rowId == item) {
-    //                     result.sum      += grid.null(row[columnName]) ? 0 : Number(row[columnName]);
-    //                     result.rowCount += grid.null(row[columnAlias.rowCount]) ? 1 : row[columnAlias.rowCount];
-    //                 }
-    //             });
-    //         }
-    //         return result;
-    //     }
-    //     /* Create Sum By Depth Unit */
-    //     let depth = grid.group_column_table.count();
-    //     for (let depthIndex = depth; depthIndex >= 1; depthIndex--) {
-    //         for (let i = 0, len = grid.view_table.count(); i < len; i++) {
-    //             let row = grid.view_table.data[i];
-    //             let rowId = row[columnAlias.rowId];
-    //             let depth = row[columnAlias.depth];
-    //
-    //             if (depthIndex == depth) {
-    //                 for (let x = 0, len2 = grid.column_table.count(); x < len2; x++) {
-    //                     let column = grid.column_table.data[x];
-    //                     let columnName = column[columnAlias.name];
-    //                     let columnType = column[columnAlias.type];
-    //                     if (columnType == CellType.number) {
-    //                         let result = null;
-    //                         result = getGroupSummary(row[columnAlias.childRowIds], columnName);
-    //                         row[columnName] = result.sum.toString();
-    //                         row[columnAlias.rowCount] = result.rowCount;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     /* Create Avg By Depth Unit */
-    //     for (let i = 0, len = grid.view_table.count(); i < len; i++) {
-    //         let row = grid.view_table.data[i];
-    //         let rowId = row[columnAlias.rowId];
-    //         let rowCount = row[columnAlias.childRowIds].length;
-    //
-    //         for (let x = 0, len2 = grid.column_table.count(); x < len2; x++) {
-    //             let column = grid.column_table.data[x];
-    //             let columnName = column[columnAlias.name];
-    //             let groupColumn = grid.classGroup.getGroupRow(columnName);
-    //             let summaryType = grid.null(column[columnAlias.summaryType]) ? null : column[columnAlias.summaryType];
-    //             let columnType = column[columnAlias.type];
-    //
-    //             if (rowCount > 0 && columnType == CellType.number) {
-    //                 // summaryType = 'sum';
-    //                 if (grid.null(summaryType)) row[columnName] = null;
-    //                 else if (summaryType == 'avg') row[columnName] = (row[columnName] / row[columnAlias.rowCount]);
-    //             }
-    //         }
-    //     }
-    // }
-
     /**
      * spanIcon, spanImg, spanText
      */
 
-    setGroupIcon(tableCell, rowIndex) {
+    setGroupIcon(tableCell: any, rowIndex: number) {
         const grid = this.grid;
 
-        let row = grid.getRow(rowIndex);
-        const childRows = grid.isNull(row[columnAlias.childRows], []);
-        let element = tableCell.querySelector('.tbs-grid-html-icon');
+        const row = grid.getRow(rowIndex);
+        const childRows = grid.isNull(row[ColumnAlias.childRows], []);
+        const element = tableCell.querySelector('.tbs-grid-html-icon');
 
-        if (childRows.length > 0) grid.classGroup.toggleGroupIcon(rowIndex, element, 'closed');
-        else grid.classGroup.toggleGroupIcon(rowIndex, element, 'open');
+        if (childRows.length > 0) grid.classGroup.toggleGroupIcon(element, 'closed');
+        else grid.classGroup.toggleGroupIcon(element, 'open');
     }
 
-    toggleGroupIcon(rowIndex, element, type) {
-        let selector = this.selector;
+    toggleGroupIcon(element, type) {
         const grid = this.grid;
 
         if (grid.null(element)) return;
 
-        if      (type == columnAlias.open) {
-            element.style['backgroundImage'] = 'url(' + grid.options[optionAlias.imageRoot] + 'tree_open.png)';
+        if (type == ColumnAlias.open) {
+            element.classList.remove('tbs-grid-html-icon-closed');
+            element.classList.add('tbs-grid-html-icon-open');
         }
-        else if (type == columnAlias.closed) {
-            element.style['backgroundImage'] = 'url(' + grid.options[optionAlias.imageRoot] + 'tree_closed.png)';
+        else if (type == ColumnAlias.closed) {
+            element.classList.remove('tbs-grid-html-icon-open');
+            element.classList.add('tbs-grid-html-icon-closed');
         }
-        else element.style['backgroundImage'] = '';
-    }
-
-    isGroupChildrenRow(rowIndex) {
-        let selector = this.selector;
-        const grid = this.grid;
-
-        let result = false;
-        let row = grid.getRow(rowIndex);
-        let childRow = grid.getRow(rowIndex + 1);
-
-        if (grid.null(childRow)) result = false;
         else {
-            if (row[columnAlias.num] == childRow[columnAlias.parentNum]) result = true;
+            element.classList.remove('tbs-grid-html-icon-open');
+            element.classList.remove('tbs-grid-html-icon-closed');
         }
-        return result;
-    }
-
-    getGroupchildRows(folding, rowIndex) {
-        const grid = this.grid;
-        const result = [];
-
-        let rowId = grid.view_table.selectRowIdByRowIndex(rowIndex);
-        let startRowIndex = grid.group_table.selectRowIndexByRowId(rowId);
-        const rootRow = grid.group_table.selectRowByRowIndex(startRowIndex);
-        let rootDepth = rootRow[columnAlias.depth];
-
-        let isChild = false;
-        if (folding == columnAlias.open) {
-            grid.group_table.updateByRowIndex(rowIndex, columnAlias.isOpen, true);
-            grid.group_table.updateByRowId(rowId, columnAlias.isOpen, true);
-            for (let i = startRowIndex + 1, len = grid.group_table.count(); i < len; i++) {
-                const dataRow = grid.group_table.selectRowByRowIndex(i);
-                let depth = dataRow[columnAlias.depth];
-                let isOpen = dataRow[columnAlias.isOpen];
-                if (depth == rootDepth + 1) {
-                    isChild = true;
-                    result.push(grid.copyJson(dataRow));
-                }
-                else {
-                    if (depth == rootDepth) break;
-                }
-            }
-        }
-        else if (folding == columnAlias.closed) {
-            grid.group_table.updateByRowIndex(rowIndex, columnAlias.isOpen, false);
-            grid.group_table.updateByRowId(rowId, columnAlias.isOpen, false);
-            for (let i = startRowIndex + 1, len = grid.group_table.count(); i < len; i++) {
-                const dataRow = grid.group_table.selectRowByRowIndex(i);
-                let depth = dataRow[columnAlias.depth];
-                if (depth > rootDepth) {
-                    isChild = true;
-                    result.push(grid.copyJson(dataRow));
-                }
-                else {
-                    if (depth == rootDepth) break;
-                }
-            }
-        }
-        return result;
     }
 
     setGroupFolding(tableCell) {
-        let selector = this.selector;
         const grid = this.grid;
 
         let rowIndex = parseInt(tableCell.parentNode.dataset.rowIndex);
@@ -561,34 +439,33 @@ export class TbsGridGroup {
         let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
         if (grid.null(spanIcon)) return;
 
-        let folding = grid.classGroup.getGroupFlodingStatus(tableCell);
-        if      (folding == columnAlias.open)   grid.classGroup.closeGroupRow(rowIndex);
-        else if (folding == columnAlias.closed) grid.classGroup.openGroupRow(rowIndex);
+        let folding = grid.classGroup.getGroupFoldingStatus(tableCell);
+        if      (folding == ColumnAlias.open)   grid.classGroup.closeGroupRow(rowIndex);
+        else if (folding == ColumnAlias.closed) grid.classGroup.openGroupRow(rowIndex);
 
         grid.horizontalScroll.setScroll(grid.code_horizontal);;
         grid.verticalScroll.setScroll(grid.code_vertical);
         grid.classPanel30.setDataPanel(grid.getFirstRowIndex());
     }
 
-    getGroupFlodingStatus(tableCell) {
+    getGroupFoldingStatus(tableCell) {
         const grid = this.grid;
 
         let spanIcon = tableCell.querySelector('.tbs-grid-html-icon');
         if (grid.null(spanIcon)) return null;
 
-        if (spanIcon.style['backgroundImage'].includes('tree_open.png')) return columnAlias.open;
-        else if (spanIcon.style['backgroundImage'].includes('tree_closed.png')) return columnAlias.closed;
+        if (spanIcon.className.includes('tbs-grid-html-icon-open')) return ColumnAlias.open;
+        else if (spanIcon.className.includes('tbs-grid-html-icon-closed')) return ColumnAlias.closed;
         else return null;
     }
 
     openChildRow(arrayRows, rootRow) {
-        const rootDepth = rootRow[columnAlias.depth];
-        const rootChildRows = [...rootRow[columnAlias.childRows]];
+        const rootChildRows = [...rootRow[ColumnAlias.childRows]];
 
-        let isOpen = rootRow[columnAlias.isOpen];
+        let isOpen = rootRow[ColumnAlias.isOpen];
 
         if (isOpen && rootChildRows.length > 0) {
-            rootRow[columnAlias.childRows] = [];
+            rootRow[ColumnAlias.childRows] = [];
             arrayRows.push(rootRow);
 
             for (let i = 0; i < rootChildRows.length; i++) {
@@ -607,11 +484,11 @@ export class TbsGridGroup {
         const arrayRows = [];
 
         const rootDataRow = grid.view_table.selectRowByRowIndex(rowIndex);
-        const rootDepth = rootDataRow[columnAlias.depth];
-        const rootChildRows = [...rootDataRow[columnAlias.childRows]];
+        const rootDepth = rootDataRow[ColumnAlias.depth];
+        const rootChildRows = [...rootDataRow[ColumnAlias.childRows]];
 
-        rootDataRow[columnAlias.childRows] = [];
-        rootDataRow[columnAlias.isOpen] = true;
+        rootDataRow[ColumnAlias.childRows] = [];
+        rootDataRow[ColumnAlias.isOpen] = true;
 
         if (rootChildRows.length == 0) return;
 
@@ -629,9 +506,9 @@ export class TbsGridGroup {
         const grid = this.grid;
 
         const rootDataRow = grid.view_table.selectRowByRowIndex(rowIndex);
-        const rootDepth = rootDataRow[columnAlias.depth];
+        const rootDepth = rootDataRow[ColumnAlias.depth];
 
-        const rootChildRows = grid.isNull(rootDataRow[columnAlias.childRows], []);
+        const rootChildRows = grid.isNull(rootDataRow[ColumnAlias.childRows], []);
 
         if (rootChildRows.length > 0) return;
 
@@ -640,9 +517,9 @@ export class TbsGridGroup {
             const row = grid.view_table.selectRowByRowIndex(i);
             if (grid.null(row)) break;
 
-            let depth = row[columnAlias.depth];
+            let depth = row[ColumnAlias.depth];
             if (depth == rootDepth + 1) {
-                rootDataRow[columnAlias.childRows].push(row);
+                rootDataRow[ColumnAlias.childRows].push(row);
                 arrayRowIndex.push(i);
             }
             else break;
@@ -655,14 +532,14 @@ export class TbsGridGroup {
         const grid = this.grid;
 
         const rootDataRow = grid.view_table.selectRowByRowIndex(rowIndex);
-        const rootDepth = rootDataRow[columnAlias.depth];
-        rootDataRow[columnAlias.isOpen] = false;
+        const rootDepth = rootDataRow[ColumnAlias.depth];
+        rootDataRow[ColumnAlias.isOpen] = false;
 
         const arrayRowIndex = [];
         for (let i = rowIndex + 1, len = grid.view_table.count(); i < len; i++) {
             const row = grid.view_table.selectRowByRowIndex(i);
             if (grid.null(row)) break;
-            let depth = row[columnAlias.depth];
+            let depth = row[ColumnAlias.depth];
             if (depth > rootDepth && depth <= grid.group_column_table.count()) arrayRowIndex.push(i);
             else if (depth == rootDepth) break;
         }
@@ -686,23 +563,23 @@ export class TbsGridGroup {
         let groupColumns = grid.group_column_table.data;
 
         /* targetIndex != name Index */
-        let sourceIndex = grid.group_column_table.selectRowIndex(columnAlias.name, name);
+        let sourceIndex = grid.group_column_table.selectRowIndex(ColumnAlias.name, name);
         if (sourceIndex == targetIndex) return;
 
         /* create column */
         let dataRow = {};
-        dataRow[columnAlias.name] = name;
-        dataRow[columnAlias.text] = text;
+        dataRow[ColumnAlias.name] = name;
+        dataRow[ColumnAlias.text] = text;
 
         /* update source column */
-        grid.group_column_table.updateByRowIndex(sourceIndex, columnAlias.name, '_temp_group');
+        grid.group_column_table.updateByRowIndex(sourceIndex, ColumnAlias.name, '_temp_group');
 
         /* add dataRow */
         if (grid.null(targetIndex)) grid.group_column_table.insert(dataRow);
         else grid.group_column_table.insertBefore(dataRow, targetIndex);
 
         /* remove source */
-        sourceIndex = grid.group_column_table.selectRowIndex(columnAlias.name, '_temp_group');
+        sourceIndex = grid.group_column_table.selectRowIndex(ColumnAlias.name, '_temp_group');
         grid.group_column_table.remove(sourceIndex);
 
         /* add button in group panel */
@@ -720,12 +597,12 @@ export class TbsGridGroup {
         const grid = this.grid;
 
         /* Check Existing */
-        if (grid.group_column_table.selectRows(columnAlias.name, name, 1).length > 0) return;
+        if (grid.group_column_table.selectRows(ColumnAlias.name, name, 1).length > 0) return;
 
         /* create dataRow */
         let dataRow = {};
-        dataRow[columnAlias.name] = name;
-        dataRow[columnAlias.text] = text;
+        dataRow[ColumnAlias.name] = name;
+        dataRow[ColumnAlias.text] = text;
 
         /* add dataRow */
         if (grid.null(targetIndex)) grid.group_column_table.insert(dataRow);
@@ -750,7 +627,7 @@ export class TbsGridGroup {
         let name = element.dataset.name;
 
         /* remove group data */
-        let rowIndex = grid.group_column_table.selectRowIndex(columnAlias.name, name);
+        let rowIndex = grid.group_column_table.selectRowIndex(ColumnAlias.name, name);
         grid.group_column_table.remove(rowIndex);
 
         // remove button in group panel
@@ -787,7 +664,7 @@ export class TbsGridGroup {
 
         for (let i = 0, len = groupColumns.length; i < len; i++) {
             let groupColumn = groupColumns[i];
-            let button = grid.classGroup.createGroupButton(groupColumn[columnAlias.name]);
+            let button = grid.classGroup.createGroupButton(groupColumn[ColumnAlias.name]);
             let bar = document.querySelector(selector + ' .tbs-grid-panel80 .tbs-grid-panel-bar');
             if (grid.null(bar)) return;
             bar.append(button);
@@ -803,12 +680,11 @@ export class TbsGridGroup {
 
         let text= document.createElement('span');
         text.classList.add('tbs-grid-panel-button-text');
-        text.textContent  = column.header[columnAlias.text];
+        text.textContent  = column.header[ColumnAlias.text];
         text.dataset.name = columnName;
 
         let icon= document.createElement('span');
-        icon.classList.add('tbs-grid-panel-button-icon');
-        icon.style['backgroundImage'] = 'url(' + grid.options[optionAlias.imageRoot] + 'remove.png)';
+        icon.classList.add('tbs-grid-html-icon-remove');
         icon.dataset.name = columnName;
 
         let button = document.createElement('div');
@@ -892,7 +768,7 @@ export class TbsGridGroup {
         grid.apply();
     }
 
-    getGroupRow(columnName) { return this.grid.group_column_table.selectRow(columnAlias.name, columnName); }
+    getGroupRow(columnName) { return this.grid.group_column_table.selectRow(ColumnAlias.name, columnName); }
 
     expandGroup() {
         let selector = this.selector;

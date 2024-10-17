@@ -1,7 +1,7 @@
 ﻿
 import { TbsGridPanelBase } from './tbs.grid.panel.base';
 import { TbsGridTable } from "../tbs.grid.table";
-import {columnAlias, GridMode} from "../tbs.grid.types";
+import {ColumnAlias, GridMode} from "../tbs.grid.types";
 
 export class TbsGridPanel70 extends TbsGridPanelBase {
 
@@ -68,10 +68,10 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
         for (let x = 0; x <= grid.fixedColumnIndex; x++) {
             let column = grid.column_table.data[x];
             let tableCell: any = tableRow.childNodes[x];
-            let columnName = column[columnAlias.name];
+            let columnName = column[ColumnAlias.name];
 
-            tableCell.style.display = (column[columnAlias.visible]) ? '' : 'none';
-            tableCell.style.width   = column[columnAlias.width] + 'px';
+            tableCell.style.display = (column[ColumnAlias.visible]) ? '' : 'none';
+            tableCell.style.width   = column[ColumnAlias.width] + 'px';
             tableCell.dataset.name = columnName;
 
             let combo = grid.classFilter.createFilterCombo(column);
@@ -93,10 +93,10 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
         for (let x = 0; x <= grid.fixedColumnIndex; x++) {
             let column = grid.column_table.data[x];
             let tableCell: any = tableRow.childNodes[x];
-            let columnName = column[columnAlias.name];
+            let columnName = column[ColumnAlias.name];
 
-            tableCell.style.display = (column[columnAlias.visible]) ? '' : 'none';
-            tableCell.style.width   = column[columnAlias.width] + 'px';
+            tableCell.style.display = (column[ColumnAlias.visible]) ? '' : 'none';
+            tableCell.style.width   = column[ColumnAlias.width] + 'px';
             tableCell.dataset.name = columnName;
 
             // Set input
@@ -136,10 +136,10 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
         for (let x = 0; x <= lastColumnIndex; x++) {
             let column = grid.column_table.data[x];
             let tableCell: any = tableRow.childNodes[x];
-            let columnName = column[columnAlias.name];
+            let columnName = column[ColumnAlias.name];
 
-            tableCell.style.display = (column[columnAlias.visible]) ? '' : 'none';
-            tableCell.style.width   = column[columnAlias.width] + 'px';
+            tableCell.style.display = (column[ColumnAlias.visible]) ? '' : 'none';
+            tableCell.style.width   = column[ColumnAlias.width] + 'px';
             tableCell.dataset.name = columnName;
 
             let combo = grid.classFilter.createFilterCombo(column);
@@ -162,10 +162,10 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
         for (let x = 0; x <= lastColumnIndex; x++) {
             let column = grid.column_table.data[x];
             let tableCell: any = tableRow.childNodes[x];
-            let columnName = column[columnAlias.name];
+            let columnName = column[ColumnAlias.name];
 
-            tableCell.style.display = (column[columnAlias.visible]) ? '' : 'none';
-            tableCell.style.width   = column[columnAlias.width] + 'px';
+            tableCell.style.display = (column[ColumnAlias.visible]) ? '' : 'none';
+            tableCell.style.width   = column[ColumnAlias.width] + 'px';
             tableCell.dataset.name = columnName;
             // Set input
             let input = document.createElement('input');
@@ -202,7 +202,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             let columnName = combo.dataset.name;
             let column = grid.getColumn(columnName);
             let columnIndex = grid.getColumnIndex(columnName);
-            let columnType = column[columnAlias.type];
+            let columnType = column[ColumnAlias.type];
 
             let filterType = combo.selectedOptions[0].value;
 
@@ -218,7 +218,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
                 else grid.apply();
             }
             else if (filterType != '0' && word != '') {
-                let filterColumn = grid.filter_column_table.selectRow(columnAlias.name, column[columnAlias.name]);
+                let filterColumn = grid.filter_column_table.selectRow(ColumnAlias.name, column[ColumnAlias.name]);
                 grid.classFilter.setFilterColumn(column, filterType, word);
                 grid.classFilter.filters();
                 if (grid.group_column_table.count() > 0
@@ -257,7 +257,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             let columnName = input.dataset.name;
             let column = grid.getColumn(columnName);
             let columnIndex = grid.getColumnIndex(columnName);
-            let columnType = column[columnAlias.type];
+            let columnType = column[ColumnAlias.type];
 
             let combos = document.querySelectorAll(selector + ' .tbs-grid-' + panelName + ' .tbs-grid-cell-filter-combo');
             let combo: any = combos[columnIndex];
@@ -266,7 +266,7 @@ export class TbsGridPanel70 extends TbsGridPanelBase {
             let word = input.value;
 
             if (filterType != '0') {
-                let filterColumn = grid.filter_column_table.selectRow(columnAlias.name, column[columnAlias.name]);
+                let filterColumn = grid.filter_column_table.selectRow(ColumnAlias.name, column[ColumnAlias.name]);
                 grid.classFilter.setFilterColumn(column, filterType, word);
 
                 if (grid.group_column_table.count() > 0

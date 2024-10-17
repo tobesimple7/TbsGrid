@@ -2,7 +2,7 @@
 import { TbsGridPanelBase } from './tbs.grid.panel.base';
 import { TbsGridRenderPanel40 } from './tbs.grid.render.panel40';
 import { TbsGridTable } from "../tbs.grid.table";
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 
 export class TbsGridPanel50 extends TbsGridPanelBase {
     constructor(grid) {
@@ -143,7 +143,7 @@ export class TbsGridPanel50 extends TbsGridPanelBase {
         let tableRow = tableRows[0];
         for (let x = 0, len = grid.column_table.count(); x < len; x++) {
             let column = grid.column_table.data[x];
-            let columnName = column[columnAlias.name];
+            let columnName = column[ColumnAlias.name];
             let tableCell = tableRow.childNodes[x];
 
             if (grid.fixedColumnIndex != -1) {

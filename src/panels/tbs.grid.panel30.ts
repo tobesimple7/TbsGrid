@@ -3,7 +3,7 @@ import { TbsGridPanelBase } from './tbs.grid.panel.base';
 import { TbsGridRenderPanel30 } from './tbs.grid.render.panel30';
 import { TbsGridRenderPanelInfo } from './tbs.grid.render.panel.info';
 import {TbsGridTable} from "../tbs.grid.table";
-import {CellType, columnAlias, Direction, GridMode, rowAlias} from "../tbs.grid.types";
+import {CellType, ColumnAlias, Direction, GridMode, RowAlias} from "../tbs.grid.types";
 /*
 1. td, div, checkbox 에 다음과 같은 정보를 준다.
     => data-row-index,      data-name,      data-column-index
@@ -118,7 +118,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
 
                 tableCell.dataset.rowIndex = i;
                 tableCell.dataset.displayRowIndex = i;
-                tableCell.dataset.cellType = grid.info_column_table.selectValue(x, columnAlias.type);
+                tableCell.dataset.cellType = grid.info_column_table.selectValue(x, ColumnAlias.type);
 
                 /* Render: Start */
                 let tbsGridRenderInfo = new TbsGridRenderPanelInfo(grid);
@@ -291,12 +291,12 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             let rowIndex = e.target.parentNode.dataset.rowIndex;
             let columnIndex = e.target.parentNode.dataset.columnIndex;
             let columnName = e.target.parentNode.dataset.name;
-            let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
+            let columnType = grid.column_table.selectValue(columnIndex, ColumnAlias.type);
             let value = grid.view_table.selectValue(rowIndex, columnName);
             if (columnType == CellType.checkbox) {
                 if (grid.notEmpty(grid.onClickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
                     const eventRow: any = {};
-                    const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
+                    const dataRows= grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex    = rowIndex;
                     eventRow.columnIndex = columnIndex;
                     eventRow.columnName  = columnName;
@@ -305,12 +305,12 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                     eventRow.data        = dataRows;
                     let result = grid.onClickCheckbox(grid, eventRow);
                     if (result) {
-                        let newValue = grid.reverseBoolean(value);
+                        let newValue = grid.reverseBoolean(columnName, value);
                         grid.setValue(rowIndex, columnName, newValue);
                     }
                 }
                 else {
-                    let newValue = grid.reverseBoolean(value);
+                    let newValue = grid.reverseBoolean(columnName, value);
                     grid.setValue(rowIndex, columnName, newValue);
                 }
                 setTimeout(() => grid.classPanel30.setDataPanel(grid.getFirstRowIndex()), 20);
@@ -319,7 +319,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 e.preventDefault();
                 if (grid.notEmpty(grid.onClickButton) && e.target.disabled != 'disabled') {
                     const eventRow: any = {};
-                    const dataRows = grid.view_table.selectRowByRowIndex(rowIndex);
+                    const dataRows= grid.view_table.selectRowByRowIndex(rowIndex);
                     eventRow.rowIndex    = rowIndex;
                     eventRow.columnIndex = columnIndex;
                     eventRow.columnName  = columnName;
@@ -416,7 +416,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             e.stopPropagation();
 
             //if (grid.option_selectOne == true) return;
-            if (grid.options[rowAlias.selectMode] == 'cell') return;
+            if (grid.options[RowAlias.selectMode] == 'cell') return;
 
             // @ts-ignore
             if (window.event.ctrlKey) selectCellCtrlMove(e);
@@ -456,7 +456,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 //     let rowIndex = e.target.parentNode.dataset.rowIndex;
                 //     let columnIndex = e.target.parentNode.dataset.columnIndex;
                 //     let columnName = e.target.parentNode.dataset.name;
-                //     let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
+                //     let columnType = grid.column_table.selectValue(columnIndex, ColumnAlias.type);
                 //     let value = grid.view_table.selectValue(rowIndex, columnName);
                 //
                 //     if (grid.notEmpty(grid.onClickCheckbox) && grid.isEditableColumn(columnName) && e.target.disabled != 'disabled') {
@@ -484,7 +484,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 //     let rowIndex = e.target.parentNode.dataset.rowIndex;
                 //     let columnIndex = e.target.parentNode.dataset.columnIndex;
                 //     let columnName = e.target.parentNode.dataset.name;
-                //     let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
+                //     let columnType = grid.column_table.selectValue(columnIndex, ColumnAlias.type);
                 //     let value = grid.view_table.selectValue(rowIndex, columnName);
                 //
                 //     if (grid.notEmpty(grid.onClickButton) && e.target.disabled != 'disabled') {
@@ -503,7 +503,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 //     let rowIndex = e.target.parentNode.dataset.rowIndex;
                 //     let columnIndex = e.target.parentNode.dataset.columnIndex;
                 //     let columnName = e.target.parentNode.dataset.name;
-                //     let columnType = grid.column_table.selectValue(columnIndex, columnAlias.type);
+                //     let columnType = grid.column_table.selectValue(columnIndex, ColumnAlias.type);
                 //     let value = grid.view_table.selectValue(rowIndex, columnName);
                 //
                 //     if (grid.notEmpty(grid.onClickLink)) {
@@ -530,19 +530,19 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
 
                         if (e.detail == 1) {
                             let panelInput: any = document.querySelector(selector + ' .tbs-grid-input-panel');
-                            if (panelInput.style.left != '30000px') {
+                            if (panelInput.style.left != '70000px') {
                                 grid.editEnd();
                                 grid.input_focus();
-                            } else grid.tbs_executeEvent(true, 'onClick', param);
+                            } else grid.executeEvent('onClick', param);
                         } else if (e.detail == 2) {
-                            let isEditable = grid.column_table.data[startCellIndex][columnAlias.editable];
+                            let isEditable = grid.column_table.data[startCellIndex][ColumnAlias.editable];
                             if (isEditable) {
                                 if (grid.notNull(grid.onEdit)) {
                                     grid.editStart(e, 'mouse')
                                 } else {
                                     grid.input_show(e, 'mouse');
                                 }
-                            } else grid.tbs_executeEvent(true, 'onDblclick', param);
+                            } else grid.executeEvent('onDblclick', param);
                         }
                     }
                 //}
@@ -942,7 +942,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             let rowIndex = tableCell.dataset.rowIndex;
             let columnIndex = tableCell.cellIndex;
             let columnName = e.target.parentNode.dataset.name;
-            let value = grid.view_table.data[rowIndex][columnAlias.isChecked];
+            let value = grid.view_table.data[rowIndex][ColumnAlias.isChecked];
 
             // @ts-ignore
             if (grid.notEmpty(grid.onClickInfoCheckBox) && e.target.disabled != 'disabled') {
@@ -958,11 +958,11 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 // @ts-ignore
                 let result = grid.onClickInfoCheckBox(grid, eventRow);
                 if (result) {
-                    grid.view_table.data[rowIndex][columnAlias.isChecked] = grid.isNull(value, false) ? false : true;
+                    grid.view_table.data[rowIndex][ColumnAlias.isChecked] = grid.isNull(value, false) ? false : true;
                 }
             }
             else {
-                grid.view_table.data[rowIndex][columnAlias.isChecked] = grid.isNull(value, false) ? false : true;
+                grid.view_table.data[rowIndex][ColumnAlias.isChecked] = grid.isNull(value, false) ? false : true;
             }
             setTimeout(() => grid.classPanel30.setDataPanel(grid.getFirstRowIndex()), 20);
         }
@@ -1018,7 +1018,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
             e.stopPropagation();
 
             //if (grid.option_selectOne == true) return;
-            if (grid.options[rowAlias.selectMode] == 'cell') return;
+            if (grid.options[RowAlias.selectMode] == 'cell') return;
             // @ts-ignore
             if (window.event.ctrlKey) selectCellCtrlMove(e);
             // @ts-ignore
@@ -1056,9 +1056,9 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                 if (mouseButton == 0 && grid.isMovedPositionInConstRange(startX, startY, lastX, lastY)) {
                     let param = { e: e, rowIndex: startRowIndex, cellIndex: startCellIndex, mode: 'mouse' };
 
-                    if (e.detail == 1) grid.tbs_executeEvent(true, 'onClick', param);
+                    if (e.detail == 1) grid.executeEvent('onClick', param);
                     else if (e.detail == 2) {
-                        let isEditable = grid.column_table.data[startCellIndex][columnAlias.editable];
+                        let isEditable = grid.column_table.data[startCellIndex][ColumnAlias.editable];
                         if (isEditable) {
                             if (grid.notNull(grid.onEdit)) {
                                 //grid.input_edit(e, 0, 'mouse');
@@ -1068,7 +1068,7 @@ export class TbsGridPanel30 extends TbsGridPanelBase {
                                 grid.input_show(e, 'mouse');
                             }
                         }
-                        else grid.tbs_executeEvent(true, 'onDblclick', param);
+                        else grid.executeEvent('onDblclick', param);
                     }
                 }
             }

@@ -1,5 +1,5 @@
 import {TbsGrid} from "../tbs.grid";
-import {CellType, columnAlias, GridMode} from "../tbs.grid.types";
+import {CellType, ColumnAlias, GridMode} from "../tbs.grid.types";
 import {TbsGridRenderGroup} from "../renderer/tbs.grid.render.group";
 import {TbsGridRenderTree} from "../renderer/tbs.grid.render.tree";
 import {TbsGridRenderCheckbox} from "../renderer/tbs.grid.render.checkbox";
@@ -81,19 +81,19 @@ export class TbsGridRenderPanel30 {
         render.rowIndex   = rowIndex;
         render.columnIndex= columnIndex;
 
-        render.columnName = column[columnAlias.name];
-        render.columnType = column[columnAlias.type];
+        render.columnName = column[ColumnAlias.name];
+        render.columnType = column[ColumnAlias.type];
 
-        render.visible    = column[columnAlias.visible];
-        render.width      = column[columnAlias.width];
-        render.editable   = column[columnAlias.editable];
+        render.visible    = column[ColumnAlias.visible];
+        render.width      = column[ColumnAlias.width];
+        render.editable   = column[ColumnAlias.editable];
 
-        render.align      = column[columnAlias.align];
-        render.className  = column[columnAlias.className];
+        render.align      = column[ColumnAlias.align];
+        render.className  = column[ColumnAlias.className];
         render.cellValue  = grid.getValue(render.rowIndex, render.columnName);
         render.cellText   = grid.getText(render.rowIndex, render.columnName);
 
-        if (grid.group_column_table.count() > 0) render.depth = grid.getValue(render.rowIndex, columnAlias.depth);
+        if (grid.group_column_table.count() > 0) render.depth = grid.getValue(render.rowIndex, ColumnAlias.depth);
         render.updateData();
     }
 
@@ -104,9 +104,9 @@ export class TbsGridRenderPanel30 {
         if (grid.group_column_table.count() > 0) {
             if (render.columnIndex == 0) {
                 const row = grid.view_table.selectRowByRowIndex(render.rowIndex);
-                let rowDepth = row[columnAlias.depth];
+                let rowDepth = row[ColumnAlias.depth];
                 if (rowDepth <= grid.group_column_table.count()) {
-                    render.cellText = grid.getText(render.rowIndex, grid.group_column_table.data[rowDepth - 1][columnAlias.name]) + '(' + row[columnAlias.childRowIds].length + ')';
+                    render.cellText = grid.getText(render.rowIndex, grid.group_column_table.data[rowDepth - 1][ColumnAlias.name]) + '(' + row[ColumnAlias.childRowIds].length + ')';
                     this.align = 'left';
                 }
                 else {
@@ -117,11 +117,11 @@ export class TbsGridRenderPanel30 {
         else if (grid.grid_mode == GridMode.tree) {
             if (render.columnIndex == 0) {
                 const row = grid.view_table.selectRowByRowIndex(render.rowIndex);
-                let rowDepth = row[columnAlias.depth];
-                const children = row[columnAlias.children];
+                let rowDepth = row[ColumnAlias.depth];
+                const children = row[ColumnAlias.children];
 
                 if (children.length > 0) {
-                    render.cellText = grid.getText(render.rowIndex, render.columnName) + '(' + row[columnAlias.children].length + ')';
+                    render.cellText = grid.getText(render.rowIndex, render.columnName) + '(' + row[ColumnAlias.children].length + ')';
                 }
                 else {
                     render.cellText = grid.getText(render.rowIndex, render.columnName);

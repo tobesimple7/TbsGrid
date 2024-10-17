@@ -1,5 +1,5 @@
 import {TbsGrid} from "../tbs.grid";
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 
 export class TbsGridTop {
     grid: TbsGrid;
@@ -13,7 +13,7 @@ export class TbsGridTop {
     setTopColumns(columns) {
         const grid = this.grid;
         columns.map(column => {
-            if (grid.null(column[columnAlias.align])) column[columnAlias.align] = 'center';
+            if (grid.null(column[ColumnAlias.align])) column[ColumnAlias.align] = 'center';
             grid.top_column_table.insert(column);
         });
     }
@@ -29,7 +29,7 @@ export class TbsGridTop {
         let columns = grid.column_table.data;
         for (let x = 0, len = columns.length; x < len; x++) {
             let column = columns[x];
-            let columnName = column[columnAlias.name];
+            let columnName = column[ColumnAlias.name];
             dataRow[columnName] = null;
         }
         grid.top_table.insert(dataRow);
@@ -37,9 +37,9 @@ export class TbsGridTop {
         /* get sum, avg */
         for (let x = 0, len2 = grid.top_column_table.count(); x < len2; x++) {
             let footerColumn = grid.top_column_table.data[x];
-            let columnName = footerColumn[columnAlias.name];
+            let columnName = footerColumn[ColumnAlias.name];
 
-            let summaryType = footerColumn[columnAlias.summaryType];
+            let summaryType = footerColumn[ColumnAlias.summaryType];
             let result = null;
 
             if (summaryType == 'avg') {
@@ -58,13 +58,13 @@ export class TbsGridTop {
                 result = grid.view_table.getMin(columnName);
                 grid.top_table.updateByRowIndex(0, columnName, result);
             }
-            else grid.top_table.updateByRowIndex(0, columnName, footerColumn[columnAlias.text]);
+            else grid.top_table.updateByRowIndex(0, columnName, footerColumn[ColumnAlias.text]);
         }
     }
 
     setTopValue(rowIndex, columnName, value) {
         const grid = this.grid;
-        let column = grid.column_table.selectRow(columnAlias.name, columnName);
+        let column = grid.column_table.selectRow(ColumnAlias.name, columnName);
         const result: any = grid.getFormat(column, value);
         grid.top_table.updateByRowIndex(rowIndex, columnName, result.value);
     }

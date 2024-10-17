@@ -1,4 +1,4 @@
-import {AddRowDirection, CellType, columnAlias, GridMode, optionAlias} from "../tbs.grid.types";
+import {AddRowDirection, CellType, ColumnAlias, GridMode, OptionAlias} from "../tbs.grid.types";
 import {TbsGrid} from "../tbs.grid";
 import {TbsGridDom} from "../tbs.grid.dom";
 import {TbsGridExcel} from "../export/tbs.grid.excel";
@@ -88,7 +88,7 @@ export class TbsGridBaseMain {
         grid.classPanel99.createHtml(elementGrid);
 
         grid.classPanelBase.createEtcHtml(elementMain);
-        elementRoot.insertAdjacentHTML('beforeend', '<div class="tbs-grid-layer" style="left:30000px;display: none;"></div>');
+        elementRoot.insertAdjacentHTML('beforeend', '<div class="tbs-grid-layer" style="left:70000px;display: none;"></div>');
         this.topLineDiv    = document.querySelector(`${selector} .tbs-grid-top-line`);
         this.bottomLineDiv = document.querySelector(`${selector} .tbs-grid-bottom-line`);
         this.leftLineDiv   = document.querySelector(`${selector} .tbs-grid-left-line`);
@@ -182,8 +182,8 @@ export class TbsGridBaseMain {
 
         for (let i = 0, len = grid.header_column_table.data.length; i < len; i++){
             for (let x = 0, len2 = grid.column_table.count(); x < len2; x++){
-                if (grid.header_column_table.data[i][x][columnAlias.kind] == 'column') {
-                    let width = parseInt(grid.getTextWidth(canvas, grid.header_column_table.data[i][x][columnAlias.text], fontSize, fontFamilty));
+                if (grid.header_column_table.data[i][x][ColumnAlias.kind] == 'column') {
+                    let width = parseInt(grid.getTextWidth(canvas, grid.header_column_table.data[i][x][ColumnAlias.text], fontSize, fontFamilty));
                     if (width >= arr[x]) {
                         arr[x] = width;
                     }
@@ -313,14 +313,14 @@ export class TbsGridBaseMain {
             const columns: any[] = grid.column_table.selectRows();
             for (let x = 0, len = columns.length; x < len; x++) {
                 const column = columns[x];
-                let columnName  = column[columnAlias.name];
+                let columnName  = column[ColumnAlias.name];
                 source[columnName] = this.null(dataRow[columnName]) ? null : this.getFormatValue(column, dataRow[columnName]);
             }
 
             // const dataColumns: any[] = grid.field_table.selectRows();
             // for (let x = 0, len = dataColumns.length; x < len; x++) {
             //     const column = dataColumns[x];
-            //     let columnName  = column[columnAlias.name];
+            //     let columnName  = column[ColumnAlias.name];
             //     source[columnName] = dataRow[columnName];
             // }
 
@@ -368,14 +368,14 @@ export class TbsGridBaseMain {
             let itemLeftSelect = {};
             let itemLeftView = {};
 
-            itemSelect[columnAlias.rowId] = data[rowIndex][columnAlias.rowId];
+            itemSelect[ColumnAlias.rowId] = data[rowIndex][ColumnAlias.rowId];
             itemSelect = new Uint8ClampedArray([]); //new
 
-            itemLeftView[columnAlias.rowMode] = ''; //insert, update, delete
-            itemLeftView[columnAlias.rowId] = data[rowIndex][columnAlias.rowId];
+            itemLeftView[ColumnAlias.rowMode] = ''; //insert, update, delete
+            itemLeftView[ColumnAlias.rowId] = data[rowIndex][ColumnAlias.rowId];
 
-            itemLeftSelect[columnAlias.rowMode] = 0; //insert, update, delete
-            itemLeftSelect[columnAlias.rowId] = data[rowIndex][columnAlias.rowId];
+            itemLeftSelect[ColumnAlias.rowMode] = 0; //insert, update, delete
+            itemLeftSelect[ColumnAlias.rowId] = data[rowIndex][ColumnAlias.rowId];
 
             this.data_select_panel30.push(itemSelect);
             this.data_select_panel31.push(itemLeftSelect);

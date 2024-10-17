@@ -1,6 +1,6 @@
 ﻿
 import {TbsGrid} from "../tbs.grid";
-import {CellType, columnAlias} from "../tbs.grid.types";
+import {CellType, ColumnAlias} from "../tbs.grid.types";
 
 
 export class TbsGridCombo {
@@ -98,7 +98,7 @@ export class TbsGridCombo {
         let cellIndex = this.input.dataset.columnIndex;
 
         const column = grid.column_table.data[cellIndex];
-        let columnName = column[columnAlias.name];
+        let columnName = column[ColumnAlias.name];
         const data = grid.renderer[columnName].data;
         let key = data.valueName;
         let val = data.textName;
@@ -139,7 +139,7 @@ export class TbsGridCombo {
 
         (document.querySelector(`${selector} .tbs-grid-input-layer-panel`) as HTMLInputElement).innerHTML = '';
         (document.querySelector(`${selector} .tbs-grid-input-layer-panel`) as HTMLInputElement).style.width = '0px';
-        (document.querySelector(`${selector} .tbs-grid-input-layer-panel`) as HTMLInputElement).style.left = '30000px';
+        (document.querySelector(`${selector} .tbs-grid-input-layer-panel`) as HTMLInputElement).style.left = '70000px';
     }
 };
 

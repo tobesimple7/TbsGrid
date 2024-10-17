@@ -1,4 +1,4 @@
-import {GridOptions} from '../tbs.grid.types';
+import {GridOption} from '../tbs.grid.types';
 import {TbsBase} from '../tbs.base';
 import {TbsDatabase, DataTableType} from '../database/tbs.database';
 import {TbsDataTable} from '../database/tbs.data.table';
@@ -8,7 +8,6 @@ import {TbsDataArrayTable} from "../database/tbs.data.array.table";
 export class TbsGridBase extends TbsBase {
     gridId: string;
     gridConfig: object;
-    gridConfigOptions: object;
     grid_mode: string;
     mousePointRange: number;
 
@@ -98,7 +97,6 @@ export class TbsGridBase extends TbsBase {
         this.gridId = gridId;
         this.gridConfig = gridConfigs ?
             gridConfigs[Object.keys(gridConfigs)[0]] : tbsGridConfigs[Object.keys(tbsGridConfigs)[0]];
-        this.gridConfigOptions = gridConfigs ? gridConfigs['options'] : tbsGridConfigs['options'];
         this.grid_mode = '';
         this.mousePointRange = 15;
 
@@ -106,8 +104,8 @@ export class TbsGridBase extends TbsBase {
          * @description mobile, user agent
          *
          */
-        this.isMobile = this.gridConfigOptions['isMobile'];
-        this.userAgent = this.gridConfigOptions['userAgent'];
+        this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        this.userAgent = navigator.userAgent; // 'safari' etc
 
         /**
          * columns, headerColumnTable

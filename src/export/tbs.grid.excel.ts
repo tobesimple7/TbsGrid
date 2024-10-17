@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx';
 import {saveAs} from 'file-saver';
 
 import {TbsGrid} from "../tbs.grid";
-import {columnAlias} from "../tbs.grid.types";
+import {ColumnAlias} from "../tbs.grid.types";
 
 export class TbsGridExcel {
     grid: TbsGrid;
@@ -115,7 +115,7 @@ export class TbsGridExcel {
         const tr = document.createElement('tr');
         grid.column_table.data.map(column => {
             const th = document.createElement('th');
-            th.style.width = (column[columnAlias.visible] == true) ? column.width + 'px' : '0px';
+            th.style.width = (column[ColumnAlias.visible] == true) ? column.width + 'px' : '0px';
             tr.appendChild(th);
         });
         result.push(tr);
@@ -131,22 +131,22 @@ export class TbsGridExcel {
             tr.style.height = grid.rowHeight + 'px';
             for (let i = 0, len = row.length; i < len; i++) {
                 const column = row[i];
-                let kind = column[columnAlias.kind];
+                let kind = column[ColumnAlias.kind];
 
                 if (kind == 'empty') continue;
 
                 const td = document.createElement('td');
-                td.rowSpan = column[columnAlias.rowSpan];
-                td.colSpan = column[columnAlias.colSpan];
+                td.rowSpan = column[ColumnAlias.rowSpan];
+                td.colSpan = column[ColumnAlias.colSpan];
 
-                td.style.textAlign = column[columnAlias.align];
+                td.style.textAlign = column[ColumnAlias.align];
                 td.style.borderTop = 'solid 1px #9b9b9b';
                 td.style.borderLeft = 'solid 1px #9b9b9b';
                 td.style.borderRight = 'solid 1px #9b9b9b';
                 td.style.borderBottom = 'solid 1px #9b9b9b';
                 td.style.backgroundColor = '#fcf1f4';
 
-                td.textContent = column[columnAlias.text];
+                td.textContent = column[ColumnAlias.text];
 
                 tr.appendChild(td);
             }
@@ -165,8 +165,8 @@ export class TbsGridExcel {
             for (let i = 0, len = grid.column_table.count(); i < len; i++) {
 
                 const column = grid.column_table.selectRowByRowIndex(i);
-                let columnName = column[columnAlias.name];
-                let visible = column[columnAlias.visible];
+                let columnName = column[ColumnAlias.name];
+                let visible = column[ColumnAlias.visible];
 
                 if (visible == false) continue;
 
@@ -178,7 +178,7 @@ export class TbsGridExcel {
                 td.rowSpan = 1;
                 td.colSpan = 1;
 
-                td.style.textAlign = column[columnAlias.align];
+                td.style.textAlign = column[ColumnAlias.align];
                 td.style.borderTop = 'solid 1px #9b9b9b';
                 td.style.borderLeft = 'solid 1px #9b9b9b';
                 td.style.borderRight = 'solid 1px #9b9b9b';
@@ -203,8 +203,8 @@ export class TbsGridExcel {
             for (let i = 0, len = grid.column_table.count(); i < len; i++) {
 
                 const column = grid.column_table.selectRowByRowIndex(i);
-                let columnName = column[columnAlias.name];
-                let visible = column[columnAlias.visible];
+                let columnName = column[ColumnAlias.name];
+                let visible = column[ColumnAlias.visible];
 
                 if (visible == false) continue;
 
@@ -221,7 +221,7 @@ export class TbsGridExcel {
                 td.rowSpan = 1;
                 td.colSpan = 1;
 
-                td.style.textAlign = column[columnAlias.align];
+                td.style.textAlign = column[ColumnAlias.align];
                 td.style.borderTop = 'solid 1px #9b9b9b';
                 td.style.borderLeft = 'solid 1px #9b9b9b';
                 td.style.borderRight = 'solid 1px #9b9b9b';
@@ -246,8 +246,8 @@ export class TbsGridExcel {
             for (let i = 0, len = grid.column_table.count(); i < len; i++) {
 
                 const column = grid.column_table.selectRowByRowIndex(i);
-                let columnName = column[columnAlias.name];
-                let visible = column[columnAlias.visible];
+                let columnName = column[ColumnAlias.name];
+                let visible = column[ColumnAlias.visible];
 
                 if (visible == false) continue;
 
@@ -263,7 +263,7 @@ export class TbsGridExcel {
                 td.rowSpan = 1;
                 td.colSpan = 1;
 
-                td.style.textAlign = column[columnAlias.align];
+                td.style.textAlign = column[ColumnAlias.align];
                 td.style.borderTop = 'solid 1px #9b9b9b';
                 td.style.borderLeft = 'solid 1px #9b9b9b';
                 td.style.borderRight = 'solid 1px #9b9b9b';
